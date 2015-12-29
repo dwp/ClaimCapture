@@ -27,8 +27,7 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
 
   val form = Form(mapping(
     "relationship" -> carersNonEmptyText(maxLength = 35),
-    "title" -> carersNonEmptyText(maxLength = Mappings.five),
-    "titleOther" -> optional(carersText(maxLength = Mappings.twenty)),
+    "title" -> carersNonEmptyText(maxLength = Mappings.twenty),
     "firstName" -> carersNonEmptyText(maxLength = 17),
     "middleName" -> optional(carersText(maxLength = 17)),
     "surname" -> carersNonEmptyText(maxLength = Name.maxLength),
@@ -36,7 +35,6 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
     "dateOfBirth" -> dayMonthYear.verifying(validDate),
     addressMapping
   )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply)
-    .verifying("titleOther.required", TheirPersonalDetails.verifyTitleOther _)
     .verifying("theirAddress.address", validateSameAddressAnswer _)
   )
 
@@ -56,7 +54,6 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
           val theirPersonalDetails = claim.questionGroup(TheirPersonalDetails).getOrElse(TheirPersonalDetails()).asInstanceOf[TheirPersonalDetails]
           form.fill(TheirPersonalDetails(relationship = theirPersonalDetails.relationship,
             title = t.title.getOrElse(""),
-            titleOther = t.titleOther,
             firstName = t.firstName.getOrElse(""),
             middleName = t.middleName,
             surname = t.surname.getOrElse(""),
@@ -77,7 +74,6 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors
-          .replaceError("", "titleOther.required", FormError("titleOther", "constraint.required"))
           .replaceError("","theirAddress.address", FormError("theirAddress.address", errorRequired))
 
         BadRequest(views.html.s_care_you_provide.g_theirPersonalDetails(updatedFormWithErrors))

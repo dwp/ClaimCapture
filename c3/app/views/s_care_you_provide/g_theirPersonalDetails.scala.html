@@ -49,7 +49,7 @@
 
                         @simpleDetailPlaceHolder(
                             inputDef = Seq(
-                                titleSelect(currentForm),
+                                carersInputText(currentForm("title"), 'maxLength -> mappings.Mappings.twenty),
 
                                 carersInputText(currentForm("firstName"), 'maxLength -> 17),
 
@@ -92,14 +92,10 @@
                 window.showOrHideCareYouProvideDetails ( {
                 showOrHideDetails : @isPartnerPersonYouCareFor
                 } ) ;
-                window.otherTitle('@CarersCrypto.encryptAES("title")');
-
                 window.initAddress("@CarersCrypto.encryptAES("theirAddress_answer_yes")",
                   "@CarersCrypto.encryptAES("theirAddress_answer_no")");
             } )
         </script>
-
-        <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/otherTitle.js")></script>
 
         <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_care_you_provide/g_theirPersonalDetails.js")></script>
 

@@ -54,8 +54,7 @@ class PreviewPageAboutYouContentSpec extends Specification {
 
     "display about you - the carer data with nationality as British and other title" in new WithBrowser with PageObjects{
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
-      claim.AboutYouTitleOther = "Rev"
-      claim.AboutYouTitle = "Other"
+      claim.AboutYouTitle = "Rev"
       fillAboutYouTheCarerSection(context, claim)
 
       val page =  PreviewPage(context)

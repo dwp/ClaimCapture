@@ -60,7 +60,7 @@ class GResumeSpec extends Specification {
 
     "return ok resume screen when claim is found in sfl cache" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterResumeEnabled" -> "true", "saveForLater.uuid.secret.key" -> encryptkey))) with Claiming {
       var claim = new Claim(CachedClaim.key, uuid = uuid)
-      val details = new YourDetails("", None, "", None, "green", NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(None, None, None))
+      val details = new YourDetails("Mr", "", None, "green", NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(None, None, None))
       claim = claim + details
       val encryptedCacheHandling = new EncryptedCacheHandling() {
         val cacheKey = uuid
@@ -78,7 +78,7 @@ class GResumeSpec extends Specification {
         WithApplication(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterResumeEnabled" -> "true", "saveForLater.uuid.secret.key" -> encryptkey))) with Claiming {
       // Inject the saved claim directly to cache so we can set the status to EXPIRED
       var claim = new Claim(CachedClaim.key, uuid = uuid)
-      val details = new YourDetails("", None, "John", None, "Green", NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
+      val details = new YourDetails("Mr", "John", None, "Green", NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
       claim = claim + details
       val encryptedCacheHandling = new EncryptedCacheHandling() {
         val cacheKey = uuid

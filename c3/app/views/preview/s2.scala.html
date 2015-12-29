@@ -50,14 +50,8 @@
     }
 }
 @middleName = @{yourDetails.middleName.map(_+" ").getOrElse("")}
-@titleValue = @{
-    yourDetails.title match {
-        case "Other" => yourDetails.titleOther.getOrElse("")
-        case _ => messages("titleSelect."+yourDetails.title.toLowerCase)
-    }
-}
 @titleNames = @{
-    s"${titleValue} ${yourDetails.firstName} ${middleName}${yourDetails.surname}"
+    s"${yourDetails.title} ${yourDetails.firstName} ${middleName}${yourDetails.surname}"
 }
 
 @addressPostcode = @{

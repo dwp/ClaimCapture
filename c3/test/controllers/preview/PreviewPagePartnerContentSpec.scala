@@ -31,8 +31,7 @@ class PreviewPagePartnerContentSpec extends Specification {
 
     "display partner data - when you have a partner and you have a different title" in new WithBrowser with PageObjects{
       val aboutYouClaim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
-      aboutYouClaim.AboutYouTitle = "Other"
-      aboutYouClaim.AboutYouTitleOther = "Lord"
+      aboutYouClaim.AboutYouTitle = "Lord"
       val partnerClaim = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
       fillPartnerSection(context, partnerClaim, aboutYouClaim)
       val page =  PreviewPage(context)
@@ -54,8 +53,7 @@ class PreviewPagePartnerContentSpec extends Specification {
     "display partner data - when you have a partner and your partner has a different title" in new WithBrowser with PageObjects{
       val aboutYouClaim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       val partnerClaim = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
-      partnerClaim.AboutYourPartnerTitle = "Other"
-      partnerClaim.AboutYourPartnerTitleOther = "Lady"
+      partnerClaim.AboutYourPartnerTitle = "Lady"
 
       fillPartnerSection(context, partnerClaim, aboutYouClaim)
       val page =  PreviewPage(context)

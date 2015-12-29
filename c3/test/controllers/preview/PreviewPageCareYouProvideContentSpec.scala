@@ -1,4 +1,4 @@
-package controllers.preview
+package controllers.preview.PreviewPageCareYouProvideContentSpec
 
 import org.specs2.mutable._
 import utils.pageobjects.s_about_you.GContactDetailsPage
@@ -35,8 +35,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification {
 
       val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
       partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
-      partnerData.AboutYourPartnerTitle = "Other"
-      partnerData.AboutYourPartnerTitleOther = "Lady"
+      partnerData.AboutYourPartnerTitle = "Lady"
 
       fillCareProvideSection(context,partnerClaim = partnerData)
       val page =  PreviewPage(context)
@@ -57,8 +56,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification {
       partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
 
       val careYouProvideData = ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(true)
-      careYouProvideData.AboutTheCareYouProvideTitlePersonCareFor = "Other"
-      careYouProvideData.AboutTheCareYouProvideTitleOtherPersonCareFor = "Lord"
+      careYouProvideData.AboutTheCareYouProvideTitlePersonCareFor = "Lord"
       
       fillCareProvideSection(context,partnerClaim = partnerData, careYouProvideData)
       val page =  PreviewPage(context)

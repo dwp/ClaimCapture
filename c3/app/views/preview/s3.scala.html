@@ -5,14 +5,8 @@
 
 @yourPartner = @{claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())}
 @middleName = @{yourPartner.middleName.map(_+" ").getOrElse("")}
-@titleValue = @{
-	yourPartner.title match {
-		case Some("Other") => yourPartner.titleOther.getOrElse("")
-		case _ => messages("titleSelect." + yourPartner.title.getOrElse("").toLowerCase)
-	}
-}
 @titleNames = @{
-    s"${titleValue} ${yourPartner.firstName.get} ${middleName}${yourPartner.surname.get}"
+    s"${yourPartner.title.get} ${yourPartner.firstName.get} ${middleName}${yourPartner.surname.get}"
 }
 @disableChangeButton = @{
 	!app.ConfigProperties.getProperty("cyaToggleVisible",true)

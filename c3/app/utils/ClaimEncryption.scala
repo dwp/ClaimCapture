@@ -42,7 +42,6 @@ object ClaimEncryption {
       case Some(yourDetails) =>
         claim.update(yourDetails.copy(
           encryptString(yourDetails.title),
-          encryptOptionalString(yourDetails.titleOther),
           encryptString(yourDetails.firstName),
           encryptOptionalString(yourDetails.middleName),
           encryptString(yourDetails.surname),
@@ -76,7 +75,6 @@ object ClaimEncryption {
         claim.update(theirPersonalDetails.copy(
           encryptString(theirPersonalDetails.relationship),
           encryptString(theirPersonalDetails.title),
-          encryptOptionalString(theirPersonalDetails.titleOther),
           encryptString(theirPersonalDetails.firstName),
           encryptOptionalString(theirPersonalDetails.middleName),
           encryptString(theirPersonalDetails.surname),
@@ -123,7 +121,6 @@ object ClaimEncryption {
       case Some(yourPartnerPersonalDetails) =>
         claim.update(yourPartnerPersonalDetails.copy(
           encryptOptionalString(yourPartnerPersonalDetails.title),
-          encryptOptionalString(yourPartnerPersonalDetails.titleOther),
           encryptOptionalString(yourPartnerPersonalDetails.firstName),
           encryptOptionalString(yourPartnerPersonalDetails.middleName),
           encryptOptionalString(yourPartnerPersonalDetails.surname),
@@ -186,7 +183,6 @@ object ClaimEncryption {
       case Some(yourDetails) =>
         claim.update(yourDetails.copy(
           decryptString(yourDetails.title),
-          decryptOptionalString(yourDetails.titleOther),
           decryptString(yourDetails.firstName),
           decryptOptionalString(yourDetails.middleName),
           decryptString(yourDetails.surname),
@@ -220,7 +216,6 @@ object ClaimEncryption {
         claim.update(theirPersonalDetails.copy(
           decryptString(theirPersonalDetails.relationship),
           decryptString(theirPersonalDetails.title),
-          decryptOptionalString(theirPersonalDetails.titleOther),
           decryptString(theirPersonalDetails.firstName),
           decryptOptionalString(theirPersonalDetails.middleName),
           decryptString(theirPersonalDetails.surname),
@@ -267,7 +262,6 @@ object ClaimEncryption {
       case Some(yourPartnerPersonalDetails) =>
         claim.update(yourPartnerPersonalDetails.copy(
           decryptOptionalString(yourPartnerPersonalDetails.title),
-          decryptOptionalString(yourPartnerPersonalDetails.titleOther),
           decryptOptionalString(yourPartnerPersonalDetails.firstName),
           decryptOptionalString(yourPartnerPersonalDetails.middleName),
           decryptOptionalString(yourPartnerPersonalDetails.surname),

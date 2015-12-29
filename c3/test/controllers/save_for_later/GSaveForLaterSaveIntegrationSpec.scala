@@ -81,7 +81,7 @@ class GSaveForLaterSaveIntegrationSpec extends Specification {
 
     "return ok resume screen when claim is found in sfl cache" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterResumeEnabled" -> "true"))) with Claiming {
       var claim = new Claim(CachedClaim.key, uuid=uuid)
-      val details = new YourDetails("",None, "",None, "green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(None, None, None))
+      val details = new YourDetails("Mr","",None, "green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(None, None, None))
       claim=claim+details
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = uuid }
       encryptedCacheHandling.saveForLaterInCache(claim, "/lastlocation")

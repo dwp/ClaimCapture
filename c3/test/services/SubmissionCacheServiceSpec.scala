@@ -33,7 +33,7 @@ class SubmissionCacheServiceSpec extends Specification {
       var claim = new Claim(CachedClaim.key, transactionId = Some("1234567"), uuid=newuuid)
 
       // need to set the qs groups used to create the fingerprint of the claim, otherwise a dup cache error will be thrown
-      val det = new YourDetails("",None, "",None, surname,NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(None, None, None))
+      val det = new YourDetails("Mr","",None, surname,NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(None, None, None))
       val contact = new ContactDetails(new MultiLineAddress(), None, None, None)
       val claimDate = new ClaimDate(DayMonthYear(Some(1), Some(1), Some(2014)))
 

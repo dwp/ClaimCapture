@@ -5,7 +5,6 @@ Can you get Carers Allowance?,Are you aged 16 or over?,Are you aged 16 or over?,
 Can you get Carers Allowance?,Do you still want to continue?,Do you still want to continue?,CanYouGetCarersAllowanceApproveAnswer,
 Disclaimer,Disclaimer,I agree,DisclaimerUnderstandAndAgree,DWPCAClaim>Disclaimer
 About You,Your Details,Title,AboutYouTitle,Claimant>Title>Answer
-About You,Your Details,TitleOther,AboutYouTitleOther,Claimant>TitleOther>Answer
 About You,Your Details,First name,AboutYouFirstName,Claimant>OtherNames>Answer
 About You,Your Details,Middle name,AboutYouMiddleName,Claimant>MiddleNames>Answer
 About You,Your Details,Last name,AboutYouSurname,Claimant>Surname>Answer

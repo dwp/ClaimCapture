@@ -9,8 +9,7 @@ import utils.pageobjects._
  *         Date: 09/07/2013
  */
 final class GYourDetailsPage(ctx:PageObjectsContext) extends ClaimPage(ctx, GYourDetailsPage.url) {
-  declareRadioList("#title", "AboutYouTitle")
-  declareInput("#titleOther", "AboutYouTitleOther")
+  declareInput("#title", "AboutYouTitle")
   declareInput("#firstName","AboutYouFirstName")
   declareInput("#middleName","AboutYouMiddleName")
   declareInput("#surname","AboutYouSurname")

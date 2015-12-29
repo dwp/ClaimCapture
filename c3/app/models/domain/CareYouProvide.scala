@@ -13,7 +13,6 @@ case object CareYouProvide extends Section.Identifier {
 
 case class TheirPersonalDetails(relationship: String = "",
                                 title: String = "",
-                                titleOther: Option[String] = None,
                                 firstName: String = "",
                                 middleName: Option[String] = None,
                                 surname: String = "",
@@ -24,13 +23,6 @@ case class TheirPersonalDetails(relationship: String = "",
 
 case object TheirPersonalDetails extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g1"
-
-  def verifyTitleOther(form:TheirPersonalDetails):Boolean = {
-    form.title match {
-      case "Other" => form.titleOther.isDefined
-      case _ => true
-    }
-  }
 }
 
 

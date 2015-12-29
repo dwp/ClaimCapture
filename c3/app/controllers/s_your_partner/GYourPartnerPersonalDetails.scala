@@ -30,8 +30,7 @@ import play.api.i18n._
 object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   def form(implicit claim: Claim):Form[YourPartnerPersonalDetails] = Form(mapping(
-    "title" -> optional(carersNonEmptyText(maxLength = Mappings.five)),
-    "titleOther" -> optional(carersText(maxLength = Mappings.twenty)),
+    "title" -> optional(carersNonEmptyText(maxLength = Mappings.twenty)),
     "firstName" -> optional(carersNonEmptyText(maxLength = Mappings.seventeen)),
     "middleName" -> optional(carersText(maxLength = Mappings.seventeen)),
     "surname" -> optional(carersNonEmptyText(maxLength = Name.maxLength)),
@@ -43,7 +42,6 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
     "isPartnerPersonYouCareFor" -> optional(nonEmptyText.verifying(validYesNo)),
     "hadPartnerSinceClaimDate" -> nonEmptyText.verifying(validYesNo)
   )(YourPartnerPersonalDetails.apply)(YourPartnerPersonalDetails.unapply)
-    .verifying("titleOther.required",YourPartnerPersonalDetails.verifyTitleOther _)
     .verifying("title.required", YourPartnerPersonalDetails.validateTitle _)
     .verifying("firstName.required", YourPartnerPersonalDetails.validateFirstName _)
     .verifying("surname.required", YourPartnerPersonalDetails.validateSurName _)
@@ -65,7 +63,6 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("","titleOther.required",FormError("titleOther",errorRequired))
           .replaceError("", "title.required", FormError("title", errorRequired))
           .replaceError("", "firstName.required", FormError("firstName", errorRequired))
           .replaceError("", "surname.required", FormError("surname", errorRequired))
@@ -98,7 +95,7 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
           if data.isPartnerPersonYouCareFor.nonEmpty && data.isPartnerPersonYouCareFor.get != isPartnerPerson => false
         case (Some(data),None)
           if data.isPartnerPersonYouCareFor.nonEmpty => false
-        case (Some(YourPartnerPersonalDetails(_,_,_,_,_,_,_,_,_,_,None,_)),Some(_)) => false
+        case (Some(YourPartnerPersonalDetails(_,_,_,_,_,_,_,_,_,None,_)),Some(_)) => false
 
         case _ => true
       }

@@ -27,7 +27,7 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
     "be shown after opening resume link with ok claim uuid" in new WithJsBrowser with PageObjects {
       // Inject the saved claim directly to cache
       var claim = new Claim(CachedClaim.key, uuid=uuid)
-      val details = new YourDetails("",None, "John",None, "Green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
+      val details = new YourDetails("Mr", "John",None, "Green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
       claim=claim+details
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = uuid }
       encryptedCacheHandling.saveForLaterInCache(claim, "/lastlocation")
@@ -43,7 +43,7 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
     "successfully resume if enter the correct details" in new WithJsBrowser with PageObjects {
       // Inject the saved claim directly to cache
       var claim = new Claim(CachedClaim.key, uuid=uuid)
-      val details = new YourDetails("",None, "John",None, "Green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
+      val details = new YourDetails("Mr","John",None, "Green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
       claim=claim+details
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = uuid }
       encryptedCacheHandling.saveForLaterInCache(claim, "/about-you/nationality-and-residency")
@@ -58,7 +58,7 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
     "restore the app version cookie that the app was saved with" in new WithJsBrowser with PageObjects {
       // Inject the saved claim directly to cache so we can set the appversion
       var claim = new Claim(CachedClaim.key, uuid=uuid)
-      val details = new YourDetails("",None, "John",None, "Green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
+      val details = new YourDetails("Mr","John",None, "Green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
       claim=claim+details
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = uuid }
       val key=encryptedCacheHandling.createSaveForLaterKey(claim)
@@ -78,7 +78,7 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
     "show errors on resume page if no details entered" in new WithJsBrowser with PageObjects {
       // Inject the saved claim directly to cache
       var claim = new Claim(CachedClaim.key, uuid=uuid)
-      val details = new YourDetails("",None, "John",None, "Green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
+      val details = new YourDetails("Mr","John",None, "Green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
       claim=claim+details
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = uuid }
       encryptedCacheHandling.saveForLaterInCache(claim, "/about-you/nationality-and-residency")
@@ -95,7 +95,7 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
     "return sfl claim screen showing retries and final fail when claim tried 3 times" in new WithJsBrowser with PageObjects  {
       // Inject the saved claim directly to cache
       var claim = new Claim(CachedClaim.key, uuid=uuid)
-      val details = new YourDetails("",None, "John",None, "Green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
+      val details = new YourDetails("Mr","John",None, "Green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
       claim=claim+details
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = uuid }
       encryptedCacheHandling.saveForLaterInCache(claim, "/about-you/nationality-and-residency")
@@ -117,7 +117,7 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
     "return sfl claim screen showing retry count when returning after failed attempt" in new WithJsBrowser with PageObjects  {
       // Inject the saved claim directly to cache
       var claim = new Claim(CachedClaim.key, uuid=uuid)
-      val details = new YourDetails("",None, "John",None, "Green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
+      val details = new YourDetails("Mr","John",None, "Green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
       claim=claim+details
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = uuid }
       encryptedCacheHandling.saveForLaterInCache(claim, "/about-you/nationality-and-residency")

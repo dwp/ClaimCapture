@@ -12,11 +12,11 @@ import play.api.i18n.Lang
  * Created by peterwhitehead on 30/11/2015.
  */
 class SaveForLaterEncryptionSpec extends Specification {
-  def yourDetails = YourDetails("Mr", None, "H", None, "Dawg",
+  def yourDetails = YourDetails("Mr","H", None, "Dawg",
     NationalInsuranceNumber(Some("AA123456A")), DayMonthYear(1, 1, 1986))
   def contactDetails = ContactDetails(MultiLineAddress(Some("123"), Some("Fake street"), None),
     Some("PL18 1AA"), Some("by post"), None, Some("Yes"), Some("blah@blah.com"), Some("blah@blah.com"))
-  def theirPersonalDetails = TheirPersonalDetails("Wifey", "Mrs", None, "H", None, "Dawg",
+  def theirPersonalDetails = TheirPersonalDetails("Wifey", "Mrs", "H", None, "Dawg",
     Some(NationalInsuranceNumber(Some("AA123456A"))), DayMonthYear(1,1,1988),
     YesNoMandWithAddress("No", Some(MultiLineAddress(Some("122"), Some("Fake street"),None)), None))
   def circumstancesReportChange = CircumstancesReportChange("H-dawg",
@@ -24,7 +24,7 @@ class SaveForLaterEncryptionSpec extends Specification {
     "blah", "blah", Some("blah"), Some("blah"), Some("blah@blah.com"), Some("blah@blah.com"))
   def howWePayYou = HowWePayYou("Cold, hard cash", "Daily", Some(BankBuildingSocietyDetails(
     "H-dawg", "Barclays", SortCode("00", "00", "00"), "00000000", "")))
-  def yourPartnerPersonalDetails = YourPartnerPersonalDetails(Some("Mrs"), None, Some("H"),
+  def yourPartnerPersonalDetails = YourPartnerPersonalDetails(Some("Mrs"), Some("H"),
     None, Some("Dawg"), None, Some(NationalInsuranceNumber(Some("AA123456A"))),
     Some(DayMonthYear(1,1,1988)), Some("Cornish"), Some("yes"), Some("yes"), "yes")
   def circumstancesPaymentChange = CircumstancesPaymentChange(YesNoWith2Text("blah", Some("blah"), None),

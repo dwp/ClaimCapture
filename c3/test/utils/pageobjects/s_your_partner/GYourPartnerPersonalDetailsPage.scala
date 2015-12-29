@@ -10,8 +10,7 @@ import utils.pageobjects._
  */
 final class GYourPartnerPersonalDetailsPage (ctx:PageObjectsContext) extends ClaimPage(ctx, GYourPartnerPersonalDetailsPage.url) {
   declareYesNo("#hadPartnerSinceClaimDate", "AboutYourPartnerHadPartnerSinceClaimDate")
-  declareRadioList("#title", "AboutYourPartnerTitle")
-  declareInput("#titleOther", "AboutYourPartnerTitleOther")
+  declareInput("#title", "AboutYourPartnerTitle")
   declareInput("#firstName", "AboutYourPartnerFirstName")
   declareInput("#middleName", "AboutYourPartnerMiddleName")
   declareInput("#surname", "AboutYourPartnerSurname")

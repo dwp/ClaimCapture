@@ -26,7 +26,7 @@ class WebSearchSpec extends Specification{
       yourDetailsPage fillPageWith claim
       val firstName = yourDetailsPage readInput("#firstName")
       firstName.get mustEqual claim.AboutYouFirstName
-      val title = yourDetailsPage readRadio("#title")
+      val title = yourDetailsPage readInput("#title")
       title.get mustEqual claim.AboutYouTitle
       val nino  = yourDetailsPage readNino("#nationalInsuranceNumber")
       nino.get mustEqual claim.AboutYouNINO

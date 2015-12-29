@@ -41,7 +41,7 @@ class GSaveForLaterSpec extends Specification {
 
     "allow submit and return save for later success screen" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "true"))) with Claiming {
       var claim = new Claim(CachedClaim.key, List(), System.currentTimeMillis(), Some(Lang("en")), uuid)
-      val details = new YourDetails("", None, "", None, "green", NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(None, None, None))
+      val details = new YourDetails("Mr","", None, "green", NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(None, None, None))
       val contactDetails = new ContactDetails(new MultiLineAddress(), None, None, None, Some("yes"), Some("bt@bt.com"), Some("bt@bt.com"))
       claim = claim + details + contactDetails
       cache.set(uuid, claim)

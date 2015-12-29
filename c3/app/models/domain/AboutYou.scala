@@ -12,7 +12,6 @@ object AboutYou extends Section.Identifier {
 }
 
 case class YourDetails(title: String = "",
-                       titleOther: Option[String] = None,
                        firstName: String = "",
                        middleName: Option[String] = None,
                        surname: String = "",
@@ -24,13 +23,6 @@ case class YourDetails(title: String = "",
 
 object YourDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g1"
-
-  def verifyTitleOther(form: YourDetails): Boolean = {
-    form.title match {
-      case "Other" => form.titleOther.isDefined
-      case _ => true
-    }
-  }
 }
 
 case class MaritalStatus(maritalStatus: String = "") extends QuestionGroup(MaritalStatus)

@@ -20,7 +20,6 @@ object Claimant extends XMLComponent {
       {question(<OtherNames/>, "firstName", yourDetails.firstName)}
       {question(<MiddleNames/>, "middleName", yourDetails.middleName)}
       {question(<Title/>, "title", yourDetails.title)}
-      {question(<TitleOther/>, "titleOther", yourDetails.titleOther)}
       {question(<DateOfBirth/>,"dateOfBirth", yourDetails.dateOfBirth)}
       {question(<NationalInsuranceNumber/>,"nationalInsuranceNumber", encrypt(yourDetails.nationalInsuranceNumber))}
       {postalAddressStructure("address", contactDetails.address, encrypt(contactDetails.postcode.getOrElse("").toUpperCase))}
