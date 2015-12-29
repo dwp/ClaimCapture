@@ -21,7 +21,11 @@
 
                     @carersInputText(resumeForm("surname"), 'maxLength -> 35)
 
-                    @nationalInsuranceNumber(resumeForm("nationalInsuranceNumber"), 'helperAbove -> messages("mandatory.nationalInsuranceNumber.helper"), 'helperBelow -> messages("mandatory.nationalInsuranceNumber.helper2"))
+                    @nationalInsuranceNumber(resumeForm("nationalInsuranceNumber"),
+                        'helperAbove -> messages("mandatory.nationalInsuranceNumber.helper"),
+                        'helperBelow -> messages("mandatory.nationalInsuranceNumber.helper2"),
+                        '_anchorIdRequired -> true,
+                        '_anchorId -> "nationalInsuranceNumber")
 
                     @dateOfBirth(resumeForm("dateOfBirth"))
                 </ul>

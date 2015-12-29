@@ -7,6 +7,8 @@
 
 @addressLabel = @{ args.toMap.get('addressLabel).map(_.toString).getOrElse("address") }
 
+@addressLabelId = @{ addressLabel.replace('.', '_').replace('[', '_').replace("]", "") }
+
 @if(showLabel) {
-    <legend id="@generateLabelId(field.id)" class="form-label-bold">@Html(messages(addressLabel))</legend>
+    <legend id="@generateAnchorId(addressLabelId)" class="form-label-bold">@Html(messages(addressLabel))</legend>
 }

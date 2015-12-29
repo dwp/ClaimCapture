@@ -4,7 +4,6 @@ import play.api.data.Mapping
 import play.api.data.Forms._
 import play.api.data.validation._
 import models.NationalInsuranceNumber
-import scala.Some
 import play.api.data.validation.ValidationError
 
 

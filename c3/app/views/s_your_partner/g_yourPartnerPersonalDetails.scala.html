@@ -72,7 +72,11 @@
 
                             carersInputText(currentForm("otherNames"), 'maxLength -> 35),
 
-                            nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'ignoreOptional->true, 'helperAbove -> messages("nationalInsuranceNumber.helper")),
+                            nationalInsuranceNumber(currentForm("nationalInsuranceNumber"),
+                                'ignoreOptional->true,
+                                'helperAbove -> messages("nationalInsuranceNumber.helper"),
+                                '_anchorIdRequired -> true,
+                                '_anchorId -> "nationalInsuranceNumber"),
 
                             dateOfBirth(currentForm("dateOfBirth")),
 

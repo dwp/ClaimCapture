@@ -54,7 +54,7 @@
                                 'textAreaHelper -> "60 characters left", 'maxLength -> 60
                             ),
                             carersInputText(currentForm("statutorySickPay.employersName"), '_label -> messages("employersName"),'maxLength -> mappings.Mappings.sixty),
-                            inputAddress(currentForm("statutorySickPay.employersAddress"), '_label -> messages("employersAddress")),
+                            inputAddress(currentForm("statutorySickPay.employersAddress"), '_label -> messages("employersAddress"), 'addressLabel -> "statutorySickPay.employersAddress"),
                             carersInputText(currentForm("statutorySickPay.employersPostcode"), 'maxLength -> 8, '_label -> messages("employersPostcode"), 'class -> "postcode")
                         ),
                         'id -> "sickPayWrap",
@@ -74,7 +74,7 @@
                                 'visibleOn -> "yes"
                             ),
                             carersInputText(currentForm("otherStatutoryPay.employersName"), '_label -> messages("employersName"), 'maxLength -> mappings.Mappings.sixty),
-                            inputAddress(currentForm("otherStatutoryPay.employersAddress"), '_label -> messages("employersAddress")),
+                            inputAddress(currentForm("otherStatutoryPay.employersAddress"), '_label -> messages("employersAddress"), 'addressLabel -> "otherStatutoryPay.employersAddress"),
                             carersInputText(currentForm("otherStatutoryPay.employersPostcode"),'maxLength -> 8, '_label -> messages("employersPostcode"), 'class -> "postcode")
                         ),
                         'id -> "otherStatPayWrap",

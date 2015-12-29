@@ -13,4 +13,7 @@ object HtmlLabelHelper {
     CarersCrypto.encryptAES(elementId + "_questionLabel")
   }
 
+  def generateAnchorId(elementId: String): String = {
+    CarersCrypto.encryptAES(elementId)
+  }
 }

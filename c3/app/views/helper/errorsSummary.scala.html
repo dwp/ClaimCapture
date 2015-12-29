@@ -1,40 +1,40 @@
 @(form: Form[_])(implicit lang: Lang, request: Request[AnyContent], messages: play.api.i18n.Messages)
 
-    @import utils.helpers.CarersCrypto
-    @import utils.helpers.GAHelper._
-    @import app.ConfigProperties._
+@import utils.helpers.CarersCrypto
+@import utils.helpers.GAHelper._
+@import app.ConfigProperties._
 
-    @gaTrack(key: String, errorMessage: String)  = @{
-        if (getProperty("include.analytics", default = true)) {
-            trackEvent(request.path, "Error", Some(s"${trimDate(key)} - $errorMessage"))
-        } else {
-            ""
+@gaTrack(key: String, errorMessage: String)  = @{
+    if (getProperty("include.analytics", default = true)) {
+        trackEvent(request.path, "Error", Some(s"${trimDate(key)} - $errorMessage"))
+    } else {
+        ""
+    }
+}
+
+@trimDate(key: String) = @{
+    val result = ".*\\b(before \\d+|after \\d+|since \\d+|ers \\d+|cyn \\d+)\\b".r.findFirstMatchIn(key)
+    if (result.isDefined) {
+        key.substring(0, result.get.end(0) - 2) + "?"
+    } else key
+}
+
+@if(form.hasErrors) {
+    <div class="validation-summary">
+        <h2 class="heading-small">@Html(messages("error.title"))</h2>
+        <p>@Html(messages("error.label"))</p>
+        <ol class="list-bullet">
+        @for(error <- form.errors) {
+            <li>
+                <a href="#@CarersCrypto.encryptAES(form(error.key).id)">
+                    @Html(messages(error.key, error.args: _*)) - @Html(messages(error.message, error.args: _*))
+                </a>
+            </li>
         }
-    }
+        </ol>
+    </div>
 
-    @trimDate(key: String) = @{
-        val result = ".*\\b(before \\d+|after \\d+|since \\d+|ers \\d+|cyn \\d+)\\b".r.findFirstMatchIn(key)
-        if (result.isDefined) {
-            key.substring(0, result.get.end(0) - 2) + "?"
-        } else key
-    }
-
-    @if(form.hasErrors) {
-        <div class="validation-summary">
-            <h2 class="heading-small">@Html(messages("error.title"))</h2>
-            <p>@Html(messages("error.label"))</p>
-            <ol class="list-bullet">
-            @for(error <- form.errors) {
-                <li>
-                    <a href="#@CarersCrypto.encryptAES(form(error.key).id)">
-                        @Html(messages(error.key, error.args: _*)) - @Html(messages(error.message, error.args: _*))
-                    </a>
-                </li>
-            }
-            </ol>
-        </div>
-
-        <script type="text/javascript">
+    <script type="text/javascript">
     $(function() {
             @for(error <- form.errors) {
             @Html(gaTrack(messages(error.key, error.args: _*), messages(error.message, error.args: _*)))

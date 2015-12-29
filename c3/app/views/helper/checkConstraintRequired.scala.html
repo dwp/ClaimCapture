@@ -1,17 +1,15 @@
 @(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: Lang, messages: play.api.i18n.Messages)
 
-@import views.html.helper.base.carersInputText
-@import utils.helpers.EmptyTemplate._
-@import views.html.helper.base.{carersLabel,carersLabelText}
-@import play.api.i18n.Messages
+@import utils.helpers.HtmlLabelHelper._
+@import views.html.helper.base.carersLabelText
 
 @showLabel = @{ args.toMap.get('_showLabel).getOrElse(true) == true }
 
+@showId = @{ args.toMap.get('_showId).getOrElse(false) == true }
+
 @if(showLabel) {
     <fieldset>
-        <legend class="form-label-bold">
-            @carersLabelText(field,args:_*)
-        </legend>
+        <legend @if(showId) { id="@generateAnchorId(field.id)" } class="form-label-bold"> @carersLabelText(field,args:_*)</legend>
     </fieldset>
     @if(args.find(_._1=='helperAbove).isDefined){
         <p class="form-hint">@Html(messages(args.find(_._1=='helperAbove).get._2.toString()))</p>

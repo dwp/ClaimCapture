@@ -59,7 +59,9 @@
 
                                 nationalInsuranceNumber(currentForm("nationalInsuranceNumber"),
                                                                     'helperAbove -> messages("nationalInsuranceNumber.helper.careYouProvide"),
-                                                                    'ignoreOptional -> true),
+                                                                    'ignoreOptional -> true,
+                                                                    '_anchorIdRequired -> true,
+                                                                    '_anchorId -> "nationalInsuranceNumber"),
 
                                 dateOfBirth(currentForm("dateOfBirth"))
                             ),
@@ -72,7 +74,7 @@
 
                         @otherDetailPlaceHolder(
                             inputDef = Seq(
-                                inputAddress(currentForm("theirAddress.address"), '_label -> messages("address")),
+                                inputAddress(currentForm("theirAddress.address"), '_label -> messages("address"), '_showId -> true, 'addressLabel -> "theirAddress.address"),
                                 carersInputText(currentForm("theirAddress.postCode"), 'class -> "postcode",'maxLength -> 8, 'ignoreOptional -> true, '_label -> messages("postcode"))
                             ),
                             'id -> "addressWrapper"

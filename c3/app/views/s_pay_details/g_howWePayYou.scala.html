@@ -33,7 +33,7 @@
                         inputDef = Seq(
                             carersInputText(currentForm("bankDetails.accountHolderName"), 'maxLength -> "40"),
                             carersInputText(currentForm("bankDetails.bankFullName")),
-                            sortCode(currentForm("bankDetails.sortCode"), 'ignoreOptional -> true),
+                            sortCode(currentForm("bankDetails.sortCode"), 'ignoreOptional -> true, '_showId -> true),
                             carersInputTel(currentForm("bankDetails.accountNumber"), 'maxLength -> "10"),
                             sliderHelp(messages("postOfficeTitle"),messages("postOfficeTitle"),Html(messages("postOfficeBody")), 'showMini->true),
                             carersInputText(currentForm("bankDetails.rollOrReferenceNumber"), 'maxLength -> "18")

@@ -31,7 +31,11 @@
 
                     @carersInputText(yourDetailsForm("surname"), 'maxLength -> 35)
 
-                    @nationalInsuranceNumber(yourDetailsForm("nationalInsuranceNumber"), 'helperAbove -> messages("mandatory.nationalInsuranceNumber.helper"), 'helperBelow -> messages("mandatory.nationalInsuranceNumber.helper2"))
+                    @nationalInsuranceNumber(yourDetailsForm("nationalInsuranceNumber"),
+                        'helperAbove -> messages("mandatory.nationalInsuranceNumber.helper"),
+                        'helperBelow -> messages("mandatory.nationalInsuranceNumber.helper2"),
+                        '_anchorIdRequired -> true,
+                        '_anchorId -> "nationalInsuranceNumber")
 
                     @dateOfBirth(yourDetailsForm("dateOfBirth"))
 

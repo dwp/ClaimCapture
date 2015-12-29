@@ -1,4 +1,5 @@
 @(currentForm: Form[models.domain.CircumstancesPaymentChange])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
+@(currentForm: Form[models.domain.CircumstancesPaymentChange])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -63,7 +64,7 @@
 	                @carersInputText(currentForm("bankFullName"))
 
                     @* 'ignoreOptional -> true is for ignoring <em> optional </em> tag on label for the individual sort code fields *@
-	                @sortCode(currentForm("sortCode"), 'ignoreOptional -> true)
+	                @sortCode(currentForm("sortCode"), 'ignoreOptional -> true, '_showId -> true)
 
 	                @carersInputTel(currentForm("accountNumber"), 'maxLength -> "10")
 
