@@ -13,7 +13,7 @@ import utils.helpers.PreviewField._
 class GMaritalStatusIntegrationSpec extends Specification {
   sequential
 
-  "Marital Status" should {
+  "Status" should {
     "be presented" in new WithBrowser with PageObjects{
 			val page =  GMaritalStatusPage(context)
       page goToThePage()
@@ -27,7 +27,7 @@ class GMaritalStatusIntegrationSpec extends Specification {
       nextPage must beAnInstanceOf[GMaritalStatusPage]
     }
 
-    "navigate to next page on valid marital status submission" in new WithBrowser with PageObjects{
+    "navigate to next page on valid Status submission" in new WithBrowser with PageObjects{
 			val page =  GMaritalStatusPage(context)
       val claim = ClaimScenarioFactory.maritalStatus()
       page goToThePage()
@@ -38,7 +38,7 @@ class GMaritalStatusIntegrationSpec extends Specification {
       nextPage must beAnInstanceOf[GContactDetailsPage]
     }
 
-    "Modify marital status from preview page" in new WithBrowser with PageObjects{
+    "Modify Status from preview page" in new WithBrowser with PageObjects{
       val previewPage = goToPreviewPage(context)
       val id = "about_you_marital_status"
       val answerText = PreviewTestUtils.answerText(id, _:Page)

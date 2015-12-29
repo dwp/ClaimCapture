@@ -152,7 +152,7 @@ object ClaimScenarioFactory {
     // Your details + outside UK
     val claim = yourDetailsEnablingTimeOutsideUK()
 
-    // Marital Status
+    // Status
     claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
 
     // Your contact details

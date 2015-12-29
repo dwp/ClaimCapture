@@ -48,7 +48,7 @@ class PreviewPageAboutYouContentSpec extends Specification {
       val source = page.source
       source must not contain "British"
       source must contain("French")
-      source must contain("Marital status")
+      source must contain("Status")
       source must contain("Single")
     }
 

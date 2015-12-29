@@ -10,7 +10,7 @@ About You,Your Details,Middle name,AboutYouMiddleName,Claimant>MiddleNames>Answe
 About You,Your Details,Last name,AboutYouSurname,Claimant>Surname>Answer
 About You,Your Details,National Insurance (NI) number,AboutYouNINO,Claimant>NationalInsuranceNumber>Answer
 About You,Your Details,Date of birth,AboutYouDateOfBirth,Claimant>DateOfBirth>Answer
-About You,Your marital status,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,Claimant>MaritalStatus>Answer
+About You,Your status,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,Claimant>MaritalStatus>Answer
 About You,Your contact details,Address,AboutYouAddress,Claimant>Address>Answer>Line
 About You,Your contact details,Postcode,AboutYouPostcode,Claimant>Address>Answer>PostCode
 About You,Your contact details,How we contact you,HowWeContactYou,Claimant>DayTimePhoneNumber>Answer
