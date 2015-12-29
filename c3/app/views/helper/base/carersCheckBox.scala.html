@@ -1,4 +1,4 @@
-@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: play.api.i18n.Lang, messages: play.api.i18n.Messages)
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: play.api.i18n.Lang, request: Request[AnyContent], messages: play.api.i18n.Messages)
 
 @import utils.helpers.EmptyTemplate._
 @import views.html.helper.base._

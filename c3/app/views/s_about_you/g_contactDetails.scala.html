@@ -28,7 +28,7 @@
 
                     @carersInputTel(contactDetailsForm("howWeContactYou"),'ignoreOptional -> true, 'maxLength -> mappings.Mappings.twenty)
 
-                    @carersCheckBox(contactDetailsForm("contactYouByTextphone"))
+                    @carersCheckBox(contactDetailsForm("contactYouByTextphone"), 'track -> true)
 
                     @if(getProperty("email.frontend",false)) {
                         @yesNoRadioGroup(contactDetailsForm("wantsEmailContact"))
