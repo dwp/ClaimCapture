@@ -67,7 +67,7 @@ class GTheirPersonalDetailsIntegrationSpec extends Specification {
       val theirPersonalDetailsPage =  partnerPage submitPage()
 
       theirPersonalDetailsPage must beAnInstanceOf[GTheirPersonalDetailsPage]
-      val title = theirPersonalDetailsPage readRadio("#title")
+      val title = theirPersonalDetailsPage readInput("#title")
       title.get mustEqual "Mrs"
       val firstName = theirPersonalDetailsPage readInput("#firstName")
       firstName.get mustEqual "Cloe"
@@ -130,7 +130,7 @@ class GTheirPersonalDetailsIntegrationSpec extends Specification {
       val theirPersonalDetailsPage =  partnerPage submitPage()
 
       theirPersonalDetailsPage must beAnInstanceOf[GTheirPersonalDetailsPage]
-      val title = theirPersonalDetailsPage readRadio("#title")
+      val title = theirPersonalDetailsPage readInput("#title")
       title.get mustEqual "Mrs"
       val firstName = theirPersonalDetailsPage readInput("#firstName")
       firstName.get mustEqual "Cloe"
@@ -145,19 +145,16 @@ class GTheirPersonalDetailsIntegrationSpec extends Specification {
       newPartner fillPageWith newPartnerData
 
       val newTheirPersonalDetailsPage =  newPartner submitPage()
-      theirPersonalDetailsPage must beAnInstanceOf[GTheirPersonalDetailsPage]
+      newTheirPersonalDetailsPage must beAnInstanceOf[GTheirPersonalDetailsPage]
 
-      val title2 = theirPersonalDetailsPage readRadio("#title")
-      title2 must beNone
-      val firstName2 = theirPersonalDetailsPage readInput("#firstName")
+      val title2 = newTheirPersonalDetailsPage readInput("#title")
+      title2.get mustEqual ""
+      val firstName2 = newTheirPersonalDetailsPage readInput("#firstName")
       firstName2.get mustEqual ""
-      val surname2 = theirPersonalDetailsPage readInput("#surname")
+      val surname2 = newTheirPersonalDetailsPage readInput("#surname")
       surname2.get mustEqual ""
-      val dateOfBirth2 = theirPersonalDetailsPage readDate("#dateOfBirth")
+      val dateOfBirth2 = newTheirPersonalDetailsPage readDate("#dateOfBirth")
       dateOfBirth2.get mustEqual "00/00/"
-
-
-
     }
 
     "data should be emptied if answered yes to did you have a partner then going back to answer no" in new WithJsBrowser  with PageObjects {
@@ -166,7 +163,6 @@ class GTheirPersonalDetailsIntegrationSpec extends Specification {
       val claimDate = ClaimScenarioFactory.s12ClaimDate()
       claimDatePage fillPageWith claimDate
       claimDatePage submitPage()
-
       val partnerPage = GYourPartnerPersonalDetailsPage(context)
       val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
       partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "Yes"
@@ -175,7 +171,7 @@ class GTheirPersonalDetailsIntegrationSpec extends Specification {
       val theirPersonalDetailsPage =  partnerPage submitPage()
 
       theirPersonalDetailsPage must beAnInstanceOf[GTheirPersonalDetailsPage]
-      val title = theirPersonalDetailsPage readRadio("#title")
+      val title = theirPersonalDetailsPage readInput("#title")
       title.get mustEqual "Mrs"
       val firstName = theirPersonalDetailsPage readInput("#firstName")
       firstName.get mustEqual "Cloe"
@@ -190,24 +186,18 @@ class GTheirPersonalDetailsIntegrationSpec extends Specification {
       newPartnerData.AboutYourPartnerHadPartnerSinceClaimDate = "No"
 
       newPartner fillPageWith newPartnerData
-
       val newTheirPersonalDetailsPage =  newPartner submitPage()
-      theirPersonalDetailsPage must beAnInstanceOf[GTheirPersonalDetailsPage]
+      newTheirPersonalDetailsPage must beAnInstanceOf[GTheirPersonalDetailsPage]
 
-      val title2 = theirPersonalDetailsPage readRadio("#title")
-      title2 must beNone
-      val firstName2 = theirPersonalDetailsPage readInput("#firstName")
+      val title2 = newTheirPersonalDetailsPage readInput("#title")
+      title2.get mustEqual ""
+      val firstName2 = newTheirPersonalDetailsPage readInput("#firstName")
       firstName2.get mustEqual ""
-      val surname2 = theirPersonalDetailsPage readInput("#surname")
+      val surname2 = newTheirPersonalDetailsPage readInput("#surname")
       surname2.get mustEqual ""
-      val dateOfBirth2 = theirPersonalDetailsPage readDate("#dateOfBirth")
+      val dateOfBirth2 = newTheirPersonalDetailsPage readDate("#dateOfBirth")
       dateOfBirth2.get mustEqual "00/00/"
-
-
-
     }
-
   }
   section("integration", models.domain.CareYouProvide.id)
-
 }
