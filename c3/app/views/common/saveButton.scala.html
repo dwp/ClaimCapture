@@ -2,9 +2,6 @@
 
 @import app.ConfigProperties._
 
-@isLandingPageAfterPreview = @{
-    request.uri == (claim.checkYAnswers.cyaPointOfEntry getOrElse "")
-}
 @isSaveEnabled=@{
     getProperty("saveForLaterSaveEnabled",default = false)
 }
@@ -12,12 +9,13 @@
     getProperty("saveForLaterUrl", default="/save")
 }
 
-@if(isSaveEnabled && claim.navigation.showSaveButton && ( !claim.navigation.beenInPreview ) ){
+@if(isSaveEnabled && claim.navigation.showSaveButton && ( !claim.navigation.beenInPreview || request.path == "/preview") ){
     <button type="button" id="save" class="button" href="@saveHref" >@messages("form.save")</button>
 }
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#save").click(function(){
+			var saveurl=$(this).attr("href");
 			var saveurl=$(this).attr("href");
 			$("form").attr( "action", saveurl );
 			$("form").submit()
