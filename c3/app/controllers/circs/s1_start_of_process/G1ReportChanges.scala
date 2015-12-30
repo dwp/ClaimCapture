@@ -32,8 +32,8 @@ object G1ReportChanges extends Controller with CachedChangeOfCircs with Navigabl
   def submit = claiming {implicit circs => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.circs.s1_start_of_process.g1_reportChanges(formWithErrors)),
-      form => circs.update(form).removeQuestionGroups(CircumstancesReportChanges, Set(CircumstancesReportChange, form.identifier) ) -> {
-        if (!form.jsEnabled) {
+      f => checkForChangeInSelection(circs, f) -> {
+        if (!f.jsEnabled) {
           Logger.info(s"No JS - Start ${circs.key} ${circs.uuid} User-Agent : ${request.headers.get("User-Agent").orNull}")
         }
         Redirect(routes.G2ReportAChangeInYourCircumstances.present())
@@ -41,4 +41,10 @@ object G1ReportChanges extends Controller with CachedChangeOfCircs with Navigabl
     )
   }
 
+  private def checkForChangeInSelection(circs: Claim, reportNewChanges: ReportChanges) = {
+    val reportChanges = circs.questionGroup[ReportChanges].getOrElse(ReportChanges()).reportChanges
+    if (reportNewChanges.reportChanges != reportChanges)
+      circs.update(reportNewChanges).removeQuestionGroups(CircumstancesReportChanges, Set(CircumstancesReportChange, reportNewChanges.identifier) )
+    else circs.update(reportNewChanges)
+  }
 }

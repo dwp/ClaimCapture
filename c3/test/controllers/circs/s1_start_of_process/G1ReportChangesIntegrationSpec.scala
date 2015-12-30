@@ -5,6 +5,7 @@ import controllers.CircumstancesScenarioFactory
 import org.openqa.selenium.By
 import org.specs2.mutable._
 import utils.WithBrowser
+import utils.pageobjects.circumstances.s3_consent_and_declaration.G1DeclarationPage
 import utils.pageobjects.{TestData, PageObjects}
 import utils.pageobjects.circumstances.s1_start_of_process.{G2ReportAChangeInYourCircumstancesPage, G1ReportChangesPage}
 import utils.pageobjects.circumstances.s2_report_changes.{G4OtherChangeInfoPage, _}
@@ -79,7 +80,35 @@ class G1ReportChangesIntegrationSpec extends Specification {
       samePage must beAnInstanceOf[G4OtherChangeInfoPage]
     }
 
+    "Not remove reasons when no change to original selection" in new WithBrowser with PageObjects {
 
+      // selects one reason and submits it to the last page
+      // then it selects the same initial reason and checks that the data input initially was not cleared by the second step
+
+      val reportChangesFirst =  G1ReportChangesPage(context)
+      reportChangesFirst goToThePage()
+
+      val otherChangeInfoPageFirst = reportChangesFirst runClaimWith (reportChangesOtherChangeInfo, G4OtherChangeInfoPage.url)
+      otherChangeInfoPageFirst must beAnInstanceOf[G4OtherChangeInfoPage]
+      otherChangeInfoPageFirst.fillInput("#changeInCircs", "bla bla")
+
+      //submit to the last page and go back to the selectionPage
+      val lastPage = otherChangeInfoPageFirst.submitPage()
+      val reportChangesSecond = lastPage.goBack().goBack().goBack()
+      reportChangesSecond must beAnInstanceOf[G1ReportChangesPage]
+
+
+      val justOtherInfo = new TestData
+      justOtherInfo.CircumstancesReportChanges = AdditionalInfo.name
+      val otherChangeInfoPageSecond = reportChangesSecond runClaimWith (justOtherInfo, G4OtherChangeInfoPage.url)
+      otherChangeInfoPageSecond must beAnInstanceOf[G4OtherChangeInfoPage]
+
+      //verify that the other field is filled
+      otherChangeInfoPageSecond.ctx.browser.getDriver.findElement(By.id("changeInCircs")).getText must_== "bla bla"
+      //the submit is valid
+      val samePage = otherChangeInfoPageSecond.submitPage()
+      samePage must beAnInstanceOf[G1DeclarationPage]
+    }
   }
   section("integration", models.domain.CircumstancesIdentification.id)
 
