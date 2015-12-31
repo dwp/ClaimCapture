@@ -15,7 +15,7 @@
     <logger name="play" level="INFO" />
     <logger name="application" level="DEBUG" />
     <logger name="memcached" level="INFO" />
-    <logger name="memcached.module" level="DEBUG" />
+    <logger name="memcached.module" level="INFO" />
     <logger name="play.filters" level="DEBUG"/>
     <logger name="PageObject" level="DEBUG" />
 
