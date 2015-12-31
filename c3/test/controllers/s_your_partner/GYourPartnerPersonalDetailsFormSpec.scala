@@ -166,7 +166,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
         },f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "accept nationality with space character, uppercase and lowercase" in new WithApplication {
+    "accept nationality with space character, uppercase, lowercase and apostrophe" in new WithApplication {
       GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
         Map("title" -> title,
           "firstName" -> firstName,
@@ -177,13 +177,13 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "partner.nationality" -> "United States",
+          "partner.nationality" -> "United State's",
           "separated.fromPartner" -> separatedFromPartner,
           "isPartnerPersonYouCareFor"->"yes",
           "hadPartnerSinceClaimDate" -> "yes")).fold(
           formWithErrors => "This mapping should not happen." must equalTo("Error"),
           f => {
-            f.nationality must equalTo(Some("United States"))
+            f.nationality must equalTo(Some("United State's"))
           })
     }
 

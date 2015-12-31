@@ -1,8 +1,6 @@
 package controllers.s_your_partner
 
-import play.api.Logger
 import play.api.Play._
-
 import language.reflectiveCalls
 import play.api.data.{FormError, Form}
 import play.api.data.Forms.mapping
