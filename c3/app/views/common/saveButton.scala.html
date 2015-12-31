@@ -10,7 +10,7 @@
 }
 
 @if(isSaveEnabled && claim.navigation.showSaveButton && ( !claim.navigation.beenInPreview || request.path == "/preview") ){
-    <button type="button" id="save" class="button" href="@saveHref" >@messages("form.save")</button>
+    <button type="button" id="save" name="save" class="button" href="@saveHref" >@messages("form.save")</button>
 }
 <script type="text/javascript">
 	$(document).ready(function(){
