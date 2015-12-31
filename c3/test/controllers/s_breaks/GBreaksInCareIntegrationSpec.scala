@@ -71,7 +71,6 @@ class GBreaksInCareIntegrationSpec extends Specification {
     }
 
     "delete a break in care" in new WithJsBrowser with PageObjects {
-      pending("##Unit driver can't handle that JS form submission (Firefox do) enable this when changing to firefox driver")
       val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(true), GBreaksInCarePage.url, upToIteration = 2)
 
       Logger.info(breaksInCare.ctx.browser.getDriver.findElement(By.className("break-data")).getText)

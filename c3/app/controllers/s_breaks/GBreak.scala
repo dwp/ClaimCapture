@@ -68,8 +68,11 @@ object GBreak extends Controller with CachedClaim with I18nSupport {
         BadRequest(views.html.s_breaks.g_break(fwe,backCall))
       },
       break => {
-        val updatedBreaksInCare = if (breaksInCare.breaks.size >= app.ConfigProperties.getProperty("maximumBreaksInCare", 10)) breaksInCare else breaksInCare.update(break)
-
+        val updatedBreaksInCare =
+          breaksInCare.update(break).breaks.size match {
+            case noOfBreaks if (noOfBreaks > app.ConfigProperties.getProperty("maximumBreaksInCare", 10)) => breaksInCare
+            case _ => breaksInCare.update(break)
+          }
         // Delete the answer to the question 'Have you had any breaks in care since...'
         // Otherwise, it will prepopulate the answer when asked 'Have you had any more breaks in care since...'
         claim.update(updatedBreaksInCare).delete(BreaksInCareSummary) -> Redirect(routes.GBreaksInCare.present())
