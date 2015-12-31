@@ -30,8 +30,8 @@ object GHowWePayYou extends Controller with CachedClaim with Navigable with I18n
 
   val form = Form(mapping(
     "likeToPay" -> carersNonEmptyText(maxLength = 60),
-    "paymentFrequency" -> carersNonEmptyText(maxLength = 20),
-    "bankDetails" -> optional(bankDetailsMapping)
+    "bankDetails" -> optional(bankDetailsMapping),
+    "paymentFrequency" -> carersNonEmptyText(maxLength = 20)
   )(HowWePayYou.apply)(HowWePayYou.unapply))
 
 
@@ -69,7 +69,8 @@ object GHowWePayYou extends Controller with CachedClaim with Navigable with I18n
       formWithErrors => {
         val updatedFormWithErrors = manageErrorsSortCode(formWithErrors, "bankDetails.")
         val afterIgnoreGroupBy = ignoreGroupByForSortCode(updatedFormWithErrors, "bankDetails.")
-        BadRequest(views.html.s_pay_details.g_howWePayYou(afterIgnoreGroupBy))
+        val payFrequency = afterIgnoreGroupBy.replaceError("paymentFrequency", errorRequired, FormError("paymentFrequency", errorRequired))
+        BadRequest(views.html.s_pay_details.g_howWePayYou(payFrequency))
       },
       (howWePayYou: HowWePayYou) => {
         claim.update(howWePayYou) -> redirectPath

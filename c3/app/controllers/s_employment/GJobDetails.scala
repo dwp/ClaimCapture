@@ -55,11 +55,12 @@ object GJobDetails extends Controller with CachedClaim with Navigable with I18nS
     form.bindEncrypted.fold(
       formWithErrors =>{
         val form = formWithErrors
-          .replaceError("", "lastWorkDate.required", FormError("lastWorkDate", errorRequired, Seq(labelForEmployment(claim, request2lang, formWithErrors("finishedThisJob").value.getOrElse(""), "lastWorkDate"))))
-          .replaceError("hoursPerWeek","number.invalid",FormError("hoursPerWeek","number.invalid", Seq(labelForEmployment(claim, request2lang, formWithErrors("finishedThisJob").value.getOrElse(""), "hoursPerWeek"))))
-          .replaceError("hoursPerWeek","error.restricted.characters",FormError("hoursPerWeek","error.restricted.characters", Seq(labelForEmployment(claim, request2lang, formWithErrors("finishedThisJob").value.getOrElse(""), "hoursPerWeek"))))
           .replaceError("", "jobStartDate.required", FormError("jobStartDate", errorRequired))
-          .replaceError("startJobBeforeClaimDate", errorRequired, FormError("startJobBeforeClaimDate", errorRequired,Seq(claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(request2lang, dmy - 1 months)))))
+          .replaceError("startJobBeforeClaimDate", errorRequired, FormError("startJobBeforeClaimDate", errorRequired, Seq(claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(request2lang, dmy - 1 months)))))
+          .replaceError("", "lastWorkDate.required", FormError("lastWorkDate", errorRequired, Seq(labelForEmployment(formWithErrors("finishedThisJob").value.getOrElse(""), request2lang, "lastWorkDate"))))
+          .replaceError("hoursPerWeek", "number.invalid", FormError("hoursPerWeek", "number.invalid", Seq(labelForEmployment(formWithErrors("finishedThisJob").value.getOrElse(""), request2lang, "hoursPerWeek"))))
+          .replaceError("hoursPerWeek", "error.restricted.characters", FormError("hoursPerWeek", "error.restricted.characters", Seq(labelForEmployment(formWithErrors("finishedThisJob").value.getOrElse(""), request2lang, "hoursPerWeek"))))
+          .replaceError("finishedThisJob", errorRequired, FormError("finishedThisJob", errorRequired))
         BadRequest(views.html.s_employment.g_jobDetails(form))
       },jobDetails => claim.update(jobs.update(jobDetails)) -> Redirect(routes.GLastWage.present(iterationID)))
   }

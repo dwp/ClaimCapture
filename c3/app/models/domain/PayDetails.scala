@@ -12,7 +12,7 @@ case class BankBuildingSocietyDetails(accountHolderName: String = "",
                                       accountNumber: String = "",
                                       rollOrReferenceNumber: String = "")
 
-case class HowWePayYou(likeToBePaid: String = "", paymentFrequency: String = "", bankDetails: Option[BankBuildingSocietyDetails] = Option(BankBuildingSocietyDetails())) extends QuestionGroup(HowWePayYou)
+case class HowWePayYou(likeToBePaid: String = "", bankDetails: Option[BankBuildingSocietyDetails] = Option(BankBuildingSocietyDetails()), paymentFrequency: String = "") extends QuestionGroup(HowWePayYou)
 
 object HowWePayYou extends QuestionGroup.Identifier {
   val id = s"${PayDetails.id}.g1"

@@ -1,10 +1,8 @@
 package models.domain
 
-import controllers.Iteration.Identifier
 import models.DayMonthYear
 import models.yesNo.{RadioWithText, YesNoWithDate}
 import controllers.Iteration.{Identifier => IterationID}
-
 
 case object Breaks extends Section.Identifier {
   val id = "s6"
@@ -29,9 +27,10 @@ case object BreaksInCare extends QuestionGroup.Identifier {
 case class Break(iterationID: String = "",
                  start: DayMonthYear = DayMonthYear(None, None, None),
                  startTime:Option[String] = None,
-                 hasBreakEnded: YesNoWithDate = YesNoWithDate("", None),
+                 wherePerson: RadioWithText = RadioWithText("", None),
+                 whereYou:RadioWithText = RadioWithText("", None),
+                 hasBreakEnded:YesNoWithDate = YesNoWithDate("", None),
                  endTime:Option[String] = None,
-                 whereYou:RadioWithText = RadioWithText("", None), wherePerson: RadioWithText = RadioWithText("", None),
                  medicalDuringBreak: String = "") extends IterationID
 
 case class BreaksInCareSummary(answer: String = "") extends QuestionGroup(BreaksInCareSummary)

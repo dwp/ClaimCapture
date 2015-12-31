@@ -73,13 +73,13 @@ object ClaimEncryption {
     claim.questionGroup[TheirPersonalDetails] match {
       case Some(theirPersonalDetails) =>
         claim.update(theirPersonalDetails.copy(
-          encryptString(theirPersonalDetails.relationship),
           encryptString(theirPersonalDetails.title),
           encryptString(theirPersonalDetails.firstName),
           encryptOptionalString(theirPersonalDetails.middleName),
           encryptString(theirPersonalDetails.surname),
           encryptOptionalNationalInsuranceNumber(theirPersonalDetails.nationalInsuranceNumber),
           encryptDayMonthYear(theirPersonalDetails.dateOfBirth),
+          encryptString(theirPersonalDetails.relationship),
           encryptYesNoMandWithAddress(theirPersonalDetails.theirAddress)
         ))
       case _ => claim
@@ -109,8 +109,8 @@ object ClaimEncryption {
       case Some(howWePayYou) =>
         claim.update(howWePayYou.copy(
           encryptString(howWePayYou.likeToBePaid),
-          encryptString(howWePayYou.paymentFrequency),
-          encryptOptionalBankBuildingSoceityDetails(howWePayYou.bankDetails)
+          encryptOptionalBankBuildingSoceityDetails(howWePayYou.bankDetails),
+          encryptString(howWePayYou.paymentFrequency)
         ))
       case _ => claim
     }
@@ -214,13 +214,13 @@ object ClaimEncryption {
     claim.questionGroup[TheirPersonalDetails] match {
       case Some(theirPersonalDetails) =>
         claim.update(theirPersonalDetails.copy(
-          decryptString(theirPersonalDetails.relationship),
           decryptString(theirPersonalDetails.title),
           decryptString(theirPersonalDetails.firstName),
           decryptOptionalString(theirPersonalDetails.middleName),
           decryptString(theirPersonalDetails.surname),
           decryptOptionalNationalInsuranceNumber(theirPersonalDetails.nationalInsuranceNumber),
           decryptDayMonthYear(theirPersonalDetails.dateOfBirth),
+          decryptString(theirPersonalDetails.relationship),
           decryptYesNoMandWithAddress(theirPersonalDetails.theirAddress)
         ))
       case _ => claim
@@ -250,8 +250,8 @@ object ClaimEncryption {
       case Some(howWePayYou) =>
         claim.update(howWePayYou.copy(
           decryptString(howWePayYou.likeToBePaid),
-          decryptString(howWePayYou.paymentFrequency),
-          decryptOptionalBankBuildingSoceityDetails(howWePayYou.bankDetails)
+          decryptOptionalBankBuildingSoceityDetails(howWePayYou.bankDetails),
+          decryptString(howWePayYou.paymentFrequency)
         ))
       case _ => claim
     }

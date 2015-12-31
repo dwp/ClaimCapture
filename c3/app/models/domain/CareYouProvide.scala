@@ -11,13 +11,13 @@ case object CareYouProvide extends Section.Identifier {
   val id = "s5"
 }
 
-case class TheirPersonalDetails(relationship: String = "",
-                                title: String = "",
+case class TheirPersonalDetails(title: String = "",
                                 firstName: String = "",
                                 middleName: Option[String] = None,
                                 surname: String = "",
                                 nationalInsuranceNumber: Option[NationalInsuranceNumber] = None,
                                 dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
+                                relationship: String = "",
                                 theirAddress: YesNoMandWithAddress = YesNoMandWithAddress()
                                  ) extends QuestionGroup(TheirPersonalDetails)
 

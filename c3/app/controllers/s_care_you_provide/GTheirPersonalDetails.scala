@@ -26,13 +26,13 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
       )(YesNoMandWithAddress.apply)(YesNoMandWithAddress.unapply)
 
   val form = Form(mapping(
-    "relationship" -> carersNonEmptyText(maxLength = 35),
     "title" -> carersNonEmptyText(maxLength = Mappings.twenty),
     "firstName" -> carersNonEmptyText(maxLength = 17),
     "middleName" -> optional(carersText(maxLength = 17)),
     "surname" -> carersNonEmptyText(maxLength = Name.maxLength),
     "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
     "dateOfBirth" -> dayMonthYear.verifying(validDate),
+    "relationship" -> carersNonEmptyText(maxLength = 35),
     addressMapping
   )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply)
     .verifying("theirAddress.address", validateSameAddressAnswer _)
