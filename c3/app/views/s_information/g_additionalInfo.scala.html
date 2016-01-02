@@ -28,8 +28,11 @@
 	                    'id -> "anythingElseWrapper",
 	                    'display ->  { if (currentForm("anythingElse.answer").value.getOrElse("no") == "yes") "yes" else "no" }
 	                )
-	
-	                @yesNoRadioGroup(currentForm("welshCommunication"))
+					@if(lang.language != "cy") {
+						@yesNoRadioGroup(currentForm("welshCommunication"))
+					} else {
+						<input type="hidden" id="welshCommunication_yes" name="welshCommunication" value="yes">
+						}
 	            </ul>
 	        </fieldset>
 	
