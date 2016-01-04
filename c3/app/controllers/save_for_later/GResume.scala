@@ -67,7 +67,7 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
           // So we retrieve it and redirect to last saved location. The ClaimHandling action will see the change in uuid and set the cookie uuid to match the resumed claim
           retrievedSfl match {
             case Some(sfl) if sfl.status.equals("OK") => {
-              fromCache(request, claim.getDecryptedUuid(resumeSaveForLater.uuid)) match {
+              fromCache(claim.getDecryptedUuid(resumeSaveForLater.uuid)) match {
                 case Some(resumedClaim) => resumedClaim -> {
                   Logger.info("SFL resume submit success resuming claim "+resumeSaveForLater.uuid+" with appVersion "+sfl.appVersion)
                   Redirect(sfl.location).withCookies(Cookie(ClaimHandling.C3VERSION, sfl.appVersion))

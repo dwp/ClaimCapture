@@ -17,13 +17,13 @@ trait EncryptedCacheHandling extends CacheHandling {
     }
   }
 
-  override def fromCache(request:Request[AnyContent], key: String): Option[Claim] = {
+  override def fromCache(key: String): Option[Claim] = {
     getProperty("cacheEncryptionEnabled", false) match {
-      case true => super.fromCache(request, key) match {
+      case true => super.fromCache(key) match {
         case Some(claim) => Some(ClaimEncryption.decrypt(claim))
         case None => None
       }
-      case false => super.fromCache(request, key)
+      case false => super.fromCache(key)
     }
   }
 

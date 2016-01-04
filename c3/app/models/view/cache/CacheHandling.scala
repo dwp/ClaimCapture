@@ -44,8 +44,8 @@ protected trait CacheHandling {
     }
   }
 
-  def fromCache(request: Request[AnyContent], key: String): Option[Claim] = {
-    Logger.info("Retrieving cache entry for key:"+key+" with cookie application version:"+request.cookies.get(ClaimHandling.C3VERSION).get.value)
+  def fromCache(key: String): Option[Claim] = {
+    //Logger.info("Retrieving cache entry for key:"+key+" with cookie application version:"+request.cookies.get(ClaimHandling.C3VERSION).get.value)
     cache.get[Claim](key)
   }
 
