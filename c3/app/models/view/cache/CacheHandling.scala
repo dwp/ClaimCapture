@@ -39,11 +39,15 @@ protected trait CacheHandling {
       }
       None
     } else {
+      Logger.info("Retrieving cache entry for request key:"+key+" with cookie application version:"+request.cookies.get(ClaimHandling.C3VERSION).get.value)
       cache.get[Claim](key)
     }
   }
 
-  def fromCache(key: String): Option[Claim] = cache.get[Claim](key)
+  def fromCache(request: Request[AnyContent], key: String): Option[Claim] = {
+    Logger.info("Retrieving cache entry for key:"+key+" with cookie application version:"+request.cookies.get(ClaimHandling.C3VERSION).get.value)
+    cache.get[Claim](key)
+  }
 
   def saveInCache(claim: Claim) = cache.set(claim.uuid, claim, Duration(CacheHandling.expiration, SECONDS))
 
