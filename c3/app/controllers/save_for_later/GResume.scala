@@ -28,7 +28,7 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
 
   def present = newClaim { implicit claim => implicit request => implicit request2lang =>
     val encuuid = createParamsMap(request.queryString).getOrElse("x", "")
-    val uuid=claim.getDecryptedUuid(encuuid)
+    val uuid = claim.getDecryptedUuid(encuuid)
     if (!getProperty("saveForLaterResumeEnabled", default = false)) {
       BadRequest(views.html.save_for_later.switchedOff("sfl-resume", request2lang))
     }
@@ -67,35 +67,35 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
           // So we retrieve it and redirect to last saved location. The ClaimHandling action will see the change in uuid and set the cookie uuid to match the resumed claim
           retrievedSfl match {
             case Some(sfl) if sfl.status.equals("OK") => {
-              fromCache(claim.getDecryptedUuid(resumeSaveForLater.uuid)) match {
+              fromCache(request, claim.getDecryptedUuid(resumeSaveForLater.uuid)) match {
                 case Some(resumedClaim) => resumedClaim -> {
-                  Logger.info("SFL resume submit success resuming claim "+resumeSaveForLater.uuid+" with appVersion "+sfl.appVersion)
+                  Logger.info("SFL resume submit success resuming claim " + resumeSaveForLater.uuid + " with appVersion " + sfl.appVersion)
                   Redirect(sfl.location).withCookies(Cookie(ClaimHandling.C3VERSION, sfl.appVersion))
                 }
                 case _ => {
-                  Logger.error("SFL resume submit failed resuming claim "+resumeSaveForLater.uuid+" with appVersion "+sfl.appVersion)
+                  Logger.error("SFL resume submit failed resuming claim " + resumeSaveForLater.uuid + " with appVersion " + sfl.appVersion)
                   BadRequest(views.html.save_for_later.resumeClaim(form.withGlobalError("Unexpected failure retrieving claim from cache")))
                 }
               }
             }
             case Some(sfl) if sfl.status.equals("FAILED-RETRY-LEFT2") => {
-              Logger.error("SFL resume submit failed with status "+sfl.status+" when resuming claim "+resumeSaveForLater.uuid+" with appVersion "+sfl.appVersion)
+              Logger.error("SFL resume submit failed with status " + sfl.status + " when resuming claim " + resumeSaveForLater.uuid + " with appVersion " + sfl.appVersion)
               BadRequest(views.html.save_for_later.resumeClaim(form.fill(resumeSaveForLater).withGlobalError(messagesApi("saveForLater.failed.triesleft2"))))
             }
             case Some(sfl) if sfl.status.equals("FAILED-RETRY-LEFT1") => {
-              Logger.error("SFL resume submit failed with status "+sfl.status+" when resuming claim "+resumeSaveForLater.uuid+" with appVersion "+sfl.appVersion)
+              Logger.error("SFL resume submit failed with status " + sfl.status + " when resuming claim " + resumeSaveForLater.uuid + " with appVersion " + sfl.appVersion)
               BadRequest(views.html.save_for_later.resumeClaim(form.fill(resumeSaveForLater).withGlobalError(messagesApi("saveForLater.failed.triesleft1"))))
             }
             case Some(sfl) if sfl.status.equals("FAILED-FINAL") => {
-              Logger.error("SFL resume submit failed with status "+sfl.status+" when resuming claim "+resumeSaveForLater.uuid+" with appVersion "+sfl.appVersion)
+              Logger.error("SFL resume submit failed with status " + sfl.status + " when resuming claim " + resumeSaveForLater.uuid + " with appVersion " + sfl.appVersion)
               Ok(views.html.save_for_later.resumeFailedFinal(request2lang))
             }
             case Some(sfl) if sfl.status.equals("EXPIRED") => {
-              Logger.error("SFL resume submit failed with status "+sfl.status+" when resuming claim "+resumeSaveForLater.uuid+" with appVersion "+sfl.appVersion)
+              Logger.error("SFL resume submit failed with status " + sfl.status + " when resuming claim " + resumeSaveForLater.uuid + " with appVersion " + sfl.appVersion)
               Ok(views.html.save_for_later.resumeExpired(request2lang))
             }
             case _ => {
-              Logger.error("SFL resume submit failed claim when resuming claim "+resumeSaveForLater.uuid)
+              Logger.error("SFL resume submit failed claim when resuming claim " + resumeSaveForLater.uuid)
               Ok(views.html.save_for_later.resumeNotExist(request2lang))
             }
           }
