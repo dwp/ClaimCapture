@@ -9,7 +9,7 @@ import utils.WithApplication
 
 class GSelfEmploymentYourAccountsSpec extends Specification{
 
-  "Self Employment - Your Accounts - Controller" should {
+  "Self-Employment - Your Accounts - Controller" should {
     val fromDay = 11
     val fromMonth = 11
     val fromYear = 2011
@@ -32,7 +32,7 @@ class GSelfEmploymentYourAccountsSpec extends Specification{
       "tellUsWhyAndWhenTheChangeHappened" -> tellUsWhyAndWhenTheChangeHappened
     )
 
-    "present 'Self Employment Your Accounts' " in new WithApplication with Claiming {
+    "present 'Self-Employment Your Accounts' " in new WithApplication with Claiming {
       val request = FakeRequest()
 
       val result = controllers.s_self_employment.GSelfEmploymentYourAccounts.present(request)

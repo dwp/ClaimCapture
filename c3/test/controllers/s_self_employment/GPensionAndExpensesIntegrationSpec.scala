@@ -9,7 +9,7 @@ import utils.pageobjects.s_other_money.GAboutOtherMoneyPage
 import utils.pageobjects.s_employment.GEmploymentAdditionalInfoPage
 
 class GPensionAndExpensesIntegrationSpec extends Specification {
-  "Self Employment Pension And Expenses" should {
+  "Self-Employment Pension And Expenses" should {
     "be presented" in new WithBrowser with PageObjects{
 			val page =  GSelfEmploymentPensionsAndExpensesPage(context)
       page goToThePage()

@@ -18,7 +18,7 @@ class ThankYouIntegrationSpec extends Specification {
       urlMustEqual("/thankyou/apply-carers")
     }
 
-    "show employment and self employment messages" in new WithBrowser with BrowserMatchers {
+    "show employment and self-employment messages" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       Formulate.employment(browser)
 
@@ -40,7 +40,7 @@ class ThankYouIntegrationSpec extends Specification {
       browser.find("#selfEmployment").size() shouldEqual 0
     }
 
-    "show self employment messages" in new WithBrowser with BrowserMatchers {
+    "show self-employment messages" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       Formulate.justSelfEmployment(browser)
 

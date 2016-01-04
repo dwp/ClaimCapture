@@ -179,7 +179,7 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
         lastPage must beAnInstanceOf[G4OtherChangeInfoPage]
       }
 
-      "navigate to next page when self employment selected" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "false"))) with PageObjects{
+      "navigate to next page when self-employment selected" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "false"))) with PageObjects{
         val page =  G1ReportChangesPage(context)
         val claim = CircumstancesScenarioFactory.reportChangesSelfEmployment
         page goToThePage()

@@ -39,7 +39,7 @@ class GBeenEmployedIntegrationSpec extends Specification {
       otherMoney must beAnInstanceOf[GAboutOtherMoneyPage]
     }
 
-    """progress to next section i.e. "self employed".""" in new WithBrowser with PageObjects{
+    """progress to next section i.e. "self-employed".""" in new WithBrowser with PageObjects{
       val claimDate = new GClaimDatePage(context) goToThePage()
       claimDate.fillPageWith(s7SelfEmployedAndEmployed())
       claimDate.submitPage()

@@ -53,7 +53,7 @@ class EmailTemplateSpec extends Specification {
       renderedEmail must not contain escapeMessage("mail.cofc.successful")
     }
 
-    "Display claim employment and self employment email" in new WithApplication {
+    "Display claim employment and self-employment email" in new WithApplication {
       implicit val lang = Lang("en")
       val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
       implicit val messages = Messages(lang, messagesApi)

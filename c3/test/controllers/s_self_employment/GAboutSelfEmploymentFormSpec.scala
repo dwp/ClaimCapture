@@ -6,7 +6,7 @@ import models.DayMonthYear
 import utils.WithApplication
 
 class GAboutSelfEmploymentFormSpec extends Specification {
-  "About Self Employment - About Self Employment Form" should {
+  "About Self-Employment - About Self-Employment Form" should {
     val areYouSelfEmployedNow = "no"
     val whenDidYouStartThisJob_day = 11
     val whenDidYouStartThisJob_month = 9

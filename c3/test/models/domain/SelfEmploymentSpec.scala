@@ -17,8 +17,8 @@ class SelfEmploymentSpec extends Specification {
     Section(SelfEmployment, List())
   ))
 
-  "Self Employment" should {
-    "tell whether the Claim object contains self employment" in new WithApplication {
+  "Self-Employment" should {
+    "tell whether the Claim object contains self-employment" in new WithApplication {
       SelfEmployment.isSelfEmployed(claimSelfEmployed) mustEqual true
       SelfEmployment.isSelfEmployed(claimNotSelfEmployed) mustEqual false
       SelfEmployment.isSelfEmployed(claimWithNoEmploymentDetails) mustEqual false

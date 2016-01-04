@@ -5,7 +5,7 @@ import utils.WithApplication
 
 class GSelfEmploymentYourAccountsFormSpec extends Specification {
 
-  "About Self Employment - Your Accounts" should {
+  "About Self-Employment - Your Accounts" should {
 
     "map data into case class" in new WithApplication {
       GSelfEmploymentYourAccounts.form.bind(

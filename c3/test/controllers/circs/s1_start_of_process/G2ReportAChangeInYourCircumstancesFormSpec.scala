@@ -273,7 +273,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification {
         redirectLocation(result) must beSome("/circumstances/report-changes/other-change")
       }
 
-      "redirect to the next page after a valid self employment submission" in new WithApplication with MockForm {
+      "redirect to the next page after a valid self-employment submission" in new WithApplication with MockForm {
 
         val claim = Claim(claimKey)
 

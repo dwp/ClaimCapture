@@ -33,7 +33,7 @@ object GBeenEmployed extends Controller with CachedClaim with Navigable with I18
   }
 
   /**
-   * Redirect to about other money when self employment and employment is answered no else
+   * Redirect to about other money when self-employment and employment is answered no else
    * redirect to employment additional info page.
    *
    * @param lang

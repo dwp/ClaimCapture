@@ -82,7 +82,7 @@ object ClaimPageFactory extends PageFactory {
         case GPensionAndExpensesPage.url => GPensionAndExpensesPage(ctx, iteration)
       })
     }.orElse[String, Page] {
-      // s7 - Used both by self employment and employment
+      // s7 - Used both by self-employment and employment
       case GEmploymentAdditionalInfoPage.url => GEmploymentAdditionalInfoPage(ctx)
       // S8
       case GAboutOtherMoneyPage.url => GAboutOtherMoneyPage(ctx)

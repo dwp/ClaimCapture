@@ -11,7 +11,7 @@ import utils.pageobjects.s_claim_date.GClaimDatePageContext
 
 class GSelfEmploymentYourAccountsIntegrationSpec extends Specification {
 
-  "Self Employment - Your Accounts" should {
+  "Self-Employment - Your Accounts" should {
     "be presented" in new WithBrowser with PageObjects{
 			val page =  GSelfEmploymentYourAccountsPage(context)
       page goToThePage()

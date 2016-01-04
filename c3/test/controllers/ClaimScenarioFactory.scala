@@ -933,7 +933,7 @@ object ClaimScenarioFactory {
 
   def s9SelfEmployment = {
     val claim = s9otherMoney
-    // About self employment
+    // About self-employment
     claim.SelfEmployedAreYouSelfEmployedNow = "no"
     claim.SelfEmployedDoYouKnowYourTradingYear = "no"
     claim.SelfEmployedWhenDidYouStartThisJob = "11/09/2001"
@@ -942,16 +942,16 @@ object ClaimScenarioFactory {
 
     // G8 Pension and Expenses
     claim.SelfEmploymentDoYouPayForPensionExpenses = "Yes"
-    claim.SelfEmploymentPensionExpenses = "Some self employment pension expenses"
+    claim.SelfEmploymentPensionExpenses = "Some self-employment pension expenses"
     claim.SelfEmploymentDoYouPayForAnythingNecessaryToDoYourJob = "Yes"
-    claim.SelfEmploymentWhatAreNecessaryJobExpenses = "Some self employment job expenses"
+    claim.SelfEmploymentWhatAreNecessaryJobExpenses = "Some self-employment job expenses"
 
     claim
   }
 
   def s9SelfEmploymentYourAccounts = {
     val claim = s9SelfEmployment
-    //About self employment
+    //About self-employment
     claim.SelfEmployedAreTheseAccountsPreparedonaCashFlowBasis = "yes"
     claim.SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent = "no"
     claim.SelfEmployedTellUsWhyandWhentheChangeHappened = "A Year back"

@@ -6,7 +6,7 @@ import org.specs2.mutable._
 import models.DayMonthYear
 
 class G2SelfEmploymentFormSpec extends Specification {
-  "Report a change in your circumstances - Self employment Form" should {
+  "Report a change in your circumstances - Self-employment Form" should {
     val yes = "yes"
     val no = "no"
     val dontknow = "dontknow"
@@ -136,7 +136,7 @@ class G2SelfEmploymentFormSpec extends Specification {
         )
     }
 
-    "reject invalid when this Self Employment started  date" in new WithApplication {
+    "reject invalid when this Self-Employment started  date" in new WithApplication {
       G2SelfEmployment.form.bind(
         Map(
           "stillCaring.answer" -> yes,

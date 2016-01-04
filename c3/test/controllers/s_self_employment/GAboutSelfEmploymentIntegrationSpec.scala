@@ -11,7 +11,7 @@ import utils.pageobjects.s_claim_date.GClaimDatePageContext
 
 class GAboutSelfEmploymentIntegrationSpec extends Specification {
 
-  "About Self Employment" should {
+  "About Self-Employment" should {
     "be presented" in new WithBrowser with PageObjects{
 			val page =  GAboutSelfEmploymentPage(context)
       page goToThePage ()
@@ -40,7 +40,7 @@ class GAboutSelfEmploymentIntegrationSpec extends Specification {
         pageWithErrors.listErrors(2) must contain("You must complete this section")
       }
 
-      "self employed now but missing date" in new WithBrowser with PageObjects{
+      "self-employed now but missing date" in new WithBrowser with PageObjects{
 			val page =  GAboutSelfEmploymentPage(context)
         val claim = new TestData
         claim.SelfEmployedAreYouSelfEmployedNow = "no"
@@ -52,7 +52,7 @@ class GAboutSelfEmploymentIntegrationSpec extends Specification {
         pageWithErrors.listErrors(0) must contain("You must complete this section")
       }
 
-      "self employed now but invalid date" in new WithBrowser with PageObjects{
+      "self-employed now but invalid date" in new WithBrowser with PageObjects{
 			val page =  GAboutSelfEmploymentPage(context)
         val claim = new TestData
         claim.SelfEmployedAreYouSelfEmployedNow = "yes"

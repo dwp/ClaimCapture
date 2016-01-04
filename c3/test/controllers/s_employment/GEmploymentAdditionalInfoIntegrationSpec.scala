@@ -18,7 +18,7 @@ class GEmploymentAdditionalInfoIntegrationSpec extends Specification {
       page goToThePage()
     }
 
-    "should be presented when self employment is answered yes and no employment" in new WithBrowser with PageObjects{
+    "should be presented when self-employment is answered yes and no employment" in new WithBrowser with PageObjects{
 
       val claim = ClaimScenarioFactory.s7SelfEmployedNotEmployed()
 
@@ -39,7 +39,7 @@ class GEmploymentAdditionalInfoIntegrationSpec extends Specification {
       nextPage must beAnInstanceOf[GEmploymentAdditionalInfoPage]
     }
 
-    "should present self employment pensions and expenses page when back is clicked" in new WithBrowser with PageObjects{
+    "should present self-employment pensions and expenses page when back is clicked" in new WithBrowser with PageObjects{
       val page =  GSelfEmploymentPensionsAndExpensesPage(context)
       val claim = ClaimScenarioFactory.s9SelfEmployment
       page goToThePage()
@@ -62,7 +62,7 @@ class GEmploymentAdditionalInfoIntegrationSpec extends Specification {
       nextPage must beAnInstanceOf[GAboutOtherMoneyPage]
     }
 
-    "should be presented when self employment is answered no and employment yes" in new WithBrowser with PageObjects{
+    "should be presented when self-employment is answered no and employment yes" in new WithBrowser with PageObjects{
       val claim = ClaimScenarioFactory.s7EmployedNotSelfEmployed()
 
       val claimDatePage = GClaimDatePage(context) goToThePage()
@@ -87,7 +87,7 @@ class GEmploymentAdditionalInfoIntegrationSpec extends Specification {
       nextPage must beAnInstanceOf[GEmploymentAdditionalInfoPage]
     }
 
-    "should be presented at the end of employment when self employment and employment is answered yes" in new WithBrowser with PageObjects{
+    "should be presented at the end of employment when self-employment and employment is answered yes" in new WithBrowser with PageObjects{
       val beenEmployedData = new TestData
       beenEmployedData.EmploymentHaveYouBeenEmployedAtAnyTime_1 = "No"
 
