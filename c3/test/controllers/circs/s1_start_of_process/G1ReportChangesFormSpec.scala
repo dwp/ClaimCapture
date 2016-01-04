@@ -6,8 +6,8 @@ import org.specs2.mutable._
 import utils.WithApplication
 
 class G1ReportChangesFormSpec extends Specification {
+  section("unit", models.domain.CircumstancesReportChanges.id)
    "Report a change in your circumstances - Change in circumstances" should {
-
      "map additionalInfo into case class" in new WithApplication {
        G1ReportChanges.form.bind(
          Map(
@@ -44,7 +44,6 @@ class G1ReportChangesFormSpec extends Specification {
            f => "This mapping should not happen." must equalTo("Valid")
          )
      }
-
    }
-  section("unit", models.domain.CircumstancesSelfEmployment.id)
+   section("unit", models.domain.CircumstancesReportChanges.id)
  }

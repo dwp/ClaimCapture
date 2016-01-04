@@ -3,7 +3,7 @@ package utils.filters
 import models.view.CachedClaim
 import org.specs2.mutable._
 import play.api.Play._
-import play.api.cache.{CacheApi, Cache}
+import play.api.cache.CacheApi
 import play.api.libs.iteratee.Iteratee
 import play.api.mvc.{Result, RequestHeader, EssentialAction}
 import play.api.test.{FakeApplication, FakeRequest}
@@ -14,6 +14,7 @@ import utils.WithApplication
 class UserAgentCheckActionSpec extends Specification {
   import UserAgentCheckActionSpec._
 
+  section("unit")
   "User Agent Action/Filter" should {
     "not check start page, but should extract User Agent and store it if POST" in new WithApplication {
       val cache = current.injector.instanceOf[CacheApi]
@@ -60,9 +61,8 @@ class UserAgentCheckActionSpec extends Specification {
       exerciseFilterFor(keyValue,"GET",  "/thankyou/change-carers", UserAgentCheckAction.defautRemoveIf,expectSuccess=true)
       cache.get[String](keyValue + "_UA") must beNone
     }
-
   }
-
+  section("unit")
 }
 
 object UserAgentCheckActionSpec extends Specification{
@@ -86,7 +86,6 @@ object UserAgentCheckActionSpec extends Specification{
 }
 
 class MockAction extends EssentialAction {
-
   var called = false
 
   override def apply(v1: RequestHeader): Iteratee[Array[Byte], Result] = {

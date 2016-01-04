@@ -9,6 +9,7 @@ import play.api.test.FakeRequest
 import utils.WithApplication
 
 class GBenefitsSpec extends Specification {
+  section("unit", models.domain.CarersAllowance.id)
   "Carer's Allowance - Benefits - Controller" should {
     val benefitsAnswer = Benefits.aa
     val benefitsInput = Seq("benefitsAnswer" -> benefitsAnswer)

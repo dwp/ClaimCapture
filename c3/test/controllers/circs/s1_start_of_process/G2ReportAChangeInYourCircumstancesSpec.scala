@@ -1,7 +1,7 @@
-  package controllers.circs.s1_start_of_process
+package controllers.circs.s1_start_of_process
 
-  import controllers.mappings.Mappings
-  import models.domain._
+import controllers.mappings.Mappings
+import models.domain._
 import models.view.CachedChangeOfCircs
 import models.{DayMonthYear, NationalInsuranceNumber}
 import org.specs2.mutable._
@@ -11,8 +11,8 @@ import utils.WithApplication
 
 class G2ReportAChangeInYourCircumstancesSpec extends Specification{
 
+  section("unit", models.domain.CircumstancesReportChanges.id)
   "Circumstances - About You - Controller" should {
-
     val fullName = "Mr John Smith"
     val nino = "AB123456C"
     val dateOfBirthDay = 5
@@ -149,5 +149,5 @@ class G2ReportAChangeInYourCircumstancesSpec extends Specification{
       claim.lang mustEqual None
     }
   }
-  section("unit", models.domain.CircumstancesIdentification.id)
+  section("unit", models.domain.CircumstancesReportChanges.id)
 }

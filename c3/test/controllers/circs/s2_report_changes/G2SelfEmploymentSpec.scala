@@ -44,8 +44,10 @@ class G2SelfEmploymentSpec extends Specification {
     "moreAboutChanges" -> moreAboutChanges
   )
 
-  "Circumstances - Self-Employment - Controller" should {
-    "present 'CoC Self-Employment' " in new WithApplication with MockForm {
+
+  section("unit", models.domain.CircumstancesSelfEmployment.id)
+  "Circumstances - Self Employment - Controller" should {
+    "present 'CoC Self Employment' " in new WithApplication with MockForm {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
 
       val result = G2SelfEmployment.present(request)

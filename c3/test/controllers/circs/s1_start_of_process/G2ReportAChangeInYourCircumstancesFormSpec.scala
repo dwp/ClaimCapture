@@ -10,7 +10,6 @@ import play.api.test.FakeRequest
 import Mappings._
 import utils.WithApplication
 
-
 class G2ReportAChangeInYourCircumstancesFormSpec extends Specification {
   val fullName = "Mr John Joe Smith"
   val nino = "AB123456C"
@@ -23,6 +22,7 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification {
   val byTelephone = "01254897675"
   val wantsEmailContactCircs = "no"
 
+  section("unit", models.domain.CircumstancesReportChanges.id)
   "Change of circumstances - About You Form" should {
     "map data into case class" in new WithApplication {
       G2ReportAChangeInYourCircumstances.form.bind(
@@ -263,7 +263,6 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification {
 
     "Controller flow " should {
       "redirect to the next page after a valid additional info submission" in new WithApplication with MockForm {
-
         val claim = Claim(claimKey)
 
         cache.set(claimKey, claim.update(ReportChanges(false, ReportChange.AdditionalInfo.name)))
@@ -335,5 +334,5 @@ class G2ReportAChangeInYourCircumstancesFormSpec extends Specification {
       }
     }
   }
-  section("unit", models.domain.CircumstancesIdentification.id)
+  section("unit", models.domain.CircumstancesReportChanges.id)
 }

@@ -5,13 +5,10 @@ import utils.{WithJsBrowser, WithBrowser}
 import controllers.{ClaimScenarioFactory, PreviewTestUtils}
 import utils.pageobjects._
 import utils.pageobjects.s_about_you.GYourDetailsPage
-import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
-import utils.pageobjects.s_care_you_provide.GMoreAboutTheCarePage
-import utils.helpers.PreviewField._
 
 class GClaimDateIntegrationSpec extends Specification {
-
+  section("unit", models.domain.YourClaimDate.id)
   "Your claim date" should {
     "be presented " in new WithBrowser with PageObjects {
       val claimDatePage = GClaimDatePage(context)

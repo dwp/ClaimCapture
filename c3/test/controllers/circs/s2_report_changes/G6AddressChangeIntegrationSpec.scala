@@ -11,8 +11,8 @@ import org.specs2.mutable._
  * Created by neddakaltcheva on 2/14/14.
  */
 class G6AddressChangeIntegrationSpec  extends Specification {
+  section("integration", models.domain.CircumstancesIdentification.id)
   "Address change" should {
-
     "be presented" in new WithBrowser with PageObjects{
       val page =  G6AddressChangePage(context)
       page goToThePage()
@@ -98,8 +98,6 @@ class G6AddressChangeIntegrationSpec  extends Specification {
       page submitPage()
       page.listErrors.size must beEqualTo(1)
     }
-
   }
   section("integration", models.domain.CircumstancesIdentification.id)
-
 }

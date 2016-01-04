@@ -9,6 +9,7 @@ import utils.WithApplication
 
 class ConsentsSpec  extends Specification {
 
+  section("unit")
   "Consents" should {
     "Generate a valid consent with no Why element if not Why was provided" in new WithApplication {
       val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
@@ -31,7 +32,6 @@ class ConsentsSpec  extends Specification {
       (xml \\ "Consents" \ "Consent" \ "QuestionLabel").text mustEqual messagesApi("obtainInfoAgreement")
       (xml \\ "Consents"  \ "Consent" \ "Why" \ "Answer").text mustEqual "Because"
     }
-
   }
   section("unit")
 }

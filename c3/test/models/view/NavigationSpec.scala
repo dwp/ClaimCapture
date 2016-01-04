@@ -5,6 +5,7 @@ import models.domain.{PreviewModel, ContactDetails, YourDetails}
 import utils.WithApplication
 
 class NavigationSpec extends Specification {
+  section("unit")
   "Navigation" should {
     "track a route" in new WithApplication {
       val navigation = Navigation().track(YourDetails)("/about-you/your-details")
@@ -74,4 +75,5 @@ class NavigationSpec extends Specification {
       updatedNav.previous mustEqual Route(route1)
     }
   }
+  section("unit")
 }

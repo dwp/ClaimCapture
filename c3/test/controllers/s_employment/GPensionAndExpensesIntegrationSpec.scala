@@ -4,18 +4,17 @@ import org.specs2.mutable._
 import utils.WithBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s_employment._
-import utils.pageobjects.{Page, PageObjects}
+import utils.pageobjects.PageObjects
 
 class GPensionAndExpensesIntegrationSpec extends Specification {
+  section("integration",models.domain.PensionAndExpenses.id)
   "Pension And Expenses" should {
-    "be presented" in new WithBrowser with PageObjects{
+    "be presented" in new WithBrowser with PageObjects {
 			val page =  GPensionAndExpensesPage(context)
       page goToThePage()
     }
 
-    // navigate to next page - been employed table summary - on submit
-
-    "be able to navigate back to a completed form" in new WithBrowser  with PageObjects{
+    "be able to navigate back to a completed form" in new WithBrowser with PageObjects {
 			val page =  GPensionAndExpensesPage(context)
       val claim = ClaimScenarioFactory s7Employment()
       page goToThePage()
@@ -25,5 +24,5 @@ class GPensionAndExpensesIntegrationSpec extends Specification {
       backPage must beAnInstanceOf[GPensionAndExpensesPage]
     }
   }
-  section("integration",models.domain.Employed.id)
+  section("integration",models.domain.PensionAndExpenses.id)
 }

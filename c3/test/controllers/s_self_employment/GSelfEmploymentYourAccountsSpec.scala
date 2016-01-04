@@ -8,8 +8,8 @@ import play.api.test.FakeRequest
 import utils.WithApplication
 
 class GSelfEmploymentYourAccountsSpec extends Specification{
-
-  "Self-Employment - Your Accounts - Controller" should {
+  section("unit", models.domain.SelfEmployment.id)
+  "Self Employment - Your Accounts - Controller" should {
     val fromDay = 11
     val fromMonth = 11
     val fromYear = 2011

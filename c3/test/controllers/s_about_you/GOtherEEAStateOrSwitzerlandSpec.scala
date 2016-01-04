@@ -3,13 +3,11 @@ package controllers.s_about_you
 import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.api.cache.Cache
-import models.domain.{Claim, OtherEEAStateOrSwitzerland, Claiming}
+import models.domain.{OtherEEAStateOrSwitzerland, Claiming}
 import utils.WithApplication
-import scala.Some
-import models.view.CachedClaim
 
 class GOtherEEAStateOrSwitzerlandSpec extends Specification {
+  section("unit", models.domain.OtherMoney.id)
   "Other EEA State of Switzerland" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest()

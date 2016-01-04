@@ -27,7 +27,6 @@ trait AboutYouAndYourPartner {
     pageMoreAboutYou fillPageWith claimDate
     pageMoreAboutYou.submitPage(throwException = true)
 
-
     val claimAboutYourPartner = ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareFor
 
     val pageAboutYourPartner = new GYourPartnerPersonalDetailsPage(PageObjectsContext(browser))

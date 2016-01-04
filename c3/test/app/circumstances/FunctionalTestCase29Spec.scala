@@ -12,6 +12,7 @@ import utils.pageobjects.{Page, PageObjects, TestData, XmlPage}
 class FunctionalTestCase29Spec extends FunctionalTestCommon {
   isolated
 
+  section("functional")
   "The application Circumstances" should {
     "Successfully run absolute Circumstances Test Case 29" in new WithJsBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
       val page = G1ReportChangesPage(context)
@@ -28,7 +29,6 @@ class FunctionalTestCase29Spec extends FunctionalTestCommon {
         case p: Page => println(p.source)
       }
     }
-
   }
-section("functional")
+  section("functional")
 }

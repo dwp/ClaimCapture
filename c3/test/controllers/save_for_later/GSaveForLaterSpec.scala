@@ -1,7 +1,7 @@
 package controllers.save_for_later
 
 import models.domain._
-import models.view.{CachedClaim}
+import models.view.CachedClaim
 import org.specs2.mutable._
 import play.api.i18n.Lang
 import play.api.test.FakeRequest
@@ -10,6 +10,8 @@ import utils.{LightFakeApplication, WithApplication}
 import models.{MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
 
 class GSaveForLaterSpec extends Specification {
+  section("unit", models.domain.YourPartner.id)
+
   // Output from C3EncryptionSpec.scala ..... to create a set of xor pairs and decrypt key
   // With key of:88a976e1-e926-4bb4-9322-15aabc6d0516 created xor pair of:0bcd1234-0000-0000-0000-abcd1234cdef and:174650142322392746796619227917559908601
   val encryptkey = "88a976e1-e926-4bb4-9322-15aabc6d0516"

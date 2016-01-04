@@ -6,7 +6,7 @@ import play.mvc.Http.HeaderNames
 import utils.WithApplication
 
 class CSRFCreationSpec extends Specification {
-
+  section("unit")
   "CSRF Creation object" should {
     "identifies GET calls for html for in app pages as candidates for CSRF token." in new WithApplication {
       val request = FakeRequest(method = "GET", path = "/allowance/approve").withHeaders(HeaderNames.ACCEPT -> "text/html")
@@ -24,6 +24,6 @@ class CSRFCreationSpec extends Specification {
       val request2 = FakeRequest(method = "GET", path = "/circumstances/report-changes/selection")
       CSRFCreation.createIfFound(request2) must beTrue
     }
-
   }
+  section("unit")
 }

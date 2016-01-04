@@ -2,25 +2,25 @@ package controllers.s_eligibility
 
 import models.domain.Benefits
 import org.specs2.mutable._
-import utils.WithBrowser
 import utils.pageobjects.s_eligibility.{GEligibilityPage, GBenefitsPage}
 import utils.pageobjects.{PageObjects, PageObjectsContext, TestData}
 import utils.WithJsBrowser
 
 class GBenefitsIntegrationSpec extends Specification {
+  section("integration", models.domain.CarersAllowance.id)
   "Carer's Allowance - Benefits - Integration" should {
-    "be presented" in new WithJsBrowser  with PageObjects {
+    "be presented" in new WithJsBrowser with PageObjects {
 		  val page = GBenefitsPage(context)
       page goToThePage ()
     }
 
-    "contain a link to gov.uk" in new WithJsBrowser  with PageObjects {
+    "contain a link to gov.uk" in new WithJsBrowser with PageObjects {
 		  val page = GBenefitsPage(context)
       page goToThePage ()
       page.source must contain("https://www.gov.uk")
     }
 
-    "contain errors on invalid submission" in new WithJsBrowser  with PageObjects {
+    "contain errors on invalid submission" in new WithJsBrowser with PageObjects {
 		  val page = GBenefitsPage(context)
       val claim = new TestData
       page goToThePage()
@@ -28,7 +28,7 @@ class GBenefitsIntegrationSpec extends Specification {
       pageWithErrors.listErrors.size mustEqual 1
     }
     
-    "accept submit if all mandatory fields are populated" in new WithJsBrowser  with PageObjects {
+    "accept submit if all mandatory fields are populated" in new WithJsBrowser with PageObjects {
 		  val page = GBenefitsPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = "AA"
@@ -37,7 +37,7 @@ class GBenefitsIntegrationSpec extends Specification {
       page submitPage()
     }
 
-    "warn if answer is 'none of the benefits' to person get one of benefits" in new WithJsBrowser  with PageObjects {
+    "warn if answer is 'none of the benefits' to person get one of benefits" in new WithJsBrowser with PageObjects {
 		  val page = GBenefitsPage(context)
       val claim = new TestData
       claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = "NONE"
@@ -46,26 +46,25 @@ class GBenefitsIntegrationSpec extends Specification {
       page visible("#answerNoMessageWrap") must beTrue
     }
 
-    "navigate to next page on valid submission with 'PIP' selected " in new WithJsBrowser  with PageObjects {
+    "navigate to next page on valid submission with 'PIP' selected" in new WithJsBrowser with PageObjects {
 		   verifyAnswerMessageAndSubmit(Benefits.pip, context)
     }
 
-    "navigate to next page on valid submission with 'DLA' selected " in new WithJsBrowser  with PageObjects {
+    "navigate to next page on valid submission with 'DLA' selected" in new WithJsBrowser with PageObjects {
       verifyAnswerMessageAndSubmit(Benefits.dla, context)
     }
 
-    "navigate to next page on valid submission with 'AA' selected " in new WithJsBrowser  with PageObjects {
+    "navigate to next page on valid submission with 'AA' selected" in new WithJsBrowser with PageObjects {
       verifyAnswerMessageAndSubmit(Benefits.aa, context)
     }
 
-    "navigate to next page on valid submission with 'CAA' selected " in new WithJsBrowser  with PageObjects {
+    "navigate to next page on valid submission with 'CAA' selected" in new WithJsBrowser with PageObjects {
       verifyAnswerMessageAndSubmit(Benefits.caa, context)
     }
 
-    "navigate to next page on valid submission with 'AFIP' selected " in new WithJsBrowser  with PageObjects {
+    "navigate to next page on valid submission with 'AFIP' selected" in new WithJsBrowser with PageObjects {
       verifyAnswerMessageAndSubmit(Benefits.afip, context)
     }
-
   }
   section("integration", models.domain.CarersAllowance.id)
 

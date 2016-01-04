@@ -2,15 +2,15 @@ package controllers.circs.s1_start_of_process
 
 import utils.WithApplication
 import org.specs2.mutable._
-import utils.{WithJsBrowser, LightFakeApplication, WithBrowser}
+import utils.{LightFakeApplication, WithBrowser}
 import controllers.CircumstancesScenarioFactory
 import utils.pageobjects.circumstances.s1_start_of_process.{G1ReportChangesPage, G2ReportAChangeInYourCircumstancesPage}
 import utils.pageobjects.circumstances.s2_report_changes.{G7BreaksInCarePage, G3PermanentlyStoppedCaringPage, G2SelfEmploymentPage, G4OtherChangeInfoPage}
 import utils.pageobjects.{PageObjects, TestData}
 
-
 class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
 
+  section("integration", models.domain.CircumstancesReportChanges.id)
   "About You" should {
     val fullName = "Mr John Joe Smith"
     val nino = "ab123456c"
@@ -274,9 +274,7 @@ class G2ReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
         errors.size mustEqual 1
         errors(0) must contain("Contact number - Invalid value")
       }
-
     }
   }
-  section("integration", models.domain.CircumstancesIdentification.id)
-
+  section("integration", models.domain.CircumstancesReportChanges.id)
 }

@@ -11,6 +11,9 @@ import utils.{XorEncryption, SaveForLaterEncryption, LightFakeApplication, WithA
 import scala.concurrent.duration._
 
 class GResumeSpec extends Specification {
+
+  section("unit", models.domain.YourDetails.id)
+  
   // Output from C3EncryptionSpec.scala ..... to create a set of xor pairs and decrypt key
   // With key of:88a976e1-e926-4bb4-9322-15aabc6d0516 created xor pair of:0bcd1234-0000-0000-0000-abcd1234cdef and:174650142322392746796619227917559908601
   val encryptkey = "88a976e1-e926-4bb4-9322-15aabc6d0516"
@@ -90,9 +93,10 @@ class GResumeSpec extends Specification {
       val request = FakeRequest(GET, "?x=" + decodeint)
       val result = GResume.present(request)
       val bodyText: String = contentAsString(result)
-      bodyText must contain("This application has been deleted")
+
+      bodyText must contain( "This application has been deleted")
       status(result) mustEqual BAD_REQUEST
     }
   }
-  section("unit", "SaveForLater")
+  section("unit", models.domain.YourDetails.id)
 }

@@ -6,18 +6,14 @@ import org.specs2.mutable._
 import play.api.Logger
 import play.modules.mailer._
 import specs2.akka.AkkaTestkitSpecs2Support
-
 import scala.util.{Failure, Success}
 
-
 class EmailActorsSpec extends Specification with Mockito {
-
   sequential
 
+  section ("unit","slow")
   "Email Manager" should {
-
     "start an email sending actor and receive email message" in new AkkaTestkitSpecs2Support {
-
       synchronized{SimpleSenderTestable.preStartCalls = 0}
       synchronized{SimpleSenderTestable.sendEmailsReceived = 0}
 
@@ -32,7 +28,6 @@ class EmailActorsSpec extends Specification with Mockito {
     }
 
     "start an email sending actor" in new AkkaTestkitSpecs2Support() {
-
       val mailerMock = successMailerMock
 
       val emailManager = system.actorOf(Props(classOf[EmailManagerTestable],Props(classOf[EmailSenderTestable],mailerMock)))
@@ -46,11 +41,9 @@ class EmailActorsSpec extends Specification with Mockito {
       Thread.sleep(1000)
 
       there was one(mailerMock).sendEmail(email)
-
     }
 
     "successfully manage 5 email sending actors" in new AkkaTestkitSpecs2Support {
-
       val mailerMock = successMailerMock
 
       val emailManager = system.actorOf(Props(classOf[EmailManagerTestable],Props(classOf[WaitingEmailSenderTestable],mailerMock)))
@@ -84,17 +77,14 @@ class EmailActorsSpec extends Specification with Mockito {
 
       Thread.sleep(5000)
 
-
       EmailSenderTestable.synchronized{
         EmailSenderTestable.sendEmail must beLessThanOrEqualTo(1)
       }
 
       there was atMost(3)(mailerMock).sendEmail(any[Email])
-
     }
 
     "start an email sending actor and receive save for later email message" in new AkkaTestkitSpecs2Support {
-
       synchronized{SimpleSenderTestable.preStartCalls = 0}
       synchronized{SimpleSenderTestable.sendEmailsReceived = 0}
 
@@ -109,7 +99,6 @@ class EmailActorsSpec extends Specification with Mockito {
     }
 
     "start an email sending actor for save for later" in new AkkaTestkitSpecs2Support() {
-
       val mailerMock = successMailerMock
 
       val emailManager = system.actorOf(Props(classOf[EmailManagerTestable],Props(classOf[EmailSenderTestable],mailerMock)))
@@ -123,11 +112,9 @@ class EmailActorsSpec extends Specification with Mockito {
       Thread.sleep(1000)
 
       there was one(mailerMock).sendEmail(email)
-
     }
 
     "successfully manage 5 save for later emails sending actors" in new AkkaTestkitSpecs2Support {
-
       val mailerMock = successMailerMock
 
       val emailManager = system.actorOf(Props(classOf[EmailManagerTestable],Props(classOf[WaitingEmailSenderTestable],mailerMock)))
@@ -161,13 +148,11 @@ class EmailActorsSpec extends Specification with Mockito {
 
       Thread.sleep(5000)
 
-
       EmailSenderTestable.synchronized{
         EmailSenderTestable.sendEmail must beLessThanOrEqualTo(1)
       }
 
       there was atMost(3)(mailerMock).sendEmail(any[Email])
-
     }
   }
   section ("unit","slow")
@@ -185,7 +170,6 @@ class SimpleSenderTestable extends Actor {
     case email:SaveForLaterEmailWrapper => SimpleSenderTestable.sendEmailsReceived += 1
   }
 
-
   override def preStart() = {
     synchronized{ SimpleSenderTestable.preStartCalls += 1 }
   }
@@ -197,7 +181,6 @@ object SimpleSenderTestable {
 }
 
 class EmailSenderTestable(mailPlugin:Mailer) extends EmailSenderActor(5){
-
   override def mailerPluginApi: Mailer = mailPlugin
 
 
@@ -222,11 +205,9 @@ class EmailSenderTestable(mailPlugin:Mailer) extends EmailSenderActor(5){
   }
 
   override val claimTransaction = new StubClaimTransaction
-
 }
 
 class WaitingEmailSenderTestable(mailPlugin:Mailer) extends EmailSenderActor(5){
-
   override def mailerPluginApi: Mailer = mailPlugin
 
   override protected def sendEmail(mail: EmailWrapper): Unit = {
@@ -253,12 +234,9 @@ object EmailSenderTestable{
 
 class EmailManagerTestable(emailSendingCreator:Props) extends EmailManagerActor(emailSendingCreator) {
 
-
 }
-
 
 object EmailManagerTestable {
   val preStartCalls = 0
   val exceptionRaised = 0
-
 }

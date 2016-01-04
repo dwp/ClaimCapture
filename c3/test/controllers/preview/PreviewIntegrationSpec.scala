@@ -12,6 +12,7 @@ import play.api.i18n.{MMessages, MessagesApi}
 import play.api.Play.current
 
 class PreviewIntegrationSpec extends Specification {
+  section("preview")
   "Preview" should {
     "be presented" in new WithJsBrowser with PageObjects {
       val page =  PreviewPage(context)

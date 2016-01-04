@@ -1,7 +1,6 @@
 package controllers.s_about_you
 
 import org.specs2.mutable._
-import play.api.test.{TestBrowser}
 import utils.WithBrowser
 import utils.pageobjects.common.ClaimHelpPage
 import utils.pageobjects.preview.PreviewPage
@@ -13,6 +12,7 @@ import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.helpers.PreviewField._
 
 class GYourDetailsIntegrationSpec extends Specification {
+  section("integration", models.domain.AboutYou.id)
   "Your Details" should {
     "be presented" in new WithBrowser with PageObjects{
 			val page =  GYourDetailsPage(context)
@@ -58,7 +58,6 @@ class GYourDetailsIntegrationSpec extends Specification {
     }
 
     "Modify title, name, middlename and last name from preview page" in new WithBrowser with PageObjects {
-
       val id = "about_you_full_name"
 
       val answerText = PreviewTestUtils.answerText(id, _: Page)
@@ -81,7 +80,7 @@ class GYourDetailsIntegrationSpec extends Specification {
 
     }
 
-    "Modify date of birth from preview page" in new WithBrowser with PageObjects{
+    "Modify date of birth from preview page" in new WithBrowser with PageObjects {
       val previewPage = goToPreviewPage(context)
       val id = "about_you_dob"
       val answerText = PreviewTestUtils.answerText(id, _:Page)
@@ -99,8 +98,6 @@ class GYourDetailsIntegrationSpec extends Specification {
       previewPageModified must beAnInstanceOf[PreviewPage]
       answerText(previewPageModified) mustEqual "03 April, 1952"
     }
-
-
   }
   section("integration", models.domain.AboutYou.id)
 
@@ -119,5 +116,4 @@ class GYourDetailsIntegrationSpec extends Specification {
     val previewPage = PreviewPage(context)
     previewPage goToThePage()
   }
-
 }

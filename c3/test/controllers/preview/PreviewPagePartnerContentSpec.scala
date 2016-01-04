@@ -8,11 +8,10 @@ import controllers.ClaimScenarioFactory
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_your_partner.GYourPartnerPersonalDetailsPage
 
-
 class PreviewPagePartnerContentSpec extends Specification {
-
+  section("preview")
   "Preview Page" should {
-    "display partner data - when you have a partner" in new WithBrowser with PageObjects{
+    "display partner data - when you have a partner" in new WithBrowser with PageObjects {
       fillPartnerSection(context)
       val page =  PreviewPage(context)
       page goToThePage()
@@ -29,7 +28,7 @@ class PreviewPagePartnerContentSpec extends Specification {
       source must contain("Yes")
     }
 
-    "display partner data - when you have a partner and you have a different title" in new WithBrowser with PageObjects{
+    "display partner data - when you have a partner and you have a different title" in new WithBrowser with PageObjects {
       val aboutYouClaim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       aboutYouClaim.AboutYouTitle = "Lord"
       val partnerClaim = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
@@ -50,7 +49,7 @@ class PreviewPagePartnerContentSpec extends Specification {
       source must contain("Yes")
     }
 
-    "display partner data - when you have a partner and your partner has a different title" in new WithBrowser with PageObjects{
+    "display partner data - when you have a partner and your partner has a different title" in new WithBrowser with PageObjects {
       val aboutYouClaim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       val partnerClaim = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
       partnerClaim.AboutYourPartnerTitle = "Lady"
@@ -72,7 +71,7 @@ class PreviewPagePartnerContentSpec extends Specification {
       source must contain("Yes")
     }
 
-    "display no data - when no partner" in new WithBrowser with PageObjects{
+    "display no data - when no partner" in new WithBrowser with PageObjects {
       val partnerData = new TestData
       partnerData.AboutYourPartnerHadPartnerSinceClaimDate = "No"
       fillPartnerSection(context, partnerData)
@@ -89,7 +88,7 @@ class PreviewPagePartnerContentSpec extends Specification {
       source must not contain "Have you separated since your claim date?"
     }
   }
-section("preview")
+  section("preview")
 
   def fillPartnerSection(context:PageObjectsContext, partnerClaim:TestData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty(),
                           aboutYouClaim:TestData = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()) = {
@@ -109,5 +108,4 @@ section("preview")
     partnerPage submitPage()
 
   }
-
 }

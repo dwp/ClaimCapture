@@ -7,12 +7,13 @@ import utils.WithBrowser
 import utils.pageobjects._
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
-import utils.pageobjects.s_about_you.{GContactDetailsPage, GMaritalStatusPage, GNationalityAndResidencyPage, GAbroadForMoreThan52WeeksPage}
+import utils.pageobjects.s_about_you.{GContactDetailsPage, GMaritalStatusPage, GNationalityAndResidencyPage}
 import utils.helpers.PreviewField._
 
 class GMaritalStatusIntegrationSpec extends Specification {
   sequential
 
+  section("integration", models.domain.AboutYou.id)
   "Status" should {
     "be presented" in new WithBrowser with PageObjects{
 			val page =  GMaritalStatusPage(context)
@@ -56,8 +57,6 @@ class GMaritalStatusIntegrationSpec extends Specification {
       previewPageModified must beAnInstanceOf[PreviewPage]
       answerText(previewPageModified) mustEqual MaritalStatus.Married
     }
-
-
   }
   section("integration", models.domain.AboutYou.id)
 
@@ -82,5 +81,4 @@ class GMaritalStatusIntegrationSpec extends Specification {
     val previewPage = PreviewPage(context)
     previewPage goToThePage()
   }
-
 }

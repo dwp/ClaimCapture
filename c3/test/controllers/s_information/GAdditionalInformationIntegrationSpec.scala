@@ -10,6 +10,7 @@ import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_consent_and_declaration.GDeclarationPage
 
 class GAdditionalInformationIntegrationSpec extends Specification {
+  section("integration", models.domain.AdditionalInfo.id)
   "Additional information" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo(GAdditionalInfoPage.url)
@@ -31,7 +32,6 @@ class GAdditionalInformationIntegrationSpec extends Specification {
 
       previewPage must beAnInstanceOf[PreviewPage]
     }
-
 
     "present errors if mandatory fields are not populated" in new WithBrowser with PageObjects {
 			val page =  GAdditionalInfoPage(context)
@@ -73,5 +73,5 @@ class GAdditionalInformationIntegrationSpec extends Specification {
       browser.pageSource must contain( "id=\"welshCommunication_yes\"")
     }
   }
-  section("integration", models.domain.ConsentAndDeclaration.id)
+  section("integration", models.domain.AdditionalInfo.id)
 }

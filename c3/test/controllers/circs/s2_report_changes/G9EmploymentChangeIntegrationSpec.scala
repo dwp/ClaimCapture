@@ -9,6 +9,7 @@ import controllers.CircumstancesScenarioFactory
 import utils.pageobjects.circumstances.s3_consent_and_declaration.G1DeclarationPage
 
 class G9EmploymentChangeIntegrationSpec extends Specification {
+  section("integration", models.domain.CircumstancesIdentification.id)
   "Report a change in your circumstance - Employment" should {
     "be presented" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
       val page = G9EmploymentChangePage(context)

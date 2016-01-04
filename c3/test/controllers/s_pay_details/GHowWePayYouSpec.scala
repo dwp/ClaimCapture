@@ -9,6 +9,7 @@ import utils.WithApplication
 import utils.pageobjects.s_information.GAdditionalInfoPage
 
 class GHowWePayYouSpec extends Specification {
+  section("unit", models.domain.PayDetails.id)
   "How we pay you" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)

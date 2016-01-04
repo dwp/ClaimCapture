@@ -10,6 +10,7 @@ import utils.WithApplication
 class GMoreAboutTheCareSpec extends Specification {
   val moreAboutTheCareInput = Seq("spent35HoursCaring" -> "no", "beforeClaimCaring.answer" -> "no", "hasSomeonePaidYou" -> "no")
 
+  section("unit", models.domain.CareYouProvide.id)
   "More about the care" should {
     """present More about the care""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)

@@ -7,9 +7,9 @@ import play.api.test.Helpers._
 import services.{ClaimTransactionComponent, DBTests, WithApplicationAndDB}
 import models.domain.{Claiming, Claim}
 import models.view.CachedClaim
-import play.api.cache.CacheApi
 
 class StatusRoutingControllerSpec extends Specification {
+  section("unit")
   "Status routing controller" should {
     val transId = "1234567"
 

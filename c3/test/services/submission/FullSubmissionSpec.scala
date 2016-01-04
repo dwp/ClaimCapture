@@ -1,19 +1,18 @@
 package services.submission
 
 import org.specs2.mutable._
-import play.api.{Application, GlobalSettings}
-import play.api.test.FakeApplication
 import utils.{LightFakeApplication, WithBrowser}
 import utils.pageobjects.TestData
 import utils.pageobjects.s_eligibility.GBenefitsPageContext
 import utils.pageobjects.circumstances.s1_start_of_process.G2ReportAChangeInYourCircumstancesPageContext
 import scala.language.existentials
 
-
 class FullSubmissionSpec extends Specification {
   sequential
 
   var txnId: String = ""
+
+  section("functional")
   "The application" should {
     "Successfully run claim submission " in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("submit.prints.xml" -> "false"))) with GBenefitsPageContext {
       txnId = "GOOD_SUBMIT"

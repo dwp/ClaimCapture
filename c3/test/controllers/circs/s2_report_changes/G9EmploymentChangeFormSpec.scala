@@ -18,6 +18,7 @@ class G9EmploymentChangeFormSpec extends Specification {
   val employed = "employed"
   val selfEmployedTypeOfWork = "IT Consultant"
 
+  section("unit", models.domain.CircumstancesSelfEmployment.id)
   "Report a change in your circumstances - Employment Form" should {
     "map not caring and not started yet self-employment data into case class" in new WithApplication {
       G9EmploymentChange.form.bind(

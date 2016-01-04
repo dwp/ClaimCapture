@@ -20,6 +20,7 @@ class G12EmploymentNotStartedFormSpec extends Specification {
   val willYouPayForThingsText = "Some things needed to do the job"
   val moreInfo = "more information"
 
+  section("unit", models.domain.CircumstancesSelfEmployment.id)
   "Report an Employment change in your circumstances where employment has not started - Employment Form" should {
     "map weekly paid with no pension/expenses paid when been paid set to 'yes'" in new WithApplication {
       G12EmploymentNotStarted.form.bind(
@@ -77,7 +78,6 @@ class G12EmploymentNotStartedFormSpec extends Specification {
         }
       )
     }
-
   }
   section("unit", models.domain.CircumstancesSelfEmployment.id)
 }

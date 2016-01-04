@@ -4,9 +4,8 @@ import org.specs2.mutable._
 import play.api.test.FakeRequest
 import utils.WithApplication
 
-
 class RequestSelectorSpec extends Specification {
-
+  section("unit")
   "Request Selector" should {
     "not mark an error page as to be checked" in new WithApplication {
       val request = FakeRequest(method="GET",path="/error")
@@ -38,4 +37,5 @@ class RequestSelectorSpec extends Specification {
       RequestSelector.endPage(request4) must beTrue
     }
   }
+  section("unit")
 }

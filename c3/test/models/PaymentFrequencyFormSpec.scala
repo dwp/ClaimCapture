@@ -6,9 +6,8 @@ import controllers.mappings.Mappings._
 import app.StatutoryPaymentFrequency._
 
 class PaymentFrequencyFormSpec extends Specification {
-
+  section("unit")
   "Payment Frequency Validation" should {
-
     "accept valid input (with other filled in)" in {
       Form("howOften" -> paymentFrequency.verifying(validPaymentFrequencyOnly)).bind(Map("howOften.frequency" -> Weekly)).fold(
         formWithErrors => "The mapping should not fail." must equalTo("Error"),
@@ -31,4 +30,5 @@ class PaymentFrequencyFormSpec extends Specification {
       )
     }
   }
+  section("unit")
 }

@@ -5,7 +5,9 @@ import org.specs2.mutable._
 import utils.WithApplication
 
 class GPensionAndExpensesFormSpec extends Specification {
-  "About Self-Employment - Pension and Expenses Form" should {
+
+  section("unit", models.domain.SelfEmployment.id)
+  "About Self Employment - Pension and Expenses Form" should {
 
     val yes = "yes"
     val no = "no"

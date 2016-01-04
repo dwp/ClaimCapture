@@ -4,11 +4,7 @@ import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import models.domain._
-import models.view.CachedClaim
-import play.api.cache.Cache
-import models.domain.Claim
 import utils.WithApplication
-import scala.Some
 
 class GAbroadForMoreThan52WeeksSpec extends Specification {
 
@@ -16,6 +12,7 @@ class GAbroadForMoreThan52WeeksSpec extends Specification {
   val eeaPage = "/about-you/other-eea-state-or-switzerland"
   val timeAbroadPage = "/about-you/abroad-for-more-than-52-weeks"
 
+  section("unit", models.domain.AboutYou.id)
   "Abroad more than 52 weeks" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest()
@@ -31,7 +28,7 @@ class GAbroadForMoreThan52WeeksSpec extends Specification {
       status(result) mustEqual BAD_REQUEST
     }
 
-    """enforce answer when "Time outside of England, Scotland or Wales" is "yes" """ in new WithApplication with Claiming{
+    """enforce answer when "Time outside of England, Scotland or Wales" is "yes" """ in new WithApplication with Claiming {
       val request = FakeRequest().withFormUrlEncodedBody("anyTrips" -> "yes")
 
       val result = GAbroadForMoreThan52Weeks.submit(request)
@@ -51,7 +48,6 @@ class GAbroadForMoreThan52WeeksSpec extends Specification {
       val result = GAbroadForMoreThan52Weeks.submit(request)
       redirectLocation(result) must beSome(eeaPage)
     }
-
   }
   section("unit", models.domain.AboutYou.id)
 }

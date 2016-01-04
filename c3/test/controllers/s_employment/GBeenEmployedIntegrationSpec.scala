@@ -13,6 +13,7 @@ import utils.pageobjects.s_claim_date.{GClaimDatePage, GClaimDatePageContext}
 import utils.pageobjects.s_other_money.GAboutOtherMoneyPage
 
 class GBeenEmployedIntegrationSpec extends Specification {
+  section("integration", models.domain.Employed.id)
   "Been Employed" should {
     "present, having indicated that the carer has been employed" in new WithBrowser with PageObjects {
       val claimDate = new GClaimDatePage(context) goToThePage()
@@ -39,7 +40,8 @@ class GBeenEmployedIntegrationSpec extends Specification {
       otherMoney must beAnInstanceOf[GAboutOtherMoneyPage]
     }
 
-    """progress to next section i.e. "self-employed".""" in new WithBrowser with PageObjects{
+
+    """progress to next section i.e. "self employed".""" in new WithBrowser with PageObjects {
       val claimDate = new GClaimDatePage(context) goToThePage()
       claimDate.fillPageWith(s7SelfEmployedAndEmployed())
       claimDate.submitPage()

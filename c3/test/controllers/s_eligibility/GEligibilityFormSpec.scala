@@ -5,6 +5,7 @@ import controllers.mappings.Mappings
 import org.specs2.mutable._
 
 class GEligibilityFormSpec extends Specification {
+  section("unit", models.domain.CarersAllowance.id)
   "Carer's Allowance - Elegibility - Form" should {
     val answerHours = "yes"
     val answerOver16 = "no"

@@ -8,11 +8,10 @@ import models.DayMonthYear
 import controllers.mappings.Mappings
 import models.yesNo.{YesNoDontKnowWithDates, YesNoWithDateTimeAndText, RadioWithText}
 
-
 class G7BreaksInCareFormSpec extends Specification {
 
+  section("unit", models.domain.CircumstancesAddressChange.id)
   "Report a change in your circumstances - Breaks from caring Form" should {
-
     val recentBreakFromCaringDateDay = "10"
     val recentBreakFromCaringDateMonth = "11"
     val recentBreakFromCaringDateYear = "2012"

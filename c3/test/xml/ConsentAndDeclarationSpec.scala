@@ -9,6 +9,7 @@ import xml.circumstances.Declaration
 class ConsentAndDeclarationSpec extends Specification {
   val otherInfo = "report changes of your circumstances"
 
+  section("unit")
   "Consent and Declaration" should {
     val infoAgreement: String = "I agree"
     val confirmation: String = "Yes"

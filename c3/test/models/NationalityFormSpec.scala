@@ -6,6 +6,7 @@ import play.api.data.Forms._
 import controllers.mappings.Mappings._
 
 class NationalityFormSpec extends Specification {
+  section("unit")
   "Nationality" should {
     "accept valid input " in {
       val n = "British"
@@ -43,6 +44,7 @@ class NationalityFormSpec extends Specification {
       )
     }
   }
+  section("unit")
 
   private def createNationalityForm(nationality: String)
     = Form("nationality" -> optional(play.api.data.Forms.text verifying validNationality)).bind(Map("nationality" -> nationality))

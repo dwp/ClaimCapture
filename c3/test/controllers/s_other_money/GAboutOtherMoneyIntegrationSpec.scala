@@ -7,8 +7,8 @@ import utils.pageobjects.s_other_money._
 import utils.pageobjects._
 import utils.pageobjects.s_pay_details.GHowWePayYouPage
 
-
 class GAboutOtherMoneyIntegrationSpec extends Specification {
+  section ("integration", models.domain.OtherMoney.id)
   "Other Money" should {
     "be presented" in new WithBrowser with PageObjects {
       val page = GAboutOtherMoneyPage(context)
@@ -26,13 +26,13 @@ class GAboutOtherMoneyIntegrationSpec extends Specification {
       page submitPage() must beAnInstanceOf[GHowWePayYouPage]
     }
 
-    "present errors if mandatory fields are not populated" in new WithBrowser with PageObjects{
+    "present errors if mandatory fields are not populated" in new WithBrowser with PageObjects {
 			val page =  GAboutOtherMoneyPage(context)
       page goToThePage ()
       page.submitPage().listErrors.size mustEqual 3
     }
 
-    "accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects{
+    "accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects {
 			val page =  GAboutOtherMoneyPage(context)
       val claim = ClaimScenarioFactory.s9otherMoneyOther
       page goToThePage ()
@@ -99,5 +99,4 @@ class GAboutOtherMoneyIntegrationSpec extends Specification {
 
   }
   section ("integration", models.domain.OtherMoney.id)
-
 }

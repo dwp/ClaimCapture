@@ -9,9 +9,11 @@ import utils.pageobjects.{Page, PageObjectsContext, PageObjects}
 import utils.pageobjects.s_about_you.{GNationalityAndResidencyPage, GContactDetailsPage}
 import utils.{WithJsBrowser, LightFakeApplication, WithBrowser}
 
+
 class GNationalityAndResidencySaveSpec extends Specification {
+  section("integration", models.domain.AboutYou.id)
   "Your nationality and residency" should {
-    "contain Save button if saveForLaterSaveEnabled switched on and email set" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "true"))) with PageObjects{
+    "contain Save button if saveForLaterSaveEnabled switched on and email set" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "true"))) with PageObjects {
       val page=GContactDetailsPage(context)
       page goToThePage()
       page fillPageWith WithEmailSet()
@@ -19,7 +21,7 @@ class GNationalityAndResidencySaveSpec extends Specification {
       nationalityPage.source must contain("Save for later")
     }
 
-    "not contain Save button if saveForLaterSaveEnabled=false" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "false"))) with PageObjects{
+    "not contain Save button if saveForLaterSaveEnabled=false" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "false"))) with PageObjects {
       val page=GContactDetailsPage(context)
       page goToThePage()
       page fillPageWith WithEmailSet()
@@ -27,7 +29,7 @@ class GNationalityAndResidencySaveSpec extends Specification {
       nationalityPage.source must not contain("Save for later")
     }
 
-    "not contain Save button if email is not set" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "false"))) with PageObjects{
+    "not contain Save button if email is not set" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "false"))) with PageObjects {
       val page=GContactDetailsPage(context)
       page goToThePage()
       page fillPageWith WithNoEmailSet()
@@ -88,5 +90,6 @@ class GNationalityAndResidencySaveSpec extends Specification {
     page goToThePage()
     page fillPageWith claim
     page submitPage()
+
   }
 }

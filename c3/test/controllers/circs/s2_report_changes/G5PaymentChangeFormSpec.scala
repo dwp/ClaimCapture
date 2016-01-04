@@ -6,8 +6,8 @@ import org.specs2.mutable._
 import models.SortCode
 
 class G5PaymentChangeFormSpec extends Specification {
-   "Report a change in your circumstances - Payment Change" should {
-
+  section("unit", models.domain.CircumstancesSelfEmployment.id)
+  "Report a change in your circumstances - Payment Change" should {
      val yes = "yes"
      val no = "no"
      val nameOfCurrentBank = "Nat West"
@@ -125,7 +125,6 @@ class G5PaymentChangeFormSpec extends Specification {
            f => "This mapping should not happen." must equalTo("Valid")
          )
      }
-
    }
-  section("unit", models.domain.CircumstancesSelfEmployment.id)
+   section("unit", models.domain.CircumstancesSelfEmployment.id)
  }

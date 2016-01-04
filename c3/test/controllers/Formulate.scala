@@ -2,7 +2,6 @@ package controllers
 
 import play.api.test.TestBrowser
 import java.util.concurrent.TimeUnit
-import app.AccountStatus
 import app.PaymentFrequency
 
 object Formulate {
@@ -19,8 +18,6 @@ object Formulate {
     browser.fill("#dateOfBirth_day") `with` "1"
     browser.fill("#dateOfBirth_month") `with` "1"
     browser.fill("#dateOfBirth_year") `with` "1950"
-    //browser.fill("#nationality") `with` "English"
-    //browser.click("#alwaysLivedUK_yes")
     browser.submit("button[type='submit']")
   }
 
@@ -37,8 +34,6 @@ object Formulate {
     browser.fill("#dateOfBirth_day") `with` "3"
     browser.fill("#dateOfBirth_month") `with` "4"
     browser.fill("#dateOfBirth_year") `with` "1950"
-    //browser.fill("#nationality") `with` "English"
-    //browser.click("#alwaysLivedUK_no")
     browser.submit("button[type='submit']")
   }
 
@@ -229,9 +224,6 @@ object Formulate {
     browser.fill("#beforeClaimCaring_date_day") `with` "3"
     browser.fill("#beforeClaimCaring_date_month") `with` "4"
     browser.fill("#beforeClaimCaring_date_year") `with` "1950"
-
-//    browser.click("#hasSomeonePaidYou_yes")
-
     browser.submit("button[type='submit']")
   }
 
@@ -394,5 +386,4 @@ object Formulate {
   def clickBackButton (browser:TestBrowser) = {
     browser.click("#backButton")
   }
-
 }

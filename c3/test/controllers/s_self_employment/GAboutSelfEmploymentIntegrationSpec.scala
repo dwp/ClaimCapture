@@ -4,14 +4,15 @@ import org.specs2.mutable._
 import utils.{WithApplication, WithBrowser}
 import utils.pageobjects.s_self_employment.{GAboutSelfEmploymentPage, GSelfEmploymentYourAccountsPage}
 import utils.pageobjects.{PageObjects,TestData}
-import controllers.{Formulate, ClaimScenarioFactory}
+import controllers.ClaimScenarioFactory
 import utils.pageobjects.s_other_money.GAboutOtherMoneyPage
 import utils.pageobjects.s_employment.GEmploymentPage
 import utils.pageobjects.s_claim_date.GClaimDatePageContext
 
 class GAboutSelfEmploymentIntegrationSpec extends Specification {
 
-  "About Self-Employment" should {
+  section("integration", models.domain.SelfEmployment.id)
+  "About Self Employment" should {
     "be presented" in new WithBrowser with PageObjects{
 			val page =  GAboutSelfEmploymentPage(context)
       page goToThePage ()
@@ -29,8 +30,8 @@ class GAboutSelfEmploymentIntegrationSpec extends Specification {
     }
 
     "contain errors on invalid submission" in new WithApplication {
-      "missing mandatory fields" in new WithBrowser with PageObjects{
-			val page =  GAboutSelfEmploymentPage(context)
+      "missing mandatory fields" in new WithBrowser with PageObjects {
+			  val page =  GAboutSelfEmploymentPage(context)
         val claim = new TestData
         page goToThePage()
         val pageWithErrors = page.submitPage()
@@ -40,8 +41,8 @@ class GAboutSelfEmploymentIntegrationSpec extends Specification {
         pageWithErrors.listErrors(2) must contain("You must complete this section")
       }
 
-      "self-employed now but missing date" in new WithBrowser with PageObjects{
-			val page =  GAboutSelfEmploymentPage(context)
+      "self employed now but missing date" in new WithBrowser with PageObjects {
+		val page =  GAboutSelfEmploymentPage(context)
         val claim = new TestData
         claim.SelfEmployedAreYouSelfEmployedNow = "no"
         claim.SelfEmployedWhenDidYouStartThisJob = "11/09/2001"
@@ -52,8 +53,9 @@ class GAboutSelfEmploymentIntegrationSpec extends Specification {
         pageWithErrors.listErrors(0) must contain("You must complete this section")
       }
 
-      "self-employed now but invalid date" in new WithBrowser with PageObjects{
-			val page =  GAboutSelfEmploymentPage(context)
+
+      "self employed now but invalid date" in new WithBrowser with PageObjects {
+		val page =  GAboutSelfEmploymentPage(context)
         val claim = new TestData
         claim.SelfEmployedAreYouSelfEmployedNow = "yes"
         claim.SelfEmployedWhenDidYouStartThisJob = "01/01/0000"
@@ -66,7 +68,7 @@ class GAboutSelfEmploymentIntegrationSpec extends Specification {
       }
     }
 
-    "accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects{
+    "accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects {
 			val page =  GAboutSelfEmploymentPage(context)
       val claim = ClaimScenarioFactory.s9SelfEmployment
       page goToThePage()
@@ -74,7 +76,7 @@ class GAboutSelfEmploymentIntegrationSpec extends Specification {
       page submitPage()
     }
 
-    "navigate to next page on valid submission" in new WithBrowser with PageObjects{
+    "navigate to next page on valid submission" in new WithBrowser with PageObjects {
 			val page =  GAboutSelfEmploymentPage(context)
       val claim = ClaimScenarioFactory.s9SelfEmployment
       page goToThePage()

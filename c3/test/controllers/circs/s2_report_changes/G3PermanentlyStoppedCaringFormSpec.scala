@@ -12,6 +12,7 @@ class G3PermanentlyStoppedCaringFormSpec extends Specification {
   val stoppedCaringDateMonth = 12
   val stoppedCaringDateYear = 2013
 
+  section("unit", models.domain.CircumstancesStoppedCaring.id)
   "Report a change in your circumstances - Permanently stopped caring Form" should {
     "map data into case class" in new WithApplication {
       G3PermanentlyStoppedCaring.form.bind(

@@ -10,6 +10,7 @@ class G1DeclarationFormSpec extends Specification {
   val someOneElse = "yes"
   val nameOrOrganisation = "Tesco"
 
+  section("unit", models.domain.CircumstancesConsentAndDeclaration.id)
   "Change of circumstances - Declaration Form" should {
     "map data into case class" in new WithApplication {
       val G1Declaration = new G1Declaration
@@ -51,5 +52,4 @@ class G1DeclarationFormSpec extends Specification {
     }
   }
   section("unit", models.domain.CircumstancesConsentAndDeclaration.id)
-
 }

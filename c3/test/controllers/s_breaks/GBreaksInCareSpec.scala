@@ -3,12 +3,12 @@ package controllers.s_breaks
 import models.domain.{BreaksInCareSummary, BreaksInCare, Claim, Claiming}
 import models.view.CachedClaim
 import org.specs2.mutable._
-import play.api.cache.Cache
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.{LightFakeApplication, WithApplication}
+import utils.WithApplication
 
 class GBreaksInCareSpec extends Specification {
+  section("unit", models.domain.CareYouProvide.id)
   "Breaks from care" should {
     """present "Have you had any breaks in caring for this person".""" in new WithApplication with Claiming {
       val request = FakeRequest()

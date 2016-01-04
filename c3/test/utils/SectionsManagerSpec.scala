@@ -5,18 +5,14 @@ import org.specs2.mutable._
 import models.domain._
 import models.domain.Claim
 
-
 class SectionsManagerSpec extends Specification {
-
+  section("unit")
   "Sections Manager" should {
-
     "Retrieve the correct number of sections" in {
-
       SectionsManager.claimSectionsNum(Claim(CachedClaim.key)) mustEqual 11
     }
 
     "Retrieve the correct section position for some Sections" in {
-
       implicit val claim = Claim(CachedClaim.key)
       SectionsManager.currentSection(AboutYou) mustEqual 2
       SectionsManager.currentSection(Employed) mustEqual 8
@@ -35,7 +31,6 @@ class SectionsManagerSpec extends Specification {
       SectionsManager.currentSection(Employed) mustEqual 7
       SectionsManager.currentSection(PayDetails) mustEqual 9
     }
-
   }
-
+  section("unit")
 }

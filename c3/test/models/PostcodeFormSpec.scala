@@ -6,7 +6,7 @@ import play.api.data.Forms._
 import controllers.mappings.Mappings._
 
 class PostcodeFormSpec extends Specification {
-
+  section("unit")
   "Postcode" should {
 
     "accept valid input with space" in {
@@ -69,6 +69,7 @@ class PostcodeFormSpec extends Specification {
         postcode => "This mapping should not happen." must equalTo("Valid"))
     }
   }
+  section("unit")
 
   private def createPostcodeForm(postcode: String)
     = Form("postcode" -> optional(play.api.data.Forms.text verifying validPostcode)).bind(Map("postcode" -> postcode))

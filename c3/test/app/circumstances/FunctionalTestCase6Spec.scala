@@ -9,9 +9,9 @@ import utils.{LightFakeApplication, WithJsBrowser}
 class FunctionalTestCase6Spec extends FunctionalTestCommon {
   isolated
 
+  section("functional")
   "The application Circumstances" should {
     "Successfully run absolute Circumstances Test Case 6" in new WithJsBrowser(app = LightFakeApplication.faCEAFalse) with PageObjects {
-
       val page = G1ReportChangesPage(context)
       val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase6.csv")
       page goToThePage()
@@ -26,7 +26,6 @@ class FunctionalTestCase6Spec extends FunctionalTestCommon {
         case p: Page => println(p.source)
       }
     }
-
   }
   section("functional")
 }

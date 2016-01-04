@@ -8,12 +8,10 @@ import utils.pageobjects.s_claim_date.GClaimDatePage
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s_other_money.GAboutOtherMoneyPage
 
-
 class PreviewPageOtherMoneyContentSpec extends Specification {
-
+  section("preview")
   "Preview Page" should {
-    "display other money data" in new WithBrowser with PageObjects{
-
+    "display other money data" in new WithBrowser with PageObjects {
       fillOtherMoneySection(context)
       val page =  PreviewPage(context)
       page goToThePage()
@@ -28,7 +26,7 @@ class PreviewPageOtherMoneyContentSpec extends Specification {
       source must contain("Yes - Details provided".toLowerCase)
     }
   }
-section("preview")
+  section("preview")
 
   def fillOtherMoneySection (context:PageObjectsContext) = {
     val claimDatePage = GClaimDatePage(context)
@@ -42,5 +40,4 @@ section("preview")
     otherMoneyPage fillPageWith ClaimScenarioFactory.s9otherMoney
     otherMoneyPage submitPage()
   }
-
 }

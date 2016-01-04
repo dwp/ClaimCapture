@@ -16,11 +16,11 @@ class BreakFormSpec extends Specification {
     "wherePerson.location" -> "Holiday",
     "medicalDuringBreak" -> "no")
 
+  section("unit", models.domain.CareYouProvide.id)
   "Break Form" should {
     "contain start date" in new WithApplication {
       GBreak.form.bind(data)("start")("date").value should beSome("01/01/2001")
     }
-
   }
   section("unit", models.domain.CareYouProvide.id)
 }

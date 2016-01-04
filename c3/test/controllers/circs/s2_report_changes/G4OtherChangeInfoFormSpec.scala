@@ -8,6 +8,7 @@ class G4OtherChangeInfoFormSpec extends Specification {
 
   val otherInfo = "This is my other info"
 
+  section("unit", models.domain.CircumstancesReportChanges.id)
   "Change of circumstances - Other Change Info Form" should {
     "map data into case class" in new WithApplication {
       G4OtherChangeInfo.form.bind(
@@ -19,6 +20,7 @@ class G4OtherChangeInfoFormSpec extends Specification {
         }
       )
     }
+
     "fail if no data into case class" in new WithApplication {
       G4OtherChangeInfo.form.bind(
         Map("changeInCircs" -> "")
@@ -40,9 +42,6 @@ class G4OtherChangeInfoFormSpec extends Specification {
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
-
-
   }
   section("unit", models.domain.CircumstancesReportChanges.id)
-
 }

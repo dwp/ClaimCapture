@@ -9,9 +9,8 @@ import utils.pageobjects.PageObjects
 import utils.pageobjects.circumstances.s3_consent_and_declaration.G1DeclarationPage
 
 class G5PaymentChangeIntegrationSpec extends Specification {
-
-   "Report a change in your circumstances" should {
-
+  section("integration", models.domain.CircumstancesIdentification.id)
+  "Report a change in your circumstances" should {
      "be presented" in new WithBrowser with PageObjects{
        val page =  G5PaymentChangePage(context)
        page goToThePage()
@@ -53,8 +52,6 @@ class G5PaymentChangeIntegrationSpec extends Specification {
        val nextPage = page submitPage ()
        nextPage must beAnInstanceOf[G1DeclarationPage]
      }
-
    }
-  section("integration", models.domain.CircumstancesIdentification.id)
-
+   section("integration", models.domain.CircumstancesIdentification.id)
  }

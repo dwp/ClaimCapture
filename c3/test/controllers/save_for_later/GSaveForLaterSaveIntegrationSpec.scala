@@ -10,12 +10,14 @@ import play.api.test.Helpers._
 import utils.{LightFakeApplication, WithApplication, WithJsBrowser}
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.{Page, PageObjectsContext}
-import utils.pageobjects.s_about_you.{GNationalityAndResidencyPage, GContactDetailsPage}
+import utils.pageobjects.s_about_you.{GContactDetailsPage, GNationalityAndResidencyPage}
 import utils.pageobjects.save_for_later.GSaveForLaterSavePage
 import org.specs2.mutable._
 import utils.pageobjects.PageObjects
 
 class GSaveForLaterSaveIntegrationSpec extends Specification {
+  section("integration", models.domain.AboutYou.id)
+
   // Output from C3EncryptionSpec.scala ..... to create a set of xor pairs and decrypt key
   // With key of:88a976e1-e926-4bb4-9322-15aabc6d0516 created xor pair of:0bcd1234-0000-0000-0000-abcd1234cdef and:174650142322392746796619227917559908601
   val encryptkey = "88a976e1-e926-4bb4-9322-15aabc6d0516"
@@ -93,7 +95,9 @@ class GSaveForLaterSaveIntegrationSpec extends Specification {
       bodyText must contain( "Enter your details to resume your application")
     }
   }
-  section("integration", "SaveForLater")
+  
+  section("integration", models.domain.AboutYou.id)
+
 
   def loadClaimData(context:PageObjectsContext):Page = {
     val claimDatePage = GClaimDatePage(context)

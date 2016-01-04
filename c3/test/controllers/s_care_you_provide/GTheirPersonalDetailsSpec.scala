@@ -2,12 +2,9 @@ package controllers.s_care_you_provide
 
 import org.specs2.mutable._
 import play.api.test.FakeRequest
-import play.api.cache.Cache
 import models.domain._
 import models.{DayMonthYear, domain}
 import play.api.test.Helpers._
-import models.domain.Claim
-import models.view.CachedClaim
 import utils.WithApplication
 import utils.pageobjects.s_care_you_provide.GMoreAboutTheCarePage
 
@@ -16,8 +13,8 @@ class GTheirPersonalDetailsSpec extends Specification {
   val theirPersonalDetailsInput = Seq("relationship" -> "father", "title" -> "Mr", "firstName" -> "John", "surname" -> "Doo",
     "dateOfBirth.day" -> "5", "dateOfBirth.month" -> "12", "dateOfBirth.year" -> "1990", "armedForcesPayment" -> "yes")
 
+  section("unit", models.domain.CareYouProvide.id)
   "Their Personal Details - Controller" should {
-
     "present 'Their Personal Details'." in new WithApplication with Claiming {
       val request = FakeRequest()
 

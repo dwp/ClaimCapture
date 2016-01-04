@@ -4,6 +4,7 @@ import utils.WithBrowser
 import org.specs2.mutable._
 
 class LanguageIntegrationSpec extends Specification {
+  section("unit")
   "Language - Change Language" should {
     "claim will be presented in English by default" in new WithBrowser {
       browser.goTo("/allowance/benefits")
@@ -41,5 +42,5 @@ class LanguageIntegrationSpec extends Specification {
       browser.pageSource() must contain("details")
     }
   }
-section("unit")
+  section("unit")
 }

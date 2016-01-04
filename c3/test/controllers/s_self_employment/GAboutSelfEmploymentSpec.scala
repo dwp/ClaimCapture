@@ -9,7 +9,8 @@ import utils.WithApplication
 
 class GAboutSelfEmploymentSpec extends Specification {
 
-  "Self-Employment - About Self-Employment - Controller" should {
+  section("unit", models.domain.SelfEmployment.id)
+  "Self Employment - About Self Employment - Controller" should {
     val areYouSelfEmployedNow = "no"
     val startDay = 11
     val startMonth = 11

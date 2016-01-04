@@ -7,7 +7,7 @@ import org.specs2.mutable._
 import utils.WithApplication
 
 class SubmissionCacheServiceSpec extends Specification {
-
+  section("unit")
   "CacheService" should {
     "store a value in the cache" in new WithApplication {
       val submissionCacheService = new SubmissionCacheService(){}
@@ -28,20 +28,21 @@ class SubmissionCacheServiceSpec extends Specification {
       submissionCacheService.getFromCache(getClaim("test","aksdhfkj143x3")) must beEmpty
     }
   }
+  section("unit")
 
   def getClaim(surname: String, newuuid:String): Claim = {
-      var claim = new Claim(CachedClaim.key, transactionId = Some("1234567"), uuid=newuuid)
+    var claim = new Claim(CachedClaim.key, transactionId = Some("1234567"), uuid=newuuid)
 
-      // need to set the qs groups used to create the fingerprint of the claim, otherwise a dup cache error will be thrown
-      val det = new YourDetails("Mr","",None, surname,NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(None, None, None))
-      val contact = new ContactDetails(new MultiLineAddress(), None, None, None)
-      val claimDate = new ClaimDate(DayMonthYear(Some(1), Some(1), Some(2014)))
+    // need to set the qs groups used to create the fingerprint of the claim, otherwise a dup cache error will be thrown
+    val det = new YourDetails("", "", None, surname, NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(None, None, None))
+    val contact = new ContactDetails(new MultiLineAddress(), None, None, None)
+    val claimDate = new ClaimDate(DayMonthYear(Some(1), Some(1), Some(2014)))
 
-      claim = claim + det
-      claim = claim + contact
-      claim = claim + claimDate
+    claim = claim + det
+    claim = claim + contact
+    claim = claim + claimDate
 
-      claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.uuid,claim.transactionId)(claim.navigation)
-      claim
-    }
+    claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.uuid,claim.transactionId)(claim.navigation)
+    claim
+  }
 }

@@ -7,6 +7,7 @@ import utils.pageobjects.PageObjects
 import utils.pageobjects.s_eligibility.GBenefitsPage
 
 class HistogramsSpec extends Specification {
+  section("unit")
   "Histogram metrics" should {
     "must measure play-cache-size" in new WithBrowser with PageObjects {
       val page = GBenefitsPage(context)

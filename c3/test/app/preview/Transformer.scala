@@ -3,7 +3,6 @@ package app.preview
 import utils.pageobjects.TestData
 import org.joda.time.format.DateTimeFormat
 
-
 trait Transformer{
   val id:String
   def transform():String

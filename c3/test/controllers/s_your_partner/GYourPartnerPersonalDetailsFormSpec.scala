@@ -20,6 +20,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
   val nationality = "British"
   val separatedFromPartner = "yes"
 
+  section ("unit", models.domain.YourPartner.id)
   "Your Partner Personal Details Form" should {
     "map data into case class when partner answer is yes" in new WithApplication {
       GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(

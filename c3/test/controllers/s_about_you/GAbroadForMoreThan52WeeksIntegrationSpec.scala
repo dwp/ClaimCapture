@@ -1,22 +1,22 @@
 package controllers.s_about_you
 
 import org.specs2.mutable._
-import utils.{WebDriverHelper, WithBrowser}
 import controllers.{PreviewTestUtils, ClaimScenarioFactory}
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_about_you._
-import utils.pageobjects.{TestData, ClaimPageFactory, PageObjects}
+import utils.pageobjects.PageObjects
 import utils.WithJsBrowser
 import utils.helpers.PreviewField._
 
 class GAbroadForMoreThan52WeeksIntegrationSpec extends Specification {
+  section("integration", models.domain.AboutYou.id)
   "Abroad for more that 52 weeks" should {
     "present" in new WithJsBrowser  with PageObjects{
 			val page =  GAbroadForMoreThan52WeeksPage(context)
       page goToThePage()
     }
 
-    "provide for trip entry" in new WithJsBrowser  with PageObjects{
+    "provide for trip entry" in new WithJsBrowser with PageObjects {
 			val page =  GAbroadForMoreThan52WeeksPage(context)
       val claim = ClaimScenarioFactory abroadForMoreThan52WeeksConfirmationYes()
       page goToThePage()
@@ -26,7 +26,7 @@ class GAbroadForMoreThan52WeeksIntegrationSpec extends Specification {
       nextPage must beAnInstanceOf[GOtherEEAStateOrSwitzerlandPage]
     }
 
-    """go back to "Nationality and Residency".""" in new WithJsBrowser  with PageObjects{
+    """go back to "Nationality and Residency".""" in new WithJsBrowser with PageObjects {
 			val page =  GNationalityAndResidencyPage(context)
       val claim = ClaimScenarioFactory yourNationalityAndResidencyResident()
       page goToThePage()
@@ -39,7 +39,7 @@ class GAbroadForMoreThan52WeeksIntegrationSpec extends Specification {
       backPage must beAnInstanceOf[GNationalityAndResidencyPage]
     }
 
-    """remember "no more 52 weeks trips" upon stating "52 weeks trips" and returning""" in new WithJsBrowser  with PageObjects{
+    """remember "no more 52 weeks trips" upon stating "52 weeks trips" and returning""" in new WithJsBrowser with PageObjects {
 			val page =  GAbroadForMoreThan52WeeksPage(context)
       val claim = ClaimScenarioFactory abroadForMoreThan52WeeksConfirmationNo()
       page goToThePage()
@@ -55,7 +55,7 @@ class GAbroadForMoreThan52WeeksIntegrationSpec extends Specification {
       backPage.ctx.browser.findFirst("#anyTrips_no").isSelected should beTrue
     }
 
-    "Trip details must not be visible when time abroad page is displayed" in new WithJsBrowser  with PageObjects{
+    "Trip details must not be visible when time abroad page is displayed" in new WithJsBrowser with PageObjects {
       val page =  GAbroadForMoreThan52WeeksPage(context)
       page goToThePage()
       page.ctx.browser.findFirst("#anyTrips_yes").isSelected should beFalse
@@ -63,7 +63,7 @@ class GAbroadForMoreThan52WeeksIntegrationSpec extends Specification {
       page.ctx.browser.findFirst("#tripDetails").isDisplayed should beFalse
     }
 
-    "Trip details must be visible when returning back to the time abroad page" in new WithJsBrowser  with PageObjects{
+    "Trip details must be visible when returning back to the time abroad page" in new WithJsBrowser with PageObjects {
       val page =  GAbroadForMoreThan52WeeksPage(context)
       val claim = ClaimScenarioFactory abroadForMoreThan52WeeksConfirmationYes()
       page goToThePage()
@@ -80,8 +80,7 @@ class GAbroadForMoreThan52WeeksIntegrationSpec extends Specification {
       backPage.ctx.browser.findFirst("#tripDetails").isDisplayed should beTrue
     }
 
-    "Modify time outside from preview page" in new WithJsBrowser  with PageObjects{
-
+    "Modify time outside from preview page" in new WithJsBrowser with PageObjects {
       val page =  GAbroadForMoreThan52WeeksPage(context)
       val claim = ClaimScenarioFactory.abroadForMoreThan52WeeksConfirmationNo()
       page goToThePage()
@@ -102,10 +101,7 @@ class GAbroadForMoreThan52WeeksIntegrationSpec extends Specification {
       val previewModifiedPage = abroadForMoreThan52WeeksPage submitPage()
 
       PreviewTestUtils.answerText(id, previewModifiedPage) mustEqual "Yes - Details provided"
-
     }
-
-
   }
   section("integration", models.domain.AboutYou.id)
 }

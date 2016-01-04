@@ -12,6 +12,7 @@ class CookiesPageSpec extends Specification {
 
   implicit val timeout = Timeout(10, TimeUnit.SECONDS)
 
+  section("unit")
   "Cookies page" should {
     "Present" in new WithApplication {
       val request = FakeRequest()
@@ -19,6 +20,5 @@ class CookiesPageSpec extends Specification {
       status(result) mustEqual OK
     }
   }
-section("unit")
-
+  section("unit")
 }

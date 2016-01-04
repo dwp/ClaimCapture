@@ -20,6 +20,7 @@ class G3PermanentlyStoppedCaringSpec extends Specification {
     "stoppedCaringDate.year" -> stoppedCaringDateYear.toString
   )
 
+  section("unit", models.domain.CircumstancesStoppedCaring.id)
   "Circumstances - PermanentlyStoppedCaring - Controller" should {
     "present 'Permanently Stopped Caring' " in new WithApplication with MockForm {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
@@ -35,7 +36,6 @@ class G3PermanentlyStoppedCaringSpec extends Specification {
       val result = s2_report_changes.G3PermanentlyStoppedCaring.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-
   }
   section("unit", models.domain.CircumstancesStoppedCaring.id)
 }

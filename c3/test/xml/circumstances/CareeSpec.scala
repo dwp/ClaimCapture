@@ -1,7 +1,6 @@
 package xml.circumstances
 
 import javax.xml.bind.DatatypeConverter
-
 import gov.dwp.carers.security.encryption.EncryptorAES
 import models.domain.{CircumstancesReportChange, Claim}
 import models.view.CachedChangeOfCircs
@@ -12,6 +11,7 @@ import utils.WithApplication
  * Created by neddakaltcheva on 3/14/14.
  */
 class CareeSpec extends Specification {
+  section("unit")
   "Careree" should {
     "generate Careree xml from a given circumstances" in new WithApplication {
       val yourDetails = CircumstancesReportChange(
@@ -23,7 +23,6 @@ class CareeSpec extends Specification {
 
       (new  EncryptorAES).decrypt(DatatypeConverter.parseBase64Binary((xml \\ "CareeDetails" \\ "FullName" \\ "Answer").text)) shouldEqual yourDetails.theirFullName
       (xml \\ "CareeDetails" \\ "RelationToClaimant" \\ "Answer").text shouldEqual yourDetails.theirRelationshipToYou
-
     }
   }
   section("unit")

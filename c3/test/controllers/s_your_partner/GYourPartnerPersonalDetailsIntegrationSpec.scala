@@ -2,18 +2,15 @@ package controllers.s_your_partner
 
 import org.specs2.mutable._
 import utils.WithBrowser
-import controllers.{PreviewTestUtils, ClaimScenarioFactory}
+import controllers.ClaimScenarioFactory
 import utils.pageobjects.s_care_you_provide.GTheirPersonalDetailsPage
 import utils.pageobjects._
-import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_your_partner.GYourPartnerPersonalDetailsPage
-import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_about_you.{GMaritalStatusPage, GOtherEEAStateOrSwitzerlandPage, GNationalityAndResidencyPage}
 import app.MaritalStatus
-import utils.helpers.PreviewField._
 
 class GYourPartnerPersonalDetailsIntegrationSpec extends Specification {
-
+  section("integration", models.domain.YourPartner.id)
   "Your Partner Personal Details" should {
     "be presented" in new WithBrowser with PageObjects {
       val page = GYourPartnerPersonalDetailsPage(context)

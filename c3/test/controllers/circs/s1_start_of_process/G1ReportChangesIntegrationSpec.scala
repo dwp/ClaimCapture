@@ -10,12 +10,10 @@ import utils.pageobjects.{TestData, PageObjects}
 import utils.pageobjects.circumstances.s1_start_of_process.{G2ReportAChangeInYourCircumstancesPage, G1ReportChangesPage}
 import utils.pageobjects.circumstances.s2_report_changes.{G4OtherChangeInfoPage, _}
 import CircumstancesScenarioFactory._
-import utils.WithApplication
 
 class G1ReportChangesIntegrationSpec extends Specification {
-
+  section("integration", models.domain.CircumstancesReportChanges.id)
   "Report a change in your circumstances" should {
-
     "be presented" in new WithBrowser with PageObjects {
       val page = G1ReportChangesPage(context)
       page goToThePage()
@@ -110,6 +108,5 @@ class G1ReportChangesIntegrationSpec extends Specification {
       samePage must beAnInstanceOf[G1DeclarationPage]
     }
   }
-  section("integration", models.domain.CircumstancesIdentification.id)
-
+  section("integration", models.domain.CircumstancesReportChanges.id)
 }

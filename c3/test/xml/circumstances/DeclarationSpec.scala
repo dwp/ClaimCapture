@@ -6,6 +6,7 @@ import models.domain.{Claim, CircumstancesDeclaration}
 import utils.WithApplication
 
 class DeclarationSpec  extends Specification {
+  section("unit")
   "Declaration" should {
     "Generate a valid declaration section" in new WithApplication {
       val declaration = new CircumstancesDeclaration()

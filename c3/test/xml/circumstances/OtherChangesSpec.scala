@@ -5,9 +5,9 @@ import org.specs2.mutable._
 import models.domain._
 
 class OtherChangesSpec extends Specification {
-
   val otherInfo = "Some other info"
 
+  section("unit")
   "Additional Info" should {
     "generate xml" in {
       val circs = Claim(CachedChangeOfCircs.key).update(CircumstancesOtherInfo(otherInfo))
@@ -17,5 +17,5 @@ class OtherChangesSpec extends Specification {
     }.pendingUntilFixed("Pending till schema changes and modifying the code to new structure")
 
   }
-section("unit")
+  section("unit")
 }

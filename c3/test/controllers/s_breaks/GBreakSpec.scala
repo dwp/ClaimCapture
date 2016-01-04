@@ -12,6 +12,7 @@ import utils.pageobjects.{PageObjects, TestData}
 import utils.{WithApplication, WithJsBrowser}
 
 class GBreakSpec extends Specification {
+  section("unit", models.domain.CareYouProvide.id)
   "Break" should {
     val breakId1 = "1"
 

@@ -1,7 +1,6 @@
 package controllers
 
 import utils.pageobjects.TestData
-
 import app.{PensionPaymentFrequency, WhoseNameAccount, PaymentFrequency, AccountStatus}
 
 /**
@@ -1057,5 +1056,4 @@ object ClaimScenarioFactory {
 
     claim
   }
-
 }
