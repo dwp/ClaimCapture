@@ -25,6 +25,13 @@ protected trait CacheHandling {
 
   def keyFrom(request: Request[AnyContent]): String = request.session.get(cacheKey).getOrElse("")
 
+  def cookieAppVersion(request: Request[AnyContent]): String = {
+    request.cookies.get(ClaimHandling.C3VERSION) match {
+      case Some(cookie) => cookie.value
+      case None => "N/A"
+    }
+  }
+
   /**
    * Tries to get the claim of change of circs from the cache.
    * @param request the http request that has the session with uuid of claim which is the key used by cache.
@@ -39,13 +46,13 @@ protected trait CacheHandling {
       }
       None
     } else {
-      Logger.info("Retrieving cache entry for request key:"+key+" with cookie application version:"+request.cookies.get(ClaimHandling.C3VERSION).get.value)
+      Logger.info("Retrieving cache entry for request key:" + key + " with cookie application version:" + cookieAppVersion(request))
       cache.get[Claim](key)
     }
   }
 
-  def fromCache(key: String): Option[Claim] = {
-    //Logger.info("Retrieving cache entry for key:"+key+" with cookie application version:"+request.cookies.get(ClaimHandling.C3VERSION).get.value)
+  def fromCache(request: Request[AnyContent], key: String): Option[Claim] = {
+    Logger.info("Retrieving cache entry for key:" + key + " with cookie application version:" + cookieAppVersion(request))
     cache.get[Claim](key)
   }
 
@@ -184,7 +191,7 @@ protected trait CacheHandling {
     removeSaveForLaterClaimKeyFromList(uuid)
   }
 
-  private def isMemcached : Boolean = {
+  private def isMemcached: Boolean = {
     if (cache.isInstanceOf[MemcachedCacheApi]) return true
     return false
   }
