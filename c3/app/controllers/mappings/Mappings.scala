@@ -222,7 +222,7 @@ object Mappings {
   }
 
   def validNationality: Constraint[String] = Constraint[String]("constraint.nationality") { nationality =>
-    val nationalityPattern = """[a-zA-Z \-\']{1,35}""".r
+    val nationalityPattern = """[a-zA-ZÀ-ƶ \-\']{1,35}""".r
 
     nationalityPattern.pattern.matcher(nationality).matches match {
       case true => Valid
