@@ -12,8 +12,6 @@ import ClaimSubmissionService._
 import play.api.i18n._
 
 object StatusRoutingController {
-  import play.api.mvc.Results._
-
   def redirectThankYou(implicit claim: Claim):Call = {
     if (claimType(claim) == FULL_CLAIM) controllers.routes.ClaimEnding.thankyou
     else controllers.routes.CircsEnding.thankyou
@@ -66,13 +64,11 @@ class StatusRoutingController extends Controller with CachedClaim with ClaimTran
 
   }
 
-
-  def error = ending { implicit claim => implicit request => implicit request2lang =>
+  def error = endingOnError { implicit claim => implicit request => implicit request2lang =>
     Ok(views.html.common.error(startPage))
   }
 
   def errorRetry = claiming { implicit claim => implicit request => implicit request2lang =>
-
     if (claimType(claim) == FULL_CLAIM){
       Ok(views.html.common.error_retry(controllers.s_consent_and_declaration.routes.GDeclaration.present().url))
     }else{
