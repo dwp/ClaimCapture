@@ -13,10 +13,10 @@ object Application extends Controller with I18nSupport {
   }
 
   def backButtonPage = Action { implicit request =>
-    Ok(views.html.common.backButton())
+    Ok(views.html.common.backButton(messagesApi))
   }
 
   def backButtonCircsPage = Action { implicit request =>
-    Ok(views.html.common.backButton())
+    Ok(views.html.common.backButton(messagesApi))
   }
 }
