@@ -14,12 +14,12 @@ class GContactDetailsIntegrationSpec extends Specification {
   section("integration", models.domain.AboutYou.id)
   "Contact Details" should {
     "be presented" in new WithJsBrowser with PageObjects {
-			val page =  GContactDetailsPage(context)
+      val page = GContactDetailsPage(context)
       page goToThePage()
     }
 
     "contain error if address not filled in" in new WithJsBrowser with PageObjects {
-      val page =  GContactDetailsPage(context)
+      val page = GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       claim.AboutYouAddress = ""
       page goToThePage()
@@ -32,7 +32,7 @@ class GContactDetailsIntegrationSpec extends Specification {
     }
 
     "valid submission if 'Contact phone or mobile number' not filled in" in new WithJsBrowser with PageObjects {
-      val page =  GContactDetailsPage(context)
+      val page = GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       claim.HowWeContactYou = ""
       page goToThePage()
@@ -44,7 +44,7 @@ class GContactDetailsIntegrationSpec extends Specification {
     }
 
     "valid submission if 'Contact phone or mobile number' is filled in with number" in new WithJsBrowser with PageObjects {
-      val page =  GContactDetailsPage(context)
+      val page = GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       page goToThePage()
       page fillPageWith claim
@@ -55,7 +55,7 @@ class GContactDetailsIntegrationSpec extends Specification {
     }
 
     "contain error if 'Contact number' is filled in with text" in new WithJsBrowser with PageObjects {
-      val page =  GContactDetailsPage(context)
+      val page = GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       claim.HowWeContactYou = "I do not have contact number"
       page goToThePage()
@@ -67,7 +67,7 @@ class GContactDetailsIntegrationSpec extends Specification {
     }
 
     "contain error if 'Contact number' is field length less than min length" in new WithJsBrowser with PageObjects {
-      val page =  GContactDetailsPage(context)
+      val page = GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       claim.HowWeContactYou = "012345"
       page goToThePage()
@@ -79,13 +79,13 @@ class GContactDetailsIntegrationSpec extends Specification {
     }
 
     "navigate to next page on valid submission" in new WithJsBrowser with PageObjects {
-			val page =  GContactDetailsPage(context)
+      val page = GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       page goToThePage()
       page fillPageWith claim
 
       val nextPage = page submitPage()
-      
+
       nextPage must beAnInstanceOf[GNationalityAndResidencyPage]
     }
 
@@ -95,18 +95,118 @@ class GContactDetailsIntegrationSpec extends Specification {
       val claimDate = ClaimScenarioFactory.s12ClaimDate()
       claimDatePage fillPageWith claimDate
 
-      val page =  claimDatePage submitPage()
+      val page = claimDatePage submitPage()
       val claim = ClaimScenarioFactory yourDetailsWithNotTimeOutside()
       page goToThePage()
       page fillPageWith claim
-      val contactDetailsPage = page submitPage(waitForPage = true)
-      val completedPage = contactDetailsPage goBack ()
+      val contactDetailsPage = page submitPage (waitForPage = true)
+      val completedPage = contactDetailsPage goBack()
       completedPage must beAnInstanceOf[GYourDetailsPage]
     }
 
+    "Present email neither yes or no help when no email selected" in new WithJsBrowser with PageObjects {
+      val page = GContactDetailsPage(context)
+      page goToThePage()
+      page must beAnInstanceOf[GContactDetailsPage]
+      page visible ("#emailYesHelper") must beFalse
+      page visible ("#emailNoHelper") must beFalse
+    }
+
+    "Present email neither yes or no help when no email selected" in new WithJsBrowser with PageObjects {
+      val previousPage = GMaritalStatusPage(context)
+      previousPage goToThePage()
+      previousPage fillPageWith ClaimScenarioFactory.maritalStatus()
+
+      val page = previousPage submitPage()
+      page must beAnInstanceOf[GContactDetailsPage]
+      println(page.source)
+      page.source must contain("id=\"wantsEmailContact_yes\"")
+      page visible ("#emailYesHelper") must beFalse
+      page visible ("#emailNoHelper") must beFalse
+    }
+
+    "Present email yes help only when email yes clicked" in new WithJsBrowser with PageObjects {
+      val page = GContactDetailsPage(context)
+      page goToThePage()
+      page.source must contain("id=\"wantsEmailContact_yes\"")
+      page.clickLinkOrButton("#wantsEmailContact_yes")
+      page visible ("#emailYesHelper") must beTrue
+      page visible ("#emailNoHelper") must beFalse
+    }
+
+    "Present email no help only when email no clicked" in new WithJsBrowser with PageObjects {
+      val page = GContactDetailsPage(context)
+      page goToThePage()
+      page.source must contain("id=\"wantsEmailContact_no\"")
+      page.clickLinkOrButton("#wantsEmailContact_no")
+      page visible ("#emailYesHelper") must beFalse
+      page visible ("#emailNoHelper") must beTrue
+    }
+
+    "Present email with no help only when email yes selected and return to page" in new WithJsBrowser with PageObjects {
+      val page = GContactDetailsPage(context)
+      val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
+      claim.AboutYouWantsEmailContact = "Yes"
+      claim.AboutYouMail = "fred@bt.com"
+      claim.AboutYouMailConfirmation = "fred@bt.com"
+      page goToThePage()
+      page fillPageWith claim
+      page.source must contain("id=\"wantsEmailContact_yes\"")
+      page visible ("#emailYesHelper") must beTrue
+      page visible ("#emailNoHelper") must beFalse
+
+      val nextPage = page submitPage()
+      nextPage must beAnInstanceOf[GNationalityAndResidencyPage]
+      val contactPageAgain = nextPage goBack()
+      contactPageAgain.source must contain("fred@bt.com")
+      contactPageAgain visible ("#emailYesHelper") must beTrue
+      contactPageAgain visible ("#emailNoHelper") must beFalse
+    }
+
+    "Present email no help only when email no selected and return to page" in new WithJsBrowser with PageObjects {
+      val page = GContactDetailsPage(context)
+      val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
+      claim.AboutYouWantsEmailContact = "No"
+      page goToThePage()
+      page fillPageWith claim
+      page.source must contain("id=\"wantsEmailContact_yes\"")
+      page visible ("#emailYesHelper") must beFalse
+      page visible ("#emailNoHelper") must beTrue
+
+      val nextPage = page submitPage()
+      nextPage must beAnInstanceOf[GNationalityAndResidencyPage]
+      val contactPageAgain = nextPage goBack()
+      contactPageAgain visible ("#emailYesHelper") must beFalse
+      contactPageAgain visible ("#emailNoHelper") must beTrue
+    }
+
+    "Clear email when return to page and click email No" in new WithJsBrowser with PageObjects {
+      val page = GContactDetailsPage(context)
+      val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
+      claim.AboutYouWantsEmailContact = "Yes"
+      claim.AboutYouMail = "fred@bt.com"
+      claim.AboutYouMailConfirmation = "fred@bt.com"
+      page goToThePage()
+      page fillPageWith claim
+      page.source must contain("id=\"wantsEmailContact_yes\"")
+      page visible ("#emailYesHelper") must beTrue
+      page visible ("#emailNoHelper") must beFalse
+
+      val nextPage = page submitPage()
+      nextPage must beAnInstanceOf[GNationalityAndResidencyPage]
+      val contactPageAgain = nextPage goBack()
+      contactPageAgain.source must contain("fred@bt.com")
+      contactPageAgain visible ("#emailYesHelper") must beTrue
+      contactPageAgain visible ("#emailNoHelper") must beFalse
+
+      contactPageAgain.clickLinkOrButton("#wantsEmailContact_no")
+      contactPageAgain visible ("#emailYesHelper") must beFalse
+      contactPageAgain visible ("#emailNoHelper") must beTrue
+      contactPageAgain.source must not contain ("fred@bt.com")
+    }
 
     "Modify address from preview page" in new WithJsBrowser with PageObjects {
-      val page =  GContactDetailsPage(context)
+      val page = GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       page goToThePage()
       page fillPageWith claim
@@ -115,7 +215,7 @@ class GContactDetailsIntegrationSpec extends Specification {
 
       val id = "about_you_address"
 
-      val answerText = PreviewTestUtils.answerText(id, _:Page)
+      val answerText = PreviewTestUtils.answerText(id, _: Page)
 
       val previewPage = PreviewPage(context)
       previewPage goToThePage()
@@ -136,7 +236,7 @@ class GContactDetailsIntegrationSpec extends Specification {
     }
 
     "Modify contact number from preview page" in new WithJsBrowser with PageObjects {
-      val page =  GContactDetailsPage(context)
+      val page = GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       page goToThePage()
       page fillPageWith claim
@@ -145,7 +245,7 @@ class GContactDetailsIntegrationSpec extends Specification {
 
       val id = "about_you_contact"
 
-      val answerText = PreviewTestUtils.answerText(id, _:Page)
+      val answerText = PreviewTestUtils.answerText(id, _: Page)
 
       val previewPage = PreviewPage(context)
       previewPage goToThePage()
@@ -172,7 +272,7 @@ class GContactDetailsIntegrationSpec extends Specification {
       val nextPage = contactPage submitPage()
 
       val id = "about_you_email"
-      val answerText = PreviewTestUtils.answerText(id, _:Page)
+      val answerText = PreviewTestUtils.answerText(id, _: Page)
 
       val previewPage = PreviewPage(context)
       previewPage goToThePage()
