@@ -939,7 +939,7 @@ object ClaimScenarioFactory {
     claim.SelfEmployedWhenDidTheJobFinish = "07/07/2005"
     claim.SelfEmployedNatureofYourBusiness = "Some type of business"
 
-    // G8 Pension and Expenses
+    // G Pension and Expenses
     claim.SelfEmploymentDoYouPayForPensionExpenses = "Yes"
     claim.SelfEmploymentPensionExpenses = "Some self-employment pension expenses"
     claim.SelfEmploymentDoYouPayForAnythingNecessaryToDoYourJob = "Yes"

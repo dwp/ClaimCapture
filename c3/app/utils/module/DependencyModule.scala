@@ -1,7 +1,7 @@
 package utils.module
 
+import controllers.circs.consent_and_declaration.GCircsDeclaration
 import play.api.inject.Module
-import controllers.circs.s3_consent_and_declaration.G1Declaration
 import controllers.s_consent_and_declaration.GDeclaration
 import controllers.submission.XmlSubmitter
 import models.domain.Claim
@@ -20,7 +20,7 @@ import scala.concurrent.Future
 class DependencyModule extends Module {
   private def xmlPrintControllers = {
     Seq(bind(classOf[GDeclaration]).to(classOf[GDeclarationXML]),
-      bind(classOf[G1Declaration]).to(classOf[G1DeclarationXML]),
+      bind(classOf[GCircsDeclaration]).to(classOf[GCircsDeclarationXML]),
       bind(classOf[AsyncClaimSubmissionComponent]).to(classOf[AsyncClaimSubmissionComponentXML]),
       bind(classOf[ClaimTransactionCheck]).to(classOf[ClaimTransactionCheckStub]),
       bind(classOf[HealthMonitor]).to(classOf[ProdHealthMonitor]))
@@ -28,7 +28,7 @@ class DependencyModule extends Module {
 
   private def stubDBControllers = {
     Seq(bind(classOf[GDeclaration]).to(classOf[GDeclarationDB]),
-      bind(classOf[G1Declaration]).to(classOf[G1DeclarationDB]),
+      bind(classOf[GCircsDeclaration]).to(classOf[GCircsDeclarationDB]),
       bind(classOf[AsyncClaimSubmissionComponent]).to(classOf[AsyncClaimSubmissionComponentDB]),
       bind(classOf[ClaimTransactionCheck]).to(classOf[ClaimTransactionCheckStub]),
       bind(classOf[HealthMonitor]).to(classOf[ProdHealthMonitor]))
@@ -56,7 +56,7 @@ class GDeclarationXML extends GDeclaration {
   override val claimTransaction = new StubClaimTransaction
 }
 
-class G1DeclarationXML extends G1Declaration {
+class GCircsDeclarationXML extends GCircsDeclaration {
   override def submission(claim: Claim, request: Request[AnyContent], jsEnabled: Boolean): ClaimResult = XmlSubmitter.submission(claim, request)
   override val claimTransaction = new StubClaimTransaction
 }
@@ -65,7 +65,7 @@ class GDeclarationDB extends GDeclaration {
   override val claimTransaction = new StubClaimTransaction
 }
 
-class G1DeclarationDB extends G1Declaration {
+class GCircsDeclarationDB extends GCircsDeclaration {
   override val claimTransaction = new StubClaimTransaction
 }
 

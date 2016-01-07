@@ -1,0 +1,79 @@
+@(declarationForm: Form[models.domain.CircumstancesDeclaration])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
+
+@import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
+@import views.html.helper._
+@import views.html.helper.base._
+@import utils.helpers.CarersCrypto
+
+@main(messages("c3.g1") + " - " + messages("c3.name")) {
+    @errorsSummary(declarationForm)
+
+    @form(action = controllers.circs.consent_and_declaration.routes.GCircsDeclaration.submit) {
+
+        <input type="hidden" id="js" name="jsEnabled" value="false">
+
+        @DwpCSRFFormHelper.formField
+
+        <div class="form-wrap">
+
+	        <fieldset class="form-elements">
+
+                <p>@messages("circs.declaration.openingParagraph")</p>
+                <ul class="list-bullet">
+                    <li>@messages("circs.declaration.1")</li>
+                    <li>@messages("circs.declaration.overpayment")</li>
+                    <li>@messages("circs.declaration.2a") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-report-change">@messages("circs.declaration.2b")</a> @messages("circs.declaration.2c") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-unit">@messages("circs.declaration.2d")</a></li>                   
+                </ul>
+                <p class="warning-text">
+                    @messages("circs.declaration.warning")
+                </p>
+	
+                <div class="block-checkbox">
+	               @declareCheckPlaceholder(declarationForm("circsSomeOneElse"))
+                </div>
+	
+	            <ul class="third-party-decleration">
+	                @otherDetailPlaceHolder(
+	                    inputDef = Seq(
+	                        carersInputText(declarationForm("nameOrOrganisation"), 'maxLength -> mappings.Mappings.sixty),
+                                            Html("<br/>"),
+                                            Html(messages("carerTermsDesc"))),
+	                    'id -> "nameOrOrganisationWrapper"
+	                )
+	            </ul>
+	
+	            <ul class="circs-group">
+	                @yesNoRadioGroup(declarationForm("obtainInfoAgreement"))
+	                @otherDetailPlaceHolder( 
+	                    inputDef = Seq(
+	                        carersInputTextArea(declarationForm("obtainInfoWhy"), 'maxLength -> 3000, 'textAreaHelper -> Html(messages("3000charsLeft")))),
+	                    'id -> "why"
+                    )
+	            </ul>
+                
+	        </fieldset>
+	
+            @views.html.common.bottomNavigation(nextLabel = Some("s3.g1.submit"))
+        </div>
+
+    }
+
+
+<script type="text/javascript">$($("#js").val("true"));</script>
+<script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/circs/consent_and_declaration/declaration.js")></script>
+<script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
+
+<script type="text/javascript">
+    $(function() {
+        window.initEvents("@CarersCrypto.encryptAES("obtainInfoAgreement_yes")",
+                           "@CarersCrypto.encryptAES("obtainInfoAgreement_no")",
+                           "@CarersCrypto.encryptAES("obtainInfoWhy")",
+                           "@CarersCrypto.encryptAES("circsSomeOneElse")",
+                           "@CarersCrypto.encryptAES("nameOrOrganisation")");
+
+        window.areaCounter ( { selector : '@CarersCrypto.encryptAES("obtainInfoWhy")',maxChars:3000 });
+
+    });
+    </script>
+}
