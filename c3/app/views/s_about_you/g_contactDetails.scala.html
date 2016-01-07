@@ -1,17 +1,21 @@
 @(contactDetailsForm: Form[models.domain.ContactDetails])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
-@import helper._
 @import play.api.Play
 @import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper
-@import views.html.common._
 @import utils.helpers.CarersCrypto
 @import views.html.helper._
 @import views.html.helper.base._
-@import play.api.i18n.Messages
 @import app.ConfigProperties._
+@import views.html.s_about_you.main
 
-
+@saveForLaterEnabled=@{
+    getProperty("saveForLaterSaveEnabled",false)
+}
+@emailLabel=@{
+    if(saveForLaterEnabled) messages("wantsEmailContact")
+    else messages("wantsEmailContactOld")
+}
     @main(messages("s2.g3") + " - " + messages("s2.longName")) {
         @errorsSummary(contactDetailsForm)
 
@@ -31,7 +35,7 @@
                     @carersCheckBox(contactDetailsForm("contactYouByTextphone"), 'track -> true)
 
                     @if(getProperty("email.frontend",false)) {
-                        @yesNoRadioGroup(contactDetailsForm("wantsEmailContact"))
+                        @yesNoRadioGroup(contactDetailsForm("wantsEmailContact"), '_label->emailLabel )
 
                         @otherDetailPlaceHolder(
                             inputDef = Seq(
@@ -40,7 +44,7 @@
                             ),
                             'id -> "emailWrap"
                         )
-                        @if(getProperty("saveForLaterSaveEnabled",false)) {
+                        @if(saveForLaterEnabled) {
                             <p id="emailYesHelper">@(messages("email.yeshelper"))</p>
                             <p id="emailNoHelper">@(messages("email.nohelper"))</p>
                         }

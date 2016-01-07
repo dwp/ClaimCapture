@@ -5,7 +5,7 @@ import models.domain.{ContactDetails, Claiming}
 import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.WithApplication
+import utils.{LightFakeApplication, WithApplication}
 
 class GContactDetailsSpec extends Specification {
   section("unit", models.domain.ContactDetails.id)
@@ -89,6 +89,24 @@ class GContactDetailsSpec extends Specification {
 
       val result = GContactDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
+    }
+
+    "show old email label when save for later switched off" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "false"))) with Claiming {
+      val request = FakeRequest()
+      val result = GContactDetails.present(request)
+      val bodyText: String = contentAsString(result)
+      bodyText must contain("Do you want an email to confirm your application has been received?")
+      bodyText must not contain("Have you got an email address?")
+      status(result) mustEqual OK
+    }
+
+    "show new email label when save for later switched on" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "true"))) with Claiming {
+      val request = FakeRequest()
+      val result = GContactDetails.present(request)
+      val bodyText: String = contentAsString(result)
+      bodyText must not contain("Do you want an email to confirm your application has been received?")
+      bodyText must contain("Have you got an email address?")
+      status(result) mustEqual OK
     }
   }
   section("unit", models.domain.ContactDetails.id)
