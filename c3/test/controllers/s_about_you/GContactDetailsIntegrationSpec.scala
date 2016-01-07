@@ -119,7 +119,6 @@ class GContactDetailsIntegrationSpec extends Specification {
 
       val page = previousPage submitPage()
       page must beAnInstanceOf[GContactDetailsPage]
-      println(page.source)
       page.source must contain("id=\"wantsEmailContact_yes\"")
       page visible ("#emailYesHelper") must beFalse
       page visible ("#emailNoHelper") must beFalse
