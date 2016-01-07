@@ -79,10 +79,16 @@ object GBreak extends Controller with CachedClaim with I18nSupport {
       })
   }
 
-
- def present(iterationID: String) = claimingWithCheck{ implicit claim =>  implicit request =>  lang =>
-   val break = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare(List())).breaks.find(_.iterationID == iterationID).getOrElse(Break())
-
-    Ok(views.html.s_breaks.g_break(form.fill(break),backCall))
+  def present(iterationID: String) = claimingWithCheck{ implicit claim =>  implicit request =>  lang =>
+    claim.saveForLaterCurrentPageData.isEmpty match{
+      case true =>{
+        val break = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare(List())).breaks.find(_.iterationID == iterationID).getOrElse(Break())
+        Ok(views.html.s_breaks.g_break(form.fill(break),backCall))
+      }
+      case false =>{
+        val filled=form.copy[Break](data=claim.saveForLaterCurrentPageData)
+        Ok(views.html.s_breaks.g_break(filled,backCall))
+      }
+    }
   }
 }
