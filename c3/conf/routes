@@ -32,7 +32,7 @@ POST        /preview                                                    controll
 GET         /preview/redirect/:id                                       controllers.preview.Preview.redirect(id)
 
 POST        /save                                                       controllers.save_for_later.GSaveForLater.submit
-GET         /save                                                       controllers.save_for_later.GSaveForLater.present
+GET         /save/:resumepath                                           controllers.save_for_later.GSaveForLater.present(resumepath)
 
 GET         /resume                                                     controllers.save_for_later.GResume.present
 POST        /resume                                                     controllers.save_for_later.GResume.submit

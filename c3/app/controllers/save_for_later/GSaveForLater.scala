@@ -14,10 +14,10 @@ import play.api.mvc._
 object GSaveForLater extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
 
-  def present = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
+  def present(resumePath: String) = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     getProperty("saveForLaterSaveEnabled", default = false) match {
       case false => BadRequest(views.html.save_for_later.switchedOff("sfl-save", request2lang))
-      case true => Ok(views.html.save_for_later.saveClaimSuccess(request2lang))
+      case true => Ok(views.html.save_for_later.saveClaimSuccess(resumePath, request2lang))
     }
   }
 
@@ -30,9 +30,18 @@ object GSaveForLater extends Controller with CachedClaim with Navigable with I18
 
   def processSaveForLater(parameters: Map[String, Seq[String]], claim: Claim, lang: Lang, request: Request[AnyContent]) = {
     val updatedClaim = claim.update(createSaveForLaterMap(parameters))
-    saveForLaterInCache(updatedClaim, claim.navigation.saveForLaterRoute.toString)
+    val resumePath=claim.navigation.saveForLaterRoute(iterationResumePath(parameters)).toString
+    saveForLaterInCache(updatedClaim, resumePath)
     EmailServices.sendSaveForLaterEmail(claim, request)
-    updatedClaim -> Redirect(controllers.save_for_later.routes.GSaveForLater.present())
+    updatedClaim -> Redirect(controllers.save_for_later.routes.GSaveForLater.present(resumePath))
+  }
+
+  def iterationResumePath(parameters: Map[String, Seq[String]]):String={
+    (parameters.contains("iterationID"), parameters.contains("hasBreakEnded.date.year"), parameters.contains("employerName")) match{
+      case( true, true, false ) => "/breaks/break/"+ parameters.get("iterationID").head(0).toString()
+      case( true, false, true ) => "/employment/job-details/"+ parameters.get("iterationID").head(0).toString()
+      case(_,_,_) => ""
+    }
   }
 
   def createSaveForLaterMap(parameters: Map[String, Seq[String]]) = {

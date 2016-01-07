@@ -75,8 +75,15 @@ case class Navigation(routes: List[Route[_]] = List(), beenInPreview: Boolean = 
 
   def current: Route[_] = if (routes.isEmpty) Route("") else routes.last
 
-  def saveForLaterRoute: Route[_] = {
-    if (routesAfterPreview.isEmpty) current else routesAfterPreview.last
+  def saveForLaterRoute(resumeRoute: String): Route[_] = {
+    if(resumeRoute.length()>0){
+      Route(resumeRoute)
+    }
+    else if (routesAfterPreview.isEmpty) {
+      current
+    } else {
+      routesAfterPreview.last
+    }
   }
 
   def previous: Route[_] = {

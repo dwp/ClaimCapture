@@ -1,4 +1,4 @@
-@(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash: Flash, messages: play.api.i18n.Messages)
+@(resumePath: String, lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash: Flash, messages: play.api.i18n.Messages)
 
 @import views.html.save_for_later.main
 @import models.domain._
@@ -26,7 +26,7 @@
         <p>@Html(messages("saveForLater.save.line1", emailAddress))</p>
         <p>@Html(messages("saveForLater.save.line2"))</p>
 
-        <p>@views.html.save_for_later.continueButton(messages("saveForLater.save.button.label"), true, None)</p>
+        <p>@views.html.save_for_later.continueButton(messages("saveForLater.save.button.label"), resumePath, true, None)</p>
         <p>@views.html.save_for_later.govUKLink()</p>
     }
 
