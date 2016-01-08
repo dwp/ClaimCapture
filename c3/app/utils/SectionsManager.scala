@@ -6,7 +6,6 @@ object SectionsManager {
 
   //This list has to change for any section modification (add/remove/modify)
   private val claimSections = List(
-    ThirdParty,
     YourClaimDate,
     AboutYou,
     YourPartner,
