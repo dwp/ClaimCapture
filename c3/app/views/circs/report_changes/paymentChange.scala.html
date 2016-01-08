@@ -73,7 +73,7 @@
                                     'items -> Seq(EveryWeek -> messages("label.everyWeek"), FourWeekly -> messages("label.fourWeekly"), ThirteenWeekly -> messages("label.thirteenWeekly")),
                                     '_nestedFieldSet -> true)
 
-	                @carersInputTextArea(currentForm("moreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), 'helper -> Html(messages("300charsLeft")), 'maxLength -> 300)
+	                @carersInputTextArea(currentForm("moreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), 'textAreaHelper -> Html(messages("300charsLeft")), 'maxLength -> 300)
 
 	            </ul>
 
@@ -95,7 +95,8 @@
 			window.initEvents("@CarersCrypto.encryptAES("currentlyPaidIntoBank_answer_yes")",
 			"@CarersCrypto.encryptAES("currentlyPaidIntoBank_answer_no")",
 			"@CarersCrypto.encryptAES("currentlyPaidIntoBank_text1")",
-			"@CarersCrypto.encryptAES("currentlyPaidIntoBank_text2")");
+			"@CarersCrypto.encryptAES("currentlyPaidIntoBank_text2")",
+			"@CarersCrypto.encryptAES("moreAboutChanges")");
 			@ga.stagePrompt()
 		});
 	</script>
