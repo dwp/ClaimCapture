@@ -87,7 +87,7 @@
 
                     @yesNoRadioGroup(breaksForm("medicalCareDuringBreak"),'values -> Seq("yes" -> Html(messages("label.yes3")), "no" -> Html(messages("label.no"))))
 
-                    @carersInputTextArea(breaksForm("moreAboutChanges"), 'helperAbove-> Html(messages("moreAboutChanges.helper")), 'helper -> Html(messages("300charsLeft")), 'maxLength -> 300)
+                    @carersInputTextArea(breaksForm("moreAboutChanges"), 'helperAbove-> Html(messages("moreAboutChanges.helper")), 'textAreaHelper -> Html(messages("300charsLeft")), 'maxLength -> 300)
 
                 </ul>
 
@@ -116,7 +116,8 @@
             "@CarersCrypto.encryptAES("breaksInCareStartDate")",
             "@CarersCrypto.encryptAES("breaksInCareStartTime")",
             "@CarersCrypto.encryptAES("breakEnded_endDate")",
-            "@CarersCrypto.encryptAES("breakEnded_endTime")"
+            "@CarersCrypto.encryptAES("breakEnded_endTime")",
+            "@CarersCrypto.encryptAES("moreAboutChanges")"
             );
 
             @ga.stagePrompt()

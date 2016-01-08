@@ -1,4 +1,6 @@
-window.initEvents = (breakEndedY, breakEndedN, expectStartCaringY, expectStartCaringN, expectStartCaringDontKnow, breakStartDate, breakStartTime, breakEndedDate,breakEndedTime) ->
+window.initEvents = (breakEndedY, breakEndedN, expectStartCaringY, expectStartCaringN, expectStartCaringDontKnow, breakStartDate, breakStartTime, breakEndedDate,breakEndedTime,moreAboutChanges) ->
+  $("#"+moreAboutChanges).trigger("blur")
+
   if not $("#" + breakEndedY).prop("checked")
     hideBreakEndedDate()
 
