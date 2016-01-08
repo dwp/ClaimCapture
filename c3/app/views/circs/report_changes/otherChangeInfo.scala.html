@@ -33,13 +33,18 @@
 
     }
 
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/circs/report_changes/otherChangeInfo.js")></script>
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
 
     <script type="text/javascript">
         $(function(){
             window.areaCounter({selector:"@CarersCrypto.encryptAES("changeInCircs")",maxChars:2000});
             @ga.stagePrompt()
-        })
+        });
+        $(function(){
+            window.initEvents("@CarersCrypto.encryptAES("changeInCircs")"
+            );
+        });
     </script>
 
 }
