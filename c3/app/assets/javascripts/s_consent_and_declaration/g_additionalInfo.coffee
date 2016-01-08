@@ -4,12 +4,13 @@ window.initEvents = (anythingElseY,anythingElseN,anythingElseText) ->
     hideAnythingElseWrapper(anythingElseText)
 
   $("#" + anythingElseY).on "click", ->
-    showAnythingElseWrapper()
+    showAnythingElseWrapper(anythingElseText)
 
   $("#" + anythingElseN).on "click", ->
     hideAnythingElseWrapper(anythingElseText)
 
-showAnythingElseWrapper = ->
+showAnythingElseWrapper = (anythingElseText) ->
+  $("#"+anythingElseText).trigger("blur")
   $("#anythingElseWrapper").slideDown(0).attr 'aria-hidden', 'false'
 
 hideAnythingElseWrapper = (anythingElseText) ->
