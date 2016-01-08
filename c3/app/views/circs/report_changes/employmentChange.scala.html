@@ -91,7 +91,7 @@
                         inputDef = Seq(
                             carersInputText(typeOfWork("selfEmployedTypeOfWork"), 'maxLength -> 35, 'ignoreOptional -> true),
                             yesNoRadioGroup(typeOfWork("selfEmployedTotalIncome"), 'ignoreOptional -> true, 'values -> Seq("yes" -> messages("label.yes7"), "no" -> messages("label.no"), "dontknow" -> messages("label.dontknow"))),
-                            carersInputTextArea(typeOfWork("selfEmployedMoreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), '_label -> "moreAboutChanges", 'helper -> Html(messages("300charsLeft")), 'maxLength -> 300)
+                            carersInputTextArea(typeOfWork("selfEmployedMoreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), '_label -> "moreAboutChanges", 'textAreaHelper -> Html(messages("300charsLeft")), 'maxLength -> 300)
                         ),
                         'id -> "typeOfWorkSelfEmployedWrap"
                     )
@@ -118,7 +118,8 @@
             "@CarersCrypto.encryptAES(employmentChange("stillCaring")("answer")("no").id)",
             "@CarersCrypto.encryptAES(employmentChange("stillCaring")("date")("day").id)",
             "@CarersCrypto.encryptAES(employmentChange("stillCaring")("date")("month").id)",
-            "@CarersCrypto.encryptAES(employmentChange("stillCaring")("date")("year").id)");
+            "@CarersCrypto.encryptAES(employmentChange("stillCaring")("date")("year").id)",
+            "@CarersCrypto.encryptAES(typeOfWork("selfEmployedMoreAboutChanges").id)");
             @ga.stagePrompt()
         });
 
