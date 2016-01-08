@@ -27,7 +27,7 @@ window.hasWorkStartedYet = (hasWorkStartedYetY, hasWorkStartedYetN, dateWhenStar
     hideHasWorkFinishedYetWrap(dateWhenFinishedDay, dateWhenFinishedMonth, dateWhenFinishedYear)
 
 window.hasWorkFinishedYet = (hasWorkFinishedYetY, hasWorkFinishedYetN, dateWhenFinishedDay, dateWhenFinishedMonth, dateWhenFinishedYear) ->
-   if not $("#" + hasWorkFinishedYetY).prop("checked")
+  if not $("#" + hasWorkFinishedYetY).prop("checked")
     hideHasWorkFinishedYetWrap(dateWhenFinishedDay, dateWhenFinishedMonth, dateWhenFinishedYear)
 
   $("#" + hasWorkFinishedYetY).on "click", ->
@@ -36,8 +36,8 @@ window.hasWorkFinishedYet = (hasWorkFinishedYetY, hasWorkFinishedYetN, dateWhenF
   $("#" + hasWorkFinishedYetN).on "click", ->
     hideHasWorkFinishedYetWrap(dateWhenFinishedDay, dateWhenFinishedMonth, dateWhenFinishedYear)
 
-window.typeOfWork = (typeOfWorkEmployed, typeOfWorkSelfEmployed, employerNameAndAddress1, employerNameAndAddress2, employerNameAndAddress3, employerPostcode, employerContactNumber, employerPayrollNumber, selfEmployedTypeOfWork, selfEmployedTotalIncomeYes, selfEmployedTotalIncomeNo, selfEmployedTotalIncomeDontKnow, selfEmployedMoreAboutChanges) ->
-   if not $("#" + typeOfWorkEmployed).prop("checked")
+window.typeOfWork = (typeOfWorkEmployed, typeOfWorkSelfEmployed, employerNameAndAddress1, employerNameAndAddress2, employerNameAndAddress3, employerPostcode, employerContactNumber, employerPayrollNumber, selfEmployedTypeOfWork, selfEmployedTotalIncomeYes, selfEmployedTotalIncomeNo, selfEmployedTotalIncomeDontKnow, selfEmployedMoreAboutChanges, moreAboutChanges) ->
+  if not $("#" + typeOfWorkEmployed).prop("checked")
     hideTypeOfWorkEmployedWrap(employerNameAndAddress1, employerNameAndAddress2, employerNameAndAddress3, employerPostcode, employerContactNumber, employerPayrollNumber)
 
   if not $("#" + typeOfWorkSelfEmployed).prop("checked")
