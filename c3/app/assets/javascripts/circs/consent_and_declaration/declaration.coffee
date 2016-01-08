@@ -3,7 +3,8 @@ window.initEvents = (infoAgreementY, infoAgreementN, why, check, input) ->
     $("#why").slideUp(0).attr 'aria-hidden', 'true'
     $("#" + why).val("")
 
-  showWhyWrap = () ->
+  showWhyWrap = (input) ->
+    $("#"+input).trigger("blur")
     $("#why").slideDown(0).attr 'aria-hidden', 'false'
 
   hideOrgWrap = (input) ->
@@ -30,13 +31,13 @@ window.initEvents = (infoAgreementY, infoAgreementN, why, check, input) ->
     hideWhyWrap(why)
 
   if $("#" + infoAgreementN).prop('checked')
-    showWhyWrap()
+    showWhyWrap(why)
 
   $("#" + infoAgreementY).on "click", ->
     hideWhyWrap(why)
 
   $("#" + infoAgreementN).on "click", ->
-    showWhyWrap()
+    showWhyWrap(why)
 
 
 
