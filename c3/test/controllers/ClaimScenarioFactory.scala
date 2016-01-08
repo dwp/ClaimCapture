@@ -1056,4 +1056,17 @@ object ClaimScenarioFactory {
 
     claim
   }
+
+  def thirdPartyYesCarer() = {
+    val claim = new TestData
+    claim.ThirdPartyAreYouApplying = "yesCarer"
+    claim
+  }
+
+  def thirdPartyNotCarer() = {
+    val claim = new TestData
+    claim.ThirdPartyAreYouApplying = "noCarer"
+    claim.ThirdPartyNameAndOrganisation = "test and company"
+    claim
+  }
 }

@@ -86,6 +86,11 @@ POST        /allowance/approve                                          controll
 GET         /disclaimer/disclaimer                                      controllers.s_disclaimer.GDisclaimer.present
 POST        /disclaimer/disclaimer                                      controllers.s_disclaimer.GDisclaimer.submit
 
+# Third party
+###############
+GET         /third-party/third-party                                    controllers.third_party.GThirdParty.present
+POST        /third-party/third-party                                    controllers.third_party.GThirdParty.submit
+
 # Claim date
 ###############
 GET         /your-claim-date/claim-date                                 controllers.s_claim_date.GClaimDate.present

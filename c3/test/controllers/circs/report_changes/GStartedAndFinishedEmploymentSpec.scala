@@ -97,8 +97,6 @@ class GStartedAndFinishedEmploymentSpec extends Specification {
     }
 
     "redirect to the next page after valid submission of monthly on going employment" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
-      pending
-
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validFinishedMonthlyPaymentEmployment: _*)
 
@@ -107,8 +105,6 @@ class GStartedAndFinishedEmploymentSpec extends Specification {
     }
 
     "redirect to the next page after valid submission of other on going employment" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
-      pending
-
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validFinishedOtherPaymentEmployment: _*)
 

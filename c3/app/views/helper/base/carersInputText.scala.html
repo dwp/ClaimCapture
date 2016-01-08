@@ -13,4 +13,9 @@
     @carersLabel(field, args: _*)
 
     <input type="text" class="form-control" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" value="@value" @toHtmlArgs(htmlArgs)>
+
+    @if(args.find(_._1=='helperBelow).isDefined) {
+        <p class="form-hint">@Html(messages(args.find(_._1=='helperBelow).get._2.toString()))</p>
+    }
 }
+

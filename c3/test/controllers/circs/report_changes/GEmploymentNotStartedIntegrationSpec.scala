@@ -9,7 +9,6 @@ class GEmploymentNotStartedIntegrationSpec extends Specification {
   section("integration", models.domain.CircumstancesIdentification.id)
   "Report an Employment change in your circumstances where employment has not started - Employment" should {
      "be presented" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
-       pending("throws JavaScript error because test browser is not capable of handling the level of JS used")
        val page = GEmploymentNotStartedPage(context)
        page goToThePage()
      }

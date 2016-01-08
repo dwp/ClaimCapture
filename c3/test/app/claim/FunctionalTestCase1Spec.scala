@@ -28,7 +28,7 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
   private def buildPreviewUseData = {
 
     PreviewTestableData()   +
-      "AboutYouTitle"       + "AboutYouFirstName" + "AboutYouMiddleName" + "AboutYouSurname" +
+      "AboutYouTitle" + "AboutYouFirstName" + "AboutYouMiddleName" + "AboutYouSurname" +
       dateConversion("AboutYouDateOfBirth") +
       dateConversion("ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart") +
       addressConversion("AboutYouAddress") + "AboutYouPostcode" +

@@ -2,6 +2,7 @@ package utils.pageobjects
 
 import utils.pageobjects.s_breaks.{GBreaksInCarePage, GBreakPage}
 import utils.pageobjects.save_for_later.{GSaveForLaterResumePage, GSaveForLaterSavePage}
+import utils.pageobjects.third_party.GThirdPartyPage
 import scala.language.dynamics
 import utils.pageobjects.s_eligibility._
 import utils.pageobjects.s_disclaimer._
@@ -40,6 +41,7 @@ object ClaimPageFactory extends PageFactory {
       case GEligibilityPage.url => GEligibilityPage(ctx)
       case G5CarersResponsePage.url => G5CarersResponsePage(ctx)
       case GApprovePage.url => GApprovePage(ctx)
+      case GThirdPartyPage.url => GThirdPartyPage(ctx)
       //S1.5
       case GClaimDatePage.url => GClaimDatePage(ctx)
       // S2

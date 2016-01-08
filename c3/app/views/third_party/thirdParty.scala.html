@@ -1,0 +1,51 @@
+@(thirdPartyDetailsForm: Form[models.domain.ThirdPartyDetails])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
+
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
+@import models.domain.ThirdPartyDetails
+
+@main(messages("thirdParty.legend") + " - " + messages("thirdParty.longName")) {
+    @errorsSummary(thirdPartyDetailsForm)
+
+    @form(action = controllers.third_party.routes.GThirdParty.submit, 'role -> "form") {
+            @DwpCSRFFormHelper.formField
+
+	        <fieldset class="form-elements">
+
+	            <ul>
+	                @listRadioGroup(thirdPartyDetailsForm("thirdParty"),
+                        'items -> Seq(ThirdPartyDetails.yesCarer -> messages("thirdParty.yourTheCarer"), ThirdPartyDetails.noCarer -> messages("thirdParty.yourNotTheCarer")),
+                        '_label -> "",
+                        '_nestedFieldSet -> true)
+
+	                @otherDetailPlaceHolder(
+	                    inputDef = Seq(
+	                        carersInputText(thirdPartyDetailsForm("thirdParty.nameAndOrganisation"),
+	                            '_label -> messages("thirdParty.nameAndOrganisation"),
+                                'helperBelow -> messages("thirdParty.fileFormAsCarer"),
+	                            'maxLength -> 60)
+	                    ),
+	                    'id -> "thirdPartyWrap"
+	                )
+                </ul>
+
+	        </fieldset>
+
+            @views.html.common.bottomNavigation()
+
+    }
+
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/third_party/thirdParty.js")></script>
+    <script type="text/javascript">
+        $(function(){
+            window.initEvents("@CarersCrypto.encryptAES(thirdPartyDetailsForm("thirdParty")("yesCarer").id)",
+                            "@CarersCrypto.encryptAES(thirdPartyDetailsForm("thirdParty")("noCarer").id)",
+                            "@CarersCrypto.encryptAES(thirdPartyDetailsForm("thirdParty")("nameAndOrganisation").id)")
+        });
+    </script>
+
+
+}

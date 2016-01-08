@@ -1,6 +1,7 @@
 package controllers.s_eligibility
 
 import org.specs2.mutable._
+import utils.pageobjects.third_party.GThirdPartyPage
 import utils.{WithJsBrowser, WithBrowser}
 import utils.pageobjects.common.ErrorPage
 import utils.pageobjects.{PageObjects, TestData}
@@ -73,7 +74,7 @@ class GApproveIntegrationSpec extends Specification {
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "Yes"
       page goToThePage()
-      page runClaimWith (claim, GClaimDatePage.url)
+      page runClaimWith (claim, GThirdPartyPage.url)
     }
 
     "If go to error page after this page. Retry allows to come back to this page" in new WithJsBrowser with PageObjects {
