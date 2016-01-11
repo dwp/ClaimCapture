@@ -14,7 +14,6 @@ window.initEvents = (breakEndedY, breakEndedN, expectStartCaringY, expectStartCa
     hidePermanentBreakDate()
 
   if not $("#" + expectStartCaringY).prop("checked")
-#    hideExpectStartCaring()
     hideExpectStartCaringDate()
     hidePermanentBreakDate()
 
