@@ -54,7 +54,7 @@ class FunctionalTestCase2Spec extends FunctionalTestCommon  {
       "EmploymentHaveYouBeenSelfEmployedAtAnyTime" +
       "OtherMoneyAnyPaymentsSinceClaimDate" +
       "OtherMoneyHaveYouSSPSinceClaim" +
-      "OtherMoneyHaveYouSMPSinceClaim"
-
+      "OtherMoneyHaveYouSMPSinceClaim" +
+      "ThirdPartyNameAndOrganisation"
   }
 }
