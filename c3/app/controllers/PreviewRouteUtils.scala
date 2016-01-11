@@ -1,8 +1,5 @@
 package controllers
 
-import controllers.s_breaks.GBreaksInCare
-
-
 object PreviewRouteUtils {
 
   def yourDetailsRoute = {
@@ -27,9 +24,7 @@ object PreviewRouteUtils {
                         "about_you_workingForEEA" -> gOtherEEARoute)
 
     routesMap
-
   }
-
 
   def employmentRoute = {
     val employmentRoute = controllers.s_self_employment.routes.GEmployment.present.toString
@@ -66,7 +61,6 @@ object PreviewRouteUtils {
   }
 
   def breaks = {
-
     val gBreaksInCareRoute = controllers.s_breaks.routes.GBreaksInCare.present.toString
 
     val breaksInCareList = Seq("care_you_provide_anyBreaks")
@@ -118,4 +112,11 @@ object PreviewRouteUtils {
     routesMap
   }
 
+  def thirdPartyRoute = {
+    val gThirdPartyRoute = controllers.third_party.routes.GThirdParty.present.toString
+
+    val thirdPartyList = Seq("third_party")
+    val routesMap = Map(thirdPartyList map {id => (id, gThirdPartyRoute)} : _*)
+    routesMap
+  }
 }

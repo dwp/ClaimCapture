@@ -1,16 +1,7 @@
-@import utils.helpers.CarersCrypto
-@import utils.helpers.CarersCrypto.encryptAES
 @(id:String, name:String, value:String,disableLink:Boolean = false, elementId:Option[String]=None)(implicit lang: Lang, messages: play.api.i18n.Messages)
 
-@import controllers.PreviewRouteUtils._
 @import utils.helpers.PreviewField._
 @import utils.helpers.HtmlLabelHelper._
-
-@routesMap = @{
-    PreviewRouteUtils.yourDetailsRoute ++ PreviewRouteUtils.otherMoneyRoute ++
-            PreviewRouteUtils.educationRoute ++ PreviewRouteUtils.careYouProvide ++ PreviewRouteUtils.breaks ++ PreviewRouteUtils.yourPartner ++
-				PreviewRouteUtils.employmentRoute ++ PreviewRouteUtils.additionalInfoRoute ++ PreviewRouteUtils.bankDetailsRoute
-}
 
 @label = @{
     Html(messages(name))

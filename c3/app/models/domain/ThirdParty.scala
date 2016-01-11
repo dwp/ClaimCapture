@@ -6,7 +6,7 @@ object ThirdParty extends Section.Identifier {
   val id = "s14"
 }
 
-case class ThirdPartyDetails(thirdParty: String, nameAndOrganisation: Option[String] = None) extends QuestionGroup(ThirdPartyDetails)
+case class ThirdPartyDetails(thirdParty: String = "", nameAndOrganisation: Option[String] = None) extends QuestionGroup(ThirdPartyDetails)
 
 object ThirdPartyDetails extends QuestionGroup.Identifier {
   val id = s"${ThirdParty.id}.g1"

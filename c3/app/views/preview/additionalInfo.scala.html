@@ -1,11 +1,12 @@
 @()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
 @import models.domain._
-@import play.api.i18n.Messages
 @import controllers.mappings.Mappings._
 @import helper._
 
 @additionalInfo = @{claim.questionGroup[AdditionalInfo].getOrElse(AdditionalInfo())}
+@thirdPartyDetails = @{claim.questionGroup[ThirdPartyDetails].getOrElse(ThirdPartyDetails())}
+@aboutYouCarer = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}
 @additionalInfoAnswer = @{
     additionalInfo.anythingElse.answer match {
         case `yes` => messages("label.yes") + " - " + messages("detailsProvided.simple")
@@ -13,6 +14,12 @@
     }
 }
 @additionalInfoWelsh = @{messages("label." + additionalInfo.welshCommunication)}
+@thirdPartyDetailsMessage = @{
+    thirdPartyDetails.thirdParty == ThirdPartyDetails.noCarer match {
+        case true => messages("thirdParty.completedByThirdParty", thirdPartyDetails.nameAndOrganisation.getOrElse(""), aboutYouCarer.firstName, aboutYouCarer.surname)
+        case false => messages("thirdParty.completedByCarer", aboutYouCarer.firstName, aboutYouCarer.surname)
+    }
+}
 @disableChangeButton = @{
     !app.ConfigProperties.getProperty("cyaToggleVisible",true)
 }
@@ -21,6 +28,7 @@
     @if(lang.language != "cy") {
         @fieldWithLink("additional_info_welsh" , "welshCommunication", additionalInfoWelsh, elementId = Some("welshCommunication"), disableLink = disableChangeButton)
     }
+    @fieldWithLink("third_party" , "thirdParty.completedOnBehalf", thirdPartyDetailsMessage, elementId = Some("thirdParty"), disableLink = true)
 }
 
 @accordion(label = messages("s10_2.g1"), openLabel = "open-additional-info", closeLabel = "close-additional-info", content = content, 'track -> true)
