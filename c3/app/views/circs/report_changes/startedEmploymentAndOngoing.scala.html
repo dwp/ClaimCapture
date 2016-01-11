@@ -160,7 +160,7 @@
                             'id -> "whatCostsWrap"
                         )
 
-                        @carersInputTextArea(moreAboutChanges, 'helperAbove -> messages("moreAboutChanges.helper"), 'helper -> Html(messages("300charsLeft")), 'maxLength -> 300)
+                        @carersInputTextArea(moreAboutChanges, 'helperAbove -> messages("moreAboutChanges.helper"), 'textAreaHelper -> Html(messages("300charsLeft")), 'maxLength -> 300)
                     </ul>
 
                 </fieldset>
@@ -178,6 +178,12 @@
         <script type="text/javascript">
 
             $ ( function ( ) {
+            window.areaCounter ( { selector : "@CarersCrypto.encryptAES(howOftenFrequency("other").id)",maxChars:60});
+            window.areaCounter ( { selector : "@CarersCrypto.encryptAES(doYouPayIntoPension("whatFor").id)",maxChars:300});
+            window.areaCounter ( { selector : "@CarersCrypto.encryptAES(doCareCostsForThisWork("whatCosts").id)",maxChars:300});
+            window.areaCounter ( { selector : "@CarersCrypto.encryptAES(doYouPayForThings("whatFor").id)",maxChars:300});
+            window.areaCounter ( { selector : "@CarersCrypto.encryptAES(moreAboutChanges.id)",maxChars:300});
+
             window.fixErrorMessages ( { beenPaidYetY : "@CarersCrypto.encryptAES(beenPaidYet("yes").id)",
             beenPaidYetN : "@CarersCrypto.encryptAES(beenPaidYet("no").id)",
             howMuchPaid : "@CarersCrypto.encryptAES(howMuchPaid.id)",
@@ -202,8 +208,9 @@
             usuallyPaidSameAmountYMonthText : "@Html(messages("usuallyPaidSameAmount.month"))",
             usuallyPaidSameAmountNMonthText : "@Html(messages("usuallyPaidSameAmount.month.expect"))",
             usuallyPaidSameAmountYOtherText : "@Html(messages("usuallyPaidSameAmount.other"))",
-            usuallyPaidSameAmountNOtherText : "@Html(messages("usuallyPaidSameAmount.other.expect"))"}
-            ) ;
+            usuallyPaidSameAmountNOtherText : "@Html(messages("usuallyPaidSameAmount.other.expect"))",
+            moreAboutChanges : "@CarersCrypto.encryptAES(moreAboutChanges.id)"}
+            );
 
             window.beenPaidYet ( { beenPaidYetY : "@CarersCrypto.encryptAES(beenPaidYet("yes").id)",
             beenPaidYetN : "@CarersCrypto.encryptAES(beenPaidYet("no").id)",
@@ -267,12 +274,6 @@
             window.whatCosts ( "@CarersCrypto.encryptAES(doCareCostsForThisWork("answer")("yes").id)",
             "@CarersCrypto.encryptAES(doCareCostsForThisWork("answer")("no").id)",
             "@CarersCrypto.encryptAES(doCareCostsForThisWork("whatCosts").id)");
-
-            window.areaCounter ( { selector : "@CarersCrypto.encryptAES(howOftenFrequency("other").id)",maxChars:60});
-            window.areaCounter ( { selector : "@CarersCrypto.encryptAES(doYouPayIntoPension("whatFor").id)",maxChars:300});
-            window.areaCounter ( { selector : "@CarersCrypto.encryptAES(doCareCostsForThisWork("whatCosts").id)",maxChars:300});
-            window.areaCounter ( { selector : "@CarersCrypto.encryptAES(doYouPayForThings("whatFor").id)",maxChars:300});
-            window.areaCounter ( { selector : "@CarersCrypto.encryptAES(moreAboutChanges.id)",maxChars:300});
             });
 
         </script>

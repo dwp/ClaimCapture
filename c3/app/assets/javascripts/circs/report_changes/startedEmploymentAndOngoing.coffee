@@ -20,7 +20,7 @@ S = (selector) -> $("##{selector}")
 #
 
 window.fixErrorMessages = (o) ->
-
+  $("#"+o.moreAboutChanges).trigger("blur")
   if checked o.beenPaidYetN
     currentText = vssText(o.howMuchPaid)
     vssText(o.howMuchPaid,o.howMuchPaidNText + subString(currentText, o.howMuchPaidYText, currentText))
@@ -133,6 +133,8 @@ onBeenPaidYetN = (ctx,reset) -> #Double -> because it's a function returning a f
 #
 
 window.beenPaidYet = (ctx) ->
+  $("#"+ctx.howOftenFrequencyOther).trigger("blur")
+
   if checked(ctx.beenPaidYetY)
     onBeenPaidYetY(ctx,false)()
   else if checked(ctx.beenPaidYetN)
@@ -196,9 +198,13 @@ window.payDay = (o) ->
 #
 
 window.whatFor = (payIntoPensionY, payIntoPensionN, whatFor) ->
+  $("#"+whatFor).trigger("blur")
+
   if not checked(payIntoPensionY)
     S("whatForWrap").slideUp 0, -> val(whatFor,"")
-  S(payIntoPensionY).on "click", -> S("whatForWrap").slideDown 0
+  S(payIntoPensionY).on "click", ->
+    $("#"+whatFor).trigger("blur")
+    S("whatForWrap").slideDown 0
 
   S(payIntoPensionN).on "click", -> S("whatForWrap").slideUp 0, -> val(whatFor,"")
 
@@ -208,9 +214,14 @@ window.whatFor = (payIntoPensionY, payIntoPensionN, whatFor) ->
 #
 
 window.whatThings = (payForThingsY, payForThingsN, whatThings) ->
+  $("#"+whatThings).trigger("blur")
+
   if not checked(payForThingsY)
     S("whatThingsWrap").slideUp 0, -> val(whatThings,"")
-  S(payForThingsY).on "click", -> S("whatThingsWrap").slideDown 0
+
+  S(payForThingsY).on "click", ->
+    $("#"+whatThings).trigger("blur")
+    S("whatThingsWrap").slideDown 0
 
   S(payForThingsN).on "click", -> S("whatThingsWrap").slideUp 0, -> val(whatThings,"")
 
@@ -219,9 +230,13 @@ window.whatThings = (payForThingsY, payForThingsN, whatThings) ->
 # What Costs function
 #
 window.whatCosts = (careCostsForThisWorkY, careCostsForThisWorkN, whatCosts) ->
+  $("#"+whatCosts).trigger("blur")
+
   if not checked(careCostsForThisWorkY)
     S("whatCostsWrap").slideUp 0, -> val(whatCosts,"")
 
-  S(careCostsForThisWorkY).on "click", -> S("whatCostsWrap").slideDown 0
+  S(careCostsForThisWorkY).on "click", ->
+    $("#"+whatCosts).trigger("blur")
+    S("whatCostsWrap").slideDown 0
 
   S(careCostsForThisWorkN).on "click", -> S("whatCostsWrap").slideUp 0, -> val(whatCosts,"")
