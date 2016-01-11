@@ -1,4 +1,8 @@
-window.initEvents = (breakEndedY, breakEndedN, expectStartCaringY, expectStartCaringN, expectStartCaringDontKnow, breakStartDate, breakStartTime, breakEndedDate,breakEndedTime,moreAboutChanges) ->
+window.initEvents = (breakEndedY, breakEndedN, expectStartCaringY, expectStartCaringN, expectStartCaringDontKnow,
+                     breakStartDate, breakStartTime, breakEndedDate,breakEndedTime,
+                     wherePersonBreaksInCare_text, whereYouBreaksInCare_text, moreAboutChanges) ->
+  $("#"+wherePersonBreaksInCare_text).trigger("blur")
+  $("#"+whereYouBreaksInCare_text).trigger("blur")
   $("#"+moreAboutChanges).trigger("blur")
 
   if not $("#" + breakEndedY).prop("checked")
