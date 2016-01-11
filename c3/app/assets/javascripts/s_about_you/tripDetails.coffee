@@ -3,6 +3,8 @@ val = (selector,text) -> if text? then $("##{selector}").val(text) else $("##{se
 S = (selector) -> $("##{selector}")
 
 window.initEvents = (answer_yes, answer_no, tripDetails) ->
+  $("#"+tripDetails).trigger("blur")
+
   if not isChecked(answer_yes)
     hideTripDetailsWrapper(tripDetails)
 

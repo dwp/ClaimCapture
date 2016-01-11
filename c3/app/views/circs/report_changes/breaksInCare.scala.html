@@ -7,7 +7,6 @@
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
 @import views.html.circs.report_changes.main
-@import play.api.i18n.Messages
 @import app.CircsBreaksWhereabouts._
 
 
@@ -117,6 +116,8 @@
             "@CarersCrypto.encryptAES("breaksInCareStartTime")",
             "@CarersCrypto.encryptAES("breakEnded_endDate")",
             "@CarersCrypto.encryptAES("breakEnded_endTime")",
+            "@CarersCrypto.encryptAES("wherePersonBreaksInCare_text")",
+            "@CarersCrypto.encryptAES("whereYouBreaksInCare_text")",
             "@CarersCrypto.encryptAES("moreAboutChanges")"
             );
 
