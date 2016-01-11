@@ -1,7 +1,7 @@
 package controllers.s_about_you
 
 import org.specs2.mutable._
-import utils.WithJsBrowser
+import utils.{LightFakeApplication, WithJsBrowser}
 import controllers.{PreviewTestUtils, ClaimScenarioFactory}
 import utils.pageobjects._
 import utils.pageobjects.preview.PreviewPage
@@ -124,7 +124,7 @@ class GContactDetailsIntegrationSpec extends Specification {
       page visible ("#emailNoHelper") must beFalse
     }
 
-    "Present email yes help only when email yes clicked" in new WithJsBrowser with PageObjects {
+    "Present email yes help only when email yes clicked" in new WithJsBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "true"))) with PageObjects {
       val page = GContactDetailsPage(context)
       page goToThePage()
       page.source must contain("id=\"wantsEmailContact_yes\"")
@@ -133,7 +133,7 @@ class GContactDetailsIntegrationSpec extends Specification {
       page visible ("#emailNoHelper") must beFalse
     }
 
-    "Present email no help only when email no clicked" in new WithJsBrowser with PageObjects {
+    "Present email no help only when email no clicked" in new WithJsBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "true"))) with PageObjects {
       val page = GContactDetailsPage(context)
       page goToThePage()
       page.source must contain("id=\"wantsEmailContact_no\"")
@@ -142,7 +142,7 @@ class GContactDetailsIntegrationSpec extends Specification {
       page visible ("#emailNoHelper") must beTrue
     }
 
-    "Present email with no help only when email yes selected and return to page" in new WithJsBrowser with PageObjects {
+    "Present email with no help only when email yes selected and return to page" in new WithJsBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "true"))) with PageObjects {
       val page = GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       claim.AboutYouWantsEmailContact = "Yes"
@@ -162,7 +162,7 @@ class GContactDetailsIntegrationSpec extends Specification {
       contactPageAgain visible ("#emailNoHelper") must beFalse
     }
 
-    "Present email no help only when email no selected and return to page" in new WithJsBrowser with PageObjects {
+    "Present email no help only when email no selected and return to page" in new WithJsBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "true"))) with PageObjects {
       val page = GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       claim.AboutYouWantsEmailContact = "No"
@@ -179,7 +179,7 @@ class GContactDetailsIntegrationSpec extends Specification {
       contactPageAgain visible ("#emailNoHelper") must beTrue
     }
 
-    "Clear email when return to page and click email No" in new WithJsBrowser with PageObjects {
+    "Clear email when return to page and click email No" in new WithJsBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "true"))) with PageObjects {
       val page = GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       claim.AboutYouWantsEmailContact = "Yes"
