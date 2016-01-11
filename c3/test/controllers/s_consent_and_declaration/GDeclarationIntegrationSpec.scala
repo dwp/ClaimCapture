@@ -34,17 +34,6 @@ class GDeclarationIntegrationSpec extends Specification {
       previewPage must beAnInstanceOf[PreviewPage]
     }
 
-    "not have name or GDeclarationPage field with optional text" in new WithBrowser with PageObjects{
-      val page =  GDeclarationPage(context)
-      val claim = new TestData
-      claim.ConsentDeclarationSomeoneElseTickBox = "Yes"
-
-      page goToThePage()
-      page fillPageWith claim
-
-      page.readLabel("nameOrOrganisation") mustEqual("Your name or organisation")
-    }
-
     "no contact selected in GDeclarationPage field with optional text" in new WithBrowser with PageObjects{
       val page =  GDeclarationPage(context)
       val claim = new TestData

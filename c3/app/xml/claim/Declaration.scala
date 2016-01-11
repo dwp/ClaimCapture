@@ -19,9 +19,7 @@ object  Declaration extends XMLComponent {
         <Content>{messagesApi("declaration.reportChanges.pdf")}</Content>
         <Content>{messagesApi("declaration.warning")}</Content>
       </DeclarationStatement>
-      {question(<DeclarationQuestion/>,"someoneElse", declaration.someoneElse)}
       {question(<DeclarationQuestion/>,"agreement", "Yes")}
-      {question(<DeclarationNameOrg/>,"nameOrOrganisation", declaration.nameOrOrganisation)}
     </Declaration>
   }
 }

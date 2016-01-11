@@ -44,20 +44,6 @@
 				@messages("declaration.warning")
 			</p>
 
-			<div class="block-checkbox">
-				@declareCheckPlaceholder(currentForm("someoneElse"))
-			</div>
-
-			 <ul>
-				 @otherDetailPlaceHolder(
-					inputDef = Seq(carersInputText(currentForm("nameOrOrganisation"))(utils.helpers.CarersTemplate.fieldConstructor,lang,messages),
-				 					Html("<p><p/>"),
-				 					Html(messages("carerTermsDesc"))),
-					'id -> "nameOrOrgWrapper",
-					'display -> currentForm("someoneElse").value.map(p => p match{ case "true" => "yes" case _ => p}).getOrElse("no")
-				 )
-			 </ul>
-			 
 		</fieldset>
 
 		@views.html.common.bottomNavigation(trackSubmit = true, nextLabel = Some("form.submitClaim"), forceShow = true)
@@ -76,9 +62,7 @@
 				informationFromPersonY:"@CarersCrypto.encryptAES("tellUsWhyFromAnyoneOnForm_informationFromPerson_yes")",
 				informationFromPersonN:"@CarersCrypto.encryptAES("tellUsWhyFromAnyoneOnForm_informationFromPerson_no")",
 				whyPerson:"@CarersCrypto.encryptAES("tellUsWhyFromAnyoneOnForm_whyPerson")",
-				whyPersonWrapper:"whyPersonWrapper",
-				check:"@CarersCrypto.encryptAES("someoneElse")",
-				input:"@CarersCrypto.encryptAES("nameOrOrganisation")"
+				whyPersonWrapper:"whyPersonWrapper"
 			});
 		});
 

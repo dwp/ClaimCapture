@@ -277,7 +277,6 @@ Consent & Declaration,Additional information,Please tell us anything else you th
 Consent & Declaration,Consent,Do you agree to the Carer's Allowance Unit contacting anyone mentioned in this form?,ConsentDeclarationGettingInformationFromAnyOther,
 Consent & Declaration,Consent,List anyone you don't want to be contacted and say why.,ConsentDeclarationTellUsWhyOther,
 Disclaimer,Disclaimer,I agree,DisclaimerUnderstandAndAgree,
-Consent & Declaration,Declaration,"Select this box if you filled this form in for someone else.",ConsentDeclarationSomeoneElseTickBox,
 Consent & Declaration,Additional information,Do you live in Wales and would like to receive future communications in Welsh?,ConsentDeclarationCommunicationWelsh,
 About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouContactYouByTextphone,
 Circumstances, About You, Title, CircumstancesAboutYouTitle,

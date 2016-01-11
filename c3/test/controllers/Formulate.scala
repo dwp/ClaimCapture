@@ -274,8 +274,6 @@ object Formulate {
     browser.click("#tellUsWhyFromAnyoneOnForm.informationFromPerson_no")
     browser.fill("#tellUsWhyFromAnyoneOnForm.whyPerson") `with` "Bar"
     browser.click("#confirm")
-    browser.click("#someoneElse")
-    browser.fill("#nameOrOrganisation") `with` "SomeOrg"
     browser.submit("button[type='submit']")
   }
 
@@ -283,8 +281,6 @@ object Formulate {
     browser.goTo("/consent-and-declaration/declaration")
     browser.click("#tellUsWhyFromAnyoneOnForm.informationFromPerson_yes")
     browser.click("#confirm")
-    browser.click("#someoneElse")
-    browser.fill("#nameOrOrganisation") `with` "SomeOrg"
     browser.submit("button[type='submit']")
   }
 
