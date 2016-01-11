@@ -68,7 +68,8 @@ case class Navigation(routes: List[Route[_]] = List(), beenInPreview: Boolean = 
            "controllers.s_claim_date.GClaimDate.present" |
            "controllers.s_about_you.GYourDetails.present" |
            "controllers.s_about_you.GMaritalStatus.present" |
-           "controllers.s_about_you.GContactDetails.present" => false
+           "controllers.s_about_you.GContactDetails.present" |
+           "controllers.third_party.GThirdParty.present" => false
       case _ => true
     }
   }
