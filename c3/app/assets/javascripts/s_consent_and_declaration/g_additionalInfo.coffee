@@ -1,4 +1,5 @@
 window.initEvents = (anythingElseY,anythingElseN,anythingElseText) ->
+  $("#"+anythingElseText).trigger("blur")
 
   if not $("#" + anythingElseY).prop 'checked'
     hideAnythingElseWrapper(anythingElseText)

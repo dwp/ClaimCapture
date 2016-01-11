@@ -1,11 +1,13 @@
 window.initEvents =(payPensionSchemeY, payPensionSchemeN, pensionExpenses,
                     haveExpensesForJobY, haveExpensesForJobN, jobExpenses) ->
+  $("#" + pensionExpenses).trigger("blur")
+  $("#" + jobExpenses).trigger("blur")
 
   if not $("#" + payPensionSchemeY).prop('checked')
     hidePensionExpenses(pensionExpenses)
 
   $("#" + payPensionSchemeY).on "click", ->
-    showPensionExpenses()
+    showPensionExpenses(pensionExpenses)
 
   $("#" + payPensionSchemeN).on "click", ->
     hidePensionExpenses(pensionExpenses)
@@ -14,13 +16,14 @@ window.initEvents =(payPensionSchemeY, payPensionSchemeN, pensionExpenses,
     hideExpensesForJob(jobExpenses)
 
   $("#" + haveExpensesForJobY).on "click", ->
-    showHaveExpensesForJob()
+    showHaveExpensesForJob(jobExpenses)
 
   $("#" + haveExpensesForJobN).on "click", ->
     hideExpensesForJob(jobExpenses)
 
 
-showPensionExpenses = ->
+showPensionExpenses = (pensionExpenses) ->
+  $("#" + pensionExpenses).trigger("blur")
   $("#pensionExpenses").slideDown(0).attr 'aria-hidden', 'false'
 
 hidePensionExpenses = (pensionExpenses) ->
@@ -28,7 +31,8 @@ hidePensionExpenses = (pensionExpenses) ->
     	$("#" + pensionExpenses).val("")
   $("#pensionExpenses").slideUp(0, emptyPensionExpenses).attr 'aria-hidden', 'true', ->
 
-showHaveExpensesForJob = ->
+showHaveExpensesForJob = (jobExpenses) ->
+  $("#" + jobExpenses).trigger("blur")
   $("#jobExpenses").slideDown(0).attr 'aria-hidden', 'false'
 
 hideExpensesForJob = (jobExpenses) ->

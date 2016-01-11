@@ -1,4 +1,6 @@
-window.initEvents = (currentlyPaidIntoBankY, currentlyPaidIntoBankN, text1, text2) ->
+window.initEvents = (currentlyPaidIntoBankY, currentlyPaidIntoBankN, text1, text2, moreAboutChanges) ->
+  $("#"+moreAboutChanges).trigger("blur")
+
   if not $("#" + currentlyPaidIntoBankY).prop('checked')
     hideWrap1(text1)
 

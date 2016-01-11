@@ -5,10 +5,8 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
-@import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
-
-@import play.api.i18n.Messages
+@import views.html.s_other_money.main
 
 
 @main(messages("s9.longName"), Some(currentForm)) {
@@ -88,12 +86,16 @@
         @views.html.common.bottomNavigation()
 
     }
-<script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_other_money/g_aboutOtherMoney.js")></script>
 <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
+<script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_other_money/g_aboutOtherMoney.js")></script>
 <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/selectOther.js")></script>
 
 <script type="text/javascript">
     $(function() {
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("howOften_frequency_other")",maxChars:60});
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("statutorySickPay_howOften_frequency_other")",maxChars:60});
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("otherStatutoryPay_howOften_frequency_other")",maxChars:60});
+
         window.initEvents({
           answerY:"@CarersCrypto.encryptAES("anyPaymentsSinceClaimDate_answer_yes")",
           answerN:"@CarersCrypto.encryptAES("anyPaymentsSinceClaimDate_answer_no")",
@@ -122,11 +124,6 @@
           otherEmployersAddress_lineThree:"@CarersCrypto.encryptAES("otherStatutoryPay_employersAddress_lineThree")",
           otherEmployersPostcode:"@CarersCrypto.encryptAES("otherStatutoryPay_employersPostcode")"
         });
-
-        window.areaCounter({selector: "@CarersCrypto.encryptAES("howOften_frequency_other")",maxChars:60});
-        window.areaCounter({selector: "@CarersCrypto.encryptAES("statutorySickPay_howOften_frequency_other")",maxChars:60});
-        window.areaCounter({selector: "@CarersCrypto.encryptAES("otherStatutoryPay_howOften_frequency_other")",maxChars:60});
-
         @ga.stagePrompt()
     });
 </script>

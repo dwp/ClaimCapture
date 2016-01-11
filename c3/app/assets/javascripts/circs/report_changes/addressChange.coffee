@@ -1,6 +1,7 @@
 window.initEvents = (stillCaringY, stillCaringN, dateStoppedCaring,
                      caredForChangedAddress, caredForChangedAddressY, caredForChangedAddressN,
-                     sameAddressY, sameAddressN, theirNewAddress, theirNewPostcode) ->
+                     sameAddressY, sameAddressN, theirNewAddress, theirNewPostcode, moreAboutChanges) ->
+  $("#"+moreAboutChanges).trigger("blur")
   if not $("#" + stillCaringN).prop("checked")
     hideStillCaringDate(dateStoppedCaring)
 

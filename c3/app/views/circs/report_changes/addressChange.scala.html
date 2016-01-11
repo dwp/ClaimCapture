@@ -67,7 +67,7 @@
 	                    ),
 	                    'id -> "sameAddressData"
 	                )
-	                @carersInputTextArea(addressForm("moreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), 'helper -> Html(messages("300charsLeft")), 'maxLength -> 300)
+	                @carersInputTextArea(addressForm("moreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), 'textAreaHelper -> Html(messages("300charsLeft")), 'maxLength -> 300)
 
 	            </ul>
 	
@@ -97,7 +97,8 @@
 			"@CarersCrypto.encryptAES("sameAddress_answer_yes")",
 			"@CarersCrypto.encryptAES("sameAddress_answer_no")",
 			"@CarersCrypto.encryptAES("sameAddress.theirNewAddress")",
-			"@CarersCrypto.encryptAES("sameAddress.theirNewPostcode")"
+			"@CarersCrypto.encryptAES("sameAddress.theirNewPostcode")",
+			"@CarersCrypto.encryptAES("moreAboutChanges")"
 			);
 			 @ga.stagePrompt()
 		});

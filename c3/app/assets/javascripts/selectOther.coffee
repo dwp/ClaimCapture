@@ -9,6 +9,7 @@ $ ->
 
     $("select[class=selectWithOther]").change ->
         if $(this).val().toLowerCase() is "other"
+            $(this).parent().find("textarea").trigger("blur")
             $(this).next().slideDown(0)
         else
             textArea = $(this).parent().find("textarea")

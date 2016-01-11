@@ -48,7 +48,7 @@
 	                @yesNoRadioGroup(selfEmployment("totalOverWeeklyIncomeThreshold"),
 	                    'values -> Seq("yes" -> messages("label.yes7"), "no" -> messages("label.no"), "dontknow" -> messages("label.dontknow")))
 	
-	                @carersInputTextArea(selfEmployment("moreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), 'helper -> Html(messages("300charsLeft")), 'maxLength -> 300)
+	                @carersInputTextArea(selfEmployment("moreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), 'textAreaHelper -> Html(messages("300charsLeft")), 'maxLength -> 300)
 
 	            </ul>
 
