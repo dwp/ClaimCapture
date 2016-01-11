@@ -1,4 +1,6 @@
 window.initEvents = (infoAgreementY, infoAgreementN, why, check, input) ->
+  $("#"+input).trigger("blur")
+
   hideWhyWrap = (why) ->
     $("#why").slideUp(0).attr 'aria-hidden', 'true'
     $("#" + why).val("")
