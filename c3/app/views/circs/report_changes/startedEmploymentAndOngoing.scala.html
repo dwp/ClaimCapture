@@ -82,7 +82,7 @@
                                     '_label -> {
                                         if(beenPaidYet.value == Some("yes"))"circs.howOften" else "circs.howOften.expect"
                                     },
-                                    'textAreaHelper -> Html(messages("60charsLeft")), 'maxLength -> 60
+                                    'textAreaHelper -> Html(messages("60charsLeft")), 'maxLength -> 60, 'class -> "textarea-reduced"
                                 )
                             ),
                             'id -> "beenPaidYetWrap"
