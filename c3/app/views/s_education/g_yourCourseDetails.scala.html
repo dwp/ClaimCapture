@@ -32,8 +32,8 @@
 
                         @otherDetailPlaceHolder(
                             inputDef = Seq(
-                                carersInputText(currentForm("courseTitle"), 'maxLength -> 75),
-                                carersInputText(currentForm("nameOfSchoolCollegeOrUniversity"), 'maxLength -> mappings.Mappings.sixty),
+                                carersInputTextArea(currentForm("courseTitle"), 'maxLength -> 75, 'class -> "textarea-reduced"),
+                                carersInputTextArea(currentForm("nameOfSchoolCollegeOrUniversity"), 'maxLength -> mappings.Mappings.sixty, 'class -> "textarea-reduced"),
                                 carersInputText(currentForm("nameOfMainTeacherOrTutor"), 'maxLength -> mappings.Mappings.sixty),
                                 carersInputTel(currentForm("courseContactNumber"), 'helperAbove -> messages("courseContactNumber.helper"), 'maxLength -> mappings.Mappings.twenty),
                                 educationStartDate(currentForm("startDate")),
