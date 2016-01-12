@@ -6,6 +6,8 @@
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
 @import models.domain.ThirdPartyDetails
+@import play.api.Play
+@import play.api.Play.current
 
 @main(messages("thirdParty.legend") + " - " + messages("thirdParty.longName")) {
     @errorsSummary(thirdPartyDetailsForm)
@@ -41,10 +43,20 @@
 
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/third_party/thirdParty.js")></script>
     <script type="text/javascript">
+        $(function () {
+            @if(!Play.isTest) {
+                trackEvent ( "times", "claim - start" );
+                setCookie("claimstart", new Date().getTime());
+            }
+        });
         $(function(){
             window.initEvents("@CarersCrypto.encryptAES(thirdPartyDetailsForm("thirdParty")("yesCarer").id)",
                             "@CarersCrypto.encryptAES(thirdPartyDetailsForm("thirdParty")("noCarer").id)",
                             "@CarersCrypto.encryptAES(thirdPartyDetailsForm("thirdParty")("nameAndOrganisation").id)")
+        @if(!Play.isTest) {
+            trackEvent ( "times", "claim - start" );
+            setCookie("claimstart", new Date().getTime());
+        }
         });
     </script>
 
