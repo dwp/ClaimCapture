@@ -27,6 +27,7 @@ object ClaimHandling {
   // Versioning
   val C3VERSION = "C3Version"
   val C3VERSION_VALUE = "3.2"
+  val C3VERSION_SECSTOLIVE = 10*60*60
   val applicationFinished = "application-finished"
 
 }
@@ -76,8 +77,9 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
         implicit val newRequest = Request(request.copy(headers=newHeaders),request.body)
 
         // Added C3Version for full Zero downtime
+        Logger.info(s"New C3Version cookie for ${claim.uuid} value:${ClaimHandling.C3VERSION_VALUE} expiresecs:${ClaimHandling.C3VERSION_SECSTOLIVE}")
         withHeaders(action(claim, newRequest, bestLang)(f))
-          .withCookies(newRequest.cookies.toSeq.filterNot(tofilter) :+ Cookie(ClaimHandling.C3VERSION, ClaimHandling.C3VERSION_VALUE): _*)
+          .withCookies(newRequest.cookies.toSeq.filterNot(tofilter) :+ Cookie(ClaimHandling.C3VERSION, ClaimHandling.C3VERSION_VALUE, Some(ClaimHandling.C3VERSION_SECSTOLIVE)): _*)
           .withSession(claim.key -> claim.uuid)
           .discardingCookies(DiscardingCookie(ClaimHandling.applicationFinished),DiscardingCookie("PLAY_LANG"))
       } else {
