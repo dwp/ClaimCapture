@@ -41,7 +41,7 @@
 	@if(showHidePartnerDetails){
 		@fieldWithLink("care_you_provide_name", "name", partnerTitleName,disableLink = disableChangeButton, elementId = Some("firstName"))
 		@{/** dateOfBirth anchors to national insurance number because javascript causes conflict with page height **/}
-		@fieldWithLink("care_you_provide_dob", "dateOfBirth", theirPersonalDetails.dateOfBirth.`dd month, yyyy`,disableLink = disableChangeButton, elementId = Some("nationalInsuranceNumber_nino"))
+		@fieldWithLink("care_you_provide_dob", "dateOfBirth", theirPersonalDetails.dateOfBirth.`dd month, yyyy`,disableLink = disableChangeButton, elementId = Some("dateOfBirth"))
 	}
 	@fieldWithLink("care_you_provide_relationship", "relationship", theirPersonalDetails.relationship,disableLink = disableChangeButton, elementId = Some("relationship"))
 	@fieldWithLink("care_you_provide_address", "theirAddress.answer", address,disableLink = disableChangeButton, elementId = Some("theirAddress_answer"))

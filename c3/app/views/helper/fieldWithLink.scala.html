@@ -1,4 +1,4 @@
-@(id:String, name:String, value:String,disableLink:Boolean = false, elementId:Option[String]=None)(implicit lang: Lang, messages: play.api.i18n.Messages)
+@(id:String, name:String, value:String,disableLink:Boolean = false, elementId:Option[String]=None, useQuestionLabel: Boolean = false)(implicit lang: Lang, messages: play.api.i18n.Messages)
 
 @import utils.helpers.PreviewField._
 @import utils.helpers.HtmlLabelHelper._
@@ -7,13 +7,15 @@
     Html(messages(name))
 }
 
+@getId = @{ id }
+
 @elementLinkedToId = @{
 	elementId match {
-		case Some(id) => "?hash=" + generateLabelId(id) //"#" + generateLabelId(id)
-		case None => ""
+		case Some(id) => "?hash=" + {useQuestionLabel match { case false => generateLabelId(id) case true => id }} + "&returnToSummary=" + getId //"#" + generateLabelId(id)
+		case None => "?returnToSummary=" + getId
 	}
 }
-<tr class="review-change">
+<tr class="review-change" id="@getId">
 	<td id="@getLabelId(id, false)" class="review-label">
 		<b>@label</b>
 	</td>

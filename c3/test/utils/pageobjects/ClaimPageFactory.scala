@@ -106,7 +106,7 @@ object ClaimPageFactory extends PageFactory {
       case _ =>
         if (previousUrl.isEmpty) buildPageFromUrImpl(url.replaceFirst("/[^/]*$", ""), ctx, url)
         else new UnknownPage(previousUrl, ctx)
-    }(url.replaceFirst("\\?.*$", ""))
+    }(url.replaceFirst("\\?.*$", "").replaceFirst("\\#.*$", ""))
   }
 }
 

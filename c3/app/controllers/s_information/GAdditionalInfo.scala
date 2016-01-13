@@ -3,7 +3,7 @@ package controllers.s_information
 import play.api.Play._
 
 import language.reflectiveCalls
-import play.api.mvc.Controller
+import play.api.mvc.{AnyContent, Request, Controller}
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import models.view.CachedClaim
@@ -40,13 +40,13 @@ object GAdditionalInfo extends Controller with CachedClaim with Navigable with I
         val updatedFormWithErrors = formWithErrors.replaceError("anythingElse","text.required",FormError("anythingElse.text",errorRequired))
         BadRequest(views.html.s_information.g_additionalInfo(updatedFormWithErrors))
       },
-      additionalInfo => claim.update(additionalInfo) -> redirect())
+      additionalInfo => claim.update(additionalInfo) -> redirect(claim))
   }
 
-  private def redirect() = {
-    if (getProperty("preview.enabled",default = false)){
-      Redirect(controllers.preview.routes.Preview.present())
-    }else{
+  private def redirect(claim: Claim) = {
+    if (getProperty("preview.enabled",default = false)) {
+      Redirect(controllers.preview.routes.Preview.present().url + getReturnToSummaryValue(claim))
+    } else {
       Redirect(controllers.s_consent_and_declaration.routes.GDeclaration.present())
     }
   }

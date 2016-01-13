@@ -23,10 +23,14 @@
     text
 }
 
+
 @jobs = @{claim.questionGroup[Jobs]}
 @jobsId = @{ "employment_jobs" }
+@elementLinkedToId = @{
+    "?hash=jobs&returnToSummary=" + jobsId
+}
 @if(jobs.isDefined && jobs.get.jobs.size > 0){
-    <tr class="review-change">
+    <tr class="review-change" id="@jobsId">
         <td id="@getLabelId(jobsId, false)" class="review-label">
             <b>@messages("jobs")</b>
         </td>
@@ -39,7 +43,7 @@
         </td>
         <td id="@getLinkContainerId(jobsId, false)" class="review-action hide-print">
         @if(!disableChangeButton) {
-            <a class="secondary" href="@controllers.preview.routes.Preview.redirect(jobsId)">
+            <a class="secondary" href="@controllers.preview.routes.Preview.redirect(jobsId)@elementLinkedToId">
             @Html(messages("preview.change"))
             </a>
         }

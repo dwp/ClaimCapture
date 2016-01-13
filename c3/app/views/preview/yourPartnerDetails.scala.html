@@ -17,7 +17,7 @@
 		@fieldWithLink("partner_name", "name", titleNames ,disableLink = disableChangeButton, elementId = Some("firstName"))
 		@fieldWithLink("partner_dateOfBirth", "dateOfBirth", yourPartner.dateOfBirth.getOrElse(DayMonthYear(None,None,None)).`dd month, yyyy`,disableLink = disableChangeButton, elementId = Some("dateOfBirth"))
         @{/** Nationality question anchors to dateOfBirth because javascript causes conflict with page height **/}
-        @fieldWithLink("partner_nationality", "partner.nationality", yourPartner.nationality.get,disableLink = disableChangeButton, elementId = Some("dateOfBirth"))
+        @fieldWithLink("partner_nationality", "partner.nationality", yourPartner.nationality.get,disableLink = disableChangeButton, elementId = Some("partner_nationality"))
 		@fieldWithLink("partner_seperated", "separated.fromPartner", messages("label."+yourPartner.separatedFromPartner.get.toLowerCase),disableLink = disableChangeButton, elementId = Some("separated_fromPartner"))
 		@fieldWithLink("partner_isPersonCareFor", "isPartnerPersonYouCareFor", messages("label."+yourPartner.isPartnerPersonYouCareFor.get.toLowerCase),disableLink = disableChangeButton, elementId = Some("isPartnerPersonYouCareFor"))
 	}

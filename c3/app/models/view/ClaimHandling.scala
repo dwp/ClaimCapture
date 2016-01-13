@@ -268,7 +268,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
       Logger.debug("actionWrapper")
       action(request).map { result =>
         result.header.status -> fromCache(request) match {
-          case (play.api.http.Status.SEE_OTHER, Some(claim)) if claim.navigation.beenInPreview => Redirect(controllers.preview.routes.Preview.present())
+          case (play.api.http.Status.SEE_OTHER, Some(claim)) if claim.navigation.beenInPreview => Redirect(controllers.preview.routes.Preview.present().url + getReturnToSummaryValue(claim))
           case _ => result
         }
       }
@@ -284,10 +284,17 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
 
       action(request).map { result =>
         result.header.status -> fromCache(request) match {
-          case (play.api.http.Status.SEE_OTHER, Some(claim)) if claim.navigation.beenInPreview && t(getParams(claim),claim.checkYAnswers.previouslySavedClaim->claim) => Redirect(controllers.preview.routes.Preview.present())
+          case (play.api.http.Status.SEE_OTHER, Some(claim)) if claim.navigation.beenInPreview && t(getParams(claim),claim.checkYAnswers.previouslySavedClaim->claim) => Redirect(controllers.preview.routes.Preview.present().url + getReturnToSummaryValue(claim))
           case _ => result
         }
       }
+    }
+  }
+
+  def getReturnToSummaryValue(claim : Claim) : String = {
+    claim.checkYAnswers.returnToSummaryAnchor == "" match {
+      case true => ""
+      case false => "#" + claim.checkYAnswers.returnToSummaryAnchor
     }
   }
 
