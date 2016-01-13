@@ -25,7 +25,7 @@ object GPaymentChange extends Controller with CachedChangeOfCircs with Navigable
 
   val form = Form(mapping(
     currentlyPaidIntoBankMapping,
-    "accountHolderName" -> carersNonEmptyText(maxLength = 40),
+    "accountHolderName" -> carersNonEmptyText(maxLength = 60),
     "bankFullName" -> carersNonEmptyText(maxLength = 100),
     "sortCode" -> (sortCode verifying requiredSortCode),
     "accountNumber" -> carersNonEmptyText(minLength = 6, maxLength = 10),
