@@ -36,7 +36,7 @@
             <ul>
                 @paymentFrequencySelect(currentForm("oftenGetPaid"),
                     '_label -> labelForEmployment(claim, lang, "oftenGetPaidFrequency", IterationID(currentForm)),
-                    'id -> "oftenGetPaid",'textAreaHelper -> Html(messages("60charsLeft")), 'maxLength -> 60,
+                    'id -> "oftenGetPaid",'textAreaHelper -> Html(messages("60charsLeft")), 'maxLength -> 60, 'class -> "textarea-reduced",
                     '_anchorIdRequired -> true, '_anchorId -> "oftenGetPaid"
                 )
 
