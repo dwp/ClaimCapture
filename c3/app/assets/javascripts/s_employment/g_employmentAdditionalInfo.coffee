@@ -1,15 +1,17 @@
 window.initEvents = (anythingElseY,anythingElseN,anythingElseText) ->
+  $("#"+anythingElseText).trigger("blur")
 
   if not $("#" + anythingElseY).prop 'checked'
     hideAnythingElseWrapper(anythingElseText)
 
   $("#" + anythingElseY).on "click", ->
-    showAnythingElseWrapper()
+    showAnythingElseWrapper(anythingElseText)
 
   $("#" + anythingElseN).on "click", ->
     hideAnythingElseWrapper(anythingElseText)
 
-showAnythingElseWrapper = ->
+showAnythingElseWrapper = (anythingElseText) ->
+  $("#"+anythingElseText).trigger("blur")
   $("#additionalInfoWrap").slideDown(0).attr 'aria-hidden', 'false'
 
 hideAnythingElseWrapper = (anythingElseText) ->
