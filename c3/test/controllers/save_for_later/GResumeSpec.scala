@@ -1,6 +1,5 @@
 package controllers.save_for_later
 
-import controllers.save_for_later.GResume._
 import models.{DayMonthYear, NationalInsuranceNumber}
 import models.domain._
 import models.view.{CachedClaim}
