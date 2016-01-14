@@ -66,7 +66,7 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = uuid }
       val key=encryptedCacheHandling.createSaveForLaterKey(claim)
       val saveForLater=new SaveForLater(SaveForLaterEncryption.encryptClaim(claim,key), "/about-you/nationality-and-residency", 3, "OK", -1, -1, "V1.00"  )
-      encryptedCacheHandling.cache.set("SFL-"+uuid, saveForLater, Duration(CacheHandling.saveForLaterCacheExpiry + CacheHandling.saveForLaterGracePeriod, DAYS))
+      encryptedCacheHandling.cache.set("SFL-"+uuid, saveForLater, Duration(CacheHandling.saveForLaterCacheExpiry + CacheHandling.saveForLaterGracePeriod, SECONDS))
 
       val page = GSaveForLaterResumePage(context)
       page goToThePage()
