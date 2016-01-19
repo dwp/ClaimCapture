@@ -108,6 +108,25 @@ class GContactDetailsSpec extends Specification {
       bodyText must contain("Have you got an email address?")
       status(result) mustEqual OK
     }
+
+    """be added to cached claim upon entering valid data with space in email".""" in new WithApplication with Claiming {
+      val request = FakeRequest()
+        .withFormUrlEncodedBody(
+          "address.lineOne" -> "101 Clifton Street",
+          "address.lineTwo" -> "Blackpool",
+          "postcode" -> "FY1 2RW",
+          "howWeContactYou" -> "01772888901",
+          "wantsEmailContact" -> Mappings.yes,
+          "mail" -> "j@bt.com ",
+          "mailConfirmation" -> "j@bt.com "
+        )
+
+      val result = GContactDetails.submit(request)
+
+      getClaimFromCache(result).questionGroup(ContactDetails) should beLike {
+        case Some(f: ContactDetails) => f.wantsContactEmail shouldEqual "yes"; f.email shouldEqual Some("j@bt.com")
+      }
+    }
   }
   section("unit", models.domain.ContactDetails.id)
 }

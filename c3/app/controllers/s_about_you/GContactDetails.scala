@@ -51,17 +51,18 @@ object GContactDetails extends Controller with CachedClaim with Navigable with I
         val theirPersonalDetailsQG: Option[TheirPersonalDetails] =  claim.questionGroup[TheirPersonalDetails]
         val liveAtSameAddress = theirPersonalDetailsQG.exists(_.theirAddress.answer == yes)
 
-        //if previously, during the journey the carer selected that the caree lives at the same address,
+        // if previously, during the journey the carer selected that the caree lives at the same address,
         // and then he changes the address - update the caree address too
         val updatedClaim:Claim = if (liveAtSameAddress) {
           val addressForm: Form[YesNoMandWithAddress] =
             Form(GTheirPersonalDetails.addressMapping).fill(YesNoMandWithAddress(address = Some(contactDetails.address), postCode = contactDetails.postcode))
           val address:YesNoMandWithAddress = addressForm.fold(p => YesNoMandWithAddress(),p => p)
           claim.update(theirPersonalDetailsQG.get.copy(theirAddress = address))
-        }else{
+        } else {
           claim
         }
-        updatedClaim.update(contactDetails) -> Redirect(routes.GNationalityAndResidency.present())
+        //make sure email address is trimmed
+        updatedClaim.update(contactDetails.copy(email = Some(contactDetails.email.getOrElse("").trim), emailConfirmation = Some(contactDetails.emailConfirmation.getOrElse("").trim))) -> Redirect(routes.GNationalityAndResidency.present())
       })
   } withPreview()
 }

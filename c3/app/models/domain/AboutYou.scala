@@ -1,6 +1,5 @@
 package models.domain
 
-import controllers.mappings.Mappings
 import models.domain.OtherEEAStateOrSwitzerland.GQuestion
 import models.{NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
 import models.yesNo.{YesNoWith2MandatoryFieldsOnYes, YesNoWith1MandatoryFieldOnYes, YesNoWithText}
