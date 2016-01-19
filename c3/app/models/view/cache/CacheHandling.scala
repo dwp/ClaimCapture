@@ -229,7 +229,7 @@ protected trait CacheHandling {
   def removeSaveForLaterFromCache(uuid: String): Unit = {
     cache.remove(s"$saveForLaterKey-$uuid")
     Logger.info(s"SFL save $saveForLaterKey-$uuid removed")
-    removeSaveForLaterClaimKeyFromList(uuid)
+    removeSaveForLaterClaimKeyFromList(s"$saveForLaterKey-$uuid")
   }
 
   private def isMemcached: Boolean = {
