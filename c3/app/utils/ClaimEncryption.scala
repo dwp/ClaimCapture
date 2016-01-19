@@ -96,7 +96,7 @@ object ClaimEncryption {
           encryptString(circumstancesReportChange.theirFullName),
           encryptString(circumstancesReportChange.theirRelationshipToYou),
           encryptOptionalString(circumstancesReportChange.furtherInfoContact),
-          encryptOptionalString(circumstancesReportChange.wantsContactEmail),
+          encryptString(circumstancesReportChange.wantsContactEmail),
           encryptOptionalString(circumstancesReportChange.email),
           encryptOptionalString(circumstancesReportChange.emailConfirmation)
         ))
@@ -237,7 +237,7 @@ object ClaimEncryption {
           decryptString(circumstancesReportChange.theirFullName),
           decryptString(circumstancesReportChange.theirRelationshipToYou),
           decryptOptionalString(circumstancesReportChange.furtherInfoContact),
-          decryptOptionalString(circumstancesReportChange.wantsContactEmail),
+          decryptString(circumstancesReportChange.wantsContactEmail),
           decryptOptionalString(circumstancesReportChange.email),
           decryptOptionalString(circumstancesReportChange.emailConfirmation)
         ))

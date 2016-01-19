@@ -36,7 +36,7 @@ class GContactDetailsSpec extends Specification {
       val result = GContactDetails.submit(request)
 
       getClaimFromCache(result).questionGroup(ContactDetails) should beLike {
-        case Some(f: ContactDetails) => f.wantsContactEmail shouldEqual Some("no")
+        case Some(f: ContactDetails) => f.wantsContactEmail shouldEqual "no"
       }
     }
 

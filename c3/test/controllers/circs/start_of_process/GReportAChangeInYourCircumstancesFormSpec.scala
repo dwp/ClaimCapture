@@ -176,7 +176,7 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
       GReportAChangeInYourCircumstances.form.bind(
         Map("fullName" -> "")).fold(
           formWithErrors => {
-            formWithErrors.errors.length must equalTo(6)
+            formWithErrors.errors.length must equalTo(7)
             formWithErrors.errors(0).message must equalTo(Mappings.errorRequired)
             formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
             formWithErrors.errors(2).message must equalTo("error.nationalInsuranceNumber")

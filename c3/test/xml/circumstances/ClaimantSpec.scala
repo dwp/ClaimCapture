@@ -17,7 +17,7 @@ class ClaimantSpec extends Specification {
       fullName = "Mr Phil Joe Smith",
       nationalInsuranceNumber = nationalInsuranceNr,
       dateOfBirth = DayMonthYear(1, 1, 1963),
-      wantsContactEmail = Some("Yes"),
+      wantsContactEmail = "Yes",
       email = Some("joe@smith.co.uk"),
       emailConfirmation = Some("joe@smith.co.uk")
     )

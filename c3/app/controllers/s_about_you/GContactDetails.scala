@@ -26,7 +26,7 @@ object GContactDetails extends Controller with CachedClaim with Navigable with I
     "postcode" -> optional(text verifying validPostcode),
     "howWeContactYou" -> optional(carersNonEmptyText.verifying(validPhoneNumberRequired)),
     "contactYouByTextphone" -> optional(text(maxLength = 4)),
-    "wantsEmailContact" -> optional(carersNonEmptyText.verifying(validYesNo)),
+    "wantsEmailContact" -> carersNonEmptyText.verifying(validYesNo),
     "mail" -> optional(carersEmailValidation.verifying(Constraints.maxLength(254))),
     "mailConfirmation" -> optional(text(maxLength = 254))
   )(ContactDetails.apply)(ContactDetails.unapply)

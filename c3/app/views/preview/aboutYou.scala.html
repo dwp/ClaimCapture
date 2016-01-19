@@ -2,7 +2,6 @@
 
 @import models.domain._
 @import models.yesNo._
-@import play.api.i18n.Messages
 @import app.MaritalStatus._
 @import helper._
 @import controllers.mappings.Mappings._
@@ -13,9 +12,9 @@
 @claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
 @email = @{
     contactDetails.wantsContactEmail match {
-        case Some(yesNo) if yesNo == yes => messages("label.yes") + " - " + contactDetails.email.getOrElse("")
-        case Some(yesNo) if yesNo == no => messages("label.no")
-        case None => ""
+        case yesNo if yesNo == yes => messages("label.yes") + " - " + contactDetails.email.getOrElse("")
+        case yesNo if yesNo == no => messages("label.no")
+        case _ => ""
     }
 }
 @nationalityAndResidency = @{

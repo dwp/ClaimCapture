@@ -43,7 +43,7 @@ class GReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
     "present errors if mandatory fields are not populated" in new WithBrowser with PageObjects {
       val page = GReportAChangeInYourCircumstancesPage(context)
       page goToThePage()
-      page.submitPage().listErrors.size mustEqual 6
+      page.submitPage().listErrors.size mustEqual 7
     }
 
     "Accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects {

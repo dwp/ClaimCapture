@@ -64,7 +64,7 @@ object ReplicaData {
       ClaimDate(DayMonthYear.today,spent35HoursCaringBeforeClaim = YesNoWithDate(yes,date = Some(DayMonthYear.today - 3 months))) +
       YourDetails(title = "Mr",firstName = "Joe",surname = "Bloggs",nationalInsuranceNumber = NationalInsuranceNumber(Some("AB123456D")),dateOfBirth = DayMonthYear(10,10,2014)) +
       MaritalStatus(maritalStatus = app.MaritalStatus.Single) +
-      ContactDetails(address = new MultiLineAddress(Some("123"),Some("Street")),postcode = Some("C4T 0AD"),howWeContactYou = Some("0000000000"),wantsContactEmail = Some(yes), email = Some("CAU.CASA@dwp.gsi.gov.uk"), emailConfirmation = Some("CAU.CASA@dwp.gsi.gov.uk")) +
+      ContactDetails(address = new MultiLineAddress(Some("123"),Some("Street")),postcode = Some("C4T 0AD"),howWeContactYou = Some("0000000000"),wantsContactEmail = Mappings.yes, email = Some("CAU.CASA@dwp.gsi.gov.uk"), emailConfirmation = Some("CAU.CASA@dwp.gsi.gov.uk")) +
       NationalityAndResidency(nationality = NationalityAndResidency.british,resideInUK = YesNoWithText(yes)) +
       AbroadForMoreThan52Weeks(anyTrips = no) +
       OtherEEAStateOrSwitzerland(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = yes,field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = no)))) +

@@ -31,7 +31,7 @@
 }
 
 @isEmail = @{
-    getProperty("email.frontend",false) && claim.questionGroup[ContactDetails].getOrElse(ContactDetails()).wantsContactEmail.getOrElse("") == Mappings.yes
+    getProperty("email.frontend",false) && claim.questionGroup[ContactDetails].getOrElse(ContactDetails()).wantsContactEmail == Mappings.yes
 }
 
 @common.govMain(messages("thankyou")) {

@@ -36,7 +36,7 @@ object GReportAChangeInYourCircumstances extends Controller with CachedChangeOfC
     theirFullName -> carersNonEmptyText(maxLength = 35),
     theirRelationshipToYou -> carersNonEmptyText(maxLength = 35),
     "furtherInfoContact" -> optional(carersNonEmptyText.verifying(validPhoneNumberRequired)),
-    "wantsEmailContactCircs" -> optional(carersNonEmptyText.verifying(validYesNo)),
+    "wantsEmailContactCircs" -> carersNonEmptyText.verifying(validYesNo),
     "mail" -> optional(carersEmailValidation.verifying(Constraints.maxLength(254))),
     "mailConfirmation" -> optional(text(maxLength = 254))
   )(CircumstancesReportChange.apply)(CircumstancesReportChange.unapply)

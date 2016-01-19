@@ -24,7 +24,7 @@
 }
 @showSaveButton = @{
 	contactDetails.wantsContactEmail match {
-		case Some(yesNo) if yesNo == yes => true
+		case yesNo if yesNo == yes => true
 		case _ => false
 	}
 }

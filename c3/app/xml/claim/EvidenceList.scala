@@ -25,7 +25,7 @@ object EvidenceList {
     val receivesStatutorySickPay = OtherMoney.receivesStatutorySickPay(claim)
     val receivesOtherStatutoryPay = OtherMoney.receivesOtherStatutoryPay(claim)
     val claimDate = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
-    val isEmail = claim.questionGroup[ContactDetails].getOrElse(ContactDetails()).wantsContactEmail.getOrElse("") == Mappings.yes
+    val isEmail = claim.questionGroup[ContactDetails].getOrElse(ContactDetails()).wantsContactEmail == Mappings.yes
     val evidenceRequired = employed || selfEmployed || receivesStatutorySickPay || receivesOtherStatutoryPay
 
     val evidenceEmployedStatements = Seq(messagesApi("evidence.employment.lastPayslip", stringify(claimDate.dateOfClaim)), "evidence.employment.payslipsSinceClaimDate")
