@@ -55,7 +55,7 @@ class GResumeSpec extends Specification {
     }
 
     "return validation error not found when claim not found" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterResumeEnabled" -> "true", "saveForLater.uuid.secret.key" -> encryptkey))) with Claiming {
-      val request = FakeRequest(GET, "?x=" + decodeint)
+      val request = FakeRequest(GET, "?x=" + "unknownclaimid")
       val result = GResume.present(request)
       val bodyText: String = contentAsString(result)
       bodyText must contain("This application can't be found")

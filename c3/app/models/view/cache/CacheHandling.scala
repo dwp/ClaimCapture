@@ -187,7 +187,7 @@ protected trait CacheHandling {
       appVersion = ClaimHandling.C3VERSION_VALUE)
     cache.set(s"$saveForLaterKey-$uuid", saveForLater, Duration(saveForLater.cacheExpiryPeriod, SECONDS))
     Logger.info(s"SFL save $saveForLaterKey-$uuid saved with claim expires:" + secsToDate(saveForLater.applicationExpiry) + " and memcache expires:" + secsToDate(saveForLater.cacheExpiryPeriod))
-    createClaimInSaveForLaterList(uuid)
+    createClaimInSaveForLaterList(s"$saveForLaterKey-$uuid")
   }
 
   def setSaveForLaterListInCache(uuid: String, expiration: Duration): Unit = {
@@ -229,7 +229,7 @@ protected trait CacheHandling {
   def removeSaveForLaterFromCache(uuid: String): Unit = {
     cache.remove(s"$saveForLaterKey-$uuid")
     Logger.info(s"SFL save $saveForLaterKey-$uuid removed")
-    removeSaveForLaterClaimKeyFromList(uuid)
+    removeSaveForLaterClaimKeyFromList(s"$saveForLaterKey-$uuid")
   }
 
   private def isMemcached: Boolean = {
