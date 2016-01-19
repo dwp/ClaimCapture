@@ -176,7 +176,7 @@ class SaveForLaterEncryptionSpec extends Specification {
 
     "Check SFL list is populated" in new WithApplication {
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
-      val claimUuid = claim.uuid
+      val claimUuid = "SFL-" + claim.uuid
       removeFromCache(encryptedCacheHandling, claimUuid)
       encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
       val originalList = encryptedCacheHandling.cache.get[List[String]]("SFL")
@@ -186,7 +186,7 @@ class SaveForLaterEncryptionSpec extends Specification {
 
     "Check SFL list is populated only once after two saves of same claim" in new WithApplication {
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
-      val claimUuid = claim.uuid
+      val claimUuid = "SFL-" + claim.uuid
       removeFromCache(encryptedCacheHandling, claimUuid)
       encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
       encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
@@ -197,7 +197,7 @@ class SaveForLaterEncryptionSpec extends Specification {
 
     "Check Save for later is removed successfully" in new WithApplication {
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
-      val claimUuid = claim.uuid
+      val claimUuid = "SFL-" + claim.uuid
       encryptedCacheHandling.removeSaveForLaterFromCache(claimUuid)
       val saveForLaterStatus = encryptedCacheHandling.checkSaveForLaterInCache(claimUuid)
 
