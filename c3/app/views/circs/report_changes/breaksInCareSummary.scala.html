@@ -1,0 +1,127 @@
+@(breaksInCareSummaryForm: Form[models.domain.CircumstancesBreaksInCareSummary], breaksInCare: models.domain.CircumstancesBreaksInCare)(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
+@import common._
+@import views.html.helper.dates._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import utils.helpers.CarersCrypto
+@import views.html.circs.report_changes.main
+@import play.api.i18n.Messages
+@import app.CircsBreaksWhereabouts._
+
+
+
+@main(messages("c2.g8") + " - " + messages("c2.name")) {
+    @errorsSummary(breaksInCareSummaryForm)
+
+    @form(action = controllers.circs.report_changes.routes.GBreaksInCareSummary.submit) {
+
+        <fieldset id="breaks" class="form-elements results-detail">
+
+            @DwpCSRFFormHelper.formField
+
+            <div class="data-table">
+				 
+				 <h2 class="heading-medium">@messages("c2.g7")</h2>
+
+				 <ul class="break-data">
+
+        			<li>
+				  	
+					  	<h3 class="heading-small">
+                            @{breaksInCare.breaksInCareStartDate.`dd/MM/yyyy`}
+                            @{if(breaksInCare.breaksInCareStartTime.isDefined) Html(messages("at")) }
+                            @{if(breaksInCare.breaksInCareStartTime.isDefined) breaksInCare.breaksInCareStartTime }
+                            <span>
+                                @{if(breaksInCare.breakEnded.answer == "yes") Html(messages("to"))}
+                            </span>
+                            @{if(breaksInCare.breakEnded.answer == "yes") breaksInCare.breakEnded.date.get.`dd/MM/yyyy`}
+                            @{if(breaksInCare.breakEnded.time.isDefined) Html(messages("at")) }
+                            @{if(breaksInCare.breakEnded.time.isDefined) breaksInCare.breakEnded.time }
+                         </h3>
+					  	
+					  	<dl>
+						  	<dt>@Html(messages("wherePersonBreaksInCare.answer")):</dt>
+						  	<dd>@Html(messages("circsBreaks." + breaksInCare.wherePersonBreaksInCare.answer.replaceAll("_","").replaceAll(" ","").toLowerCase))</dd>
+						  	
+						  	<dt>@Html(messages("whereYouBreaksInCare.answer")):</dt>
+						  	<dd>@Html(messages("circsBreaks." + breaksInCare.whereYouBreaksInCare.answer.replaceAll("_","").replaceAll(" ","").toLowerCase))</dd>
+						  	
+						  	<dt>@Html(messages("medicalTreatment")):</dt>
+						  	<dd>@if("yes" == breaksInCare.medicalCareDuringBreak) { @Html(messages("label.yes3")) } else { @Html(messages("label.no")) }</dd>
+					  	</dl>
+					  	
+						<div class="actions">
+							<a id="changeButton" href="@controllers.circs.report_changes.routes.GBreaksInCare.present">@Html(messages("change"))</a>
+						</div>
+					
+				  	</li>
+				  	
+				 </ul>
+				 
+        	 </div>
+            
+       </fieldset>
+
+        <div class="form-wrap">
+
+            <fieldset class="form-elements">
+
+                <legend class="form-label-bold heading-medium">@messages("c2.g8")</legend>
+
+                <ul>
+                    @yesNoRadioGroup(breaksInCareSummaryForm("additionalBreaks.answer"),
+                                     '_label -> messages("additionalBreaks.label"),
+                                     'helperAbove -> messages("additionalBreaks.text.helper"))
+
+	                @otherDetailPlaceHolder(
+	                    inputDef = Seq(
+                            carersInputTextArea(breaksInCareSummaryForm("additionalBreaks.text"),
+	                            '_label -> messages("additionalBreaks.text.label"),
+                                'helperAbove-> Html(messages("moreAboutChanges.helper")),
+                                'helper -> Html(messages("300charsLeft")),
+	                            'maxLength -> 300)
+	                    ),
+	                    'id -> "additionalBreaksWrap"
+	                )
+                </ul>
+
+            </fieldset>
+
+            @views.html.common.bottomNavigation()
+        </div>
+        
+    }
+
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/circs/report_changes/breaksFromCaringSummary.js")></script>
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/listWithOther.js")></script>
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
+
+    <script type="text/javascript">
+        $(function(){
+            window.areaCounter({selector:"@CarersCrypto.encryptAES("additionalBreaks_text")",maxChars:300});
+        })
+        $(function(){
+            window.initEvents("@CarersCrypto.encryptAES("breakEnded_answer_yes")",
+            "@CarersCrypto.encryptAES("breakEnded_answer_no")",
+            "@CarersCrypto.encryptAES("expectStartCaring_answer_yes")",
+            "@CarersCrypto.encryptAES("expectStartCaring_answer_no")",
+            "@CarersCrypto.encryptAES("expectStartCaring_answer_dontknow")"
+            );
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(function(){
+            window.initEvents("@CarersCrypto.encryptAES("additionalBreaks_answer_yes")",
+                              "@CarersCrypto.encryptAES("additionalBreaks_answer_no")",
+                              "@CarersCrypto.encryptAES("additionalBreaks_text")");
+        });
+    </script>
+
+}
+

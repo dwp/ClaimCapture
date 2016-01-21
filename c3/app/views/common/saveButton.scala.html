@@ -9,7 +9,7 @@
     getProperty("saveForLaterUrl", default="/save")
 }
 
-@if(isSaveEnabled && claim.navigation.showSaveButton && ( !claim.navigation.beenInPreview || request.path == "/preview") ){
+@if(isSaveEnabled && claim.navigation.showSaveButton && ( !claim.navigation.beenInPreview || request.path == "/preview" || request.path == "/consent-and-declaration/declaration") ){
     <button type="button" id="save" name="save" class="button" href="@saveHref" >@messages("form.save")</button>
 }
 <script type="text/javascript">

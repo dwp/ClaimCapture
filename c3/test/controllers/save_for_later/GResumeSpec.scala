@@ -7,7 +7,8 @@ import models.view.cache.{EncryptedCacheHandling, CacheHandling}
 import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.{XorEncryption, SaveForLaterEncryption, LightFakeApplication, WithApplication}
+import play.api.mvc._
+import utils.{SaveForLaterEncryption, LightFakeApplication, WithApplication}
 import scala.concurrent.duration._
 
 class GResumeSpec extends Specification {
@@ -54,7 +55,7 @@ class GResumeSpec extends Specification {
     }
 
     "return validation error not found when claim not found" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterResumeEnabled" -> "true", "saveForLater.uuid.secret.key" -> encryptkey))) with Claiming {
-      val request = FakeRequest(GET, "?x=" + decodeint)
+      val request = FakeRequest(GET, "?x=" + "unknownclaimid")
       val result = GResume.present(request)
       val bodyText: String = contentAsString(result)
       bodyText must contain("This application can't be found")
@@ -88,7 +89,7 @@ class GResumeSpec extends Specification {
       }
       val key = encryptedCacheHandling.createSaveForLaterKey(claim)
       val saveForLater = new SaveForLater(SaveForLaterEncryption.encryptClaim(claim, key), "/about-you/nationality-and-residency", 3, "EXPIRED", -1, -1, "V1.00")
-      encryptedCacheHandling.cache.set("SFL-" + uuid, saveForLater, Duration(CacheHandling.saveForLaterCacheExpiry + CacheHandling.saveForLaterGracePeriod, DAYS))
+      encryptedCacheHandling.cache.set("SFL-" + uuid, saveForLater, Duration(CacheHandling.saveForLaterCacheExpiry + CacheHandling.saveForLaterGracePeriod, SECONDS))
 
       val request = FakeRequest(GET, "?x=" + decodeint)
       val result = GResume.present(request)

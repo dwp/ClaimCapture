@@ -1,7 +1,6 @@
 package controllers.preview
 
 import controllers.PreviewRouteUtils
-import play.api.Logger
 import play.api.Play._
 import play.api.mvc.{Result, Controller}
 import models.view.{Navigable, CachedClaim}
@@ -35,18 +34,20 @@ object Preview extends Controller with CachedClaim with Navigable with I18nSuppo
   }
 
   def redirect(id:String) = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
-
     val hashValue = request.getQueryString("hash") match {
       case Some(hash) => hash
       case _ => ""
     }
+    val returnToSummaryValue = request.getQueryString("returnToSummary") match {
+      case Some(returnToSummary) => returnToSummary
+      case _ => ""
+    }
 
-
-    val routesMap =     PreviewRouteUtils.yourDetailsRoute ++ PreviewRouteUtils.otherMoneyRoute ++
+    val routesMap = PreviewRouteUtils.yourDetailsRoute ++ PreviewRouteUtils.otherMoneyRoute ++
       PreviewRouteUtils.educationRoute ++ PreviewRouteUtils.careYouProvide ++ PreviewRouteUtils.breaks ++ PreviewRouteUtils.yourPartner ++
-      PreviewRouteUtils.employmentRoute ++ PreviewRouteUtils.bankDetailsRoute ++ PreviewRouteUtils.additionalInfoRoute
+      PreviewRouteUtils.employmentRoute ++ PreviewRouteUtils.bankDetailsRoute ++ PreviewRouteUtils.additionalInfoRoute ++ PreviewRouteUtils.thirdPartyRoute
 
-    val updatedClaim = claim.copy(checkYAnswers = claim.checkYAnswers.copy(cyaPointOfEntry = Some(routesMap(id))))(claim.navigation)
+    val updatedClaim = claim.copy(checkYAnswers = claim.checkYAnswers.copy(cyaPointOfEntry = Some(routesMap(id)), returnToSummaryAnchor = returnToSummaryValue))(claim.navigation)
 
     updatedClaim -> Redirect(routesMap(id)).flashing("hash"->hashValue)
   }
@@ -59,6 +60,6 @@ object Preview extends Controller with CachedClaim with Navigable with I18nSuppo
    */
   private def cleanPointOfEntry(tuple:(Claim,Result)) = {
     val claim = tuple._1
-    tuple.copy(_1 = claim.copy(checkYAnswers = claim.checkYAnswers.copy(cyaPointOfEntry = None))(navigation = claim.navigation))
+    tuple.copy(_1 = claim.copy(checkYAnswers = claim.checkYAnswers.copy(cyaPointOfEntry = None, returnToSummaryAnchor = ""))(navigation = claim.navigation))
   }
 }

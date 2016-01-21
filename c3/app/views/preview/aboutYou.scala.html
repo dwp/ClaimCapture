@@ -1,0 +1,107 @@
+@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
+
+@import models.domain._
+@import models.yesNo._
+@import app.MaritalStatus._
+@import helper._
+@import controllers.mappings.Mappings._
+
+@yourDetails = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}
+@contactDetails = @{claim.questionGroup[ContactDetails].getOrElse(ContactDetails())}
+@address = @{contactDetails.address}
+@claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
+@email = @{
+    contactDetails.wantsContactEmail match {
+        case yesNo if yesNo == yes => messages("label.yes") + " - " + contactDetails.email.getOrElse("")
+        case yesNo if yesNo == no => messages("label.no")
+        case _ => ""
+    }
+}
+@nationalityAndResidency = @{
+    claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(""))
+}
+@maritalStatusQG = @{
+    claim.questionGroup[MaritalStatus].getOrElse(MaritalStatus())
+}
+@nationality = @{
+    nationalityAndResidency.actualnationality match {
+        case Some(n) => n
+        case _ => nationalityAndResidency.nationality
+    }
+}
+@residence = @{
+    nationalityAndResidency.resideInUK.answer match {
+        case answer if answer == yes => messages("label.yes")
+        case _ => messages("label.no") + " - " + nationalityAndResidency.resideInUK.text.getOrElse("")
+    }
+}
+@otherEEA = @{claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())}
+@abroadForMoreThan52Weeks = @{claim.questionGroup[AbroadForMoreThan52Weeks].getOrElse(AbroadForMoreThan52Weeks())}
+@maritalStatus = @{
+    maritalStatusQG.maritalStatus match {
+        case Married => messages("maritalStatus.married")
+        case Single => messages("maritalStatus.single")
+        case Divorced => messages("maritalStatus.divorced")
+        case Widowed => messages("maritalStatus.widowed")
+        case Separated => messages("maritalStatus.separated")
+        case Partner => messages("maritalStatus.livingWithPartner")
+        case _ => ""
+    }
+}
+@middleName = @{yourDetails.middleName.map(_+" ").getOrElse("")}
+@titleNames = @{
+    s"${yourDetails.title} ${yourDetails.firstName} ${middleName}${yourDetails.surname}"
+}
+
+@addressPostcode = @{
+    s"${address.lineOne.getOrElse("")}${address.lineTwo.fold("")(", "+_)}${address.lineThree.fold("")(", "+_)} ${contactDetails.postcode.getOrElse("")}"
+}
+@abroadValue = @{
+    abroadForMoreThan52Weeks.anyTrips match {
+        case `yes` => messages("label.yes") + " - " + messages("detailsProvided.simple")
+        case _ => messages("label.no")
+    }
+}
+@showEEA = @{
+    otherEEA.guardQuestion.answer == `yes`
+}
+@eeaGuardQuestionValue = @{
+    otherEEA.guardQuestion.answer match {
+        case `yes` => messages("label.yes")
+        case _ => messages("label.no")
+    }
+}
+@benefitsFromEEAValue = @{
+    otherEEA.guardQuestion.field1 match {
+        case Some(YesNoWith1MandatoryFieldOnYes(`yes`, _)) => messages("label.yes") + " - " + messages("detailsProvided.simple")
+        case _ => messages("label.no")
+    }
+}
+@workingForEEAValue = @{
+    otherEEA.guardQuestion.field2 match {
+        case Some(YesNoWith1MandatoryFieldOnYes(`yes`, _)) => messages("label.yes") + " - " + messages("detailsProvided.simple")
+        case _ => messages("label.no")
+    }
+}
+
+@content = {
+    @fieldWithLink("about_you_claimDate", "dateOfClaim", claimDate.dateOfClaim.`dd month, yyyy`, true)
+    @fieldWithLink("about_you_full_name", "name", titleNames, elementId = Some("firstName"))
+    @fieldWithLink("about_you_dob", "dateOfBirth", yourDetails.dateOfBirth.`dd month, yyyy`, elementId = Some("dateOfBirth"))
+    @fieldWithLink("about_you_marital_status", "maritalStatusNQ", maritalStatus, elementId = Some("maritalStatus"))
+    @fieldWithLink("about_you_address", "address", addressPostcode, elementId = Some("address"), useQuestionLabel = true)
+    @fieldWithLink("about_you_contact", "howWeContactYou", contactDetails.howWeContactYou.getOrElse("Not given"), elementId = Some("howWeContactYou"))
+    @fieldWithLink("about_you_email", "wantsEmailContact", email, elementId = Some("wantsEmailContact"))
+    @{/** Link to nationality does not anchor to question as javascript causes conflict with page height **/}
+    @fieldWithLink("about_you_nationality", "yourNationality", nationality, elementId = Some("nationality"))
+    @fieldWithLink("about_you_residence", "resideInUK.label", residence, elementId = Some("resideInUK_answer"))
+    @fieldWithLink("about_you_abroad", "52Weeks.label", abroadValue, elementId = Some("anyTrips"))
+    @fieldWithLink("about_you_eeaGuardQuestion", "eeaGuardQuestion.answer", eeaGuardQuestionValue, elementId = Some("eeaGuardQuestion_answer"))
+    @if(showEEA) {
+        @fieldWithLink("about_you_benefitsFromEEA", "preview.benefitsFromEEA", benefitsFromEEAValue, elementId = Some("eeaGuardQuestion_benefitsFromEEADetails_answer"))
+        @fieldWithLink("about_you_workingForEEA", "preview.workingForEEA", workingForEEAValue, elementId = Some("eeaGuardQuestion_workingForEEADetails_answer"))
+    }
+}
+
+@accordion(label = messages("s2.longName"), openLabel = "open-about-you", closeLabel = "close-about-you", content = content, 'track -> true)
+

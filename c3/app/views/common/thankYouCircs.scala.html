@@ -46,7 +46,7 @@ show
 }
 
 @isEmail = @{
-getProperty("email.frontend",false) && circs.questionGroup[CircumstancesReportChange].getOrElse(CircumstancesReportChange()).wantsContactEmail.getOrElse("") == Mappings.yes
+getProperty("email.frontend",false) && circs.questionGroup[CircumstancesReportChange].getOrElse(CircumstancesReportChange()).wantsContactEmail == Mappings.yes
 }
 
 

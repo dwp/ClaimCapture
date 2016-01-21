@@ -4,7 +4,7 @@ import java.util.UUID._
 import javax.inject.Singleton
 
 import com.google.common.primitives.Primitives
-import controllers.circs.s3_consent_and_declaration.G1Declaration
+import controllers.circs.consent_and_declaration.GCircsDeclaration
 import controllers.s_consent_and_declaration.GDeclaration
 import models.domain.Claim
 import monitor.HealthMonitor
@@ -101,13 +101,13 @@ class TestSubmissionModule extends Module {
           Seq(
             bind(classOf[AsyncClaimSubmissionComponent]).to(classOf[AsyncClaimSubmissionComponentXML]),
             bind(classOf[GDeclaration]).to(classOf[GDeclarationXML]),
-            bind(classOf[G1Declaration]).to(classOf[G1DeclarationXML])
+            bind(classOf[GCircsDeclaration]).to(classOf[GCircsDeclarationXML])
           )
         }
         case _ => {
           Seq(
             bind(classOf[GDeclaration]).to(classOf[GDeclarationDB]),
-            bind(classOf[G1Declaration]).to(classOf[G1DeclarationDB]),
+            bind(classOf[GCircsDeclaration]).to(classOf[GCircsDeclarationDB]),
             bind(classOf[AsyncClaimSubmissionComponent]).to(classOf[AsyncClaimSubmissionComponentDBStubSubmission])
           )
         }

@@ -4,7 +4,8 @@ $ ->
     $(this).closest("ul").next().hide() if not ($(this).prop("checked"))
 
   $("input[class='listWithOther otherValue']").change ->
-      $(this).closest("ul").next().slideDown(0)
+    $(this).closest("ul").next().find("textarea").trigger("blur")
+    $(this).closest("ul").next().slideDown(0)
 
 
   $("input[class='listWithOther']").change ->

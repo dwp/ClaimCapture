@@ -1,6 +1,8 @@
 package controllers.s_eligibility
 
 import models.domain.Benefits
+import models.view.ClaimHandling
+import org.joda.time.DateTime
 import org.specs2.mutable._
 import utils.pageobjects.s_eligibility.{GEligibilityPage, GBenefitsPage}
 import utils.pageobjects.{PageObjects, PageObjectsContext, TestData}
@@ -64,6 +66,19 @@ class GBenefitsIntegrationSpec extends Specification {
 
     "navigate to next page on valid submission with 'AFIP' selected" in new WithJsBrowser with PageObjects {
       verifyAnswerMessageAndSubmit(Benefits.afip, context)
+    }
+
+    "contains C3Version cookie with correct expiry" in new WithJsBrowser with PageObjects {
+      browser.goTo(GBenefitsPage.url)
+      ( browser.getCookie(ClaimHandling.C3VERSION).getValue == ClaimHandling.C3VERSION_VALUE ) must beTrue
+
+      // The cookie should expire in 10 hours according to ClaimHandling constants.
+      // Since we dont know the exact time the cookie was created lets just check its within plus minus 1 minute of 10 hours
+      val cookieExpiry=browser.getCookie(ClaimHandling.C3VERSION).getExpiry.getTime()
+      val tenHourLess1min=DateTime.now.plusHours(10).minusMinutes(1)
+      val tenHourPlus1min=DateTime.now.plusHours(10).plusMinutes(1)
+      tenHourLess1min.isBefore(cookieExpiry) should beTrue
+      tenHourPlus1min.isAfter(cookieExpiry) should beTrue
     }
   }
   section("integration", models.domain.CarersAllowance.id)

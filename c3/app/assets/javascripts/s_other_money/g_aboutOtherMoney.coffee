@@ -1,4 +1,7 @@
 window.initEvents = (o) ->
+  $("#" + o.otherHowOften_frequency_other).trigger("blur")
+  $("#" + o.statHowOften_frequency_other).trigger("blur")
+  $("#" + o.howOften_frequency_other).trigger("blur")
 
   if not $("#" + o.answerY).prop 'checked'
     hideOtherPayWrap(o)
@@ -10,25 +13,26 @@ window.initEvents = (o) ->
     hideOtherStatPayWrap(o)
 
   $("#" + o.answerY).on "click", ->
-    showOtherPayWrap()
+    showOtherPayWrap(o)
 
   $("#" + o.answerN).on "click", ->
     hideOtherPayWrap(o)
 
   $("#" + o.statSickPayY).on "click", ->
-    showSickPayWrap()
+    showSickPayWrap(o)
 
   $("#" + o.statSickPayN).on "click", ->
     hideSickPayWrap(o)
 
   $("#" + o.otherPayY).on "click", ->
-    showOtherStatPayWrap()
+    showOtherStatPayWrap(o)
 
   $("#" + o.otherPayN).on "click", ->
     hideOtherStatPayWrap(o)
 
 
-showOtherStatPayWrap = ->
+showOtherStatPayWrap = (o) ->
+  $("#"+o.otherHowOften_frequency_other).trigger("blur")
   $("#otherStatPayWrap").slideDown(0).attr 'aria-hidden', 'false'
 
 hideOtherStatPayWrap = (o) ->
@@ -45,7 +49,8 @@ hideOtherStatPayWrap = (o) ->
   $("#otherStatPayWrap").slideUp(0, emptyOtherStatPay).attr 'aria-hidden', 'true'
   $("#otherStatPayWrap input").val("")
 
-showSickPayWrap = ->
+showSickPayWrap = (o) ->
+  $("#" + o.statHowOften_frequency_other).trigger("blur")
   $("#sickPayWrap").slideDown(0).attr 'aria-hidden', 'false'
 
 hideSickPayWrap = (o) ->
@@ -62,7 +67,8 @@ hideSickPayWrap = (o) ->
   $("#sickPayWrap").slideUp(0, emptyStatPay).attr 'aria-hidden', 'true'
   $("#sickPayWrap input").val("")
 
-showOtherPayWrap = ->
+showOtherPayWrap = (o) ->
+  $("#" + o.howOften_frequency_other).trigger("blur")
   $("#otherPayWrap").slideDown(0).attr 'aria-hidden', 'false'
 
 hideOtherPayWrap = (o) ->

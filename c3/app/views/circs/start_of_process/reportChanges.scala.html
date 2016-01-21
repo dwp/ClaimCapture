@@ -1,0 +1,64 @@
+@(reportChangesForm: Form[models.domain.ReportChanges])(implicit claim: models.domain.Claim, lang:Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
+
+@import utils.csrf.DwpCSRFFormHelper
+@import views.html.helper._
+@import app.ReportChange._
+@import play.api.Play
+@import play.api.Play.current
+@import app.ConfigProperties._
+
+
+    @employmentOption(implicit lang: Lang) = @{
+        if(getProperty("circs.employment.active", default = false)) EmploymentChange.name -> messages("reportChanges.employed")
+        else SelfEmployment.name -> messages("reportChanges.selfEmployed")
+    }
+
+    @main(messages("c2.g1") + " - " + messages("c2.name")) {
+        @errorsSummary(reportChangesForm)
+
+        @form(action = controllers.circs.start_of_process.routes.GReportChanges.submit) {
+            @DwpCSRFFormHelper.formField
+
+            @helper.jsEnabled()
+
+            <div class="form-wrap">
+
+                <fieldset class="form-elements">
+
+                    <legend class="form-label-bold">@Html(messages("reportChanges"))</legend>
+
+                    @listRadioGroupWithSubGroups(reportChangesForm("reportChanges"),
+                        '_nestedFieldSet -> false,
+                        '_showLabel -> false,
+                        'track -> true,
+                        'items -> Seq(
+                            StoppedCaring.name -> messages("reportChanges.stoppedCaring"),
+                            employmentOption,
+                            BreakFromCaring.name -> messages("reportChanges.breakFromCaringChanges"),
+                            BreakFromCaringYou.name -> messages("reportChanges.breakFromCaringChangesYou"),
+                            AddressChange.name -> messages("reportChanges.addressChange"),
+                            PaymentChange.name -> messages("reportChanges.paymentChange"),
+                            AdditionalInfo.name -> messages("reportChanges.anyOtherChanges")))
+
+                </fieldset>
+
+                <nav class="form-steps">
+                    <ul>
+                        <li><button type="submit" name="action" value="next" class="button">@Html(messages("form.next"))</button></li>
+                    </ul>
+                </nav>
+
+            </div>
+
+        }
+        <script type="text/javascript">
+            $ ( function ( ) {
+                @if(!Play.isTest) {
+                    trackEvent ("times", "circs - start")
+                    setCookie("circsstarts",new Date().getTime());
+                }
+                @ga.stagePrompt()
+            } )
+        </script>
+    }
+

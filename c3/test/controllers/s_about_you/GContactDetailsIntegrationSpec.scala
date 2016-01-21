@@ -290,6 +290,39 @@ class GContactDetailsIntegrationSpec extends Specification {
       previewPageModified must beAnInstanceOf[PreviewPage]
       answerText(previewPageModified) mustEqual "Yes - myemail@website.com"
     }
+
+    "Present email with no help only when email yes and email has space selected and return to page" in new WithJsBrowser with PageObjects {
+      val page = GContactDetailsPage(context)
+      val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
+      claim.AboutYouWantsEmailContact = "Yes"
+      claim.AboutYouMail = "fred@bt.com "
+      claim.AboutYouMailConfirmation = "fred@bt.com "
+      page goToThePage()
+      page fillPageWith claim
+      page.source must contain("id=\"wantsEmailContact_yes\"")
+      page visible ("#emailYesHelper") must beTrue
+      page visible ("#emailNoHelper") must beFalse
+
+      val nextPage = page submitPage()
+      nextPage must beAnInstanceOf[GNationalityAndResidencyPage]
+      val contactPageAgain = nextPage goBack()
+      contactPageAgain.source must contain("fred@bt.com")
+      contactPageAgain visible ("#emailYesHelper") must beTrue
+      contactPageAgain visible ("#emailNoHelper") must beFalse
+    }
+
+    "Present postcode with space selected and return to page" in new WithJsBrowser with PageObjects {
+      val page = GContactDetailsPage(context)
+      val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
+      claim.AboutYouPostcode = " FY1  2RW "
+      page goToThePage()
+      page fillPageWith claim
+
+      val nextPage = page submitPage()
+      nextPage must beAnInstanceOf[GNationalityAndResidencyPage]
+      val contactPageAgain = nextPage goBack()
+      contactPageAgain.source must contain("FY1 2RW")
+    }
   }
   section("integration", models.domain.AboutYou.id)
 }

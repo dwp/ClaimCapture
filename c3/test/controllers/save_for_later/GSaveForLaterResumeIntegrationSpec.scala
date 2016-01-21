@@ -5,6 +5,7 @@ import models.domain.{Claiming, SaveForLater, Claim, YourDetails}
 import models.view.cache.{CacheHandling, EncryptedCacheHandling}
 import models.view.{CachedClaim, ClaimHandling}
 import models.{DayMonthYear, NationalInsuranceNumber}
+import org.joda.time.DateTime
 import org.specs2.mutable._
 import play.api.i18n.Lang
 import play.api.test.FakeRequest
@@ -57,6 +58,7 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
     }
 
     "restore the app version cookie that the app was saved with" in new WithJsBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterResumeEnabled" -> "true", "saveForLaterShowResumeLink" -> "true", "saveForLaterSaveEnabled" -> "true"))) with PageObjects {
+
       // Inject the saved claim directly to cache so we can set the appversion
       var claim = new Claim(CachedClaim.key, uuid=uuid)
       val details = new YourDetails("Mr","John",None, "Green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
@@ -64,7 +66,7 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = uuid }
       val key=encryptedCacheHandling.createSaveForLaterKey(claim)
       val saveForLater=new SaveForLater(SaveForLaterEncryption.encryptClaim(claim,key), "/about-you/nationality-and-residency", 3, "OK", -1, -1, "V1.00"  )
-      encryptedCacheHandling.cache.set("SFL-"+uuid, saveForLater, Duration(CacheHandling.saveForLaterCacheExpiry + CacheHandling.saveForLaterGracePeriod, DAYS))
+      encryptedCacheHandling.cache.set("SFL-"+uuid, saveForLater, Duration(CacheHandling.saveForLaterCacheExpiry + CacheHandling.saveForLaterGracePeriod, SECONDS))
 
       val page = GSaveForLaterResumePage(context)
       page goToThePage()
@@ -74,6 +76,14 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
 
       browser.goTo("/about-you/nationality-and-residency")
       ( browser.getCookie(ClaimHandling.C3VERSION).getValue == "V1.00" ) must beTrue
+
+      // The cookie should expire in 10 hours according to ClaimHandling constants.
+      // Since we dont know the exact time the cookie was created lets just check its within plus minus 1 minute of 10 hours
+      val cookieExpiry=browser.getCookie(ClaimHandling.C3VERSION).getExpiry.getTime()
+      val tenHourLess1min=DateTime.now.plusHours(10).minusMinutes(1)
+      val tenHourPlus1min=DateTime.now.plusHours(10).plusMinutes(1)
+      tenHourLess1min.isBefore(cookieExpiry) should beTrue
+      tenHourPlus1min.isAfter(cookieExpiry) should beTrue
     }
 
     "show errors on resume page if no details entered" in new WithJsBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterResumeEnabled" -> "true", "saveForLaterShowResumeLink" -> "true", "saveForLaterSaveEnabled" -> "true"))) with PageObjects {

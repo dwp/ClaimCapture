@@ -70,7 +70,7 @@ GET         /circs-back-button-page                                     controll
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                               controllers.Assets.at(path="/public", file)
 
-#Section 0 - Carer's Allowance
+# Eligibility
 ###############
 GET         /allowance/benefits                                         controllers.s_eligibility.GBenefits.present
 POST        /allowance/benefits                                         controllers.s_eligibility.GBenefits.submit
@@ -81,17 +81,22 @@ POST        /allowance/eligibility                                      controll
 GET         /allowance/approve                                          controllers.s_eligibility.CarersAllowance.approve
 POST        /allowance/approve                                          controllers.s_eligibility.CarersAllowance.approveSubmit
 
-#Section 1 - Disclaimer
+# Disclaimer
 ###############
 GET         /disclaimer/disclaimer                                      controllers.s_disclaimer.GDisclaimer.present
 POST        /disclaimer/disclaimer                                      controllers.s_disclaimer.GDisclaimer.submit
 
-#Section 1.5
+# Third party
+###############
+GET         /third-party/third-party                                    controllers.third_party.GThirdParty.present
+POST        /third-party/third-party                                    controllers.third_party.GThirdParty.submit
+
+# Claim date
 ###############
 GET         /your-claim-date/claim-date                                 controllers.s_claim_date.GClaimDate.present
 POST        /your-claim-date/claim-date                                 controllers.s_claim_date.GClaimDate.submit
 
-#Section 2
+# Your details
 ###############
 GET         /about-you/your-details                                     controllers.s_about_you.GYourDetails.present
 POST        /about-you/your-details                                     controllers.s_about_you.GYourDetails.submit
@@ -200,47 +205,47 @@ POST        /consent-and-declaration/declaration                        @control
 GET         /consent-and-declaration/error                              controllers.s_consent_and_declaration.GError.present
 
 # Circumstances
-GET         /circumstances/report-changes/selection                     controllers.circs.s1_start_of_process.G1ReportChanges.present
-POST        /circumstances/report-changes/selection                     controllers.circs.s1_start_of_process.G1ReportChanges.submit
+GET         /circumstances/report-changes/selection                     controllers.circs.start_of_process.GReportChanges.present
+POST        /circumstances/report-changes/selection                     controllers.circs.start_of_process.GReportChanges.submit
 
-GET         /circumstances/identification/about-you                     controllers.circs.s1_start_of_process.G2ReportAChangeInYourCircumstances.present
-POST        /circumstances/identification/about-you                     controllers.circs.s1_start_of_process.G2ReportAChangeInYourCircumstances.submit
+GET         /circumstances/identification/about-you                     controllers.circs.start_of_process.GReportAChangeInYourCircumstances.present
+POST        /circumstances/identification/about-you                     controllers.circs.start_of_process.GReportAChangeInYourCircumstances.submit
 
-GET         /circumstances/report-changes/self-employment               controllers.circs.s2_report_changes.G2SelfEmployment.present
-POST        /circumstances/report-changes/self-employment               controllers.circs.s2_report_changes.G2SelfEmployment.submit
+GET         /circumstances/report-changes/self-employment               controllers.circs.report_changes.GSelfEmployment.present
+POST        /circumstances/report-changes/self-employment               controllers.circs.report_changes.GSelfEmployment.submit
 
-GET         /circumstances/report-changes/address-change                controllers.circs.s2_report_changes.G6AddressChange.present
-POST        /circumstances/report-changes/address-change                controllers.circs.s2_report_changes.G6AddressChange.submit
+GET         /circumstances/report-changes/address-change                controllers.circs.report_changes.GAddressChange.present
+POST        /circumstances/report-changes/address-change                controllers.circs.report_changes.GAddressChange.submit
 
-GET         /circumstances/report-changes/stopped-caring                controllers.circs.s2_report_changes.G3PermanentlyStoppedCaring.present
-POST        /circumstances/report-changes/stopped-caring                controllers.circs.s2_report_changes.G3PermanentlyStoppedCaring.submit
+GET         /circumstances/report-changes/stopped-caring                controllers.circs.report_changes.GPermanentlyStoppedCaring.present
+POST        /circumstances/report-changes/stopped-caring                controllers.circs.report_changes.GPermanentlyStoppedCaring.submit
 
-GET         /circumstances/report-changes/payment-change                controllers.circs.s2_report_changes.G5PaymentChange.present
-POST        /circumstances/report-changes/payment-change                controllers.circs.s2_report_changes.G5PaymentChange.submit
+GET         /circumstances/report-changes/payment-change                controllers.circs.report_changes.GPaymentChange.present
+POST        /circumstances/report-changes/payment-change                controllers.circs.report_changes.GPaymentChange.submit
 
-GET         /circumstances/report-changes/other-change                  controllers.circs.s2_report_changes.G4OtherChangeInfo.present
-POST        /circumstances/report-changes/other-change                  controllers.circs.s2_report_changes.G4OtherChangeInfo.submit
+GET         /circumstances/report-changes/other-change                  controllers.circs.report_changes.GOtherChangeInfo.present
+POST        /circumstances/report-changes/other-change                  controllers.circs.report_changes.GOtherChangeInfo.submit
 
-GET         /circumstances/report-changes/breaks-in-care                controllers.circs.s2_report_changes.G7BreaksInCare.present
-POST        /circumstances/report-changes/breaks-in-care                controllers.circs.s2_report_changes.G7BreaksInCare.submit
+GET         /circumstances/report-changes/breaks-in-care                controllers.circs.report_changes.GBreaksInCare.present
+POST        /circumstances/report-changes/breaks-in-care                controllers.circs.report_changes.GBreaksInCare.submit
 
-GET         /circumstances/report-changes/breaks-in-care-summary        controllers.circs.s2_report_changes.G8BreaksInCareSummary.present
-POST        /circumstances/report-changes/breaks-in-care-summary        controllers.circs.s2_report_changes.G8BreaksInCareSummary.submit
+GET         /circumstances/report-changes/breaks-in-care-summary        controllers.circs.report_changes.GBreaksInCareSummary.present
+POST        /circumstances/report-changes/breaks-in-care-summary        controllers.circs.report_changes.GBreaksInCareSummary.submit
 
-GET         /circumstances/report-changes/employment-change             controllers.circs.s2_report_changes.G9EmploymentChange.present
-POST        /circumstances/report-changes/employment-change             controllers.circs.s2_report_changes.G9EmploymentChange.submit
+GET         /circumstances/report-changes/employment-change             controllers.circs.report_changes.GEmploymentChange.present
+POST        /circumstances/report-changes/employment-change             controllers.circs.report_changes.GEmploymentChange.submit
 
-GET         /circumstances/report-changes/employment-ongoing            controllers.circs.s2_report_changes.G10StartedEmploymentAndOngoing.present
-POST        /circumstances/report-changes/employment-ongoing            controllers.circs.s2_report_changes.G10StartedEmploymentAndOngoing.submit
+GET         /circumstances/report-changes/employment-ongoing            controllers.circs.report_changes.GStartedEmploymentAndOngoing.present
+POST        /circumstances/report-changes/employment-ongoing            controllers.circs.report_changes.GStartedEmploymentAndOngoing.submit
 
-GET         /circumstances/report-changes/employment-finished           controllers.circs.s2_report_changes.G11StartedAndFinishedEmployment.present
-POST        /circumstances/report-changes/employment-finished           controllers.circs.s2_report_changes.G11StartedAndFinishedEmployment.submit
+GET         /circumstances/report-changes/employment-finished           controllers.circs.report_changes.GStartedAndFinishedEmployment.present
+POST        /circumstances/report-changes/employment-finished           controllers.circs.report_changes.GStartedAndFinishedEmployment.submit
 
-GET         /circumstances/report-changes/future-employment             controllers.circs.s2_report_changes.G12EmploymentNotStarted.present
-POST        /circumstances/report-changes/future-employment             controllers.circs.s2_report_changes.G12EmploymentNotStarted.submit
+GET         /circumstances/report-changes/future-employment             controllers.circs.report_changes.GEmploymentNotStarted.present
+POST        /circumstances/report-changes/future-employment             controllers.circs.report_changes.GEmploymentNotStarted.submit
 
-GET         /circumstances/consent-and-declaration/declaration          @controllers.circs.s3_consent_and_declaration.G1Declaration.present
-POST        /circumstances/consent-and-declaration/declaration          @controllers.circs.s3_consent_and_declaration.G1Declaration.submit
+GET         /circumstances/consent-and-declaration/declaration          @controllers.circs.consent_and_declaration.GCircsDeclaration.present
+POST        /circumstances/consent-and-declaration/declaration          @controllers.circs.consent_and_declaration.GCircsDeclaration.submit
 
-GET         /circumstances/consent-and-declaration/error                controllers.circs.s3_consent_and_declaration.G3Error.present
+GET         /circumstances/consent-and-declaration/error                controllers.circs.consent_and_declaration.GError.present
 

@@ -29,7 +29,7 @@ class GDisclaimerSpec extends Specification {
                                  .withFormUrlEncodedBody("read" -> "yes")
 
       val result = GDisclaimer.submit(request)
-      redirectLocation(result) must beSome("/your-claim-date/claim-date")
+      redirectLocation(result) must beSome("/third-party/third-party")
     }
   }
   section("unit", models.domain.DisclaimerSection.id)

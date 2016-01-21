@@ -60,15 +60,16 @@ object ReplicaData {
     val claim = new Claim(cacheKey,uuid = newuuid)
     claim + Benefits(Benefits.aa) +
       Eligibility(hours = yes, over16 = yes,livesInGB = yes) +
+      ThirdPartyDetails(thirdParty = ThirdPartyDetails.noCarer, nameAndOrganisation  = Some("Jenny Bloggs Preston carers")) +
       ClaimDate(DayMonthYear.today,spent35HoursCaringBeforeClaim = YesNoWithDate(yes,date = Some(DayMonthYear.today - 3 months))) +
       YourDetails(title = "Mr",firstName = "Joe",surname = "Bloggs",nationalInsuranceNumber = NationalInsuranceNumber(Some("AB123456D")),dateOfBirth = DayMonthYear(10,10,2014)) +
       MaritalStatus(maritalStatus = app.MaritalStatus.Single) +
-      ContactDetails(address = new MultiLineAddress(Some("123"),Some("Street")),postcode = Some("C4T 0AD"),howWeContactYou = Some("0000000000"),wantsContactEmail = Some(no)) +
+      ContactDetails(address = new MultiLineAddress(Some("123"),Some("Street")),postcode = Some("C4T 0AD"),howWeContactYou = Some("0000000000"),wantsContactEmail = Mappings.yes, email = Some("CAU.CASA@dwp.gsi.gov.uk"), emailConfirmation = Some("CAU.CASA@dwp.gsi.gov.uk")) +
       NationalityAndResidency(nationality = NationalityAndResidency.british,resideInUK = YesNoWithText(yes)) +
       AbroadForMoreThan52Weeks(anyTrips = no) +
       OtherEEAStateOrSwitzerland(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = yes,field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = no)))) +
       YourPartnerPersonalDetails(hadPartnerSinceClaimDate = yes,title = Some("Miss"),firstName = Some("Joan"),surname = Some("Bloggs"),dateOfBirth = Some(DayMonthYear.today - 10 years),nationality = Some("British"),separatedFromPartner = Some(no),isPartnerPersonYouCareFor = Some(no)) +
-      TheirPersonalDetails(relationship = "Grandma",title = "Mrs",firstName = "Jane",surname = "Bloggs",dateOfBirth = DayMonthYear.today - 15 years,theirAddress = YesNoMandWithAddress(answer = yes)) +
+      TheirPersonalDetails(relationship = "Grandma",title = "Mrs",firstName = "Jane",surname = "Bloggs",dateOfBirth = DayMonthYear.today - 15 years,theirAddress = YesNoMandWithAddress(answer = no, address = Option(MultiLineAddress(lineOne = Some("470 Street"),lineTwo = Some("Newtown"))), postCode = Some("PR1 1HB"))) +
       MoreAboutTheCare(spent35HoursCaring = yes) +
       BreaksInCareSummary(no) +
       BreaksInCare(List(

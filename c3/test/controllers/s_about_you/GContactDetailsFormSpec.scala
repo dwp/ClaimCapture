@@ -49,7 +49,7 @@ class GContactDetailsFormSpec extends Specification {
       GContactDetails.form.bind(
         Map("howWeContactYou" -> "01234567890")).fold(
         formWithErrors => {
-          formWithErrors.errors.length must equalTo(1)
+          formWithErrors.errors.length must equalTo(2)
           formWithErrors.errors(0).message must equalTo(Mappings.errorRequired)
         },
         f => "This mapping should not happen." must equalTo("Valid"))

@@ -151,7 +151,6 @@ How we pay you,Bank/Building society details,Account number,HowWePayYouAccountNu
 How we pay you,Bank/Building society details,Building society roll or reference number,HowWePayYouBuildingSocietyRollOrReferenceNumber,Payment>Account>BuildingSocietyDetails>RollNumber>Answer
 Consent & Declaration,Additional information,Do you live in Wales and would like to receive future communications in Welsh?,ConsentDeclarationCommunicationWelsh,DWPCAClaim>OtherInformation>WelshCommunication>Answer
 Consent & Declaration,Additional information,Please tell us anything else you think we should know about your claim.,ConsentDeclarationTellUsAnythingElseAboutClaim,DWPCAClaim>OtherInformation>AdditionalInformation>Answer
+Consent & Declaration,Third Party,Your name and organisation,ThirdPartyNameAndOrganisation,DWPCAClaim>Declaration>DeclarationNameOrg>Answer
 Consent & Declaration,Consent,Do you agree to us getting information from any other person or organisation you have told us about on this form?,ConsentDeclarationGettingInformationFromAnyOther,DWPCAClaim>Consents>Consent>Answer
 Consent & Declaration,Consent & Declaration,List anyone you don't want to be contacted and say why.,ConsentDeclarationTellUsWhyOther,DWPCAClaim>Consents>Consent>Why>Answer
-Consent & Declaration,Declaration,"Select this box if you filled this form in for someone else.",ConsentDeclarationSomeoneElseTickBox,DWPCAClaim>Declaration
-Consent & Declaration,Declaration,Your name or organisation. =,ConsentDeclarationNameOrOrganisation,DWPCAClaim>Declaration>DeclarationNameOrg>Answer

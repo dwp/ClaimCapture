@@ -1,5 +1,6 @@
 package xml.claim
 
+import controllers.mappings.Mappings
 import models.domain._
 import xml.XMLHelper._
 import xml.XMLComponent
@@ -9,7 +10,7 @@ import play.api.Play.current
 object  Declaration extends XMLComponent {
   val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   def xml(claim: Claim) = {
-    val declaration = claim.questionGroup[models.domain.Declaration].getOrElse(models.domain.Declaration())
+    val thirdParty = claim.questionGroup[models.domain.ThirdPartyDetails].getOrElse(models.domain.ThirdPartyDetails())
 
     <Declaration>
       <DeclarationStatement>
@@ -19,9 +20,18 @@ object  Declaration extends XMLComponent {
         <Content>{messagesApi("declaration.reportChanges.pdf")}</Content>
         <Content>{messagesApi("declaration.warning")}</Content>
       </DeclarationStatement>
-      {question(<DeclarationQuestion/>,"someoneElse", declaration.someoneElse)}
+      {question(<DeclarationQuestion/>,"thirdParty", yesNoText(thirdParty))}
       {question(<DeclarationQuestion/>,"agreement", "Yes")}
-      {question(<DeclarationNameOrg/>,"nameOrOrganisation", declaration.nameOrOrganisation)}
+      {if(thirdParty.thirdParty == ThirdPartyDetails.noCarer){
+        {question(<DeclarationNameOrg/>,"thirdParty.nameAndOrganisation", thirdParty.nameAndOrganisation.getOrElse(""))}
+      }}
     </Declaration>
+  }
+
+  def yesNoText(thirdParty : ThirdPartyDetails): String = {
+    thirdParty.thirdParty == ThirdPartyDetails.noCarer match {
+      case true => Mappings.no
+      case false => Mappings.yes
+    }
   }
 }

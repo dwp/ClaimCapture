@@ -26,7 +26,8 @@ object ClaimHandling {
   type ClaimResult = (Claim, Result)
   // Versioning
   val C3VERSION = "C3Version"
-  val C3VERSION_VALUE = "3.2"
+  val C3VERSION_VALUE = "3.3"
+  val C3VERSION_SECSTOLIVE = 10*60*60
   val applicationFinished = "application-finished"
 
 }
@@ -76,8 +77,9 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
         implicit val newRequest = Request(request.copy(headers=newHeaders),request.body)
 
         // Added C3Version for full Zero downtime
+        Logger.info(s"New C3Version cookie for ${claim.uuid} value:${ClaimHandling.C3VERSION_VALUE} expiresecs:${ClaimHandling.C3VERSION_SECSTOLIVE}")
         withHeaders(action(claim, newRequest, bestLang)(f))
-          .withCookies(newRequest.cookies.toSeq.filterNot(tofilter) :+ Cookie(ClaimHandling.C3VERSION, ClaimHandling.C3VERSION_VALUE): _*)
+          .withCookies(newRequest.cookies.toSeq.filterNot(tofilter) :+ Cookie(ClaimHandling.C3VERSION, ClaimHandling.C3VERSION_VALUE, Some(ClaimHandling.C3VERSION_SECSTOLIVE)): _*)
           .withSession(claim.key -> claim.uuid)
           .discardingCookies(DiscardingCookie(ClaimHandling.applicationFinished),DiscardingCookie("PLAY_LANG"))
       } else {
@@ -266,7 +268,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
       Logger.debug("actionWrapper")
       action(request).map { result =>
         result.header.status -> fromCache(request) match {
-          case (play.api.http.Status.SEE_OTHER, Some(claim)) if claim.navigation.beenInPreview => Redirect(controllers.preview.routes.Preview.present())
+          case (play.api.http.Status.SEE_OTHER, Some(claim)) if claim.navigation.beenInPreview => Redirect(controllers.preview.routes.Preview.present().url + getReturnToSummaryValue(claim))
           case _ => result
         }
       }
@@ -282,10 +284,17 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
 
       action(request).map { result =>
         result.header.status -> fromCache(request) match {
-          case (play.api.http.Status.SEE_OTHER, Some(claim)) if claim.navigation.beenInPreview && t(getParams(claim),claim.checkYAnswers.previouslySavedClaim->claim) => Redirect(controllers.preview.routes.Preview.present())
+          case (play.api.http.Status.SEE_OTHER, Some(claim)) if claim.navigation.beenInPreview && t(getParams(claim),claim.checkYAnswers.previouslySavedClaim->claim) => Redirect(controllers.preview.routes.Preview.present().url + getReturnToSummaryValue(claim))
           case _ => result
         }
       }
+    }
+  }
+
+  def getReturnToSummaryValue(claim : Claim) : String = {
+    claim.checkYAnswers.returnToSummaryAnchor == "" match {
+      case true => ""
+      case false => "#" + claim.checkYAnswers.returnToSummaryAnchor
     }
   }
 

@@ -939,7 +939,7 @@ object ClaimScenarioFactory {
     claim.SelfEmployedWhenDidTheJobFinish = "07/07/2005"
     claim.SelfEmployedNatureofYourBusiness = "Some type of business"
 
-    // G8 Pension and Expenses
+    // G Pension and Expenses
     claim.SelfEmploymentDoYouPayForPensionExpenses = "Yes"
     claim.SelfEmploymentPensionExpenses = "Some self-employment pension expenses"
     claim.SelfEmploymentDoYouPayForAnythingNecessaryToDoYourJob = "Yes"
@@ -1054,6 +1054,19 @@ object ClaimScenarioFactory {
     claim.HowWePayYouHowWouldYouLikeToGetPaid = "no"
     claim.HowWePayYouHowOftenDoYouWantToGetPaid = PaymentFrequency.EveryWeek
 
+    claim
+  }
+
+  def thirdPartyYesCarer() = {
+    val claim = new TestData
+    claim.ThirdPartyAreYouApplying = "yesCarer"
+    claim
+  }
+
+  def thirdPartyNotCarer() = {
+    val claim = new TestData
+    claim.ThirdPartyAreYouApplying = "noCarer"
+    claim.ThirdPartyNameAndOrganisation = "test and company"
     claim
   }
 }

@@ -22,7 +22,7 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
   val addressMapping = "theirAddress"->mapping(
     "answer" -> nonEmptyText.verifying(validYesNo),
     "address" -> optional(address.verifying(requiredAddress)),
-    "postCode" -> optional(text verifying validPostcode)
+    "postCode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode))
       )(YesNoMandWithAddress.apply)(YesNoMandWithAddress.unapply)
 
   val form = Form(mapping(
@@ -90,7 +90,13 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
           theirPersonalDetails
         }
 
-        claim.update(updatedTheirPersonalDetails) -> Redirect(routes.GMoreAboutTheCare.present())
+        claim.update(formatPostCodes(updatedTheirPersonalDetails)) -> Redirect(routes.GMoreAboutTheCare.present())
       })
   } withPreview()
+
+  private def formatPostCodes(theirPersonalDetails : TheirPersonalDetails): TheirPersonalDetails = {
+    theirPersonalDetails.copy(
+      theirAddress = theirPersonalDetails.theirAddress.copy(
+        postCode = Some(formatPostCode(theirPersonalDetails.theirAddress.postCode.getOrElse("")))))
+  }
 }

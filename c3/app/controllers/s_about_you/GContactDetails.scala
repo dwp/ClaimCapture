@@ -23,10 +23,10 @@ object GContactDetails extends Controller with CachedClaim with Navigable with I
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val form = Form(mapping(
     "address" -> address.verifying(requiredAddress),
-    "postcode" -> optional(text verifying validPostcode),
+    "postcode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode)),
     "howWeContactYou" -> optional(carersNonEmptyText.verifying(validPhoneNumberRequired)),
     "contactYouByTextphone" -> optional(text(maxLength = 4)),
-    "wantsEmailContact" -> optional(carersNonEmptyText.verifying(validYesNo)),
+    "wantsEmailContact" -> carersNonEmptyText.verifying(validYesNo),
     "mail" -> optional(carersEmailValidation.verifying(Constraints.maxLength(254))),
     "mailConfirmation" -> optional(text(maxLength = 254))
   )(ContactDetails.apply)(ContactDetails.unapply)
@@ -51,17 +51,25 @@ object GContactDetails extends Controller with CachedClaim with Navigable with I
         val theirPersonalDetailsQG: Option[TheirPersonalDetails] =  claim.questionGroup[TheirPersonalDetails]
         val liveAtSameAddress = theirPersonalDetailsQG.exists(_.theirAddress.answer == yes)
 
-        //if previously, during the journey the carer selected that the caree lives at the same address,
+        // if previously, during the journey the carer selected that the caree lives at the same address,
         // and then he changes the address - update the caree address too
         val updatedClaim:Claim = if (liveAtSameAddress) {
           val addressForm: Form[YesNoMandWithAddress] =
             Form(GTheirPersonalDetails.addressMapping).fill(YesNoMandWithAddress(address = Some(contactDetails.address), postCode = contactDetails.postcode))
           val address:YesNoMandWithAddress = addressForm.fold(p => YesNoMandWithAddress(),p => p)
           claim.update(theirPersonalDetailsQG.get.copy(theirAddress = address))
-        }else{
+        } else {
           claim
         }
-        updatedClaim.update(contactDetails) -> Redirect(routes.GNationalityAndResidency.present())
+        //make sure email address and postcode are trimmed
+        updatedClaim.update(formatEmailAndPostCode(contactDetails)) -> Redirect(routes.GNationalityAndResidency.present())
       })
   } withPreview()
+
+  private def formatEmailAndPostCode(contactDetails: ContactDetails): ContactDetails = {
+    contactDetails.copy(
+      email = Some(contactDetails.email.getOrElse("").trim),
+      emailConfirmation = Some(contactDetails.emailConfirmation.getOrElse("").trim),
+      postcode = Some(formatPostCode(contactDetails.postcode.getOrElse(""))))
+  }
 }

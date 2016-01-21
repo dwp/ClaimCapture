@@ -6,9 +6,6 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper.dates._
 @import scala.language.postfixOps
-@import play.api.i18n.Messages
-@import play.api.Play
-@import play.api.Play.current
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
 
@@ -53,13 +50,6 @@
         <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_claim_date/g_claimDate.js")></script>
 
         <script type="text/javascript">
-            $(function () {
-                @if(!Play.isTest) {
-                    trackEvent ( "times", "claim - start" );
-                    setCookie("claimstart", new Date().getTime());
-                }
-            });
-
             $(function() {
             window.initEvents("@CarersCrypto.encryptAES("beforeClaimCaring_answer_yes")",
             "@CarersCrypto.encryptAES("beforeClaimCaring_answer_no")",

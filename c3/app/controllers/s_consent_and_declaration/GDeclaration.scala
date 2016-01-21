@@ -38,11 +38,9 @@ class GDeclaration extends Controller with CachedClaim with Navigable with I18nS
 
   def form(implicit request: Request[AnyContent]):Form[Declaration] = Form(mapping(
     informationFromPersonMapping,
-    nameOrOrganisation -> optional(carersNonEmptyText(maxLength = Mappings.sixty)),
-    "someoneElse" -> optional(carersText),
     "jsEnabled" -> boolean
-  )(Declaration.apply)(Declaration.unapply)
-    .verifying(nameOrOrganisation,Declaration.validateNameOrOrganisation _))
+  )(Declaration.apply)(Declaration.unapply))
+
 
   def present:Action[AnyContent] = claimingWithCheck { implicit claim =>  implicit request =>  lang =>
     track(Declaration) { implicit claim => Ok(views.html.s_consent_and_declaration.g_declaration(form.fill(Declaration))) }

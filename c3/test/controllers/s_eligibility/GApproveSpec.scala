@@ -18,7 +18,7 @@ class GApproveSpec extends Specification {
       val claim = Claim(CachedClaim.key).update(Benefits(benefitsAnswer = "yes"))
         .update(Eligibility(hours = "yes", over16 = "yes", livesInGB = "yes"))
 
-      cache.set(claimKey, claim)
+      cache.set("default"+claimKey, claim)
 
       val result = s_eligibility.CarersAllowance.approve(request)
       contentAsString(result) must contain("section class=\"prompt e-prompt\"")
@@ -30,7 +30,7 @@ class GApproveSpec extends Specification {
       val claim = Claim(CachedClaim.key).update(Benefits(benefitsAnswer = "yes"))
         .update(Eligibility(hours = "yes", over16 = "no", livesInGB = "yes"))
 
-      cache.set(claimKey, claim)
+      cache.set("default"+claimKey, claim)
 
       val result = s_eligibility.CarersAllowance.approve(request)
 

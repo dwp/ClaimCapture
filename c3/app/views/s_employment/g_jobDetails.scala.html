@@ -29,7 +29,7 @@
 
                 @inputAddress(currentForm("address"))
 
-                @carersInputText(currentForm("postcode"), 'maxLength -> 8, 'class -> "postcode")
+                @carersInputPostcode(currentForm("postcode"), 'maxLength -> 10, 'class -> "postcode")
 
                 @yesNoRadioGroup(currentForm("startJobBeforeClaimDate"),
                     '_label -> messages("startJobBeforeClaimDate", claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang, dmy - 1 months))),

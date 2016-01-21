@@ -10,9 +10,9 @@
 }
 @emailAddress = @{
     contactDetails.wantsContactEmail match {
-        case Some(yesNo) if yesNo == yes => contactDetails.email.getOrElse("")
-        case Some(yesNo) if yesNo == no => "Email not set"
-        case None => "Email not set"
+        case yesNo if yesNo == yes => contactDetails.email.getOrElse("")
+        case yesNo if yesNo == no => "Email not set"
+        case _ => "Email not set"
     }
 }
 @isLinkEnabled=@{

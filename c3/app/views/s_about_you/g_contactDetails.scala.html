@@ -28,7 +28,7 @@
                 <ul>
                     @inputAddress(contactDetailsForm("address"))
 
-                    @carersInputText(contactDetailsForm("postcode"), 'class -> "postcode", 'maxLength -> 8, 'ignoreOptional -> true)
+                    @carersInputPostcode(contactDetailsForm("postcode"), 'class -> "postcode", 'maxLength -> 10, 'ignoreOptional -> true)
 
                     @carersInputTel(contactDetailsForm("howWeContactYou"),'ignoreOptional -> true, 'maxLength -> mappings.Mappings.twenty)
 

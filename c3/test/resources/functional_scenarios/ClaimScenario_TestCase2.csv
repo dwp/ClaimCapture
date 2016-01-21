@@ -3,6 +3,7 @@ Can you get Carers Allowance?,Do you spend 35 hours or more each week caring for
 Can you get Carers Allowance?,Do you normally live in Great Britain?,Do you normally live in Great Britain?,CanYouGetCarersAllowanceDoYouNormallyLiveinGb,Yes
 Can you get Carers Allowance?,Are you aged 16 or over?,Are you aged 16 or over?,CanYouGetCarersAllowanceAreYouAged16OrOver,Yes
 Disclaimer,Disclaimer,I agree,DisclaimerUnderstandAndAgree,Yes
+Third Party,Third Party,Are you applying for Carer's Allowance for yourself?,ThirdPartyAreYouApplying,yesCarer
 About You,Your Details,Title,AboutYouTitle,rev
 About You,Your Details,First name,AboutYouFirstName,Test
 About You,Your Details,Middle name,AboutYouMiddleName,Middle
@@ -91,6 +92,6 @@ Consent & Declaration,Additional information,Please tell us anything else you th
 Consent & Declaration,Additional information,Do you live in Wales and would like to receive future communications in Welsh?,ConsentDeclarationCommunicationWelsh,No
 Consent & Declaration,Consent & Declaration,Do you agree to the Carer's Allowance Unit contacting anyone mentioned in this form?,ConsentDeclarationGettingInformationFromAnyOther,Yes
 Consent & Declaration,Consent & Declaration,List anyone you don't want to be contacted and say why.,ConsentDeclarationTellUsWhyOther,
-Consent & Declaration,Declaration,"Select this box if you filled this form in for someone else.",ConsentDeclarationSomeoneElseTickBox,Yes
-Consent & Declaration,Declaration,Your name or organisation.,ConsentDeclarationNameOrOrganisation,Some Org
+Consent & Declaration,Third Party,"Are you applying for Carer''s Allowance for yourself?",ThirdPartyAreYouApplying,noCarer
+Consent & Declaration,Third Party,Your name and organisation,ThirdPartyNameAndOrganisation,Some org
 About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouContactYouByTextphone,yes

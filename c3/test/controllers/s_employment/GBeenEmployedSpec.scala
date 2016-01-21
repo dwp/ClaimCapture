@@ -17,7 +17,7 @@ class GBeenEmployedSpec extends Specification {
         .update(ClaimDate())
         .update(EmploymentDomain(beenEmployedSince6MonthsBeforeClaim = yes))
 
-      cache.set(claimKey, claim)
+      cache.set("default"+claimKey, claim)
 
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
       val result = GBeenEmployed.present(request)

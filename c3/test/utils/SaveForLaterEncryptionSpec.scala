@@ -15,13 +15,13 @@ class SaveForLaterEncryptionSpec extends Specification {
   def yourDetails = YourDetails("Mr","H", None, "Dawg",
     NationalInsuranceNumber(Some("AA123456A")), DayMonthYear(1, 1, 1986))
   def contactDetails = ContactDetails(MultiLineAddress(Some("123"), Some("Fake street"), None),
-    Some("PL18 1AA"), Some("by post"), None, Some("Yes"), Some("blah@blah.com"), Some("blah@blah.com"))
+    Some("PL18 1AA"), Some("by post"), None, "Yes", Some("blah@blah.com"), Some("blah@blah.com"))
   def theirPersonalDetails = TheirPersonalDetails("Mrs", "H", None, "Dawg",
     Some(NationalInsuranceNumber(Some("AA123456A"))), DayMonthYear(1,1,1988),"Wifey",
     YesNoMandWithAddress("No", Some(MultiLineAddress(Some("122"), Some("Fake street"),None)), None))
   def circumstancesReportChange = CircumstancesReportChange("H-dawg",
     NationalInsuranceNumber(Some("AA123456A")), DayMonthYear(1,1,1986),
-    "blah", "blah", Some("blah"), Some("blah"), Some("blah@blah.com"), Some("blah@blah.com"))
+    "blah", "blah", Some("blah"), "blah", Some("blah@blah.com"), Some("blah@blah.com"))
   def howWePayYou = HowWePayYou("Daily", Some(BankBuildingSocietyDetails(
     "H-dawg", "Barclays", SortCode("00", "00", "00"), "00000000", "")),"Cold, hard cash")
   def yourPartnerPersonalDetails = YourPartnerPersonalDetails(Some("Mrs"), Some("H"),
@@ -159,7 +159,7 @@ class SaveForLaterEncryptionSpec extends Specification {
       removeFromCache(encryptedCacheHandling, claimUuid)
       encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
       encryptedCacheHandling.resumeSaveForLaterFromCache(createResumeSaveForLater(claim), claimUuid)
-      encryptedCacheHandling.cache.get[Claim](claimUuid) match {
+      encryptedCacheHandling.cache.get[Claim]("default"+claimUuid) match {
         case Some(encryptedClaim) =>
           val newClaim = ClaimEncryption.decrypt(encryptedClaim)
           claim.questionGroup[YourDetails] mustEqual newClaim.questionGroup[YourDetails]
@@ -176,7 +176,7 @@ class SaveForLaterEncryptionSpec extends Specification {
 
     "Check SFL list is populated" in new WithApplication {
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
-      val claimUuid = claim.uuid
+      val claimUuid = "SFL-" + claim.uuid
       removeFromCache(encryptedCacheHandling, claimUuid)
       encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
       val originalList = encryptedCacheHandling.cache.get[List[String]]("SFL")
@@ -186,7 +186,7 @@ class SaveForLaterEncryptionSpec extends Specification {
 
     "Check SFL list is populated only once after two saves of same claim" in new WithApplication {
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
-      val claimUuid = claim.uuid
+      val claimUuid = "SFL-" + claim.uuid
       removeFromCache(encryptedCacheHandling, claimUuid)
       encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
       encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
@@ -197,7 +197,7 @@ class SaveForLaterEncryptionSpec extends Specification {
 
     "Check Save for later is removed successfully" in new WithApplication {
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
-      val claimUuid = claim.uuid
+      val claimUuid = "SFL-" + claim.uuid
       encryptedCacheHandling.removeSaveForLaterFromCache(claimUuid)
       val saveForLaterStatus = encryptedCacheHandling.checkSaveForLaterInCache(claimUuid)
 
@@ -218,6 +218,6 @@ class SaveForLaterEncryptionSpec extends Specification {
 
   def removeFromCache(encryptedCacheHandling: EncryptedCacheHandling, claimUuid: String): Unit = {
     encryptedCacheHandling.removeFromCache(claimUuid)
-    encryptedCacheHandling.removeFromCache(s"SFL-$claimUuid")
+    encryptedCacheHandling.removeSaveForLaterFromCache(claimUuid)
   }
 }

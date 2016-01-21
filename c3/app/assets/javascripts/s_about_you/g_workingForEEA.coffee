@@ -3,18 +3,20 @@ val = (selector, text) -> if text? then $("##{selector}").val(text) else $("##{s
 S = (selector) -> $("##{selector}")
 
 window.initEventsForEEA = (answer_yes, answer_no, workingForEEADetails) ->
+  $("#"+workingForEEADetails).trigger("blur")
   if not isChecked(answer_yes)
     hideWorkingForEEADetailsWrapper(workingForEEADetails)
 
   S(answer_yes).on "click", ->
-    showWorkingForEEADetailsWrapper()
+    showWorkingForEEADetailsWrapper(workingForEEADetails)
 
   S(answer_no).on "click", ->
     hideWorkingForEEADetailsWrapper(workingForEEADetails)
 
-hideWorkingForEEADetailsWrapper = (workingDetails) ->
-  val(workingDetails, "")
+hideWorkingForEEADetailsWrapper = (workingForEEADetails) ->
+  val(workingForEEADetails, "")
   S("workingForEEADetailsWrapper").slideUp(0).attr 'aria-hidden', 'true'
 
-showWorkingForEEADetailsWrapper = ->
+showWorkingForEEADetailsWrapper = (workingForEEADetails) ->
+  $("#"+workingForEEADetails).trigger("blur")
   S("workingForEEADetailsWrapper").slideDown(0).attr 'aria-hidden', 'false'

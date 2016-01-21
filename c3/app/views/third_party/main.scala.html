@@ -1,0 +1,33 @@
+@(title: String, backCall:Option[Call] = None)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, flash:Flash, messages: play.api.i18n.Messages)
+
+@import models.domain._
+@import views.html.common._
+
+@common.govMain(title) {
+
+    <div class="carers-allowance clearfix">
+
+        @common.protoType()
+
+        @common.helperMobile()
+
+        <div class="grid-row main-grid">
+
+            @common.leftcol()
+
+            <article class="column-three-quarters main-content">
+
+                @views.html.common.upperBackButton(backCall=backCall)
+
+                <h1 class="form-title heading-large">@sectionTitle(ThirdParty)@Html(messages("thirdParty.longName"))</h1>
+
+                @content
+
+            </article>
+
+        </div>
+
+    </div>
+
+}
+

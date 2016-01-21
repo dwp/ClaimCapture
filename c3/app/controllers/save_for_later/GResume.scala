@@ -70,7 +70,7 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
               fromCache(request, claim.getDecryptedUuid(resumeSaveForLater.uuid)) match {
                 case Some(resumedClaim) => resumedClaim -> {
                   Logger.info("SFL resume submit success resuming claim " + resumeSaveForLater.uuid + " with appVersion " + sfl.appVersion)
-                  Redirect(sfl.location).withCookies(Cookie(ClaimHandling.C3VERSION, sfl.appVersion))
+                  Redirect(sfl.location).withCookies(Cookie(ClaimHandling.C3VERSION, sfl.appVersion, Some(ClaimHandling.C3VERSION_SECSTOLIVE)))
                 }
                 case _ => {
                   Logger.error("SFL resume submit failed resuming claim " + resumeSaveForLater.uuid + " with appVersion " + sfl.appVersion)

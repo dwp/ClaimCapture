@@ -1,6 +1,6 @@
 @(claim:models.domain.Claim, isClaim:Boolean,isEmployment:Boolean)(implicit lang:Lang, messages: play.api.i18n.Messages)
 
-@import controllers.circs.s2_report_changes.G9EmploymentChange
+@import controllers.circs.report_changes.GEmploymentChange
 @import models.domain._
 @import app.ConfigProperties._
 
@@ -23,7 +23,7 @@
 
 @isCofcSelfEmployment = @{
     claim.questionGroup[CircumstancesEmploymentChange] match {
-        case Some(ec) if ec.typeOfWork.answer == G9EmploymentChange.selfemployed => true
+        case Some(ec) if ec.typeOfWork.answer == GEmploymentChange.selfemployed => true
         case _ => false
     }
 }

@@ -3,6 +3,8 @@ Can you get Carers Allowance?,Do you spend 35 hours or more each week caring for
 Can you get Carers Allowance?,Do you normally live in Great Britain?,Do you normally live in Great Britain?,CanYouGetCarersAllowanceDoYouNormallyLiveinGb,Yes
 Can you get Carers Allowance?,Are you aged 16 or over?,Are you aged 16 or over?,CanYouGetCarersAllowanceAreYouAged16OrOver,Yes
 Disclaimer,Disclaimer,I agree,DisclaimerUnderstandAndAgree,Yes
+Third Party,Third Party,Are you applying for Carer's Allowance for yourself?,ThirdPartyAreYouApplying,noCarer
+Third Party,Third Party,Name and Organisation,ThirdPartyNameAndOrganisation,test and company
 About You,Your Details,Title,AboutYouTitle,Mr
 About You,Your Details,First name,AboutYouFirstName,I have a real nam
 About You,Your Details,Middle name,AboutYouMiddleName,I have real mid
@@ -49,6 +51,6 @@ Consent & Declaration,Additional information,Please tell us anything else you th
 Consent & Declaration,Additional information,Do you live in Wales and would like to receive future communications in Welsh?,ConsentDeclarationCommunicationWelsh,No
 Consent & Declaration,Consent & Declaration,Do you agree to the Carer's Allowance Unit contacting anyone mentioned in this form?,ConsentDeclarationGettingInformationFromAnyOther,Yes
 Consent & Declaration,Consent & Declaration,List anyone you don't want to be contacted and say why.,ConsentDeclarationTellUsWhyOther,
-Consent & Declaration,Declaration,"Select this box if you filled this form in for someone else.",ConsentDeclarationSomeoneElseTickBox,Yes
-Consent & Declaration,Declaration,Your name or organisation.,ConsentDeclarationNameOrOrganisation,Organisation  trying  to swindle innocent citizens  stealing
+Consent & Declaration,Third Party,"Are you applying for Carer''s Allowance for yourself?",ThirdPartyAreYouApplying,noCarer
+Consent & Declaration,Third Party,Your name and organisation,ThirdPartyNameAndOrganisation,Organisation trying to swindle innocent citizens stealing
 About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouContactYouByTextphone,
