@@ -35,7 +35,7 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
   def apply(request: RequestHeader) = {
 
     val key = getKeyFromSession(request)
-    val UAKey = s"${key}_UA"
+    val UAKey = s"${CacheHandling.claimCacheNamespace}${key}_UA"
 
     request match {
 

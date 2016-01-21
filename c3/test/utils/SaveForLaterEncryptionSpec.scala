@@ -159,7 +159,7 @@ class SaveForLaterEncryptionSpec extends Specification {
       removeFromCache(encryptedCacheHandling, claimUuid)
       encryptedCacheHandling.saveForLaterInCache(claim, "/nationality")
       encryptedCacheHandling.resumeSaveForLaterFromCache(createResumeSaveForLater(claim), claimUuid)
-      encryptedCacheHandling.cache.get[Claim](claimUuid) match {
+      encryptedCacheHandling.cache.get[Claim]("default"+claimUuid) match {
         case Some(encryptedClaim) =>
           val newClaim = ClaimEncryption.decrypt(encryptedClaim)
           claim.questionGroup[YourDetails] mustEqual newClaim.questionGroup[YourDetails]
@@ -218,6 +218,6 @@ class SaveForLaterEncryptionSpec extends Specification {
 
   def removeFromCache(encryptedCacheHandling: EncryptedCacheHandling, claimUuid: String): Unit = {
     encryptedCacheHandling.removeFromCache(claimUuid)
-    encryptedCacheHandling.removeFromCache(s"SFL-$claimUuid")
+    encryptedCacheHandling.removeSaveForLaterFromCache(claimUuid)
   }
 }
