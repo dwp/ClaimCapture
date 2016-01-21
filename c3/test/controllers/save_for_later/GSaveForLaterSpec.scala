@@ -46,7 +46,7 @@ class GSaveForLaterSpec extends Specification {
       val details = new YourDetails("Mr","", None, "green", NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(None, None, None))
       val contactDetails = new ContactDetails(new MultiLineAddress(), None, None, None, "yes", Some("bt@bt.com"), Some("bt@bt.com"))
       claim = claim + details + contactDetails
-      cache.set(uuid, claim)
+      cache.set("default"+uuid, claim)
       val request = FakeRequest().withFormUrlEncodedBody().withSession(CachedClaim.key -> claim.uuid)
       val result = GSaveForLater.submit(request)
       status(result) mustEqual SEE_OTHER

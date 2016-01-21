@@ -20,11 +20,11 @@ class UserAgentCheckActionSpec extends Specification {
       val cache = current.injector.instanceOf[CacheApi]
       val keyValue = "startuasdyf"
       exerciseFilterFor(keyValue,"POST",  "/allowance/benefits", UserAgentCheckAction.defaultSetIf,expectSuccess=true, presetCache=false)
-      cache.get[String](keyValue + "_UA").get mustEqual agent
+      cache.get[String]("default"+keyValue + "_UA").get mustEqual agent
       exerciseFilterFor(keyValue,"POST",  "/circumstances/report-changes/selection", UserAgentCheckAction.defaultSetIf,expectSuccess=true, presetCache=false)
-      cache.get[String](keyValue + "_UA").get mustEqual agent
+      cache.get[String]("default"+keyValue + "_UA").get mustEqual agent
       exerciseFilterFor(keyValue,"POST",  "/change-language/cy", UserAgentCheckAction.defaultSetIf,expectSuccess=true, presetCache=false)
-      cache.get[String](keyValue + "_UA").get mustEqual agent
+      cache.get[String]("default"+keyValue + "_UA").get mustEqual agent
     }
 
     "check a page if not start page or end page for GET" in new WithApplication {
