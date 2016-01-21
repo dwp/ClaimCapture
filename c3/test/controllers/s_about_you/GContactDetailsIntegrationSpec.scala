@@ -310,6 +310,19 @@ class GContactDetailsIntegrationSpec extends Specification {
       contactPageAgain visible ("#emailYesHelper") must beTrue
       contactPageAgain visible ("#emailNoHelper") must beFalse
     }
+
+    "Present postcode with space selected and return to page" in new WithJsBrowser with PageObjects {
+      val page = GContactDetailsPage(context)
+      val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
+      claim.AboutYouPostcode = " FY1  2RW "
+      page goToThePage()
+      page fillPageWith claim
+
+      val nextPage = page submitPage()
+      nextPage must beAnInstanceOf[GNationalityAndResidencyPage]
+      val contactPageAgain = nextPage goBack()
+      contactPageAgain.source must contain("FY1 2RW")
+    }
   }
   section("integration", models.domain.AboutYou.id)
 }

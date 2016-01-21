@@ -32,7 +32,7 @@ object GAboutOtherMoney extends Controller with CachedClaim with Navigable with 
       "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
       "employersName" -> optional(carersNonEmptyText(maxLength = sixty)),
       "employersAddress" -> optional(address.verifying(requiredAddress)),
-      "employersPostcode" -> optional(text verifying validPostcode)
+      "employersPostcode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode))
     )(YesNoWithEmployerAndMoney.apply)(YesNoWithEmployerAndMoney.unapply)
       .verifying("statEmployerNameRequired", YesNoWithEmployerAndMoney.validateEmployerNameOnYes _)
       .verifying("statHowMuchRequired", YesNoWithEmployerAndMoney.validateHowMuchOnYes _)
@@ -44,7 +44,7 @@ object GAboutOtherMoney extends Controller with CachedClaim with Navigable with 
       "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
       "employersName" -> optional(carersNonEmptyText(maxLength = sixty)),
       "employersAddress" -> optional(address.verifying(requiredAddress)),
-      "employersPostcode" -> optional(text verifying validPostcode)
+      "employersPostcode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode))
     )(YesNoWithEmployerAndMoney.apply)(YesNoWithEmployerAndMoney.unapply)
       .verifying("otherPayEmployerNameRequired", YesNoWithEmployerAndMoney.validateEmployerNameOnYes _)
       .verifying("otherPayHowMuchRequired", YesNoWithEmployerAndMoney.validateHowMuchOnYes _)
@@ -106,6 +106,13 @@ object GAboutOtherMoney extends Controller with CachedClaim with Navigable with 
 
         BadRequest(views.html.s_other_money.g_aboutOtherMoney(formWithErrorsUpdate, hadPartnerSinceClaimDate))
       },
-      f => claim.update(f) -> Redirect(controllers.s_pay_details.routes.GHowWePayYou.present()))
+      aboutOtherMoney => claim.update(formatPostCodes(aboutOtherMoney)) -> Redirect(controllers.s_pay_details.routes.GHowWePayYou.present()))
   } withPreview()
+
+  private def formatPostCodes(aboutOtherMoney : AboutOtherMoney) : AboutOtherMoney = {
+    aboutOtherMoney.copy(
+      statutorySickPay = aboutOtherMoney.statutorySickPay.copy(postCode = Some(formatPostCode(aboutOtherMoney.statutorySickPay.postCode.getOrElse("")))),
+      otherStatutoryPay = aboutOtherMoney.otherStatutoryPay.copy(postCode = Some(formatPostCode(aboutOtherMoney.otherStatutoryPay.postCode.getOrElse(""))))
+    )
+  }
 }

@@ -35,15 +35,15 @@ object GAddressChange extends Controller with CachedChangeOfCircs with Navigable
     "sameAddress" -> mapping(
       "answer" -> optional(carersText()),
       "theirNewAddress" -> optional(address.verifying(requiredAddress)),
-      "theirNewPostcode" -> optional(text verifying validPostcode)
+      "theirNewPostcode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode))
     )(YesNoWithAddress.apply)(YesNoWithAddress.unapply)
 
   val form = Form(mapping(
     "previousAddress" -> address.verifying(requiredAddress),
-    "previousPostcode" -> optional(text verifying validPostcode),
+    "previousPostcode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode)),
     stillCaringMapping,
     "newAddress" -> address.verifying(requiredAddress),
-    "newPostcode" -> optional(text verifying validPostcode),
+    "newPostcode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode)),
     changedAddressMapping,
     sameAddressMapping,
     "moreAboutChanges" -> optional(carersText(maxLength = 300))
@@ -92,7 +92,15 @@ object GAddressChange extends Controller with CachedChangeOfCircs with Navigable
           .replaceError("","caredForChangedAddress.answer", FormError("caredForChangedAddress.answer", errorRequired))
         BadRequest(views.html.circs.report_changes.addressChange(updatedFormWithErrors))
       },
-      f => circs.update(f) -> Redirect(controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present())
+      addressChange => circs.update(formatPostCodes(addressChange)) -> Redirect(controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present())
+    )
+  }
+
+  private def formatPostCodes(addressChange : CircumstancesAddressChange) : CircumstancesAddressChange = {
+    addressChange.copy(
+      previousPostcode = Some(formatPostCode(addressChange.previousPostcode.getOrElse(""))),
+      newPostcode = Some(formatPostCode(addressChange.newPostcode.getOrElse(""))),
+      sameAddress = addressChange.sameAddress.copy(postCode = Some(formatPostCode(addressChange.sameAddress.postCode.getOrElse(""))))
     )
   }
 }

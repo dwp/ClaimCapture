@@ -32,6 +32,7 @@ object Mappings {
   val errorRequired = "error.required"
   val required = "required"
   val errorRestrictedCharacters = "error.restricted.characters"
+  val errorPostCodeAddressCharacters = "error.address.characters"
   val invalidNumber = "number.invalid"
   val invalidDecimal = "decimal.invalid"
   val errorInvalid = "error.invalid"
@@ -130,9 +131,10 @@ object Mappings {
   }
 
   def validPostcode: Constraint[String] = Constraint[String]("constraint.postcode") { postcode =>
+    val newPostCode = formatPostCode(postcode)
     val postcodePattern = """^(?i)(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))) ?[0-9][A-Z]{2})$""".r
 
-    postcodePattern.pattern.matcher(postcode).matches match {
+    postcodePattern.pattern.matcher(newPostCode).matches match {
       case true => Valid
       case false => Invalid(ValidationError(invalidPostcode))
     }
@@ -237,6 +239,15 @@ object Mappings {
     restrictedStringPattern.pattern.matcher(restrictedString).matches match {
       case true => Valid
       case false => Invalid(ValidationError(errorRestrictedCharacters))
+    }
+  }
+
+  def restrictedPostCodeAddressStringText: Constraint[String] = Constraint[String]("constraint.restrictedPostCodeAddressStringText") { restrictedString =>
+    val restrictedStringPattern = """^[A-Za-zÀ-ƶ\s0-9]*$""".r
+
+    restrictedStringPattern.pattern.matcher(restrictedString).matches match {
+      case true => Valid
+      case false => Invalid(ValidationError(errorPostCodeAddressCharacters))
     }
   }
 

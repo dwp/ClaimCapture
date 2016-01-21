@@ -53,7 +53,7 @@
                             ),
                             carersInputText(currentForm("statutorySickPay.employersName"), '_label -> messages("employersName"),'maxLength -> mappings.Mappings.sixty),
                             inputAddress(currentForm("statutorySickPay.employersAddress"), '_label -> messages("employersAddress"), 'addressLabel -> "statutorySickPay.employersAddress"),
-                            carersInputText(currentForm("statutorySickPay.employersPostcode"), 'maxLength -> 8, '_label -> messages("employersPostcode"), 'class -> "postcode")
+                            carersInputText(currentForm("statutorySickPay.employersPostcode"), 'maxLength -> 10, '_label -> messages("employersPostcode"), 'class -> "postcode")
                         ),
                         'id -> "sickPayWrap",
                         'display -> currentForm("statutorySickPay.answer").value.getOrElse("no")
@@ -73,7 +73,7 @@
                             ),
                             carersInputText(currentForm("otherStatutoryPay.employersName"), '_label -> messages("employersName"), 'maxLength -> mappings.Mappings.sixty),
                             inputAddress(currentForm("otherStatutoryPay.employersAddress"), '_label -> messages("employersAddress"), 'addressLabel -> "otherStatutoryPay.employersAddress"),
-                            carersInputText(currentForm("otherStatutoryPay.employersPostcode"),'maxLength -> 8, '_label -> messages("employersPostcode"), 'class -> "postcode")
+                            carersInputText(currentForm("otherStatutoryPay.employersPostcode"),'maxLength -> 10, '_label -> messages("employersPostcode"), 'class -> "postcode")
                         ),
                         'id -> "otherStatPayWrap",
                         'display -> currentForm("otherStatutoryPay.answer").value.getOrElse("no")

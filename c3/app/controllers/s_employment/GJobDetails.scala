@@ -26,7 +26,7 @@ object GJobDetails extends Controller with CachedClaim with Navigable with I18nS
     "employerName"-> carersNonEmptyText(maxLength = 60),
     "phoneNumber" -> nonEmptyText.verifying(validPhoneNumberRequired),
     "address" -> address.verifying(requiredAddress),
-    "postcode" -> optional(text verifying validPostcode),
+    "postcode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode)),
     "startJobBeforeClaimDate" -> nonEmptyText.verifying(validYesNo),
     "jobStartDate" -> optional(dayMonthYear.verifying(validDate)),
     "finishedThisJob" -> nonEmptyText.verifying(validYesNo),
@@ -62,6 +62,6 @@ object GJobDetails extends Controller with CachedClaim with Navigable with I18nS
           .replaceError("hoursPerWeek", "error.restricted.characters", FormError("hoursPerWeek", "error.restricted.characters", Seq(labelForEmployment(formWithErrors("finishedThisJob").value.getOrElse(""), request2lang, "hoursPerWeek"))))
           .replaceError("finishedThisJob", errorRequired, FormError("finishedThisJob", errorRequired))
         BadRequest(views.html.s_employment.g_jobDetails(form))
-      },jobDetails => claim.update(jobs.update(jobDetails)) -> Redirect(routes.GLastWage.present(iterationID)))
+      },jobDetails => claim.update(jobs.update(jobDetails.copy(postcode = Some(formatPostCode(jobDetails.postcode.getOrElse("")))))) -> Redirect(routes.GLastWage.present(iterationID)))
   }
 }
