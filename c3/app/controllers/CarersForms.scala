@@ -33,4 +33,8 @@ object CarersForms  {
       case _ => { Logger.info(s"Email: invalid email - $e"); Invalid(ValidationError("error.email")) }
     }
   }
+
+  def formatPostCode(postCode : String) : String = {
+    postCode.trim.split("\\s+").map(_.trim).mkString(" ").toUpperCase()
+  }
 }

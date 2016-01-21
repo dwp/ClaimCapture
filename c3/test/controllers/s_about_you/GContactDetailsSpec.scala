@@ -127,6 +127,23 @@ class GContactDetailsSpec extends Specification {
         case Some(f: ContactDetails) => f.wantsContactEmail shouldEqual "yes"; f.email shouldEqual Some("j@bt.com")
       }
     }
+
+    """be added to cached claim upon entering valid data with space in postcode".""" in new WithApplication with Claiming {
+      val request = FakeRequest()
+        .withFormUrlEncodedBody(
+          "address.lineOne" -> "101 Clifton Street",
+          "address.lineTwo" -> "Blackpool",
+          "postcode" -> " FY1   2RW ",
+          "howWeContactYou" -> "01772888901",
+          "wantsEmailContact" -> Mappings.no
+        )
+
+      val result = GContactDetails.submit(request)
+
+      getClaimFromCache(result).questionGroup(ContactDetails) should beLike {
+        case Some(f: ContactDetails) => f.postcode shouldEqual Some("FY1 2RW")
+      }
+    }
   }
   section("unit", models.domain.ContactDetails.id)
 }
