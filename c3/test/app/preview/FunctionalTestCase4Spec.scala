@@ -6,12 +6,11 @@ import utils.pageobjects._
 import app.FunctionalTestCommon
 import utils.pageobjects.preview.PreviewPage
 
-
 class FunctionalTestCase4Spec extends FunctionalTestCommon {
   isolated
 
+  section ("functional","preview")
   "The application Claim" should {
-
     "Successfully run absolute Claim Test Case 4" in new WithJsBrowser with PageObjects {
       import Data.displaying
 
@@ -37,16 +36,14 @@ class FunctionalTestCase4Spec extends FunctionalTestCommon {
         "Have you been on a course of education since your claim date?"   displays "EducationHaveYouBeenOnACourseOfEducation",
         "Have you been employed at any time since"      displays "EmploymentHaveYouBeenEmployedAtAnyTime_0",
         "Jobs"                displays EmploymentDetailsTransformer("EmploymentEmployerName",1),
-        "Have you been self employed at any time since" displays "EmploymentHaveYouBeenSelfEmployedAtAnyTime",
+        "Have you been self-employed at any time since" displays "EmploymentHaveYouBeenSelfEmployedAtAnyTime",
         "Have you received any payments for the person you care for or any other person since your claim date?" displays "OtherMoneyAnyPaymentsSinceClaimDate",
         "Have you had any Statutory Sick Pay"                    displays "OtherMoneyHaveYouSSPSinceClaim",
         "Have you had any Statutory Maternity Pay, Statutory Paternity Pay or Statutory Adoption Pay" displays "OtherMoneyHaveYouSMPSinceClaim"
       )
 
       toFindData.assertReview(claim, context) must beTrue
-
     }
-
   }
   section ("functional","preview")
 }

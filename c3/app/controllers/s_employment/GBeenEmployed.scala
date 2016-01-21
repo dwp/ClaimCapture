@@ -33,7 +33,7 @@ object GBeenEmployed extends Controller with CachedClaim with Navigable with I18
   }
 
   /**
-   * Redirect to about other money when self employment and employment is answered no else
+   * Redirect to about other money when self-employment and employment is answered no else
    * redirect to employment additional info page.
    *
    * @param lang
@@ -55,11 +55,12 @@ object GBeenEmployed extends Controller with CachedClaim with Navigable with I18
     if(getCompletedJobs) {
       val f:Claim => Result = { implicit claim => Ok(views.html.s_employment.g_beenEmployed(form.fill(BeenEmployed)))}
       Right(trackBackToBeginningOfEmploymentSection(BeenEmployed)(f)(claim, request,ClassTag[BeenEmployed.type](BeenEmployed.getClass)) )
-    }
-    else Left(Redirect(routes.GJobDetails.present(IterationID(form))))
+    } else if (getUncompletedJobs) {
+      Left(Redirect(routes.GJobDetails.present(jobs.head.iterationID)))
+    } else Left(Redirect(routes.GJobDetails.present(IterationID(form))))
   }
 
-  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     import controllers.mappings.Mappings.yes
 
     def next(beenEmployed: BeenEmployed) = beenEmployed.beenEmployed match {
@@ -71,7 +72,7 @@ object GBeenEmployed extends Controller with CachedClaim with Navigable with I18
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
           .replaceError("beenEmployed", Mappings.errorRequired, FormError("beenEmployed", Mappings.errorRequired,Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
-          displayPlaybackDatesFormat(lang, dmy - 6 months)))))
+          displayPlaybackDatesFormat(request2lang, dmy - 6 months)))))
         BadRequest(views.html.s_employment.g_beenEmployed(formWithErrorsUpdate))
       },
       beenEmployed => clearUnfinishedJobs.update(beenEmployed) -> next(beenEmployed))
@@ -85,6 +86,11 @@ object GBeenEmployed extends Controller with CachedClaim with Navigable with I18
   private def getCompletedJobs(implicit claim: Claim) = {
     val jobs = claim.questionGroup[Jobs].getOrElse(Jobs())
     Jobs(jobs.jobs.filter(_.completed == true)).size > 0
+  }
+
+  private def getUncompletedJobs(implicit claim: Claim) = {
+    val jobs = claim.questionGroup[Jobs].getOrElse(Jobs())
+    Jobs(jobs.jobs.filter(_.completed == false)).size > 0
   }
 }
 

@@ -35,7 +35,7 @@ object GYourCourseDetails extends Controller with CachedClaim with Navigable wit
     .verifying("expectedEndDate.required", YourCourseDetails.validateExpectedEndDate _)
   )
 
-  def present = claimingWithCheck {implicit claim => implicit request => implicit lang => 
+  def present = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
     presentConditionally {
       track(YourCourseDetails) { implicit claim => Ok(views.html.s_education.g_yourCourseDetails(form.fill(YourCourseDetails))) }
     }
@@ -49,7 +49,7 @@ object GYourCourseDetails extends Controller with CachedClaim with Navigable wit
   private def redirect( claim: Claim, request: Request[AnyContent]): ClaimResult =
     claim -> Redirect("/employment/employment")
 
-  def submit = claimingWithCheck {implicit claim => implicit request => implicit lang => 
+  def submit = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors

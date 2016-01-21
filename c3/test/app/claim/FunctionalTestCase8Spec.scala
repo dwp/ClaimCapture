@@ -2,9 +2,8 @@ package app.claim
 
 import utils.WithJsBrowser
 import utils.pageobjects.preview.PreviewTestableData
-import utils.pageobjects.s_eligibility.{GBenefitsPage, GBenefitsPageContext}
+import utils.pageobjects.s_eligibility.GBenefitsPage
 import utils.pageobjects._
-import utils.pageobjects.xml_validation.{XMLClaimBusinessValidation, XMLBusinessValidation}
 import app.FunctionalTestCommon
 
 /**
@@ -15,10 +14,9 @@ import app.FunctionalTestCommon
 class FunctionalTestCase8Spec extends FunctionalTestCommon {
   isolated
 
-  "The application " should {
-
-    "Successfully run absolute Test Case 8 " in new WithJsBrowser with PageObjects {
-
+  section("functional", "claim")
+  "The application" should {
+    "Successfully run absolute Test Case 8" in new WithJsBrowser with PageObjects {
       val page = GBenefitsPage(context)
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase8.csv")
       test(page, claim, buildPreviewUseData)
@@ -27,7 +25,6 @@ class FunctionalTestCase8Spec extends FunctionalTestCommon {
   section("functional", "claim")
 
   private def buildPreviewUseData = {
-
     PreviewTestableData()   +
       "AboutYouTitle"       + "AboutYouFirstName" + "AboutYouMiddleName" + "AboutYouSurname" +
       dateConversion("AboutYouDateOfBirth") +
@@ -58,6 +55,5 @@ class FunctionalTestCase8Spec extends FunctionalTestCommon {
       "OtherMoneyAnyPaymentsSinceClaimDate" +
       "OtherMoneyHaveYouSSPSinceClaim" +
       "OtherMoneyHaveYouSMPSinceClaim"
-
   }
 }

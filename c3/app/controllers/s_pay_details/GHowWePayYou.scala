@@ -21,7 +21,7 @@ import scala.util.matching.Regex
 object GHowWePayYou extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val bankDetailsMapping = mapping(
-    "accountHolderName" -> carersNonEmptyText(maxLength = 40),
+    "accountHolderName" -> carersNonEmptyText(maxLength = 60),
     "bankFullName" -> carersNonEmptyText(maxLength = 100),
     "sortCode" -> (sortCode verifying requiredSortCode),
     "accountNumber" -> (carersNonEmptyText(minLength = 6, maxLength = 10) verifying pattern(new Regex("\\d+"), "accountNumber", "error.number")),
@@ -30,18 +30,18 @@ object GHowWePayYou extends Controller with CachedClaim with Navigable with I18n
 
   val form = Form(mapping(
     "likeToPay" -> carersNonEmptyText(maxLength = 60),
-    "paymentFrequency" -> carersNonEmptyText(maxLength = 20),
-    "bankDetails" -> optional(bankDetailsMapping)
+    "bankDetails" -> optional(bankDetailsMapping),
+    "paymentFrequency" -> carersNonEmptyText(maxLength = 20)
   )(HowWePayYou.apply)(HowWePayYou.unapply))
 
 
-  def present = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def present = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     presentConditionally {
       track(HowWePayYou) { implicit claim => Ok(views.html.s_pay_details.g_howWePayYou(form.fill(HowWePayYou))) }
     }
   }
 
-  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang =>
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     val boundForm = form.bindEncrypted
 
     //retrieve the likeToPay value even if there are errors
@@ -69,7 +69,8 @@ object GHowWePayYou extends Controller with CachedClaim with Navigable with I18n
       formWithErrors => {
         val updatedFormWithErrors = manageErrorsSortCode(formWithErrors, "bankDetails.")
         val afterIgnoreGroupBy = ignoreGroupByForSortCode(updatedFormWithErrors, "bankDetails.")
-        BadRequest(views.html.s_pay_details.g_howWePayYou(afterIgnoreGroupBy))
+        val payFrequency = afterIgnoreGroupBy.replaceError("paymentFrequency", errorRequired, FormError("paymentFrequency", errorRequired))
+        BadRequest(views.html.s_pay_details.g_howWePayYou(payFrequency))
       },
       (howWePayYou: HowWePayYou) => {
         claim.update(howWePayYou) -> redirectPath

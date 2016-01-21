@@ -1,6 +1,7 @@
 @(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash: Flash, messages: play.api.i18n.Messages)
 
-@defining(lang) { implicit language =>
+@import views.html.save_for_later.main
+
     @main(messages("saveForLater.failed.legend")) {
         <p>@Html(messages("saveForLater.failed.line1"))</p>
         <p>@Html(messages("saveForLater.failed.line2"))</p>
@@ -8,5 +9,7 @@
 
         <p>@views.html.save_for_later.newApplicationButton(messages("saveForLater.common.new.label"), true, None)</p>
         <p>@views.html.save_for_later.govUKLink()</p>
+
+        @views.html.ga.sendTrackEvent("Save-For-Later","SFL-Failed-Final")
     }
-}
+

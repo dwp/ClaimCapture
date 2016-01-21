@@ -3,13 +3,11 @@ package models
 import controllers.mappings.Mappings
 import org.specs2.mutable._
 import play.api.data.Form
-import controllers.mappings.Mappings._
 import controllers.mappings.AddressMappings._
 
 class MultiLineAddressFormSpec extends Specification {
-
+  section("unit")
   "Multi Line Address" should {
-
     "reject empty input" in {
       Form("address" -> address.verifying(requiredAddress)).bind(Map("address.lineOne" -> "", "address.lineTwo" -> "", "address.lineThree" -> "")).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo(Mappings.errorRequired),
@@ -74,4 +72,5 @@ class MultiLineAddressFormSpec extends Specification {
       )
     }
   }
+  section("unit")
 }

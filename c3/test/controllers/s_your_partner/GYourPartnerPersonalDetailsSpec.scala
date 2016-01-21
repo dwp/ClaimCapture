@@ -4,8 +4,7 @@ import models.domain._
 import models.{DayMonthYear, NationalInsuranceNumber, domain}
 import org.specs2.mutable._
 import play.api.test.Helpers._
-import play.api.test.{ FakeRequest}
-import controllers.{Formulate, BrowserMatchers}
+import play.api.test.FakeRequest
 import controllers.s_about_you.{GMaritalStatus, GNationalityAndResidency}
 import models.view.CachedClaim
 import utils.WithApplication
@@ -33,7 +32,7 @@ class GYourPartnerPersonalDetailsSpec extends Specification {
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "nationality" -> nationality,
+          "partner.nationality" -> nationality,
           "liveAtSameAddress" -> liveAtSameAddress,
           "separated.fromPartner" -> separatedFromPartner,
           "isPartnerPersonYouCareFor" -> "yes",
@@ -49,6 +48,7 @@ class GYourPartnerPersonalDetailsSpec extends Specification {
     "isPartnerPersonYouCareFor" -> "yes",
     "hadPartnerSinceClaimDate" -> "yes")
 
+  section("unit", models.domain.YourPartner.id)
   "Your Partner Personal Details - Controller" should {
     "present 'Your Partner Personal Details' " in new WithApplication with Claiming {
       val request = FakeRequest()
@@ -129,7 +129,6 @@ class GYourPartnerPersonalDetailsSpec extends Specification {
     }
 
     "nationality should be mandatory when carer is not british and married or living with partner" in new WithApplication with Claiming {
-
       val maritalResult = GMaritalStatus.submit(FakeRequest()
         withFormUrlEncodedBody(
         "maritalStatus" -> "Married or civil partner"
@@ -149,7 +148,6 @@ class GYourPartnerPersonalDetailsSpec extends Specification {
 
       status(result2) mustEqual BAD_REQUEST
     }
-
   }
   section("unit", models.domain.YourPartner.id)
 }

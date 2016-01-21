@@ -9,6 +9,7 @@ import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_about_you.GOtherEEAStateOrSwitzerlandPage
 
 class PreviewPageAboutYouContentSpec extends Specification {
+  section("preview")
   "Preview Page" should {
     "display about you - the carer data with nationality as British" in new WithBrowser with PageObjects{
       fillAboutYouTheCarerSection(context)
@@ -36,7 +37,6 @@ class PreviewPageAboutYouContentSpec extends Specification {
     }
 
     "display about you - the carer data with nationality another country" in new WithBrowser with PageObjects{
-
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       claim.AboutYouNationalityAndResidencyNationality = "Another nationality"
       claim.AboutYouNationalityAndResidencyActualNationality = "French"
@@ -48,14 +48,13 @@ class PreviewPageAboutYouContentSpec extends Specification {
       val source = page.source
       source must not contain "British"
       source must contain("French")
-      source must contain("Marital status")
+      source must contain("Status")
       source must contain("Single")
     }
 
     "display about you - the carer data with nationality as British and other title" in new WithBrowser with PageObjects{
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
-      claim.AboutYouTitleOther = "Rev"
-      claim.AboutYouTitle = "Other"
+      claim.AboutYouTitle = "Rev"
       fillAboutYouTheCarerSection(context, claim)
 
       val page =  PreviewPage(context)
@@ -81,9 +80,8 @@ class PreviewPageAboutYouContentSpec extends Specification {
       source must contain("Have you or anyone in your close family worked or paid national insurance in an EEA country since your claim date?")
       source must contain("Yes - Details provided")
     }
-
   }
-section("preview")
+  section("preview")
 
   def fillAboutYouTheCarerSection(context:PageObjectsContext, claim:TestData = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()) = {
     val claimDatePage = GClaimDatePage(context)

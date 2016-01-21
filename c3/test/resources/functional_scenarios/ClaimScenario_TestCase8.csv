@@ -3,13 +3,14 @@ Can you get Carers Allowance?,Do you spend 35 hours or more each week caring for
 Can you get Carers Allowance?,Do you normally live in Great Britain?,Do you normally live in Great Britain?,CanYouGetCarersAllowanceDoYouNormallyLiveinGb,Yes
 Can you get Carers Allowance?,Are you aged 16 or over?,Are you aged 16 or over?,CanYouGetCarersAllowanceAreYouAged16OrOver,Yes
 Disclaimer,Disclaimer,I agree,DisclaimerUnderstandAndAgree,Yes
+Third Party,Third Party,Are you applying for Carer's Allowance for yourself?,ThirdPartyAreYouApplying,yesCarer
 About You,Your Details,Title,AboutYouTitle,Mr
 About You,Your Details,First name,AboutYouFirstName,Test
 About You,Your Details,Middle name,AboutYouMiddleName,
 About You,Your Details,Surname or family name,AboutYouSurname,CaseSix
 About You,Your Details,National Insurance (NI) number,AboutYouNINO,AB123456C
 About You,Your Details,Date of birth,AboutYouDateOfBirth,01/01/1960
-About You,Your marital status,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,Single
+About You,Your status,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,Single
 About You,Your contact details,Address,AboutYouAddress,6 Preston Road&Preston&Lancashire
 About You,Your contact details,Postcode,AboutYouPostcode,pr1 2th
 About You,Your contact details,How we contact you,HowWeContactYou,0771 5419899
@@ -201,20 +202,20 @@ Employment,Pension and expenses,"[[past=Did you]] [[present=Do you]] have any ca
 Employment,Pension and expenses,"Tell us what this [[past=was]] [[present=is]] for, how much and how often",EmploymentPensionExpenses_2,
 Employment,Pension and expenses,"Tell us what the cost [[past=was]] [[present=is]] for, how much, how often and who to", EmploymentWhatAreNecessaryJobExpenses_2,
 Employment,About other employment history,"Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?",EmploymentHaveYouBeenEmployedAtAnyTime_2,
-Self Employed,Your job,Are you self employed now?,SelfEmployedAreYouSelfEmployedNow,No
-Self Employed,Your job,When did you start this job?,SelfEmployedWhenDidYouStartThisJob,31/12/2012
-Self Employed,Your job,When did the job finish?,SelfEmployedWhenDidTheJobFinish,31/03/2013
-Self Employed,Your job,Have you ceased trading?,SelfEmployedHaveYouCeasedTrading,
-Self Employed,Your job,Nature of your business,SelfEmployedNatureofYourBusiness,Some type of business
-Self Employed,Your accounts,Do you know your trading year?,SelfEmployedDoYouKnowYourTradingYear,No
-Self Employed,Your accounts,Trading year start,SelfEmployedWhatWasIsYourTradingYearfrom,
-Self Employed,Your accounts,Trading year end,SelfEmployedWhatWasIsYourTradingYearIs,
-Self Employed,Your accounts,"Are the income, outgoings and profit in these accounts similar to your current level of trading?",SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent,
-Self Employed,Your accounts,Please tell us why and when the change happened,SelfEmployedTellUsWhyandWhentheChangeHappened,
-Self Employed,Pension and expenses,"[[past=Did you]] [[present=Do you]] pay into a pension and/or have any work related expenses?",SelfEmploymentDoYouPayForPensionExpenses,Yes
-Self Employed,Pension and expenses,"Tell us what this [[past=was]] [[present=is]] for, how much and how often",SelfEmploymentPensionExpenses,some pension expenses
-Self Employed,Pension and expenses,"[[past=Did you]] [[present=Do you]] have any care costs because of this work?",SelfEmploymentDoYouPayForAnythingNecessaryToDoYourJob,Yes
-Self Employed,Pension and expenses,"Tell us what the cost [[past=was]] [[present=is]] for, how much, how often and who to",SelfEmploymentWhatAreNecessaryJobExpenses,some job expenses
+Self-Employed,Your job,Are you self-employed now?,SelfEmployedAreYouSelfEmployedNow,No
+Self-Employed,Your job,When did you start this job?,SelfEmployedWhenDidYouStartThisJob,31/12/2012
+Self-Employed,Your job,When did the job finish?,SelfEmployedWhenDidTheJobFinish,31/03/2013
+Self-Employed,Your job,Have you ceased trading?,SelfEmployedHaveYouCeasedTrading,
+Self-Employed,Your job,Nature of your business,SelfEmployedNatureofYourBusiness,Some type of business
+Self-Employed,Your accounts,Do you know your trading year?,SelfEmployedDoYouKnowYourTradingYear,No
+Self-Employed,Your accounts,Trading year start,SelfEmployedWhatWasIsYourTradingYearfrom,
+Self-Employed,Your accounts,Trading year end,SelfEmployedWhatWasIsYourTradingYearIs,
+Self-Employed,Your accounts,"Are the income, outgoings and profit in these accounts similar to your current level of trading?",SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent,
+Self-Employed,Your accounts,Please tell us why and when the change happened,SelfEmployedTellUsWhyandWhentheChangeHappened,
+Self-Employed,Pension and expenses,"[[past=Did you]] [[present=Do you]] pay into a pension and/or have any work related expenses?",SelfEmploymentDoYouPayForPensionExpenses,Yes
+Self-Employed,Pension and expenses,"Tell us what this [[past=was]] [[present=is]] for, how much and how often",SelfEmploymentPensionExpenses,some pension expenses
+Self-Employed,Pension and expenses,"[[past=Did you]] [[present=Do you]] have any care costs because of this work?",SelfEmploymentDoYouPayForAnythingNecessaryToDoYourJob,Yes
+Self-Employed,Pension and expenses,"Tell us what the cost [[past=was]] [[present=is]] for, how much, how often and who to",SelfEmploymentWhatAreNecessaryJobExpenses,some job expenses
 Employment,Employment,Do you want to add anything about your work?,EmploymentDoYouWantToAddAnythingAboutYourWork,Yes
 Employment,Employment,Do you want to add anything about your work?,EmploymentAdditionalInfo,I want to tell more about my job
 Other Money,Benefits and payments,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,No
@@ -248,6 +249,5 @@ Consent & Declaration,Additional information,Please tell us anything else you th
 Consent & Declaration,Additional information,Do you live in Wales and would like to receive future communications in Welsh?,ConsentDeclarationCommunicationWelsh,No
 Consent & Declaration,Consent & Declaration,Do you agree to the Carer's Allowance Unit contacting anyone mentioned in this form?,ConsentDeclarationGettingInformationFromAnyOther,Yes
 Consent & Declaration,Consent & Declaration,List anyone you don't want to be contacted and say why.,ConsentDeclarationTellUsWhyOther,
-Consent & Declaration,Declaration,"Select this box if you filled this form in for someone else.",ConsentDeclarationSomeoneElseTickBox,
-Consent & Declaration,Declaration,Your name or organisation.,ConsentDeclarationNameOrOrganisation,
+Consent & Declaration,Third Party,"Are you applying for Carer''s Allowance for yourself?",ThirdPartyAreYouApplying,yesCarer
 About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouContactYouByTextphone,

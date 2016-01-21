@@ -1,7 +1,6 @@
 package controllers
 
 import utils.pageobjects.TestData
-
 import app.{PensionPaymentFrequency, WhoseNameAccount, PaymentFrequency, AccountStatus}
 
 /**
@@ -31,6 +30,22 @@ object ClaimScenarioFactory {
 
     claim
   }
+
+  def s12ClaimDateInFuture() = {
+    val claim = new TestData
+    claim.ClaimDateDidYouCareForThisPersonfor35Hours = "No"
+    claim.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "01/01/2099"
+
+    claim
+  }
+
+  def s12ClaimDateInPast() = {
+    val claim = new TestData
+    claim.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "01/01/2015"
+
+    claim
+  }
+
 
   def yourDetailsWithNotTimeOutside() = {
     val claim = s12ClaimDate()
@@ -136,7 +151,7 @@ object ClaimScenarioFactory {
     // Your details + outside UK
     val claim = yourDetailsEnablingTimeOutsideUK()
 
-    // Marital Status
+    // Status
     claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
 
     // Your contact details
@@ -917,25 +932,25 @@ object ClaimScenarioFactory {
 
   def s9SelfEmployment = {
     val claim = s9otherMoney
-    // About self employment
+    // About self-employment
     claim.SelfEmployedAreYouSelfEmployedNow = "no"
     claim.SelfEmployedDoYouKnowYourTradingYear = "no"
     claim.SelfEmployedWhenDidYouStartThisJob = "11/09/2001"
     claim.SelfEmployedWhenDidTheJobFinish = "07/07/2005"
     claim.SelfEmployedNatureofYourBusiness = "Some type of business"
 
-    // G8 Pension and Expenses
+    // G Pension and Expenses
     claim.SelfEmploymentDoYouPayForPensionExpenses = "Yes"
-    claim.SelfEmploymentPensionExpenses = "Some self employment pension expenses"
+    claim.SelfEmploymentPensionExpenses = "Some self-employment pension expenses"
     claim.SelfEmploymentDoYouPayForAnythingNecessaryToDoYourJob = "Yes"
-    claim.SelfEmploymentWhatAreNecessaryJobExpenses = "Some self employment job expenses"
+    claim.SelfEmploymentWhatAreNecessaryJobExpenses = "Some self-employment job expenses"
 
     claim
   }
 
   def s9SelfEmploymentYourAccounts = {
     val claim = s9SelfEmployment
-    //About self employment
+    //About self-employment
     claim.SelfEmployedAreTheseAccountsPreparedonaCashFlowBasis = "yes"
     claim.SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent = "no"
     claim.SelfEmployedTellUsWhyandWhentheChangeHappened = "A Year back"
@@ -1042,4 +1057,16 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def thirdPartyYesCarer() = {
+    val claim = new TestData
+    claim.ThirdPartyAreYouApplying = "yesCarer"
+    claim
+  }
+
+  def thirdPartyNotCarer() = {
+    val claim = new TestData
+    claim.ThirdPartyAreYouApplying = "noCarer"
+    claim.ThirdPartyNameAndOrganisation = "test and company"
+    claim
+  }
 }

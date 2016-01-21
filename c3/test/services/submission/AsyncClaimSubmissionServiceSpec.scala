@@ -1,7 +1,6 @@
 package services.submission
 
 import java.util.UUID._
-
 import models.domain.{Claim, _}
 import models.view.{CachedChangeOfCircs, CachedClaim}
 import models.{DayMonthYear, NationalInsuranceNumber}
@@ -11,9 +10,7 @@ import play.api.{Logger, http}
 import play.api.libs.ws.WSResponse
 import play.api.test.FakeApplication
 import services.{TransactionStatus, _}
-
 import scala.concurrent.Future
-
 
 class AsyncClaimSubmissionServiceSpec extends Specification with Mockito {
 
@@ -47,7 +44,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito {
     val claim = new Claim(CachedClaim.key, transactionId = Some(transactionId), uuid=randomUUID.toString)
 
     // need to set the qs groups used to create the fingerprint of the claim, otherwise a dup cache error will be thrown
-    val det = new YourDetails("",None, "",None, surname,NationalInsuranceNumber(Some(ni)), DayMonthYear(Some(1), Some(1), Some(1969)))
+    val det = new YourDetails("Mr","",None, surname,NationalInsuranceNumber(Some(ni)), DayMonthYear(Some(1), Some(1), Some(1969)))
 
     val claimDate = new ClaimDate(DayMonthYear(Some(1), Some(1), Some(2014)))
 
@@ -74,6 +71,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito {
 
   val transactionId = "1234567"
 
+  section ("unit", "slow")
   "claim submission" should {
     "record BAD_REQUEST" in new WithApplicationAndDB {
 
@@ -87,11 +85,9 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito {
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
       transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.BAD_REQUEST_ERROR,1,Some(0),None,Some("en")))
-
     }
 
     "record SUCCESS" in new WithApplicationAndDB {
-
       val service = asyncService(http.Status.OK,transactionId,result = "response")
 
       serviceSubmission(service, getClaim("test"))
@@ -100,7 +96,6 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito {
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
       transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.SUCCESS,1,Some(0),None,Some("en")))
-
     }
 
     "record change of circs submission SUCCESS" in new WithApplicationAndDB {
@@ -112,7 +107,6 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito {
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
       transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.SUCCESS,2,Some(0),None,Some("en")))
-
     }
 
     "do not submit a duplicate claim" in new WithApplicationAndDB(Map("mailer.enabled"->"false")) {
@@ -127,11 +121,9 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito {
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
       transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.INTERNAL_ERROR,1,Some(0),None,Some("en")))
-
     }
 
     "do not submit a duplicate change of circs" in new WithApplicationAndDB(Map("mailer.enabled"->"false")) {
-
       val service = asyncService(http.Status.OK,transactionId)
       val claim = getCofc("test")
 
@@ -143,11 +135,9 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito {
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
       transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.INTERNAL_ERROR,2,Some(0),None,Some("en")))
-
     }
 
     "record SERVICE_UNAVAILABLE" in new WithApplicationAndDB {
-
       val service = asyncService(http.Status.SERVICE_UNAVAILABLE,transactionId)
 
       val claim = getClaim("test1")
@@ -158,11 +148,9 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito {
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
       transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.SERVICE_UNAVAILABLE,1,Some(0),None,Some("en")))
-
     }
 
     "record REQUEST_TIMEOUT_ERROR" in new WithApplicationAndDB {
-
       val service = asyncService(http.Status.REQUEST_TIMEOUT,transactionId)
 
       val claim = getClaim("test2")
@@ -173,11 +161,9 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito {
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
       transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.REQUEST_TIMEOUT_ERROR,1,Some(0),None,Some("en")))
-
     }
 
     "record SERVER_ERROR" in new WithApplicationAndDB {
-
       val service = asyncService(http.Status.INTERNAL_SERVER_ERROR,transactionId)
 
       val claim = getClaim("test3")
@@ -188,11 +174,9 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito {
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
       transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.SERVER_ERROR,1,Some(0),None,Some("en")))
-
     }
   }
   section ("unit", "slow")
-
 
   def serviceSubmission(service: AsyncClaimSubmissionService with ClaimTransactionComponent, claim: Claim)(implicit app: FakeApplication) {
     DBTests.createId(transactionId)

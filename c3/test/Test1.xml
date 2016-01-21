@@ -112,7 +112,7 @@
             <SelfEmployment>
                 <SelfEmployedNow><QuestionLabel>Are you self-employed now?</QuestionLabel><Answer>Yes</Answer></SelfEmployedNow>
                 <CurrentJobDetails>
-                    <DateStarted><QuestionLabel>When did you start this self employed work?</QuestionLabel><Answer>01-02-2010</Answer></DateStarted>
+                    <DateStarted><QuestionLabel>When did you start this self-employed work?</QuestionLabel><Answer>01-02-2010</Answer></DateStarted>
                     <NatureBusiness><QuestionLabel>Nature of business?</QuestionLabel><Answer>Fruit and veg, delivery service</Answer></NatureBusiness>
                     <TradingYear>
                         <DateFrom><QuestionLabel>What is your trading year? From</QuestionLabel><Answer>01-02-2012</Answer></DateFrom>

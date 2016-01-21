@@ -8,7 +8,6 @@ import org.specs2.mutable.Around
 import org.specs2.execute.{Result, AsResult}
 import utils.{WithApplication, LightFakeApplication}
 
-
 object DBTests {
 
   def prepareDDL(implicit app: FakeApplication) = {
@@ -49,7 +48,6 @@ object DBTests {
 }
 
 class WithApplicationAndDB(config:Map[String,String]=Map.empty[String,String]) extends WithApplication(app = LightFakeApplication(additionalConfiguration = LightFakeApplication.configurationMap ++ config ++ inMemoryDatabase("carers",options=Map("MODE" -> "PostgreSQL","DB_CLOSE_DELAY"->"-1")))) with Around {
-
   override def around[T](t: => T)(implicit evidence$1: AsResult[T]): Result = {
     DBTests.prepareDDL
     super.around(t)

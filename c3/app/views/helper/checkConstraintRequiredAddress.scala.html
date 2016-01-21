@@ -1,13 +1,14 @@
 @(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: Lang, messages: play.api.i18n.Messages)
 
-@import views.html.helper.base.carersInputText
-@import utils.helpers.EmptyTemplate._
 @import utils.helpers.HtmlLabelHelper._
-@import views.html.helper.base.{carersLabel,carersLabelText}
-@import play.api.i18n.Messages
 
 @showLabel = @{ args.toMap.get('_showLabel).getOrElse(true) == true }
 
+
+@addressLabel = @{ args.toMap.get('addressLabel).map(_.toString).getOrElse("address") }
+
+@addressLabelId = @{ addressLabel.replace('.', '_').replace('[', '_').replace("]", "") }
+
 @if(showLabel) {
-    <legend id="@generateLabelId(field.id)" class="form-label-bold">@Html(messages("address"))</legend>
+    <legend id="@generateAnchorId(addressLabelId)" class="form-label-bold">@Html(messages(addressLabel))</legend>
 }

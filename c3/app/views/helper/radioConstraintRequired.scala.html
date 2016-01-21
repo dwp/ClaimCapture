@@ -8,10 +8,12 @@
 
 @showLabel = @{ args.toMap.get('_showLabel).getOrElse(true) == true }
 @nestedFieldSet = @{ args.toMap.get('_nestedFieldSet).getOrElse(false) == true }
+@isAnchorIdRequired = @{ args.toMap.get('_anchorIdRequired).getOrElse(false) == true }
+@anchorId = @{ args.toMap.get('_anchorId).getOrElse("").asInstanceOf[String] }
 
 @if(showLabel) {
 
-    <legend id="@generateLabelId(field.id)" class="form-label-bold @if(nestedFieldSet) {}">
+    <legend @if(isAnchorIdRequired) { id="@generateAnchorId(anchorId)" } else { id="@generateLabelId(field.id)" } class="form-label-bold @if(nestedFieldSet) {}">
         @carersLabelText(field,args:_*)
     </legend>
 

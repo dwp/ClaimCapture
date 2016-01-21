@@ -1,14 +1,8 @@
 window.initEvents = (spent35HoursCaringBeforeClaimY, spent35HoursCaringBeforeClaimN, day, month, year) ->
-
   if not $("#" + spent35HoursCaringBeforeClaimY).prop('checked')
     hideCareStartDateWrap(day, month, year)
-
-  $("#" + spent35HoursCaringBeforeClaimY).on "click", ->
-    showCareStartDateWrap()
-
-  $("#" + spent35HoursCaringBeforeClaimN).on "click", ->
-    hideCareStartDateWrap(day, month, year)
-
+  $("#" + spent35HoursCaringBeforeClaimY).on "click", ->showCareStartDateWrap()
+  $("#" + spent35HoursCaringBeforeClaimN).on "click", ->hideCareStartDateWrap(day, month, year)
 
 showCareStartDateWrap = ->
   $("#careStartDateWrap").slideDown(0).attr 'aria-hidden', 'false'
@@ -19,54 +13,39 @@ hideCareStartDateWrap = (day, month, year) ->
     $("#" + month).val("")
     $("#" + year).val("")
 
-
 window.initDateWarning = (warningId,day, month, year,text,testMode) ->
-  hideWarning(warningId)
+  $("#"+day).on "change keyup",->initDateWarningOnChange(warningId,day, month, year,text,testMode)
+  $("#"+month).on "change keyup",->initDateWarningOnChange(warningId,day, month, year,text,testMode)
+  $("#"+year).on "change keyup",->initDateWarningOnChange(warningId,day, month, year,text,testMode)
+  initDateWarningOnChange(warningId,day, month, year,text,testMode)
 
-  $("#"+day).change(initDateWarningOnChange(warningId,day, month, year,text,testMode))
-  $("#"+month).change(initDateWarningOnChange(warningId,day, month, year,text,testMode))
-  $("#"+year).change(initDateWarningOnChange(warningId,day, month, year,text,testMode))
-
-initDateWarningOnChange = (warningId,day,month,year,text,testMode) -> ->
+initDateWarningOnChange = (warningId,day,month,year,text,testMode) ->
   dayV = $("#"+day).val()
   monthV = $("#"+month).val()
   yearV = $("#"+year).val()
+  showWarningMsg=false
   if (dayV.length> 0 and monthV.length > 0 and yearV.length > 0)
-    futureDate = new Date(yearV,monthV,dayV)
-    if(new Date().addMonths(3).getTime() <= futureDate.getTime())
-      showWarning(warningId)
-      if not testMode then trackEvent('/your-claim-date/claim-date', 'Error',text);
-    else
-      hideWarning(warningId)
+    futureDate = new Date(yearV,monthV-1,dayV)
+    if(isLegalDate(dayV,monthV,yearV) && Date.today().add(3).months().getTime() <= futureDate.getTime())
+      showWarningMsg=true
 
+  if(showWarningMsg)
+    $("#"+warningId).slideDown(0)
+    if not testMode then trackEvent('/your-claim-date/claim-date', 'Error',text);
+  else
+    $("#"+warningId).slideUp(0)
 
-showWarning = (warningId) ->
-  $("#"+warningId).slideDown(0)
+isLegalDate=(day,month,year)->
+  if month>12 then false
+  else if day>daysInMonth(year,month) then false
+  else true
 
-hideWarning = (warningId) ->
-  $("#"+warningId).slideUp(0)
-
-
-#Stripped code from datejs needed to operate with months considering shorter months, leap years... etc
-Date.isLeapYear = (year) ->
+isLeapYear = (year) ->
   (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0))
 
-
-Date.getDaysInMonth = (year, month) ->
-  [31, (Date.isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
-
-
-Date.prototype.isLeapYear = ->
-  Date.isLeapYear(this.getFullYear())
+daysInMonth = (year, month) ->
+  if(isLeapYear(year)) then  [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month-1]
+  else [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month-1]
 
 
-Date.prototype.getDaysInMonth = ->
-  Date.getDaysInMonth(this.getFullYear(), this.getMonth())
 
-
-Date.prototype.addMonths = (value) ->
-  n = this.getDate()
-  this.setDate(1)
-  this.setMonth(this.getMonth() + value)
-  this.setDate(Math.min(n, this.getDaysInMonth()))
-  this

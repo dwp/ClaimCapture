@@ -5,6 +5,10 @@ import utils.C3Encryption._
 
 object ClaimEncryption {
 
+  def encryptUuid(uuid:String):String=XorEncryption.encryptUuid(uuid)
+
+  def decryptUuid(encuuid:String):String=XorEncryption.decryptUuid(encuuid)
+
   def encrypt(claim: Claim): Claim = {
     val claimWithYourDetails = encryptYourDetails(claim)
     val claimWithContactDetails = encryptContactDetails(claimWithYourDetails)
@@ -38,7 +42,6 @@ object ClaimEncryption {
       case Some(yourDetails) =>
         claim.update(yourDetails.copy(
           encryptString(yourDetails.title),
-          encryptOptionalString(yourDetails.titleOther),
           encryptString(yourDetails.firstName),
           encryptOptionalString(yourDetails.middleName),
           encryptString(yourDetails.surname),
@@ -70,14 +73,13 @@ object ClaimEncryption {
     claim.questionGroup[TheirPersonalDetails] match {
       case Some(theirPersonalDetails) =>
         claim.update(theirPersonalDetails.copy(
-          encryptString(theirPersonalDetails.relationship),
           encryptString(theirPersonalDetails.title),
-          encryptOptionalString(theirPersonalDetails.titleOther),
           encryptString(theirPersonalDetails.firstName),
           encryptOptionalString(theirPersonalDetails.middleName),
           encryptString(theirPersonalDetails.surname),
           encryptOptionalNationalInsuranceNumber(theirPersonalDetails.nationalInsuranceNumber),
           encryptDayMonthYear(theirPersonalDetails.dateOfBirth),
+          encryptString(theirPersonalDetails.relationship),
           encryptYesNoMandWithAddress(theirPersonalDetails.theirAddress)
         ))
       case _ => claim
@@ -94,7 +96,7 @@ object ClaimEncryption {
           encryptString(circumstancesReportChange.theirFullName),
           encryptString(circumstancesReportChange.theirRelationshipToYou),
           encryptOptionalString(circumstancesReportChange.furtherInfoContact),
-          encryptOptionalString(circumstancesReportChange.wantsContactEmail),
+          encryptString(circumstancesReportChange.wantsContactEmail),
           encryptOptionalString(circumstancesReportChange.email),
           encryptOptionalString(circumstancesReportChange.emailConfirmation)
         ))
@@ -107,8 +109,8 @@ object ClaimEncryption {
       case Some(howWePayYou) =>
         claim.update(howWePayYou.copy(
           encryptString(howWePayYou.likeToBePaid),
-          encryptString(howWePayYou.paymentFrequency),
-          encryptOptionalBankBuildingSoceityDetails(howWePayYou.bankDetails)
+          encryptOptionalBankBuildingSoceityDetails(howWePayYou.bankDetails),
+          encryptString(howWePayYou.paymentFrequency)
         ))
       case _ => claim
     }
@@ -119,7 +121,6 @@ object ClaimEncryption {
       case Some(yourPartnerPersonalDetails) =>
         claim.update(yourPartnerPersonalDetails.copy(
           encryptOptionalString(yourPartnerPersonalDetails.title),
-          encryptOptionalString(yourPartnerPersonalDetails.titleOther),
           encryptOptionalString(yourPartnerPersonalDetails.firstName),
           encryptOptionalString(yourPartnerPersonalDetails.middleName),
           encryptOptionalString(yourPartnerPersonalDetails.surname),
@@ -182,7 +183,6 @@ object ClaimEncryption {
       case Some(yourDetails) =>
         claim.update(yourDetails.copy(
           decryptString(yourDetails.title),
-          decryptOptionalString(yourDetails.titleOther),
           decryptString(yourDetails.firstName),
           decryptOptionalString(yourDetails.middleName),
           decryptString(yourDetails.surname),
@@ -214,14 +214,13 @@ object ClaimEncryption {
     claim.questionGroup[TheirPersonalDetails] match {
       case Some(theirPersonalDetails) =>
         claim.update(theirPersonalDetails.copy(
-          decryptString(theirPersonalDetails.relationship),
           decryptString(theirPersonalDetails.title),
-          decryptOptionalString(theirPersonalDetails.titleOther),
           decryptString(theirPersonalDetails.firstName),
           decryptOptionalString(theirPersonalDetails.middleName),
           decryptString(theirPersonalDetails.surname),
           decryptOptionalNationalInsuranceNumber(theirPersonalDetails.nationalInsuranceNumber),
           decryptDayMonthYear(theirPersonalDetails.dateOfBirth),
+          decryptString(theirPersonalDetails.relationship),
           decryptYesNoMandWithAddress(theirPersonalDetails.theirAddress)
         ))
       case _ => claim
@@ -238,7 +237,7 @@ object ClaimEncryption {
           decryptString(circumstancesReportChange.theirFullName),
           decryptString(circumstancesReportChange.theirRelationshipToYou),
           decryptOptionalString(circumstancesReportChange.furtherInfoContact),
-          decryptOptionalString(circumstancesReportChange.wantsContactEmail),
+          decryptString(circumstancesReportChange.wantsContactEmail),
           decryptOptionalString(circumstancesReportChange.email),
           decryptOptionalString(circumstancesReportChange.emailConfirmation)
         ))
@@ -251,8 +250,8 @@ object ClaimEncryption {
       case Some(howWePayYou) =>
         claim.update(howWePayYou.copy(
           decryptString(howWePayYou.likeToBePaid),
-          decryptString(howWePayYou.paymentFrequency),
-          decryptOptionalBankBuildingSoceityDetails(howWePayYou.bankDetails)
+          decryptOptionalBankBuildingSoceityDetails(howWePayYou.bankDetails),
+          decryptString(howWePayYou.paymentFrequency)
         ))
       case _ => claim
     }
@@ -263,7 +262,6 @@ object ClaimEncryption {
       case Some(yourPartnerPersonalDetails) =>
         claim.update(yourPartnerPersonalDetails.copy(
           decryptOptionalString(yourPartnerPersonalDetails.title),
-          decryptOptionalString(yourPartnerPersonalDetails.titleOther),
           decryptOptionalString(yourPartnerPersonalDetails.firstName),
           decryptOptionalString(yourPartnerPersonalDetails.middleName),
           decryptOptionalString(yourPartnerPersonalDetails.surname),

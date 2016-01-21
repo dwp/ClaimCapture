@@ -8,7 +8,7 @@ import play.api.test.FakeRequest
 import utils.WithApplication
 
 class GSelfEmploymentYourAccountsSpec extends Specification{
-
+  section("unit", models.domain.SelfEmployment.id)
   "Self Employment - Your Accounts - Controller" should {
     val fromDay = 11
     val fromMonth = 11
@@ -32,7 +32,7 @@ class GSelfEmploymentYourAccountsSpec extends Specification{
       "tellUsWhyAndWhenTheChangeHappened" -> tellUsWhyAndWhenTheChangeHappened
     )
 
-    "present 'Self Employment Your Accounts' " in new WithApplication with Claiming {
+    "present 'Self-Employment Your Accounts' " in new WithApplication with Claiming {
       val request = FakeRequest()
 
       val result = controllers.s_self_employment.GSelfEmploymentYourAccounts.present(request)

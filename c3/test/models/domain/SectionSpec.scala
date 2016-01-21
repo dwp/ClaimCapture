@@ -4,6 +4,7 @@ import org.specs2.mutable._
 import utils.WithApplication
 
 class SectionSpec extends Specification {
+  section("unit")
   "Section" should {
     "return the correct question group" in new WithApplication {
       val claiming = new Claiming(){}
@@ -53,4 +54,5 @@ class SectionSpec extends Specification {
       precedingGroups(0).identifier mustEqual Benefits
     }
   }
+  section("unit")
 }

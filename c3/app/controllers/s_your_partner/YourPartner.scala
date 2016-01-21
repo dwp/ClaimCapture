@@ -10,7 +10,7 @@ import play.api.i18n._
 
 object YourPartner extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
-  def presentConditionally(c: => ClaimResult) (implicit claim: Claim, lang:Lang, request: Request[AnyContent]): ClaimResult = {
+  def presentConditionally(c: => ClaimResult) (implicit claim: Claim, request2lang: Lang, request: Request[AnyContent]): ClaimResult = {
     if (models.domain.YourPartner.visible){
       c
     } else {

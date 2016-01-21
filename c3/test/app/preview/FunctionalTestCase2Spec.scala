@@ -6,12 +6,11 @@ import utils.pageobjects._
 import app.FunctionalTestCommon
 import utils.pageobjects.preview.PreviewPage
 
-
 class FunctionalTestCase2Spec extends FunctionalTestCommon {
   isolated
 
+  section ("functional","preview")
   "The application Claim" should {
-
     "Successfully run absolute Claim Test Case 2" in new WithJsBrowser with PageObjects {
       import Data.displaying
 
@@ -20,7 +19,7 @@ class FunctionalTestCase2Spec extends FunctionalTestCommon {
       page goToThePage()
       val lastPage = page runClaimWith(claim, PreviewPage.url)
       val toFindData = Data.build(
-        "Name"              displays ("AboutYouTitleOther","AboutYouFirstName","AboutYouMiddleName","AboutYouSurname"),
+        "Name"              displays ("AboutYouTitle","AboutYouFirstName","AboutYouMiddleName","AboutYouSurname"),
         "Date of birth"     displays DateTransformer("AboutYouDateOfBirth"),
         "Address"           displays (AddressTransformer("AboutYouAddress"),"AboutYouPostcode"),
         "Claim date"   displays DateTransformer("ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart"),
@@ -40,16 +39,14 @@ class FunctionalTestCase2Spec extends FunctionalTestCommon {
         "Have you had any breaks from caring for this person since"        displays AnyYesTransformer("AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare"),
         "Have you been on a course of education since your claim date?"   displays "EducationHaveYouBeenOnACourseOfEducation",
         "Have you been employed at any time since"      displays "EmploymentHaveYouBeenEmployedAtAnyTime_0",
-        "Have you been self employed at any time since" displays "EmploymentHaveYouBeenSelfEmployedAtAnyTime",
+        "Have you been self-employed at any time since" displays "EmploymentHaveYouBeenSelfEmployedAtAnyTime",
         "Have you received any payments for the person you care for or any other person since your claim date?" displays "OtherMoneyAnyPaymentsSinceClaimDate",
         "Have you had any Statutory Sick Pay"                    displays "OtherMoneyHaveYouSSPSinceClaim",
         "Have you had any Statutory Maternity Pay, Statutory Paternity Pay or Statutory Adoption Pay" displays "OtherMoneyHaveYouSMPSinceClaim"
       )
 
       toFindData.assertReview(claim, context) must beTrue
-
     }
-
   }
   section ("functional","preview")
 }

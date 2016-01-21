@@ -5,11 +5,11 @@ import play.api.test.FakeRequest
 import utils.{PlaySpecification, WithApplication}
 import scala.concurrent.Future
 
-
 class CircsEndingSpec extends PlaySpecification with Results {
 
   class TestController() extends Controller
 
+  section("unit")
   "Circs ending" should {
     "return timeout page with claim start page if timeout()" in new WithApplication {
       val result: Future[Result] = CircsEnding.timeout.apply(FakeRequest())
@@ -47,6 +47,5 @@ class CircsEndingSpec extends PlaySpecification with Results {
     }
 
   }
-section("unit")
-
+  section("unit")
 }

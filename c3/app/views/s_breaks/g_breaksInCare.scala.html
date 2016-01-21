@@ -32,7 +32,6 @@ else OtherMoney.name
     reasonList.find(p => p._1 == answer).getOrElse(("", Html("")))._2
 }
 
-@defining(lang) { implicit language =>
 @main(messages("s4.g5") + " - " + messages("s4.longName"), Some(yesNoForm)) {
 
     <fieldset id="breaks" class="form-elements results-detail">
@@ -169,5 +168,4 @@ else OtherMoney.name
     </script>
 
     <script type="text/javascript">$($("#js").val("true"));</script>
-}
 }

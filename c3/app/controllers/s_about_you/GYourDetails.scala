@@ -21,27 +21,23 @@ import play.api.i18n._
 object GYourDetails extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val form = Form(mapping(
-    "title" -> carersNonEmptyText(maxLength = Mappings.five),
-    "titleOther" -> optional(carersText(maxLength = Mappings.twenty)),
+    "title" -> carersNonEmptyText(maxLength = Mappings.twenty),
     "firstName" -> carersNonEmptyText(maxLength = 17),
     "middleName" -> optional(carersText(maxLength = 17)),
     "surname" -> carersNonEmptyText(maxLength = Name.maxLength),
     "nationalInsuranceNumber" -> nino.verifying(filledInNino,validNino),
     "dateOfBirth" -> dayMonthYear.verifying(validDate)
-  )(YourDetails.apply)(YourDetails.unapply)
-    .verifying("titleOther.required",YourDetails.verifyTitleOther _)
-  )
+  )(YourDetails.apply)(YourDetails.unapply))
 
-  def present = claiming {implicit claim => implicit request => implicit lang => 
+  def present = claiming {implicit claim => implicit request => implicit request2lang =>
     Logger.debug(s"Start your details ${claim.key} ${claim.uuid}")
     track(YourDetails) { implicit claim => Ok(views.html.s_about_you.g_yourDetails(form.fill(YourDetails))) }
   }
 
-  def submit = claiming {implicit claim => implicit request => implicit lang => 
+  def submit = claiming {implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        val updatedFormWithErrors = formWithErrors.replaceError("","titleOther.required",FormError("titleOther","constraint.required"))
-        BadRequest(views.html.s_about_you.g_yourDetails(updatedFormWithErrors))
+        BadRequest(views.html.s_about_you.g_yourDetails(formWithErrors))
       },
       yourDetails => { // Show pay details if the person is below age.hide.paydetails years of age on the day of the claim (claim date)
         val updatedClaim:Claim = previewClaim(claim, yourDetails)

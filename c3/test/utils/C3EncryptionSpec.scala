@@ -1,34 +1,36 @@
 package utils
 
+import java.util.UUID._
+
 import models.yesNo.{YesNoWith2Text, YesNoWithAddress, YesNoMandWithAddress}
 import org.specs2.mutable._
 import models.{DayMonthYear, SortCode, MultiLineAddress, NationalInsuranceNumber}
 import models.domain.BankBuildingSocietyDetails
 import javax.xml.bind.DatatypeConverter
 import gov.dwp.carers.security.encryption.EncryptorAES
+import app.ConfigProperties._
 
 class C3EncryptionSpec extends Specification {
-
   object ValuesToBeUsed {
-      val string = "Barney"
-      val optionalString = Some("Barney")
-      val multiLineAddress = MultiLineAddress(Some("123"), Some("Fake Street"), None)
-      val nationalInsuranceNumber = NationalInsuranceNumber(Some("AA123456A"))
-      val optionalNationalInsuranceNumber = Some(NationalInsuranceNumber(Some("AA123456A")))
-      val optionalMultiLineAddress = Some(MultiLineAddress(Some("123"), Some("Fake Street"), None))
-      val yesNoMandWithAddress = YesNoMandWithAddress("No",
-        Some(MultiLineAddress(Some("123"), Some("Fake street"), None)), Some("PL18 1AA"))
-      val yesNoWithAddress = YesNoWithAddress(Some("No"),
-        Some(MultiLineAddress(Some("123"), Some("Fake street"), None)), Some("PL18 1AA"))
-      val sortCode = SortCode("00", "00", "00")
-      val optionalBankBuildingSoceityDetails = Some(BankBuildingSocietyDetails("blah", "blah", SortCode("00", "00", "00"),
-        "blah", "blah"))
-      val yesNoWith2Text = YesNoWith2Text("blah", Some("blah"), Some("blah"))
-      val optionalDayMonthYear = Some(DayMonthYear(1,2,2000))
+    val string = "Barney"
+    val optionalString = Some("Barney")
+    val multiLineAddress = MultiLineAddress(Some("123"), Some("Fake Street"), None)
+    val nationalInsuranceNumber = NationalInsuranceNumber(Some("AA123456A"))
+    val optionalNationalInsuranceNumber = Some(NationalInsuranceNumber(Some("AA123456A")))
+    val optionalMultiLineAddress = Some(MultiLineAddress(Some("123"), Some("Fake Street"), None))
+    val yesNoMandWithAddress = YesNoMandWithAddress("No",
+      Some(MultiLineAddress(Some("123"), Some("Fake street"), None)), Some("PL18 1AA"))
+    val yesNoWithAddress = YesNoWithAddress(Some("No"),
+      Some(MultiLineAddress(Some("123"), Some("Fake street"), None)), Some("PL18 1AA"))
+    val sortCode = SortCode("00", "00", "00")
+    val optionalBankBuildingSoceityDetails = Some(BankBuildingSocietyDetails("blah", "blah", SortCode("00", "00", "00"),
+      "blah", "blah"))
+    val yesNoWith2Text = YesNoWith2Text("blah", Some("blah"), Some("blah"))
+    val optionalDayMonthYear = Some(DayMonthYear(1, 2, 2000))
   }
 
+  section("unit")
   "C3Encryption" should {
-
     "Not decrypt an already decrypted string" in new WithApplication {
       val encryptedString = C3Encryption.encryptString(ValuesToBeUsed.string)
       val decryptedString = C3Encryption.decryptString(encryptedString)
@@ -238,6 +240,70 @@ class C3EncryptionSpec extends Specification {
       ValuesToBeUsed.yesNoWith2Text mustEqual decryptedYesNoWith2Text
     }
 
-  }
+    "Encrypt uppercase uuid returns empty string" in new WithApplication {
+      val uuid = "ABCD1234-0000-0000-0000-ABCD1234CDEF"
+      val encrypted = XorEncryption.encryptUuid(uuid)
+      encrypted mustEqual ""
+    }
 
+    "Encrypt short uuid returns empty string" in new WithApplication {
+      val uuid = "ABCD1234-0000-0000-0000-ABCD1234CDE"
+      val encrypted = XorEncryption.encryptUuid(uuid)
+      encrypted mustEqual ""
+    }
+
+    "Encrypt and decrypt a typical lowercase uuid back to original" in new WithApplication {
+      val uuid = "abcd1234-0000-0000-0000-abcd1234cdef"
+      val encrypted = XorEncryption.encryptUuid(uuid)
+      val decrypted = XorEncryption.decryptUuid(encrypted)
+      encrypted mustNotEqual uuid
+      decrypted mustEqual uuid
+    }
+
+    "Encrypt and decrypt a typical 0 leading uuid back to original" in new WithApplication {
+      val uuid = "0bcd1234-0000-0000-0000-abcd1234cdef"
+      val encrypted = XorEncryption.encryptUuid(uuid)
+      val decrypted = XorEncryption.decryptUuid(encrypted)
+      encrypted mustNotEqual uuid
+      decrypted mustEqual uuid
+    }
+
+    "Encrypt and decrypt a random claim uuid back to original" in new WithApplication {
+      val uuid = randomUUID.toString
+      val encrypted = XorEncryption.encryptUuid(uuid)
+      println( "encrypted uuid:"+uuid+" to "+encrypted)
+      val decrypted = XorEncryption.decryptUuid(encrypted)
+      encrypted mustNotEqual uuid
+      decrypted mustEqual uuid
+    }
+
+    "Encrypt and decrypt a zero uuid back to original" in new WithApplication {
+      val uuid = "00000000-0000-0000-0000-000000000000"
+      val encrypted = XorEncryption.encryptUuid(uuid)
+      val decrypted = XorEncryption.decryptUuid(encrypted)
+      encrypted mustNotEqual uuid
+      decrypted mustEqual uuid
+    }
+
+    "Encrypt when no key in properties should return empty string" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("saveForLater.uuid.secret.key" -> ""))) {
+      val uuid = randomUUID.toString
+      val encrypted = XorEncryption.encryptUuid(uuid)
+      encrypted mustEqual ""
+    }
+
+    "Encrypt when uppercase key in properties should return empty string" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("saveForLater.uuid.secret.key" -> "8F7A0412-DF0E-485E-92C6-5B0F17E339C8"))) {
+      val uuid = randomUUID.toString
+      val encrypted = XorEncryption.encryptUuid(uuid)
+      encrypted mustEqual ""
+    }
+
+    "Generate a decryption pair-value for use in other tests" in new WithApplication {
+      val uuid = "0bcd1234-0000-0000-0000-abcd1234cdef"
+      val encrypted = XorEncryption.encryptUuid(uuid)
+      encrypted mustNotEqual uuid
+      println("With secretkey of:"+getProperty("saveForLater.uuid.secret.key","")+" created xor pair of:"+uuid+" and:"+encrypted)
+    }
+  }
+  
+  section("unit")
 }

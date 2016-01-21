@@ -10,14 +10,12 @@ import controllers.mappings.Mappings._
 import utils.WithApplication
 
 class GClaimDateSpec extends Specification {
-
   val claimDateDay = 1
   val claimDateMonth = 1
   val claimDateYear = 2014
 
   val spent35HoursCaringBeforeClaimYesWithNoDate = YesNoWithDate(yes, None)
   val spent35HoursCaringBeforeClaimNo = YesNoWithDate(no, None)
-
 
   val claimDateInputSpent35HoursBeforeClaimNo = Seq(
     "dateOfClaim.day" -> claimDateDay.toString,
@@ -36,8 +34,8 @@ class GClaimDateSpec extends Specification {
       "beforeClaimCaring.date.year" -> claimDateYear.toString)
   }
 
+  section("unit", models.domain.YourClaimDate.id)
   "Your claim date" should {
-
     "present 'Your claim date' " in new WithApplication with Claiming {
       val request = FakeRequest()
 
@@ -90,7 +88,6 @@ class GClaimDateSpec extends Specification {
       val result = GClaimDate.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-
   }
   section("unit", models.domain.YourClaimDate.id)
 }

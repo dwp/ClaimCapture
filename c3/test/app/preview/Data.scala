@@ -4,7 +4,6 @@ import utils.pageobjects.{PageObjectsContext, TestData}
 import org.openqa.selenium.By
 import play.api.Logger
 import scala.language.implicitConversions
-import utils.helpers.PreviewField._
 
 case class Data(toReviewData:Seq[(String,Seq[Object])]){
 

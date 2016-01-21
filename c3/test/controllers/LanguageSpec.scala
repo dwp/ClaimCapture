@@ -9,7 +9,7 @@ import play.api.test.Helpers._
 import play.api.i18n.Lang
 
 class LanguageSpec extends Specification {
-
+  section("unit")
   "Language - Change Language" should {
     "change of claim present - change language to English" in new WithApplication with MockForm {
       val cacheHandler = new CacheHandlingWithClaim()
@@ -66,7 +66,6 @@ class LanguageSpec extends Specification {
       val claim = cacheHandler.fromCache(request).get
       claim.lang.get mustEqual expectedLang
     }
-
   }
   section("unit")
 }

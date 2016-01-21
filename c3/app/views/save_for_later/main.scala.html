@@ -1,10 +1,12 @@
 @(title: String)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, flash:Flash, messages: Messages)
 
+@import views.html.common.leftcolNohelp
+
 @common.govMain(title) {
     <div class="carers-allowance clearfix">
         @common.protoType()
         <div class="grid-row main-grid">
-            @common.leftcol()
+            @leftcolNohelp()
             <article class="column-three-quarters main-content">
                 <h1 class="form-title heading-large">@Html(title)</h1>
                 <div class="claim-notes">

@@ -1,35 +1,34 @@
 @(currentForm: Form[models.domain.AdditionalInfo])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
-@import helper._
 @import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper._
 @import views.html.helper.base._
-@import views.html.helper.dropdowns._
-@import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
-@import play.api.i18n.Messages
-
+@import views.html.s_information.main
 
 @main(messages("s10_2.g1") + " - " + messages("s10_2.longName"), Some(currentForm)) {
     @form(action = controllers.s_information.routes.GAdditionalInfo.submit, 'role -> "form") {
         @DwpCSRFFormHelper.formField
 
 	        <fieldset class="form-elements" data-journey="carers-allowance:page:consent-and-declaration">
-	
+
 	            <ul>
 	                @yesNoRadioGroup(currentForm("anythingElse.answer"), 'helperAbove -> messages("mustTellUs"))
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(carersInputTextArea(currentForm("anythingElse")("text"),
-	                        'placeholder->messages("anythingElse.please.specify"),'helper->Html(messages("2000charsLeft")), 'maxLength -> 2000,
+	                        'placeholder->messages("anythingElse.please.specify"),'textAreaHelper->Html(messages("3000charsLeft")), 'maxLength -> 3000,
 	                        'ignoreOptional -> true)
 	                    ),
 	                    'id -> "anythingElseWrapper",
 	                    'display ->  { if (currentForm("anythingElse.answer").value.getOrElse("no") == "yes") "yes" else "no" }
 	                )
-	
-	                @yesNoRadioGroup(currentForm("welshCommunication"))
+					@if(lang.language != "cy") {
+						@yesNoRadioGroup(currentForm("welshCommunication"))
+					} else {
+						<input type="hidden" id="welshCommunication_yes" name="welshCommunication" value="yes">
+						}
 	            </ul>
 	        </fieldset>
 	
@@ -43,7 +42,7 @@
 <script type="text/javascript">
     $(function(){
         @ga.stagePrompt()
-        window.areaCounter({selector:"@CarersCrypto.encryptAES("anythingElse_text")",maxChars:2000});
+        window.areaCounter({selector:"@CarersCrypto.encryptAES("anythingElse_text")",maxChars:3000});
         window.initEvents("@CarersCrypto.encryptAES("anythingElse_answer_yes")",
         "@CarersCrypto.encryptAES("anythingElse_answer_no")",
         "@CarersCrypto.encryptAES("anythingElse_text")");

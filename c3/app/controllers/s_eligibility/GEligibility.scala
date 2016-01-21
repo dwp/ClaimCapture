@@ -21,12 +21,12 @@ object GEligibility extends Controller with CachedClaim with Navigable with I18n
     "livesInGB.answer" -> nonEmptyText.verifying(validYesNo)
   )(Eligibility.apply)(Eligibility.unapply))
 
-  def present = claiming ({implicit claim => implicit request => implicit lang => 
+  def present = claiming ({implicit claim => implicit request => implicit request2lang =>
     track(Eligibility) {
       implicit claim => Ok(views.html.s_eligibility.g_eligibility(form.fill(Eligibility)))
     }},checkCookie=true)
 
-  def submit = claiming {implicit claim => implicit request => implicit lang => 
+  def submit = claiming {implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         BadRequest(views.html.s_eligibility.g_eligibility(formWithErrors))

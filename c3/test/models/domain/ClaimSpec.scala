@@ -5,7 +5,7 @@ import org.specs2.mutable._
 import utils.WithApplication
 
 class ClaimSpec extends Specification {
-  
+  section("unit")
   "Claim" should {
     "contain the sectionId with the question group after adding" in new WithApplication {
       val claim = Claim(CachedClaim.key)
@@ -155,5 +155,5 @@ class ClaimSpec extends Specification {
       Claim(CachedClaim.key).questionGroup(models.domain.BeenEmployed).fold(List[QuestionGroup]())(qg => List(qg)) should containAllOf(List())
     }
   }
-section("unit")
+  section("unit")
 }

@@ -1,3 +1,3 @@
 package models.domain
 
-case class CheckYAnswers(previouslySavedClaim:Option[Claim] = None,cyaPointOfEntry:Option[String] = None)
+case class CheckYAnswers(previouslySavedClaim:Option[Claim] = None,cyaPointOfEntry:Option[String] = None, returnToSummaryAnchor: String = "")

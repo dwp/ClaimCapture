@@ -7,9 +7,9 @@ import play.api.test.Helpers._
 import services.{ClaimTransactionComponent, DBTests, WithApplicationAndDB}
 import models.domain.{Claiming, Claim}
 import models.view.CachedClaim
-import play.api.cache.CacheApi
 
 class StatusRoutingControllerSpec extends Specification {
+  section("unit")
   "Status routing controller" should {
     val transId = "1234567"
 
@@ -18,7 +18,7 @@ class StatusRoutingControllerSpec extends Specification {
     }
 
     "Handle case Thank You on successful submission" in new WithApplicationAndDB with Claiming {
-      cache.set(claimKey,new Claim(CachedClaim.key,transactionId = Some(transId)))
+      cache.set("default"+claimKey,new Claim(CachedClaim.key,transactionId = Some(transId)))
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       // create id with status success in db, to mock that a successful submit took place
@@ -38,7 +38,7 @@ class StatusRoutingControllerSpec extends Specification {
     }
 
     "Handled service unavailable" in new WithApplicationAndDB with Claiming{
-      cache.set(claimKey,new Claim(CachedClaim.key,transactionId = Some(transId)))
+      cache.set("default"+claimKey,new Claim(CachedClaim.key,transactionId = Some(transId)))
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       DBTests.createId(transId)
@@ -51,7 +51,7 @@ class StatusRoutingControllerSpec extends Specification {
     }
 
     "Handled not yet submitted (retry)" in new WithApplicationAndDB with Claiming {
-      cache.set(claimKey,new Claim(CachedClaim.key,transactionId = Some(transId)))
+      cache.set("default"+claimKey,new Claim(CachedClaim.key,transactionId = Some(transId)))
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       DBTests.createId(transId)
@@ -64,7 +64,7 @@ class StatusRoutingControllerSpec extends Specification {
     }
 
     "Handle error case on failed submission" in new WithApplicationAndDB with Claiming {
-      cache.set(claimKey,new Claim(CachedClaim.key,transactionId = Some(transId)))
+      cache.set("default"+claimKey,new Claim(CachedClaim.key,transactionId = Some(transId)))
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       DBTests.createId(transId)

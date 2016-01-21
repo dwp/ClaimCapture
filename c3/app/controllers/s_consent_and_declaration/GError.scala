@@ -8,7 +8,7 @@ import play.api.i18n._
 
 object GError extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
-  def present = claimingWithCheck { implicit claim => implicit request => implicit lang => 
-    track(models.domain.Error) { implicit claim => Ok(views.html.s_consent_and_declaration.g4_error(lang)) }
+  def present = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
+    track(models.domain.Error) { implicit claim => Ok(views.html.s_consent_and_declaration.g4_error(request2lang)) }
   }
 }

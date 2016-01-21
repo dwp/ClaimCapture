@@ -1,4 +1,6 @@
-@(claim: models.domain.Claim)(implicit lang:Lang, messages: play.api.i18n.Messages)
+@(claim: models.domain.Claim, request: Request[AnyContent])(implicit lang:Lang, messages: play.api.i18n.Messages)
+
+@environmentPath=@{"http" + (if(request.secure)"s" else "") + "://" + request.host}
 
 <!DOCTYPE html>
 <!--[if IE 7]>         <html class="ie ie7" lang="en"> <![endif]-->
@@ -35,6 +37,12 @@
                 color: white;
                 text-decoration: none;
             }
+            
+            .footer {
+                margin-left: 10px;
+            }
+            
+            
         </style>
     </head>
 
@@ -42,7 +50,7 @@
         <div class="header" style="background: black; padding: 10px; font-weight: bold;">
             <div class="wrapper logo">
                 <font face="arial, sans-serif">
-                    <img width="35" height="31" src="https://assets.digital.cabinet-office.gov.uk/static/gov.uk_logotype_crown-c09acb07e4d1d5d558f5a0bc53e9e36d.png" style="display: inline-block; vertical-align: middle; margin-right: 5px;" />
+                    <img width="35" height="31" src="https://www.carersallowance.service.gov.uk/assets/images/crown.png" style="display: inline-block; vertical-align: middle; margin-right: 5px;" />
                     <div class="crown" style="display: inline-block; vertical-align: middle; font-size: 30px; color: white; text-decoration: none;">
                         GOV&#8203;.&#8203;UK
                     </div>
@@ -58,7 +66,7 @@
                 <div class="section">
                     <h2>@Html(messages("savedMail.next.title"))</h2>                    
 
-                    <p>@Html(messages("savedMail.resumelink", claim.uuid))</p>
+                    <p>@Html(messages("savedMail.resumelink", environmentPath, helper.urlEncode(claim.getEncryptedUuid)))</p>
                     <p>@Html(messages("savedMail.next.line2"))</p>
                 </div>
                 <div class="section">

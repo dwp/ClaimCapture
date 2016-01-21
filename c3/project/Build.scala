@@ -7,9 +7,7 @@ import de.johoop.jacoco4sbt.JacocoPlugin._
 
 object ApplicationBuild extends Build {
   val appName         = "c3"
-
-  val appVersion      = "3.0-SNAPSHOT"
-
+  val appVersion      = "3.3-SNAPSHOT"
   val appDependencies = Seq(
     // Add your project dependencies here,
     jdbc,
@@ -29,7 +27,7 @@ object ApplicationBuild extends Build {
     "org.jacoco"          % "org.jacoco.core"     % "0.7.4.201502262128"  % "test",
     "org.jacoco"          % "org.jacoco.report"   % "0.7.4.201502262128"  % "test",
     "nl.rhinofly"        %% "play-mailer"         % "3.0.0",
-    "gov.dwp.carers"     %% "play2-resilient-memcached"     % "2.1",
+    "gov.dwp.carers"     %% "play2-resilient-memcached"     % "2.2",
     "gov.dwp"            %% "play2-multimessages" % "2.4.3",
     "net.sourceforge.htmlunit" % "htmlunit" % "2.18" % "test",
     "org.seleniumhq.selenium" % "selenium-java" % "2.47.1" % "test",

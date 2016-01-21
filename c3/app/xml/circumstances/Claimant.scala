@@ -18,7 +18,7 @@ object Claimant {
       {question(<DateOfBirth/>,"dateOfBirth", reportChange.dateOfBirth)}
       {question(<NationalInsuranceNumber/>, "nationalInsuranceNumber", encrypt(reportChange.nationalInsuranceNumber))}
       {question(<ContactPreference/>,"furtherInfoContact", reportChange.furtherInfoContact)}
-      {question(<WantsContactEmail/>,"wantsEmailContact", reportChange.wantsContactEmail)}
+      {question(<WantsContactEmail/>,"wantsEmailContactCircs", reportChange.wantsContactEmail)}
       {question(<Email/>,"mail.output", reportChange.email)}
     </ClaimantDetails>
   }

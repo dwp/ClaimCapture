@@ -1,7 +1,7 @@
 package controllers.s_eligibility
 
 import org.specs2.mutable._
-import play.api.Logger
+import utils.pageobjects.third_party.GThirdPartyPage
 import utils.{WithJsBrowser, WithBrowser}
 import utils.pageobjects.common.ErrorPage
 import utils.pageobjects.{PageObjects, TestData}
@@ -9,6 +9,7 @@ import utils.pageobjects.s_eligibility._
 import utils.pageobjects.s_claim_date.GClaimDatePage
 
 class GApproveIntegrationSpec extends Specification {
+  section("integration",models.domain.CarersAllowance.id)
   "Approve" should {
     "be presented" in new WithBrowser with PageObjects{
 			val page =  GApprovePage(context)
@@ -18,6 +19,7 @@ class GApproveIntegrationSpec extends Specification {
   }
   section("integration",models.domain.CarersAllowance.id)
 
+  section("integration", models.domain.CarersAllowance.id)
   "Carer's Allowance" should {
     val notRightPage: String = "Next Page is not of the right type."
 
@@ -72,7 +74,7 @@ class GApproveIntegrationSpec extends Specification {
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "Yes"
       page goToThePage()
-      page runClaimWith (claim, GClaimDatePage.url)
+      page runClaimWith (claim, GThirdPartyPage.url)
     }
 
     "If go to error page after this page. Retry allows to come back to this page" in new WithJsBrowser with PageObjects {

@@ -6,8 +6,12 @@
    !args.find(t => t._1 == 'ignoreLabel).getOrElse('ignoreLabel->false).asInstanceOf[(Symbol,Boolean)]._2
 }
 
+@isAnchorIdRequired = @{ args.toMap.get('_anchorIdRequired).getOrElse(false) == true }
+
+@anchorId = @{ args.toMap.get('_anchorId).getOrElse("").asInstanceOf[String] }
+
 @if(ignoreLabel){
-    <label id="@HtmlLabelHelper.generateLabelId(field.id)" class="form-label-bold" for="@CarersCrypto.encryptAES(field.id)">
+    <label @if(isAnchorIdRequired) { id="@HtmlLabelHelper.generateAnchorId(anchorId)" } else { id="@HtmlLabelHelper.generateLabelId(field.id)" } class="form-label-bold" for="@CarersCrypto.encryptAES(field.id)">
         @{Space.*}
         @carersLabelText(field,args:_*)
     </label>

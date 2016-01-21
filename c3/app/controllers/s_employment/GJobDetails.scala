@@ -26,7 +26,7 @@ object GJobDetails extends Controller with CachedClaim with Navigable with I18nS
     "employerName"-> carersNonEmptyText(maxLength = 60),
     "phoneNumber" -> nonEmptyText.verifying(validPhoneNumberRequired),
     "address" -> address.verifying(requiredAddress),
-    "postcode" -> optional(text verifying validPostcode),
+    "postcode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode)),
     "startJobBeforeClaimDate" -> nonEmptyText.verifying(validYesNo),
     "jobStartDate" -> optional(dayMonthYear.verifying(validDate)),
     "finishedThisJob" -> nonEmptyText.verifying(validYesNo),
@@ -38,7 +38,7 @@ object GJobDetails extends Controller with CachedClaim with Navigable with I18nS
     .verifying("jobStartDate.required", JobDetails.validateJobStartDate _)
   )
 
-  def job(iterationID: String) = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+  def job(iterationID: String) = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     claim.questionGroup(Jobs) match {
       case Some(js: Jobs) if js.job(iterationID).isDefined =>
         track(JobDetails) { implicit claim => Ok(views.html.s_employment.g_jobDetails(form.fillWithJobID(JobDetails, iterationID))) }
@@ -47,20 +47,21 @@ object GJobDetails extends Controller with CachedClaim with Navigable with I18nS
     }
   }
 
-  def present(iterationID: String) = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+  def present(iterationID: String) = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     track(JobDetails) { implicit claim => Ok(views.html.s_employment.g_jobDetails(form.fillWithJobID(JobDetails, iterationID))) }
   }
 
-  def submit = claimingWithCheckInIteration { iterationID => implicit claim => implicit request => implicit lang => 
+  def submit = claimingWithCheckInIteration { iterationID => implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors =>{
         val form = formWithErrors
-          .replaceError("", "lastWorkDate.required", FormError("lastWorkDate", errorRequired, Seq(labelForEmployment(claim, lang, formWithErrors("finishedThisJob").value.getOrElse(""), "lastWorkDate"))))
-          .replaceError("hoursPerWeek","number.invalid",FormError("hoursPerWeek","number.invalid", Seq(labelForEmployment(claim, lang, formWithErrors("finishedThisJob").value.getOrElse(""), "hoursPerWeek"))))
-          .replaceError("hoursPerWeek","error.restricted.characters",FormError("hoursPerWeek","error.restricted.characters", Seq(labelForEmployment(claim, lang, formWithErrors("finishedThisJob").value.getOrElse(""), "hoursPerWeek"))))
           .replaceError("", "jobStartDate.required", FormError("jobStartDate", errorRequired))
-          .replaceError("startJobBeforeClaimDate", errorRequired, FormError("startJobBeforeClaimDate", errorRequired,Seq(claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang, dmy - 1 months)))))
+          .replaceError("startJobBeforeClaimDate", errorRequired, FormError("startJobBeforeClaimDate", errorRequired, Seq(claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(request2lang, dmy - 1 months)))))
+          .replaceError("", "lastWorkDate.required", FormError("lastWorkDate", errorRequired, Seq(labelForEmployment(formWithErrors("finishedThisJob").value.getOrElse(""), request2lang, "lastWorkDate"))))
+          .replaceError("hoursPerWeek", "number.invalid", FormError("hoursPerWeek", "number.invalid", Seq(labelForEmployment(formWithErrors("finishedThisJob").value.getOrElse(""), request2lang, "hoursPerWeek"))))
+          .replaceError("hoursPerWeek", "error.restricted.characters", FormError("hoursPerWeek", "error.restricted.characters", Seq(labelForEmployment(formWithErrors("finishedThisJob").value.getOrElse(""), request2lang, "hoursPerWeek"))))
+          .replaceError("finishedThisJob", errorRequired, FormError("finishedThisJob", errorRequired))
         BadRequest(views.html.s_employment.g_jobDetails(form))
-      },jobDetails => claim.update(jobs.update(jobDetails)) -> Redirect(routes.GLastWage.present(iterationID)))
+      },jobDetails => claim.update(jobs.update(jobDetails.copy(postcode = Some(formatPostCode(jobDetails.postcode.getOrElse("")))))) -> Redirect(routes.GLastWage.present(iterationID)))
   }
 }

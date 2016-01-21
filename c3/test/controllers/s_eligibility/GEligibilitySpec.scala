@@ -7,6 +7,7 @@ import play.api.test.FakeRequest
 import utils.WithApplication
 
 class GEligibilitySpec extends Specification {
+  section("unit", models.domain.CarersAllowance.id)
   "Carer's Allowance - Hours - Controller" should {
     val answerHours = "yes"
     val answerOver16 = "no"

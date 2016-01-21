@@ -1,8 +1,8 @@
 package utils.pageobjects
 
-
 import utils.pageobjects.s_breaks.{GBreaksInCarePage, GBreakPage}
-
+import utils.pageobjects.save_for_later.{GSaveForLaterResumePage, GSaveForLaterSavePage}
+import utils.pageobjects.third_party.GThirdPartyPage
 import scala.language.dynamics
 import utils.pageobjects.s_eligibility._
 import utils.pageobjects.s_disclaimer._
@@ -41,6 +41,7 @@ object ClaimPageFactory extends PageFactory {
       case GEligibilityPage.url => GEligibilityPage(ctx)
       case G5CarersResponsePage.url => G5CarersResponsePage(ctx)
       case GApprovePage.url => GApprovePage(ctx)
+      case GThirdPartyPage.url => GThirdPartyPage(ctx)
       //S1.5
       case GClaimDatePage.url => GClaimDatePage(ctx)
       // S2
@@ -48,6 +49,10 @@ object ClaimPageFactory extends PageFactory {
       case GMaritalStatusPage.url => GMaritalStatusPage(ctx)
       case GContactDetailsPage.url => GContactDetailsPage(ctx)
       case GNationalityAndResidencyPage.url => GNationalityAndResidencyPage(ctx)
+      //Save
+      case GSaveForLaterSavePage.url => GSaveForLaterSavePage(ctx)
+      //Resume
+      case GSaveForLaterResumePage.url => GSaveForLaterResumePage(ctx)
     }
     m.orElse[String, Page] {
       IterableNode(Abroad, ctx)(iteration => {
@@ -79,7 +84,7 @@ object ClaimPageFactory extends PageFactory {
         case GPensionAndExpensesPage.url => GPensionAndExpensesPage(ctx, iteration)
       })
     }.orElse[String, Page] {
-      // s7 - Used both by self employment and employment
+      // s7 - Used both by self-employment and employment
       case GEmploymentAdditionalInfoPage.url => GEmploymentAdditionalInfoPage(ctx)
       // S8
       case GAboutOtherMoneyPage.url => GAboutOtherMoneyPage(ctx)
@@ -101,7 +106,7 @@ object ClaimPageFactory extends PageFactory {
       case _ =>
         if (previousUrl.isEmpty) buildPageFromUrImpl(url.replaceFirst("/[^/]*$", ""), ctx, url)
         else new UnknownPage(previousUrl, ctx)
-    }(url.replaceFirst("\\?.*$", ""))
+    }(url.replaceFirst("\\?.*$", "").replaceFirst("\\#.*$", ""))
   }
 }
 

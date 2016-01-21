@@ -4,6 +4,8 @@ S = (selector) -> $("##{selector}")
 label = (selector) -> $("label[for='#{selector}']")
 
 window.initEvents = (o) ->
+  $("#"+o.change).trigger("blur")
+
   hideDoYouKnowYourTradingYearWrap = () ->
     S("doYouKnowYourTradingYearIncomeWrap").slideUp(0).attr 'aria-hidden', 'true'
 
@@ -24,7 +26,8 @@ window.initEvents = (o) ->
     emptySelfEmployedIncomeWrap = -> S(o.change).val("")
     S("selfEmployedIncomeWrap").slideUp(0, emptySelfEmployedIncomeWrap).attr 'aria-hidden', 'true'
 
-  showSelfEmployedIncomeWrap = ->
+  showSelfEmployedIncomeWrap = (o) ->
+    $("#"+o.change).trigger("blur")
     S("selfEmployedIncomeWrap").slideDown(0).attr 'aria-hidden', 'false'
 
   if not isChecked(o.similarN)
@@ -34,7 +37,7 @@ window.initEvents = (o) ->
     hideSelfEmployedIncomeWrap(o)
 
   S(o.similarN).on "click", ->
-    showSelfEmployedIncomeWrap()
+    showSelfEmployedIncomeWrap(o)
 
   resetData = (o) ->
     hideSelfEmployedIncomeWrap(o)

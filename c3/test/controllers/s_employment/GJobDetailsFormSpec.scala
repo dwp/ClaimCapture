@@ -6,6 +6,7 @@ import models.DayMonthYear
 import utils.WithApplication
 
 class GJobDetailsFormSpec extends Specification {
+  section("unit", models.domain.JobDetails.id)
   "Employer Details - Employment History Form" should {
     val iterationID = "1"
     val yes = "yes"
@@ -267,7 +268,6 @@ class GJobDetailsFormSpec extends Specification {
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
-
   }
-  section("unit", models.domain.SelfEmployment.id)
+  section("unit", models.domain.JobDetails.id)
 }

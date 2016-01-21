@@ -10,25 +10,24 @@ import play.api.i18n._
 
 object CircsEnding extends Controller with CachedChangeOfCircs with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
-  def timeout = endingOnError {implicit claim => implicit request => implicit lang =>
+  def timeout = endingOnError {implicit claim => implicit request => implicit request2lang =>
     RequestTimeout(views.html.common.session_timeout(startPage))
   }
 
-  def error = endingOnError {implicit claim => implicit request => implicit lang =>
+  def error = endingOnError {implicit claim => implicit request => implicit request2lang =>
     InternalServerError(views.html.common.error(startPage))
   }
 
-  def errorCookie = endingOnError {implicit claim => implicit request => implicit lang =>
+  def errorCookie = endingOnError {implicit claim => implicit request => implicit request2lang =>
     Unauthorized(views.html.common.error_cookie_retry(startPage))
   }
 
-  def errorBrowserBackbutton = endingOnError {implicit claim => implicit request => implicit lang =>
+  def errorBrowserBackbutton = endingOnError {implicit claim => implicit request => implicit request2lang =>
     BadRequest(views.html.common.errorBrowserBackbutton(startPage))
   }
 
-  def thankyou = ending {implicit claim => implicit request => implicit lang =>
-
-    Ok(views.html.common.thankYouCircs(lang))
+  def thankyou = ending {implicit claim => implicit request => implicit request2lang =>
+    Ok(views.html.common.thankYouCircs(request2lang))
   }
 
 }

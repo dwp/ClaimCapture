@@ -8,6 +8,7 @@ import models.domain.{Claim, Iteration, Jobs, JobDetails, Claiming}
 import utils.WithApplication
 
 class GEmploymentSpec extends Specification {
+  section("unit", models.domain.Employed.id)
   "Employment" should {
     "get first completed question group for a job" in new WithApplication with Claiming {
       val jobID = "dummyJobID"
@@ -17,7 +18,7 @@ class GEmploymentSpec extends Specification {
       val jobs = new Jobs().update(job)
 
       val claim = Claim(CachedClaim.key).update(jobs)
-      cache.set(claimKey, claim)
+      cache.set("default"+claimKey, claim)
 
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
       val completedQuestionGroups = Employment.completedQuestionGroups(JobDetails, jobID)(claim)

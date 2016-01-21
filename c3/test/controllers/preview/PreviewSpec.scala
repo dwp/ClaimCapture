@@ -9,9 +9,9 @@ import utils.pageobjects.preview.PreviewPage
  * Created by valtechuk on 16/10/2015.
  */
 class PreviewSpec extends Specification {
-
+  section("preview")
   "Preview page" should {
-    "be presented with back button removed" in new WithJsBrowser with PageObjects{
+    "be presented with back button removed" in new WithJsBrowser with PageObjects {
       val page =  PreviewPage(context)
       page goToThePage()
       val source = page.source
@@ -20,4 +20,5 @@ class PreviewSpec extends Specification {
       source must not contain("backButton")
     }
   }
+  section("preview")
 }

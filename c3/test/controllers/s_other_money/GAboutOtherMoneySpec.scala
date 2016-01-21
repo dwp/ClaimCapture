@@ -8,6 +8,7 @@ import play.api.test.FakeRequest
 import utils.WithApplication
 
 class GAboutOtherMoneySpec extends Specification {
+  section ("unit", models.domain.OtherMoney.id)
   "Benefits and payments - Controller" should {
     val anyPaymentsSinceClaimDate = "yes"
     val whoPaysYou = "The Man"

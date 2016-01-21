@@ -2,7 +2,6 @@ package domain
 
 import org.specs2.specification.Scope
 import org.specs2.mock.Mockito
-import java.util.UUID._
 import scala.reflect.ClassTag
 import models.domain.QuestionGroup
 

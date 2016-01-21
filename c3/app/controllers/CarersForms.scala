@@ -2,8 +2,10 @@ package controllers
 
 import play.api.data.Forms._
 import play.api.data.Mapping
-import play.api.data.validation.Constraints
+import play.api.data.validation._
 import mappings.Mappings._
+import play.api.Logger
+import play.api.data.format.Formats._
 
 object CarersForms  {
 
@@ -19,4 +21,20 @@ object CarersForms  {
   def carersNonEmptyText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
     nonEmptyText(minLength, maxLength) verifying restrictedStringText
 
+  def carersEmailValidation: Mapping[String] =
+    of[String] verifying emailAddress
+
+  private val emailRegex = """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])*(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9]))+$""".r
+  def emailAddress: Constraint[String] = Constraint[String]("constraint.email") { e =>
+    if (e == null) Invalid(ValidationError("error.email"))
+    else if (e.trim.isEmpty) Invalid(ValidationError("error.email"))
+    else emailRegex.findFirstMatchIn(e.trim).map(_ => Valid) match {
+      case Some(Valid) => Valid
+      case _ => { Logger.info(s"Email: invalid email - $e"); Invalid(ValidationError("error.email")) }
+    }
+  }
+
+  def formatPostCode(postCode : String) : String = {
+    postCode.trim.split("\\s+").map(_.trim).mkString(" ").toUpperCase()
+  }
 }

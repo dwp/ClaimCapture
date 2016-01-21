@@ -12,13 +12,14 @@ import play.api.i18n._
 import play.api.Play.current
 
 class ThankYouIntegrationSpec extends Specification {
+  section("integration")
   "Thank You" should {
     "present 'Thank You' page" in new WithBrowser with BrowserMatchers {
       browser.goTo("/thankyou/apply-carers")
       urlMustEqual("/thankyou/apply-carers")
     }
 
-    "show employment and self employment messages" in new WithBrowser with BrowserMatchers {
+    "show employment and self-employment messages" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       Formulate.employment(browser)
 
@@ -40,7 +41,7 @@ class ThankYouIntegrationSpec extends Specification {
       browser.find("#selfEmployment").size() shouldEqual 0
     }
 
-    "show self employment messages" in new WithBrowser with BrowserMatchers {
+    "show self-employment messages" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       Formulate.justSelfEmployment(browser)
 
@@ -95,7 +96,6 @@ class ThankYouIntegrationSpec extends Specification {
       thankYouPage must not contain messagesApi("evidence.otherMoney.statutorySickPay")
       thankYouPage must not contain messagesApi("evidence.otherMoney.otherStatutoryPay")
     }
-
   }
   section("integration")
 }

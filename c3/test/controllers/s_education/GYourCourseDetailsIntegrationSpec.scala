@@ -2,16 +2,14 @@ package controllers.s_education
 
 import org.specs2.mutable._
 import utils.WithBrowser
-import controllers.{PreviewTestUtils, ClaimScenarioFactory, BrowserMatchers, Formulate}
+import controllers.ClaimScenarioFactory
 import utils.pageobjects._
-import utils.pageobjects.s_breaks.GBreaksInCarePage
 import utils.pageobjects.s_education.GYourCourseDetailsPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
-import utils.pageobjects.preview.PreviewPage
-import utils.pageobjects.s_employment.{GEmploymentPage, GBeenEmployedPage}
-import utils.helpers.PreviewField._
+import utils.pageobjects.s_employment.GEmploymentPage
 
 class GYourCourseDetailsIntegrationSpec extends Specification {
+  section("integration", models.domain.Education.id)
   "Your course details Page" should {
     "be presented" in new WithBrowser with PageObjects {
       val educationPage = GYourCourseDetailsPage(context)
@@ -70,7 +68,7 @@ class GYourCourseDetailsIntegrationSpec extends Specification {
 
     }
 
-    "Navigate back and Course title is displayed when Have you been on a course of education is yes" in new WithBrowser with PageObjects{
+    "Navigate back and Course title is displayed when Have you been on a course of education is yes" in new WithBrowser with PageObjects {
       val claimDatePage = GClaimDatePage(context)
       claimDatePage goToThePage()
       val claimDate = ClaimScenarioFactory.s12ClaimDate()
@@ -85,8 +83,6 @@ class GYourCourseDetailsIntegrationSpec extends Specification {
       val courseTitle = employmentPage goBack() readInput("#courseTitle")
       courseTitle.get mustEqual "Course 101"
     }
-
   }
   section("integration", models.domain.Education.id)
-
 }

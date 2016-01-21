@@ -9,8 +9,6 @@
 @import play.api.i18n.Messages
 @import scala.language.postfixOps
 
-@defining(lang) { implicit language =>
-
     @main(messages("s4.g4") + " - " + messages("s4.longName"), Some(currentForm)) {
 
         @form(action = controllers.s_care_you_provide.routes.GMoreAboutTheCare.submit, 'role -> "form") {
@@ -31,4 +29,3 @@
 
     }
 
-}

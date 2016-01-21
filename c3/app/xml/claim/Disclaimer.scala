@@ -2,7 +2,6 @@ package xml.claim
 
 import models.domain._
 import xml.XMLHelper._
-import scala.Some
 import xml.XMLComponent
 import play.api.i18n.{MMessages, MessagesApi}
 import play.api.Play.current
@@ -10,7 +9,6 @@ import play.api.Play.current
 object  Disclaimer extends XMLComponent{
   val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   def xml(claim: Claim) = {
-
     val disclaimer = claim.questionGroup[models.domain.Disclaimer].getOrElse(models.domain.Disclaimer())
 
     <Disclaimer>

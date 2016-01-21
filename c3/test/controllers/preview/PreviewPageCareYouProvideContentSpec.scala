@@ -1,4 +1,4 @@
-package controllers.preview
+package controllers.preview.PreviewPageCareYouProvideContentSpec
 
 import org.specs2.mutable._
 import utils.pageobjects.s_about_you.GContactDetailsPage
@@ -12,10 +12,9 @@ import utils.WithJsBrowser
 import utils.helpers.PreviewField._
 
 class PreviewPageCareYouProvideContentSpec extends Specification {
-
+  section("preview")
   "Preview Page" should {
-    "display Care you provide data - when partner is not the person you care for" in new WithJsBrowser  with PageObjects{
-
+    "display Care you provide data - when partner is not the person you care for" in new WithJsBrowser with PageObjects {
       val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
       partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
 
@@ -31,12 +30,10 @@ class PreviewPageCareYouProvideContentSpec extends Specification {
       source must contain("Father")
     }
 
-    "display Care you provide data - when partner is not the person you care for and your partner has a different title" in new WithJsBrowser  with PageObjects{
-
+    "display Care you provide data - when partner is not the person you care for and your partner has a different title" in new WithJsBrowser with PageObjects {
       val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
       partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
-      partnerData.AboutYourPartnerTitle = "Other"
-      partnerData.AboutYourPartnerTitleOther = "Lady"
+      partnerData.AboutYourPartnerTitle = "Lady"
 
       fillCareProvideSection(context,partnerClaim = partnerData)
       val page =  PreviewPage(context)
@@ -51,14 +48,12 @@ class PreviewPageCareYouProvideContentSpec extends Specification {
       source must contain("Father")
     }
 
-    "display Care you provide data - when partner is not the person you care for and the person you care for has a different title" in new WithJsBrowser  with PageObjects{
-
+    "display Care you provide data - when partner is not the person you care for and the person you care for has a different title" in new WithJsBrowser with PageObjects {
       val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
       partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
 
       val careYouProvideData = ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(true)
-      careYouProvideData.AboutTheCareYouProvideTitlePersonCareFor = "Other"
-      careYouProvideData.AboutTheCareYouProvideTitleOtherPersonCareFor = "Lord"
+      careYouProvideData.AboutTheCareYouProvideTitlePersonCareFor = "Lord"
       
       fillCareProvideSection(context,partnerClaim = partnerData, careYouProvideData)
       val page =  PreviewPage(context)
@@ -73,8 +68,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification {
       source must contain("Father")
     }
 
-    "display Care you provide data - when partner is the person you care for" in new WithJsBrowser  with PageObjects{
-
+    "display Care you provide data - when partner is the person you care for" in new WithJsBrowser with PageObjects {
       val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
       partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "Yes"
 
@@ -88,11 +82,9 @@ class PreviewPageCareYouProvideContentSpec extends Specification {
       source must contain("About the person you care for")
       source must contain("No - 123 Colne Street, Line 2 BB9 2AD")
       source must contain("Father")
-
     }
 
-    "display Care you provide data - when no partner" in new WithJsBrowser  with PageObjects{
-
+    "display Care you provide data - when no partner" in new WithJsBrowser with PageObjects {
       val partnerData = new TestData
       partnerData.AboutYourPartnerHadPartnerSinceClaimDate = "No"
 
@@ -106,7 +98,6 @@ class PreviewPageCareYouProvideContentSpec extends Specification {
       source must contain("02 March, 1990")
       source must contain("No - 123 Colne Street, Line 2 BB9 2AD")
       source must contain("Father")
-
     }
 
     "update caree address if modifying carer address when answered caree lives same address" in new WithJsBrowser with PageObjects {
@@ -143,7 +134,6 @@ class PreviewPageCareYouProvideContentSpec extends Specification {
 
       newSource must contain("Something totally different, Manchester FY1 2RW")
       newSource must not(contain("No - 101 Clifton Street, Blackpool FY1 2RW"))
-
     }
   }
   section("preview")

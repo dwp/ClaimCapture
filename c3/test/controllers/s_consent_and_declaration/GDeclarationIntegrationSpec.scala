@@ -1,17 +1,14 @@
 package controllers.s_consent_and_declaration
 
 import org.specs2.mutable._
-import play.api.Logger
 import utils.WithBrowser
-import controllers.{BrowserMatchers, Formulate}
+import controllers.BrowserMatchers
 import utils.pageobjects.{TestData, PageObjects}
 import utils.pageobjects.s_consent_and_declaration.GDeclarationPage
-import utils.pageobjects.s_disclaimer.GDisclaimerPage
-import collection.JavaConversions._
 import utils.pageobjects.preview.PreviewPage
-import utils.helpers.PreviewField._
 
 class GDeclarationIntegrationSpec extends Specification {
+  section("integration", models.domain.ConsentAndDeclaration.id)
   "Declaration" should {
     "be presented" in new WithBrowser with BrowserMatchers with PageObjects {
       val page =  GDeclarationPage(context)
@@ -35,17 +32,6 @@ class GDeclarationIntegrationSpec extends Specification {
       val previewPage = declarationPage goBack()
 
       previewPage must beAnInstanceOf[PreviewPage]
-    }
-
-    "not have name or GDeclarationPage field with optional text" in new WithBrowser with PageObjects{
-      val page =  GDeclarationPage(context)
-      val claim = new TestData
-      claim.ConsentDeclarationSomeoneElseTickBox = "Yes"
-
-      page goToThePage()
-      page fillPageWith claim
-
-      page.readLabel("nameOrOrganisation") mustEqual("Your name or organisation")
     }
 
     "no contact selected in GDeclarationPage field with optional text" in new WithBrowser with PageObjects{

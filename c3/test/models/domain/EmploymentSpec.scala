@@ -2,17 +2,14 @@ package models.domain
 
 import controllers.mappings.Mappings
 import models.view.CachedClaim
-import org.specs2.mock.mockito
 import utils.WithApplication
 import scala.language.reflectiveCalls
 import org.specs2.mutable._
 import controllers.Iteration.{Identifier => IterationID}
-import mockito.MockitoStubs
 
 class EmploymentSpec extends Specification {
-
+  section("unit")
   "Employment" should {
-
     def claimEmployed = Claim(CachedClaim.key, List(
       Section(SelfEmployment, List(Employment(Mappings.no, Mappings.yes)))
     ))
@@ -28,9 +25,10 @@ class EmploymentSpec extends Specification {
       Employed.isEmployed(claimNotEmployed) mustEqual false
       Employed.isEmployed(claimWithNoEmploymentDetails) mustEqual false
     }
-
   }
+  section("unit")
 
+  section("unit")
   "Job" should {
     "add 2 new question groups" in new WithApplication {
       val claiming = new Claiming(){}
@@ -53,7 +51,9 @@ class EmploymentSpec extends Specification {
       updatedJob.questionGroups.size shouldEqual 1
     }
   }
+  section("unit")
 
+  section("unit")
   "Jobs" should {
     "add 2 new jobs" in new WithApplication {
       val jobs = Jobs()
@@ -68,9 +68,10 @@ class EmploymentSpec extends Specification {
       val updatedJobs = jobs.update(Iteration("1")).update(Iteration("1"))
       updatedJobs.size shouldEqual 1
     }
-
   }
+  section("unit")
 
+  section("unit")
   "Claim" should {
     "iterate over 2 jobs" in new WithApplication {
       val jobs = Jobs().update(Iteration("1")).update(Iteration("2"))
@@ -94,4 +95,5 @@ class EmploymentSpec extends Specification {
       }.flatten.flatten must beLike { case Some(jd: JobDetails with IterationID) => jd.employerName shouldEqual "Toys r not us" }
     }
   }
+  section("unit")
 }

@@ -17,7 +17,7 @@ object Help {
 
 object ClaimHelp extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
-  def notes() = claiming {implicit claim => implicit request => implicit lang =>
+  def notes() = claiming {implicit claim => implicit request => implicit request2lang =>
     Help.buildResponse(views.html.claimHelp.claimHelpNotes(request2lang))
   }
 

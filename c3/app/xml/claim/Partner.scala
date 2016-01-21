@@ -23,7 +23,6 @@ object Partner extends XMLComponent {
         {question(<MiddleNames/>, "middleName", yourPartnerPersonalDetails.middleName)}
         {question(<OtherSurnames/>,"otherNames", yourPartnerPersonalDetails.otherSurnames)}
         {question(<Title/>, "title", yourPartnerPersonalDetails.title)}
-        {question(<TitleOther/>, "titleOther", yourPartnerPersonalDetails.titleOther)}
         {question(<DateOfBirth/>,"dateOfBirth", yourPartnerPersonalDetails.dateOfBirth)}
         {question(<NationalInsuranceNumber/>,"nationalInsuranceNumber",encrypt(yourPartnerPersonalDetails.nationalInsuranceNumber))}
         {question(<NationalityPartner/>, "partner.nationality", yourPartnerPersonalDetails.nationality)}

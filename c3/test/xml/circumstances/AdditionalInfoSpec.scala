@@ -9,6 +9,7 @@ import utils.WithApplication
 class AdditionalInfoSpec extends Specification {
   val otherInfo = "Some other info"
 
+  section("unit")
   "Additional Info" should {
     "generate xml" in new WithApplication {
       val claim = Claim(CachedChangeOfCircs.key).update(CircumstancesOtherInfo(otherInfo))
@@ -16,7 +17,6 @@ class AdditionalInfoSpec extends Specification {
 
       (xml \\ "OtherChanges").text shouldEqual otherInfo
     }
-
   }
   section("unit")
 }

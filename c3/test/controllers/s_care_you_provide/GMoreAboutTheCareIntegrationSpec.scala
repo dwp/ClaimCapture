@@ -2,16 +2,14 @@ package controllers.s_care_you_provide
 
 import org.specs2.mutable._
 import utils.WithBrowser
-import controllers.{PreviewTestUtils, ClaimScenarioFactory, BrowserMatchers, Formulate}
+import controllers.ClaimScenarioFactory
 import utils.pageobjects._
-import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_care_you_provide.{GTheirPersonalDetailsPage, GMoreAboutTheCarePage}
-import utils.pageobjects.preview.PreviewPage
-import utils.helpers.PreviewField._
 
 class GMoreAboutTheCareIntegrationSpec extends Specification {
   sequential
 
+  section ("integration", models.domain.CareYouProvide.id)
   "Representatives For The Person" should {
     "be presented" in new WithBrowser with PageObjects {
       val page = GMoreAboutTheCarePage(context)
@@ -35,5 +33,4 @@ class GMoreAboutTheCareIntegrationSpec extends Specification {
 
   }
   section ("integration", models.domain.CareYouProvide.id)
-
 }

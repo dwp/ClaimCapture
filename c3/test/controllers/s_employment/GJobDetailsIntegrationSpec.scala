@@ -2,18 +2,16 @@ package controllers.s_employment
 
 import utils.pageobjects.PageObjects
 import utils.pageobjects.s_claim_date.GClaimDatePage
-import utils.pageobjects.s_employment.{GBeenEmployedPage, GEmploymentPage, GLastWagePage, GJobDetailsPage}
-
+import utils.pageobjects.s_employment.{GEmploymentPage, GLastWagePage, GJobDetailsPage}
 import language.reflectiveCalls
 import org.specs2.mutable._
 import utils.WithBrowser
-import controllers.{WithBrowserHelper, BrowserMatchers}
 import controllers.ClaimScenarioFactory._
 
 class GJobDetailsIntegrationSpec extends Specification {
+  section("integration", models.domain.JobDetails.id)
   "Your job" should {
     "present" in new WithBrowser with PageObjects {
-
       val page = GJobDetailsPage(context) goToThePage()
 
       page must beAnInstanceOf[GJobDetailsPage]
@@ -30,7 +28,6 @@ class GJobDetailsIntegrationSpec extends Specification {
     }
 
     "accept all data" in new WithBrowser with PageObjects {
-
       val page = GJobDetailsPage(context) goToThePage()
 
       page fillPageWith s7Employment()
@@ -64,10 +61,21 @@ class GJobDetailsIntegrationSpec extends Specification {
       val yourDetails = lastWage.goBack()
 
       yourDetails.ctx.browser.find("#hoursPerWeek").size mustEqual 1
-
     }
 
-  }
-  section("integration", models.domain.Employed.id)
+    "postcode spaces should be stripped when clicked back" in new WithBrowser with PageObjects{
+      val page = GJobDetailsPage(context) goToThePage()
+      val claim = s7Employment()
+      claim.EmploymentEmployerPostcode_1 = " FY4  5TH "
+      page fillPageWith claim
 
+      val lastWage = page.submitPage()
+
+      lastWage must beAnInstanceOf[GLastWagePage]
+      val yourDetails = lastWage.goBack()
+
+      yourDetails.source must contain("FY4 5TH")
+    }
+  }
+  section("integration", models.domain.JobDetails.id)
 }

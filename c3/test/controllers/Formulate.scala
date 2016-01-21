@@ -2,7 +2,6 @@ package controllers
 
 import play.api.test.TestBrowser
 import java.util.concurrent.TimeUnit
-import app.AccountStatus
 import app.PaymentFrequency
 
 object Formulate {
@@ -12,21 +11,19 @@ object Formulate {
     
   def yourDetails(browser: TestBrowser) = {
     browser.goTo("/about-you/your-details")
-    browser.click("#title_Mr")
+    browser.fill("#title") `with` "Mr"
     browser.fill("#firstName") `with` "John"
     browser.fill("#surname") `with` "Appleseed"
     browser.fill("#nationalInsuranceNumber_nino") `with` "AB123456C" // Pattern AB123456C
     browser.fill("#dateOfBirth_day") `with` "1"
     browser.fill("#dateOfBirth_month") `with` "1"
     browser.fill("#dateOfBirth_year") `with` "1950"
-    //browser.fill("#nationality") `with` "English"
-    //browser.click("#alwaysLivedUK_yes")
     browser.submit("button[type='submit']")
   }
 
   def yourDetailsEnablingTimeOutsideUK(browser: TestBrowser) = {
     browser.goTo("/about-you/your-details")
-    browser.click("#title_Mr")
+    browser.fill("#title") `with` "Mr"
     browser.fill("#firstName") `with` "John"
     browser.fill("#surname") `with` "Appleseed"
     browser.fill("#nationalInsuranceNumber_nino") `with` "AB" // Pattern AB123456C
@@ -37,8 +34,6 @@ object Formulate {
     browser.fill("#dateOfBirth_day") `with` "3"
     browser.fill("#dateOfBirth_month") `with` "4"
     browser.fill("#dateOfBirth_year") `with` "1950"
-    //browser.fill("#nationality") `with` "English"
-    //browser.click("#alwaysLivedUK_no")
     browser.submit("button[type='submit']")
   }
 
@@ -137,7 +132,7 @@ object Formulate {
   def yourPartnerPersonalDetails(browser: TestBrowser) = {
     browser.goTo("/your-partner/personal-details")
     browser.click("#hadPartnerSinceClaimDate_yes")
-    browser.click("#title_Mr")
+    browser.fill("#title") `with` "Mr"
     browser.fill("#firstName") `with` "John"
     browser.fill("#middleName") `with` "Dave"
     browser.fill("#surname") `with` "Appleseed"
@@ -159,7 +154,7 @@ object Formulate {
   def yourPartnerPersonalDetailsPartnerPersonYouCareForNo(browser: TestBrowser) = {
     browser.goTo("/your-partner/personal-details")
     browser.click("#hadPartnerSinceClaimDate_yes")
-    browser.click("#title_Mr")
+    browser.fill("#title") `with` "Mr"
     browser.fill("#firstName") `with` "John"
     browser.fill("#middleName") `with` "Dave"
     browser.fill("#surname") `with` "Appleseed"
@@ -189,7 +184,7 @@ object Formulate {
   def theirPersonalDetails(browser: TestBrowser) = {
     browser.goTo("/care-you-provide/their-personal-details")
     browser.fill("#relationship") `with` "some other relationship"
-    browser.click("#title_Mr")
+    browser.fill("#title") `with` "Mr"
     browser.fill("#firstName") `with` "John"
     browser.fill("#surname") `with` "Appleseed"
     browser.fill("#dateOfBirth_day") `with` "3"
@@ -202,7 +197,7 @@ object Formulate {
   def theirPersonalDetailsNotLiveAtSameAddress(browser: TestBrowser) = {
     browser.goTo("/care-you-provide/their-personal-details")
     browser.fill("#relationship") `with` "some other relationship"
-    browser.click("#title_Mr")
+    browser.fill("#title") `with` "Mr"
     browser.fill("#firstName") `with` "John"
     browser.fill("#surname") `with` "Appleseed"
     browser.fill("#dateOfBirth_day") `with` "3"
@@ -229,9 +224,6 @@ object Formulate {
     browser.fill("#beforeClaimCaring_date_day") `with` "3"
     browser.fill("#beforeClaimCaring_date_month") `with` "4"
     browser.fill("#beforeClaimCaring_date_year") `with` "1950"
-
-//    browser.click("#hasSomeonePaidYou_yes")
-
     browser.submit("button[type='submit']")
   }
 
@@ -282,8 +274,6 @@ object Formulate {
     browser.click("#tellUsWhyFromAnyoneOnForm.informationFromPerson_no")
     browser.fill("#tellUsWhyFromAnyoneOnForm.whyPerson") `with` "Bar"
     browser.click("#confirm")
-    browser.click("#someoneElse")
-    browser.fill("#nameOrOrganisation") `with` "SomeOrg"
     browser.submit("button[type='submit']")
   }
 
@@ -291,8 +281,6 @@ object Formulate {
     browser.goTo("/consent-and-declaration/declaration")
     browser.click("#tellUsWhyFromAnyoneOnForm.informationFromPerson_yes")
     browser.click("#confirm")
-    browser.click("#someoneElse")
-    browser.fill("#nameOrOrganisation") `with` "SomeOrg"
     browser.submit("button[type='submit']")
   }
 
@@ -394,5 +382,4 @@ object Formulate {
   def clickBackButton (browser:TestBrowser) = {
     browser.click("#backButton")
   }
-
 }

@@ -6,6 +6,7 @@ import play.api.data.Forms._
 import controllers.mappings.Mappings._
 
 class DecimalNumberFormSpec extends Specification {
+  section("unit")
   "Decimal Number" should {
     "accept single decimal input" in {
       val value = "500.5"
@@ -40,6 +41,7 @@ class DecimalNumberFormSpec extends Specification {
       f.error("decimalNumber") should beLike { case Some(fe: FormError) => fe.message shouldEqual "decimal.invalid" }
     }
   }
+  section("unit")
 
   private def createDecimalNumberForm(decimalNumber: String)
     = Form("decimalNumber" -> optional(Forms.text verifying validDecimalNumber)).bind(Map("decimalNumber" -> decimalNumber))

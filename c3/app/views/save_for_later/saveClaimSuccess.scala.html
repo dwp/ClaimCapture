@@ -1,26 +1,32 @@
-@(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash: Flash, messages: play.api.i18n.Messages)
+@(resumePath: String, lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash: Flash, messages: play.api.i18n.Messages)
 
+@import views.html.save_for_later.main
 @import models.domain._
 @import controllers.mappings.Mappings._
+@import app.ConfigProperties._
 
 @contactDetails = @{
     claim.questionGroup[ContactDetails].getOrElse(ContactDetails())
 }
 @emailAddress = @{
     contactDetails.wantsContactEmail match {
-        case Some(yesNo) if yesNo == yes => contactDetails.email.getOrElse("")
-        case Some(yesNo) if yesNo == no => "Email not set"
-        case None => "Email not set"
+        case yesNo if yesNo == yes => contactDetails.email.getOrElse("")
+        case yesNo if yesNo == no => "Email not set"
+        case _ => "Email not set"
     }
 }
+@isLinkEnabled=@{
+    getProperty("saveForLaterShowResumeLink",default = false)
+}
 
-@defining(lang) { implicit language =>
     @main(messages("saveForLater.save.legend")) {
-        <p>Temporary link for resume ...<a href="/resume?savekey=@claim.uuid">Resume</a></p>
+        @if(isLinkEnabled){
+            <p>Temporary link for resume ...<a href="/resume?x=@helper.urlEncode(claim.getEncryptedUuid)">Resume</a></p>
+        }
         <p>@Html(messages("saveForLater.save.line1", emailAddress))</p>
         <p>@Html(messages("saveForLater.save.line2"))</p>
 
-        <p>@views.html.save_for_later.continueButton(messages("saveForLater.save.button.label"), true, None)</p>
+        <p>@views.html.save_for_later.continueButton(messages("saveForLater.save.button.label"), resumePath, true, None)</p>
         <p>@views.html.save_for_later.govUKLink()</p>
     }
-}
+

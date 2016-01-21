@@ -17,6 +17,7 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification {
   val submitButton = "button[type='submit']"
   val errorDiv = "div[class=validation-summary] ol li"
 
+  section("integration", models.domain.AboutYou.id)
   "Other European Economic Area (EEA) states or Switzerland" should {
     "be presented" in new WithBrowser with PageObjects{
 			val page =  GOtherEEAStateOrSwitzerlandPage(context)
@@ -145,7 +146,6 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification {
       backPage.ctx.browser.findFirst("#eeaGuardQuestion_workingForEEADetails_answer_no").isSelected should beFalse
       backPage.ctx.browser.findFirst("#eeaGuardQuestion_workingForEEADetails_field").isDisplayed should beTrue
     }
-
   }
   section("integration", models.domain.AboutYou.id)
 
@@ -165,5 +165,4 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification {
     val previewPage = PreviewPage(context)
     previewPage goToThePage()
   }
-
 }

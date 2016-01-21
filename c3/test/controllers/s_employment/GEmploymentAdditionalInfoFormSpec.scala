@@ -1,11 +1,9 @@
 package controllers.s_employment
 
 import org.specs2.mutable._
-
 import models.yesNo.YesNoWithText
 import controllers.mappings.Mappings
 import utils.WithApplication
-
 
 class GEmploymentAdditionalInfoFormSpec extends Specification{
 
@@ -15,13 +13,13 @@ class GEmploymentAdditionalInfoFormSpec extends Specification{
   val textValue = "1234567890"
 
   def maxCharactersString = {
-    var result = new StringBuffer()
+    val result = new StringBuffer()
     for (i <- 1 to 300) result.append(textValue)
     result
   }
 
+  section("unit", models.domain.EmploymentAdditionalInfo.id)
   "Employment - Additional Info" should {
-
     "must have 1 mandatory field" in new WithApplication {
       GEmploymentAdditionalInfo.form.bind(
         Map( "" -> "")
@@ -110,6 +108,6 @@ class GEmploymentAdditionalInfoFormSpec extends Specification{
         }
       )
     }
-
   }
+  section("unit", models.domain.EmploymentAdditionalInfo.id)
 }

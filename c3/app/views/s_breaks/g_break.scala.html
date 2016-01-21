@@ -46,7 +46,10 @@
                     'helperAbove-> messages("wherePersonBreaksInCare.helper"),
                     '_nestedFieldSet -> true,
                     'maxLength -> 60,
-                    'otherValue -> SomewhereElse
+                    'class -> "textarea-reduced",
+                    'otherValue -> SomewhereElse,
+                    '_anchorIdRequired -> true,
+                    '_anchorId -> "wherePerson"
                 )
 
                 @listRadioGroupWithOther(breakForm("whereYou"),
@@ -55,7 +58,11 @@
                     'helperAbove-> messages("whereYouBreaksInCare.helper"),
                     '_nestedFieldSet -> true,
                     'maxLength -> 60,
-                    'otherValue -> SomewhereElse)
+                    'class -> "textarea-reduced",
+                    'otherValue -> SomewhereElse,
+                    '_anchorIdRequired -> true,
+                    '_anchorId -> "whereYou"
+                )
 
                 @yesNoRadioGroup(breakForm("hasBreakEnded.answer"),
                     'values -> Seq("yes" -> messages("label.yes9"), "no" -> messages("label.no")),

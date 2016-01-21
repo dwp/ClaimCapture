@@ -7,11 +7,10 @@ import app.StatutoryPaymentFrequency
 import models.{PaymentFrequency, DayMonthYear}
 import utils.WithApplication
 
-
 class GLastWageFormSpec extends Specification{
 
+  section("unit", models.domain.LastWage.id)
   "Employer Details - Your wages" should {
-
     val jobId = "1"
     val oftenGetPaid = StatutoryPaymentFrequency.Monthly
     val day = "1"
@@ -67,5 +66,5 @@ class GLastWageFormSpec extends Specification{
       )
     }
   }
-
+  section("unit", models.domain.LastWage.id)
 }

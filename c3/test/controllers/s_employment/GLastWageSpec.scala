@@ -4,21 +4,11 @@ import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import models.domain._
-import play.api.cache.Cache
-import models.domain.Claim
 import models.view.CachedClaim
-import controllers.mappings.Mappings._
-import models.domain.Claim
 import utils.WithApplication
-import scala.Some
-import play.api.data.Forms._
-import models.domain.Claim
-import scala.Some
-import controllers.CarersForms._
-import models.domain.Claim
-import scala.Some
 
 class GLastWageSpec extends Specification {
+  section("unit", models.domain.LastWage.id)
   "Last wage" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest()
@@ -77,5 +67,5 @@ class GLastWageSpec extends Specification {
       }
     }
   }
-  section("unit", models.domain.Employed.id)
+  section("unit", models.domain.LastWage.id)
 }

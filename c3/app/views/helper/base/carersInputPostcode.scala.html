@@ -1,0 +1,19 @@
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit handler: helper.FieldConstructor, lang: play.api.i18n.Lang, messages: play.api.i18n.Messages)
+
+@import helper._
+@import utils.helpers.CarersCrypto
+@import utils.helpers._
+@import views.html.helper.base._
+@import play.api.i18n.Messages
+
+@addClasses = @{ args.find(_._1 == 'class).getOrElse('class->"")._2.asInstanceOf[String] }
+
+@input(field, args.filter(a => a._1 == 'maxLength || a._1 == 'autocomplete || a._1 == 'class) ++
+              Seq('autocomplete -> "off") ++
+              (args.find(_._1 == 'maxLength) match{ case Some(_) => Seq() case _ => Seq('maxLength -> mappings.Mappings.sixty)}):_* ) { (id, name, value, htmlArgs) =>
+
+    @carersLabel(field, args: _*)
+
+    <input type="text" class="form-control form-control-1-4 @addClasses" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" value="@value" @toHtmlArgs(htmlArgs)>
+}
+

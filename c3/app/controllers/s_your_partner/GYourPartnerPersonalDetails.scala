@@ -1,8 +1,6 @@
 package controllers.s_your_partner
 
-import play.api.Logger
 import play.api.Play._
-
 import language.reflectiveCalls
 import play.api.data.{FormError, Form}
 import play.api.data.Forms.mapping
@@ -30,30 +28,28 @@ import play.api.i18n._
 object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   def form(implicit claim: Claim):Form[YourPartnerPersonalDetails] = Form(mapping(
-    "title" -> optional(carersNonEmptyText(maxLength = Mappings.five)),
-    "titleOther" -> optional(carersText(maxLength = Mappings.twenty)),
+    "title" -> optional(carersNonEmptyText(maxLength = Mappings.twenty)),
     "firstName" -> optional(carersNonEmptyText(maxLength = Mappings.seventeen)),
     "middleName" -> optional(carersText(maxLength = Mappings.seventeen)),
     "surname" -> optional(carersNonEmptyText(maxLength = Name.maxLength)),
     "otherNames" -> optional(carersText(maxLength = Name.maxLength)),
     "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
     "dateOfBirth" -> optional(dayMonthYear.verifying(validDate)),
-    "nationality" -> optional(text.verifying(validNationality)),
+    "partner.nationality" -> optional(text.verifying(validNationality)),
     "separated.fromPartner" -> optional(nonEmptyText.verifying(validYesNo)),
     "isPartnerPersonYouCareFor" -> optional(nonEmptyText.verifying(validYesNo)),
     "hadPartnerSinceClaimDate" -> nonEmptyText.verifying(validYesNo)
   )(YourPartnerPersonalDetails.apply)(YourPartnerPersonalDetails.unapply)
-    .verifying("titleOther.required",YourPartnerPersonalDetails.verifyTitleOther _)
     .verifying("title.required", YourPartnerPersonalDetails.validateTitle _)
     .verifying("firstName.required", YourPartnerPersonalDetails.validateFirstName _)
     .verifying("surname.required", YourPartnerPersonalDetails.validateSurName _)
     .verifying("dateOfBirth.required", YourPartnerPersonalDetails.validateDateOfBirth _)
     .verifying("separated.fromPartner.required", YourPartnerPersonalDetails.validateSeperatedFromPartner _)
     .verifying("isPartnerPersonYouCareFor.required", YourPartnerPersonalDetails.validatePartnerPersonYoucareFor _)
-    .verifying("nationality.required", YourPartnerPersonalDetails.validateNationalityIfPresent _)
+    .verifying("partner.nationality.required", YourPartnerPersonalDetails.validateNationalityIfPresent _)
   )
 
-  def present:Action[AnyContent] = claimingWithCheck {implicit claim => implicit request => implicit lang =>
+  def present:Action[AnyContent] = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
     presentConditionally(yourPartnerPersonalDetails)
   }
 
@@ -61,18 +57,17 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
     track(YourPartnerPersonalDetails) { implicit claim => Ok(views.html.s_your_partner.g_yourPartnerPersonalDetails(form.fill(YourPartnerPersonalDetails))) }
   }
 
-  def submit:Action[AnyContent] = claimingWithCheck {implicit claim => implicit request => implicit lang => 
+  def submit:Action[AnyContent] = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("","titleOther.required",FormError("titleOther",errorRequired))
           .replaceError("", "title.required", FormError("title", errorRequired))
           .replaceError("", "firstName.required", FormError("firstName", errorRequired))
           .replaceError("", "surname.required", FormError("surname", errorRequired))
           .replaceError("", "dateOfBirth.required", FormError("dateOfBirth", errorRequired))
           .replaceError("", "separated.fromPartner.required", FormError("separated.fromPartner", errorRequired))
           .replaceError("", "isPartnerPersonYouCareFor.required", FormError("isPartnerPersonYouCareFor", errorRequired))
-          .replaceError("", "nationality.required", FormError("nationality", errorRequired))
+          .replaceError("", "partner.nationality.required", FormError("partner.nationality", errorRequired))
         BadRequest(views.html.s_your_partner.g_yourPartnerPersonalDetails(formWithErrorsUpdate))
       },
       f => {
@@ -98,7 +93,7 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
           if data.isPartnerPersonYouCareFor.nonEmpty && data.isPartnerPersonYouCareFor.get != isPartnerPerson => false
         case (Some(data),None)
           if data.isPartnerPersonYouCareFor.nonEmpty => false
-        case (Some(YourPartnerPersonalDetails(_,_,_,_,_,_,_,_,_,_,None,_)),Some(_)) => false
+        case (Some(YourPartnerPersonalDetails(_,_,_,_,_,_,_,_,_,None,_)),Some(_)) => false
 
         case _ => true
       }

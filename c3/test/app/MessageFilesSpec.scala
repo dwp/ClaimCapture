@@ -2,11 +2,10 @@ package app
 
 import org.specs2.mutable._
 import play.Logger
-import play.api.i18n.Messages
 
 class MessageFilesSpec extends Specification {
+  section("integration")
   "Property files" should {
-
     val source = scala.io.Source.fromFile("conf/messagelisting.properties")
     val linesFromSource = source.getLines.toList
     source.close()
@@ -50,5 +49,5 @@ class MessageFilesSpec extends Specification {
       cyKeys.filterNot(cyKey => enKeys.contains(cyKey)) must beEmpty
     }
   }
-section("integration")
+  section("integration")
 }

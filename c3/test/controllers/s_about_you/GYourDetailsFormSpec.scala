@@ -7,6 +7,7 @@ import models.NationalInsuranceNumber
 import utils.WithApplication
 
 class GYourDetailsFormSpec extends Specification {
+  section ("unit", models.domain.YourDetails.id)
   "Your Details Form" should {
     val title = "Mr"
     val firstName = "John"

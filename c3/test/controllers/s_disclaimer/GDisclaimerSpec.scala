@@ -8,6 +8,7 @@ import models.view.CachedClaim
 import utils.WithApplication
 
 class GDisclaimerSpec extends Specification {
+  section("unit", models.domain.DisclaimerSection.id)
   "Disclaimer" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
@@ -28,7 +29,7 @@ class GDisclaimerSpec extends Specification {
                                  .withFormUrlEncodedBody("read" -> "yes")
 
       val result = GDisclaimer.submit(request)
-      redirectLocation(result) must beSome("/your-claim-date/claim-date")
+      redirectLocation(result) must beSome("/third-party/third-party")
     }
   }
   section("unit", models.domain.DisclaimerSection.id)

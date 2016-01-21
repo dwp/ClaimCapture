@@ -1,5 +1,7 @@
 package utils
 
+import java.util.UUID._
+
 import models.yesNo._
 import models.{SortCode, MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
 import models.domain._
@@ -8,19 +10,19 @@ import org.specs2.mutable._
 
 class ClaimEncryptionSpec extends Specification {
 
-  def yourDetails = YourDetails("Mr", None, "H", None, "Dawg",
+  def yourDetails = YourDetails("Mr", "H", None, "Dawg",
     NationalInsuranceNumber(Some("AA123456A")), DayMonthYear(1, 1, 1986))
   def contactDetails = ContactDetails(MultiLineAddress(Some("123"), Some("Fake street"), None),
-    Some("PL18 1AA"), Some("by post"), None, Some("Yes"), Some("blah@blah.com"), Some("blah@blah.com"))
-  def theirPersonalDetails = TheirPersonalDetails("Wifey", "Mrs", None, "H", None, "Dawg",
-    Some(NationalInsuranceNumber(Some("AA123456A"))), DayMonthYear(1,1,1988),
+    Some("PL18 1AA"), Some("by post"), None, "Yes", Some("blah@blah.com"), Some("blah@blah.com"))
+  def theirPersonalDetails = TheirPersonalDetails("Mrs", "H", None, "Dawg",
+    Some(NationalInsuranceNumber(Some("AA123456A"))), DayMonthYear(1,1,1988),"Wifey",
     YesNoMandWithAddress("No", Some(MultiLineAddress(Some("122"), Some("Fake street"),None)), None))
   def circumstancesReportChange = CircumstancesReportChange("H-dawg",
     NationalInsuranceNumber(Some("AA123456A")), DayMonthYear(1,1,1986),
-    "blah", "blah", Some("blah"), Some("blah"), Some("blah@blah.com"), Some("blah@blah.com"))
-  def howWePayYou = HowWePayYou("Cold, hard cash", "Daily", Some(BankBuildingSocietyDetails(
-    "H-dawg", "Barclays", SortCode("00", "00", "00"), "00000000", "")))
-  def yourPartnerPersonalDetails = YourPartnerPersonalDetails(Some("Mrs"), None, Some("H"),
+    "blah", "blah", Some("blah"), "blah", Some("blah@blah.com"), Some("blah@blah.com"))
+  def howWePayYou = HowWePayYou("Daily", Some(BankBuildingSocietyDetails(
+    "H-dawg", "Barclays", SortCode("00", "00", "00"), "00000000", "")),"Cold, hard cash")
+  def yourPartnerPersonalDetails = YourPartnerPersonalDetails(Some("Mrs"), Some("H"),
     None, Some("Dawg"), None, Some(NationalInsuranceNumber(Some("AA123456A"))),
     Some(DayMonthYear(1,1,1988)), Some("Cornish"), Some("yes"), Some("yes"), "yes")
   def circumstancesPaymentChange = CircumstancesPaymentChange(YesNoWith2Text("blah", Some("blah"), None),
@@ -40,8 +42,8 @@ class ClaimEncryptionSpec extends Specification {
     Section(CircumstancesReportChanges, List(circumstancesPaymentChange, circumstancesAddressChange))
   ))
 
+  section("unit")
   "ClaimEncryption" should {
-
     "Encrypt the Claim object" in new WithApplication {
       val encryptedClaim = ClaimEncryption.encrypt(claim)
       claim mustNotEqual encryptedClaim
@@ -172,6 +174,13 @@ class ClaimEncryptionSpec extends Specification {
       claim.questionGroup[CircumstancesPaymentChange] mustEqual decryptedCircumstancesPaymentChange.questionGroup[CircumstancesPaymentChange]
     }
 
+    "Encrypt and Decrypt uuid as string" in new WithApplication {
+      val uuid = randomUUID.toString
+      val encryptedUuid = ClaimEncryption.encryptUuid(uuid)
+      encryptedUuid mustNotEqual uuid
+      val decryptedUuid = ClaimEncryption.decryptUuid(encryptedUuid)
+      decryptedUuid mustEqual uuid
+    }
   }
-
+  section("unit")
 }

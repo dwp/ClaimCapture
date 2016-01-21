@@ -8,11 +8,11 @@ import models.view.CachedClaim
 import models.yesNo.YesNoWithText
 import play.api.Logger
 import services.mail.{SaveForLaterEmailWrapper, EmailWrapper, EmailActors}
-
 import scala.language.existentials
 import play.modules.mailer._
 import play.api.i18n.{I18nSupport, MMessages, MessagesApi, Lang}
 import play.api.Play.current
+import play.api.mvc._
 
 object CadsEmail {
   def send(transactionID: String, subject: String, body: String, r: String*) = {
@@ -83,13 +83,13 @@ object EmailServices extends I18nSupport {
     }
   }
 
-  def sendSaveForLaterEmail(claim: Claim) = {
+  def sendSaveForLaterEmail(claim: Claim, request: Request[AnyContent]) = {
     claim.questionGroup[ContactDetails] match {
       case Some(contactDetails) => {
-        if (contactDetails.email.isEmpty) Logger.info(s"Not sending claim email because the user didn't input an address for transid: [${claim.transactionId.getOrElse("id not present")}]")
-        else CadsEmail.send(claim.transactionId.getOrElse(""), subject = saveForLaterEmailSubject, body = views.html.savedMail(claim).body, contactDetails.email.get)
+        if (contactDetails.email.isEmpty) Logger.info(s"Not sending save-for-later email because the user didn't input an address for transid: [${claim.transactionId.getOrElse("id not present")}]")
+        else CadsEmail.send(claim.transactionId.getOrElse(""), subject = saveForLaterEmailSubject, body = views.html.savedMail(claim, request).body, contactDetails.email.get)
       }
-      case _ => Logger.info(s"Error: no contact details found")
+      case _ => Logger.info(s"Not sending save-for-later email because the user didn't input any contact details")
     }
   }
 

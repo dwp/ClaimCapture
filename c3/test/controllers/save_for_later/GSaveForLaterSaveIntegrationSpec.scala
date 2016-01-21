@@ -4,19 +4,25 @@ import controllers.ClaimScenarioFactory
 import models.view.cache.EncryptedCacheHandling
 import models.{DayMonthYear, NationalInsuranceNumber}
 import models.domain.{YourDetails, Claim, Claiming}
-import models.view.{CachedClaim}
+import models.view.CachedClaim
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.{LightFakeApplication, WithApplication, WithJsBrowser}
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.{Page, PageObjectsContext}
-import utils.pageobjects.s_about_you.{GContactDetailsPage}
+import utils.pageobjects.s_about_you.{GContactDetailsPage, GNationalityAndResidencyPage}
 import utils.pageobjects.save_for_later.GSaveForLaterSavePage
 import org.specs2.mutable._
 import utils.pageobjects.PageObjects
 
-
 class GSaveForLaterSaveIntegrationSpec extends Specification {
+  section("integration", models.domain.AboutYou.id)
+
+  // Output from C3EncryptionSpec.scala ..... to create a set of xor pairs and decrypt key
+  // With key of:88a976e1-e926-4bb4-9322-15aabc6d0516 created xor pair of:0bcd1234-0000-0000-0000-abcd1234cdef and:174650142322392746796619227917559908601
+  val encryptkey = "88a976e1-e926-4bb4-9322-15aabc6d0516"
+  val uuid = "0bcd1234-0000-0000-0000-abcd1234cdef"
+  val decodeint = "174650142322392746796619227917559908601"
 
   "Save for later page" should {
     "be shown after clicking Save in nationality" in new WithJsBrowser with PageObjects {
@@ -48,26 +54,14 @@ class GSaveForLaterSaveIntegrationSpec extends Specification {
       nationalityPage.source must contain("Save for later")
       nationalityPage.source must contain("id=\"save\"")
 
-      val savePage=nationalityPage.clickLinkOrButton("#save")
+      val savePage = nationalityPage.clickLinkOrButton("#save")
       savePage.url mustEqual GSaveForLaterSavePage.url
       savePage.source must contain("Your progress has been saved")
       savePage.source must contain("Continue your application" )
       savePage.source must contain("id=\"continue\"")
-
-      /* ODDLY Clicking Continue button causes test to crash
-      println("================ save page ==========")
-      println(savePage.source)
-      val nationalityPageAgain=savePage.clickLinkOrButton("#continue")
-      println( "=================== Nationality page again:")
-      println(nationalityPageAgain.source)
-
-      //
-      // nationalityPageAgain.url mustEqual GNationalityAndResidencyPage.url
-
-      Needs more investigation. ColinG 07/12/15.
-      */
+      val nationalityPageAgain = savePage.clickLinkOrButton("#continue")
+      nationalityPageAgain.url mustEqual GNationalityAndResidencyPage.url
     }
-
 
     "contain link to gov page" in new WithJsBrowser with PageObjects {
       loadClaimData(context)
@@ -88,46 +82,20 @@ class GSaveForLaterSaveIntegrationSpec extends Specification {
     }
 
     "return ok resume screen when claim is found in sfl cache" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterResumeEnabled" -> "true"))) with Claiming {
-      var claim = new Claim(CachedClaim.key, uuid="123456")
-      val details = new YourDetails("",None, "",None, "green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(None, None, None))
+      var claim = new Claim(CachedClaim.key, uuid=uuid)
+      val details = new YourDetails("Mr","",None, "green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(None, None, None))
       claim=claim+details
-      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = "123456" }
+      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = uuid }
       encryptedCacheHandling.saveForLaterInCache(claim, "/lastlocation")
 
-      val request=FakeRequest(GET, "?savekey=123456")
+      val request=FakeRequest(GET, "?x="+decodeint)
       val result = GResume.present(request)
       val bodyText: String = contentAsString(result)
       status(result) mustEqual OK
       bodyText must contain( "Enter your details to resume your application")
     }
-
-
-    "contain cookie for saved application version when resumed" in new WithJsBrowser  with PageObjects{
-      loadClaimData(context)
-/*
-      val page = GContactDetailsPage(context)
-      page goToThePage()
-      page fillPageWith SaveForLaterScenarioFactory.WithEmailSet()
-
-      val nationalityPage = page.clickLinkOrButton("#next")
-      nationalityPage.source must contain("Save for later")
-      nationalityPage.source must contain("id=\"save\"")
-
-      val savePage=nationalityPage.clickLinkOrButton("#save")
-      savePage.url mustEqual GSaveForLaterSavePage.url
-      savePage.source must contain("Your progress has been saved")
-      savePage.source must contain("Continue your application" )
-      savePage.source must contain("id=\"continue\"")
-
-      val nationalityPageAgain=savePage.clickLinkOrButton("#continue")
-
-      browser.goTo("/resume")
-      println("browser source:"+browser.pageSource())
-      println("app version is:"+browser.getCookie(ClaimHandling.C3VERSION).getValue)
-      ( browser.getCookie(ClaimHandling.C3VERSION).getValue == ClaimHandling.C3VERSION_VALUE ) must beTrue
-      */
-    }
   }
+  
   section("integration", models.domain.AboutYou.id)
 
 

@@ -10,6 +10,7 @@ import utils.pageobjects._
  *         Date: 10/07/2013
  */
 class PageSpec extends Specification {
+  section("unit")
   "Page" should {
     "be able to go the underlying html page" in new WithApplication with MockPageContext {
       page.goToThePage()
@@ -50,4 +51,5 @@ class PageSpec extends Specification {
       page3.fullPagePath mustEqual s"${MockPage.url} < ${MockPage.url} < ${MockPage.url}"
     }
   }
+  section("unit")
 }

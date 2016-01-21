@@ -9,6 +9,7 @@ import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.{PageObjects, PageObjectsContext, TestData}
 
 class PreviewPageBankDetailsSpec extends Specification {
+  section("preview")
   "Preview Page" should {
     "display bank data - showing bank details are added" in new WithBrowser with PageObjects {
       val bankData = ClaimScenarioFactory.previewLessThan65WithBankDetails
@@ -48,7 +49,6 @@ class PreviewPageBankDetailsSpec extends Specification {
       source must contain("Date of birth")
       source must contain("02 February, 1950")
       source must not contain ("Bank details")
-
     }
   }
   section ("preview")

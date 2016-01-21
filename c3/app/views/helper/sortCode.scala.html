@@ -8,7 +8,7 @@
 }
 
 @helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
-    @checkConstraintRequired(field)
+    @checkConstraintRequired(field, args: _*)
     <ul class="form-date sort-code hide-labels">
         @sortCodeWithArguments(field("sort1"))
         @sortCodeWithArguments(field("sort2"))

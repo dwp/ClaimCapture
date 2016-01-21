@@ -62,7 +62,7 @@
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            titleSelect(currentForm),
+                            carersInputText(currentForm("title"), 'maxLength -> 20),
 
                             carersInputText(currentForm("firstName"), 'maxLength -> 17),
 
@@ -72,11 +72,15 @@
 
                             carersInputText(currentForm("otherNames"), 'maxLength -> 35),
 
-                            nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'ignoreOptional->true, 'helperAbove -> messages("nationalInsuranceNumber.helper")),
+                            nationalInsuranceNumber(currentForm("nationalInsuranceNumber"),
+                                'ignoreOptional->true,
+                                'helperAbove -> messages("nationalInsuranceNumber.helper"),
+                                '_anchorIdRequired -> true,
+                                '_anchorId -> "nationalInsuranceNumber"),
 
                             dateOfBirth(currentForm("dateOfBirth")),
 
-                            carersInputText(currentForm("nationality"), '_label -> messages("partner.nationality"), 'maxLength -> 35, 'helperBelow -> messages("partner.nationality.helper2"), 'ignoreOptional->true),
+                            carersInputText(currentForm("partner.nationality"), '_label -> messages("partner.nationality"), 'maxLength -> 35, 'ignoreOptional->true),
 
                             yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> messages("separated_fromPartner.label"), 'helperAbove -> messages("separated_fromPartner.helper",displayDateForLabel)),
 
@@ -95,23 +99,14 @@
 
         <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_your_partner/g_yourPartnerPersonalDetails.js")></script>
 
-        <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/otherTitle.js")></script>
-
         <script type="text/javascript">
 
             $ ( function ( ) {
                 @ga.stagePrompt()
 
-                window.otherTitle('@CarersCrypto.encryptAES("title")');
                 window.initEvents ( "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_yes")",
                 "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")",
                 "@CarersCrypto.encryptAES("title")",
-                "@CarersCrypto.encryptAES("title_Mr")",
-                "@CarersCrypto.encryptAES("title_Mrs")",
-                "@CarersCrypto.encryptAES("title_Miss")",
-                "@CarersCrypto.encryptAES("title_Ms")",
-                "@CarersCrypto.encryptAES("title_Other")",
-                "@CarersCrypto.encryptAES("titleOther")",
                 "@CarersCrypto.encryptAES("firstName")",
                 "@CarersCrypto.encryptAES("middleName")",
                 "@CarersCrypto.encryptAES("surname")",
@@ -120,7 +115,7 @@
                 "@CarersCrypto.encryptAES("dateOfBirth_day")",
                 "@CarersCrypto.encryptAES("dateOfBirth_month")",
                 "@CarersCrypto.encryptAES("dateOfBirth_year")",
-                "@CarersCrypto.encryptAES("nationality")",
+                "@CarersCrypto.encryptAES("partner_nationality")",
                 "@CarersCrypto.encryptAES("separated_fromPartner_yes")",
                 "@CarersCrypto.encryptAES("separated_fromPartner_no")",
                 "@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_yes")",

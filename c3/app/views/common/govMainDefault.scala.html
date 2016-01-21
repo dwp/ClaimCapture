@@ -1,8 +1,6 @@
-@(title: String)(content: Html)(implicit footerCategories: Html = Html(""), lang: Lang, request:play.api.mvc.Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
+@(title: String)(content: Html)(isCookiePage: Boolean)(implicit footerCategories: Html = Html(""), lang: Lang, request:play.api.mvc.Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
 
-@import play.api.i18n.Messages
 @import app.ConfigProperties._
-@import controllers.Cookies._
 
 <!DOCTYPE html>
 
@@ -68,6 +66,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
         <script @nonCachingSrc("javascripts/jquery/jquery-1.9.1.js") type="text/javascript"></script>
+        <script @nonCachingSrc("javascripts/date.js") type="text/javascript"></script>
         <script @nonCachingSrc("javascripts/stageprompt-2.0.1.js") type="text/javascript"></script>
 
         <script @nonCachingSrc("javascripts/custom.js")></script>
@@ -93,16 +92,16 @@
         <header role="banner" class="global-header" id="global-header">
             <div class="wrapper clearfix">
                 <a href="https://www.gov.uk" title="@Html(messages("logo.help"))" target="govlink" class="crown">GOV.UK</a>
-                <h1 class="heading-medium" id="title">@Html(messages("siteHeader"))</h1>
+                <h1 class="heading-medium">@Html(messages("siteHeader"))</h1>
             </div>
 	    </header>
 
 	    <!--end header-->
-
-        <div id="global-cookie-message">
-            <p>@messages("cookiePolicy") <a rel="external" target="_blank" href="@routes.Cookies.page(lang.language)" @views.html.ga.trackClickEvent(linkName = "Cookies - from banner")>@messages("cookiePolicyAnchor")</a></p>
-        </div>
-
+        @if(!isCookiePage) {
+            <div id="global-cookie-message">
+                <p>@messages("cookiePolicy") <a rel="external" target="_blank" href="@routes.Cookies.page(lang.language)" @views.html.ga.trackClickEvent(linkName = "Cookies - from banner")>@messages("cookiePolicyAnchor")</a></p>
+            </div>
+        }
         <div id="global-browser-prompt">
             <p>@Html(messages("latestBrowserUpdate"))</p>
         </div>

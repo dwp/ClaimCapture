@@ -12,19 +12,19 @@ import play.api.test.FakeRequest
 import play.api.mvc.{AnyContent, Request}
 
 class ClaimEncryptionIntegrationSpec extends Specification {
-  def yourDetails = YourDetails("Mr", None, "H", None, "Dawg",
+  def yourDetails = YourDetails("Mr", "H", None, "Dawg",
     NationalInsuranceNumber(Some("AA123456A")), DayMonthYear(1, 1, 1986))
   def contactDetails = ContactDetails(MultiLineAddress(Some("123"), Some("Fake street"), None),
-    Some("PL18 1AA"), Some("by post"), None, Some("Yes"), Some("blah@blah.com"), Some("blah@blah.com"))
-  def theirPersonalDetails = TheirPersonalDetails("Wifey", "Mrs", None, "H", None, "Dawg",
-    Some(NationalInsuranceNumber(Some("AA123456A"))), DayMonthYear(1,1,1988),
+    Some("PL18 1AA"), Some("by post"), None, "Yes", Some("blah@blah.com"), Some("blah@blah.com"))
+  def theirPersonalDetails = TheirPersonalDetails("Mrs","H", None, "Dawg",
+    Some(NationalInsuranceNumber(Some("AA123456A"))), DayMonthYear(1,1,1988),"Wifey",
     YesNoMandWithAddress("No", Some(MultiLineAddress(Some("122"), Some("Fake street"),None)), None))
   def circumstancesReportChange = CircumstancesReportChange("H-dawg",
     NationalInsuranceNumber(Some("AA123456A")), DayMonthYear(1,1,1986),
-    "blah", "blah", Some("blah"), Some("blah"), Some("blah@blah.com"), Some("blah@blah.com"))
-  def howWePayYou = HowWePayYou("Cold, hard cash", "Daily", Some(BankBuildingSocietyDetails(
-    "H-dawg", "Barclays", SortCode("00", "00", "00"), "00000000", "")))
-  def yourPartnerPersonalDetails = YourPartnerPersonalDetails(Some("Mrs"), None, Some("H"),
+    "blah", "blah", Some("blah"), "blah", Some("blah@blah.com"), Some("blah@blah.com"))
+  def howWePayYou = HowWePayYou( "Daily", Some(BankBuildingSocietyDetails(
+    "H-dawg", "Barclays", SortCode("00", "00", "00"), "00000000", "")),"Cold, hard cash")
+  def yourPartnerPersonalDetails = YourPartnerPersonalDetails(Some("Mrs"), Some("H"),
     None, Some("Dawg"), None, Some(NationalInsuranceNumber(Some("AA123456A"))),
     Some(DayMonthYear(1,1,1988)), Some("Cornish"), Some("yes"), Some("yes"), "yes")
   def circumstancesPaymentChange = CircumstancesPaymentChange(YesNoWith2Text("blah", Some("blah"), None),
@@ -35,6 +35,7 @@ class ClaimEncryptionIntegrationSpec extends Specification {
     Some("PL18 1AB"), OptYesNoWithText(None, None), YesNoWithAddress(Some("No"),
       Some(MultiLineAddress(Some("121"), Some("Fake Street"), None)), None), None)
 
+  section("unit")
   "ClaimEncryption Integration Spec" should {
     "Claim must be encrypted before entering the cache" in new WithApplication with MockForm {
         val encryptedCacheHandling = new EncryptedCacheHandling(){
@@ -52,7 +53,7 @@ class ClaimEncryptionIntegrationSpec extends Specification {
               }
               None
             } else {
-              val claim = cache.get[Claim](key) match {
+              val claim = cache.get[Claim]("default"+key) match {
                 case Some(c) => Some(c)
                 case _ => None
               }
@@ -121,7 +122,7 @@ class ClaimEncryptionIntegrationSpec extends Specification {
       claim.questionGroup[YourPartnerPersonalDetails] mustEqual claimFromCache.questionGroup[YourPartnerPersonalDetails]
       claim.questionGroup[CircumstancesAddressChange] mustEqual claimFromCache.questionGroup[CircumstancesAddressChange]
       claim.questionGroup[CircumstancesPaymentChange] mustEqual claimFromCache.questionGroup[CircumstancesPaymentChange]
-
     }
   }
+  section("unit")
 }

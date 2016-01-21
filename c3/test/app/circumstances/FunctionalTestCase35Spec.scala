@@ -1,20 +1,19 @@
 package app.circumstances
 
 import app.FunctionalTestCommon
-import play.api.test.FakeApplication
 import utils.LightFakeApplication
 import utils.pageobjects.{Page, XmlPage, TestData, PageObjects}
-import utils.pageobjects.circumstances.s1_start_of_process.G1ReportChangesPage
+import utils.pageobjects.circumstances.start_of_process.GReportChangesPage
 import utils.pageobjects.xml_validation.{XMLCircumstancesBusinessValidation, XMLBusinessValidation}
 import utils.WithJsBrowser
 
 class FunctionalTestCase35Spec extends FunctionalTestCommon {
   isolated
 
+  section("functional")
   "The application Circumstances" should {
     "Successfully run Circumstances Test Case 35 for started and finished employment" in new WithJsBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
-
-      val page = G1ReportChangesPage(context)
+      val page = GReportChangesPage(context)
       val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase35.csv")
       page goToThePage()
 
@@ -29,5 +28,5 @@ class FunctionalTestCase35Spec extends FunctionalTestCommon {
       }
     }
   }
-section("functional")
+  section("functional")
 }

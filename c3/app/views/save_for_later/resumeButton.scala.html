@@ -1,7 +1,7 @@
 @(
         label:String,
-        trackSubmit:Boolean,
+        trackEvent:Boolean,
         customTrack:Option[Html]
         )(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
-<button type="submit" id="resume" class="button" @{if(trackSubmit) views.html.ga.trackSubmit()} @{customTrack.fold(Html(""))(t=>t)}>@{label}</button>
+<button type="submit" id="resume" class="button" @{if(trackEvent) views.html.ga.trackClickEvent("Save-For-Later","SFL-Resume-Clicked")} @{customTrack.fold(Html(""))(t=>t)}>@{label}</button>

@@ -8,10 +8,10 @@ import scala.xml.Elem
 import java.util.Date
 import java.text.SimpleDateFormat
 
-
 class DWPBodySpec extends Specification {
   val nationalInsuranceNr = NationalInsuranceNumber(Some("VO123456D"))
 
+  section("unit")
   "DWPBody" should {
     "Should generate a full XML with signature" in {
       val xml = new DWPBodyWithShortXMLClaim xml(new Claim(CachedClaim.key),"NB1212X")

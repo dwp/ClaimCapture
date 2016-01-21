@@ -17,6 +17,7 @@ class GClaimDateFormSpec  extends Specification {
   val spent35HoursCaringBeforeClaimYesWithNoDate = YesNoWithDate(yes, None)
   val spent35HoursCaringBeforeClaimNo = YesNoWithDate(no, None)
 
+  section("unit", models.domain.YourClaimDate.id)
   "Claim Date Form" should {
     "map data into case class" in new WithApplication {
       GClaimDate.form.bind(

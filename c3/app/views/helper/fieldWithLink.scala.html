@@ -1,28 +1,21 @@
-@import utils.helpers.CarersCrypto
-@import utils.helpers.CarersCrypto.encryptAES
-@(id:String, name:String, value:String,disableLink:Boolean = false, elementId:Option[String]=None)(implicit lang: Lang, messages: play.api.i18n.Messages)
+@(id:String, name:String, value:String,disableLink:Boolean = false, elementId:Option[String]=None, useQuestionLabel: Boolean = false)(implicit lang: Lang, messages: play.api.i18n.Messages)
 
-@import controllers.PreviewRouteUtils._
 @import utils.helpers.PreviewField._
 @import utils.helpers.HtmlLabelHelper._
-
-@routesMap = @{
-    PreviewRouteUtils.yourDetailsRoute ++ PreviewRouteUtils.otherMoneyRoute ++
-            PreviewRouteUtils.educationRoute ++ PreviewRouteUtils.careYouProvide ++ PreviewRouteUtils.breaks ++ PreviewRouteUtils.yourPartner ++
-				PreviewRouteUtils.employmentRoute ++ PreviewRouteUtils.additionalInfoRoute ++ PreviewRouteUtils.bankDetailsRoute
-}
 
 @label = @{
     Html(messages(name))
 }
 
+@getId = @{ id }
+
 @elementLinkedToId = @{
 	elementId match {
-		case Some(id) => "?hash=" + generateLabelId(id) //"#" + generateLabelId(id)
-		case None => ""
+		case Some(id) => "?hash=" + {useQuestionLabel match { case false => generateLabelId(id) case true => id }} + "&returnToSummary=" + getId //"#" + generateLabelId(id)
+		case None => "?returnToSummary=" + getId
 	}
 }
-<tr class="review-change">
+<tr class="review-change" id="@getId">
 	<td id="@getLabelId(id, false)" class="review-label">
 		<b>@label</b>
 	</td>
@@ -31,7 +24,7 @@
 	</td>
 	<td id="@getLinkContainerId(id, false)" class="review-action hide-print">
 		@if(!disableLink) {
-		<a class="button secondary" id="@getLinkId(id, false)" href="@{controllers.preview.routes.Preview.redirect(id)}@{elementLinkedToId}">
+		<a class="secondary" id="@getLinkId(id, false)" href="@{controllers.preview.routes.Preview.redirect(id)}@{elementLinkedToId}">
 			@Html(messages("preview.change"))
 			<span class="visuallyhidden">@label (optional)</span>
 		</a>

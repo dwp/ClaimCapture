@@ -19,6 +19,7 @@
                     'ignoreLabel -> true,
                     'placeholder -> messages("ifOtherPleaseSpecify"),
                     'textAreaHelper -> Html(messages("60charsLeft")),
+                    'class -> args.toMap.get('class).getOrElse(""),
                     'maxLength -> args.toMap.get('maxLength).getOrElse(60))
             ),
             'id -> args.toMap.get('wrapperName).map(_.toString).getOrElse("answerWrap"),

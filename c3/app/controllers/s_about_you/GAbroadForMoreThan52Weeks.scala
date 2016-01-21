@@ -22,11 +22,11 @@ object GAbroadForMoreThan52Weeks extends Controller with CachedClaim with Naviga
     .verifying(AbroadForMoreThan52Weeks.requiredTripDetails)
   )
 
-  def present = claimingWithCheck {implicit claim => implicit request => implicit lang => 
+  def present = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
     track(AbroadForMoreThan52Weeks) { implicit claim => Ok(views.html.s_about_you.g_abroad_for_more_than_52_weeks(form.fill(AbroadForMoreThan52Weeks))) }
   }
 
-  def submit = claimingWithCheck {implicit claim => implicit request => implicit lang => 
+  def submit = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
 
     form.bindEncrypted.fold(
       formWithErrors => {

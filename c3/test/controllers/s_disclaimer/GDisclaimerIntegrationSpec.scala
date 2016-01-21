@@ -2,13 +2,13 @@ package controllers.s_disclaimer
 
 import org.specs2.mutable._
 import utils.WithBrowser
-import controllers.{ClaimScenarioFactory, Formulate, BrowserMatchers}
 import utils.pageobjects.s_eligibility.GApprovePage
 import utils.pageobjects.PageObjects
 import utils.pageobjects.s_disclaimer.GDisclaimerPage
-import utils.pageobjects.s_claim_date.GClaimDatePage
+import utils.pageobjects.third_party.GThirdPartyPage
 
 class GDisclaimerIntegrationSpec extends Specification {
+  section("integration", models.domain.DisclaimerSection.id)
   "Disclaimer" should {
     "be presented" in new WithBrowser with PageObjects {
       val page = GDisclaimerPage(context)
@@ -17,9 +17,9 @@ class GDisclaimerIntegrationSpec extends Specification {
 
     "navigate to next page on valid submission" in new WithBrowser with PageObjects {
       val disclaimerPage = GDisclaimerPage(context) goToThePage()
-      val claimDatePage = disclaimerPage submitPage()
+      val thirdPartyPage = disclaimerPage submitPage()
 
-      claimDatePage must beAnInstanceOf[GClaimDatePage]
+      thirdPartyPage must beAnInstanceOf[GThirdPartyPage]
     }
 
     "navigate back to approve page" in new WithBrowser with PageObjects {
@@ -28,7 +28,6 @@ class GDisclaimerIntegrationSpec extends Specification {
 
       disclaimerPage goBack() must beAnInstanceOf[GApprovePage]
     }
-
   }
   section("integration", models.domain.DisclaimerSection.id)
 }

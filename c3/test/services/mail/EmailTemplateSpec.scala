@@ -22,8 +22,8 @@ class EmailTemplateSpec extends Specification {
     messagesApi(id,param)
   }
 
+  section ("unit")
   "Email template" should {
-
     val xmlSchemaVersionNumber = "some value"
     "Display XML schema version number" in new WithApplication(app = LightFakeApplication.faXmlVersion(xmlSchemaVersionNumber)){
       implicit val lang = Lang("en")
@@ -53,7 +53,7 @@ class EmailTemplateSpec extends Specification {
       renderedEmail must not contain escapeMessage("mail.cofc.successful")
     }
 
-    "Display claim employment and self employment email" in new WithApplication {
+    "Display claim employment and self-employment email" in new WithApplication {
       implicit val lang = Lang("en")
       val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
       implicit val messages = Messages(lang, messagesApi)
@@ -178,7 +178,6 @@ class EmailTemplateSpec extends Specification {
       renderedEmail must not contain escapeMessage("mail.claim.successful")
       renderedEmail must not contain escapeMessage("mail.claim.next.line1")
     }
-
   }
   section("unit")
 }

@@ -6,9 +6,8 @@ import org.specs2.mutable._
 import models.DayMonthYear
 
 class GTheirPersonalDetailsFormSpec extends Specification {
-
+  section("unit", models.domain.CareYouProvide.id)
   "Their Personal Details Form" should {
-
     "map data into case class" in new WithApplication {
       GTheirPersonalDetails.form.bind(
         Map(

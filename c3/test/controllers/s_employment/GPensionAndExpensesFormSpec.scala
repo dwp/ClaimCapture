@@ -5,6 +5,7 @@ import controllers.mappings.Mappings
 import org.specs2.mutable._
 
 class GPensionAndExpensesFormSpec extends Specification {
+  section("unit", models.domain.PensionAndExpenses.id)
   "About Employment - Pension and Expenses Form" should {
     val jobId = "1"
     val yes = "yes"
@@ -176,5 +177,5 @@ class GPensionAndExpensesFormSpec extends Specification {
       )
     }
   }
-  section("unit", models.domain.Employment.id)
+  section("unit", models.domain.PensionAndExpenses.id)
 }

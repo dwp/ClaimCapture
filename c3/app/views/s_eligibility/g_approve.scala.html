@@ -108,21 +108,28 @@
 
             <nav class="form-steps" role="navigation">
                 <ul>
-                    <li><div id="showAppropriateButtonWrap"><button id="actionButtonId" type="submit" name="action" value="next" class="button" onmousedown="analyticsCallback()">@Html(messages("form.continue.step"))</button></div></li>
-                    <li><a id="backButtonBottom" href="@{claim.navigation.previous}">@Html(messages("form.back"))</a></li>
+                    <li>
+                        <div id="showAppropriateButtonWrap">
+                            <button style="display:none" id="actionButtonId" type="submit" name="action" value="next" class="button" onmousedown="analyticsCallback()">@Html(messages("form.continue.step"))</button>
+                            <div class="finish-button" id="feedbackLinkId" style="display:none">@Html(messages("claim.eligibility.feedback.link"))</div>
+                        </div>
+                    </li>
+                    <li><a id="bottomBackButton" href="@{claim.navigation.previous}">@Html(messages("form.back"))</a></li>
                 </ul>
             </nav>
-
         }
-
     }
 
     <script type="text/javascript">$($("#js").val("true"));</script>
     <script type="text/javascript">
         function analyticsCallback() {
-            var linkName = "Eligilibility - " + document.getElementById("actionButtonId" ).innerHTML
             @if(!Play.isTest){
-                trackEvent("/allowance/approve",linkName)
+                trackEvent("/allowance/approve", "Eligibility - Continue")
+            }
+        }
+        function analyticEligibilityCallback() {
+            @if(!Play.isTest){
+                trackEvent("/allowance/approve", "Eligibility - Feedback")
             }
         }
     </script>

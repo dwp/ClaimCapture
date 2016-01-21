@@ -42,7 +42,7 @@ object GSelfEmploymentYourAccounts extends Controller with CachedClaim with Navi
     }
   }
 
-  def present = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+  def present = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     presentConditionally(selfEmploymentYourAccounts)
   }
 
@@ -50,15 +50,15 @@ object GSelfEmploymentYourAccounts extends Controller with CachedClaim with Navi
     track(SelfEmploymentYourAccounts) { implicit claim => Ok(views.html.s_self_employment.g_selfEmploymentYourAccounts(form.fill(SelfEmploymentYourAccounts))) }
   }
 
-  def submit = claimingWithCheck { implicit claim =>  implicit request => implicit lang => 
+  def submit = claimingWithCheck { implicit claim =>  implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
           .replaceError("","required", FormError("tellUsWhyAndWhenTheChangeHappened", Mappings.errorRequired))
-          .replaceError("whatWasOrIsYourTradingYearFrom","error.invalid", FormError("whatWasOrIsYourTradingYearFrom", "error.invalid", Seq(labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearFrom"))))
-          .replaceError("whatWasOrIsYourTradingYearFrom.year","error.number", FormError("whatWasOrIsYourTradingYearFrom.year", "error.number", Seq(labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearFrom.year"))))
-          .replaceError("whatWasOrIsYourTradingYearTo","error.invalid", FormError("whatWasOrIsYourTradingYearTo", "error.invalid", Seq(labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearTo"))))
-          .replaceError("whatWasOrIsYourTradingYearTo.year","error.number", FormError("whatWasOrIsYourTradingYearTo.year", "error.number", Seq(labelForSelfEmployment(claim, lang, "whatWasOrIsYourTradingYearTo.year"))))
+          .replaceError("whatWasOrIsYourTradingYearFrom","error.invalid", FormError("whatWasOrIsYourTradingYearFrom", "error.invalid", Seq(labelForSelfEmployment(claim, request2lang, "whatWasOrIsYourTradingYearFrom"))))
+          .replaceError("whatWasOrIsYourTradingYearFrom.year","error.number", FormError("whatWasOrIsYourTradingYearFrom.year", "error.number", Seq(labelForSelfEmployment(claim, request2lang, "whatWasOrIsYourTradingYearFrom.year"))))
+          .replaceError("whatWasOrIsYourTradingYearTo","error.invalid", FormError("whatWasOrIsYourTradingYearTo", "error.invalid", Seq(labelForSelfEmployment(claim, request2lang, "whatWasOrIsYourTradingYearTo"))))
+          .replaceError("whatWasOrIsYourTradingYearTo.year","error.number", FormError("whatWasOrIsYourTradingYearTo.year", "error.number", Seq(labelForSelfEmployment(claim, request2lang, "whatWasOrIsYourTradingYearTo.year"))))
         BadRequest(views.html.s_self_employment.g_selfEmploymentYourAccounts(formWithErrorsUpdate))
       },
       f => claim.update(f) -> Redirect(routes.GSelfEmploymentPensionsAndExpenses.present()))

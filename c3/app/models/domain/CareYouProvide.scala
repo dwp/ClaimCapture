@@ -11,26 +11,18 @@ case object CareYouProvide extends Section.Identifier {
   val id = "s5"
 }
 
-case class TheirPersonalDetails(relationship: String = "",
-                                title: String = "",
-                                titleOther: Option[String] = None,
+case class TheirPersonalDetails(title: String = "",
                                 firstName: String = "",
                                 middleName: Option[String] = None,
                                 surname: String = "",
                                 nationalInsuranceNumber: Option[NationalInsuranceNumber] = None,
                                 dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
+                                relationship: String = "",
                                 theirAddress: YesNoMandWithAddress = YesNoMandWithAddress()
                                  ) extends QuestionGroup(TheirPersonalDetails)
 
 case object TheirPersonalDetails extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g1"
-
-  def verifyTitleOther(form:TheirPersonalDetails):Boolean = {
-    form.title match {
-      case "Other" => form.titleOther.isDefined
-      case _ => true
-    }
-  }
 }
 
 

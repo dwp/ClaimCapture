@@ -18,7 +18,7 @@ case class CircumstancesReportChange(fullName: String = "",
                                      theirFullName: String = "",
                                      theirRelationshipToYou: String = "",
                                      furtherInfoContact: Option[String] = None,
-                                     override val wantsContactEmail:Option[String] = None,
+                                     override val wantsContactEmail:String = "",
                                      override val email:Option[String] = None,
                                      override val emailConfirmation:Option[String] = None
                                       ) extends QuestionGroup(CircumstancesReportChange) with EMail{

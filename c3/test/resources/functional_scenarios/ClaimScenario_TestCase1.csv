@@ -3,13 +3,15 @@ Can you get Carers Allowance?,Do you spend 35 hours or more each week caring for
 Can you get Carers Allowance?,Do you normally live in Great Britain?,Do you normally live in Great Britain?,CanYouGetCarersAllowanceDoYouNormallyLiveinGb,Yes
 Can you get Carers Allowance?,Are you aged 16 or over?,Are you aged 16 or over?,CanYouGetCarersAllowanceAreYouAged16OrOver,Yes
 Disclaimer,Disclaimer,I agree,DisclaimerUnderstandAndAgree,Yes
+Third Party,Third Party,Are you applying for Carer's Allowance for yourself?,ThirdPartyAreYouApplying,noCarer
+Third Party,Third Party,Name and Organisation,ThirdPartyNameAndOrganisation,test and company
 About You,Your Details,Title,AboutYouTitle,Mr
 About You,Your Details,First name,AboutYouFirstName,I have a real nam
 About You,Your Details,Middle name,AboutYouMiddleName,I have real mid
 About You,Your Details,Surname or family name,AboutYouSurname,Caseone filling some chars to test
 About You,Your Details,National Insurance (NI) number,AboutYouNINO,AB123456C
 About You,Your Details,Date of birth,AboutYouDateOfBirth,28/09/1945
-About You,Your marital status,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,Single
+About You,Your status,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,Single
 About You,Your contact details,Address,AboutYouAddress,this is a very large address lineok&another absurd large address lineok
 About You,Your contact details,Postcode,AboutYouPostcode,PR1 1HB
 About You,Your contact details,How we contact you,HowWeContactYou,
@@ -28,8 +30,7 @@ About You,When you went abroad for more than 52 weeks,"Have you been out of Engl
 About You,Other European Economic Area (EEA) states or Switzerland,"Have you and your close family claimed or been paid any benefits or pensions from any of these countries since your claim date?",OtherMoneyOtherEEAGuardQuestion,No
 About Your Partner,Person you care for,Have you lived with a partner at any time since your claim date?,AboutYourPartnerHadPartnerSinceClaimDate,No
 About the care you provide,Details of the person you care for,"What's their relationship to you?",AboutTheCareYouProvideWhatTheirRelationshipToYou,partner
-About the care you provide,Details of the person you care for,Title,AboutTheCareYouProvideTitlePersonCareFor,Other
-About the care you provide,Details of the person you care for,Title,AboutTheCareYouProvideTitleOtherPersonCareFor,dame
+About the care you provide,Details of the person you care for,Title,AboutTheCareYouProvideTitlePersonCareFor,dame
 About the care you provide,Details of the person you care for,First name ,AboutTheCareYouProvideFirstNamePersonCareFor,I have a real nam
 About the care you provide,Details of the person you care for,Middle name,AboutTheCareYouProvideMiddleNamePersonCareFor,I have a real mid
 About the care you provide,Details of the person you care for,Surname or family name,AboutTheCareYouProvideSurnamePersonCareFor,Caseone filling some chars to test
@@ -50,6 +51,6 @@ Consent & Declaration,Additional information,Please tell us anything else you th
 Consent & Declaration,Additional information,Do you live in Wales and would like to receive future communications in Welsh?,ConsentDeclarationCommunicationWelsh,No
 Consent & Declaration,Consent & Declaration,Do you agree to the Carer's Allowance Unit contacting anyone mentioned in this form?,ConsentDeclarationGettingInformationFromAnyOther,Yes
 Consent & Declaration,Consent & Declaration,List anyone you don't want to be contacted and say why.,ConsentDeclarationTellUsWhyOther,
-Consent & Declaration,Declaration,"Select this box if you filled this form in for someone else.",ConsentDeclarationSomeoneElseTickBox,Yes
-Consent & Declaration,Declaration,Your name or organisation.,ConsentDeclarationNameOrOrganisation,Organisation  trying  to swindle innocent citizens  stealing
+Consent & Declaration,Third Party,"Are you applying for Carer''s Allowance for yourself?",ThirdPartyAreYouApplying,noCarer
+Consent & Declaration,Third Party,Your name and organisation,ThirdPartyNameAndOrganisation,Organisation trying to swindle innocent citizens stealing
 About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouContactYouByTextphone,

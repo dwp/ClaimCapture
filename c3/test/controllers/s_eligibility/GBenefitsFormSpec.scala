@@ -6,6 +6,7 @@ import org.specs2.mutable._
 import models.domain.Benefits
 
 class GBenefitsFormSpec extends Specification {
+  section("unit", models.domain.CarersAllowance.id)
   "Carer's Allowance - Benefits - Form" should {
     val benefitsAnswer = Benefits.aa
 

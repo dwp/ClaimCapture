@@ -9,6 +9,7 @@ import utils.WithApplication
 
 class GAboutSelfEmploymentSpec extends Specification {
 
+  section("unit", models.domain.SelfEmployment.id)
   "Self Employment - About Self Employment - Controller" should {
     val areYouSelfEmployedNow = "no"
     val startDay = 11
@@ -31,7 +32,7 @@ class GAboutSelfEmploymentSpec extends Specification {
       "natureOfYourBusiness" -> natureOfYourBusiness
     )
 
-    "present 'About Self Employment' " in new WithApplication with Claiming {
+    "present 'About Self-Employment' " in new WithApplication with Claiming {
       val request = FakeRequest()
 
       val result = controllers.s_self_employment.GAboutSelfEmployment.present(request)

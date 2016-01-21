@@ -1,8 +1,8 @@
-window.initEvents = (hadPartnerY,hadPartnerN,title,titleMr,titleMrs,titleMiss,titleMs,titleOther,titleOtherText,firstName,middleName,lastName,otherSurName,
+window.initEvents = (hadPartnerY,hadPartnerN,title,firstName,middleName,lastName,otherSurName,
                      nino,dateOfBirthDay,dateOfBirthMonth,dateOfBirthYear,
                      nationality,seperatedFromPartnerY,seperatedFromPartnerN,partnerClaimingForY,partnerClaimingForN) ->
   if not $("#" + hadPartnerY).prop('checked')
-    hidePartnerDetailsWrap(hadPartnerY,hadPartnerN,title,titleMr,titleMrs,titleMiss,titleMs,titleOther,titleOtherText,firstName,middleName,lastName,otherSurName,
+    hidePartnerDetailsWrap(hadPartnerY,hadPartnerN,title,firstName,middleName,lastName,otherSurName,
       nino,dateOfBirthDay,dateOfBirthMonth,dateOfBirthYear,
       nationality,seperatedFromPartnerY,seperatedFromPartnerN,partnerClaimingForY,partnerClaimingForN)
 
@@ -10,20 +10,15 @@ window.initEvents = (hadPartnerY,hadPartnerN,title,titleMr,titleMrs,titleMiss,ti
     showPartnerDetailsWrap()
 
   $("#" + hadPartnerN).on "click", ->
-    hidePartnerDetailsWrap(hadPartnerY,hadPartnerN,title,titleMr,titleMrs,titleMiss,titleMs,titleOther,titleOtherText,firstName,middleName,lastName,otherSurName,
+    hidePartnerDetailsWrap(hadPartnerY,hadPartnerN,title,firstName,middleName,lastName,otherSurName,
       nino,dateOfBirthDay,dateOfBirthMonth,dateOfBirthYear,
       nationality,seperatedFromPartnerY,seperatedFromPartnerN,partnerClaimingForY,partnerClaimingForN)
 
-hidePartnerDetailsWrap = (hadPartnerY,hadPartnerN,title,titleMr,titleMrs,titleMiss,titleMs,titleOther,titleOtherText,firstName,middleName,lastName,otherSurName,
+hidePartnerDetailsWrap = (hadPartnerY,hadPartnerN,title,firstName,middleName,lastName,otherSurName,
 nino,dateOfBirthDay,dateOfBirthMonth,dateOfBirthYear,
 nationality,seperatedFromPartnerY,seperatedFromPartnerN,partnerClaimingForY,partnerClaimingForN) ->
 	emptyPartnerDetails = ->
-		$("#" + titleMr).prop('checked', false)
-		$("#" + titleMrs).prop('checked', false)
-		$("#" + titleMiss).prop('checked', false)
-		$("#" + titleMs).prop('checked', false)
-		$("#" + titleOther).prop('checked', false)
-		$("#" + titleOtherText).val("")
+		$("#" + title).val("")
 		$("#" + firstName).val("")
 		$("#" + middleName).val("")
 		$("#" + lastName).val("")

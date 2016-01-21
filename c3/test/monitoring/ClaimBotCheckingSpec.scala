@@ -25,6 +25,7 @@ class ClaimBotCheckingSpec extends Specification with Mockito {
     job
   }
 
+  section("unit")
   "Claim submission" should {
     "be flagged for completing sections too quickly e.g. a bot" in new WithBrowser {
       controller.checkTimeToCompleteAllSections(claim, currentTime = 0) should beTrue
@@ -314,4 +315,5 @@ class ClaimBotCheckingSpec extends Specification with Mockito {
       controller.honeyPot(claim) should beTrue
     }
   }
+  section("unit")
 }

@@ -8,13 +8,13 @@ import utils.pageobjects.s_eligibility.GBenefitsPage
 import utils.WithJsBrowser
 
 class MetersSpec extends Specification {
-
+  section("unit")
   "Meters metrics" should {
-    "must measure com.kenshoo.play.metrics.MetricsFilter.200" in new WithJsBrowser  with PageObjects {
+    "must measure com.kenshoo.play.metrics.MetricsFilter.200" in new WithJsBrowser with PageObjects {
       val page = GBenefitsPage(context)
       page goToThePage()
       val count = SharedMetricRegistries.getOrCreate("c3.metrics").meter("com.kenshoo.play.metrics.MetricsFilter.200").getCount
-      count mustEqual 3
+      count mustEqual 4
     }
   }
   section("unit")

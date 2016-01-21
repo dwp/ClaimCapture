@@ -34,11 +34,11 @@ object GOtherEEAStateOrSwitzerland extends Controller with CachedClaim with Navi
   )(OtherEEAStateOrSwitzerland.apply)(OtherEEAStateOrSwitzerland.unapply)
   )
 
-  def present = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+  def present = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     track(OtherEEAStateOrSwitzerland) { implicit claim => Ok(views.html.s_about_you.g_otherEEAStateOrSwitzerland(form.fill(OtherEEAStateOrSwitzerland))) }
   }
 
-  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors

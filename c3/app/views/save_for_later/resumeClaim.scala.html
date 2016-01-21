@@ -7,8 +7,6 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.save_for_later._
 
-
-@defining(lang) { implicit language =>
     @main(messages("saveForLater.resume.legend")) {
 
 
@@ -23,7 +21,11 @@
 
                     @carersInputText(resumeForm("surname"), 'maxLength -> 35)
 
-                    @nationalInsuranceNumber(resumeForm("nationalInsuranceNumber"), 'helperAbove -> messages("mandatory.nationalInsuranceNumber.helper"), 'helperBelow -> messages("mandatory.nationalInsuranceNumber.helper2"))
+                    @nationalInsuranceNumber(resumeForm("nationalInsuranceNumber"),
+                        'helperAbove -> messages("mandatory.nationalInsuranceNumber.helper"),
+                        'helperBelow -> messages("mandatory.nationalInsuranceNumber.helper2"),
+                        '_anchorIdRequired -> true,
+                        '_anchorId -> "nationalInsuranceNumber")
 
                     @dateOfBirth(resumeForm("dateOfBirth"))
                 </ul>
@@ -33,5 +35,5 @@
             <p>@views.html.save_for_later.govUKLink()</p>
         }
     }
-}
+
 

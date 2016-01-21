@@ -7,13 +7,14 @@ import utils.WithBrowser
 import utils.pageobjects._
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
-import utils.pageobjects.s_about_you.{GContactDetailsPage, GMaritalStatusPage, GNationalityAndResidencyPage, GAbroadForMoreThan52WeeksPage}
+import utils.pageobjects.s_about_you.{GContactDetailsPage, GMaritalStatusPage, GNationalityAndResidencyPage}
 import utils.helpers.PreviewField._
 
 class GMaritalStatusIntegrationSpec extends Specification {
   sequential
 
-  "Marital Status" should {
+  section("integration", models.domain.AboutYou.id)
+  "Status" should {
     "be presented" in new WithBrowser with PageObjects{
 			val page =  GMaritalStatusPage(context)
       page goToThePage()
@@ -27,7 +28,7 @@ class GMaritalStatusIntegrationSpec extends Specification {
       nextPage must beAnInstanceOf[GMaritalStatusPage]
     }
 
-    "navigate to next page on valid marital status submission" in new WithBrowser with PageObjects{
+    "navigate to next page on valid Status submission" in new WithBrowser with PageObjects{
 			val page =  GMaritalStatusPage(context)
       val claim = ClaimScenarioFactory.maritalStatus()
       page goToThePage()
@@ -38,7 +39,7 @@ class GMaritalStatusIntegrationSpec extends Specification {
       nextPage must beAnInstanceOf[GContactDetailsPage]
     }
 
-    "Modify marital status from preview page" in new WithBrowser with PageObjects{
+    "Modify Status from preview page" in new WithBrowser with PageObjects{
       val previewPage = goToPreviewPage(context)
       val id = "about_you_marital_status"
       val answerText = PreviewTestUtils.answerText(id, _:Page)
@@ -56,8 +57,6 @@ class GMaritalStatusIntegrationSpec extends Specification {
       previewPageModified must beAnInstanceOf[PreviewPage]
       answerText(previewPageModified) mustEqual MaritalStatus.Married
     }
-
-
   }
   section("integration", models.domain.AboutYou.id)
 
@@ -82,5 +81,4 @@ class GMaritalStatusIntegrationSpec extends Specification {
     val previewPage = PreviewPage(context)
     previewPage goToThePage()
   }
-
 }

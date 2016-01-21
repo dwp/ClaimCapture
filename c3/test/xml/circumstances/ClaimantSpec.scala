@@ -1,7 +1,6 @@
 package xml.circumstances
 
 import javax.xml.bind.DatatypeConverter
-
 import gov.dwp.carers.security.encryption.EncryptorAES
 import models.view.CachedChangeOfCircs
 import models.{DayMonthYear, NationalInsuranceNumber}
@@ -13,17 +12,18 @@ class ClaimantSpec extends Specification {
   val nationalInsuranceNr = NationalInsuranceNumber(Some("VO123456D"))
   val contact = "by post"
 
-
   def getCircumstancesReportChange = {
     CircumstancesReportChange(
       fullName = "Mr Phil Joe Smith",
       nationalInsuranceNumber = nationalInsuranceNr,
       dateOfBirth = DayMonthYear(1, 1, 1963),
-      wantsContactEmail = Some("Yes"),
+      wantsContactEmail = "Yes",
       email = Some("joe@smith.co.uk"),
       emailConfirmation = Some("joe@smith.co.uk")
     )
   }
+
+  section("unit")
   "Claimant" should {
     "generate Claimant xml from a given circumstances" in new WithApplication() {
       val yourDetails = getCircumstancesReportChange

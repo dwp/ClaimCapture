@@ -6,9 +6,8 @@ import play.api.data.Forms._
 import controllers.mappings.Mappings._
 
 class PhoneNumberFormSpec extends Specification {
-
+  section("unit")
   "Phone Number" should {
-
     "accept valid input " in {
       val validPhoneNumber = "02076541058"
 
@@ -45,6 +44,7 @@ class PhoneNumberFormSpec extends Specification {
       )
     }
   }
+  section("unit")
 
   private def createPhoneNumberForm(phoneNumber: String)
     = Form("phoneNumber" -> optional(play.api.data.Forms.text verifying validPhoneNumber)).bind(Map("phoneNumber" -> phoneNumber))

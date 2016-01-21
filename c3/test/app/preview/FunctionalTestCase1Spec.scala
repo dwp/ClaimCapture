@@ -6,12 +6,11 @@ import utils.pageobjects._
 import app.FunctionalTestCommon
 import utils.pageobjects.preview.PreviewPage
 
-
 class FunctionalTestCase1Spec extends FunctionalTestCommon {
   isolated
 
+  section ("functional","preview")
   "The application Claim" should {
-
     "Successfully run absolute Claim Test Case 1" in new WithJsBrowser with PageObjects {
       import Data.displaying
 
@@ -27,7 +26,7 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
         "Claim date"   displays DateTransformer("ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart"),
         "Your nationality"  displays "AboutYouNationalityAndResidencyActualNationality",
         "Do you normally live in England, Scotland or Wales?" displays "AboutYouNationalityAndResidencyResideInUK",
-        "Marital status"  displays "AboutYouWhatIsYourMaritalOrCivilPartnershipStatus",
+        "Status"  displays "AboutYouWhatIsYourMaritalOrCivilPartnershipStatus",
         "Have you been away from England, Scotland or Wales"          displays AnyYesTransformer("AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime"),
         "Have you or any of your close family worked abroad or been paid benefits from outside the United Kingdom since your claim date?"          displays "OtherMoneyOtherEEAGuardQuestion",
         "Name"            displays ("AboutTheCareYouProvideTitlePersonCareFor","AboutTheCareYouProvideFirstNamePersonCareFor","AboutTheCareYouProvideMiddleNamePersonCareFor","AboutTheCareYouProvideSurnamePersonCareFor"),
@@ -37,7 +36,7 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
         "Have you had any breaks from caring for this person since 21 January 2013"               displays AnyYesTransformer("AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare"),
         "Have you been on a course of education since your claim date?"   displays "EducationHaveYouBeenOnACourseOfEducation",
         "Have you been employed at any time since 21 January 2013"      displays "EmploymentHaveYouBeenEmployedAtAnyTime_0",
-        "Have you been self employed at any time since" displays "EmploymentHaveYouBeenSelfEmployedAtAnyTime",
+        "Have you been self-employed at any time since" displays "EmploymentHaveYouBeenSelfEmployedAtAnyTime",
         "Have you received any payments for the person you care for or any other person since your claim date?" displays "OtherMoneyAnyPaymentsSinceClaimDate",
         "Have you had any Statutory Sick Pay"                    displays "OtherMoneyHaveYouSSPSinceClaim",
         "Have you had any Statutory Maternity Pay, Statutory Paternity Pay or Statutory Adoption Pay" displays "OtherMoneyHaveYouSMPSinceClaim",

@@ -1,6 +1,5 @@
 package models.domain
 
-import controllers.mappings.Mappings
 import models.domain.OtherEEAStateOrSwitzerland.GQuestion
 import models.{NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
 import models.yesNo.{YesNoWith2MandatoryFieldsOnYes, YesNoWith1MandatoryFieldOnYes, YesNoWithText}
@@ -12,7 +11,6 @@ object AboutYou extends Section.Identifier {
 }
 
 case class YourDetails(title: String = "",
-                       titleOther: Option[String] = None,
                        firstName: String = "",
                        middleName: Option[String] = None,
                        surname: String = "",
@@ -24,13 +22,6 @@ case class YourDetails(title: String = "",
 
 object YourDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g1"
-
-  def verifyTitleOther(form: YourDetails): Boolean = {
-    form.title match {
-      case "Other" => form.titleOther.isDefined
-      case _ => true
-    }
-  }
 }
 
 case class MaritalStatus(maritalStatus: String = "") extends QuestionGroup(MaritalStatus)
@@ -43,7 +34,7 @@ case class ContactDetails(address: MultiLineAddress = new MultiLineAddress(),
                           postcode: Option[String] = None,
                           howWeContactYou: Option[String] = None,
                           contactYouByTextphone: Option[String] = None,
-                          override val wantsContactEmail: Option[String] = None,
+                          override val wantsContactEmail: String = "",
                           override val email: Option[String] = None,
                           override val emailConfirmation: Option[String] = None) extends QuestionGroup(ContactDetails) with EMail
 

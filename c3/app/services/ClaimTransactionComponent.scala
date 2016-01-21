@@ -142,10 +142,7 @@ trait ClaimTransactionComponent {
 
     override def health(): Unit = {
       Logger.warn("Stub db health check - checking for db")
-      /**
-       * Health check
-       */
-      def health(): Unit = DB.withConnection("carers") {
+      DB.withConnection("carers") {
         implicit c =>
           SQL(
             """

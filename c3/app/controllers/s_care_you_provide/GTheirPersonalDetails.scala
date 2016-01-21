@@ -22,21 +22,19 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
   val addressMapping = "theirAddress"->mapping(
     "answer" -> nonEmptyText.verifying(validYesNo),
     "address" -> optional(address.verifying(requiredAddress)),
-    "postCode" -> optional(text verifying validPostcode)
+    "postCode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode))
       )(YesNoMandWithAddress.apply)(YesNoMandWithAddress.unapply)
 
   val form = Form(mapping(
-    "relationship" -> carersNonEmptyText(maxLength = 35),
-    "title" -> carersNonEmptyText(maxLength = Mappings.five),
-    "titleOther" -> optional(carersText(maxLength = Mappings.twenty)),
+    "title" -> carersNonEmptyText(maxLength = Mappings.twenty),
     "firstName" -> carersNonEmptyText(maxLength = 17),
     "middleName" -> optional(carersText(maxLength = 17)),
     "surname" -> carersNonEmptyText(maxLength = Name.maxLength),
     "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
     "dateOfBirth" -> dayMonthYear.verifying(validDate),
+    "relationship" -> carersNonEmptyText(maxLength = 35),
     addressMapping
   )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply)
-    .verifying("titleOther.required", TheirPersonalDetails.verifyTitleOther _)
     .verifying("theirAddress.address", validateSameAddressAnswer _)
   )
 
@@ -46,7 +44,7 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
     }
 
 
-  def present = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+  def present = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     val isPartnerPersonYouCareFor = YourPartner.visible &&
       claim.questionGroup[YourPartnerPersonalDetails].exists(_.isPartnerPersonYouCareFor.getOrElse("") == "yes")
 
@@ -56,7 +54,6 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
           val theirPersonalDetails = claim.questionGroup(TheirPersonalDetails).getOrElse(TheirPersonalDetails()).asInstanceOf[TheirPersonalDetails]
           form.fill(TheirPersonalDetails(relationship = theirPersonalDetails.relationship,
             title = t.title.getOrElse(""),
-            titleOther = t.titleOther,
             firstName = t.firstName.getOrElse(""),
             middleName = t.middleName,
             surname = t.surname.getOrElse(""),
@@ -73,11 +70,10 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
     track(TheirPersonalDetails) { implicit claim => Ok(views.html.s_care_you_provide.g_theirPersonalDetails(currentForm)) }
   }
 
-  def submit = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+  def submit = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors
-          .replaceError("", "titleOther.required", FormError("titleOther", "constraint.required"))
           .replaceError("","theirAddress.address", FormError("theirAddress.address", errorRequired))
 
         BadRequest(views.html.s_care_you_provide.g_theirPersonalDetails(updatedFormWithErrors))
@@ -94,7 +90,13 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
           theirPersonalDetails
         }
 
-        claim.update(updatedTheirPersonalDetails) -> Redirect(routes.GMoreAboutTheCare.present())
+        claim.update(formatPostCodes(updatedTheirPersonalDetails)) -> Redirect(routes.GMoreAboutTheCare.present())
       })
   } withPreview()
+
+  private def formatPostCodes(theirPersonalDetails : TheirPersonalDetails): TheirPersonalDetails = {
+    theirPersonalDetails.copy(
+      theirAddress = theirPersonalDetails.theirAddress.copy(
+        postCode = Some(formatPostCode(theirPersonalDetails.theirAddress.postCode.getOrElse("")))))
+  }
 }

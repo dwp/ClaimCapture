@@ -6,7 +6,6 @@ import play.api.test.Helpers._
 import models.domain.{Declaration, Claiming}
 import models.view.CachedClaim
 import controllers.s_other_money.GAboutOtherMoney
-import specs2.akka.AkkaTestkitSpecs2Support
 import utils.{LightFakeApplication, WithApplication}
 import play.api.Play.current
 
@@ -22,6 +21,7 @@ class GDeclarationSpec extends Specification {
     "otherStatutoryPay.answer" -> "no"
   )
 
+  section("unit", models.domain.ConsentAndDeclaration.id)
   "Declaration" should {
     "present" in new WithApplication with Claiming {
       val gDeclaration = current.injector.instanceOf[GDeclaration]
@@ -42,7 +42,6 @@ class GDeclarationSpec extends Specification {
     """failed filling nameOrOrganisation""" in new WithApplication with Claiming {
       val gDeclaration = current.injector.instanceOf[GDeclaration]
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-                                 .withFormUrlEncodedBody("someoneElse" -> "checked")
 
       val result = gDeclaration.submit(request)
       status(result) mustEqual BAD_REQUEST
@@ -57,16 +56,6 @@ class GDeclarationSpec extends Specification {
       status(result) mustEqual BAD_REQUEST
     }
 
-    """accept answers without someoneElse""" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("submit.prints.xml" -> "false"))) with Claiming {
-      val gDeclaration = current.injector.instanceOf[GDeclaration]
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-                                 .withFormUrlEncodedBody("tellUsWhyFromAnyoneOnForm.informationFromPerson" -> "no",
-                                                         "tellUsWhyFromAnyoneOnForm.whyPerson" -> "reason")
-
-      val result = gDeclaration.submit(request)
-      status(result) mustEqual SEE_OTHER
-    }
-
     """accept answers""" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("submit.prints.xml" -> "false"))) with Claiming {
       val gDeclaration = current.injector.instanceOf[GDeclaration]
       val result1 = GAboutOtherMoney.submit(FakeRequest()
@@ -74,9 +63,7 @@ class GDeclarationSpec extends Specification {
 
       val request = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1))
                                  .withFormUrlEncodedBody("tellUsWhyFromAnyoneOnForm.informationFromPerson" -> "no",
-                                                         "tellUsWhyFromAnyoneOnForm.whyPerson" -> "reason",
-                                                         "nameOrOrganisation"->"SomeOrg",
-                                                          "someoneElse" -> "checked")
+                                                         "tellUsWhyFromAnyoneOnForm.whyPerson" -> "reason")
 
       val result = gDeclaration.submit(request)
 
@@ -86,8 +73,6 @@ class GDeclarationSpec extends Specification {
         case Some(f: Declaration) =>
           f.informationFromPerson.answer must equalTo("no")
           f.informationFromPerson.text must equalTo(Some("reason"))
-          f.nameOrOrganisation must equalTo(Some("SomeOrg"))
-          f.someoneElse.get must equalTo("checked")
       }
       redirectLocation(result) must beSome("/async-submitting")
     }
@@ -98,9 +83,7 @@ class GDeclarationSpec extends Specification {
         withFormUrlEncodedBody(formInputAboutOtherMoney: _*))
 
       val request = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1))
-                                 .withFormUrlEncodedBody("tellUsWhyFromAnyoneOnForm.informationFromPerson" -> "yes",
-                                                         "nameOrOrganisation"->"SomeOrg",
-                                                          "someoneElse" -> "checked")
+                                 .withFormUrlEncodedBody("tellUsWhyFromAnyoneOnForm.informationFromPerson" -> "yes")
 
       val result = gDeclaration.submit(request)
       redirectLocation(result) must beSome("/async-submitting")

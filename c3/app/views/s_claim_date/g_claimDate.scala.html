@@ -6,9 +6,6 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper.dates._
 @import scala.language.postfixOps
-@import play.api.i18n.Messages
-@import play.api.Play
-@import play.api.Play.current
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
 
@@ -18,7 +15,6 @@
     )
 }
 
-@defining(lang) { implicit language =>
     @main(messages("s1_2.g1.legend") + " - " + messages("s1_2.longName")) {
 
         <p>@Html(messages("dateOfClaimHelp")) <a rel="external" href="/claim-help#1" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Backdating Claim Date")>@Html(messages("dateOfClaimHelp.link"))</a> @Html(messages("dateOfClaimHelp2")).</p>
@@ -54,13 +50,6 @@
         <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_claim_date/g_claimDate.js")></script>
 
         <script type="text/javascript">
-            $(function () {
-                @if(!Play.isTest) {
-                    trackEvent ( "times", "claim - start" );
-                    setCookie("claimstart", new Date().getTime());
-                }
-            });
-
             $(function() {
             window.initEvents("@CarersCrypto.encryptAES("beforeClaimCaring_answer_yes")",
             "@CarersCrypto.encryptAES("beforeClaimCaring_answer_no")",
@@ -76,5 +65,5 @@
 
         </script>
     }
-}
+
 

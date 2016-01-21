@@ -40,23 +40,25 @@ object GLastWage extends Controller with CachedClaim with Navigable with I18nSup
     }
   }
 
-  def present(iterationID: String) = claimingWithCheck { implicit claim => implicit request => implicit lang => 
+  def present(iterationID: String) = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     track(LastWage) { implicit claim => Ok(views.html.s_employment.g_lastWage(form.fillWithJobID(LastWage, iterationID))) }
   }
 
-  def submit = claimingWithCheckInIteration { iterationID => implicit claim => implicit request => implicit lang => 
+  def submit = claimingWithCheckInIteration { iterationID => implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val form = formWithErrors
-          .replaceError("oftenGetPaid.frequency.other",maxLengthError,FormError("oftenGetPaid",maxLengthError))
-          .replaceError("oftenGetPaid.frequency",errorRequired,FormError("oftenGetPaid",errorRequired))
-          .replaceError("oftenGetPaid.frequency.other",errorRestrictedCharacters,FormError("oftenGetPaid",errorRestrictedCharacters))
-          .replaceError("whenGetPaid", errorRequired, FormError("whenGetPaid", errorRequired, Seq(labelForEmployment(claim, lang, "whenGetPaid", iterationID))))
-          .replaceError("whenGetPaid", errorRestrictedCharacters, FormError("whenGetPaid", errorRestrictedCharacters, Seq(labelForEmployment(claim, lang, "whenGetPaid", iterationID))))
-          .replaceError("lastPaidDate", errorRequired, FormError("lastPaidDate", errorRequired, Seq(labelForEmployment(claim, lang, "lastPaidDate", iterationID))))
-          .replaceError("grossPay", errorRequired, FormError("grossPay", errorRequired, Seq(labelForEmployment(claim, lang, "grossPay", iterationID))))
-          .replaceError("", "employerOwesYouMoney.required", FormError("employerOwesYouMoney", errorRequired, Seq(labelForEmployment(claim, lang, "employerOwesYouMoney", iterationID))))
-          .replaceError("sameAmountEachTime", errorRequired, FormError("sameAmountEachTime", errorRequired, Seq(labelForEmployment(claim, lang,   "sameAmountEachTime", iterationID))))
+          .replaceError("oftenGetPaid.frequency.other", maxLengthError, FormError("oftenGetPaid",maxLengthError))
+          .replaceError("oftenGetPaid.frequency", errorRequired, FormError("oftenGetPaid",errorRequired))
+          .replaceError("oftenGetPaid.frequency.other", errorRestrictedCharacters, FormError("oftenGetPaid",errorRestrictedCharacters))
+          .replaceError("whenGetPaid", errorRequired, FormError("whenGetPaid", errorRequired, Seq(labelForEmployment(claim, request2lang, "whenGetPaid", iterationID))))
+          .replaceError("whenGetPaid", errorRestrictedCharacters, FormError("whenGetPaid", errorRestrictedCharacters, Seq(labelForEmployment(claim, request2lang, "whenGetPaid", iterationID))))
+          .replaceError("lastPaidDate", errorRequired, FormError("lastPaidDate", errorRequired, Seq(labelForEmployment(claim, request2lang, "lastPaidDate", iterationID))))
+          .replaceError("lastPaidDate", errorInvalid, FormError("lastPaidDate", errorInvalid, Seq(labelForEmployment(claim, request2lang, "lastPaidDate", iterationID))))
+          .replaceError("grossPay", errorRequired, FormError("grossPay", errorRequired, Seq(labelForEmployment(claim, request2lang, "grossPay", iterationID))))
+          .replaceError("grossPay", "decimal.invalid", FormError("grossPay", "decimal.invalid", Seq(labelForEmployment(claim, request2lang, "grossPay", iterationID))))
+          .replaceError("sameAmountEachTime", errorRequired, FormError("sameAmountEachTime", errorRequired, Seq(labelForEmployment(claim, request2lang,   "sameAmountEachTime", iterationID))))
+          .replaceError("", "employerOwesYouMoney.required", FormError("employerOwesYouMoney", errorRequired, Seq(labelForEmployment(claim, request2lang, "employerOwesYouMoney", iterationID))))
         BadRequest(views.html.s_employment.g_lastWage(form))
       },
       lastWage => claim.update(jobs.update(lastWage)) -> Redirect(routes.GPensionAndExpenses.present(iterationID)))

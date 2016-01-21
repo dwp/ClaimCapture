@@ -11,7 +11,8 @@ final class GSaveForLaterResumePage(ctx:PageObjectsContext) extends ClaimPage(ct
 }
 
 object GSaveForLaterResumePage {
-  var url = "/resume?savekey=123456"
+  val decodeint = "174650142322392746796619227917559908601"
+  val url = "/resume?x="+decodeint
 
   def apply(ctx:PageObjectsContext) = new GSaveForLaterResumePage(ctx)
 }

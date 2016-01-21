@@ -1,12 +1,12 @@
 package controllers
 
 import org.specs2.mutable._
-
 import utils.WithBrowser
-import utils.pageobjects.{Page, PageObjects, TestData}
+import utils.pageobjects.{PageObjects, TestData}
 import utils.pageobjects.s_eligibility._
 
 class BrowserIntegrationSpec extends Specification {
+  section("integration")
   "Browser" should {
     "not cache pages" in new WithBrowser with PageObjects {
       val page = GBenefitsPage(context)
@@ -32,5 +32,5 @@ class BrowserIntegrationSpec extends Specification {
       approvePageSecondTime.getClass mustEqual classOf[GApprovePage]
     }
   }
-section("integration")
+  section("integration")
 }

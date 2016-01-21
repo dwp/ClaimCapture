@@ -12,9 +12,9 @@ import utils.pageobjects.s_claim_date.GClaimDatePage
 import play.api.i18n.{MMessages, MessagesApi}
 import play.api.Play.current
 
-class WebSearchSpec extends Specification{
+class WebSearchSpec extends Specification {
+  section("integration")
   "Web Search Actions " should {
-
     "be presented" in new WithBrowser with GYourDetailsPageContext {
       page goToThePage()
     }
@@ -26,7 +26,7 @@ class WebSearchSpec extends Specification{
       yourDetailsPage fillPageWith claim
       val firstName = yourDetailsPage readInput("#firstName")
       firstName.get mustEqual claim.AboutYouFirstName
-      val title = yourDetailsPage readRadio("#title")
+      val title = yourDetailsPage readInput("#title")
       title.get mustEqual claim.AboutYouTitle
       val nino  = yourDetailsPage readNino("#nationalInsuranceNumber")
       nino.get mustEqual claim.AboutYouNINO
@@ -58,8 +58,9 @@ class WebSearchSpec extends Specification{
       bankPage.url must_== GAdditionalInfoPage.url
     }
   }
-section("integration")
+  section("integration")
 
+  section("integration")
   "A page with Web Search Actions " should {
     "be able to populate a claim using data read with WebSearchActions." in new WithBrowser with PageObjects {
       val claimSource = ClaimScenarioFactory yourDetailsEnablingTimeOutsideUK()
@@ -97,5 +98,4 @@ section("integration")
     claimDatePage fillPageWith claimDate
     claimDatePage
   }
-
 }
