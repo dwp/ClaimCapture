@@ -98,6 +98,24 @@ class GAddressChangeIntegrationSpec  extends Specification {
       page submitPage()
       page.listErrors.size must beEqualTo(1)
     }
+
+    "navigate to next page and back when postcode has spaces" in new WithBrowser with PageObjects {
+      val page =  GAddressChangePage(context)
+      val claim = CircumstancesScenarioFactory.reportChangesAddressChangeYes
+      claim.CircumstancesAddressChangePreviousPostcode = " PR11  4JQ "
+      claim.CircumstancesAddressChangeNewPostcode = " PR12  4JQ "
+      claim.CircumstancesAddressChangeSameAddressTheirPostcode =" PR13  4JQ "
+      page goToThePage()
+      page fillPageWith claim
+
+      val nextPage = page submitPage()
+      println(nextPage.source)
+      nextPage must beAnInstanceOf[GCircsDeclarationPage]
+      val addressChangePageAgain = nextPage goBack()
+      addressChangePageAgain.source must contain("PR11 4JQ")
+      addressChangePageAgain.source must contain("PR12 4JQ")
+      addressChangePageAgain.source must contain("PR13 4JQ")
+    }
   }
   section("integration", models.domain.CircumstancesIdentification.id)
 }
