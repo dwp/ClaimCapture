@@ -265,7 +265,7 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
       "redirect to the next page after a valid additional info submission" in new WithApplication with MockForm {
         val claim = Claim(claimKey)
 
-        cache.set(claimKey, claim.update(ReportChanges(false, ReportChange.AdditionalInfo.name)))
+        cache.set("default"+claimKey, claim.update(ReportChanges(false, ReportChange.AdditionalInfo.name)))
 
         val result = GReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
 
@@ -276,7 +276,7 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
 
         val claim = Claim(claimKey)
 
-        cache.set(claimKey, claim.update(ReportChanges(false, ReportChange.SelfEmployment.name)))
+        cache.set("default"+claimKey, claim.update(ReportChanges(false, ReportChange.SelfEmployment.name)))
 
         val result = GReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
 
@@ -286,7 +286,7 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
       "redirect to the next page after a valid stopped caring submission" in new WithApplication with MockForm {
         val claim = Claim(claimKey)
 
-        cache.set(claimKey, claim.update(ReportChanges(false, ReportChange.StoppedCaring.name)))
+        cache.set("default"+claimKey, claim.update(ReportChanges(false, ReportChange.StoppedCaring.name)))
 
         val result = GReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
 
@@ -296,7 +296,7 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
       "redirect to the next page after a valid address change submission" in new WithApplication with MockForm {
         val claim = Claim(claimKey)
 
-        cache.set(claimKey, claim.update(ReportChanges(false, ReportChange.AddressChange.name)))
+        cache.set("default"+claimKey, claim.update(ReportChanges(false, ReportChange.AddressChange.name)))
 
         val result = GReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
 
@@ -306,7 +306,7 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
       "redirect to the next page after a valid payment change submission" in new WithApplication with MockForm {
         val claim = Claim(claimKey)
 
-        cache.set(claimKey, claim.update(ReportChanges(false, ReportChange.PaymentChange.name)))
+        cache.set("default"+claimKey, claim.update(ReportChanges(false, ReportChange.PaymentChange.name)))
 
         val result = GReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
 
@@ -316,7 +316,7 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
       "redirect to the next page after a valid break from caring submission" in new WithApplication with MockForm {
         val claim = Claim(claimKey)
 
-        cache.set(claimKey, claim.update(ReportChanges(false, ReportChange.BreakFromCaring.name)))
+        cache.set("default"+claimKey, claim.update(ReportChanges(false, ReportChange.BreakFromCaring.name)))
 
         val result = GReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
 
@@ -326,7 +326,7 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
       "redirect to the next page after a valid break from caring submission because of you" in new WithApplication with MockForm {
         val claim = Claim(claimKey)
 
-        cache.set(claimKey, claim.update(ReportChanges(false, ReportChange.BreakFromCaringYou.name)))
+        cache.set("default"+claimKey, claim.update(ReportChanges(false, ReportChange.BreakFromCaringYou.name)))
 
         val result = GReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
 
