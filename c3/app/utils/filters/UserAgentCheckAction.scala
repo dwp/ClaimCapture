@@ -42,7 +42,7 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
       case _ if setIf(request) =>
         if (key.nonEmpty) {
           Logger.debug(s"UserAgentCheckAction set for key ${UAKey}")
-          cache.set("default"+UAKey, request.headers.get("User-Agent").getOrElse(""), Duration(CacheHandling.expiration + 100, SECONDS))
+          cache.set(UAKey, request.headers.get("User-Agent").getOrElse(""), Duration(CacheHandling.expiration + 100, SECONDS))
         } else {
           throw UserAgentCheckException("Session does not contain key. Cannot save User Agent.")
         }

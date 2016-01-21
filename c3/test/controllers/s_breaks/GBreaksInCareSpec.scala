@@ -44,7 +44,7 @@ class GBreaksInCareSpec extends Specification {
       val result = GBreaksInCare.submit(request)
       redirectLocation(result) should beSome("/education/your-course-details")
 
-      val claim = cache.get[Claim](extractCacheKey(result)).get
+      val claim = cache.get[Claim]("default"+extractCacheKey(result)).get
 
       val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
       breaksInCare.breaks must beEmpty

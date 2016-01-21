@@ -62,6 +62,20 @@ class GJobDetailsIntegrationSpec extends Specification {
 
       yourDetails.ctx.browser.find("#hoursPerWeek").size mustEqual 1
     }
+
+    "postcode spaces should be stripped when clicked back" in new WithBrowser with PageObjects{
+      val page = GJobDetailsPage(context) goToThePage()
+      val claim = s7Employment()
+      claim.EmploymentEmployerPostcode_1 = " FY4  5TH "
+      page fillPageWith claim
+
+      val lastWage = page.submitPage()
+
+      lastWage must beAnInstanceOf[GLastWagePage]
+      val yourDetails = lastWage.goBack()
+
+      yourDetails.source must contain("FY4 5TH")
+    }
   }
   section("integration", models.domain.JobDetails.id)
 }

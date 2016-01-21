@@ -195,6 +195,19 @@ class GTheirPersonalDetailsIntegrationSpec extends Specification {
       val dateOfBirth2 = newTheirPersonalDetailsPage readDate("#dateOfBirth")
       dateOfBirth2.get mustEqual "00/00/"
     }
+
+    "navigate to next page and back with spaces in postcode on valid submission" in new WithJsBrowser with PageObjects {
+      val theirPersonalDetailsPage = GTheirPersonalDetailsPage(context)
+      val claim = ClaimScenarioFactory.s4CareYouProvide(hours35 = false)
+      claim.AboutTheCareYouProvidePostcodePersonCareFor = " PR13  4JQ "
+      theirPersonalDetailsPage goToThePage()
+      theirPersonalDetailsPage fillPageWith claim
+      val moreAboutCare = theirPersonalDetailsPage submitPage()
+
+      moreAboutCare must beAnInstanceOf[GMoreAboutTheCarePage]
+      val theirPersonalDetailsPageAgain = moreAboutCare.goBack()
+      theirPersonalDetailsPageAgain.source must contain("PR13 4JQ")
+    }
   }
   section("integration", models.domain.CareYouProvide.id)
 }

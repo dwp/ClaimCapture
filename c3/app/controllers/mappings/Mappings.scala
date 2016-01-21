@@ -4,6 +4,7 @@ import controllers.CarersForms._
 import models._
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
+import play.api.Logger
 import play.api.data.Forms._
 import play.api.data.validation._
 import play.api.data.{Form, FormError, Mapping}
@@ -136,7 +137,7 @@ object Mappings {
 
     postcodePattern.pattern.matcher(newPostCode).matches match {
       case true => Valid
-      case false => Invalid(ValidationError(invalidPostcode))
+      case false => { Logger.info(s"PostCode: invalid PostCode - $newPostCode"); Invalid(ValidationError(invalidPostcode)) }
     }
   }
 
