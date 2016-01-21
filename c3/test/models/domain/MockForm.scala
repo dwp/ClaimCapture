@@ -33,6 +33,6 @@ trait MockForm extends Mockito {
   }
 
   def getClaimFromCache(result:scala.concurrent.Future[play.api.mvc.Result], sessionKey : String = CachedClaim.key) = {
-    ClaimEncryption.decrypt(cache.get[Claim](extractCacheKey(result, sessionKey)).get)
+    ClaimEncryption.decrypt(cache.get[Claim]("default"+extractCacheKey(result, sessionKey)).get)
   }
 }
