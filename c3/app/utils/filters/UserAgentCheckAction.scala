@@ -42,7 +42,7 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
       case _ if setIf(request) =>
         if (key.nonEmpty) {
           Logger.debug(s"UserAgentCheckAction set for key ${UAKey}")
-          cache.set(UAKey, request.headers.get("User-Agent").getOrElse(""), Duration(CacheHandling.expiration + 100, SECONDS))
+          cache.set("default"+UAKey, request.headers.get("User-Agent").getOrElse(""), Duration(CacheHandling.expiration + 100, SECONDS))
         } else {
           throw UserAgentCheckException("Session does not contain key. Cannot save User Agent.")
         }
@@ -57,7 +57,7 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
                 throw UserAgentCheckException(s"UserAgent check failed. $userAgent is different from expected $ua.")
               }
               // to update expiration time and avoid issues when restarting caches.
-              if (request.method == HttpVerbs.GET) cache.set(UAKey, request.headers.get("User-Agent").getOrElse(""), Duration(CacheHandling.expiration + 100, SECONDS))
+              if (request.method == HttpVerbs.GET) cache.set("default"+UAKey, request.headers.get("User-Agent").getOrElse(""), Duration(CacheHandling.expiration + 100, SECONDS))
 
 
             case None if (cache.get(key).isDefined) =>
