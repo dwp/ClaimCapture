@@ -53,7 +53,7 @@ class ClaimEncryptionIntegrationSpec extends Specification {
               }
               None
             } else {
-              val claim = cache.get[Claim](key) match {
+              val claim = cache.get[Claim]("default"+key) match {
                 case Some(c) => Some(c)
                 case _ => None
               }

@@ -75,7 +75,7 @@
                         @otherDetailPlaceHolder(
                             inputDef = Seq(
                                 inputAddress(currentForm("theirAddress.address"), '_label -> messages("address"), '_showId -> true, 'addressLabel -> "theirAddress.address"),
-                                carersInputPostcode(currentForm("theirAddress.postCode"), 'class -> "postcode",'maxLength -> 8, 'ignoreOptional -> true, '_label -> messages("postcode"))
+                                carersInputPostcode(currentForm("theirAddress.postCode"), 'class -> "postcode",'maxLength -> 10, 'ignoreOptional -> true, '_label -> messages("postcode"))
                             ),
                             'id -> "addressWrapper"
                         )

@@ -61,7 +61,7 @@ object GReportAChangeInYourCircumstances extends Controller with CachedChangeOfC
 
           BadRequest(views.html.circs.start_of_process.reportAChangeInYourCircumstances(formWithErrorsUpdate))
         },
-        f => circs.update(f) -> getReportChangesRedirect(circs)
+        circumstancesReportChange => circs.update(formatEmailAndPostCode(circumstancesReportChange)) -> getReportChangesRedirect(circs)
       )
   },checkCookie=true)
 
@@ -81,7 +81,7 @@ object GReportAChangeInYourCircumstances extends Controller with CachedChangeOfC
         case r.PaymentChange.name => CircumstancesPaymentChange  -> controllers.circs.report_changes.routes.GPaymentChange.present()
         case r.BreakFromCaring.name => CircumstancesBreaksInCare  -> controllers.circs.report_changes.routes.GBreaksInCare.present()
         case r.BreakFromCaringYou.name => CircumstancesBreaksInCare  -> controllers.circs.report_changes.routes.GBreaksInCare.present()
-        case _ => CircumstancesOtherInfo      -> controllers.circs.report_changes.routes.GOtherChangeInfo.present()
+        case _ => CircumstancesOtherInfo -> controllers.circs.report_changes.routes.GOtherChangeInfo.present()
       }
     }
 
@@ -94,5 +94,11 @@ object GReportAChangeInYourCircumstances extends Controller with CachedChangeOfC
   private def popDeleteQG(circs:Claim,optSections:Stack[QuestionGroup.Identifier]):Claim = {
     if (optSections.isEmpty) circs
     else popDeleteQG(circs delete(optSections top),optSections pop)
+  }
+
+  private def formatEmailAndPostCode(circumstancesReportChange: CircumstancesReportChange): CircumstancesReportChange = {
+    circumstancesReportChange.copy(
+      email = Some(circumstancesReportChange.email.getOrElse("").trim),
+      emailConfirmation = Some(circumstancesReportChange.emailConfirmation.getOrElse("").trim))
   }
 }

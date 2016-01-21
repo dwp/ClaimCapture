@@ -18,7 +18,7 @@ class GEmploymentSpec extends Specification {
       val jobs = new Jobs().update(job)
 
       val claim = Claim(CachedClaim.key).update(jobs)
-      cache.set(claimKey, claim)
+      cache.set("default"+claimKey, claim)
 
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
       val completedQuestionGroups = Employment.completedQuestionGroups(JobDetails, jobID)(claim)

@@ -23,7 +23,7 @@ object GContactDetails extends Controller with CachedClaim with Navigable with I
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val form = Form(mapping(
     "address" -> address.verifying(requiredAddress),
-    "postcode" -> optional(text verifying validPostcode),
+    "postcode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode)),
     "howWeContactYou" -> optional(carersNonEmptyText.verifying(validPhoneNumberRequired)),
     "contactYouByTextphone" -> optional(text(maxLength = 4)),
     "wantsEmailContact" -> carersNonEmptyText.verifying(validYesNo),
@@ -61,8 +61,15 @@ object GContactDetails extends Controller with CachedClaim with Navigable with I
         } else {
           claim
         }
-        //make sure email address is trimmed
-        updatedClaim.update(contactDetails.copy(email = Some(contactDetails.email.getOrElse("").trim), emailConfirmation = Some(contactDetails.emailConfirmation.getOrElse("").trim))) -> Redirect(routes.GNationalityAndResidency.present())
+        //make sure email address and postcode are trimmed
+        updatedClaim.update(formatEmailAndPostCode(contactDetails)) -> Redirect(routes.GNationalityAndResidency.present())
       })
   } withPreview()
+
+  private def formatEmailAndPostCode(contactDetails: ContactDetails): ContactDetails = {
+    contactDetails.copy(
+      email = Some(contactDetails.email.getOrElse("").trim),
+      emailConfirmation = Some(contactDetails.emailConfirmation.getOrElse("").trim),
+      postcode = Some(formatPostCode(contactDetails.postcode.getOrElse(""))))
+  }
 }

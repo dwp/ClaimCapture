@@ -6,7 +6,7 @@ import app.XMLValues._
 import gov.dwp.carers.security.encryption.EncryptorAES
 import models._
 import models.domain.Claim
-import play.api.i18n.{Lang, MessagesApi}
+import play.api.i18n.Lang
 import utils.helpers.PastPresentLabelHelper._
 import scala.language.implicitConversions
 import scala.reflect.ClassTag

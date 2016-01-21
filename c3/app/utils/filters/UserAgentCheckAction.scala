@@ -35,7 +35,7 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
   def apply(request: RequestHeader) = {
 
     val key = getKeyFromSession(request)
-    val UAKey = s"${key}_UA"
+    val UAKey = s"${CacheHandling.claimCacheNamespace}${key}_UA"
 
     request match {
 
@@ -57,7 +57,7 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
                 throw UserAgentCheckException(s"UserAgent check failed. $userAgent is different from expected $ua.")
               }
               // to update expiration time and avoid issues when restarting caches.
-              if (request.method == HttpVerbs.GET) cache.set(UAKey, request.headers.get("User-Agent").getOrElse(""), Duration(CacheHandling.expiration + 100, SECONDS))
+              if (request.method == HttpVerbs.GET) cache.set("default"+UAKey, request.headers.get("User-Agent").getOrElse(""), Duration(CacheHandling.expiration + 100, SECONDS))
 
 
             case None if (cache.get(key).isDefined) =>

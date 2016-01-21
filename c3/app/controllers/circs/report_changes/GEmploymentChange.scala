@@ -55,7 +55,7 @@ object GEmploymentChange extends Controller with CachedChangeOfCircs with Naviga
       "answer" -> nonEmptyText.verifying(validTypeOfWork),
       "employerName" -> optional(carersText(minLength = 2, maxLength = 60)),
       "employerNameAndAddress" -> optional(address.verifying(requiredAddress)),
-      "employerPostcode" -> optional(carersText verifying validPostcode),
+      "employerPostcode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode)),
       "employerContactNumber" -> optional(carersText(maxLength = 15)),
       "employerPayroll" -> optional(carersText(maxLength = 15)),
       "selfEmployedTypeOfWork" -> optional(carersText(maxLength = 35)),
@@ -126,7 +126,7 @@ object GEmploymentChange extends Controller with CachedChangeOfCircs with Naviga
 
         val updatedCircs = popDeleteQG(circs, optSections.filter(_.id != nextPage._1.id))
 
-        updatedCircs.update(employmentChange) -> Redirect(nextPage._2)
+        updatedCircs.update(employmentChange.copy(typeOfWork = employmentChange.typeOfWork.copy(postCode = Some(formatPostCode(employmentChange.typeOfWork.postCode.getOrElse("")))))) -> Redirect(nextPage._2)
       }
     )
   }

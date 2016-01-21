@@ -54,6 +54,20 @@ class GEmploymentChangeIntegrationSpec extends Specification {
       val nextPage = page submitPage()
       nextPage must beAnInstanceOf[GCircsDeclarationPage]
     }
+
+    "navigate to next page and back for postcode with space" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
+      val page = GEmploymentChangePage(context)
+      page goToThePage()
+
+      val claim = CircumstancesScenarioFactory.reportChangesEmploymentChangeSelfEmploymentNotStartedYet
+      claim.CircumstancesEmploymentChangeEmployerPostcode = " PR1  1HB "
+      page fillPageWith(claim)
+
+      val nextPage = page submitPage()
+      nextPage must beAnInstanceOf[GCircsDeclarationPage]
+      val prevPage = nextPage.goBack()
+      prevPage.source must contain("PR1 1HB")
+    }
   }
   section("integration", models.domain.CircumstancesIdentification.id)
 }
