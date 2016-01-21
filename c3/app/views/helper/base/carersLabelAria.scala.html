@@ -1,0 +1,21 @@
+@(field:Field, args: (Symbol, Any)*)(implicit lang: Lang, messages: play.api.i18n.Messages)
+
+@import utils.helpers._
+
+@ignoreLabel = @{
+   !args.find(t => t._1 == 'ignoreLabel).getOrElse('ignoreLabel->false).asInstanceOf[(Symbol,Boolean)]._2
+}
+
+@isAnchorIdRequired = @{ args.toMap.get('_anchorIdRequired).getOrElse(false) == true }
+
+@anchorId = @{ args.toMap.get('_anchorId).getOrElse("").asInstanceOf[String] }
+
+@if(ignoreLabel){
+    <label @if(isAnchorIdRequired) { id="@HtmlLabelHelper.generateAnchorId(anchorId)" } else { id="@HtmlLabelHelper.generateLabelId(field.id)" } class="form-label-bold" for="@CarersCrypto.encryptAES(field.id)">
+        @{Space.*}
+        @carersLabelText(field,args:_*)
+    </label>
+    @if(args.find(_._1=='helperAbove).isDefined){
+      <p class="form-hint" aria-label="@Html(args.find(_._1 == 'textAreaHelper).get._2.toString)">@Html(messages(args.find(_._1=='helperAbove).get._2.toString()))</p>
+    }
+}

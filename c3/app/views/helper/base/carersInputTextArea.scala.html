@@ -12,7 +12,7 @@
 
 @input(field, args.filter(a => a._1 == 'maxLength):_*){(id, name, value, htmlArgs) =>
 
-    @carersLabel(field, args: _*)
+    @carersLabelAria(field, args: _*)
 
     <textarea class="@classes" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" @toHtmlArgs(htmlArgs)>@value</textarea>
     @if(args.find(_._1 == 'textAreaHelper).isDefined) {
