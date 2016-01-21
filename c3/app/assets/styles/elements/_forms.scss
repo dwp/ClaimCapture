@@ -201,6 +201,9 @@ label {
 
 .form-control-1-4 {
     width: 25%;
+    @media (max-width:680px) {        
+        width: 100%;
+    }
 }
 
 .form-control-1-8 {
