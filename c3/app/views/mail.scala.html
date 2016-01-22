@@ -30,6 +30,12 @@
 @isCofcFinishedEmployment = @{
     claim.questionGroup[CircumstancesStartedAndFinishedEmployment].exists(_ =>true)
 }
+@isOriginGB = @{
+    getProperty("origin.tag", "GB") match {
+        case "GB" => true
+        case _ => false
+    }
+}
 
 <!DOCTYPE html>
 <!--[if IE 7]>         <html class="ie ie7" lang="en"> <![endif]-->
@@ -141,6 +147,9 @@
                             <span>@Html(messages("mail.next.send7"))</span><br />
                             <span>@Html(messages("mail.next.send8"))</span><br />
                             <span>@Html(messages("mail.next.send9"))</span><br />
+                            @if(!isOriginGB) {
+                                <span>@Html(messages("mail.next.send10"))</span> <br />
+                            }
                         </div>
 
                     }
@@ -174,6 +183,9 @@
                         <span> @Html(messages("mail.next.line10"))</span><br />
                         <span> @Html(messages("mail.next.line11"))</span><br />
                         <span>@Html(messages("mail.next.line12"))</span><br />
+                        @if(!isOriginGB) {
+                            <span>@Html(messages("mail.next.line15"))</span> <br />
+                        }
                         <span> @Html(messages("mail.next.line13"))</span>
                     </div>
                     <p><b>@Html(messages("mail.next.line14"))</b></p>
