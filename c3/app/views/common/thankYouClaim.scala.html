@@ -34,6 +34,13 @@
     getProperty("email.frontend",false) && claim.questionGroup[ContactDetails].getOrElse(ContactDetails()).wantsContactEmail == Mappings.yes
 }
 
+@isOriginGB = @{
+    getProperty("origin.tag", "GB") match {
+        case "GB" => true
+        case _ => false
+    }
+}
+
 @common.govMain(messages("thankyou")) {
 
 <div class="carers-allowance clearfix" data-journey="carers-allowance:page:thank-you">
@@ -59,10 +66,14 @@
                 <h3 class="heading-small compound">@Html(messages("leftcol.helpline"))</h3>
 
                 <p class="compound">@Html(messages("leftcol.helplinecontent.1"))</p>
-                <p class="compound">@Html(messages("leftcol.helplinecontent.2"))</p>
+                @if(isOriginGB) {
+                    <p class="compound">@Html(messages("leftcol.helplinecontent.2"))</p>
+                }
                 <p class="compound">@Html(messages("leftcol.helplinecontent.3"))</p>
-                <p class="compound">@Html(messages("leftcol.helplinecontent.4"))</p>
-                <p class="compound">@messages("leftcol.callcharges")</p>
+                @if(isOriginGB) {
+                    <p class="compound">@Html(messages("leftcol.helplinecontent.4"))</p>
+                    <p class="compound">@messages("leftcol.callcharges")</p>
+                }
 
             </section>
 
@@ -123,7 +134,10 @@
                             <span><b>@Html(messages("s11.g5.help11"))</b></span><br />
                             <span>@Html(messages("s11.g5.help12"))</span><br />
                             <span>@Html(messages("s11.g5.help13"))</span><br />
-                            <span>@Html(messages("s11.g5.help14"))</span>
+                            <span>@Html(messages("s11.g5.help14"))</span><br />
+                            @if(!isOriginGB) {
+                                <span>@Html(messages("s11.g5.help14.pc"))</span>
+                            }
                         </p>
 
                         <p>@Html(messages("address.details"))</p>

@@ -1,6 +1,5 @@
 package controllers
 
-import java.io.DataOutputStream
 import java.net.{HttpURLConnection, URL}
 import java.nio.charset.Charset
 
@@ -8,22 +7,27 @@ import play.api.Logger
 import play.api.mvc.{Action, Controller}
 import app.ConfigProperties._
 import java.util.UUID._
-
-import scala.io.Source
-import scala.util.{Failure, Success, Try}
+import scala.util.{Failure, Try}
 import java.net.URLEncoder._
 
 object ChannelShiftParams {
   def apply() = {
     Map(
       "v" -> "1",
-      "tid" -> getProperty("analytics.accountTag","UA-57523228-1"),
+      "tid" -> getAnalyticsTag(),
       "cid" -> randomUUID().toString(),
       "t" -> "pageview",
       "dp" -> "/cs2015",
       "dh" -> getProperty("analytics.host","localhost")
 
     )
+  }
+
+  private def getAnalyticsTag(): String = {
+    getProperty("origin.tag","GB") match {
+      case "GB" => getProperty("analytics.accountTag","UA-57523228-1")
+      case _ => getProperty("analytics.accountNITag","UA-57523228-28")
+    }
   }
 }
 object ChannelShiftController extends ChannelShift(ChannelShiftParams())

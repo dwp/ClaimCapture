@@ -1,5 +1,6 @@
 package xml.claim
 
+import app.ConfigProperties._
 import controllers.mappings.Mappings
 import models.domain._
 import app.XMLValues._
@@ -13,6 +14,14 @@ import play.api.Play.current
 
 object EvidenceList {
   val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
+
+  def isOriginGB(): Boolean = {
+    getProperty("origin.tag", "GB") match {
+      case "GB" => true
+      case _ => false
+    }
+  }
+
   def buildXml(claim: Claim) = {
     <EvidenceList>
       {evidence(claim)}
@@ -36,7 +45,13 @@ object EvidenceList {
 
     var nodes = NodeSeq.Empty
     if (evidenceRequired) {
-      nodes ++= recepientAddress("address.send")
+      nodes ++=
+        {
+          isOriginGB match {
+            case true => recipientAddress("address.send")
+            case false => recipientAddressNI("address.send")
+          }
+        }
     }
 
     nodes ++= evidenceTitle("next")
@@ -103,8 +118,13 @@ object EvidenceList {
     <Content>{messagesApi(text)}</Content>
   }
 
-  def recepientAddress(questionLabelCode: String):NodeSeq = {
+  def recipientAddress(questionLabelCode: String):NodeSeq = {
     val address = MultiLineAddress(Some(messagesApi("s11.g5.help11")),Some(messagesApi("s11.g5.help12")),Some(messagesApi("s11.g5.help13")))
     postalAddressStructureRecipientAddress(questionLabelCode, address, Some(messagesApi("s11.g5.help14")))
+  }
+
+  def recipientAddressNI(questionLabelCode: String):NodeSeq = {
+    val address = MultiLineAddress(Some(messagesApi("s11.g5.help11")),Some(messagesApi("s11.g5.help12")),Some(messagesApi("s11.g5.help13") + ", " + messagesApi("s11.g5.help14")))
+    postalAddressStructureRecipientAddress(questionLabelCode, address, Some(messagesApi("s11.g5.help14.pc")))
   }
 }
