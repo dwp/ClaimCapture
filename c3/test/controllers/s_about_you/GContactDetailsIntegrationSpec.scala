@@ -291,7 +291,7 @@ class GContactDetailsIntegrationSpec extends Specification {
       answerText(previewPageModified) mustEqual "Yes - myemail@website.com"
     }
 
-    "Present email with no help only when email yes and email has space selected and return to page" in new WithJsBrowser with PageObjects {
+    "Present email with no help only when email yes and email has space selected and return to page" in new WithJsBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "true"))) with PageObjects {
       val page = GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       claim.AboutYouWantsEmailContact = "Yes"
@@ -323,6 +323,7 @@ class GContactDetailsIntegrationSpec extends Specification {
       val contactPageAgain = nextPage goBack()
       contactPageAgain.source must contain("FY1 2RW")
     }
+
   }
   section("integration", models.domain.AboutYou.id)
 }
