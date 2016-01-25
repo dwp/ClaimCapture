@@ -1,7 +1,20 @@
 @()(implicit request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
-@import play.api.i18n.Messages
+@import app.ConfigProperties._
 
+@isOriginGB = @{
+    getProperty("origin.tag", "GB") match {
+        case "GB" => true
+        case _ => false
+    }
+}
+
+@guideLink = @{
+    isOriginGB match {
+        case true => "/claim-help"
+        case false => "http://www.nidirect.gov.uk/index/information-and-services/caring-for-someone/money-matters/carersallowance.htm"
+    }
+}
 <aside class="column-quarter sidebar" id="sidebar" role="complementary" aria-labelledby="helpcontent">
 
     <section class="font-xsmall" id="help">
@@ -10,17 +23,21 @@
 
         @if((!request.uri.startsWith("/claim-help"))) {
             <p class="compound">
-                <a id="helppage" rel="external" href="/claim-help" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Left Column")>@Html(messages("leftcol.guide"))</a>
+                <a id="helppage" rel="external" href="@guideLink" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Left Column")>@Html(messages("leftcol.guide"))</a>
             </p>
         }
 
     	<h3 class="heading-small compound">@Html(messages("leftcol.helpline"))</h3>
 
     	<p class="compound">@Html(messages("leftcol.helplinecontent.1"))</p>
-        <p class="compound">@Html(messages("leftcol.helplinecontent.2"))</p>
+        @if(isOriginGB) {
+            <p class="compound">@Html(messages("leftcol.helplinecontent.2"))</p>
+        }
         <p class="compound">@Html(messages("leftcol.helplinecontent.3"))</p>
-        <p class="compound">@Html(messages("leftcol.helplinecontent.4"))</p>
-        <p class="compound">@messages("leftcol.callcharges")</p>
+        @if(isOriginGB) {
+            <p class="compound">@Html(messages("leftcol.helplinecontent.4"))</p>
+            <p class="compound">@messages("leftcol.callcharges")</p>
+        }
 
     </section>
 

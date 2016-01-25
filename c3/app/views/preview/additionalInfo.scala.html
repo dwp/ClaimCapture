@@ -3,7 +3,14 @@
 @import models.domain._
 @import controllers.mappings.Mappings._
 @import helper._
+@import app.ConfigProperties._
 
+@isOriginGB = @{
+    getProperty("origin.tag", "GB") match {
+        case "GB" => true
+        case _ => false
+    }
+}
 @additionalInfo = @{claim.questionGroup[AdditionalInfo].getOrElse(AdditionalInfo())}
 @thirdPartyDetails = @{claim.questionGroup[ThirdPartyDetails].getOrElse(ThirdPartyDetails())}
 @aboutYouCarer = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}
@@ -25,7 +32,7 @@
 }
 @content = {
     @fieldWithLink("additional_info" , "anythingElse.answer", additionalInfoAnswer, elementId = Some("anythingElse_answer"), disableLink = disableChangeButton)
-    @if(lang.language != "cy") {
+    @if(lang.language != "cy" && isOriginGB) {
         @fieldWithLink("additional_info_welsh" , "welshCommunication", additionalInfoWelsh, elementId = Some("welshCommunication"), disableLink = disableChangeButton)
     }
     @fieldWithLink("third_party" , "thirdParty.completedOnBehalf", thirdPartyDetailsMessage, elementId = Some("thirdParty"), disableLink = disableChangeButton)

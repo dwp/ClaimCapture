@@ -1,5 +1,6 @@
 package services.submission
 
+import app.ConfigProperties._
 import app.ReportChange._
 import app.XMLValues.NotAsked
 import controllers.submission.{StatusRoutingController, claimType}
@@ -38,7 +39,7 @@ trait ClaimSubmissionService {
 
   def getTransactionIdAndRegisterGenerated(claim: Claim, jsEnabled: Int): String = {
     val transId = claimTransaction.generateId
-    claimTransaction.registerId(transId, AsyncClaimSubmissionService.GENERATED, claimType(claim), jsEnabled)
+    claimTransaction.registerId(transId, AsyncClaimSubmissionService.GENERATED, claimType(claim), jsEnabled, getProperty("origin.tag", "GB"))
     Logger.info(s"TransactionId [$transId] generated for ${claim.key} ${claim.uuid}.")
     transId
   }

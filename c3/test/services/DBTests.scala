@@ -26,6 +26,7 @@ object DBTests {
           circs_type INTEGER,
           lang CHARACTER VARYING(10),
           js_enabled INTEGER,
+          origintag CHARACTER VARYING(6),
           PRIMARY KEY(transaction_id),
           CONSTRAINT transaction_fk FOREIGN KEY(transaction_id) REFERENCES transactionids(transaction_id)
         );

@@ -4,7 +4,14 @@
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.dates._
 @import play.api.i18n.Messages
+@import app.ConfigProperties._
 
+@isOriginGB = @{
+    getProperty("origin.tag", "GB") match {
+        case "GB" => true
+        case _ => false
+    }
+}
 
     @main(messages("claimHelp.legend")) {
 
@@ -49,7 +56,9 @@
             </ul>
 
             <p>@Html(messages("claimHelp.2.12"))</p>
-            <p>@Html(messages("claimHelp.2.13"))</p>
+            @if(isOriginGB) {
+                <p>@Html(messages("claimHelp.2.13"))</p>
+            }
 
             <h2 class="heading-medium" id="3">@Html(messages("claimHelp.5.1"))</h2>
 
@@ -88,7 +97,9 @@
 
             <p>@Html(messages("claimHelp.footer.3"))</p>
             <p>@Html(messages("claimHelp.footer.4"))</p>
-            <p>@Html(messages("claimHelp.footer.5"))</p>
+            @if(isOriginGB) {
+                <p>@Html(messages("claimHelp.footer.5"))</p>
+            }
 
             <h3 class="heading-small">@Html(messages("claimHelp.footer.6"))</h3>
 

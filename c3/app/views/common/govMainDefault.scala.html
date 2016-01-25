@@ -114,12 +114,14 @@
             <div class="container clearfix">
                 <div>
                     <nav class="footer-nav language">
-                        @if(getProperty("galluogi.cymraeg", default = true)) {
-                            @if((request.uri.startsWith("/allowance/benefits")) || (request.uri.startsWith("/circumstances/report-changes/selection"))) {
-                                @if(lang.language == "cy") {
-                                    <a id="lang-en" href="/change-language/en" aria-label="@Html(messages("english.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection English")>@Html(messages("english"))</a>
-                                } else {
-                                    <a id="lang-cy" href="/change-language/cy" aria-label="@Html(messages("welsh.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection Welsh")>@Html(messages("welsh"))</a>
+                        @if(getProperty("origin.tag", "GB") == "GB") {
+                            @if(getProperty("galluogi.cymraeg", default = true)) {
+                                @if((request.uri.startsWith("/allowance/benefits")) || (request.uri.startsWith("/circumstances/report-changes/selection"))) {
+                                    @if(lang.language == "cy") {
+                                        <a id="lang-en" href="/change-language/en" aria-label="@Html(messages("english.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection English")>@Html(messages("english"))</a>
+                                    } else {
+                                        <a id="lang-cy" href="/change-language/cy" aria-label="@Html(messages("welsh.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection Welsh")>@Html(messages("welsh"))</a>
+                                    }
                                 }
                             }
                         }

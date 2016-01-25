@@ -27,7 +27,12 @@ object EvidenceList {
     var nodes = NodeSeq.Empty
 
     if(isEmployment1 || isEmployment2){
-      nodes ++= recepientAddress("address.send")
+      nodes ++=         {
+        isOriginGB match {
+          case true => recipientAddress("address.send")
+          case false => recipientAddressNI("address.send")
+        }
+      }
     }
 
     nodes ++= evidenceTitle("next")

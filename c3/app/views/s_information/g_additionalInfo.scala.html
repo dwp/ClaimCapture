@@ -6,6 +6,14 @@
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
 @import views.html.s_information.main
+@import app.ConfigProperties._
+
+@isOriginGB = @{
+	getProperty("origin.tag", "GB") match {
+		case "GB" => true
+		case _ => false
+	}
+}
 
 @main(messages("s10_2.g1") + " - " + messages("s10_2.longName"), Some(currentForm)) {
     @form(action = controllers.s_information.routes.GAdditionalInfo.submit, 'role -> "form") {
@@ -25,10 +33,10 @@
 	                    'display ->  { if (currentForm("anythingElse.answer").value.getOrElse("no") == "yes") "yes" else "no" }
 	                )
 					@if(lang.language != "cy") {
-						@yesNoRadioGroup(currentForm("welshCommunication"))
+						@if(isOriginGB) { @yesNoRadioGroup(currentForm("welshCommunication")) } else { <input type="hidden" id="welshCommunication_no" name="welshCommunication" value="no"> }
 					} else {
 						<input type="hidden" id="welshCommunication_yes" name="welshCommunication" value="yes">
-						}
+					}
 	            </ul>
 	        </fieldset>
 	
