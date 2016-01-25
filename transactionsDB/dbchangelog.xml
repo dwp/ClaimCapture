@@ -7,4 +7,5 @@
  <include file="dbchangelog_004.sql"/>
  <include file="dbchangelog_005.sql"/>
  <include file="dbchangelog_006.sql"/>
+ <include file="dbchangelog_007.sql"/>
 </databaseChangeLog>

@@ -8,6 +8,7 @@ import play.api.i18n.Lang
 import anorm.SqlParser._
 import anorm.~
 import play.api.Logger
+import app.ConfigProperties._
 
 trait ClaimTransactionComponent {
   val claimTransaction: ClaimTransaction
@@ -19,7 +20,7 @@ trait ClaimTransactionComponent {
         connection =>
           try {
             val statement = connection.prepareCall("select get_new_transaction_id(?);")
-            statement.setString(1, app.ConfigProperties.getProperty("origin.tag", "GB"))
+            statement.setString(1, getProperty("origin.tag", "GB"))
             statement.execute()
             val result = statement getResultSet()
             result.next
@@ -34,14 +35,14 @@ trait ClaimTransactionComponent {
     /**
      * Record that an ID has been used
      */
-    def registerId(id: String, statusCode: String, claimType: Int, jsEnabled: Int): Unit = DB.withConnection("carers") {
+    def registerId(id: String, statusCode: String, claimType: Int, jsEnabled: Int, originTag: String): Unit = DB.withConnection("carers") {
       implicit c =>
         SQL(
           """
-          INSERT INTO transactionstatus (transaction_id, status, type, js_enabled)
-          VALUES ({transactionId},{status},{type},{js_enabled});
+          INSERT INTO transactionstatus (transaction_id, status, type, js_enabled, origintag)
+          VALUES ({transactionId},{status},{type},{js_enabled},{originTag});
           """
-        ).on("transactionId" -> id, "status" -> statusCode, "type" -> claimType, "js_enabled" -> jsEnabled).execute()
+        ).on("transactionId" -> id, "status" -> statusCode, "type" -> claimType, "js_enabled" -> jsEnabled, "originTag" -> originTag).execute()
     }
 
     /**
@@ -134,7 +135,7 @@ trait ClaimTransactionComponent {
   class StubClaimTransaction extends ClaimTransaction {
     override def generateId: String = "15101000001"
 
-    override def registerId(id: String, statusCode: String, claimType: Int, jsEnabled: Int) {}
+    override def registerId(id: String, statusCode: String, claimType: Int, jsEnabled: Int, originTag: String) {}
 
     override def recordMi(id: String, thirdParty: Boolean = false, circsChange: Option[Int], lang: Option[Lang]) {}
 
