@@ -64,9 +64,15 @@ protected trait CacheHandling {
     cache.get[Claim](claimFullKey(key))
   }
 
-  def saveInCache(claim: Claim) = cache.set(claimFullKey(claim.uuid), claim, Duration(CacheHandling.expiration, SECONDS))
+  def saveInCache(claim: Claim) = {
+    Logger.info("Saving cache entry for key:" + claimFullKey(claim.uuid))
+    cache.set(claimFullKey(claim.uuid), claim, Duration(CacheHandling.expiration, SECONDS))
+  }
 
-  def removeFromCache(key: String) = cache.remove(claimFullKey(key))
+  def removeFromCache(key: String) = {
+    Logger.info("Removing cache entry for key:" + claimFullKey(key))
+    cache.remove(claimFullKey(key))
+  }
 
   protected def recordMeasurements() = {
     Histograms.recordCacheSize(Try(CacheManager.getInstance().getCache("play").getKeysWithExpiryCheck.size()).getOrElse(0))
