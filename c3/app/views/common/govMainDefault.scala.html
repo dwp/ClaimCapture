@@ -3,6 +3,16 @@
 @import app.ConfigProperties._
 @import utils.helpers.OriginTagHelper._
 
+@isCadsFeedbackEnabled=@{
+    getProperty("feedback.cads.enabled",default = false)
+}
+@feedbackUrl=@{
+    isCadsFeedbackEnabled match {
+        case true => "/feedback/feedback"
+        case _ => "https://www.gov.uk/done/apply-carers-allowance"
+    }
+}
+
 <!DOCTYPE html>
 
     <!--[if IE 6]>         <html class="ie ie6" lang="en"> <![endif]-->
@@ -130,7 +140,7 @@
 
                         <a id="privacy" rel="external" target="privacyLink" href="https://www.gov.uk/government/organisations/department-for-work-pensions/about/personal-information-charter" @views.html.ga.trackClickEvent(linkName = "Privacy")>@messages("privacyLink")</a>
                         
-                        <a id="claim-feedback" rel="external" target="_blank" href="https://www.gov.uk/done/apply-carers-allowance" @views.html.ga.trackClickEvent(linkName = "Feedback")>@messages("footer.feedback.text")</a>
+                        <a id="claim-feedback" @if(!isCadsFeedbackEnabled){rel="external" target="_blank"} href="@feedbackUrl" @views.html.ga.trackClickEvent(linkName = "Feedback")>@messages("footer.feedback.text")</a>
                         
                     </nav>
                     <p>@Html(messages("madePreston"))</p>

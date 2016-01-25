@@ -1,0 +1,91 @@
+@(currentForm: Form[models.domain.Feedback])(implicit claim: models.domain.Claim, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
+
+@import utils.helpers.CarersTemplate._
+@import utils.csrf.DwpCSRFFormHelper
+@import views.html.helper._
+@import utils.helpers.CarersCrypto
+@import views.html.feedback.main
+@import models.domain.SatisfiedOptions
+@import views.html.helper.base.carersInputTextArea
+
+@feedbackOptionsList(implicit lang:Lang) = @{
+    Seq(SatisfiedOptions.vs -> messages("feedback.satisfied.vs"),
+        SatisfiedOptions.s -> messages("feedback.satisfied.s"),
+        SatisfiedOptions.neither -> messages("feedback.satisfied.neither"),
+        SatisfiedOptions.d -> messages("feedback.satisfied.d"),
+        SatisfiedOptions.vd -> messages("feedback.satisfied.vd")
+    )
+}
+
+@main(messages("feedback.legend")) {
+    @errorsSummary(currentForm)
+
+    @form(action = controllers.feedback.routes.GFeedback.submit) {
+        @DwpCSRFFormHelper.formField
+
+        <div class="form-wrap">
+
+            <fieldset class="form-elements">
+                <legend class="form-label-bold">@Html(messages("satisfiedAnswer"))</legend>
+                @standaloneListRadioGroup(currentForm("satisfiedAnswer"),
+                    'items -> feedbackOptionsList,
+                    'track -> true,
+                    'trackLabel -> messages("xxxx"))
+
+                <ul>
+                    @yesNoRadioGroup(currentForm("difficultyAndText.answer"),
+                        'ignoreOptional -> true,
+                        '_label -> messages("feedback.difficulty.label"))
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersInputTextArea(currentForm("difficultyAndText.text1"),
+                                '_label -> messages("feedback.difficulty.text1"),
+                                'helperAbove -> messages("feedback.difficulty.helper1"),
+                                'textAreaHelper -> Html(messages("3000charsLeft")),
+                                'maxLength -> 3000)
+                        ),
+                        'id -> "difficultyWrap1"
+                    )
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersInputTextArea(currentForm("difficultyAndText.text2"),
+                                '_label -> messages("feedback.difficulty.text2"),
+                                'textAreaHelper -> Html(messages("3000charsLeft")),
+                                'maxLength -> 3000)
+                        ),
+                        'id -> "difficultyWrap2"
+                    )
+                </ul>
+
+            </fieldset>
+            <button type="submit" id="send" name="send" value="send" class="button">Send</button>
+        </div>
+    }
+
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/feedback/feedback.js")></script>
+   	<script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
+
+    <script type="text/javascript">
+    	$(function(){
+			window.areaCounter({selector:"@CarersCrypto.encryptAES("difficultyAndText_text1")",maxChars:3000});
+			window.areaCounter({selector:"@CarersCrypto.encryptAES("difficultyAndText_text2")",maxChars:3000});
+		})
+
+		$(function(){
+			window.initEvents(
+			"@CarersCrypto.encryptAES("difficultyAndText_answer_yes")",
+			"@CarersCrypto.encryptAES("difficultyAndText_answer_no")",
+			"@CarersCrypto.encryptAES("difficultyAndText_text1")",
+			"@CarersCrypto.encryptAES("difficultyAndText_text2")",
+			"@CarersCrypto.encryptAES("difficultyWrap1")",
+			"@CarersCrypto.encryptAES("difficultyWrap2")"
+			);
+			@ga.stagePrompt()
+		});
+	</script>
+}
+
+
+
