@@ -1,14 +1,14 @@
 --liquibase formatted sql
 
 --changeset pwhitehead:006_1
-CREATE SEQUENCE public.gbtransactionid START 1 MAXVALUE 1000000 CYCLE
-GRANT SELECT,UPDATE ON public.gbtransactionid TO carers_c3
---rollback DROP SEQUENCE public.gbtransactionid 
+CREATE SEQUENCE public.gbtransactionid START 1 MAXVALUE 1000000 CYCLE;
+GRANT SELECT,UPDATE ON public.gbtransactionid TO carers_c3;
+--rollback DROP SEQUENCE public.gbtransactionid; 
     
 --changeset pwhitehead:006_2
-CREATE SEQUENCE public.nitransactionid START 1000001 MAXVALUE 9999999 CYCLE
-GRANT SELECT,UPDATE ON public.nitransactionid TO carers_c3
---rollback DROP SEQUENCE public.nitransactionid
+CREATE SEQUENCE public.nitransactionid START 1000001 MAXVALUE 9999999 CYCLE;
+GRANT SELECT,UPDATE ON public.nitransactionid TO carers_c3;
+--rollback DROP SEQUENCE public.nitransactionid;
 
 --changeset pwhitehead:006_3
 DROP FUNCTION IF EXISTS public.get_new_transaction_id();
