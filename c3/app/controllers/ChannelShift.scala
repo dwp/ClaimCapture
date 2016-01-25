@@ -9,12 +9,13 @@ import app.ConfigProperties._
 import java.util.UUID._
 import scala.util.{Failure, Try}
 import java.net.URLEncoder._
+import utils.helpers.OriginTagHelper._
 
 object ChannelShiftParams {
   def apply() = {
     Map(
       "v" -> "1",
-      "tid" -> getAnalyticsTag(),
+      "tid" -> analyticsTag(),
       "cid" -> randomUUID().toString(),
       "t" -> "pageview",
       "dp" -> "/cs2015",
@@ -22,14 +23,8 @@ object ChannelShiftParams {
 
     )
   }
-
-  private def getAnalyticsTag(): String = {
-    getProperty("origin.tag","GB") match {
-      case "GB" => getProperty("analytics.accountTag","UA-57523228-1")
-      case _ => getProperty("analytics.accountNITag","UA-57523228-28")
-    }
-  }
 }
+
 object ChannelShiftController extends ChannelShift(ChannelShiftParams())
 
 class ChannelShift(params:Map[String,String]) extends Controller{

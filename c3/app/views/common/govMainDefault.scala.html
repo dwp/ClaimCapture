@@ -1,6 +1,7 @@
 @(title: String)(content: Html)(isCookiePage: Boolean)(implicit footerCategories: Html = Html(""), lang: Lang, request:play.api.mvc.Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
 
 @import app.ConfigProperties._
+@import utils.helpers.OriginTagHelper._
 
 <!DOCTYPE html>
 
@@ -114,7 +115,7 @@
             <div class="container clearfix">
                 <div>
                     <nav class="footer-nav language">
-                        @if(getProperty("origin.tag", "GB") == "GB") {
+                        @if(isOriginGB) {
                             @if(getProperty("galluogi.cymraeg", default = true)) {
                                 @if((request.uri.startsWith("/allowance/benefits")) || (request.uri.startsWith("/circumstances/report-changes/selection"))) {
                                     @if(lang.language == "cy") {

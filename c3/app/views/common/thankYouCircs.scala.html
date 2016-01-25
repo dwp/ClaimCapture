@@ -1,12 +1,12 @@
 @(lang: Lang)(implicit circs: models.domain.Claim, request: Request[AnyContent],flash:Flash, messages: Messages)
+
 @import models.domain.CircumstancesReportChange
 @import controllers.mappings.Mappings
-
-
 @import app.ConfigProperties._
 @import models.domain.{CircumstancesBreaksInCare, CircumstancesEmploymentNotStarted, CircumstancesStartedAndFinishedEmployment, CircumstancesStartedEmploymentAndOngoing}
 @import play.api.Play
 @import play.api.Play.current
+@import utils.helpers.OriginTagHelper._
 
 @showBreaksInCareMessages = @{
 var breaksIncare = circs.questionGroup[CircumstancesBreaksInCare].getOrElse(CircumstancesBreaksInCare())
@@ -47,13 +47,6 @@ show
 
 @isEmail = @{
 getProperty("email.frontend",false) && circs.questionGroup[CircumstancesReportChange].getOrElse(CircumstancesReportChange()).wantsContactEmail == Mappings.yes
-}
-
-@isOriginGB = @{
-    getProperty("origin.tag", "GB") match {
-        case "GB" => true
-        case _ => false
-    }
 }
 
 @common.govMain(messages("circs.thankyou")) {

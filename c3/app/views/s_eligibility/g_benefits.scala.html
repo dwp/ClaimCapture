@@ -5,9 +5,8 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import helper._
 @import models.domain.Benefits
-@import app.ConfigProperties._
 @import utils.helpers.CarersCrypto
-
+@import utils.helpers.OriginTagHelper._
 
 @benefitsList(implicit lang:Lang) = @{
     val benefitsSeq = Seq(
@@ -17,9 +16,9 @@
         Benefits.afip -> messages("s0.g1.help10"),
         Benefits.noneOfTheBenefits -> messages("s0.g1.help12"))
 
-    getProperty("origin.tag", "GB") match {
-        case "GB" => Seq(Benefits.pip -> messages("s0.g1.help2")) ++ benefitsSeq
-        case _ => benefitsSeq
+    isOriginGB match {
+        case true => Seq(Benefits.pip -> messages("s0.g1.help2")) ++ benefitsSeq
+        case false => benefitsSeq
     }
 }
 

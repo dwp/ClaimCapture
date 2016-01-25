@@ -7,14 +7,7 @@
 @import views.html.helper.dates._
 @import scala.language.postfixOps
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
-@import app.ConfigProperties._
-
-@isOriginGB = @{
-    getProperty("origin.tag", "GB") match {
-        case "GB" => true
-        case _ => false
-    }
-}
+@import utils.helpers.OriginTagHelper._
 
 @messages1 = @{ Html(messages("dateOfClaimHelp.link")) }
 @trackBack = @{ views.html.ga.trackClickEvent(linkName = "Claim Notes - Backdating Claim Date") }

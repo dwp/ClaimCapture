@@ -3,14 +3,8 @@
 @import models.domain._
 @import controllers.mappings.Mappings._
 @import helper._
-@import app.ConfigProperties._
+@import utils.helpers.OriginTagHelper._
 
-@isOriginGB = @{
-    getProperty("origin.tag", "GB") match {
-        case "GB" => true
-        case _ => false
-    }
-}
 @additionalInfo = @{claim.questionGroup[AdditionalInfo].getOrElse(AdditionalInfo())}
 @thirdPartyDetails = @{claim.questionGroup[ThirdPartyDetails].getOrElse(ThirdPartyDetails())}
 @aboutYouCarer = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}

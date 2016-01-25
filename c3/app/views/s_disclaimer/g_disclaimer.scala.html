@@ -2,14 +2,7 @@
 
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper._
-@import app.ConfigProperties._
-
-@isOriginGB = @{
-    getProperty("origin.tag", "GB") match {
-        case "GB" => true
-        case _ => false
-    }
-}
+@import utils.helpers.OriginTagHelper._
 
 @whatLink = @{
     isOriginGB match {

@@ -6,14 +6,7 @@
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
 @import views.html.s_information.main
-@import app.ConfigProperties._
-
-@isOriginGB = @{
-	getProperty("origin.tag", "GB") match {
-		case "GB" => true
-		case _ => false
-	}
-}
+@import utils.helpers.OriginTagHelper._
 
 @main(messages("s10_2.g1") + " - " + messages("s10_2.longName"), Some(currentForm)) {
     @form(action = controllers.s_information.routes.GAdditionalInfo.submit, 'role -> "form") {

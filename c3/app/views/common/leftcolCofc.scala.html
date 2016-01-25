@@ -1,13 +1,6 @@
 @()(implicit request: Request[AnyContent], lang: Lang, flash:Flash, messages: play.api.i18n.Messages)
 
-@import app.ConfigProperties._
-
-@isOriginGB = @{
-    getProperty("origin.tag", "GB") match {
-        case "GB" => true
-        case _ => false
-    }
-}
+@import utils.helpers.OriginTagHelper._
 
 <aside class="column-quarter sidebar" id="sidebar" role="complementary" aria-labelledby="helpcontent">
 

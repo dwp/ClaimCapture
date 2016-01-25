@@ -4,14 +4,7 @@
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.dates._
 @import play.api.i18n.Messages
-@import app.ConfigProperties._
-
-@isOriginGB = @{
-    getProperty("origin.tag", "GB") match {
-        case "GB" => true
-        case _ => false
-    }
-}
+@import utils.helpers.OriginTagHelper._
 
     @main(messages("claimHelp.legend")) {
 

@@ -3,6 +3,7 @@
 @import controllers.circs.report_changes.GEmploymentChange
 @import models.domain._
 @import app.ConfigProperties._
+@import utils.helpers.OriginTagHelper._
 
 @claimType = @{if (isClaim)"claim" else "cofc"}
 @claimDate = @{
@@ -30,12 +31,7 @@
 @isCofcFinishedEmployment = @{
     claim.questionGroup[CircumstancesStartedAndFinishedEmployment].exists(_ =>true)
 }
-@isOriginGB = @{
-    getProperty("origin.tag", "GB") match {
-        case "GB" => true
-        case _ => false
-    }
-}
+
 
 <!DOCTYPE html>
 <!--[if IE 7]>         <html class="ie ie7" lang="en"> <![endif]-->
