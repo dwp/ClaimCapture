@@ -51,6 +51,9 @@ object LightFakeApplication {
     additionalConfiguration = additionalConfiguration
   )
 
+  // Default switch positions ... so we dont need to set config for every switch position during tests, add default them here and override if required.
+  lazy val defaultSwitchPositions=Map("saveForLaterSaveEnabled" -> "true", "feedback.cads.enabled" -> "true")
+
 
   //cache 2 fake applications
   lazy val faCEAFalse = FakeApplication(
@@ -59,6 +62,15 @@ object LightFakeApplication {
   lazy val faCEATrue = FakeApplication(
     additionalConfiguration = configurationMap ++ Map("circs.employment.active" -> "true")
   )
+
+  lazy val SaveForLaterOff = FakeApplication(
+    additionalConfiguration = configurationMap ++ Map("saveForLaterSaveEnabled" -> "false", "saveForLaterResumeEnabled" -> "false")
+  )
+
+  lazy val FeedbackOff = FakeApplication(
+    additionalConfiguration = configurationMap ++ Map("feedback.cads.enabled" -> "false")
+  )
+
   def faXmlVersion(xmlSchemaVersionNumber: String) = FakeApplication(
     additionalConfiguration = configurationMap ++ Map("xml.schema.version" -> xmlSchemaVersionNumber)
   )
@@ -70,11 +82,8 @@ object LightFakeApplication {
     )
   }
 
-  //cache a standard fake application to 
   def fa = {
-    val app = FakeApplication(
-      additionalConfiguration = configurationMap
-    )
+    val app = FakeApplication(additionalConfiguration = configurationMap ++ defaultSwitchPositions)
     app
   }
 
