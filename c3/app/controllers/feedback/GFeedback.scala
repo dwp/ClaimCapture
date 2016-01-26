@@ -59,7 +59,7 @@ object GFeedback extends Controller with CachedClaim with Navigable with I18nSup
             BadRequest(views.html.feedback.feedback(formWithErrors))
           },
           form => {
-            val f=Map("datetime"->DateTime.now.toString, "satisfied"->form.satisfiedAnswer, "difficult"->form.difficultyAndText.answer.getOrElse(""), "comment"->form.difficultyAndText.text)
+            val f=Map("origin"->getProperty("origin.tag","GB"), "datetime"->DateTime.now.toString, "satisfied"->form.satisfiedAnswer, "difficult"->form.difficultyAndText.answer.getOrElse(""), "comment"->form.difficultyAndText.text)
             val json=Json.toJson(f)
             processFeedback(json)
             Redirect(thankyouPageUrl)

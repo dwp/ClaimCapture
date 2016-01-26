@@ -261,6 +261,7 @@ protected trait CacheHandling {
     val fbuuid = randomUUID.toString
     cache.set(feedbackFullKey(fbuuid), json, Duration(CacheHandling.feedbackExpirySecs, SECONDS))
     Logger.info(s"FEEDBACK save "+feedbackFullKey(fbuuid)+" saved with memcache expiry:" + DateTime.now.plusSeconds(CacheHandling.feedbackExpirySecs))
+    Logger.debug("FEEDBACK save to cache json:"+json)
     createFeedbackInList(feedbackFullKey(fbuuid))
   }
 
