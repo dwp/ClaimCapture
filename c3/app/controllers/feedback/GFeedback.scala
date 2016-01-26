@@ -68,7 +68,7 @@ object GFeedback extends Controller with CachedClaim with Navigable with I18nSup
   def thankyouPageUrl={
     app.ConfigProperties.getProperty("origin.tag", "GB") match{
       case "GB" => getProperty("feedback.gb.thankyou.url", default = "config-error-getting-uk-thankyou")
-      case "NI" => getProperty("feedback.ni.thankyou.url", default = "config-error-getting-ni-thankyou")
+      case "GB-NIR" => getProperty("feedback.ni.thankyou.url", default = "config-error-getting-ni-thankyou")
       case _ => "config-error-origin-tag"
     }
   }

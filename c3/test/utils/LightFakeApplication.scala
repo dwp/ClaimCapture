@@ -54,6 +54,7 @@ object LightFakeApplication {
   // Default switch positions ... so we dont need to set config for every switch position during tests, add default them here and override if required.
   lazy val defaultSwitchPositions=Map(
     "origin.tag" -> "GB",
+    "i18n.messagelisting" -> "messagelisting.properties",
     "saveForLaterSaveEnabled" -> "true",
     "feedback.cads.enabled" -> "true"
   )
