@@ -3,7 +3,9 @@ package controllers.feedback
 import controllers.CarersForms._
 import controllers.mappings.Mappings._
 import models.yesNo.{OptYesNoWith2Text, YesNo, YesNoWith2Text}
+import org.joda.time.DateTime
 import play.api.i18n.{Lang, MMessages, MessagesApi, I18nSupport}
+import play.api.libs.json.{JsValue, Json}
 import language.reflectiveCalls
 import play.api.data.Form
 import play.api.data.Forms._
@@ -57,7 +59,9 @@ object GFeedback extends Controller with CachedClaim with Navigable with I18nSup
             BadRequest(views.html.feedback.feedback(formWithErrors))
           },
           form => {
-//            processFeedback(form)
+            val f=Map("datetime"->DateTime.now.toString, "satisfied"->form.satisfiedAnswer, "difficult"->form.difficultyAndText.answer.getOrElse(""), "comment"->form.difficultyAndText.text)
+            val json=Json.toJson(f)
+            processFeedback(json)
             Redirect(thankyouPageUrl)
           }
         )
@@ -65,8 +69,8 @@ object GFeedback extends Controller with CachedClaim with Navigable with I18nSup
     }
   }
 
-  def processFeedback(form: Form[Feedback]) = {
-//    saveFeedbackInCache()
+  def processFeedback(json: JsValue) = {
+    saveFeedbackInCache(json)
   }
 
   def thankyouPageUrl={

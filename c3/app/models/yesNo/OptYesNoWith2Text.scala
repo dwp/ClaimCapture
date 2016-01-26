@@ -2,7 +2,15 @@ package models.yesNo
 
 import controllers.mappings.Mappings._
 
-case class OptYesNoWith2Text(answer: Option[String] = None, text1: Option[String] = None, text2: Option[String] = None)
+case class OptYesNoWith2Text(answer: Option[String] = None, text1: Option[String] = None, text2: Option[String] = None){
+  def text : String={
+    answer match{
+      case Some("yes") => text1.getOrElse("")
+      case Some("no") => text2.getOrElse("")
+      case _ => ""
+    }
+  }
+}
 
 object OptYesNoWith2Text {
 
