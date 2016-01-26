@@ -8,7 +8,9 @@
         <p class="compound">@Html(messages("leftcol.organdonor.line2"))</p>
         <p class="compound">
             @Html(messages("leftcol.organdonor.linkpretext"))
-            <a id="helppage" rel="external" href="@messages("leftcol.organdonor.linkurl")" target="_blank" @views.html.ga.trackClickEvent(linkName = "Organ Donation - Left Column")>@Html(messages("leftcol.organdonor.linktext"))</a>
+            @if(messages("leftcol.organdonor.linktext").length >0){
+                <a id="helppage" rel="external" href="@messages("leftcol.organdonor.linkurl")" target="_blank" @views.html.ga.trackClickEvent(linkName = "Organ Donation - Left Column")>@Html(messages("leftcol.organdonor.linktext"))</a>
+            }
         </p>
     </section>
 </aside>

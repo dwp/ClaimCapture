@@ -2,9 +2,8 @@ package controllers.feedback
 
 import controllers.CarersForms._
 import controllers.mappings.Mappings._
-import models.yesNo.{OptYesNoWith2Text, YesNo, YesNoWith2Text}
-import org.joda.time.DateTime
-import play.api.i18n.{Lang, MMessages, MessagesApi, I18nSupport}
+import models.yesNo.{OptYesNoWith2Text}
+import play.api.i18n.{MMessages, MessagesApi, I18nSupport}
 import play.api.libs.json.{JsValue, Json}
 import language.reflectiveCalls
 import play.api.data.Form
@@ -38,30 +37,23 @@ object GFeedback extends Controller with CachedClaim with Navigable with I18nSup
   )
   (Feedback.apply)(Feedback.unapply))
 
-  val form2 = Form(mapping(
-    "benefitsAnswer" -> nonEmptyText
-  )(Benefits.apply)(Benefits.unapply))
-
-  def present = newClaim { implicit claim => implicit request => implicit request2lang =>
+  def present = resumeClaim { implicit claim => implicit request => implicit request2lang =>
     getProperty("feedback.cads.enabled", default = false) match {
       case false => BadRequest(views.html.common.switchedOff("feedback-present", request2lang))
       case true => Ok(views.html.feedback.feedback(form))
     }
   }
 
-  def submit = newClaim {implicit claim => implicit request => implicit request2lang =>
+  def submit = resumeClaim {implicit claim => implicit request => implicit request2lang =>
     getProperty("feedback.cads.enabled", default = false) match {
       case false => BadRequest(views.html.common.switchedOff("feedback-submit", request2lang))
       case true => {
         form.bindEncrypted.fold(
           formWithErrors => {
-            println("Form got errors:"+formWithErrors)
             BadRequest(views.html.feedback.feedback(formWithErrors))
           },
           form => {
-            val f=Map("origin"->getProperty("origin.tag","GB"), "datetime"->DateTime.now.toString, "satisfied"->form.satisfiedAnswer, "difficult"->form.difficultyAndText.answer.getOrElse(""), "comment"->form.difficultyAndText.text)
-            val json=Json.toJson(f)
-            processFeedback(json)
+            processFeedback(Json.toJson(form.jsonmap))
             Redirect(thankyouPageUrl)
           }
         )
