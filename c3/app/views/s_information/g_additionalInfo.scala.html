@@ -18,7 +18,7 @@
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(carersInputTextArea(currentForm("anythingElse")("text"),
-	                        'placeholder->messages("anythingElse.please.specify"),'textAreaHelper->Html(messages("3000charsLeft")), 'maxLength -> 3000,
+	                        'placeholder->messages("anythingElse.please.specify"),'textAreaHelper->Html(messages("2000charsLeft")), 'maxLength -> 2000,
 	                        'ignoreOptional -> true)
 	                    ),
 	                    'id -> "anythingElseWrapper",
@@ -42,7 +42,7 @@
 <script type="text/javascript">
     $(function(){
         @ga.stagePrompt()
-        window.areaCounter({selector:"@CarersCrypto.encryptAES("anythingElse_text")",maxChars:3000});
+        window.areaCounter({selector:"@CarersCrypto.encryptAES("anythingElse_text")",maxChars:2000});
         window.initEvents("@CarersCrypto.encryptAES("anythingElse_answer_yes")",
         "@CarersCrypto.encryptAES("anythingElse_answer_no")",
         "@CarersCrypto.encryptAES("anythingElse_text")");
