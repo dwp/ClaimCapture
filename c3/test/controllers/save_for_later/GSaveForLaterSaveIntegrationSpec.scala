@@ -78,7 +78,7 @@ class GSaveForLaterSaveIntegrationSpec extends Specification {
       savePage.url mustEqual GSaveForLaterSavePage.url
       savePage.source must contain("Your progress has been saved")
       savePage.source must contain("Go to GOV.UK" )
-      savePage.source must contain("id=\"govuk\"" )
+      savePage.source must contain("id=\"govlink\"" )
     }
 
     "return ok resume screen when claim is found in sfl cache" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterResumeEnabled" -> "true"))) with Claiming {

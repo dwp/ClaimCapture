@@ -1,32 +1,70 @@
-@(url:String)(implicit request: Request[AnyContent], lang: Lang, flash:Flash, messages: play.api.i18n.Messages)
+@(url:String)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, flash:Flash, messages: play.api.i18n.Messages)
 
-@import play.api.i18n.Messages
+@import controllers.mappings.Mappings._
+@import models.domain._
+@import app.ConfigProperties._
+@import views.html.helper._
+@import utils.csrf.DwpCSRFFormHelper
 
+@isSaveEnabled=@{
+    getProperty("saveForLaterSaveEnabled", default = false)
+}
+@saveHref=@{
+    getProperty("saveForLaterUrl", default="/save")
+}
+@contactDetails = @{
+    claim.questionGroup[ContactDetails].getOrElse(ContactDetails())
+}
+@showSaveButton = @{
+    contactDetails.wantsContactEmail match {
+        case yesNo if yesNo == yes && isSaveEnabled => true
+        case _ => false
+    }
+}
+@claimSent = @{ true
+
+}
 @common.govMain(messages("error.retry")) {
-
     <div class="carers-allowance clearfix">
-
         @common.protoType()
-        
+
         @common.helperMobile()
-        
+
         <div class="grid-row main-grid">
-            
             @common.leftcol()
 
             <article class="column-three-quarters main-content error-statement">
-
                 <h1 class="form-title heading-large">@Html(messages("error.retry"))</h1>
-
-                <p>@Html(messages("retry.message"))</p>
-
+                <p>
+                    @if(claimSent) {
+                        @Html(messages("error.application.not.sent")) <br/>
+                    } else {
+                        @Html(messages("error.changes.not.sent")) <br/>
+                    }
+                    @if(showSaveButton) {
+                        <a href="@url" id="Try" class="secondary" aria-label="@Html(messages("try.claim.help"))">@Html(messages("error.send.it.again"))</a><br/>
+                    }
+                    @Html(messages("error.second.time"))<br/>
+                    @if(showSaveButton) {
+                        @Html(messages("error.save.for.later"))<br/>
+                    } else {
+                        @Html(messages("error.come.back.later"))<br/>
+                    }
+                </p>
                 <nav class="form-steps">
-                    <button type="submit" name="action" value="next" class="button secondary" onClick="location.href = ' @url '" aria-label="@Html(messages("restart.claim.help"))">@Html(messages("retry.button"))</button>
+                    <ul>
+                        @if(showSaveButton) {
+                            @form(action = controllers.save_for_later.routes.GSaveForLater.submit, 'role -> "form") {
+                                @DwpCSRFFormHelper.formField
+                                <li><button type="submit" id="save" name="action" class="button">@messages("form.save")</button><li>
+                            }
+                        } else {
+                            <li><button id="Try" type="button" name="action" value="next" class="button" @views.html.ga.trackClickEvent(linkName = "Chose try again") onClick="location.href='@url'" aria-label="@Html(messages("try.claim.help"))" >@Html(messages("try.claim"))</button></li>
+                        }
+                        <li>@Html(messages("error.gov.link"))</li>
+                    </ul>
                 </nav>
-
             </article>
-
         </div>
-        
     </div>
 }
