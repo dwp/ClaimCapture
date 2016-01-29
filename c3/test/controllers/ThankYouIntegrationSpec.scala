@@ -12,6 +12,11 @@ import play.api.i18n._
 import play.api.Play.current
 
 class ThankYouIntegrationSpec extends Specification {
+  def escapeMessage(id:String,param:String="") = {
+    val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
+    messagesApi(id,param)
+  }
+
   section("integration")
   "Thank You" should {
     "present 'Thank You' page" in new WithBrowser with BrowserMatchers {
@@ -28,6 +33,7 @@ class ThankYouIntegrationSpec extends Specification {
 
       browser.find("#employment").getText mustEqual "any payslips you have had since your claim date"
       browser.find("#selfEmployment").getText mustEqual "your most recent finalised accounts you have for your business"
+      browser.pageSource() must contain(escapeMessage("evidence.include.documents"))
     }
 
     "show employment messages" in new WithBrowser with BrowserMatchers {
@@ -39,6 +45,7 @@ class ThankYouIntegrationSpec extends Specification {
 
       browser.find("#employment").getText.nonEmpty must beTrue
       browser.find("#selfEmployment").size() shouldEqual 0
+      browser.pageSource() must contain(escapeMessage("evidence.include.documents"))
     }
 
     "show self-employment messages" in new WithBrowser with BrowserMatchers {
@@ -50,6 +57,7 @@ class ThankYouIntegrationSpec extends Specification {
 
       browser.find("#employment").size() shouldEqual 0
       browser.find("#selfEmployment").getText.nonEmpty must beTrue
+      browser.pageSource() must contain(escapeMessage("evidence.include.documents"))
     }
 
     "don't show employment messages" in new WithBrowser with BrowserMatchers {
@@ -58,6 +66,7 @@ class ThankYouIntegrationSpec extends Specification {
 
       browser.find("#employment").size() shouldEqual 0
       browser.find("#selfEmployment").size() shouldEqual 0
+      browser.pageSource() must not contain(escapeMessage("evidence.include.documents"))
 
     }
 
@@ -77,6 +86,7 @@ class ThankYouIntegrationSpec extends Specification {
 
       thankYouPage must contain(messagesApi("evidence.otherMoney.statutorySickPay"))
       thankYouPage must contain(messagesApi("evidence.otherMoney.otherStatutoryPay"))
+      thankYouPage must contain(messagesApi("evidence.include.documents"))
     }
 
     "not request statutory pay evidence if they don't have statutory pay" in new WithJsBrowser {
@@ -95,6 +105,7 @@ class ThankYouIntegrationSpec extends Specification {
 
       thankYouPage must not contain messagesApi("evidence.otherMoney.statutorySickPay")
       thankYouPage must not contain messagesApi("evidence.otherMoney.otherStatutoryPay")
+      browser.pageSource() must not contain(messagesApi("evidence.include.documents"))
     }
   }
   section("integration")

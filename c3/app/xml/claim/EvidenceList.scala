@@ -42,6 +42,7 @@ object EvidenceList {
     val evidencePensionStatements = Seq("evidence.pensionStatements")
     val evidenceStatutorySickPay = Seq("evidence.otherMoney.statutorySickPay")
     val evidenceOtherStatutoryPay = Seq("evidence.otherMoney.otherStatutoryPay")
+    val evidenceSendDocuments = Seq("evidence.include.documents")
 
     var nodes = NodeSeq.Empty
     if (evidenceRequired) {
@@ -68,8 +69,9 @@ object EvidenceList {
       val pension = emptySeqIfFalse(ClaimUtils.pensionStatementsRequired(claim),evidencePensionStatements)
       val statutorySickPay = emptySeqIfFalse(receivesStatutorySickPay, evidenceStatutorySickPay)
       val otherStatutoryPay = emptySeqIfFalse(receivesOtherStatutoryPay, evidenceOtherStatutoryPay)
+      val sendDocument = emptySeqIfFalse(employed || selfEmployed || receivesOtherStatutoryPay || receivesStatutorySickPay, evidenceSendDocuments)
       nodes ++= evidenceSection(true,"evidence.required",Seq("thankyou.send")++employment++selfEmployment++
-        pension++statutorySickPay++otherStatutoryPay++commonMessages)
+        pension++statutorySickPay++otherStatutoryPay++sendDocument++commonMessages)
     }
     nodes
   }
