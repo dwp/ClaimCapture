@@ -5,6 +5,7 @@
 @import app.ConfigProperties._
 @import views.html.helper._
 @import utils.csrf.DwpCSRFFormHelper
+@import submission._
 
 @isSaveEnabled=@{
     getProperty("saveForLaterSaveEnabled", default = false)
@@ -21,8 +22,9 @@
         case _ => false
     }
 }
-@claimSent = @{ true
-
+@claimSent = @{
+    if (claimType(claim) == FULL_CLAIM) true
+    else false
 }
 @common.govMain(messages("error.retry")) {
     <div class="carers-allowance clearfix">
