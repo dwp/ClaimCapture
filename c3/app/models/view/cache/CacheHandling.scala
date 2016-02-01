@@ -26,7 +26,10 @@ protected trait CacheHandling {
 
   def cacheKey: String
 
-  def keyFrom(request: Request[AnyContent]): String = request.session.get(cacheKey).getOrElse("")
+  def renameThread(uuid : String): Unit = if(!uuid.isEmpty)Thread.currentThread().setName(uuid)
+  def renameThread(request : Request[AnyContent]): Unit = renameThread(request.session.get(cacheKey).getOrElse(""))
+
+  def keyFrom(request: Request[AnyContent]): String = { renameThread(request.session.get(cacheKey).getOrElse("")); request.session.get(cacheKey).getOrElse("") }
 
   def claimFullKey(uuid:String): String ={
     s"${CacheHandling.claimCacheNamespace}$uuid"

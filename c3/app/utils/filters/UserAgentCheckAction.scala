@@ -26,6 +26,9 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
                            removeIf: (RequestHeader) => Boolean) extends EssentialAction {
 
   val cache = current.injector.instanceOf[CacheApi]
+
+  private def renameThread(uuid : String): Unit = if(!uuid.isEmpty)Thread.currentThread().setName(uuid)
+
   /**
    * Function called automatically by Play's filters processor. This is where we process the User Agent checks.
    * @param request Request to parse and eventually check.
@@ -84,6 +87,7 @@ class UserAgentCheckAction(next: EssentialAction, checkIf: (RequestHeader) => Bo
   }
 
   private def getKeyFromSession(header: RequestHeader) = {
+    renameThread(header.session.get(CachedClaim.key).getOrElse(header.session.get(CachedChangeOfCircs.key).getOrElse("")))
     header.session.get(CachedClaim.key).getOrElse(header.session.get(CachedChangeOfCircs.key).getOrElse(""))
   }
 }
