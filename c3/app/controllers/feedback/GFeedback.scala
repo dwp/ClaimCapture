@@ -62,8 +62,9 @@ object GFeedback extends Controller with CachedClaim with Navigable with I18nSup
             }
             catch {
               case e: JsonProcessingException => {
+                // What should we do if error parsing or saving ?
                 Logger.error("Feedback failed to create json and save to cache from feedback object exception:" + e.toString)
-                BadRequest(BadRequest(views.html.common.error))
+                BadRequest(views.html.common.error)
               }
             }
           }
