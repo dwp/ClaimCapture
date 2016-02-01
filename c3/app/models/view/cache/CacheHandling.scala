@@ -31,15 +31,15 @@ protected trait CacheHandling {
 
   def keyFrom(request: Request[AnyContent]): String = { renameThread(request.session.get(cacheKey).getOrElse("")); request.session.get(cacheKey).getOrElse("") }
 
-  def claimFullKey(uuid:String): String ={
+  def claimFullKey(uuid: String): String = {
     s"${CacheHandling.claimCacheNamespace}$uuid"
   }
 
-  def saveForLaterFullKey(uuid:String): String ={
+  def saveForLaterFullKey(uuid: String): String = {
     s"${CacheHandling.saveForLaterCacheNamespace}$uuid"
   }
 
-  def feedbackFullKey(uuid:String): String ={
+  def feedbackFullKey(uuid: String): String = {
     s"${CacheHandling.feedbackCacheNamespace}$uuid"
   }
 
@@ -155,7 +155,7 @@ protected trait CacheHandling {
   def updateSaveForLaterInCache(saveForLaterUuid: String, saveForLater: SaveForLater, remainingAuthenticationAttempts: Int, applicationExpiry: Long, cacheExpiry: Long) = {
     val updatedSaveForLater = saveForLater.update(remainingAuthenticationAttempts, applicationExpiry, cacheExpiry)
     cache.set(saveForLaterFullKey(saveForLaterUuid), updatedSaveForLater, Duration(updatedSaveForLater.cacheExpiryPeriod, SECONDS))
-    Logger.info(s"SFL updateSaveForLater "+saveForLaterFullKey(saveForLaterUuid)+" updated with triesleft:$remainingAuthenticationAttempts claim expires:" + secsToDate(updatedSaveForLater.applicationExpiry) + " and memcache expires:" + secsToDate(updatedSaveForLater.cacheExpiryPeriod))
+    Logger.info(s"SFL updateSaveForLater " + saveForLaterFullKey(saveForLaterUuid) + " updated with triesleft:$remainingAuthenticationAttempts claim expires:" + secsToDate(updatedSaveForLater.applicationExpiry) + " and memcache expires:" + secsToDate(updatedSaveForLater.cacheExpiryPeriod))
     if (remainingAuthenticationAttempts != CacheHandling.saveForLaterAuthenticationAttempts) updatedSaveForLater.update("FAILED-RETRY-LEFT" + remainingAuthenticationAttempts)
     else updatedSaveForLater
   }
@@ -163,7 +163,7 @@ protected trait CacheHandling {
   def updateSaveForLaterInCacheAndRemoveClaim(saveForLaterUuid: String, saveForLater: SaveForLater, remainingAuthenticationAttempts: Int, status: String) = {
     val updatedSaveForLater = saveForLater.update(status, remainingAuthenticationAttempts, null)
     cache.set(saveForLaterFullKey(saveForLaterUuid), updatedSaveForLater, Duration(updatedSaveForLater.cacheExpiryPeriod, SECONDS))
-    Logger.info(s"SFL updateSaveForLater "+saveForLaterFullKey(saveForLaterUuid)+" updated with status:$updatedSaveForLater.status claim expires:" + secsToDate(updatedSaveForLater.applicationExpiry) + " and memcache expires:" + secsToDate(updatedSaveForLater.cacheExpiryPeriod))
+    Logger.info(s"SFL updateSaveForLater " + saveForLaterFullKey(saveForLaterUuid) + " updated with status:$updatedSaveForLater.status claim expires:" + secsToDate(updatedSaveForLater.applicationExpiry) + " and memcache expires:" + secsToDate(updatedSaveForLater.cacheExpiryPeriod))
     updatedSaveForLater
   }
 
@@ -171,14 +171,14 @@ protected trait CacheHandling {
     cache.get[SaveForLater](saveForLaterFullKey(uuid)) match {
       case Some(saveForLater) =>
         if (saveForLater.status == "OK") {
-          Logger.info(s"SFL resumeSaveForLater resumed "+saveForLaterFullKey(uuid)+" with status OK. Claim expiry:" + secsToDate(saveForLater.applicationExpiry) + " Cache expiry:" + secsToDate(saveForLater.cacheExpiryPeriod))
+          Logger.info(s"SFL resumeSaveForLater resumed " + saveForLaterFullKey(uuid) + " with status OK. Claim expiry:" + secsToDate(saveForLater.applicationExpiry) + " Cache expiry:" + secsToDate(saveForLater.cacheExpiryPeriod))
           Some(decryptClaim(uuid, saveForLater, resumeSaveForLater))
         } else {
-          Logger.info(s"SFL resumeSaveForLater "+saveForLaterFullKey(uuid)+" failed resume with status ${saveForLater.status}")
+          Logger.info(s"SFL resumeSaveForLater " + saveForLaterFullKey(uuid) + " failed resume with status ${saveForLater.status}")
           Some(saveForLater)
         }
       case _ => {
-        Logger.info(s"SFL resumeSaveForLater "+saveForLaterFullKey(uuid)+" failed resume no claim found in memcache")
+        Logger.info(s"SFL resumeSaveForLater " + saveForLaterFullKey(uuid) + " failed resume no claim found in memcache")
         None
       }
     }
@@ -209,7 +209,7 @@ protected trait CacheHandling {
       cacheExpiryPeriod = memcacheExpiryDateSecs,
       appVersion = ClaimHandling.C3VERSION_VALUE)
     cache.set(saveForLaterFullKey(uuid), saveForLater, Duration(saveForLater.cacheExpiryPeriod, SECONDS))
-    Logger.info(s"SFL save "+saveForLaterFullKey(uuid)+" saved with claim expires:" + secsToDate(saveForLater.applicationExpiry) + " and memcache expires:" + secsToDate(saveForLater.cacheExpiryPeriod))
+    Logger.info(s"SFL save " + saveForLaterFullKey(uuid) + " saved with claim expires:" + secsToDate(saveForLater.applicationExpiry) + " and memcache expires:" + secsToDate(saveForLater.cacheExpiryPeriod))
     createClaimInSaveForLaterList(saveForLaterFullKey(uuid))
   }
 
@@ -218,7 +218,7 @@ protected trait CacheHandling {
       case true => {
         Logger.info("Using memcached CAS to store values")
         val memcached = cache.asInstanceOf[MemcachedCacheApi]
-        memcached.setCASList(createKeyInListMutation(uuid), List[String](uuid), CacheHandling.saveForLaterKeylist, expiration)
+        memcached.setCASList(createKeyInListMutation(uuid), uuid, CacheHandling.saveForLaterKeylist, expiration)
       }
       case _ => cache.set(CacheHandling.saveForLaterKeylist, uuid :: cache.get[List[String]](CacheHandling.saveForLaterKeylist).getOrElse(List[String]()).filter(_ > uuid), expiration)
     }
@@ -229,29 +229,37 @@ protected trait CacheHandling {
       case true => {
         Logger.info("Using memcached CAS to remove values")
         val memcached = cache.asInstanceOf[MemcachedCacheApi]
-        memcached.setCASList(removeKeyInListMutation(uuid), List[String](), CacheHandling.saveForLaterKeylist, Duration(0, SECONDS))
+        memcached.setCASList(removeKeyInListMutation(uuid), "", CacheHandling.saveForLaterKeylist, Duration(0, SECONDS))
       }
       case _ => cache.set(CacheHandling.saveForLaterKeylist, cache.get[List[String]](CacheHandling.saveForLaterKeylist).getOrElse(List[String]()).filter(_ > uuid), Duration(0, SECONDS))
     }
   }
 
   private def createKeyInListMutation(newKey: String) = {
-    new CASMutation[List[String]] {
+    new CASMutation[String] {
       // This is only invoked when a value actually exists.
-      def getNewValue(currentList: List[String]): List[String] = newKey :: currentList.filter(_ > newKey)
+      def getNewValue(currentKeys: String): String = {
+        val currentList: List[String] = currentKeys.split(",").map(_.trim).toList
+        val newList = currentList ++ List(newKey)
+        newList.distinct.mkString(",")
+      }
     }
   }
 
   private def removeKeyInListMutation(newKey: String) = {
-    new CASMutation[List[String]] {
+    new CASMutation[String] {
       // This is only invoked when a value actually exists.
-      def getNewValue(currentList: List[String]): List[String] = currentList.filter(_ > newKey)
+      def getNewValue(currentList: String): String = {
+        val c = currentList.split(",")
+        val newlist = c.filter(_ > newKey)
+        newlist.mkString(",")
+      }
     }
   }
 
   def removeSaveForLaterFromCache(uuid: String): Unit = {
     cache.remove(saveForLaterFullKey(uuid))
-    Logger.info(s"SFL "+saveForLaterFullKey(uuid)+" removed")
+    Logger.info(s"SFL " + saveForLaterFullKey(uuid) + " removed")
     removeSaveForLaterClaimKeyFromList(saveForLaterFullKey(uuid))
   }
 
@@ -260,11 +268,11 @@ protected trait CacheHandling {
     return false
   }
 
-  def saveFeedbackInCache(json: JsValue): Unit = {
+  def saveFeedbackInCache(json: String): Unit = {
     val fbuuid = randomUUID.toString
     cache.set(feedbackFullKey(fbuuid), json, Duration(CacheHandling.feedbackExpirySecs, SECONDS))
-    Logger.info(s"FEEDBACK save "+feedbackFullKey(fbuuid)+" saved with memcache expiry:" + DateTime.now.plusSeconds(CacheHandling.feedbackExpirySecs))
-    Logger.debug("FEEDBACK save to cache json:"+json)
+    Logger.info(s"FEEDBACK save " + feedbackFullKey(fbuuid) + " saved with memcache expiry:" + DateTime.now.plusSeconds(CacheHandling.feedbackExpirySecs))
+    Logger.debug("FEEDBACK save to cache json:" + json)
     createFeedbackInList(feedbackFullKey(fbuuid))
   }
 
@@ -277,7 +285,7 @@ protected trait CacheHandling {
       case true => {
         Logger.info("Using memcached CAS to store feedback keylist")
         val memcached = cache.asInstanceOf[MemcachedCacheApi]
-        memcached.setCASList(createKeyInListMutation(key), List[String](key), CacheHandling.feedbackKeylist, expiration)
+        memcached.setCASList(createKeyInListMutation(key), key, CacheHandling.feedbackKeylist, expiration)
       }
       case _ => cache.set(CacheHandling.feedbackKeylist, key :: cache.get[List[String]](CacheHandling.feedbackKeylist).getOrElse(List[String]()).filter(_ > key), expiration)
     }
@@ -287,9 +295,9 @@ protected trait CacheHandling {
 object CacheHandling {
   lazy val claimCacheNamespace = "default"
   lazy val saveForLaterCacheNamespace = "SFL-"
-  lazy val saveForLaterKeylist="SFL"
+  lazy val saveForLaterKeylist = "SFL"
   lazy val feedbackCacheNamespace = "FB-"
-  lazy val feedbackKeylist="FB"
+  lazy val feedbackKeylist = "FB"
 
   // Expiration values .. default to 1 second so error obvious in the event of bad config
   lazy val expiration = getProperty("cache.expiry", 1)

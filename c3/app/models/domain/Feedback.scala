@@ -4,14 +4,19 @@ import app.ConfigProperties._
 import models.yesNo.{OptYesNoWith2Text}
 import org.joda.time.DateTime
 
-case class Feedback(satisfiedAnswer: String = "", difficultyAndText: OptYesNoWith2Text = OptYesNoWith2Text(None, None, None)){
-  def jsonmap:Map[String,String]={
-    Map(
-      "origin"->getProperty("origin.tag","GB"),
-      "datetime"->(DateTime.now.getMillis/1000).toString,
-      "satisfied"->satisfiedAnswer,
-      "difficult"->difficultyAndText.answer.getOrElse(""),
-      "comment"->difficultyAndText.text)
+case class Feedback(satisfiedAnswer: String = "", difficultyAndText: OptYesNoWith2Text = OptYesNoWith2Text(None, None, None)) {
+  def datetimesecs = DateTime.now.getMillis / 1000
+
+  def origin = getProperty("origin.tag", "GB")
+
+  def satisfiedScore = {
+    satisfiedAnswer match {
+      case "VS" => 5
+      case "S" => 4
+      case "NEITHER" => 3
+      case "D" => 2
+      case "VD" => 1
+    }
   }
 }
 
