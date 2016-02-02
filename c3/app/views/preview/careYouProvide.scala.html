@@ -12,7 +12,7 @@
 @address = @{
 	theirPersonalDetails.theirAddress.answer match {
 		case `yes` => messages("label.yes")
-		case _ => messages("label.no") + " - " + getAddressLine(theirPersonalDetails.theirAddress.address.getOrElse(MultiLineAddress()))
+		case _ => messages("label.no") + "<br/>" + getAddressLine(theirPersonalDetails.theirAddress.address.getOrElse(MultiLineAddress()))
 	}
 }
 
@@ -31,7 +31,7 @@
 }
 
 @getAddressLine(address: MultiLineAddress) = @{
-    s"${address.lineOne.getOrElse("")}${address.lineTwo.fold("")(", "+_)}${address.lineThree.fold("")(", "+_)} ${theirPersonalDetails.theirAddress.postCode.getOrElse("")}"
+    s"${address.lineOne.fold("")("<br/>"+_)}${address.lineTwo.fold("")("<br/>"+_)}${address.lineThree.fold("")("<br/>"+_)} ${"<br/>"+theirPersonalDetails.theirAddress.postCode.getOrElse("")}"
 }
 @disableChangeButton = @{
 	!app.ConfigProperties.getProperty("cyaToggleVisible",true)
