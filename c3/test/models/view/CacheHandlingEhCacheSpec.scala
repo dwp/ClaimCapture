@@ -13,6 +13,7 @@ class CacheHandlingEhCacheSpec extends Specification {
     "concat keys into single cs string list" in new WithApplication() with Claiming {
       cache.isInstanceOf[MemcachedCacheApi] mustEqual false
 
+      cache.remove("FB")
       val cacheHandling = new EncryptedCacheHandling() {
         val cacheKey = "12345678"
       }
@@ -26,6 +27,7 @@ class CacheHandlingEhCacheSpec extends Specification {
     "remove duplicate entries" in new WithApplication() with Claiming {
       cache.isInstanceOf[MemcachedCacheApi] mustEqual false
 
+      cache.remove("FB")
       val cacheHandling = new EncryptedCacheHandling() {
         val cacheKey = "12345678"
       }

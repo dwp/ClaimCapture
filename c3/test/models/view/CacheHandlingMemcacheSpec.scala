@@ -14,6 +14,7 @@ class CacheHandlingMemcacheSpec extends Specification {
       override val cache: MemcachedCacheApi = current.injector.instanceOf[MemcachedCacheApi]
       cache.isInstanceOf[MemcachedCacheApi] mustEqual true
 
+      cache.remove("FB")
       val cacheHandling = new EncryptedCacheHandling() {
         val cacheKey = "12345678"
       }
@@ -28,7 +29,7 @@ class CacheHandlingMemcacheSpec extends Specification {
     "remove duplicate entries" in new WithApplication() with Claiming {
       override val cache: MemcachedCacheApi = current.injector.instanceOf[MemcachedCacheApi]
       cache.isInstanceOf[MemcachedCacheApi] mustEqual true
-
+      cache.remove("FB")
       val cacheHandling = new EncryptedCacheHandling() {
         val cacheKey = "12345678"
       }
