@@ -25,7 +25,8 @@ object Replica extends Controller with I18nSupport {
           if(m.matches()) m.group(1) else "fail"
         }.flatMap(e => Seq(e,e+"/$id<[^/]+>"))
 
-        val updatedList = Seq(pathList.filter(_.matches("/allowance.*")) ,
+        val updatedList = Seq(pathList.filter(_.matches("/third-party.*")) ,
+                          pathList.filter(_.matches("/allowance.*")) ,
                           pathList.filter(_.matches("/your-claim-date.*")),
                           pathList.filter(_.matches("/your-claim-date")) ,
                           pathList.filter(_.matches("/about-you.*")) ,
