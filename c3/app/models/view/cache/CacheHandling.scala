@@ -276,18 +276,31 @@ protected trait CacheHandling {
     createFeedbackInList(feedbackFullKey(fbuuid))
   }
 
+  def getFeedbackList(): String = {
+    cache.get(CacheHandling.feedbackKeylist).getOrElse("")
+  }
+
   def createFeedbackInList(key: String): Unit = {
     setFeedbackListInCache(key, Duration(0, SECONDS))
   }
 
-  def setFeedbackListInCache(key: String, expiration: Duration): Unit = {
+  def setFeedbackListInCache(newKey: String, expiration: Duration): Unit = {
     isMemcached match {
       case true => {
         Logger.info("Using memcached CAS to store feedback keylist")
         val memcached = cache.asInstanceOf[MemcachedCacheApi]
-        memcached.setCASList(createKeyInListMutation(key), key, CacheHandling.feedbackKeylist, expiration)
+        memcached.setCASList(createKeyInListMutation(newKey), newKey, CacheHandling.feedbackKeylist, expiration)
       }
-      case _ => cache.set(CacheHandling.feedbackKeylist, key :: cache.get[List[String]](CacheHandling.feedbackKeylist).getOrElse(List[String]()).filter(_ > key), expiration)
+      case _ => {
+        Logger.info("Using EHCache to store feedback keylist")
+        val current = cache.get[String](CacheHandling.feedbackKeylist).getOrElse("")
+        def appendkeys = current match {
+          case "" => newKey
+          case _ => current + "," + newKey
+        }
+        val keyList: List[String] = appendkeys.split(",").toList
+        cache.set(CacheHandling.feedbackKeylist, keyList.distinct.mkString(","), expiration)
+      }
     }
   }
 }
