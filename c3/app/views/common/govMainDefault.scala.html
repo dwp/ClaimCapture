@@ -8,8 +8,20 @@
 }
 @feedbackUrl=@{
     isCadsFeedbackEnabled match {
-        case true => "/feedback/feedback"
-        case _ => "https://www.gov.uk/done/apply-carers-allowance"
+        case true => getNewFeedback
+        case _ => getOriginalFeedback
+    }
+}
+@getNewFeedback = @{
+    request.uri.startsWith("/circumstances") match {
+        case true => Html(messages("feedback.circs.link"))
+        case _ => Html(messages("feedback.link"))
+    }
+}
+@getOriginalFeedback = @{
+    request.uri.startsWith("/circumstances") match {
+        case true => Html(messages("feedback.old.circs.link"))
+        case _ => Html(messages("feedback.old.link"))
     }
 }
 
