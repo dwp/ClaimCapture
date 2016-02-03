@@ -235,6 +235,10 @@ protected trait CacheHandling {
     }
   }
 
+  def getSaveForLaterList(): String = {
+    cache.get(CacheHandling.saveForLaterKeylist).getOrElse("")
+  }
+
   private def createKeyInListMutation(newKey: String) = {
     new CASMutation[String] {
       // This is only invoked when a value actually exists.
