@@ -56,7 +56,7 @@ object GFeedback extends Controller with CachedClaim with Navigable with I18nSup
           form => {
             try {
               val objectMapper: ObjectMapper = new ObjectMapper
-              val jsonString = objectMapper.writeValueAsString(populateFeedbackCacheObject(form))
+              val jsonString = objectMapper.writeValueAsString(populateFeedbackCacheObject(form, request.headers.get("User-Agent").getOrElse("")))
               processFeedback(jsonString)
               Redirect(thankyouPageUrl)
             }
@@ -72,13 +72,14 @@ object GFeedback extends Controller with CachedClaim with Navigable with I18nSup
     }
   }
 
-  def populateFeedbackCacheObject(form: Feedback) = {
+  def populateFeedbackCacheObject(form: Feedback, useragent: String) = {
     val feedbackCacheObject = new FeedbackCacheObject
     feedbackCacheObject.setDatesecs(form.datetimesecs)
     feedbackCacheObject.setOrigin(form.origin)
     feedbackCacheObject.setSatisfiedScore(form.satisfiedScore)
     feedbackCacheObject.setDifficulty(form.difficultyAndText.answer.getOrElse(""))
     feedbackCacheObject.setComment(form.difficultyAndText.text)
+    feedbackCacheObject.setUseragent(useragent)
     feedbackCacheObject
   }
 

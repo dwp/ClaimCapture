@@ -6,6 +6,7 @@ public class FeedbackCacheObject {
     private int satisfiedScore;
     private String difficulty;
     private String comment;
+    private String useragent;
 
     public FeedbackCacheObject() {
     }
@@ -48,5 +49,13 @@ public class FeedbackCacheObject {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getUseragent() {
+        return useragent;
+    }
+
+    public void setUseragent(String useragent) {
+        this.useragent = useragent;
     }
 }
