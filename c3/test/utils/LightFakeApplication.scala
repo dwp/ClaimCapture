@@ -39,12 +39,31 @@ object LightFakeApplication {
     ),
 
     "play.modules.disabled" -> List("play.api.cache.EhCacheModule", "gov.dwp.carers.play2.resilientmemcached.MemcachedModule"),
-    "play.modules.cache.defaultCache" -> "default",
+    "play.modules.cache.defaultCache" -> "",
     "play.modules.cache.bindCaches" -> List("play"),
     "memcached.1.host" -> memcachedHost1,
     "memcached.2.host" -> memcachedHost2
   )
 
+  val memcacheConfigurationMap: Map[String, Object] = Map(
+    "play.modules.enabled" -> List(
+      "gov.dwp.carers.play2.resilientmemcached.MemcachedModule",
+      "play.api.i18n.I18nModule",
+      "play.api.db.HikariCPModule",
+      "play.api.db.DBModule",
+      "play.api.inject.BuiltinModule",
+      "com.kenshoo.play.metrics.PlayModule",
+      "utils.TestSubmissionModule",
+      "play.api.i18n.MultiMessageModule",
+      "play.api.libs.ws.ning.NingWSModule"
+    ),
+
+    "play.modules.disabled" -> List("play.api.cache.EhCacheModule", "utils.TestEhCacheModule"),
+    "play.modules.cache.defaultCache" -> "",
+    "play.modules.cache.bindCaches" -> List("play"),
+    "memcached.1.host" -> memcachedHost1,
+    "memcached.2.host" -> memcachedHost2
+  )
 
   def apply(withGlobal: Some[GlobalSettings], additionalConfiguration: Map[String, _ <: Any] = configurationMap) = FakeApplication(
     withGlobal = withGlobal,
@@ -85,6 +104,11 @@ object LightFakeApplication {
 
   def fa = {
     val app = FakeApplication(additionalConfiguration = configurationMap ++ defaultSwitchPositions)
+    app
+  }
+
+  def memcachefa = {
+    val app = FakeApplication(additionalConfiguration = memcacheConfigurationMap ++ defaultSwitchPositions)
     app
   }
 
