@@ -1,9 +1,12 @@
 package controllers.s_eligibility
 
+import app.ConfigProperties._
 import models.domain.Benefits
 import models.view.ClaimHandling
 import org.joda.time.DateTime
 import org.specs2.mutable._
+import play.api.Play._
+import play.api.i18n.{MMessages, MessagesApi}
 import utils.pageobjects.s_eligibility.{GEligibilityPage, GBenefitsPage}
 import utils.pageobjects.{PageObjects, PageObjectsContext, TestData}
 import utils.WithJsBrowser
@@ -80,8 +83,23 @@ class GBenefitsIntegrationSpec extends Specification {
       tenHourLess1min.isBefore(cookieExpiry) should beTrue
       tenHourPlus1min.isAfter(cookieExpiry) should beTrue
     }
+
+    "feedback link should contain claim feedback" in new WithJsBrowser with PageObjects {
+      val page = GBenefitsPage(context)
+      page goToThePage ()
+
+      page.source must contain(getFeedbackLink())
+    }
   }
   section("integration", models.domain.CarersAllowance.id)
+
+  private def getFeedbackLink() = {
+    val messages: MessagesApi = current.injector.instanceOf[MMessages]
+    getProperty("feedback.cads.enabled", default = false) match {
+      case true => messages("feedback.link")
+      case _ => messages("feedback.old.link")
+    }
+  }
 
   private def verifyAnswerMessageAndSubmit(benefitAnswer:String, context:PageObjectsContext) = {
     val page = GBenefitsPage(context)

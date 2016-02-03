@@ -1,5 +1,30 @@
 @(title: String)(content: Html)(footerCategories: Html,request:play.api.mvc.Request[AnyContent])(implicit lang: Lang, flash:Flash, messages: play.api.i18n.Messages)
 
+@import app.ConfigProperties._
+@import utils.helpers.OriginTagHelper._
+
+@isCadsFeedbackEnabled=@{
+    getProperty("feedback.cads.enabled",default = false)
+}
+@feedbackUrl=@{
+    isCadsFeedbackEnabled match {
+        case true => getNewFeedback
+        case _ => getOriginalFeedback
+    }
+}
+@getNewFeedback = @{
+    request.uri.startsWith("/circumstances") match {
+        case true => Html(messages("feedback.circs.link"))
+        case _ => Html(messages("feedback.link"))
+    }
+}
+@getOriginalFeedback = @{
+    request.uri.startsWith("/circumstances") match {
+        case true => Html(messages("feedback.old.circs.link"))
+        case _ => Html(messages("feedback.old.link"))
+    }
+}
+
 <!DOCTYPE html>
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -7,15 +32,42 @@
 
         <script src='@routes.Assets.at("javascripts/jquery/jquery-1.9.1.js")' type="text/javascript"></script>
         <script src='@routes.Assets.at("javascripts/date.js")' type="text/javascript"></script>
-
-        <li><a id="lang-en" href="/change-language/en" aria-label="Change default language to English">English</a></li>
-        <li><a id="lang-cy" href="/change-language/cy" aria-label="Change default language to Welsh">Cymraeg</a></li>
-
     </head>
 
     <body>
-        <div id="wrapper content" class="group">
+        <main class="container" role="main" id="main">
             @content
-        </div>
+        </main>
+
+        <footer class="global-footer" id="global-footer">
+            <div class="container clearfix">
+                <div>
+                    <nav class="footer-nav language">
+                        @if(isOriginGB) {
+                            @if(getProperty("galluogi.cymraeg", default = true)) {
+                                @if((request.uri.startsWith("/allowance/benefits")) || (request.uri.startsWith("/circumstances/report-changes/selection"))) {
+                                    @if(lang.language == "cy") {
+                                        <a id="lang-en" href="/change-language/en" aria-label="@Html(messages("english.helper"))" >@Html(messages("english"))</a>
+                                    } else {
+                                        <a id="lang-cy" href="/change-language/cy" aria-label="@Html(messages("welsh.helper"))" >@Html(messages("welsh"))</a>
+                                    }
+                                }
+                            }
+                        }
+                    <a id="cookies" rel="external" target="_blank" href="@routes.Cookies.page(lang.language)" >@messages("cookies")</a>
+
+                    <a id="privacy" rel="external" target="privacyLink" href="https://www.gov.uk/government/organisations/department-for-work-pensions/about/personal-information-charter" >@messages("privacyLink")</a>
+
+                    <a id="claim-feedback" @if(!isCadsFeedbackEnabled){rel="external" target="_blank"} href="@feedbackUrl" >@messages("footer.feedback.text")</a>
+
+                    </nav>
+                    <p>@Html(messages("madePreston"))</p>
+                    <p class="ogl">@Html(messages("openGovLicensea")) <a rel="external" href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3" target="openGovLink" >@Html(messages("openGovLicenseb"))</a>@Html(messages("openGovLicensec"))</p>
+                </div>
+                <div class="fr">
+                    <a class="crown" href="http://www.nationalarchives.gov.uk/information-management/our-services/crown-copyright.htm" target="crownLink" >&copy; @Html(messages("crownCopyright"))</a>
+                </div>
+            </div>
+        </footer>
     </body>
 </html>

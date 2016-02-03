@@ -52,7 +52,6 @@ class GAdditionalInformationIntegrationSpec extends Specification {
 
     "show future-comms-in-welsh option for english language" in new WithBrowser with BrowserMatchers {
       browser.goTo("/allowance/benefits")
-      browser.waitUntil(browser.click("#lang-en"))
 
       browser.goTo(GAdditionalInfoPage.url)
       urlMustEqual(GAdditionalInfoPage.url)
