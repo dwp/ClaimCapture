@@ -111,6 +111,27 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
     }
   }
 
+  /*
+    If we have a claim, whether valid or not then we keep it since we might go back to it later.
+    If we dont have a claim then create a new one.
+ */
+  def optionalClaim(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
+    request => {
+      implicit val r = request
+      fromCache(request) match {
+        case Some(claim) => {
+          Logger.info("ClaimHandling optionalClaim for existing claim:" + claim.uuid)
+          withHeaders(action(claim, r, bestLang)(f))
+        }
+        case _ => {
+          val claim = newInstance()
+          Logger.info("ClaimHandling optionalClaim created new claim:" + claim.uuid)
+          withHeaders(action(claim, r, bestLang)(f))
+        }
+      }
+    }
+  }
+
   //============================================================================================================
   //         GOING THROUGH CLAIM
   //============================================================================================================

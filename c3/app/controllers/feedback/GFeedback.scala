@@ -38,14 +38,14 @@ object GFeedback extends Controller with CachedClaim with Navigable with I18nSup
   )
   (Feedback.apply)(Feedback.unapply))
 
-  def present = resumeClaim { implicit claim => implicit request => implicit request2lang =>
+  def present = optionalClaim { implicit claim => implicit request => implicit request2lang =>
     getProperty("feedback.cads.enabled", default = false) match {
       case false => BadRequest(views.html.common.switchedOff("feedback-present", request2lang))
       case true => Ok(views.html.feedback.feedback(form))
     }
   }
 
-  def submit = resumeClaim { implicit claim => implicit request => implicit request2lang =>
+  def submit = optionalClaim { implicit claim => implicit request => implicit request2lang =>
     getProperty("feedback.cads.enabled", default = false) match {
       case false => BadRequest(views.html.common.switchedOff("feedback-submit", request2lang))
       case true => {
