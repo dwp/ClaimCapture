@@ -24,7 +24,8 @@
 }
 @feedbackId = @{
     (isCadsFeedbackEnabled, isFooterItem ) match {
-        case (false, _ ) => "claim-feedback"
+        case (false, false ) => ""
+        case (false, true ) => "claim-feedback"
         case (true, true ) => "footer-feedback"
         case (true,false ) => "feedback"
     }
@@ -41,12 +42,7 @@
 <a id="claim-feedback" @if(feedbackInNewTab){rel="external" target="_blank"} href="@feedbackUrl" @views.html.ga.trackClickEvent(linkName = "Feedback")>@messages("footer.feedback.text")</a>
 *@
 
-    @if(!isFooterItem){
-        <a href="@feedbackUrl" @if(!isInActivePage){rel="external" target="_blank"} @if(isThankYou){class="secondary"}>@feedbackLabel</a>
-    }
-    @if(isFooterItem){
-        <a id="@feedbackId" href="@feedbackUrl" @if(!isInActivePage){rel="external" target="_blank"}>@feedbackLabel</a>
-    }
+<a @if(feedbackId.length>0){id="@feedbackId")} href="@feedbackUrl" @if(!isInActivePage){rel="external" target="_blank"} @if(isThankYou){class="secondary"}>@feedbackLabel</a>
 
 
 
