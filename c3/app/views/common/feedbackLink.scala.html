@@ -6,7 +6,7 @@
     getProperty("feedback.cads.enabled", default = false)
 }
 @isCircsPage = @{
-    request.uri.startsWith("/circumstances") || request.uri.contains("/change-carers")
+    request.uri.startsWith("/circumstances") || request.uri.contains("/circs") ||request.uri.contains("/change-carers")
 }
 @showInSameTab = @{
     isCadsFeedbackEnabled match {
