@@ -66,8 +66,8 @@
                             "@{
                                 isOriginGB() match {
                                     case true => CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("British").id)
-                                    case false => CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("British/Irish").id)
-                                }
+                                    case false => CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("British_Irish").id)
+        }
                             }",
                             "@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("Another_nationality").id)",
                             "@CarersCrypto.encryptAES(nationalityAndResidencyForm("actualnationality").id)",
