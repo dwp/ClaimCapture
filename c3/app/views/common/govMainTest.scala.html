@@ -1,4 +1,4 @@
-@(title: String)(content: Html)(footerCategories: Html,request:play.api.mvc.Request[AnyContent])(implicit lang: Lang, flash:Flash, messages: play.api.i18n.Messages)
+@(title: String)(content: Html)(footerCategories: Html)(implicit lang: Lang, request:play.api.mvc.Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import app.ConfigProperties._
 @import utils.helpers.OriginTagHelper._
@@ -54,12 +54,9 @@
                                 }
                             }
                         }
-                    <a id="cookies" rel="external" target="_blank" href="@routes.Cookies.page(lang.language)" >@messages("cookies")</a>
-
-                    <a id="privacy" rel="external" target="privacyLink" href="https://www.gov.uk/government/organisations/department-for-work-pensions/about/personal-information-charter" >@messages("privacyLink")</a>
-
-                    <a id="claim-feedback" @if(!isCadsFeedbackEnabled){rel="external" target="_blank"} href="@feedbackUrl" >@messages("footer.feedback.text")</a>
-
+                        <a id="cookies" rel="external" target="_blank" href="@routes.Cookies.page(lang.language)" >@messages("cookies")</a>
+                        <a id="privacy" rel="external" target="privacyLink" href="https://www.gov.uk/government/organisations/department-for-work-pensions/about/personal-information-charter" >@messages("privacyLink")</a>
+                        @common.feedbackLink()
                     </nav>
                     <p>@Html(messages("madePreston"))</p>
                     <p class="ogl">@Html(messages("openGovLicensea")) <a rel="external" href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3" target="openGovLink" >@Html(messages("openGovLicenseb"))</a>@Html(messages("openGovLicensec"))</p>

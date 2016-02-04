@@ -1,0 +1,43 @@
+@(isFooterItem:Boolean=true, isThankYou:Boolean=false)(implicit request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
+
+@import app.ConfigProperties._
+
+@isCadsFeedbackEnabled = @{
+    getProperty("feedback.cads.enabled", default = false)
+}
+@isCircsPage = @{
+    request.uri.startsWith("/circumstances") || request.uri.contains("/change-carers")
+}
+@isInActivePage = @{
+    request.uri.contains("error") || request.uri.contains("timeout") || request.uri.contains("thankyou")
+}
+@feedbackUrl = @{
+    (isCadsFeedbackEnabled, isCircsPage) match {
+        case (true, true) => messages("feedback.circs.link")
+        case (true, false) => messages("feedback.link")
+        case (false, true) => messages("feedback.old.circs.link")
+        case (false, false) => messages("feedback.old.link")
+    }
+}
+@feedbackId = @{
+    isFooterItem match {
+        case true => "footer-feedback"
+        case false => "feedback"
+    }
+}
+@feedbackLabel = @{
+    ( isFooterItem, isThankYou ) match {
+        case( true, _ ) => Html(messages("footer.feedback.text"))
+        case( false, true ) => Html(messages("claim.feedback.link"))
+        case( false, false ) => Html(messages("feedbacklink.claim"))
+    }
+}
+
+@*
+<a id="claim-feedback" @if(feedbackInNewTab){rel="external" target="_blank"} href="@feedbackUrl" @views.html.ga.trackClickEvent(linkName = "Feedback")>@messages("footer.feedback.text")</a>
+*@
+
+<a id="@feedbackId" href="@feedbackUrl" @if(!isInActivePage){rel="external" target="_blank"}>@feedbackLabel</a>
+
+
+

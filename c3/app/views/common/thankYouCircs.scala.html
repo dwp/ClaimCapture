@@ -134,7 +134,9 @@ getProperty("email.frontend",false) && circs.questionGroup[CircumstancesReportCh
 
             <br />
 
-            <div class="finish-button">@Html(messages("circs.feedback.link"))</div>
+            <div class="finish-button">
+                @common.feedbackLink(isFooterItem = false, isThankYou = true) (Takes 30 seconds.)
+            </div>
 
         </article>
 

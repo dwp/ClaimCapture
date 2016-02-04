@@ -123,7 +123,9 @@
 
             <p><a rel="external" href="@Html(messages("thankyou.report.change.url"))" target="_blank">@Html(messages("thankyou.report.change"))</a></p>
 
-            <div class="finish-button">@Html(messages("claim.feedback.link"))</div>
+            <div class="finish-button">
+                @common.feedbackLink(isFooterItem = false, isThankYou = true) (Takes 30 seconds.)
+            </div>
 
         </article>
 

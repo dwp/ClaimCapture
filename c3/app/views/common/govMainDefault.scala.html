@@ -3,28 +3,6 @@
 @import app.ConfigProperties._
 @import utils.helpers.OriginTagHelper._
 
-@isCadsFeedbackEnabled=@{
-    getProperty("feedback.cads.enabled",default = false)
-}
-@feedbackUrl=@{
-    isCadsFeedbackEnabled match {
-        case true => getNewFeedback
-        case _ => getOriginalFeedback
-    }
-}
-@getNewFeedback = @{
-    request.uri.startsWith("/circumstances") match {
-        case true => Html(messages("feedback.circs.link"))
-        case _ => Html(messages("feedback.link"))
-    }
-}
-@getOriginalFeedback = @{
-    request.uri.startsWith("/circumstances") match {
-        case true => Html(messages("feedback.old.circs.link"))
-        case _ => Html(messages("feedback.old.link"))
-    }
-}
-
 <!DOCTYPE html>
 
     <!--[if IE 6]>         <html class="ie ie6" lang="en"> <![endif]-->
@@ -151,9 +129,7 @@
                         <a id="cookies" rel="external" target="_blank" href="@routes.Cookies.page(lang.language)" @views.html.ga.trackClickEvent(linkName = "Cookies - from footer")>@messages("cookies")</a>
 
                         <a id="privacy" rel="external" target="privacyLink" href="https://www.gov.uk/government/organisations/department-for-work-pensions/about/personal-information-charter" @views.html.ga.trackClickEvent(linkName = "Privacy")>@messages("privacyLink")</a>
-                        
-                        <a id="claim-feedback" @if(!isCadsFeedbackEnabled){rel="external" target="_blank"} href="@feedbackUrl" @views.html.ga.trackClickEvent(linkName = "Feedback")>@messages("footer.feedback.text")</a>
-                        
+                        @common.feedbackLink()
                     </nav>
                     <p>@Html(messages("madePreston"))</p>
                     <p class="ogl">@Html(messages("openGovLicensea")) <a rel="external" href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3" target="openGovLink" @views.html.ga.trackClickEvent(linkName = "Open Government Licence")>@Html(messages("openGovLicenseb"))</a>@Html(messages("openGovLicensec"))</p>
