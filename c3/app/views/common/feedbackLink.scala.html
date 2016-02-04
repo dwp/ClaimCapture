@@ -9,7 +9,10 @@
     request.uri.startsWith("/circumstances") || request.uri.contains("/change-carers")
 }
 @isInActivePage = @{
-    request.uri.contains("error") || request.uri.contains("timeout") || request.uri.contains("thankyou")
+    isCadsFeedbackEnabled match {
+        case true => request.uri.contains("error") || request.uri.contains("timeout") || request.uri.contains("thankyou")
+        case false => false
+    }
 }
 @feedbackUrl = @{
     (isCadsFeedbackEnabled, isCircsPage) match {
@@ -20,9 +23,10 @@
     }
 }
 @feedbackId = @{
-    isFooterItem match {
-        case true => "footer-feedback"
-        case false => "feedback"
+    (isCadsFeedbackEnabled, isFooterItem ) match {
+        case (false, _ ) => "claim-feedback"
+        case (true, true ) => "footer-feedback"
+        case (true,false ) => "feedback"
     }
 }
 @feedbackLabel = @{
@@ -37,7 +41,13 @@
 <a id="claim-feedback" @if(feedbackInNewTab){rel="external" target="_blank"} href="@feedbackUrl" @views.html.ga.trackClickEvent(linkName = "Feedback")>@messages("footer.feedback.text")</a>
 *@
 
-<a id="@feedbackId" href="@feedbackUrl" @if(!isInActivePage){rel="external" target="_blank"}>@feedbackLabel</a>
+    @if(!isFooterItem){
+        <a href="@feedbackUrl" @if(!isInActivePage){rel="external" target="_blank"} @if(isThankYou){class="secondary"}>@feedbackLabel</a>
+    }
+    @if(isFooterItem){
+        <a id="@feedbackId" href="@feedbackUrl" @if(!isInActivePage){rel="external" target="_blank"}>@feedbackLabel</a>
+    }
+
 
 
 
