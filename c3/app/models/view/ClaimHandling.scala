@@ -26,11 +26,7 @@ object ClaimHandling {
   type ClaimResult = (Claim, Result)
   // Versioning
   val C3VERSION = "C3Version"
-<<<<<<< HEAD
-  val C3VERSION_VALUE = "3.3.1"
-=======
   val C3VERSION_VALUE = "3.4"
->>>>>>> integration
   val C3VERSION_SECSTOLIVE = 10*60*60
   val applicationFinished = "application-finished"
 
