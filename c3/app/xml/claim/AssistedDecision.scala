@@ -13,7 +13,7 @@ object AssistedDecision extends XMLComponent {
 
   def createAssistedDecisionDetails(claim: Claim): Claim = {
     val isDecisionMade = (assisted: AssistedDecisionDetails) => assisted.reason != "None"
-    val fnList = Array[(Claim) => AssistedDecisionDetails](caringHours _, dateOfClaim _, noEEA _, yesEEAGuardYesBenefitsWork _, isInEducation _)
+    val fnList = Array[(Claim) => AssistedDecisionDetails](caringHours _, dateOfClaim _, isInReceiptOfBenefit _, isAFIP _, yesEEAGuardYesBenefitsWork _, isInEducation _, isHappyPath _)
     claim.update(process(isDecisionMade, claim)(fnList))
   }
 
@@ -28,18 +28,19 @@ object AssistedDecision extends XMLComponent {
     else emptyAssistedDecisionDetails
   }
 
-  private def dateOfClaim(claim: Claim): AssistedDecisionDetails = {
-    if (isOverThreeMonthsOneDay(claim)) decisionModel("Claim date over 3 months into future.", "Potential disallowance decision,no table")
+  private def isAFIP(claim: Claim): AssistedDecisionDetails = {
+    if (claim.questionGroup[Benefits].getOrElse(new Benefits()).benefitsAnswer == Benefits.afip) decisionModel("Assign to AFIP officer on CAMLite workflow.", "None,show table")
     else emptyAssistedDecisionDetails
   }
 
-  private def noEEA(claim: Claim): AssistedDecisionDetails = {
-    val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
-    (otherEEAStateOrSwitzerland.guardQuestion.answer, claim.questionGroup[Benefits].getOrElse(new Benefits()).benefitsAnswer) match {
-      case ("no", Benefits.noneOfTheBenefits) => decisionModel("DP on No QB. Check CIS.", "Potential disallowance decision,show table")
-      case ("no", Benefits.afip) => decisionModel("Assign to AFIP officer on CAMLite workflow.", "None,show table")
-      case _ => emptyAssistedDecisionDetails
-    }
+  private def isInReceiptOfBenefit(claim: Claim): AssistedDecisionDetails = {
+    if (claim.questionGroup[Benefits].getOrElse(new Benefits()).benefitsAnswer == Benefits.noneOfTheBenefits) decisionModel("DP on No QB. Check CIS.", "Potential disallowance decision,show table")
+    else emptyAssistedDecisionDetails
+  }
+
+  private def dateOfClaim(claim: Claim): AssistedDecisionDetails = {
+    if (isOverThreeMonthsOneDay(claim)) decisionModel("Claim date over 3 months into future.", "Potential disallowance decision,no table")
+    else emptyAssistedDecisionDetails
   }
 
   private def yesEEAGuardYesBenefitsWork(claim: Claim): AssistedDecisionDetails = {
@@ -47,17 +48,63 @@ object AssistedDecision extends XMLComponent {
     if (otherEEAStateOrSwitzerland.guardQuestion.answer == "yes" &&
       (otherEEAStateOrSwitzerland.guardQuestion.field1.get.answer == "yes" ||
         otherEEAStateOrSwitzerland.guardQuestion.field2.get.answer == "yes"))
-      decisionModel("Assign to Exportability in CAMLite workflow.", "None,show table")
+        decisionModel("Assign to Exportability in CAMLite workflow.", "None,show table")
     else emptyAssistedDecisionDetails
   }
 
   private def isInEducation(claim: Claim): AssistedDecisionDetails = {
     val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
     if (otherEEAStateOrSwitzerland.guardQuestion.answer == "no" &&
-      claim.questionGroup[Benefits].getOrElse(new Benefits()).benefitsAnswer != Benefits.afip &&
       claim.questionGroup[YourCourseDetails].getOrElse(new YourCourseDetails()).beenInEducationSinceClaimDate == "yes")
       decisionModel("Send DS790/790B COMB to customer.", "None,show table")
     else emptyAssistedDecisionDetails
+  }
+
+  def checkBenefits(benefitsAnswer: String) = {
+    benefitsAnswer match {
+      case Benefits.aa | Benefits.pip | Benefits.dla | Benefits.caa => true
+      case _ => false
+    }
+  }
+
+  private def isHappyPath(claim: Claim): AssistedDecisionDetails = {
+    val aboutYourMoney = claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney())
+    val employment = claim.questionGroup[Employment].getOrElse(models.domain.Employment())
+    val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(nationality = "British"))
+      (checkBenefits(claim.questionGroup[Benefits].getOrElse(Benefits()).benefitsAnswer),
+        nationalityAndResidency.nationality,
+        nationalityAndResidency.resideInUK.answer,
+        claim.questionGroup[AbroadForMoreThan52Weeks].getOrElse(AbroadForMoreThan52Weeks()).anyTrips,
+        claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland()).guardQuestion.answer,
+        isOver35Hours(claim),
+        claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare()).hasBreaks,
+        claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails()).beenInEducationSinceClaimDate,
+        employment.beenEmployedSince6MonthsBeforeClaim,
+        employment.beenSelfEmployedSince1WeekBeforeClaim,
+        aboutYourMoney.anyPaymentsSinceClaimDate.answer,
+        aboutYourMoney.statutorySickPay.answer,
+        aboutYourMoney.otherStatutoryPay.answer,
+        claim.questionGroup[HowWePayYou].getOrElse(HowWePayYou()).likeToBePaid,
+        claim.questionGroup[AdditionalInfo].getOrElse(AdditionalInfo()).anythingElse.answer
+       ) match {
+        case (true,
+              NationalityAndResidency.british | NationalityAndResidency.britishIrish,
+              "yes", //resideInUK
+              "no",  //any trips abroad
+              "no",  //EEA
+              true,  //over 35 hours
+              false,  //has any breaks in care
+              "no",  //been in education
+              "no",  //employed
+              "no",  //self employed
+              "no",  //any payments
+              "no",  //SSP
+              "no",  //other payments
+              "yes", //bank account
+              "no"   //additional info
+              ) => decisionModel("Check CIS for benefits.", "Potential award,no table")
+        case _ => emptyAssistedDecisionDetails
+      }
   }
 
   private def isOver35Hours(claim: Claim) : Boolean = {
