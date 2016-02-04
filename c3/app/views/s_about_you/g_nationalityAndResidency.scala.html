@@ -8,7 +8,7 @@
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
-@import play.api.i18n.Messages
+@import utils.helpers.OriginTagHelper._
 @import models.domain.NationalityAndResidency
 @import app.MaritalStatus._
 
@@ -24,7 +24,10 @@
 
 	            <ul>
 	                @listRadioGroup(nationalityAndResidencyForm("nationality"),
-                        'items -> Seq(NationalityAndResidency.british -> messages("label.british"), NationalityAndResidency.anothercountry -> messages("label.anothercountry")),
+                        'items -> Seq(isOriginGB() match {
+                            case true => NationalityAndResidency.british -> messages("label.british")
+                            case false => NationalityAndResidency.britishIrish -> messages("label.british")
+                        }, NationalityAndResidency.anothercountry -> messages("label.anothercountry")),
 	                    '_label -> messages("nationality.label"),
                         '_nestedFieldSet -> true)
 	
@@ -59,7 +62,13 @@
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_about_you/g_nationalityAndResidency.js")></script>
     <script type="text/javascript">
         $(function(){
-            window.initEvents("@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("British").id)",
+            window.initEvents(
+                            "@{
+                                isOriginGB() match {
+                                    case true => CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("British").id)
+                                    case false => CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("British/Irish").id)
+                                }
+                            }",
                             "@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("Another_nationality").id)",
                             "@CarersCrypto.encryptAES(nationalityAndResidencyForm("actualnationality").id)",
                             "@CarersCrypto.encryptAES(nationalityAndResidencyForm("resideInUK")("answer")("yes").id)",

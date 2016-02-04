@@ -2,21 +2,13 @@
 @import play.api.i18n.Messages
 
 @common.govMain(messages("unrecoverable.error")) {
-
     <div class="carers-allowance clearfix">
-
         @common.protoType()
-        
         @common.helperMobile()
-        
         <div class="grid-row main-grid">
-
             @common.leftcol()
-
             <article class="column-three-quarters main-content error-statement">
-
                 <h1 class="form-title heading-large">@Html(messages("unrecoverable.error.cookie"))</h1>
-
                 <p>
                     @messages("unrecoverable.error.cookie.help1")
                     <a rel="external" target="_blank" href="@routes.Cookies.page(lang.language)" target="_blank"
@@ -25,20 +17,15 @@
                     </a>
                     @messages("unrecoverable.error.cookie.help1.2")
                 </p>
-
                 <p>
                     <button  id="Try" type="submit" name="action" value="next" class="button"  @views.html.ga.trackClickEvent(linkName = "Chose try again") onClick="location.href='@url'" aria-label="@Html(messages("try.claim.help"))" >@Html(messages("try.claim"))</button>
                 </p>
-
                 <nav class="form-steps">
                     <ul>
-                        <li><a rel="external" href="https://www.gov.uk/done/apply-carers-allowance" target="_blank">@Html(messages("feedbacklink.claim"))</a></li>
+                        <li>@common.feedbackLink(isFooterItem = false)</li>
                     </ul>
                 </nav>
-                
             </article>
-
         </div>
-
     </div>
 }

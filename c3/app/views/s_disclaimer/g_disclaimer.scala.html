@@ -1,10 +1,15 @@
 @(currentForm: Form[models.domain.Disclaimer])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
-@import models.domain.TheirPersonalDetails
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper._
-@import play.api.i18n.Messages
+@import utils.helpers.OriginTagHelper._
 
+@whatLink = @{
+    isOriginGB match {
+        case true => "https://www.gov.uk/carers-allowance/what-youll-get"
+        case false => "http://www.nidirect.gov.uk/index/information-and-services/caring-for-someone/money-matters/carersallowance/carers-allowance-effect-on-other-benefits-and-entitlements.htm"
+    }
+}
 
     @main(messages("s1.g1") + " - " + messages("s1.longName"), Some(currentForm)) {
 
@@ -22,11 +27,13 @@
                             @for(i <- 2 to 3) {
                                 <li>@Html(messages(s"disclaimer.${i}"))</li>
                             }
-                            <li>@Html(messages("disclaimer.4", s"""<a rel="external" href="https://www.gov.uk/find-your-local-council" target="_blank" ${views.html.ga.trackClickEvent(linkName = "Disclaimer - Find your local council")}>""", "</a>"))</li>
+                            @if(isOriginGB) {
+                                <li>@Html(messages("disclaimer.4", s"""<a rel="external" href="https://www.gov.uk/find-your-local-council" target="_blank" ${views.html.ga.trackClickEvent(linkName = "Disclaimer - Find your local council")}>""", "</a>"))</li>
+                            }
                         </ul>
                         
                         <p>
-                            @Html(messages("disclaimer.5", s"""<a rel="external" href="https://www.gov.uk/carers-allowance/what-youll-get" target="_blank" ${views.html.ga.trackClickEvent(linkName = "Disclaimer - How it affects benefits")}>""", "</a>"))
+                            @Html(messages("disclaimer.5", s"""<a rel="external" href="$whatLink" target="_blank" ${views.html.ga.trackClickEvent(linkName = "Disclaimer - How it affects benefits")}>""", "</a>"))
                         </p>
                         <p>
                             @Html(messages("disclaimer.6", "<b>", "</b>"))

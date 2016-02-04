@@ -218,7 +218,9 @@ class GContactDetailsIntegrationSpec extends Specification {
 
       val previewPage = PreviewPage(context)
       previewPage goToThePage()
-      answerText(previewPage) mustEqual "101 Clifton Street, Blackpool FY1 2RW"
+      answerText(previewPage) must contain("101 Clifton Street")
+      answerText(previewPage) must contain("Blackpool")
+      answerText(previewPage) must contain("FY1 2RW")
       val contactDetails = previewPage.clickLinkOrButton(getLinkId(id))
 
       contactDetails must beAnInstanceOf[GContactDetailsPage]
@@ -230,8 +232,9 @@ class GContactDetailsIntegrationSpec extends Specification {
       val previewPageModified = contactDetails submitPage()
 
       previewPageModified must beAnInstanceOf[PreviewPage]
-      answerText(previewPageModified) mustEqual "10 someplace, Wherever M4 4TJ"
-
+      answerText(previewPageModified) must contain("10 someplace")
+      answerText(previewPageModified) must contain("Wherever")
+      answerText(previewPageModified) must contain("M4 4TJ")
     }
 
     "Modify contact number from preview page" in new WithJsBrowser with PageObjects {

@@ -1,6 +1,6 @@
 @()(implicit request: Request[AnyContent], lang: Lang, flash:Flash, messages: play.api.i18n.Messages)
 
-@import play.api.i18n.Messages
+@import utils.helpers.OriginTagHelper._
 
 <aside class="column-quarter sidebar" id="sidebar" role="complementary" aria-labelledby="helpcontent">
 
@@ -11,10 +11,14 @@
         <h3 class="heading-small compound">@Html(messages("leftcol.helpline"))</h3>
 
         <p class="compound">@Html(messages("leftcol.helplinecontent.1"))</p>
-        <p class="compound">@Html(messages("leftcol.helplinecontent.2"))</p>
+        @if(isOriginGB) {
+            <p class="compound">@Html(messages("leftcol.helplinecontent.2"))</p>
+        }
         <p class="compound">@Html(messages("leftcol.helplinecontent.3"))</p>
-        <p class="compound">@Html(messages("leftcol.helplinecontent.4"))</p>
-        <p class="compound">@messages("leftcol.callcharges")</p>
+        @if(isOriginGB) {
+            <p class="compound">@Html(messages("leftcol.helplinecontent.4"))</p>
+            <p class="compound">@messages("leftcol.callcharges")</p>
+        }
 
     </section>
 

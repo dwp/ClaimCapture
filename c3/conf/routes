@@ -64,6 +64,9 @@ GET         /circs-async-error                                          controll
 GET         /thankyou/apply-carers                                      controllers.ClaimEnding.thankyou
 GET         /thankyou/change-carers                                     controllers.CircsEnding.thankyou
 
+GET         /feedback/feedback                                          controllers.feedback.GFeedback.present
+POST        /feedback/feedback                                          controllers.feedback.GFeedback.submit
+
 GET         /back-button-page                                           controllers.Application.backButtonPage
 GET         /circs-back-button-page                                     controllers.Application.backButtonCircsPage
 

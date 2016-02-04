@@ -1,6 +1,7 @@
 @(title: String)(content: Html)(isCookiePage: Boolean)(implicit footerCategories: Html = Html(""), lang: Lang, request:play.api.mvc.Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
 
 @import app.ConfigProperties._
+@import utils.helpers.OriginTagHelper._
 
 <!DOCTYPE html>
 
@@ -114,21 +115,21 @@
             <div class="container clearfix">
                 <div>
                     <nav class="footer-nav language">
-                        @if(getProperty("galluogi.cymraeg", default = true)) {
-                            @if((request.uri.startsWith("/allowance/benefits")) || (request.uri.startsWith("/circumstances/report-changes/selection"))) {
-                                @if(lang.language == "cy") {
-                                    <a id="lang-en" href="/change-language/en" aria-label="@Html(messages("english.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection English")>@Html(messages("english"))</a>
-                                } else {
-                                    <a id="lang-cy" href="/change-language/cy" aria-label="@Html(messages("welsh.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection Welsh")>@Html(messages("welsh"))</a>
+                        @if(isOriginGB) {
+                            @if(getProperty("galluogi.cymraeg", default = true)) {
+                                @if((request.uri.startsWith("/allowance/benefits")) || (request.uri.startsWith("/circumstances/report-changes/selection"))) {
+                                    @if(lang.language == "cy") {
+                                        <a id="lang-en" href="/change-language/en" aria-label="@Html(messages("english.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection English")>@Html(messages("english"))</a>
+                                    } else {
+                                        <a id="lang-cy" href="/change-language/cy" aria-label="@Html(messages("welsh.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection Welsh")>@Html(messages("welsh"))</a>
+                                    }
                                 }
                             }
                         }
                         <a id="cookies" rel="external" target="_blank" href="@routes.Cookies.page(lang.language)" @views.html.ga.trackClickEvent(linkName = "Cookies - from footer")>@messages("cookies")</a>
 
                         <a id="privacy" rel="external" target="privacyLink" href="https://www.gov.uk/government/organisations/department-for-work-pensions/about/personal-information-charter" @views.html.ga.trackClickEvent(linkName = "Privacy")>@messages("privacyLink")</a>
-                        
-                        <a id="claim-feedback" rel="external" target="_blank" href="https://www.gov.uk/done/apply-carers-allowance" @views.html.ga.trackClickEvent(linkName = "Feedback")>@messages("footer.feedback.text")</a>
-                        
+                        @common.feedbackLink()
                     </nav>
                     <p>@Html(messages("madePreston"))</p>
                     <p class="ogl">@Html(messages("openGovLicensea")) <a rel="external" href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3" target="openGovLink" @views.html.ga.trackClickEvent(linkName = "Open Government Licence")>@Html(messages("openGovLicenseb"))</a>@Html(messages("openGovLicensec"))</p>

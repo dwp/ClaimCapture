@@ -5,7 +5,7 @@ import utils.pageobjects.PageObjects
 import utils.pageobjects.circumstances.report_changes.GBreaksInCarePage
 import org.specs2.mutable._
 
-class ThankYouCircsIntegrationSpec extends Specification {
+class   ThankYouCircsIntegrationSpec extends Specification {
   section("integration")
   "Change Thank You" should {
     "present 'Thank You' page" in new WithBrowser with BrowserMatchers {

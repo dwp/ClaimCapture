@@ -35,7 +35,7 @@ class PreviewIntegrationSpec extends Specification {
        declarationPage must beAnInstanceOf[GDeclarationPage]
     }
 
-    "change Next button text to 'Return to summary'" in new WithJsBrowser with PageObjects {
+    "change Next button text to 'Return to check your answers'" in new WithJsBrowser with PageObjects {
       val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
       val previewPage = PreviewPage(context) goToThePage()
       previewPage must beAnInstanceOf[PreviewPage]

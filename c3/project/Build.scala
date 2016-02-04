@@ -7,7 +7,7 @@ import de.johoop.jacoco4sbt.JacocoPlugin._
 
 object ApplicationBuild extends Build {
   val appName         = "c3"
-  val appVersion      = "3.3.1-SNAPSHOT"
+  val appVersion      = "3.4-SNAPSHOT"
   val appDependencies = Seq(
     // Add your project dependencies here,
     jdbc,
@@ -18,7 +18,7 @@ object ApplicationBuild extends Build {
     "com.typesafe.akka"  %% "akka-testkit"        % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka"  %% "akka-agent"          % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka"  %% "akka-remote"         % "2.3.9" % "test" withSources() withJavadoc(),
-    "gov.dwp.carers"     %% "xmlcommons"          % "7.0",
+    "gov.dwp.carers"     %% "xmlcommons"          % "7.2",
     "gov.dwp.carers"     %%  "wscommons"          % "3.0",
     "org.postgresql"     % "postgresql"           % "9.3-1103-jdbc41",
     "com.h2database"      % "h2"                  % "1.4.186"  % "test",
@@ -27,7 +27,7 @@ object ApplicationBuild extends Build {
     "org.jacoco"          % "org.jacoco.core"     % "0.7.4.201502262128"  % "test",
     "org.jacoco"          % "org.jacoco.report"   % "0.7.4.201502262128"  % "test",
     "nl.rhinofly"        %% "play-mailer"         % "3.0.0",
-    "gov.dwp.carers"     %% "play2-resilient-memcached"     % "2.2",
+    "gov.dwp.carers"     %% "play2-resilient-memcached"     % "2.5",
     "gov.dwp"            %% "play2-multimessages" % "2.4.3",
     "net.sourceforge.htmlunit" % "htmlunit" % "2.18" % "test",
     "org.seleniumhq.selenium" % "selenium-java" % "2.47.1" % "test",

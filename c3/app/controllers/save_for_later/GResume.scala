@@ -30,7 +30,7 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
     val encuuid = createParamsMap(request.queryString).getOrElse("x", "")
     val uuid = claim.getDecryptedUuid(encuuid)
     if (!getProperty("saveForLaterResumeEnabled", default = false)) {
-      BadRequest(views.html.save_for_later.switchedOff("sfl-resume", request2lang))
+      BadRequest(views.html.common.switchedOff("sfl-resume", request2lang))
     }
     else if (encuuid.equals("")) {
       BadRequest(views.html.save_for_later.resumeNotExist(request2lang))
@@ -53,7 +53,7 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
 
   def submit = resumeClaim { implicit claim => implicit request => implicit request2lang =>
     if (!getProperty("saveForLaterResumeEnabled", default = false)) {
-      BadRequest(views.html.save_for_later.switchedOff("sfl-resume", request2lang))
+      BadRequest(views.html.common.switchedOff("sfl-resume", request2lang))
     }
     else {
       form.bindEncrypted.fold(

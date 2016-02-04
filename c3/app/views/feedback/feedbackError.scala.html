@@ -1,0 +1,14 @@
+@(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash: Flash, messages: play.api.i18n.Messages)
+
+@import views.html.feedback.main
+
+    @main(messages("Feedback Error")) {
+        <h2>@Html(messages("An error has occurred"))</h2>
+        <p></p>
+
+        <p>@views.html.save_for_later.newApplicationButton(messages("saveForLater.common.new.label"), true, None)</p>
+        <p>@views.html.save_for_later.govUKLink()</p>
+
+        @views.html.ga.sendTrackEvent("Feedback","Error")
+    }
+

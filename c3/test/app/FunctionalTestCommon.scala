@@ -47,8 +47,7 @@ abstract class FunctionalTestCommon extends Specification {
 
   def ninoConversion(id:String) = id -> {(s:String) => s}
   def dateConversion(id:String) = id -> {(s:String) => DateTimeFormat.forPattern("dd MMMM, yyyy").print(DateTimeFormat.forPattern("dd/MM/yyyy").parseDateTime(s)).toLowerCase }
-  def addressConversion(id:String) = id -> {(s:String) =>s.replaceAll("&",", ")}
-
+  def addressConversion(id:String) = id -> {(s:String) => s.replaceAll("&","\r\n                          <br/>\r\n                          ")}
   def test(page:Page,claim:TestData,testableData:PreviewTestableData) = {
     page goToThePage()
     val previewPage = page runClaimWith(claim, PreviewPage.url,trace=true)

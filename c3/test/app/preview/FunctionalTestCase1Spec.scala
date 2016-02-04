@@ -43,7 +43,6 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
         "Do you want to tell us any additional information about your claim?" displays "ConsentDeclarationTellUsAnythingElseAnswerAboutClaim",
         "Do you live in Wales and want to receive future communications in Welsh?" displays "ConsentDeclarationCommunicationWelsh"
       )
-
       toFindData.assertReview(claim, context) must beTrue
     }
   }
