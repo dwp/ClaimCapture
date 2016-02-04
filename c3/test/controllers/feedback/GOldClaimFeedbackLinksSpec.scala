@@ -7,7 +7,7 @@ class GOldClaimFeedbackLinksSpec extends Specification {
 
   section("unit", models.domain.ThirdParty.id)
   "Various pages with OLD feedback links such as" should {
-    "Eligibility benefits page should contain footer feedback link in newtab" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("feedback.cads.enabled" -> "false"))) {
+    "Eligibility benefits page should contain footer feedback link in new tab" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("feedback.cads.enabled" -> "false"))) {
       browser.goTo("/allowance/benefits")
 
       val footerfeedback = browser.$("#claim-feedback")
@@ -17,7 +17,7 @@ class GOldClaimFeedbackLinksSpec extends Specification {
       footerfeedback.getAttribute("target") mustEqual ("_blank")
     }
 
-    "Claim thank you page should contain main link and footer feedback link in same tab" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("feedback.cads.enabled" -> "false"))) {
+    "Claim thank you page should contain main link and footer feedback link in new tab" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("feedback.cads.enabled" -> "false"))) {
       browser.goTo("/thankyou/apply-carers")
 
       // No id on old style main body feedback link need to find 1st matching href
@@ -36,7 +36,7 @@ class GOldClaimFeedbackLinksSpec extends Specification {
       footerfeedback.getAttribute("target") mustEqual ("_blank")
     }
 
-    "/error page should contain main link and footer feedback link in same tab" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("feedback.cads.enabled" -> "false"))) {
+    "/error page should contain main link and footer feedback link in new tab" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("feedback.cads.enabled" -> "false"))) {
       browser.goTo("/error")
 
       // No id on old style main body feedback link need to find 1st matching href
@@ -54,7 +54,7 @@ class GOldClaimFeedbackLinksSpec extends Specification {
       footerfeedback.getAttribute("target") mustEqual ("_blank")
     }
 
-    "/error-retry page should contain main link and footer feedback link in same tab" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("feedback.cads.enabled" -> "false"))) {
+    "/error-retry page should contain main link and footer feedback link in new tab" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("feedback.cads.enabled" -> "false"))) {
       browser.goTo("/error-retry")
 
       val footerfeedback = browser.$("#claim-feedback")
@@ -64,7 +64,7 @@ class GOldClaimFeedbackLinksSpec extends Specification {
       footerfeedback.getAttribute("target") mustEqual ("_blank")
     }
 
-    "Error cookie page should contain main link and footer feedback link in same tab" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("feedback.cads.enabled" -> "false"))) {
+    "Error cookie page should contain main link and footer feedback link in new tab" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("feedback.cads.enabled" -> "false"))) {
       browser.goTo("/claim-error-cookie-retry")
 
       // No id on old style main body feedback link need to find 1st matching href
@@ -81,7 +81,7 @@ class GOldClaimFeedbackLinksSpec extends Specification {
       footerfeedback.getAttribute("target") mustEqual ("_blank")
     }
 
-    "Error back button page should contain main link and footer feedback link in same tab" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("feedback.cads.enabled" -> "false"))) {
+    "Error back button page should contain main link and footer feedback link in new tab" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("feedback.cads.enabled" -> "false"))) {
       browser.goTo("/claim-error-browser-backbutton")
 
       // No id on old style main body feedback link need to find 1st matching href
