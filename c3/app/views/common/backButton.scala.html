@@ -12,13 +12,13 @@
 
             <p>@Html(messages("changesHaveBeenSent.message.1"))</p>
             <p>@Html(messages("changesHaveBeenSent.message.2"))</p>
-            <p>@Html(messages("changesHaveBeenSent.return"))</p>
+            <p>@common.feedbackLink(isFooterItem = false, isThankYou = true, labelParam = messageApi("changesHaveBeenSent.return")(Lang("en"))) (Takes 30 seconds.)</p>
 
             @if(isOriginGB()) {
                 <h2>@Html(messageApi("changesHaveBeenSent")(Lang("cy")))</h2>
                 <p>@Html(messageApi("changesHaveBeenSent.message.1")(Lang("cy")))</p>
                 <p>@Html(messageApi("changesHaveBeenSent.message.2")(Lang("cy")))</p>
-                <p>@Html(messageApi("changesHaveBeenSent.return")(Lang("cy")))</p>
+                <p>@common.feedbackLink(isFooterItem = false, isThankYou = true, labelParam = messageApi("changesHaveBeenSent.return")(Lang("cy"))) (Mae''n cymryd 30 eiliad)</p>
             }
        </article>
     </div>
