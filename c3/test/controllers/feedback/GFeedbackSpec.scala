@@ -57,21 +57,18 @@ class GFeedbackSpec extends Specification {
     "allow submit for satisfied filled and difficulty question yes but no text entered" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(inputYesDifficultyOnlyOK: _*)
       val result = GFeedback.submit(request)
-      println(contentAsString(result))
       status(result) mustEqual SEE_OTHER
     }
 
     "allow submit for satisfied filled and difficulty question no but no text entered" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(inputNoDifficultyOnlyOK: _*)
       val result = GFeedback.submit(request)
-      println(contentAsString(result))
       status(result) mustEqual SEE_OTHER
     }
 
     "allow submit for all inputs filled with yes difficulty" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(inputYesDifficultyAndTextOK: _*)
       val result = GFeedback.submit(request)
-      println(contentAsString(result))
       status(result) mustEqual SEE_OTHER
     }
 
