@@ -13,7 +13,7 @@ object AssistedDecision extends XMLComponent {
 
   def createAssistedDecisionDetails(claim: Claim): Claim = {
     val isDecisionMade = (assisted: AssistedDecisionDetails) => assisted.reason != "None"
-    val fnList = Array[(Claim) => AssistedDecisionDetails](caringHours _, dateOfClaim _, isInReceiptOfBenefit _, isAFIP _, yesEEAGuardYesBenefitsWork _, isInEducation _, isHappyPath _)
+    val fnList = Array[(Claim) => AssistedDecisionDetails](dateOfClaim _, caringHours _, isInReceiptOfBenefit _, isAFIP _, yesEEAGuardWork _, isInEducation _, isHappyPath _)
     claim.update(process(isDecisionMade, claim)(fnList))
   }
 
@@ -43,7 +43,7 @@ object AssistedDecision extends XMLComponent {
     else emptyAssistedDecisionDetails
   }
 
-  private def yesEEAGuardYesBenefitsWork(claim: Claim): AssistedDecisionDetails = {
+  private def yesEEAGuardWork(claim: Claim): AssistedDecisionDetails = {
     val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
     if (otherEEAStateOrSwitzerland.guardQuestion.answer == "yes" &&
       (otherEEAStateOrSwitzerland.guardQuestion.field1.get.answer == "yes" ||
