@@ -1,4 +1,4 @@
-@(isFooterItem:Boolean=true, isThankYou:Boolean=false)(implicit request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
+@(labelParam:String="", isFooterItem:Boolean=true, isThankYou:Boolean=false)(implicit request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
 @import app.ConfigProperties._
 
@@ -6,11 +6,12 @@
     getProperty("feedback.cads.enabled", default = false)
 }
 @isCircsPage = @{
-    request.uri.startsWith("/circumstances") || request.uri.contains("/change-carers")
+    request.uri.startsWith("/circumstances") || request.uri.contains("/circs") ||request.uri.contains("/change-carers")
 }
-@isInActivePage = @{
+@showInSameTab = @{
     isCadsFeedbackEnabled match {
-        case true => request.uri.contains("error") || request.uri.contains("timeout") || request.uri.contains("thankyou")
+        case true => request.uri.contains("error") || request.uri.contains("timeout") || request.uri.contains("thankyou") || request.uri.contains("back-button-page") ||
+                request.uri.contains("/allowance/approve") || request.uri.contains("/feedback")
         case false => false
     }
 }
@@ -31,14 +32,15 @@
     }
 }
 @feedbackLabel = @{
-    ( isFooterItem, isThankYou ) match {
-        case( true, _ ) => Html(messages("footer.feedback.text"))
-        case( false, true ) => Html(messages("claim.feedback.link"))
-        case( false, false ) => Html(messages("feedbacklink.claim"))
+    ( labelParam.length()>0, isFooterItem, isThankYou ) match {
+        case( true, _, _ ) => Html(labelParam)
+        case( _, true, _ ) => Html(messages("footer.feedback.text"))
+        case( _, false, true ) => Html(messages("claim.feedback.link"))
+        case( _, false, false ) => Html(messages("feedbacklink.claim"))
     }
 }
 
-<a @if(feedbackId.length>0){id="@feedbackId"} href="@feedbackUrl" @if(!isInActivePage){rel="external" target="_blank"} @if(isThankYou){class="secondary"} @views.html.ga.trackClickEvent(linkName = "Feedback")>@feedbackLabel</a>
+<a @if(feedbackId.length>0){id="@feedbackId"} href="@feedbackUrl" @if(!showInSameTab){rel="external" target="_blank"} @if(isThankYou){class="secondary"} @views.html.ga.trackClickEvent(linkName = "Feedback")>@feedbackLabel</a>
 
 
 

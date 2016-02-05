@@ -8,6 +8,7 @@
 @import models.domain._
 @import play.api.Play
 @import play.api.Play.current
+@import views.html.s_eligibility.main
 
 @benefitsAnswer = @{
     claim.questionGroup[Benefits].getOrElse(Benefits()).answer
@@ -110,7 +111,7 @@
                     <li>
                         <div id="showAppropriateButtonWrap">
                             <button style="display:none" id="actionButtonId" type="submit" name="action" value="next" class="button" onmousedown="analyticsCallback()">@Html(messages("form.continue.step"))</button>
-                            <div class="finish-button" id="feedbackLinkId" style="display:none">@Html(messages("claim.eligibility.feedback.link"))</div>
+                            <div class="finish-button" id="feedbackLinkId" style="display:none">@common.feedbackLink(isFooterItem = false, labelParam = messages("claim.eligibility.feedback.link"))</div>
                         </div>
                     </li>
                     <li><a id="bottomBackButton" href="@{claim.navigation.previous}">@Html(messages("form.back"))</a></li>
@@ -124,11 +125,6 @@
         function analyticsCallback() {
             @if(!Play.isTest){
                 trackEvent("/allowance/approve", "Eligibility - Continue")
-            }
-        }
-        function analyticEligibilityCallback() {
-            @if(!Play.isTest){
-                trackEvent("/allowance/approve", "Eligibility - Feedback")
             }
         }
     </script>
