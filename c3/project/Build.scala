@@ -18,6 +18,7 @@ object ApplicationBuild extends Build {
     "com.typesafe.akka"  %% "akka-testkit"        % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka"  %% "akka-agent"          % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka"  %% "akka-remote"         % "2.3.9" % "test" withSources() withJavadoc(),
+    "gov.dwp.carers"     %% "carerscommon"        % "7.3",
     "gov.dwp.carers"     %% "xmlcommons"          % "7.2",
     "gov.dwp.carers"     %%  "wscommons"          % "3.0",
     "org.postgresql"     % "postgresql"           % "9.3-1103-jdbc41",
