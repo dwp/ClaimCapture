@@ -284,6 +284,10 @@ protected trait CacheHandling {
     cache.get(fbuuid).getOrElse("")
   }
 
+  def removeFeedbackList() = {
+    cache.remove(CacheHandling.feedbackKeylist)
+  }
+
   def getFeedbackList(): String = {
     cache.get(CacheHandling.feedbackKeylist).getOrElse("")
   }

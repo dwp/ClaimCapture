@@ -2,6 +2,7 @@ package controllers.feedback
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import controllers.ClaimScenarioFactory
+import gov.dwp.carers.feedback.FeedbackCacheObject
 import models.view.cache.EncryptedCacheHandling
 import org.joda.time.DateTime
 import org.specs2.mutable._
@@ -12,7 +13,10 @@ import utils.pageobjects.feedback.GFeedbackPage
 class GFeedbackIntegrationSpec extends Specification {
   sequential
 
+  val SatisfiedVSScore = 5
+
   section("integration", models.domain.Feedback.id)
+
   "Feedback page" should {
     "be presented" in new WithJsBrowser with PageObjects {
       val page = GFeedbackPage(context)
@@ -31,28 +35,24 @@ class GFeedbackIntegrationSpec extends Specification {
       val page = GFeedbackPage(context)
       page goToThePage()
       page fillPageWith ClaimScenarioFactory.feedbackSatisfiedVS
-
       val nextPage = page submitPage()
 
       // default post submit url for GB is redirect to gov page
       nextPage.getUrl must contain("/anonymous-feedback/thankyou")
     }
 
-    /* ColinG Jan2016. Warning ... ths test will run under EhCache by default which will autoclear for each test instance. If run under memcache values may persist
-    across test runs meaning we cannot identify the newly added key to fblist. Its easy currently, as its the only item in the list
-    In which case keylist will be FB-XXXX,FB-YYY ... and  fbkeylist must notContain(",") will fail.
-    */
     "add feedback item to memcache list and set json formatted string" in new WithJsBrowser with PageObjects {
+      clearFBCache
       val page = GFeedbackPage(context)
       page goToThePage()
       page fillPageWith ClaimScenarioFactory.feedbackSatisfiedVS
-
+      val nextPage = page submitPage()
       val encryptedCacheHandling = new EncryptedCacheHandling() {
         val cacheKey = "1234"
       }
       val fbkeylist = encryptedCacheHandling.getFeedbackList()
       fbkeylist mustNotEqual ("")
-      fbkeylist must not contain(",")
+      fbkeylist must not contain (",")
 
       val jsonString = encryptedCacheHandling.getFeedbackFromCache(fbkeylist)
       jsonString must startWith("{")
@@ -60,28 +60,61 @@ class GFeedbackIntegrationSpec extends Specification {
     }
 
     "add feedback item to memcache with correct core data values" in new WithJsBrowser with PageObjects {
+      clearFBCache
       val page = GFeedbackPage(context)
       page goToThePage()
       page fillPageWith ClaimScenarioFactory.feedbackSatisfiedVS
+      val nextPage = page submitPage()
 
-      val encryptedCacheHandling = new EncryptedCacheHandling() {
-        val cacheKey = "1234"
-      }
-      val fbkeylist = encryptedCacheHandling.getFeedbackList()
-      fbkeylist mustNotEqual ("")
-      fbkeylist must not contain(",")
-
-      val jsonString = encryptedCacheHandling.getFeedbackFromCache(fbkeylist)
-      val objectMapper: ObjectMapper = new ObjectMapper
-      val cacheObject = objectMapper.readValue(jsonString, classOf[FeedbackCacheObject])
-      val SatisfiedVSScore = 5
-      cacheObject.getSatisfiedScore mustEqual (5)
-      cacheObject.getOrigin mustEqual ("GB")
+      val feedbackFromCache = getFeedbackFromCache
+      feedbackFromCache.getSatisfiedScore mustEqual (SatisfiedVSScore)
+      feedbackFromCache.getOrigin mustEqual ("GB")
       val secsOneMinuteAgo = new DateTime().minusMinutes(1).getMillis / 1000
       val secsNow = new DateTime().getMillis / 1000
-      cacheObject.getDatesecs must between(secsOneMinuteAgo, secsNow)
-      cacheObject.getUseragent must contain("Mozilla")
+      feedbackFromCache.getDatesecs must between(secsOneMinuteAgo, secsNow)
+      feedbackFromCache.getUseragent must contain("Mozilla")
+    }
+
+    "add feedback item to memcache claimOrCircs set correctly for Claim" in new WithJsBrowser with PageObjects {
+      clearFBCache
+      browser.goTo("/feedback/feedback")
+      browser.pageSource() must contain("id=\"satisfiedAnswer_VS\"")
+      browser.click("#satisfiedAnswer_VS")
+      browser.pageSource() must contain("id=\"send\"")
+      browser.click("#send")
+
+      val feedbackFromCache = getFeedbackFromCache
+      feedbackFromCache.getClaimOrCircs mustEqual ("Claim")
+    }
+
+    "add feedback item to memcache claimOrCircs set correctly for Circs" in new WithJsBrowser with PageObjects {
+      clearFBCache
+      browser.goTo("/circumstances/feedback")
+      browser.pageSource() must contain("id=\"satisfiedAnswer_VS\"")
+      browser.click("#satisfiedAnswer_VS")
+      browser.pageSource() must contain("id=\"send\"")
+      browser.click("#send")
+
+      val feedbackFromCache = getFeedbackFromCache
+      feedbackFromCache.getClaimOrCircs mustEqual ("Circs")
     }
   }
   section("integration", models.domain.ThirdParty.id)
+
+  def clearFBCache() = {
+    val encryptedCacheHandling = new EncryptedCacheHandling() {
+      val cacheKey = "1234"
+    }
+    encryptedCacheHandling.removeFeedbackList()
+  }
+  def getFeedbackFromCache() = {
+    val encryptedCacheHandling = new EncryptedCacheHandling() {
+      val cacheKey = "1234"
+    }
+    val fbkeylist = encryptedCacheHandling.getFeedbackList()
+    val jsonString = encryptedCacheHandling.getFeedbackFromCache(fbkeylist)
+    val objectMapper: ObjectMapper = new ObjectMapper
+    val cacheObject = objectMapper.readValue(jsonString, classOf[FeedbackCacheObject])
+    cacheObject
+  }
 }
