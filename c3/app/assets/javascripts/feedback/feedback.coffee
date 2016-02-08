@@ -1,5 +1,4 @@
 window.initEvents = (answerY, answerN, text1, text2, wrap1, wrap2) ->
-  console.log("passed text1:"+text1+" and text2:"+text2)
   $("#" + text1).trigger("blur")
   $("#" + text2).trigger("blur")
 

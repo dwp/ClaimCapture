@@ -2,12 +2,12 @@ package controllers.feedback
 
 import controllers.CarersForms._
 import controllers.mappings.Mappings._
+import gov.dwp.carers.feedback.FeedbackCacheObject
 import models.yesNo.{OptYesNoWith2Text}
 import play.api.i18n.{MMessages, MessagesApi, I18nSupport}
 import language.reflectiveCalls
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.mvc.{Controller}
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import models.domain._
@@ -17,6 +17,7 @@ import play.api.Play._
 import app.ConfigProperties._
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
+import play.api.mvc._
 
 object GFeedback extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
@@ -45,7 +46,7 @@ object GFeedback extends Controller with CachedClaim with Navigable with I18nSup
     }
   }
 
-  def submit = optionalClaim { implicit claim => implicit request => implicit request2lang =>
+  def submit(claimOrCircs: String) = optionalClaim { implicit claim => implicit request => implicit request2lang =>
     getProperty("feedback.cads.enabled", default = false) match {
       case false => BadRequest(views.html.common.switchedOff("feedback-submit", request2lang))
       case true => {
@@ -56,7 +57,7 @@ object GFeedback extends Controller with CachedClaim with Navigable with I18nSup
           form => {
             try {
               val objectMapper: ObjectMapper = new ObjectMapper
-              val jsonString = objectMapper.writeValueAsString(populateFeedbackCacheObject(form, request.headers.get("User-Agent").getOrElse("")))
+              val jsonString = objectMapper.writeValueAsString(populateFeedbackCacheObject(form, request, claimOrCircs))
               processFeedback(jsonString)
               Redirect(thankyouPageUrl)
             }
@@ -72,14 +73,15 @@ object GFeedback extends Controller with CachedClaim with Navigable with I18nSup
     }
   }
 
-  def populateFeedbackCacheObject(form: Feedback, useragent: String) = {
+  def populateFeedbackCacheObject(form: Feedback, request: Request[AnyContent], claimOrCircs: String) = {
     val feedbackCacheObject = new FeedbackCacheObject
     feedbackCacheObject.setDatesecs(form.datetimesecs)
     feedbackCacheObject.setOrigin(form.origin)
+    feedbackCacheObject.setClaimOrCircs(claimOrCircs)
     feedbackCacheObject.setSatisfiedScore(form.satisfiedScore)
     feedbackCacheObject.setDifficulty(form.difficultyAndText.answer.getOrElse(""))
     feedbackCacheObject.setComment(form.difficultyAndText.text)
-    feedbackCacheObject.setUseragent(useragent)
+    feedbackCacheObject.setUseragent(request.headers.get("User-Agent").getOrElse(""))
     feedbackCacheObject
   }
 
