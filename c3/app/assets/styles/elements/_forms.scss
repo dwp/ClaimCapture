@@ -69,6 +69,14 @@ textarea {
     }
 }
 
+// Extra group with nested checkbox
+li#nameOrOrganisationWrapper  ul.extra-group  {
+    margin-top: 0;
+        .form-group {
+            margin-bottom: 15px;
+        }
+} 
+
 // Extra group is used to highlight groups hidden by default
 .extra-group {
     margin-top: -25px;
