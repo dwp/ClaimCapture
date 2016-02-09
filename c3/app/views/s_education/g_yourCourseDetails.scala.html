@@ -6,9 +6,9 @@
 @import views.html.helper.base._
 @import views.html.helper.dates._
 @import views.html.s_education.main
-@import play.api.i18n.Messages
 @import utils.helpers.CarersCrypto
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+@import utils.CommonValidation
 
     @displayDateForLabel = @{
         claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
@@ -35,7 +35,7 @@
                                 carersInputTextArea(currentForm("courseTitle"), 'maxLength -> 75, 'class -> "textarea-reduced"),
                                 carersInputTextArea(currentForm("nameOfSchoolCollegeOrUniversity"), 'maxLength -> mappings.Mappings.sixty, 'class -> "textarea-reduced"),
                                 carersInputText(currentForm("nameOfMainTeacherOrTutor"), 'maxLength -> mappings.Mappings.sixty),
-                                carersInputTel(currentForm("courseContactNumber"), 'helperAbove -> messages("courseContactNumber.helper"), 'maxLength -> mappings.Mappings.twenty),
+                                carersInputTel(currentForm("courseContactNumber"), 'helperAbove -> messages("courseContactNumber.helper"), 'maxLength -> CommonValidation.PHONE_NUMBER_MAX_LENGTH),
                                 educationStartDate(currentForm("startDate")),
                                 educationEndDate(currentForm("expectedEndDate"))),
                             'id -> "educationWrap"

@@ -4,6 +4,7 @@ import controllers.mappings.AddressMappings._
 import controllers.mappings.Mappings
 import models.yesNo.YesNoMandWithAddress
 import play.api.Play._
+import utils.CommonValidation
 import language.reflectiveCalls
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
@@ -29,7 +30,7 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
     "title" -> carersNonEmptyText(maxLength = Mappings.twenty),
     "firstName" -> carersNonEmptyText(maxLength = 17),
     "middleName" -> optional(carersText(maxLength = 17)),
-    "surname" -> carersNonEmptyText(maxLength = Name.maxLength),
+    "surname" -> carersNonEmptyText(maxLength = CommonValidation.NAME_MAX_LENGTH),
     "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
     "dateOfBirth" -> dayMonthYear.verifying(validDate),
     "relationship" -> carersNonEmptyText(maxLength = 35),

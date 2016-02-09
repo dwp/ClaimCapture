@@ -2,6 +2,7 @@ package controllers.s_other_money
 
 import controllers.mappings.Mappings
 import play.api.Play._
+import utils.CommonValidation
 
 import language.reflectiveCalls
 import play.api.mvc.Controller
@@ -51,7 +52,7 @@ object GAboutOtherMoney extends Controller with CachedClaim with Navigable with 
 
   val form = Form(mapping(
     anyPaymentsSinceClaimDateMapping,
-    "whoPaysYou" -> optional(carersNonEmptyText(maxLength = Name.maxLength)),
+    "whoPaysYou" -> optional(carersNonEmptyText(maxLength = CommonValidation.NAME_MAX_LENGTH)),
     "howMuch" -> optional(nonEmptyText verifying validCurrency8Required),
     "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
     statutorySickPayMapping,

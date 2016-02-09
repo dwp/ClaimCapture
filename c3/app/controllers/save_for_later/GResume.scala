@@ -8,6 +8,7 @@ import play.api.data.{Form}
 import play.api.data.Forms._
 import play.api.i18n._
 import play.api.mvc._
+import utils.CommonValidation
 import scala.language.reflectiveCalls
 import controllers.CarersForms._
 import controllers.mappings.Mappings._
@@ -20,7 +21,7 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
 
   val form = Form(mapping(
     "firstName" -> carersNonEmptyText(maxLength = 17),
-    "surname" -> carersNonEmptyText(maxLength = Name.maxLength),
+    "surname" -> carersNonEmptyText(maxLength = CommonValidation.NAME_MAX_LENGTH),
     "nationalInsuranceNumber" -> nino.verifying(filledInNino, validNino),
     "dateOfBirth" -> dayMonthYear.verifying(validDate),
     "uuid" -> text

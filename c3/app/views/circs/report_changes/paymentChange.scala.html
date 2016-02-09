@@ -1,19 +1,14 @@
 @(currentForm: Form[models.domain.CircumstancesPaymentChange])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
-@import helper._
 @import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper
-@import common._
-@import views.html.helper.dates._
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
 @import views.html.circs.report_changes.main
 @import app.PaymentFrequency._
-@import app.WhoseNameAccount._
-@import play.api.i18n.Messages
-
+@import utils.CommonValidation
 
 @main(messages("c2.g5") + " - " + messages("c2.name")) {
     @errorsSummary(currentForm)
@@ -58,7 +53,7 @@
 	            <legend class="heading-medium form-label-bold">@Html(messages("c2.g5.newPaymentDetails"))</legend>
 
 	            <ul class="coc-layout">
-	                @carersInputText(currentForm("accountHolderName"), 'maxLength -> "60")
+	                @carersInputText(currentForm("accountHolderName"), 'maxLength -> CommonValidation.ACCOUNT_HOLDER_NAME_MAX_LENGTH)
 
 	                @carersInputText(currentForm("bankFullName"))
 

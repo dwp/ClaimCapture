@@ -8,6 +8,7 @@
 @import app.ConfigProperties._
 @import utils.helpers.CarersCrypto
 @import play.api.Play
+@import utils.CommonValidation
 
     @main(messages("c1") + " - " + messages("c2.longName"), Some(reportAChangeForm), back = true) {
 
@@ -23,7 +24,7 @@
                     <p>@Html(messages("c1.helper"))</p>
 
                     <ul>
-                        @carersInputText(reportAChangeForm("fullName"), 'maxLength -> 35)
+                        @carersInputText(reportAChangeForm("fullName"), 'maxLength -> CommonValidation.FULL_NAME_MAX_LENGTH)
 
                         @nationalInsuranceNumber(reportAChangeForm("nationalInsuranceNumber"),
                             'helperAbove -> messages("mandatory.nationalInsuranceNumber.helper"),
@@ -41,7 +42,7 @@
                     <legend class="form-label-bold heading-medium">@Html(messages("c1.personYouAreCaringFor"))</legend>
 
                     <ul>
-                        @carersInputText(reportAChangeForm("theirFullName"), 'maxLength -> 35)
+                        @carersInputText(reportAChangeForm("theirFullName"), 'maxLength -> CommonValidation.FULL_NAME_MAX_LENGTH)
 
                         @carersInputText(reportAChangeForm("theirRelationshipToYou"), 'helperAbove -> messages("theirRelationshipToYou.helper"), 'maxLength -> 35)
                     </ul>
@@ -53,7 +54,7 @@
                     <legend class="form-label-bold heading-medium">@Html(messages("c3.g2"))</legend>
 
                     <ul>
-                        @carersInputTel(reportAChangeForm("furtherInfoContact"),'ignoreOptional -> true, 'maxLength -> mappings.Mappings.twenty)
+                        @carersInputTel(reportAChangeForm("furtherInfoContact"),'ignoreOptional -> true, 'maxLength -> CommonValidation.PHONE_NUMBER_MAX_LENGTH)
 
                         @if(getProperty("email.frontend",false)) {
                             @yesNoRadioGroup(reportAChangeForm("wantsEmailContactCircs"))

@@ -1,17 +1,13 @@
 @(yourDetailsForm: Form[models.domain.YourDetails])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
-@import helper._
 @import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper
-@import views.html.common._
 @import views.html.helper._
 @import views.html.helper.dropdowns._
 @import views.html.helper.base._
 @import views.html.helper.dates._
 @import views.html.s_about_you.main
-@import play.api.i18n.Messages
-@import utils.helpers.CarersCrypto
-
+@import utils.CommonValidation
 
 
     @main(messages("s2.g1") + " - " + messages("s2.longName")) {
@@ -29,7 +25,7 @@
 
                     @carersInputText(yourDetailsForm("middleName"), 'maxLength -> 17,'ignoreOptional->true)
 
-                    @carersInputText(yourDetailsForm("surname"), 'maxLength -> 35)
+                    @carersInputText(yourDetailsForm("surname"), 'maxLength -> CommonValidation.NAME_MAX_LENGTH)
 
                     @nationalInsuranceNumber(yourDetailsForm("nationalInsuranceNumber"),
                         'helperAbove -> messages("mandatory.nationalInsuranceNumber.helper"),

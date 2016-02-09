@@ -2,9 +2,10 @@ package controllers.s_about_you
 
 import controllers.mappings.Mappings
 import play.api.Play._
+import utils.CommonValidation
 
 import language.reflectiveCalls
-import play.api.data.{FormError, Form}
+import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import controllers.mappings.Mappings._
@@ -24,7 +25,7 @@ object GYourDetails extends Controller with CachedClaim with Navigable with I18n
     "title" -> carersNonEmptyText(maxLength = Mappings.twenty),
     "firstName" -> carersNonEmptyText(maxLength = 17),
     "middleName" -> optional(carersText(maxLength = 17)),
-    "surname" -> carersNonEmptyText(maxLength = Name.maxLength),
+    "surname" -> carersNonEmptyText(maxLength = CommonValidation.NAME_MAX_LENGTH),
     "nationalInsuranceNumber" -> nino.verifying(filledInNino,validNino),
     "dateOfBirth" -> dayMonthYear.verifying(validDate)
   )(YourDetails.apply)(YourDetails.unapply))

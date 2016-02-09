@@ -8,9 +8,9 @@
 @import utils.helpers.CarersCrypto
 @import controllers.IterationID
 @import utils.helpers.PastPresentLabelHelper._
-@import play.api.i18n.Messages
 @import scala.language.postfixOps
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+@import utils.CommonValidation
 
 @main(messages("s7.g3") + " - " + messages("s7.longName"), Some(currentForm), Some(messages("s7.g3")),ignorePreview = true) {
 
@@ -25,7 +25,7 @@
 
                 @carersInputText(currentForm("employerName"), 'maxLength -> mappings.Mappings.sixty)
 
-                @carersInputTel(currentForm("phoneNumber"), 'maxLength -> mappings.Mappings.twenty)
+                @carersInputTel(currentForm("phoneNumber"), 'maxLength -> CommonValidation.PHONE_NUMBER_MAX_LENGTH)
 
                 @inputAddress(currentForm("address"))
 
