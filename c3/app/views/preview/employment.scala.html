@@ -53,8 +53,8 @@
 @content = {
 	@fieldWithLink("employment_been_employed_since", messages("beenEmployed.simple",sixMonthsBeforeDate(claimDate.dateOfClaim).`d month yyyy`),messages("label."+emp.beenEmployedSince6MonthsBeforeClaim),disableLink = disableChangeButton, elementId = Some("beenEmployedSince6MonthsBeforeClaim"))
 	@{/* Jobs do not use the fieldWithLink view. The fieldWithLink view accepts text and this produces HTML (an unordered list) */}
-	@fieldWithLink("self_employment_been_self_employed", messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`d month yyyy`), seValue,disableLink = disableChangeButton, elementId = Some("beenSelfEmployedSince1WeekBeforeClaim"))
 	@jobsPreview()
+    @fieldWithLink("self_employment_been_self_employed", messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`d month yyyy`), seValue,disableLink = disableChangeButton, elementId = Some("beenSelfEmployedSince1WeekBeforeClaim"))
     @if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes"){
 		@fieldWithLink("self_employment_nature_of_business", messages("natureOfYourBusiness"), aboutSelfEmployment.natureOfYourBusiness, disableLink = disableChangeButton, elementId = Some("natureOfYourBusiness"))
 	}
