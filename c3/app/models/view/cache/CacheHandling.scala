@@ -196,8 +196,8 @@ protected trait CacheHandling {
     }
   }
 
-  def createClaimInSaveForLaterList(uuid: String): Unit = {
-    setSaveForLaterListInCache(uuid, Duration(0, SECONDS))
+  def createClaimInSaveForLaterList(key: String): Unit = {
+    setSaveForLaterListInCache(key, Duration(0, SECONDS))
   }
 
   def saveForLaterInCache(claim: Claim, path: String): Unit = {
@@ -213,25 +213,25 @@ protected trait CacheHandling {
     createClaimInSaveForLaterList(saveForLaterFullKey(uuid))
   }
 
-  def setSaveForLaterListInCache(uuid: String, expiration: Duration): Unit = {
+  def setSaveForLaterListInCache(key: String, expiration: Duration): Unit = {
     isMemcached match {
       case true => {
-        Logger.info("Using memcached CAS to store values")
+        Logger.info("Using memcached CAS to store value in keylist with added key:" + key)
         val memcached = cache.asInstanceOf[MemcachedCacheApi]
-        memcached.setCASList(createKeyInListMutation(uuid), uuid, CacheHandling.saveForLaterKeylist, expiration)
+        memcached.setCASList(createKeyInListMutation(key), key, CacheHandling.saveForLaterKeylist, expiration)
       }
-      case _ => cache.set(CacheHandling.saveForLaterKeylist, uuid :: cache.get[List[String]](CacheHandling.saveForLaterKeylist).getOrElse(List[String]()).filter(_ > uuid), expiration)
+      case _ => cache.set(CacheHandling.saveForLaterKeylist, key :: cache.get[List[String]](CacheHandling.saveForLaterKeylist).getOrElse(List[String]()).filter(_ > key), expiration)
     }
   }
 
-  private def removeSaveForLaterClaimKeyFromList(uuid: String) = {
+  private def removeSaveForLaterClaimKeyFromList(key: String) = {
     isMemcached match {
       case true => {
-        Logger.info("Using memcached CAS to remove values")
+        Logger.info("Using memcached CAS to remove value for uuid:"+key)
         val memcached = cache.asInstanceOf[MemcachedCacheApi]
-        memcached.setCASList(removeKeyInListMutation(uuid), "", CacheHandling.saveForLaterKeylist, Duration(0, SECONDS))
+        memcached.setCASList(removeKeyInListMutation(key), "", CacheHandling.saveForLaterKeylist, Duration(0, SECONDS))
       }
-      case _ => cache.set(CacheHandling.saveForLaterKeylist, cache.get[List[String]](CacheHandling.saveForLaterKeylist).getOrElse(List[String]()).filter(_ > uuid), Duration(0, SECONDS))
+      case _ => cache.set(CacheHandling.saveForLaterKeylist, cache.get[List[String]](CacheHandling.saveForLaterKeylist).getOrElse(List[String]()).filter(_ > key), Duration(0, SECONDS))
     }
   }
 
@@ -299,12 +299,12 @@ protected trait CacheHandling {
   def setFeedbackListInCache(newKey: String, expiration: Duration): Unit = {
     isMemcached match {
       case true => {
-        Logger.info("Using memcached CAS to store feedback keylist")
+        Logger.info("Using memcached CAS to store feedback keylist with new key:" + newKey)
         val memcached = cache.asInstanceOf[MemcachedCacheApi]
         memcached.setCASList(createKeyInListMutation(newKey), newKey, CacheHandling.feedbackKeylist, expiration)
       }
       case _ => {
-        Logger.info("Using EHCache to store feedback keylist")
+        Logger.info("Using EHCache to store feedback keylist with new key:" + newKey)
         val current = cache.get[String](CacheHandling.feedbackKeylist).getOrElse("")
         def appendkeys = current match {
           case "" => newKey
