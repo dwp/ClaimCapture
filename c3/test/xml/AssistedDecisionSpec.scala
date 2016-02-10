@@ -11,7 +11,7 @@ import models.yesNo.{YesNoWith1MandatoryFieldOnYes, YesNoWith2MandatoryFieldsOnY
 import xml.claim.AssistedDecision
 
 class AssistedDecisionSpec extends Specification {
-  val emptyAssistedDecisionNode = <AssistedDecision><Reason>None</Reason><RecommendedDecision>None</RecommendedDecision></AssistedDecision>
+  val emptyAssistedDecisionNode = <AssistedDecision><Reason>None</Reason><RecommendedDecision>None,show table</RecommendedDecision></AssistedDecision>
 
   section("unit")
   "Assisted section" should {
@@ -87,7 +87,7 @@ class AssistedDecisionSpec extends Specification {
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = "no")
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(otherEEAStateOrSwitzerland).update(benefits).update(yourCourseDetails))
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain("Assign to Exportability in CAMLite workflow.")
+      (xml \\ "Reason").text must contain("Assign to AFIP officer on CAMLite workflow.")
       (xml \\ "RecommendedDecision").text must contain ("None")
     }
 
@@ -98,7 +98,7 @@ class AssistedDecisionSpec extends Specification {
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = "no")
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(otherEEAStateOrSwitzerland).update(benefits).update(yourCourseDetails))
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain("Assign to Exportability in CAMLite workflow.")
+      (xml \\ "Reason").text must contain("Assign to AFIP officer on CAMLite workflow.")
       (xml \\ "RecommendedDecision").text must contain ("None")
     }
 
@@ -109,14 +109,14 @@ class AssistedDecisionSpec extends Specification {
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = "no")
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(otherEEAStateOrSwitzerland).update(benefits).update(yourCourseDetails))
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain("Assign to Exportability in CAMLite workflow.")
+      (xml \\ "Reason").text must contain("Assign to AFIP officer on CAMLite workflow.")
       (xml \\ "RecommendedDecision").text must contain ("None")
     }
 
     "Not create an assisted decision section if no EEA insurance or working" in new WithApplication {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = "yes", field1=Some(YesNoWith1MandatoryFieldOnYes(answer="no")), field2=Some(YesNoWith1MandatoryFieldOnYes(answer="no"))))
-      val benefits = Benefits(benefitsAnswer = Benefits.afip)
+      val benefits = Benefits(benefitsAnswer = Benefits.aa)
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = "no")
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(otherEEAStateOrSwitzerland).update(benefits).update(yourCourseDetails))
       val xml = AssistedDecision.xml(claim)
@@ -134,10 +134,10 @@ class AssistedDecisionSpec extends Specification {
       (xml \\ "RecommendedDecision").text must contain ("None")
     }
 
-    "Not create an assisted decision section if no EEA and in education but afip claim" in new WithApplication {
+    "Not create an assisted decision section if no EEA and in education but aa claim" in new WithApplication {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = "yes", field1=Some(YesNoWith1MandatoryFieldOnYes(answer="no")), field2=Some(YesNoWith1MandatoryFieldOnYes(answer="no"))))
-      val benefits = Benefits(benefitsAnswer = Benefits.afip)
+      val benefits = Benefits(benefitsAnswer = Benefits.aa)
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = "yes")
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(otherEEAStateOrSwitzerland).update(benefits).update(yourCourseDetails))
       val xml = AssistedDecision.xml(claim)
