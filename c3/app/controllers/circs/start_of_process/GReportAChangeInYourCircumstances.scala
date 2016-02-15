@@ -99,7 +99,7 @@ object GReportAChangeInYourCircumstances extends Controller with CachedChangeOfC
 
   private def formatEmailAndPostCode(circumstancesReportChange: CircumstancesReportChange): CircumstancesReportChange = {
     circumstancesReportChange.copy(
-      email = Some(circumstancesReportChange.email.getOrElse("").trim),
-      emailConfirmation = Some(circumstancesReportChange.emailConfirmation.getOrElse("").trim))
+      email = circumstancesReportChange.email.getOrElse("").trim match { case y if y.isEmpty => None case x => Some(x) },
+      emailConfirmation = circumstancesReportChange.emailConfirmation.getOrElse("").trim match { case y if y.isEmpty => None case x => Some(x) })
   }
 }
