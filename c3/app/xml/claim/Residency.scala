@@ -1,10 +1,10 @@
 package xml.claim
 
 import models.domain._
+import models.yesNo.YesNoWithText
 import scala.xml.NodeSeq
 import xml.XMLHelper._
 import xml.XMLComponent
-import models.domain.Claim
 import controllers.mappings.Mappings
 import play.api.i18n.{MMessages, MessagesApi}
 import play.api.Play.current
@@ -42,5 +42,26 @@ object Residency extends XMLComponent{
       </PeriodAbroad>
 
     </Residency>
+  }
+
+  def fromXml(xml: NodeSeq, claim: Claim) : Claim = {
+    claim.update(createNationalityFromXml(xml)).update(createPeriodAbroadFromXml(xml))
+  }
+
+  private def createNationalityFromXml(xml: NodeSeq) = {
+    val nationality = (xml \\ "Residency")
+    models.domain.NationalityAndResidency(
+      nationality = (nationality \ "Nationality" \ "Answer").text,
+      actualnationality = createStringOptional((nationality \ "ActualNationality" \ "Answer").text),
+      resideInUK = YesNoWithText(createYesNoText((nationality \ "NormallyLiveInGB" \ "Answer").text), createStringOptional((nationality \ "CountryNormallyLive" \ "Answer").text))
+    )
+  }
+
+  private def createPeriodAbroadFromXml(xml: NodeSeq) = {
+    val period = (xml \\ "PeriodAbroad")
+    models.domain.AbroadForMoreThan52Weeks(
+      anyTrips = createYesNoText((period \ "TimeOutsideGBLast3Years" \ "Answer").text),
+      tripDetails = createStringOptional((period \ "TripsDetails" \ "Answer").text)
+    )
   }
 }

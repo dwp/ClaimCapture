@@ -7,6 +7,8 @@ import play.api.i18n.{MMessages, MessagesApi}
 import play.api.Play.current
 import app.ConfigProperties._
 
+import scala.xml.NodeSeq
+
 object  Disclaimer extends XMLComponent{
   val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   def xml(claim: Claim) = {
@@ -31,5 +33,11 @@ object  Disclaimer extends XMLComponent{
       case "GB" => true
       case _ => false
     }
+  }
+
+  def fromXml(xml: NodeSeq, claim: Claim) : Claim = {
+    val disclaimers = (xml \\ "Disclaimer")
+    val disclaimer = models.domain.Disclaimer(read = createYesNoText((disclaimers \ "DisclaimerQuestion" \ "Answer").text))
+    claim.update(disclaimer)
   }
 }

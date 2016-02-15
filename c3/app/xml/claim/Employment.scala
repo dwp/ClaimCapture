@@ -1,18 +1,21 @@
 package xml.claim
 
+import controllers.mappings.Mappings
 import models.domain._
+import models.yesNo.YesNoWithText
 import xml.XMLComponent
 import xml.XMLHelper._
 import models.{DayMonthYear, PaymentFrequency}
 import scala.language.postfixOps
 import play.api.i18n.Lang
 import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+import controllers.Iteration.{Identifier => IterationID}
 
 import scala.xml.{Elem, NodeSeq}
 
 
 object Employment extends XMLComponent{
-
+  val datePattern = "dd-MM-yyyy"
   def xml(claim: Claim) = {
     val jobsQG = claim.questionGroup[Jobs].getOrElse(Jobs())
     val employment = claim.questionGroup[models.domain.Employment]
@@ -123,5 +126,77 @@ object Employment extends XMLComponent{
       else claim.questionGroup[BeenEmployed].exists(_.beenEmployed == "yes")
 
     question(<OtherEmployment/>, "beenEmployed", answer , claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => displayPlaybackDatesFormat(Lang("en"), dmy - 6 months)))
+  }
+
+  def fromXml(xml: NodeSeq, claim: Claim) : Claim = {
+    (xml \\ "Employment" \ "JobDetails").isEmpty match {
+      case false =>
+        val jobDetailsInfoTuple = createJobDetailsFromXml(xml)
+        claim.update(jobDetailsInfoTuple._1).update(createBeenEmployedFromXml(createYesNoText(jobDetailsInfoTuple._2))).update(createEmploymentAdditionalInfoFromXml(xml))
+      case true => claim
+    }
+  }
+
+  private def createBeenEmployedFromXml(beenEmp : String) = {
+    BeenEmployed(beenEmployed = beenEmp)
+  }
+
+  private def createJobDetailsFromXml(xml: NodeSeq) = {
+    val jobDetailsXml = (xml \\ "Employment" \ "JobDetails")
+    var iterations = List[Iteration]()
+    var beenEmployed = Mappings.yes
+    jobDetailsXml.zip (Stream from 1).foreach(node =>
+    {
+      val iterationId = s"${node._2}"
+      var iteration = List[QuestionGroup with IterationID]()
+      iteration = iteration :+ createJobDetailFromXml(node._1, iterationId)
+      iteration = iteration :+ createLastWageFromXml(node._1, iterationId)
+      iteration = iteration :+ createPensionAndExpensesFromXml(node._1, iterationId)
+      iterations = iterations :+ Iteration(iterationID = iterationId, questionGroups = iteration, completed = true)
+      beenEmployed = (node._1 \ "OtherEmployment" \ "Answer").text
+    })
+    (Jobs(iterations), beenEmployed)
+  }
+
+  private def createJobDetailFromXml(xmlNode: NodeSeq, iterationId: String) = {
+    JobDetails(
+      iterationID = iterationId,
+      employerName = (xmlNode \ "Employer" \ "Name" \ "Answer").text,
+      phoneNumber = (xmlNode \ "Employer" \ "EmployersPhoneNumber" \ "Answer").text,
+      address = createAddressFromXml(xmlNode \ "Employer"),
+      postcode = createStringOptional((xmlNode \ "Employer" \ "Address" \ "Answer" \ "PostCode").text),
+      startJobBeforeClaimDate = createYesNoText((xmlNode \ "Employer" \ "DidJobStartBeforeClaimDate" \ "Answer").text),
+      jobStartDate = createFormattedDateOptional((xmlNode \ "Employer" \ "DateJobStarted" \ "Answer").text),
+      finishedThisJob = createYesNoText((xmlNode \ "Employer" \ "CurrentlyEmployed" \ "Answer").text),
+      lastWorkDate = createFormattedDateOptional((xmlNode \ "Employer" \ "DateJobEnded" \ "Answer").text),
+      p45LeavingDate = createFormattedDateOptional((xmlNode \ "Employer" \ "P45LeavingDate" \ "Answer").text),
+      hoursPerWeek = createStringOptional((xmlNode \ "Pay" \ "WeeklyHoursWorked" \ "Answer").text)
+    )
+  }
+
+  private def createLastWageFromXml(xmlNode: NodeSeq, iterationId: String) = {
+    LastWage(
+      iterationID = iterationId,
+      oftenGetPaid = createPaymentFrequencyFromXml(xmlNode, "PayFrequency"),
+      whenGetPaid = (xmlNode \ "Pay" \ "UsualPayDay" \ "Answer").text,
+      lastPaidDate = createFormattedDate((xmlNode \ "Pay" \ "DateLastPaid" \ "Answer").text),
+      grossPay = (xmlNode \ "Pay" \ "GrossPayment" \ "Answer" \ "Amount").text,
+      payInclusions = createStringOptional((xmlNode \ "Pay" \ "IncludedInWage" \ "Answer").text),
+      sameAmountEachTime = createYesNoText((xmlNode \ "Pay" \ "ConstantEarnings" \ "Answer").text),
+      employerOwesYouMoney = createStringOptional((xmlNode \ "OweMoney" \ "Answer").text)
+    )
+  }
+
+  private def createPensionAndExpensesFromXml(xmlNode: NodeSeq, iterationId: String) = {
+    PensionAndExpenses(
+      iterationID = iterationId,
+      payPensionScheme = YesNoWithText(createYesNoText((xmlNode \ "PaidForPension" \ "Answer").text), createStringOptional((xmlNode \ "PensionExpenses" \ "Expense" \ "Answer").text)),
+      payForThings = YesNoWithText(createYesNoText((xmlNode \ "PaidForThingsToDoJob" \ "Answer").text), createStringOptional((xmlNode \ "ExpensesToDoJob" \ "Expense" \ "Answer").text)),
+      haveExpensesForJob = YesNoWithText(createYesNoText((xmlNode \ "PaidForJobExpenses" \ "Answer").text), createStringOptional((xmlNode \ "JobExpenses" \ "Expense" \ "Answer").text))
+    )
+  }
+
+  private def createEmploymentAdditionalInfoFromXml(xml: NodeSeq) = {
+    EmploymentAdditionalInfo(empAdditionalInfo = YesNoWithText(answer = createYesNoText((xml \ "Pay" \ "EmploymentAdditionalInfo" \ "Answer").text), text = createStringOptional((xml \ "EmploymentAdditionalInfo" \ "Other" \ "Answer").text)))
   }
 }

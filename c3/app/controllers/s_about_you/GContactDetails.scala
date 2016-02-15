@@ -55,7 +55,7 @@ object GContactDetails extends Controller with CachedClaim with Navigable with I
         // and then he changes the address - update the caree address too
         val updatedClaim:Claim = if (liveAtSameAddress) {
           val addressForm: Form[YesNoMandWithAddress] =
-            Form(GTheirPersonalDetails.addressMapping).fill(YesNoMandWithAddress(address = Some(contactDetails.address), postCode = contactDetails.postcode))
+            Form(GTheirPersonalDetails.addressMapping).fill(YesNoMandWithAddress(answer = theirPersonalDetailsQG.get.theirAddress.answer, address = Some(contactDetails.address), postCode = contactDetails.postcode))
           val address:YesNoMandWithAddress = addressForm.fold(p => YesNoMandWithAddress(),p => p)
           claim.update(theirPersonalDetailsQG.get.copy(theirAddress = address))
         } else {

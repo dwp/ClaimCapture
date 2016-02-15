@@ -4,6 +4,8 @@ import models.domain._
 import org.joda.time.DateTime
 import xml.XMLComponent
 
+import scala.xml.NodeSeq
+
 /**
  * Generate the XML presenting the Assisted decisions.
  * @author Jorge Migueis/Peter Whitehead
@@ -129,5 +131,11 @@ object AssistedDecision extends XMLComponent {
       if (decision(result)) return result
     }
     emptyAssistedDecisionDetails
+  }
+
+  def fromXml(xml: NodeSeq, claim: Claim) : Claim = {
+    val decisions = (xml \\ "AssistedDecisions" \ "AssistedDecision")
+    val assistedDecisionDetails = AssistedDecisionDetails(reason = (decisions \ "Reason").text, recommendation = (decisions \ "RecommendedDecision").text)
+    claim.update(assistedDecisionDetails)
   }
 }

@@ -1,8 +1,9 @@
 package xml.claim
 
 import app.XMLValues._
+import controllers.mappings.Mappings
 import models.domain._
-import models.yesNo.YesNoWithEmployerAndMoney
+import models.yesNo.{YesNo, YesNoWith1MandatoryFieldOnYes, YesNoWith2MandatoryFieldsOnYes, YesNoWithEmployerAndMoney}
 import xml.XMLComponent
 import xml.XMLHelper._
 import scala.xml.NodeSeq
@@ -83,5 +84,74 @@ object OtherBenefits extends XMLComponent {
   def hadPartnerSinceClaimDate(implicit claim: Claim): Boolean = claim.questionGroup(YourPartnerPersonalDetails) match {
     case Some(p: YourPartnerPersonalDetails) => p.hadPartnerSinceClaimDate == yes
     case _ => false
+  }
+
+  def fromXml(xml: NodeSeq, claim: Claim) : Claim = {
+    claim.update(createOtherMoneyDetailsFromXml(xml)).update(createEEAStateFromXml(xml))
+  }
+
+  private def createOtherMoneyDetailsFromXml(xml: NodeSeq) = {
+    val otherBenefits = (xml \\ "OtherBenefits")
+    models.domain.AboutOtherMoney(
+      anyPaymentsSinceClaimDate = YesNo(answer = createYesNoText((otherBenefits \ "OtherMoneyPayments" \ "Answer").text)),
+      whoPaysYou = createStringOptional((otherBenefits \ "OtherMoneyDetails" \ "Name" \ "Answer").text),
+      howMuch = createStringOptional((otherBenefits \ "OtherMoneyDetails" \ "Payment" \ "Payment" \ "Answer" \ "Amount").text),
+      howOften = createPaymentFrequencyOptionalFromXml((otherBenefits \ "OtherMoneyDetails" \ "Payment"), "Frequency"),
+      statutorySickPay = createOtherMoneySSPDetailsFromXml(otherBenefits),
+      otherStatutoryPay = createOtherMoneySPDetailsFromXml(otherBenefits)
+    )
+  }
+
+  private def createOtherMoneySPDetailsFromXml(otherBenefits: NodeSeq) = {
+    val otherMoneySPDetails = (otherBenefits \\ "OtherMoneySPDetails")
+    otherMoneySPDetails.isEmpty match {
+      case false =>
+        models.yesNo.YesNoWithEmployerAndMoney(
+          answer = Mappings.yes,
+          howMuch = createStringOptional((otherMoneySPDetails \ "Payment" \ "Payment" \ "Answer" \ "Amount").text),
+          howOften = createPaymentFrequencyOptionalFromXml((otherMoneySPDetails \ "Payment"), "Frequency"),
+          employersName = createStringOptional((otherMoneySPDetails \ "Name" \ "Answer").text),
+          address = createAddressOptionalFromXml(otherMoneySPDetails),
+          postCode = createStringOptional((otherMoneySPDetails \ "Address" \ "Answer" \ "PostCode").text)
+        )
+      case true => models.yesNo.YesNoWithEmployerAndMoney(Mappings.no, None, None, None, None, None)
+    }
+  }
+
+  private def createOtherMoneySSPDetailsFromXml(otherBenefits: NodeSeq) = {
+    val otherMoneySSPDetails = (otherBenefits \\ "OtherMoneySSPDetails")
+    otherMoneySSPDetails.isEmpty match {
+      case false =>
+        models.yesNo.YesNoWithEmployerAndMoney(
+          answer = Mappings.yes,
+          howMuch = createStringOptional((otherMoneySSPDetails \ "Payment" \ "Payment" \"Answer" \ "Amount").text),
+          howOften = createPaymentFrequencyOptionalFromXml((otherMoneySSPDetails \ "Payment"), "Frequency"),
+          employersName = createStringOptional((otherMoneySSPDetails \ "Name" \ "Answer").text),
+          address = createAddressOptionalFromXml((otherMoneySSPDetails)),
+          postCode = createStringOptional((otherMoneySSPDetails \ "Address" \ "Answer" \ "PostCode").text)
+        )
+      case true => models.yesNo.YesNoWithEmployerAndMoney(Mappings.no, None, None, None, None, None)
+    }
+  }
+
+  private def createEEAStateFromXml(xml: NodeSeq) = {
+    val otherBenefits = (xml \\ "OtherBenefits" \ "EEA")
+    models.domain.OtherEEAStateOrSwitzerland(
+      guardQuestion = YesNoWith2MandatoryFieldsOnYes(
+        answer = createYesNoText((otherBenefits \ "EEAGuardQuestion" \ "Answer").text),
+        field1 = createYesNoWith1MandatoryFieldOnYesOptional(otherBenefits, (otherBenefits \ "EEAGuardQuestion" \ "Answer").text, "EEAReceivePensionsBenefits", "EEAReceivePensionsBenefitsDetails"),
+        field2 = createYesNoWith1MandatoryFieldOnYesOptional(otherBenefits, (otherBenefits \ "EEAGuardQuestion" \ "Answer").text, "EEAWorkingInsurance", "EEAWorkingInsuranceDetails")
+      )
+    )
+  }
+
+  private def createYesNoWith1MandatoryFieldOnYesOptional(otherBenefits: NodeSeq, guardQuestion: String, answerElement: String, textElement: String) = {
+    guardQuestion.toLowerCase() match {
+      case Mappings.yes =>
+        Some(YesNoWith1MandatoryFieldOnYes(
+          answer = createYesNoText((otherBenefits \ answerElement \ "Answer").text),
+          field = createStringOptional((otherBenefits \ textElement \ "Answer").text)))
+      case _ => None
+    }
   }
 }

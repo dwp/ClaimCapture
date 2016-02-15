@@ -3,9 +3,11 @@ package xml
 import javax.xml.bind.DatatypeConverter
 
 import app.XMLValues._
+import controllers.mappings.Mappings
 import gov.dwp.carers.security.encryption.EncryptorAES
 import models._
 import models.domain.Claim
+import org.joda.time.format.DateTimeFormat
 import play.api.i18n.Lang
 import utils.helpers.PastPresentLabelHelper._
 import scala.language.implicitConversions
@@ -13,7 +15,7 @@ import scala.reflect.ClassTag
 import scala.xml._
 
 object XMLHelper {
-
+  val datePattern = "dd-MM-yyyy"
   def question[T](wrappingNode:Node,questionLabelCode: String, answerText: T,labelParameters: String*): NodeSeq = {
     answerText match {
       case text:Option[_] => questionOptional(wrappingNode,questionLabelCode,text,labelParameters:_*)
@@ -210,4 +212,78 @@ object XMLHelper {
   def encrypt[T](text:T) = DatatypeConverter.printBase64Binary((new  EncryptorAES).encrypt(stringify(text)))
   // = text - use when printing out test xml for the pdfService
 
+  def decrypt(text: String) = (new EncryptorAES).decrypt(DatatypeConverter.parseBase64Binary(text))
+
+  def createFormattedDate(date: String) : DayMonthYear = {
+    DayMonthYear(DateTimeFormat.forPattern(datePattern).parseDateTime(date))
+  }
+
+  def createFormattedDateOptional(date: String) = {
+    if (date.nonEmpty) {
+      Some(DayMonthYear(DateTimeFormat.forPattern(datePattern).parseDateTime(date)))
+    } else None
+  }
+
+  def createStringOptional(stringVal: String) = {
+    if (stringVal.isEmpty)None
+    else Some(stringVal)
+  }
+
+  def createAddressFromXml(xml: NodeSeq) = {
+    val addressLines = (xml \ "Address" \ "Answer" \ "Line").map{_.text}
+    addressLines.length match {
+      case 2 => MultiLineAddress(lineOne = createStringOptional(addressLines.head),lineTwo = createStringOptional(addressLines.last))
+      case _ => MultiLineAddress(lineOne = createStringOptional(addressLines.head),lineTwo = createStringOptional(addressLines(1)), lineThree = createStringOptional(addressLines.last))
+    }
+  }
+
+  def createAddressOptionalFromXml(xml: NodeSeq) = {
+    val address = (xml \ "Address" \ "Answer" \ "Line")
+    address.isEmpty match {
+      case false =>
+        val addressLines = (xml \ "Address" \ "Answer" \ "Line").map {_.text}
+        addressLines.length match {
+          case 2 => Some(MultiLineAddress(lineOne = createStringOptional (addressLines.head), lineTwo = createStringOptional (addressLines.last)))
+          case _ => Some(MultiLineAddress(lineOne = createStringOptional (addressLines.head), lineTwo = createStringOptional (addressLines (1) ), lineThree = createStringOptional (addressLines.last)))
+        }
+      case true => None
+    }
+  }
+
+  def createPaymentFrequencyFromXml(payment: NodeSeq, searchElement: String) = {
+    val frequency = (payment \\ searchElement)
+    PaymentFrequency(frequency = (frequency \ "Answer").text, createStringOptional((frequency \ "Other" \ "Answer").text))
+  }
+
+  def createPaymentFrequencyOptionalFromXml(payment: NodeSeq, searchElement: String) = {
+    val frequency = (payment \\ searchElement)
+    frequency.isEmpty match {
+      case false => Some(PaymentFrequency(frequency = (frequency \ "Answer").text, createStringOptional((frequency \ "Other" \ "Answer").text)))
+      case true => None
+    }
+  }
+
+  def createYesNoText(yesNoValue: String) = {
+    yesNoValue.isEmpty match {
+      case false if(yesNoValue.toLowerCase=="yes") => Mappings.yes
+      case _ => Mappings.no
+    }
+  }
+
+  def createYesNoTextOptional(yesNoValue: String) = {
+    yesNoValue.isEmpty match {
+      case false => Some(createYesNoText(yesNoValue))
+      case true => None
+    }
+  }
+
+  def createNationalInsuranceNumberOptional(xml: NodeSeq) = {
+    val national = (xml \ "NationalInsuranceNumber" \ "Answer").text
+    national.isEmpty match {
+      case false =>
+        val de = decrypt(national)
+        Some(NationalInsuranceNumber(createStringOptional(decrypt(national))))
+      case true => None
+    }
+  }
 }
