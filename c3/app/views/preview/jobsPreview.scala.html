@@ -3,6 +3,7 @@
 @import scala.language.postfixOps
 @import utils.helpers.PreviewField._
 @import controllers.mappings.Mappings
+@import app.StatutoryPaymentFrequency._
 
 @disableChangeButton = @{
     !app.ConfigProperties.getProperty("cyaToggleVisible",true)
@@ -34,10 +35,10 @@
     else s"£$grossPay"
 }
 @employmentPaymentFrequency(payFrequency: PaymentFrequency) = @{
-    if (payFrequency.frequency == messages("weekly")) messages("employmentWeekly")
-    else if(payFrequency.frequency == messages("fortnightly"))messages("employmentFortnightly")
-    else if(payFrequency.frequency == messages("fourWeekly"))messages("employmentFourWeekly")
-    else if(payFrequency.frequency == messages("monthly"))messages("employmentMonthly")
+    if (payFrequency.frequency == Weekly) messages("employmentWeekly")
+    else if(payFrequency.frequency == Fortnightly)messages("employmentFortnightly")
+    else if(payFrequency.frequency == FourWeekly)messages("employmentFourWeekly")
+    else if(payFrequency.frequency == Monthly)messages("employmentMonthly")
     else messages("employmentOther")
 }
 @jobs = @{claim.questionGroup[Jobs]}
