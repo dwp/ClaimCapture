@@ -36,7 +36,7 @@
 
 @assistedDecisionReason = @{
     claim.questionGroup[AssistedDecisionDetails] match{
-        case Some(add) if ! add.recommendation.equals("None") => {
+        case Some(add) if add.reason != "None" => {
             if (add.recommendation.contains("None")) add.reason
             else s"${add.recommendation.split(",").head} - ${add.reason}"
         }
