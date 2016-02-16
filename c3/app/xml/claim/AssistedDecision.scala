@@ -104,7 +104,7 @@ object AssistedDecision extends XMLComponent {
               "no",  //other payments
               "yes", //bank account
               "no"   //additional info
-              ) => decisionModel("Check CIS for benefits.", "Potential award,no table")
+              ) => decisionModel("Check CIS for benefits.", "Potential award,show table")
         case _ => emptyAssistedDecisionDetails
       }
   }
