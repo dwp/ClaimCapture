@@ -21,7 +21,7 @@ import scala.util.matching.Regex
 object GHowWePayYou extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val bankDetailsMapping = mapping(
-    "accountHolderName" -> carersNonEmptyText(maxLength = 60),
+    "accountHolderName" -> carersNonEmptyText(maxLength = 40),
     "bankFullName" -> carersNonEmptyText(maxLength = 100),
     "sortCode" -> (sortCode verifying requiredSortCode),
     "accountNumber" -> (carersNonEmptyText(minLength = 6, maxLength = 10) verifying pattern(new Regex("\\d+"), "accountNumber", "error.number")),
