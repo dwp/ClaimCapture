@@ -6,6 +6,7 @@ import play.api.data.validation._
 import mappings.Mappings._
 import play.api.Logger
 import play.api.data.format.Formats._
+import utils.CommonValidation._
 
 object CarersForms  {
 
@@ -24,7 +25,7 @@ object CarersForms  {
   def carersEmailValidation: Mapping[String] =
     of[String] verifying emailAddress
 
-  private val emailRegex = """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])*(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9]))+$""".r
+  private val emailRegex = EMAIL_REGEX.r
   def emailAddress: Constraint[String] = Constraint[String]("constraint.email") { e =>
     if (e == null) Invalid(ValidationError("error.email"))
     else if (e.trim.isEmpty) Invalid(ValidationError("error.email"))

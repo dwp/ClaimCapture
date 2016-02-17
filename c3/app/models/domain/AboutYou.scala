@@ -55,7 +55,7 @@ object NationalityAndResidency extends QuestionGroup.Identifier {
   val anothercountry = "Another nationality"
 
   def validNationality: Constraint[String] = Constraint[String]("constraint.nationality") {
-    // Nationality is a radio list with two possible values, British and Another Country
+    // Nationality is a radio list with two possible values, British or British/Irish and Another Country
     case `british` if (isOriginGB) => Valid
     case `britishIrish` if (!isOriginGB) => Valid
     case `anothercountry` => Valid

@@ -65,7 +65,8 @@ GET         /thankyou/apply-carers                                      controll
 GET         /thankyou/change-carers                                     controllers.CircsEnding.thankyou
 
 GET         /feedback/feedback                                          controllers.feedback.GFeedback.present
-POST        /feedback/feedback                                          controllers.feedback.GFeedback.submit
+GET         /circumstances/feedback                                     controllers.feedback.GFeedback.present
+POST        /feedback/feedback/:ClaimOrCircs                            controllers.feedback.GFeedback.submit(ClaimOrCircs)
 
 GET         /back-button-page                                           controllers.Application.backButtonPage
 GET         /circs-back-button-page                                     controllers.Application.backButtonCircsPage

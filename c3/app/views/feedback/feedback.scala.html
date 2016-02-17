@@ -17,10 +17,16 @@
     )
 }
 
+@submitRoute = @{
+         request.uri.contains("/circumstances") match{
+             case true => controllers.feedback.routes.GFeedback.submit("Circs")
+             case false => controllers.feedback.routes.GFeedback.submit("Claim")
+         }
+}
 @main(messages("feedback.legend")) {
     @errorsSummary(currentForm)
 
-    @form(action = controllers.feedback.routes.GFeedback.submit) {
+    @form(action = submitRoute) {
         @DwpCSRFFormHelper.formField
 
         <div class="form-wrap">

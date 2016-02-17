@@ -7,20 +7,21 @@ import de.johoop.jacoco4sbt.JacocoPlugin._
 
 object ApplicationBuild extends Build {
   val appName         = "c3"
-  val appVersion      = "3.4-SNAPSHOT"
+  val appVersion      = "3.5-SNAPSHOT"
   val appDependencies = Seq(
     // Add your project dependencies here,
     jdbc,
-    "com.typesafe.play" %% "play-cache" % "2.4.3",
+    "com.typesafe.play"  %% "play-cache" % "2.4.3",
     ws,
     "com.typesafe.play"  %% "anorm"               % "2.4.0",
     "org.mockito"         % "mockito-all"         % "1.10.19" % "test" withSources() withJavadoc(),
     "com.typesafe.akka"  %% "akka-testkit"        % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka"  %% "akka-agent"          % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka"  %% "akka-remote"         % "2.3.9" % "test" withSources() withJavadoc(),
-    "gov.dwp.carers"     %% "xmlcommons"          % "7.2",
-    "gov.dwp.carers"     %%  "wscommons"          % "3.0",
-    "org.postgresql"     % "postgresql"           % "9.3-1103-jdbc41",
+    "gov.dwp.carers"     %% "xmlcommons"          % "7.3",
+    "gov.dwp.carers"     %% "carerscommon"        % "7.4",
+    "gov.dwp.carers"     %% "wscommons"           % "3.0",
+    "org.postgresql"      % "postgresql"          % "9.3-1103-jdbc41",
     "com.h2database"      % "h2"                  % "1.4.186"  % "test",
     "me.moocar"           % "logback-gelf"        % "0.12",
     "com.github.rjeschke" % "txtmark"             % "0.11",

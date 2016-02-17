@@ -16,7 +16,7 @@
     }
 
     @replaceCharacters(id:String) = @{
-        id.replace(" ","_").replace("'","")
+        id.replace(" ","_").replace("'","").replace("/","_")
     }
 
     @addOtherValue(value:String,htmlArgs:Map[Symbol,Any]) = @{

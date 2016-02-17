@@ -1,6 +1,7 @@
 package controllers.s_your_partner
 
 import play.api.Play._
+import utils.CommonValidation
 import language.reflectiveCalls
 import play.api.data.{FormError, Form}
 import play.api.data.Forms.mapping
@@ -9,7 +10,6 @@ import play.api.data.Forms.text
 import play.api.data.Forms.optional
 import play.api.mvc.{Request, AnyContent, Controller, Action}
 import controllers.mappings.Mappings.errorRequired
-import controllers.mappings.Mappings.Name
 import controllers.mappings.NINOMappings._
 import controllers.mappings.Mappings.validDate
 import controllers.mappings.Mappings.validYesNo
@@ -31,8 +31,8 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
     "title" -> optional(carersNonEmptyText(maxLength = Mappings.twenty)),
     "firstName" -> optional(carersNonEmptyText(maxLength = Mappings.seventeen)),
     "middleName" -> optional(carersText(maxLength = Mappings.seventeen)),
-    "surname" -> optional(carersNonEmptyText(maxLength = Name.maxLength)),
-    "otherNames" -> optional(carersText(maxLength = Name.maxLength)),
+    "surname" -> optional(carersNonEmptyText(maxLength = CommonValidation.NAME_MAX_LENGTH)),
+    "otherNames" -> optional(carersText(maxLength = CommonValidation.NAME_MAX_LENGTH)),
     "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
     "dateOfBirth" -> optional(dayMonthYear.verifying(validDate)),
     "partner.nationality" -> optional(text.verifying(validNationality)),

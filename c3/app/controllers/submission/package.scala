@@ -6,6 +6,8 @@ import models.view.CachedClaim
 import xml.circumstances.DWPCoCircs
 import xml.claim.DWPCAClaim
 
+import scala.xml.NodeSeq
+
 package object submission {
   val FULL_CLAIM = 1
   val CHANGE_CIRCUMSTANCES = 2
@@ -15,6 +17,8 @@ package object submission {
     case CachedClaim.key => DWPCAClaim.xml(claim)
     case _ => DWPCoCircs.xml(claim)
   }
+
+  def claimGeneratorFromXml(xmlNode: NodeSeq, claim: Claim) = DWPCAClaim.fromXml(xmlNode, claim)
 
   def xmlValidator(claim: Claim) = XmlValidatorFactory.buildCaFutureValidator()
 

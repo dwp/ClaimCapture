@@ -1069,4 +1069,10 @@ object ClaimScenarioFactory {
     claim.ThirdPartyNameAndOrganisation = "test and company"
     claim
   }
+
+  def feedbackSatisfiedVS() = {
+    val claim = new TestData
+    claim.FeedbackSatisfied = "VS"
+    claim
+  }
 }

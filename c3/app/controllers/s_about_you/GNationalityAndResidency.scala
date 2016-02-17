@@ -8,6 +8,7 @@ import play.api.data.Forms._
 import controllers.mappings.Mappings._
 import play.api.data.{FormError, Form}
 import models.domain.NationalityAndResidency
+import utils.CommonValidation
 import utils.helpers.CarersForm._
 import models.yesNo.YesNoWithText
 import play.api.i18n._
@@ -23,7 +24,7 @@ object GNationalityAndResidency extends Controller with CachedClaim with Navigab
 
   val form = Form(mapping(
     "nationality" -> nonEmptyText.verifying(NationalityAndResidency.validNationality),
-    "actualnationality" -> optional(carersNonEmptyText(maxLength = 35)),
+    "actualnationality" -> optional(carersNonEmptyText(maxLength = CommonValidation.NATIONALITY_MAX_LENGTH)),
     resideInUKMapping
   )(NationalityAndResidency.apply)(NationalityAndResidency.unapply)
     .verifying(NationalityAndResidency.actualNationalityRequired))

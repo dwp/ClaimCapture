@@ -2,9 +2,11 @@ package xml
 
 import models.view.CachedClaim
 import org.specs2.mutable._
-import models.domain.{Claim, CircumstancesDeclaration}
+import models.domain.{ThirdPartyDetails, Claim, CircumstancesDeclaration}
 import utils.WithApplication
 import xml.circumstances.Declaration
+
+import scala.xml.NodeSeq
 
 class ConsentAndDeclarationSpec extends Specification {
   val otherInfo = "report changes of your circumstances"

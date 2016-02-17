@@ -108,21 +108,6 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService {
       Logger.debug("Mailer enabled true, proceeding to send email.")
       EmailServices.sendEmail(claim)
     }
-    sendAssistedDecisionGAEvent(claim)
-  }
-
-  private def sendAssistedDecisionGAEvent(claim: Claim) = {
-    claim.questionGroup(AssistedDecisionDetails).getOrElse(new AssistedDecisionDetails).asInstanceOf[AssistedDecisionDetails] match {
-      case assistedDecision: AssistedDecisionDetails if assistedDecision.reason != "None" => {
-        GAHelper.trackEvent("Assisted-Decision", {
-          if (assistedDecision.recommendation.contains("None"))
-            assistedDecision.reason
-          else
-            s"${assistedDecision.recommendation.split(",").head} - ${assistedDecision.reason}"
-        })
-      }
-      case _ =>
-    }
   }
 }
 

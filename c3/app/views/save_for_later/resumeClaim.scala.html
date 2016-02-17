@@ -6,6 +6,7 @@
 @import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.save_for_later._
+@import utils.CommonValidation
 
     @main(messages("saveForLater.resume.legend")) {
 
@@ -19,7 +20,7 @@
                 <ul>
                     @carersInputText(resumeForm("firstName"), 'maxLength -> 17)
 
-                    @carersInputText(resumeForm("surname"), 'maxLength -> 35)
+                    @carersInputText(resumeForm("surname"), 'maxLength -> CommonValidation.NAME_MAX_LENGTH)
 
                     @nationalInsuranceNumber(resumeForm("nationalInsuranceNumber"),
                         'helperAbove -> messages("mandatory.nationalInsuranceNumber.helper"),

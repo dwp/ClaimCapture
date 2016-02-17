@@ -56,15 +56,7 @@ case class EmploymentDetailsTransformer(id:String,n:Int)(implicit claim:TestData
   val expenses = Seq("EmploymentDoYouPayForThingsToDoJob","EmploymentDoYouPayforAnythingNecessaryToDoYourJob")
   val pension = Seq("EmploymentDoYouPayForPensionExpenses")
   override def transform():String = {
-
-    val anyExpenses = anyYes(expenses(0)+"_"+n,expenses(1)+"_"+n)
-    val anyPension = anyYes(pension(0)+"_"+n)
-    val details = s"Details provided for ${claim.selectDynamic(employerName+"_"+n).toLowerCase}"
-
-    if (anyExpenses && !anyPension) details+", including expenses"
-    else if (anyExpenses && anyPension) details+", including expenses and pension schemes"
-    else if (!anyExpenses && anyPension) details+", including pension schemes"
-    else details
+    s"${claim.selectDynamic(employerName+"_"+n).toLowerCase}"
   }
 
   def anyYes(ids:String*):Boolean = ids.map{claim.selectDynamic(_).toLowerCase}.contains("yes")

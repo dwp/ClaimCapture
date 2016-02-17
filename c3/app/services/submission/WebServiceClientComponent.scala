@@ -4,6 +4,7 @@ import java.net.ConnectException
 import java.util.concurrent.TimeoutException
 
 import app.ConfigProperties
+import gov.dwp.carers.xml.validation.XmlErrorHandler
 import models.domain.Claim
 import play.api.i18n.Lang
 import play.api.libs.ws.ning.NingWSResponse
@@ -16,6 +17,7 @@ import scala.concurrent.Future
 import scala.util.Try
 import app.ConfigProperties._
 import controllers.submission._
+import scala.collection.JavaConverters._
 
 trait WebServiceClientComponent {
 
@@ -28,11 +30,12 @@ trait WebServiceClientComponent {
       Logger.debug ("Created xml")
 
       //validate xml before submitting
-      if(!Try(xmlValidator(claim).validate(claimSubmission.toString())).getOrElse(false)) {
-        Logger.error(s"Validation failed for  for transactionId [$txnId]")
-
+      val xmlErrors = Try(xmlValidator(claim).validate(claimSubmission.toString())).getOrElse(new XmlErrorHandler())
+      if(xmlErrors.hasFoundErrorOrWarning) {
+        Logger.error(s"Validation failed for transactionId [$txnId]")
+        xmlErrors.getWarningAndErrors.asScala.foreach(error => Logger.error(s"Validation error: $error"))
         if(getProperty("submit.fail.on.validation", default = false)){
-          throw new RuntimeException(s"Validation failed for  for transactionId [$txnId]")
+          throw new RuntimeException(s"Validation failed for transactionId [$txnId]")
         }
       }
 

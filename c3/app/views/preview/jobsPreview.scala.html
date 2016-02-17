@@ -2,28 +2,45 @@
 @import models.domain._
 @import scala.language.postfixOps
 @import utils.helpers.PreviewField._
+@import controllers.mappings.Mappings
+@import app.StatutoryPaymentFrequency._
 
 @disableChangeButton = @{
     !app.ConfigProperties.getProperty("cyaToggleVisible",true)
 }
-@employmentItems(job:Iteration) = @{
-    val aboutExpenses = job.questionGroup[PensionAndExpenses].get
-    var elems = Seq.empty[String]
-    if(aboutExpenses.haveExpensesForJob.answer == "yes" || aboutExpenses.payPensionScheme.answer == "yes")
-        elems = elems ++ Seq(messages("expenses"))
-    elems
-}
 @employmentSummary(job:Iteration) = @{
-    var text = messages("detailsProvided",job.questionGroup[JobDetails].get.employerName)
-    val items = employmentItems(job)
+    val jobDetails = job.questionGroup[JobDetails].get
+    val startDate = jobDetails.jobStartDate
+    val lastWorkDate = jobDetails.lastWorkDate
+    val frequency = job.questionGroup[LastWage].get.oftenGetPaid
+    val pay = job.questionGroup[LastWage].get.grossPay
 
-    if(items.size > 0){
-        text = text +", "+messages("including")+" "+items(0)
-    }
-    text
+    Html(s"<b>${jobDetails.employerName}</b><br/>${employmentDates(startDate, lastWorkDate)}${paymentWithCurrency(pay)} ${employmentPaymentFrequency(frequency)} ${includeExpenses(job)}<br/>")
 }
-
-
+@employmentDates(startDate: Option[DayMonthYear], endDate: Option[DayMonthYear]) = @{
+    (startDate != None) match {
+        case true if (endDate != None) => s"${messages("employmentFrom")} ${startDate.get.`dd/MM/yyyy`} ${messages("employmentTo")} ${endDate.get.`dd/MM/yyyy`}<br/>"
+        case true => s"${messages("employmentFrom")} ${startDate.get.`dd/MM/yyyy`}<br/>"
+        case false if (endDate != None) => s"${messages("employmentFinished")} ${endDate.get.`dd/MM/yyyy`}<br/>"
+        case _ => ""
+    }
+}
+@includeExpenses(job:Iteration) = @{
+    val pensionAndExpenses = job.questionGroup[PensionAndExpenses].get
+    if (pensionAndExpenses.payPensionScheme.answer == Mappings.yes) messages("includingExpenses")
+    else ""
+}
+@paymentWithCurrency(grossPay: String) = @{
+    if (grossPay startsWith "£")grossPay
+    else s"£$grossPay"
+}
+@employmentPaymentFrequency(payFrequency: PaymentFrequency) = @{
+    if (payFrequency.frequency == Weekly) messages("employmentWeekly")
+    else if(payFrequency.frequency == Fortnightly)messages("employmentFortnightly")
+    else if(payFrequency.frequency == FourWeekly)messages("employmentFourWeekly")
+    else if(payFrequency.frequency == Monthly)messages("employmentMonthly")
+    else messages("employmentOther")
+}
 @jobs = @{claim.questionGroup[Jobs]}
 @jobsId = @{ "employment_jobs" }
 @elementLinkedToId = @{

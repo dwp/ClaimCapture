@@ -10,7 +10,7 @@ public class XorEncryption {
     private final static String PADDED_32_ZEROS = "00000000000000000000000000000000";
     private final static int HEX_RADIX = 16;
     private final static int UUID_LENGTH = 36;
-    private final static int BIGINT_MINLENGTH = 38;
+    private final static int BIGINT_MINLENGTH = 36;
 
 
     private static BigInteger getCipherKey() {
@@ -70,7 +70,8 @@ public class XorEncryption {
             return "";
         }
         if (encryptedUuid == null || encryptedUuid.length() < BIGINT_MINLENGTH) {
-            Logger.error("Unable to xor decrypt uuid:\"" + encryptedUuid + "\" which is null or less than " + BIGINT_MINLENGTH + "bytes long");
+            Logger.error("Unable to xor decrypt uuid:\"" + encryptedUuid + "\" which is " +
+                    "null or less than " + BIGINT_MINLENGTH + "bytes long");
             return "";
         }
         BigInteger n = new BigInteger(encryptedUuid);

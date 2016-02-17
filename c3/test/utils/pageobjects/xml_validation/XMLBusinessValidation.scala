@@ -43,14 +43,14 @@ abstract class XMLBusinessValidation() {
                        createXMLValidationNode: (Elem, Array[String]) => XMLValidationNode): List[String] = {
 
     //use the ingress validator first
-    Try(XmlValidatorFactory.buildCaFutureValidator().validate(Utility.trim(xml).toString())) match{
+    Try(XmlValidatorFactory.buildCaFutureValidator().validate(Utility.trim(xml).toString()).hasFoundErrorOrWarning) match{
       case Failure(e) ⇒
         if (throwException) throw new PageObjectException("XML validation failed") else List("ingress xml validation error")
 
-      case Success(false) ⇒
+      case Success(true) ⇒
         if (throwException) throw new PageObjectException("XML validation failed") else List("ingress xml validation error")
 
-      case Success(true) ⇒
+      case Success(false) ⇒
         val mapping = XMLBusinessValidation.buildXmlMappingFromFile(mappingFileName) // Load the XML mapping
 
         // Go through the attributes of the claim and check that there is a corresponding entry in the XML

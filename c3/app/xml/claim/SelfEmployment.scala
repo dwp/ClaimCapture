@@ -1,5 +1,7 @@
 package xml.claim
 
+import controllers.mappings.Mappings
+import models.yesNo.YesNoWithText
 import models.domain._
 import scala.xml.NodeSeq
 import app.XMLValues._
@@ -7,7 +9,7 @@ import xml.XMLHelper._
 import xml.XMLComponent
 
 object SelfEmployment extends XMLComponent{
-
+  val datePattern = "dd-MM-yyyy"
   def xml(claim: Claim) = {
     val employment = claim.questionGroup[models.domain.Employment].getOrElse(models.domain.Employment())
     val aboutSelfEmployment = claim.questionGroup[AboutSelfEmployment].getOrElse(AboutSelfEmployment())
@@ -90,5 +92,68 @@ object SelfEmployment extends XMLComponent{
       }
       case _ => None
     }
+  }
+
+  def fromXml(xml: NodeSeq, claim: Claim) : Claim = {
+    (xml \\ "SelfEmployment").isEmpty match {
+      case false =>
+        claim
+          .update(createAboutSelfEmploymentFromXml(xml))
+          .update(createSelfEmploymentYourAccountsFromXml(xml))
+          .update(createSelfEmploymentPensionsAndExpensesFromXml(xml))
+          .update(createEmploymentFromXml(xml))
+      case true => claim
+    }
+  }
+
+  private def createAboutSelfEmploymentFromXml(xml: NodeSeq) = {
+    val selfEmployment = (xml \\ "SelfEmployment")
+    (xml \\ "CurrentJobDetails") match {
+      case currentJob if(currentJob.nonEmpty) => createAboutSelfEmploymentWithJobDetailsFromXml(selfEmployment, currentJob)
+      case _ => createAboutSelfEmploymentWithJobDetailsFromXml(selfEmployment, (xml \\ "RecentJobDetails"))
+    }
+  }
+
+  private def createAboutSelfEmploymentWithJobDetailsFromXml(selfEmployment: NodeSeq, jobNode: NodeSeq) = {
+    models.domain.AboutSelfEmployment(
+      areYouSelfEmployedNow = createYesNoText((selfEmployment \ "SelfEmployedNow" \ "Answer").text),
+      whenDidYouStartThisJob = createFormattedDate((jobNode \ "DateStarted" \ "Answer").text),
+      whenDidTheJobFinish = createFormattedDateOptional((jobNode \ "DateEnded" \ "Answer").text),
+      haveYouCeasedTrading = Some((jobNode \ "TradingCeased" \ "Answer").text),
+      natureOfYourBusiness = (jobNode \ "NatureBusiness" \ "Answer").text
+    )
+  }
+
+  private def createSelfEmploymentYourAccountsFromXml(xml: NodeSeq) = {
+    val selfEmployment = (xml \\ "SelfEmployment")
+    (xml \\ "CurrentJobDetails") match {
+      case currentJob if(currentJob.nonEmpty) => createSelfEmploymentYourAccountsJobDetailsFromXml(selfEmployment, currentJob)
+      case _ => createSelfEmploymentYourAccountsJobDetailsFromXml(selfEmployment, (xml \\ "RecentJobDetails"))
+    }
+  }
+
+  private def createSelfEmploymentYourAccountsJobDetailsFromXml(selfEmployment: NodeSeq, jobNode: NodeSeq) = {
+    models.domain.SelfEmploymentYourAccounts(
+      doYouKnowYourTradingYear = createYesNoText((jobNode \ "DoYouKnowYourTradingYear" \ "Answer").text),
+      whatWasOrIsYourTradingYearFrom = createFormattedDateOptional((jobNode \ "DateFrom" \ "Answer").text),
+      whatWasOrIsYourTradingYearTo = createFormattedDateOptional((jobNode \ "DateTo" \ "Answer").text),
+      areIncomeOutgoingsProfitSimilarToTrading = createYesNoTextOptional((jobNode \ "SameIncomeOutgoingLevels" \ "Answer").text),
+      tellUsWhyAndWhenTheChangeHappened = createStringOptional((jobNode \ "WhyWhenChange" \ "Answer").text)
+    )
+  }
+
+  private def createSelfEmploymentPensionsAndExpensesFromXml(xmlNode: NodeSeq) = {
+    models.domain.SelfEmploymentPensionsAndExpenses(
+      payPensionScheme = YesNoWithText(createYesNoText((xmlNode \ "PaidForPension" \ "Answer").text), createStringOptional((xmlNode \ "PensionExpenses" \ "Expense" \ "Answer").text)),
+      haveExpensesForJob = YesNoWithText(createYesNoText((xmlNode \ "PaidForJobExpenses" \ "Answer").text), createStringOptional((xmlNode \ "JobExpenses" \ "Expense" \ "Answer").text))
+    )
+  }
+
+  private def createEmploymentFromXml(xmlNode: NodeSeq) = {
+    val selfEmployment = (xmlNode \\ "SelfEmployment")
+    val jobDetails = (xmlNode \\ "Employment" \ "JobDetails")
+    models.domain.Employment(
+      beenSelfEmployedSince1WeekBeforeClaim = selfEmployment.isEmpty match { case false => Mappings.yes case true => Mappings.no },
+      beenEmployedSince6MonthsBeforeClaim = jobDetails.isEmpty match { case false => Mappings.yes case true => Mappings.no })
   }
 }

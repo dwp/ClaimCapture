@@ -34,6 +34,16 @@
     getProperty("email.frontend",false) && claim.questionGroup[ContactDetails].getOrElse(ContactDetails()).wantsContactEmail == Mappings.yes
 }
 
+@assistedDecisionReason = @{
+    claim.questionGroup[AssistedDecisionDetails] match{
+        case Some(add) if add.reason != "None" => {
+            if (add.recommendation.contains("None")) add.reason
+            else s"${add.recommendation.split(",").head} - ${add.reason}"
+        }
+        case _ => "None"
+    }
+}
+
 @common.govMain(messages("thankyou")) {
 
 <div class="carers-allowance clearfix" data-journey="carers-allowance:page:thank-you">
@@ -138,6 +148,7 @@
 </div>
 
 }
+@views.html.ga.sendTrackEvent("Assisted-Decision", assistedDecisionReason)
 
 
 <script type="text/javascript">

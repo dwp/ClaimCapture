@@ -4,6 +4,8 @@ import models.domain._
 import org.joda.time.DateTime
 import xml.XMLComponent
 
+import scala.xml.NodeSeq
+
 /**
  * Generate the XML presenting the Assisted decisions.
  * @author Jorge Migueis/Peter Whitehead
@@ -48,7 +50,7 @@ object AssistedDecision extends XMLComponent {
     if (otherEEAStateOrSwitzerland.guardQuestion.answer == "yes" &&
       (otherEEAStateOrSwitzerland.guardQuestion.field1.get.answer == "yes" ||
         otherEEAStateOrSwitzerland.guardQuestion.field2.get.answer == "yes"))
-      decisionModel("Assign to Exportability in CAMLite workflow.", "None,show table")
+        decisionModel("Assign to Exportability in CAMLite workflow.", "None,show table")
     else emptyAssistedDecisionDetails
   }
 
@@ -71,40 +73,40 @@ object AssistedDecision extends XMLComponent {
     val aboutYourMoney = claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney())
     val employment = claim.questionGroup[Employment].getOrElse(models.domain.Employment())
     val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(nationality = "British"))
-    (checkBenefits(claim.questionGroup[Benefits].getOrElse(Benefits()).benefitsAnswer),
-      nationalityAndResidency.nationality,
-      nationalityAndResidency.resideInUK.answer,
-      claim.questionGroup[AbroadForMoreThan52Weeks].getOrElse(AbroadForMoreThan52Weeks()).anyTrips,
-      claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland()).guardQuestion.answer,
-      isOver35Hours(claim),
-      claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare()).hasBreaks,
-      claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails()).beenInEducationSinceClaimDate,
-      employment.beenEmployedSince6MonthsBeforeClaim,
-      employment.beenSelfEmployedSince1WeekBeforeClaim,
-      aboutYourMoney.anyPaymentsSinceClaimDate.answer,
-      aboutYourMoney.statutorySickPay.answer,
-      aboutYourMoney.otherStatutoryPay.answer,
-      claim.questionGroup[HowWePayYou].getOrElse(HowWePayYou()).likeToBePaid,
-      claim.questionGroup[AdditionalInfo].getOrElse(AdditionalInfo()).anythingElse.answer
-      ) match {
-      case (true,
-      NationalityAndResidency.british | NationalityAndResidency.britishIrish,
-      "yes", //resideInUK
-      "no",  //any trips abroad
-      "no",  //EEA
-      true,  //over 35 hours
-      false,  //has any breaks in care
-      "no",  //been in education
-      "no",  //employed
-      "no",  //self employed
-      "no",  //any payments
-      "no",  //SSP
-      "no",  //other payments
-      "yes", //bank account
-      "no"   //additional info
-        ) => decisionModel("Check CIS for benefits.", "Potential award,no table")
-      case _ => emptyAssistedDecisionDetails
-    }
+      (checkBenefits(claim.questionGroup[Benefits].getOrElse(Benefits()).benefitsAnswer),
+        nationalityAndResidency.nationality,
+        nationalityAndResidency.resideInUK.answer,
+        claim.questionGroup[AbroadForMoreThan52Weeks].getOrElse(AbroadForMoreThan52Weeks()).anyTrips,
+        claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland()).guardQuestion.answer,
+        isOver35Hours(claim),
+        claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare()).hasBreaks,
+        claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails()).beenInEducationSinceClaimDate,
+        employment.beenEmployedSince6MonthsBeforeClaim,
+        employment.beenSelfEmployedSince1WeekBeforeClaim,
+        aboutYourMoney.anyPaymentsSinceClaimDate.answer,
+        aboutYourMoney.statutorySickPay.answer,
+        aboutYourMoney.otherStatutoryPay.answer,
+        claim.questionGroup[HowWePayYou].getOrElse(HowWePayYou()).likeToBePaid,
+        claim.questionGroup[AdditionalInfo].getOrElse(AdditionalInfo()).anythingElse.answer
+       ) match {
+        case (true,
+              NationalityAndResidency.british | NationalityAndResidency.britishIrish,
+              "yes", //resideInUK
+              "no",  //any trips abroad
+              "no",  //EEA
+              true,  //over 35 hours
+              false,  //has any breaks in care
+              "no",  //been in education
+              "no",  //employed
+              "no",  //self employed
+              "no",  //any payments
+              "no",  //SSP
+              "no",  //other payments
+              "yes", //bank account
+              "no"   //additional info
+              ) => decisionModel("Check CIS for benefits.", "Potential award,show table")
+        case _ => emptyAssistedDecisionDetails
+      }
   }
 
   private def isOver35Hours(claim: Claim) : Boolean = {
@@ -129,5 +131,11 @@ object AssistedDecision extends XMLComponent {
       if (decision(result)) return result
     }
     emptyAssistedDecisionDetails
+  }
+
+  def fromXml(xml: NodeSeq, claim: Claim) : Claim = {
+    val decisions = (xml \\ "AssistedDecisions" \ "AssistedDecision")
+    val assistedDecisionDetails = AssistedDecisionDetails(reason = (decisions \ "Reason").text, recommendation = (decisions \ "RecommendedDecision").text)
+    claim.update(assistedDecisionDetails)
   }
 }
