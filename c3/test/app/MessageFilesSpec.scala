@@ -11,6 +11,7 @@ class MessageFilesSpec extends Specification {
     source.close()
     val enFiles = linesFromSource.filter(line => line.contains(".en.")).map(fullEnFilename => fullEnFilename.substring(0, fullEnFilename.indexOf(".en.")))
     val cyFiles = linesFromSource.filter(line => line.contains(".cy.")).map(fullEnFilename => fullEnFilename.substring(0, fullEnFilename.indexOf(".cy.")))
+    val niFiles = List("niDirect")
     val singleAposPattern = ".*[^']'[^'].*"
 
     val enKeys = enFiles.map(
@@ -39,9 +40,9 @@ class MessageFilesSpec extends Specification {
         enFile => {
           val enS = scala.io.Source.fromFile("conf/en/%s.en.properties".format(enFile))
           val linesFromEnS = enS.getLines.filterNot(_.isEmpty).filterNot(s => s.startsWith("#")).toList
-          val enKeys = linesFromEnS.map(pair => pair.split("=").map(k => k.trim))
+          val values = linesFromEnS.map(pair => pair.split("=").map(k => k.trim))
           enS.close()
-          enKeys
+          values
         }
       ).flatMap(y => y).map(a => if(a.length>1)a(1))
     }
@@ -51,21 +52,21 @@ class MessageFilesSpec extends Specification {
         enFile => {
           val enS = scala.io.Source.fromFile("conf/cy/%s.cy.properties".format(enFile))
           val linesFromEnS = enS.getLines.filterNot(_.isEmpty).filterNot(s => s.startsWith("#")).toList
-          val enKeys = linesFromEnS.map(pair => pair.split("=").map(k => k.trim))
+          val values = linesFromEnS.map(pair => pair.split("=").map(k => k.trim))
           enS.close()
-          enKeys
+          values
         }
       ).flatMap(y => y).map(a => if(a.length>1)a(1))
     }
 
     val niValues = {
-      enFiles.map(
-        enFile => {
-          val enS = scala.io.Source.fromFile("conf/en/niDirect.en.properties")
+      niFiles.map(
+        niFile => {
+          val enS = scala.io.Source.fromFile("conf/en/%s.en.properties".format(niFile))
           val linesFromEnS = enS.getLines.filterNot(_.isEmpty).filterNot(s => s.startsWith("#")).toList
-          val enKeys = linesFromEnS.map(pair => pair.split("=").map(k => k.trim))
+          val values = linesFromEnS.map(pair => pair.split("=").map(k => k.trim))
           enS.close()
-          enKeys
+          values
         }
       ).flatMap(y => y).map(a => if(a.length>1)a(1))
     }
