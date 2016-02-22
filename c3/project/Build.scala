@@ -1,18 +1,16 @@
 
-import java.io.{FileWriter, PrintWriter}
 import com.typesafe.sbt.web.SbtWeb
 import sbt._
 import sbt.Keys._
 import play.sbt.PlayImport._
 import de.johoop.jacoco4sbt.JacocoPlugin._
-import scala.io.Source
-import scala.util.Try
+import utils.ConfigurationChangeHelper._
 
 object ApplicationBuild extends Build {
   val appName = "c3"
   val appVersion = "3.4-SNAPSHOT"
 
-  processConfFiles(Seq("conf/application.conf", "conf/production.conf"), Seq("application.version" -> appVersion, "application.name" -> appName))
+  processConfFiles(Seq("conf/application-info.conf"), Seq("application.version" -> appVersion, "application.name" -> appName))
 
   val appDependencies = Seq(
     // Add your project dependencies here,
@@ -24,8 +22,8 @@ object ApplicationBuild extends Build {
     "com.typesafe.akka" %% "akka-testkit" % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-agent" % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-remote" % "2.3.9" % "test" withSources() withJavadoc(),
-    "gov.dwp.carers" %% "xmlcommons" % "7.3",
-    "gov.dwp.carers" %% "carerscommon" % "7.4",
+    "gov.dwp.carers" %% "xmlcommons" % "7.5",
+    "gov.dwp.carers" %% "carerscommon" % "7.5",
     "gov.dwp.carers" %% "wscommons" % "3.0",
     "org.postgresql" % "postgresql" % "9.3-1103-jdbc41",
     "com.h2database" % "h2" % "1.4.186" % "test",
@@ -58,7 +56,6 @@ object ApplicationBuild extends Build {
     resolvers += "Rhinofly Internal Release Repository" at "http://maven-repository.rhinofly.net:8081/artifactory/libs-release-local",
     resolvers += "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases")
 
-
   var sTest: Seq[Def.Setting[_]] = Seq()
 
   if (System.getProperty("include") != null) {
@@ -88,21 +85,4 @@ object ApplicationBuild extends Build {
   var appSettings: Seq[Def.Setting[_]] = sV ++ sO ++ sR ++ gS ++ sTest ++ jO ++ f ++ jcoco ++ keyStoreOptions ++ jacoco.settings ++ vS ++ net.virtualvoid.sbt.graph.Plugin.graphSettings
 
   val main = Project(appName, file(".")).enablePlugins(play.sbt.PlayScala, SbtWeb).settings(appSettings: _*)
-
-  private def processConfFiles(fileNames: Seq[String], data: Seq[(String, String)]) =
-    fileNames.foreach(fileName => updateVersionInformation(fileName, data))
-
-  private def tryUsingAutoCloseable[A <: AutoCloseable, R](instantiateAutoCloseable: () => A)(transfer: A => scala.util.Try[R]): scala.util.Try[R] =
-    Try(instantiateAutoCloseable()).flatMap(autoCloseable => try transfer(autoCloseable) finally autoCloseable.close())
-
-  private def updateVersionInformation(fileName: String, data: Seq[(String, String)]) = {
-    val newLines = Source.fromFile(fileName).getLines().toList.map { case line if (elementExists(line, data) != Seq.empty) => createElement(line, data).mkString case line2 => line2 }
-    tryUsingAutoCloseable(() => new PrintWriter(new FileWriter(fileName))) { printWriter =>
-      Try(newLines.foreach(line => printWriter.println(line)))
-    }
-  }
-
-  private def elementExists(line: String, data: Seq[(String, String)]) = for {newData <- data if line.contains(newData._1)} yield newData._1
-
-  private def createElement(line: String, data: Seq[(String, String)]) = for (newData <- data if line.contains(newData._1)) yield s"${newData._1}=${newData._2}"
 }

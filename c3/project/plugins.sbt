@@ -15,3 +15,5 @@ addSbtPlugin("default" % "sbt-sass" % "0.1.9")
 addSbtPlugin("com.github.mpeltonen" % "sbt-idea" % "1.6.0")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-play-enhancer" % "1.1.0")
+
+libraryDependencies += "gov.dwp.carers" %% "carerscommon" % "7.5"

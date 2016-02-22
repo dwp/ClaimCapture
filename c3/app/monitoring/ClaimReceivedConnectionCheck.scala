@@ -1,22 +1,20 @@
 package monitoring
 
 import app.ConfigProperties
-import com.codahale.metrics.health.HealthCheck
-import com.codahale.metrics.health.HealthCheck.Result
+import gov.dwp.carers.CADSHealthCheck
+import gov.dwp.carers.CADSHealthCheck.Result
+import models.view.ClaimHandling
 import play.Configuration
 import play.api.http.Status
 import play.api.libs.ws.WSResponse
 import utils.HttpUtils.HttpMethodWrapper
-
 import scala.concurrent.duration._
 import scala.language.{implicitConversions, postfixOps}
-
-
 
 /**
  * Try to ping the ClaimReceived service in IL3.
  */
-class ClaimReceivedConnectionCheck extends HealthCheck {
+class ClaimReceivedConnectionCheck extends CADSHealthCheck(ClaimHandling.C3NAME, ClaimHandling.C3VERSION_VALUE) {
 
   implicit def stringGetWrapper(s:String):HttpMethodWrapper = new HttpMethodWrapper(s,ConfigProperties.getProperty("cr.timeout",60000).milliseconds)
 
