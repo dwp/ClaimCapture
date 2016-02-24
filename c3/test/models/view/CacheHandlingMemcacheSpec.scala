@@ -5,12 +5,12 @@ import models.domain.{Claim, Claiming}
 import models.view.cache.EncryptedCacheHandling
 import org.specs2.mutable._
 import play.api.test.FakeRequest
-import utils.WithMemcacheApplication
+import utils.{WithApplication}
 
 class CacheHandlingMemcacheSpec extends Specification {
   section("unit")
   "Memcache" should {
-    "save and restore claim values using CacheHandlingWithClaim" in new WithMemcacheApplication with Claiming {
+    "save and restore claim values using CacheHandlingWithClaim" in new WithApplication with Claiming {
       cache.isInstanceOf[MemcachedCacheApi] mustEqual true
 
       val cacheHandler = new CacheHandlingWithClaim()
@@ -22,7 +22,7 @@ class CacheHandlingMemcacheSpec extends Specification {
       retrievedClaim.uuid mustEqual(claim.uuid)
     }
 
-    "save and restore claim values using CacheHandling" in new WithMemcacheApplication with Claiming {
+    "save and restore claim values using CacheHandling" in new WithApplication with Claiming {
       cache.isInstanceOf[MemcachedCacheApi] mustEqual true
 
       val cacheHandling = new EncryptedCacheHandling() {
@@ -36,7 +36,7 @@ class CacheHandlingMemcacheSpec extends Specification {
       retrievedClaim.get.uuid mustEqual("UUID-1234")
     }
 
-    "concat SFL keylist into single cs string list removing duplicates" in new WithMemcacheApplication() with Claiming {
+    "concat SFL keylist into single cs string list removing duplicates" in new WithApplication() with Claiming {
       cache.isInstanceOf[MemcachedCacheApi] mustEqual true
 
       cache.remove("SFL")
@@ -51,7 +51,7 @@ class CacheHandlingMemcacheSpec extends Specification {
       keyList mustEqual ("ABCD-1234,WXYZ-4321")
     }
 
-    "concat FB keylist into single cs string list removing duplicates" in new WithMemcacheApplication() with Claiming {
+    "concat FB keylist into single cs string list removing duplicates" in new WithApplication() with Claiming {
      cache.isInstanceOf[MemcachedCacheApi] mustEqual true
 
       cache.remove("FB")

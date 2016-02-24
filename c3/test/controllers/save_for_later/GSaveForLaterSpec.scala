@@ -1,7 +1,11 @@
 package controllers.save_for_later
 
+import java.util.concurrent.TimeUnit
+
+import gov.dwp.carers.play2.resilientmemcached.MemcachedCacheApi
 import models.domain._
 import models.view.CachedClaim
+import models.view.cache.EncryptedCacheHandling
 import org.specs2.mutable._
 import play.api.i18n.Lang
 import play.api.test.FakeRequest
@@ -67,6 +71,29 @@ class GSaveForLaterSpec extends Specification {
       status(result) mustEqual OK
       val bodyText: String = contentAsString(result)
       bodyText must contain("/resume")
+    }
+
+    "ensure that memcache item expires in correct seconds" in new WithApplication(app=LightFakeApplication(additionalConfiguration = Map("cache.saveForLaterCacheExpirySecs" -> "1", "cache.saveForLaterGracePeriodSecs" -> "1"))) with Claiming{
+      cache.isInstanceOf[MemcachedCacheApi] mustEqual true
+
+      val cacheHandling = new EncryptedCacheHandling() {
+        val cacheKey = "12345678"
+      }
+      var claim = new Claim(CachedClaim.key, List(), System.currentTimeMillis(), Some(Lang("en")),  "UUID-1234")
+      val details = new YourDetails("Mr","", None, "green", NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(None, None, None))
+      val contactDetails = new ContactDetails(new MultiLineAddress(), None, None, None, "yes", Some("bt@bt.com"), Some("bt@bt.com"))
+      claim = claim + details + contactDetails
+      cacheHandling.saveForLaterInCache(claim,"/savedpath")
+
+      // Since we set the SFL expiry to 1sec+1sec the item should not exist in cache in 3 seconds
+      val status1=cacheHandling.checkSaveForLaterInCache("UUID-1234")
+      status1 mustEqual("OK")
+
+      // After 1 second the claim should have expired, but be still available. But unless we run the backend utils this will not happen
+      // After 2 seconds the claim should have been dropped from the cache. Lets use 2.5 seconds to be sure.
+      TimeUnit.MILLISECONDS.sleep(2500)
+      val status2=cacheHandling.checkSaveForLaterInCache("UUID-1234")
+      status2 mustEqual("NO-CLAIM")
     }
   }
   section("unit", "SaveForLater")
