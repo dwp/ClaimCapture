@@ -26,6 +26,16 @@ abstract class WithApplication(val app: FakeApplication = LightFakeApplication.f
   }
 }
 
+/**
+ * Used to run specs within the context of a running application.
+ *
+ */
+abstract class WithMemcacheApplication(val app: FakeApplication = LightFakeApplicationWithMemcache.fa, val claimKey: String = randomUUID.toString) extends Around with org.specs2.matcher.MustThrownExpectations with org.specs2.matcher.ShouldThrownExpectations {
+  implicit def implicitApp = app
+  override def around[T: AsResult](t: => T): Result = {
+    Helpers.running(app)(AsResult.effectively(t))
+  }
+}
 
 /**
  * Used to run specs within the context of a running server.

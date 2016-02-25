@@ -27,7 +27,7 @@ object LightFakeApplication {
   val memcachedHost2 = "127.0.0.1:11212"
   val configurationMap: Map[String, Object] = Map(
     "play.modules.enabled" -> List(
-      "gov.dwp.carers.play2.resilientmemcached.MemcachedModule",
+      "utils.TestEhCacheModule",
       "play.api.i18n.I18nModule",
       "play.api.db.HikariCPModule",
       "play.api.db.DBModule",
@@ -38,13 +38,12 @@ object LightFakeApplication {
       "play.api.libs.ws.ning.NingWSModule"
     ),
 
-    "play.modules.disabled" -> List("play.api.cache.EhCacheModule", "utils.TestEhCacheModule"),
+    "play.modules.disabled" -> List("play.api.cache.EhCacheModule", "gov.dwp.carers.play2.resilientmemcached.MemcachedModule"),
     "play.modules.cache.defaultCache" -> "",
     "play.modules.cache.bindCaches" -> List("play"),
     "memcached.1.host" -> memcachedHost1,
     "memcached.2.host" -> memcachedHost2
   )
-
 
   def apply(withGlobal: Some[GlobalSettings], additionalConfiguration: Map[String, _ <: Any] = configurationMap) = FakeApplication(
     withGlobal = withGlobal,
@@ -105,8 +104,8 @@ class TestEhCacheModule extends Module {
 @Singleton
 class TestSubmissionModule extends Module {
   override def bindings(environment: Environment, configuration: Configuration): Seq[Binding[_]] = {
-      (
-        configuration.getBoolean("submit.prints.xml") match {
+    (
+      configuration.getBoolean("submit.prints.xml") match {
         case Some(true) => {
           Seq(
             bind(classOf[AsyncClaimSubmissionComponent]).to(classOf[AsyncClaimSubmissionComponentXML]),
@@ -122,10 +121,10 @@ class TestSubmissionModule extends Module {
           )
         }
       }
-        ) ++ Seq(
-          bind(classOf[ClaimTransactionCheck]).to(classOf[ClaimTransactionCheckStub]),
-          bind(classOf[HealthMonitor]).to(classOf[ProdHealthMonitor])
-        )
+      ) ++ Seq(
+      bind(classOf[ClaimTransactionCheck]).to(classOf[ClaimTransactionCheckStub]),
+      bind(classOf[HealthMonitor]).to(classOf[ProdHealthMonitor])
+    )
   }
 }
 
