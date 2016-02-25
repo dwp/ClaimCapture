@@ -1,7 +1,7 @@
 package controllers.save_for_later
 
 import java.util.concurrent.TimeUnit
-
+import play.Logger
 import gov.dwp.carers.play2.resilientmemcached.MemcachedCacheApi
 import models.domain._
 import models.view.CachedClaim
@@ -94,19 +94,22 @@ class GSaveForLaterSpec extends Specification {
       val status1=cacheHandling.checkSaveForLaterInCache("UUID-1234")
       status1 mustEqual("OK")
 
-      // After 1 second the claim should have expired, but be still available. But unless we run the backend utils this will not happen
+      // After 1 second the claim should have expired in memcache and have an SFL status of NO-CLAIM
+      // But on Jenkins this sometimes takes a little longer to drop off, so lets wait 10 secs max.
+      var status=false
       val loop=new Breaks
       loop.breakable{
-        for(n<-0 to 60){
+        for(n<-1 to 10){
           TimeUnit.MILLISECONDS.sleep(1000)
           val status2=cacheHandling.checkSaveForLaterInCache("UUID-1234")
-          println( "SFL DEBUG Loop:"+n+" status is:"+status2)
+          Logger.info( "SFL DEBUG after "+n+" seconds the status is:"+status2)
           if( status2.equals("NO-CLAIM")){
+            status=true
             loop.break
           }
         }
       }
-      //status2 mustEqual("NO-CLAIM")
+      status must beTrue
     }
   }
   section("unit", "SaveForLater")
