@@ -13,6 +13,8 @@ import play.api.test.Helpers._
 import utils.{LightFakeApplicationWithMemcache, WithMemcacheApplication, LightFakeApplication, WithApplication}
 import models.{MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
 
+import scala.util.control.Breaks
+
 class GSaveForLaterSpec extends Specification {
   section("unit", models.domain.YourPartner.id)
 
@@ -93,10 +95,18 @@ class GSaveForLaterSpec extends Specification {
       status1 mustEqual("OK")
 
       // After 1 second the claim should have expired, but be still available. But unless we run the backend utils this will not happen
-      // After 2 seconds the claim should have been dropped from the cache. Lets use 2.5 seconds to be sure.
-      TimeUnit.MILLISECONDS.sleep(2500)
-      val status2=cacheHandling.checkSaveForLaterInCache("UUID-1234")
-      status2 mustEqual("NO-CLAIM")
+      val loop=new Breaks
+      loop.breakable{
+        for(n<-0 to 60){
+          TimeUnit.MILLISECONDS.sleep(1000)
+          val status2=cacheHandling.checkSaveForLaterInCache("UUID-1234")
+          println( "SFL DEBUG Loop:"+n+" status is:"+status2)
+          if( status2.equals("NO-CLAIM")){
+            loop.break
+          }
+        }
+      }
+      //status2 mustEqual("NO-CLAIM")
     }
   }
   section("unit", "SaveForLater")
