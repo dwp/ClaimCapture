@@ -74,7 +74,7 @@ class GSaveForLaterSpec extends Specification {
       val bodyText: String = contentAsString(result)
       bodyText must contain("/resume")
     }
-/*
+
     // Warning this test sets the memcache expiry to 1+1 sec which will affect remaining tests unless overridden
     "ensure that memcache item expires in correct seconds" in new WithApplication(app=LightFakeApplicationWithMemcache(additionalConfiguration = Map("cache.saveForLaterCacheExpirySecs" -> "0", "cache.saveForLaterGracePeriodSecs" -> "1"))) with Claiming{
       cache.isInstanceOf[MemcachedCacheApi] mustEqual true
@@ -111,7 +111,6 @@ class GSaveForLaterSpec extends Specification {
       }
       status must beTrue
     }
-    */
   }
   section("unit", "SaveForLater")
 }
