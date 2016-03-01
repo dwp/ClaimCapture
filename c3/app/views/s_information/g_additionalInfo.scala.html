@@ -7,6 +7,7 @@
 @import utils.helpers.CarersCrypto
 @import views.html.s_information.main
 @import utils.helpers.OriginTagHelper._
+@import models.domain.AdditionalInfo
 
 @main(messages("s10_2.g1") + " - " + messages("s10_2.longName"), Some(currentForm)) {
     @form(action = controllers.s_information.routes.GAdditionalInfo.submit, 'role -> "form") {
@@ -19,7 +20,9 @@
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(carersInputTextArea(currentForm("anythingElse")("text"),
-	                        'placeholder->messages("anythingElse.please.specify"),'textAreaHelper->Html(messages("3000charsLeft")), 'maxLength -> 3000,
+	                        'placeholder->messages("anythingElse.please.specify"),
+							'textAreaHelper->Html( AdditionalInfo.textMaxLength+" "+messages("charsLeft")),
+							'maxLength -> AdditionalInfo.textMaxLength,
 	                        'ignoreOptional -> true)
 	                    ),
 	                    'id -> "anythingElseWrapper",
@@ -43,7 +46,7 @@
 <script type="text/javascript">
     $(function(){
         @ga.stagePrompt()
-        window.areaCounter({selector:"@CarersCrypto.encryptAES("anythingElse_text")",maxChars:3000});
+        window.areaCounter({selector:"@CarersCrypto.encryptAES("anythingElse_text")",maxChars:@AdditionalInfo.textMaxLength});
         window.initEvents("@CarersCrypto.encryptAES("anythingElse_answer_yes")",
         "@CarersCrypto.encryptAES("anythingElse_answer_no")",
         "@CarersCrypto.encryptAES("anythingElse_text")");
