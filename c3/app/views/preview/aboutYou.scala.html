@@ -54,7 +54,7 @@
 }
 
 @addressPostcode = @{
-    s"${address.lineOne.getOrElse("")}${address.lineTwo.fold("")(", "+_)}${address.lineThree.fold("")(", "+_)} ${contactDetails.postcode.getOrElse("")}"
+    s"${address.lineOne.getOrElse("")}${address.lineTwo.fold("")("<br/>"+_)}${address.lineThree.fold("")("<br/>"+_)} ${"<br/>"+contactDetails.postcode.getOrElse("")}"
 }
 @abroadValue = @{
     abroadForMoreThan52Weeks.anyTrips match {

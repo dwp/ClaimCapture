@@ -1,0 +1,16 @@
+@()(implicit request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
+
+@* Organ donation left hand column for feedback page *@
+<aside class="column-quarter sidebar" id="sidebar" role="complementary">
+    <section class="font-xsmall">
+        <h3 class="heading-small compound">@Html(messages("leftcol.organdonor.title"))</h3>
+        <p class="compound">@Html(messages("leftcol.organdonor.line1"))</p>
+        <p class="compound">@Html(messages("leftcol.organdonor.line2"))</p>
+        <p class="compound">
+            @Html(messages("leftcol.organdonor.linkpretext"))
+            @if(messages("leftcol.organdonor.linktext").length >0){
+                <a id="helppage" rel="external" href="@messages("leftcol.organdonor.linkurl")" target="_blank" @views.html.ga.trackClickEvent(linkName = "Organ Donation - Left Column")>@Html(messages("leftcol.organdonor.linktext"))</a>
+            }
+        </p>
+    </section>
+</aside>

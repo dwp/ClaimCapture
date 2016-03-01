@@ -11,7 +11,7 @@ import utils.{WithJsBrowser, LightFakeApplication, WithBrowser}
 
 
 class GNationalityAndResidencySaveSpec extends Specification {
-  section("integration", models.domain.AboutYou.id)
+  section("integration", "SaveForLater")
   "Your nationality and residency" should {
     "contain Save button if saveForLaterSaveEnabled switched on and email set" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "true"))) with PageObjects {
       val page=GContactDetailsPage(context)
@@ -37,7 +37,7 @@ class GNationalityAndResidencySaveSpec extends Specification {
       nationalityPage.source must not contain("Save for later")
     }
 
-    "display save for later page when click save button" in new WithJsBrowser with PageObjects {
+    "display save for later page when click save button" in new WithJsBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "true"))) with PageObjects {
       loadClaimData(context)
       val page = GContactDetailsPage(context)
       page goToThePage()
@@ -54,7 +54,7 @@ class GNationalityAndResidencySaveSpec extends Specification {
       savePage.source must contain("id=\"continue\"")
     }
 
-    "re-present screen values when continue/return from save for later screen" in new WithJsBrowser with PageObjects {
+    "re-present screen values when continue/return from save for later screen" in new WithJsBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "true"))) with PageObjects {
       loadClaimData(context)
       val page = GContactDetailsPage(context)
       page goToThePage()

@@ -26,7 +26,10 @@ class PreviewPageCareYouProvideContentSpec extends Specification {
       source must contain("About the person you care for")
       source must contain("Mr Tom Potter Wilson")
       source must contain("02 March, 1990")
-      source must contain("No - 123 Colne Street, Line 2 BB9 2AD")
+      source must contain("No")
+      source must contain("123 Colne Street")
+      source must contain("Line 2")
+      source must contain("BB9 2AD")
       source must contain("Father")
     }
 
@@ -44,7 +47,10 @@ class PreviewPageCareYouProvideContentSpec extends Specification {
       source must contain("About the person you care for")
       source must contain("Mr Tom Potter Wilson")
       source must contain("02 March, 1990")
-      source must contain("No - 123 Colne Street, Line 2 BB9 2AD")
+      source must contain("No")
+      source must contain("123 Colne Street")
+      source must contain("Line 2")
+      source must contain("BB9 2AD")
       source must contain("Father")
     }
 
@@ -54,7 +60,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification {
 
       val careYouProvideData = ClaimScenarioFactory.s4CareYouProvideWithBreaksInCare(true)
       careYouProvideData.AboutTheCareYouProvideTitlePersonCareFor = "Lord"
-      
+
       fillCareProvideSection(context,partnerClaim = partnerData, careYouProvideData)
       val page =  PreviewPage(context)
       page goToThePage()
@@ -64,7 +70,10 @@ class PreviewPageCareYouProvideContentSpec extends Specification {
       source must contain("About the person you care for")
       source must contain("Lord Tom Potter Wilson")
       source must contain("02 March, 1990")
-      source must contain("No - 123 Colne Street, Line 2 BB9 2AD")
+      source must contain("No")
+      source must contain("123 Colne Street")
+      source must contain("Line 2")
+      source must contain("BB9 2AD")
       source must contain("Father")
     }
 
@@ -80,7 +89,10 @@ class PreviewPageCareYouProvideContentSpec extends Specification {
       val source = page.source
 
       source must contain("About the person you care for")
-      source must contain("No - 123 Colne Street, Line 2 BB9 2AD")
+      source must contain("No")
+      source must contain("123 Colne Street")
+      source must contain("Line 2")
+      source must contain("BB9 2AD")
       source must contain("Father")
     }
 
@@ -96,7 +108,10 @@ class PreviewPageCareYouProvideContentSpec extends Specification {
       source must contain("About the person you care for")
       source must contain("Mr Tom Potter Wilson")
       source must contain("02 March, 1990")
-      source must contain("No - 123 Colne Street, Line 2 BB9 2AD")
+      source must contain("No")
+      source must contain("123 Colne Street")
+      source must contain("Line 2")
+      source must contain("BB9 2AD")
       source must contain("Father")
     }
 
@@ -132,8 +147,11 @@ class PreviewPageCareYouProvideContentSpec extends Specification {
       preview must beAnInstanceOf[PreviewPage]
       val newSource = preview.source
 
-      newSource must contain("Something totally different, Manchester FY1 2RW")
-      newSource must not(contain("No - 101 Clifton Street, Blackpool FY1 2RW"))
+      newSource must contain("Something totally different")
+      newSource must contain("Manchester")
+      newSource must contain("FY1 2RW")
+      newSource must not contain("101 Clifton Street")
+      newSource must not contain("Blackpool")
     }
   }
   section("preview")

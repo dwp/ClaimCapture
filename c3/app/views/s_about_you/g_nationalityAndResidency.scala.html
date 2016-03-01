@@ -1,17 +1,13 @@
 @(nationalityAndResidencyForm: Form[models.domain.NationalityAndResidency])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
-@import helper._
 @import utils.helpers.CarersTemplate._
-@import common._
-@import views.html.helper.dates._
 @import views.html.helper._
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
-@import play.api.i18n.Messages
+@import utils.helpers.OriginTagHelper._
 @import models.domain.NationalityAndResidency
-@import app.MaritalStatus._
-
+@import utils.CommonValidation
 
 @main(messages("s2.g4") + " - " + messages("s2.longName")) {
     @errorsSummary(nationalityAndResidencyForm)
@@ -24,7 +20,10 @@
 
 	            <ul>
 	                @listRadioGroup(nationalityAndResidencyForm("nationality"),
-                        'items -> Seq(NationalityAndResidency.british -> messages("label.british"), NationalityAndResidency.anothercountry -> messages("label.anothercountry")),
+                        'items -> Seq(isOriginGB() match {
+                            case true => NationalityAndResidency.british -> messages("label.british")
+                            case false => NationalityAndResidency.britishIrish -> messages("label.british")
+                        }, NationalityAndResidency.anothercountry -> messages("label.anothercountry")),
 	                    '_label -> messages("nationality.label"),
                         '_nestedFieldSet -> true)
 	
@@ -32,7 +31,7 @@
 	                    inputDef = Seq(
 	                        carersInputText(nationalityAndResidencyForm("actualnationality"),
 	                            '_label -> messages("actualnationality.text.label"),
-	                            'maxLength -> 35)
+	                            'maxLength -> CommonValidation.NATIONALITY_MAX_LENGTH)
 	                    ),
 	                    'id -> "nationalityWrap"
 	                )
@@ -59,7 +58,13 @@
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_about_you/g_nationalityAndResidency.js")></script>
     <script type="text/javascript">
         $(function(){
-            window.initEvents("@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("British").id)",
+            window.initEvents(
+                            "@{
+                                isOriginGB() match {
+                                    case true => CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("British").id)
+                                    case false => CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("British_Irish").id)
+        }
+                            }",
                             "@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("Another_nationality").id)",
                             "@CarersCrypto.encryptAES(nationalityAndResidencyForm("actualnationality").id)",
                             "@CarersCrypto.encryptAES(nationalityAndResidencyForm("resideInUK")("answer")("yes").id)",

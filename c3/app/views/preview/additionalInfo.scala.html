@@ -3,6 +3,7 @@
 @import models.domain._
 @import controllers.mappings.Mappings._
 @import helper._
+@import utils.helpers.OriginTagHelper._
 
 @additionalInfo = @{claim.questionGroup[AdditionalInfo].getOrElse(AdditionalInfo())}
 @thirdPartyDetails = @{claim.questionGroup[ThirdPartyDetails].getOrElse(ThirdPartyDetails())}
@@ -25,7 +26,7 @@
 }
 @content = {
     @fieldWithLink("additional_info" , "anythingElse.answer", additionalInfoAnswer, elementId = Some("anythingElse_answer"), disableLink = disableChangeButton)
-    @if(lang.language != "cy") {
+    @if(lang.language != "cy" && isOriginGB) {
         @fieldWithLink("additional_info_welsh" , "welshCommunication", additionalInfoWelsh, elementId = Some("welshCommunication"), disableLink = disableChangeButton)
     }
     @fieldWithLink("third_party" , "thirdParty.completedOnBehalf", thirdPartyDetailsMessage, elementId = Some("thirdParty"), disableLink = disableChangeButton)

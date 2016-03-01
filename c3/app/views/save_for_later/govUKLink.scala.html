@@ -1,3 +1,3 @@
 @()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
-<a id="govuk" rel="external" href=@messages("saveForLater.common.govuk.url") target="_blank" @views.html.ga.trackClickEvent("Save-For-Later","SFL-Go-To-GOV.UK")>@messages("saveForLater.common.govuk.label")</a>
+<a id="govlink" rel="external" href=@messages("saveForLater.common.govuk.url") target="_blank" @views.html.ga.trackClickEvent("Save-For-Later",messages("saveForLater.common.event.action"))>@messages("saveForLater.common.govuk.label")</a>

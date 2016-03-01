@@ -1,12 +1,15 @@
 window.initEvents =(payPensionSchemeY, payPensionSchemeN, pensionExpenses,
                     payForThingsY,payForThingsN,payForThings,
                     haveExpensesForJobY, haveExpensesForJobN, jobExpenses) ->
+  $("#" + pensionExpenses).trigger("blur")
+  $("#" + payForThings).trigger("blur")
+  $("#" + jobExpenses).trigger("blur")
 
   if not $("#" + payPensionSchemeY).prop('checked')
     hidePensionExpenses(pensionExpenses)
 
   $("#" + payPensionSchemeY).on "click", ->
-    showPensionExpenses()
+    showPensionExpenses(pensionExpenses)
 
   $("#" + payPensionSchemeN).on "click", ->
     hidePensionExpenses(pensionExpenses)
@@ -15,7 +18,7 @@ window.initEvents =(payPensionSchemeY, payPensionSchemeN, pensionExpenses,
     hidePayForThings(payForThings)
 
   $("#" + payForThingsY).on "click", ->
-    showPayForThings()
+    showPayForThings(payForThings)
 
   $("#" + payForThingsN).on "click", ->
     hidePayForThings(payForThings)
@@ -24,32 +27,32 @@ window.initEvents =(payPensionSchemeY, payPensionSchemeN, pensionExpenses,
     hideExpensesForJob(jobExpenses)
 
   $("#" + haveExpensesForJobY).on "click", ->
-    showHaveExpensesForJob()
+    showHaveExpensesForJob(jobExpenses)
 
   $("#" + haveExpensesForJobN).on "click", ->
     hideExpensesForJob(jobExpenses)
 
 
-showPensionExpenses = ->
+showPensionExpenses = (pensionExpenses) ->
+  $("#" + pensionExpenses).trigger("blur")
   $("#pensionExpenses").slideDown(0).attr 'aria-hidden', 'false'
 
 hidePensionExpenses = (pensionExpenses) ->
-	emptyPensionExpenses = ->
-    	$("#" + pensionExpenses).val("")
-  	$("#pensionExpenses").slideUp(0, emptyPensionExpenses).attr 'aria-hidden', 'true', ->
+  $("#" + pensionExpenses).val("")
+  $("#pensionExpenses").slideUp(0).attr 'aria-hidden', 'true', ->
 
-showHaveExpensesForJob = ->
+showHaveExpensesForJob = (jobExpenses) ->
+  $("#" + jobExpenses).trigger("blur")
   $("#jobExpenses").slideDown(0).attr 'aria-hidden', 'false'
 
 hideExpensesForJob = (jobExpenses) ->
-	emptyExpensesForJob = ->
-   		$("#" + jobExpenses).val("")
-  $("#jobExpenses").slideUp(0, emptyExpensesForJob).attr 'aria-hidden', 'true', ->
+  $("#" + jobExpenses).val("")
+  $("#jobExpenses").slideUp(0).attr 'aria-hidden', 'true', ->
 
-showPayForThings = ->
+showPayForThings = (payForThings) ->
+  $("#" + payForThings).trigger("blur")
   $("#payForThings").slideDown(0).attr 'aria-hidden', 'false'
 
 hidePayForThings = (payForThings) ->
-	emptyPayForThings = ->
-    	$("#" + payForThings).val("")
-  $("#payForThings").slideUp(0, emptyPayForThings).attr 'aria-hidden', 'true', ->
+  $("#" + payForThings).val("")
+  $("#payForThings").slideUp(0).attr 'aria-hidden', 'true', ->

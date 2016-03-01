@@ -9,15 +9,11 @@ import play.api.data.Forms._
 import play.api.data.validation._
 import play.api.data.{Form, FormError, Mapping}
 import play.api.mvc.Request
-
+import utils.CommonValidation._
 import scala.util.{Failure, Success, Try}
 import scala.util.matching.Regex
 
 object Mappings {
-  object Name {
-    val maxLength = 35
-  }
-
   val sixty = 60
   val thirtyfive = 35
   val two = 2
@@ -133,7 +129,7 @@ object Mappings {
 
   def validPostcode: Constraint[String] = Constraint[String]("constraint.postcode") { postcode =>
     val newPostCode = formatPostCode(postcode)
-    val postcodePattern = """^(?i)(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))) ?[0-9][A-Z]{2})$""".r
+    val postcodePattern = POSTCODE_REGEX.r
 
     postcodePattern.pattern.matcher(newPostCode).matches match {
       case true => Valid
@@ -155,7 +151,7 @@ object Mappings {
   }
 
   private def validPhoneNumberPattern(phoneNumber: String) = {
-    val phoneNumberPattern = """[0-9 \-]{7,20}""".r
+    val phoneNumberPattern = PHONE_NUMBER_REGEX.r
     phoneNumberPattern.pattern.matcher(phoneNumber).matches match {
       case true => Valid
       case false => Invalid(ValidationError(errorInvalid))
@@ -163,7 +159,7 @@ object Mappings {
   }
 
   def validCurrency8Required: Constraint[String] = Constraint[String]("constraint.currency") { decimal =>
-    val decimalPattern = """^\£?[0-9]{1,8}(\.[0-9]{1,2})?$""".r
+    val decimalPattern = CURRENCY_REGEX.r
     validCurrencyWithPattern(decimalPattern, decimal)
   }
 
@@ -179,7 +175,7 @@ object Mappings {
   }
 
   def validDecimalNumber: Constraint[String] = Constraint[String]("constraint.decimal") { decimal =>
-    val decimalPattern = """^[0-9]{1,12}(\.[0-9]{1,2})?$""".r
+    val decimalPattern = DECIMAL_REGEX.r
 
     decimalPattern.pattern.matcher(decimal).matches match {
       case true => Valid
@@ -188,7 +184,7 @@ object Mappings {
   }
 
   def validNumber: Constraint[String] = Constraint[String]("constraint.number") { number =>
-    val numberPattern = """^[0-9]*$""".r
+    val numberPattern = NUMBER_REGEX.r
 
     numberPattern.pattern.matcher(number).
       matches match {
@@ -225,7 +221,7 @@ object Mappings {
   }
 
   def validNationality: Constraint[String] = Constraint[String]("constraint.nationality") { nationality =>
-    val nationalityPattern = """[a-zA-ZÀ-ƶ \-\']{1,35}""".r
+    val nationalityPattern = NATIONALITY_REGEX.r
 
     nationalityPattern.pattern.matcher(nationality).matches match {
       case true => Valid
@@ -235,7 +231,7 @@ object Mappings {
 
 
   def restrictedStringText: Constraint[String] = Constraint[String]("constraint.restrictedStringText") { restrictedString =>
-    val restrictedStringPattern = """^[A-Za-zÀ-ƶ\s0-9\(\)&£€\"\'!\-_:;\.,/\?]*$""".r
+    val restrictedStringPattern = RESTRICTED_CHARS.r
 
     restrictedStringPattern.pattern.matcher(restrictedString).matches match {
       case true => Valid
@@ -244,7 +240,7 @@ object Mappings {
   }
 
   def restrictedPostCodeAddressStringText: Constraint[String] = Constraint[String]("constraint.restrictedPostCodeAddressStringText") { restrictedString =>
-    val restrictedStringPattern = """^[A-Za-zÀ-ƶ\s0-9]*$""".r
+    val restrictedStringPattern = RESTRICTED_POSTCODE_REGEX.r
 
     restrictedStringPattern.pattern.matcher(restrictedString).matches match {
       case true => Valid

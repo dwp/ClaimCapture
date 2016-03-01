@@ -4,6 +4,8 @@ import controllers.CarersForms._
 import controllers.mappings.Mappings._
 import play.api.Play._
 import play.api.data.validation._
+import utils.CommonValidation
+import utils.CommonValidation._
 
 import language.reflectiveCalls
 import play.api.mvc.Controller
@@ -16,15 +18,13 @@ import PayDetails._
 import Constraints._
 import play.api.i18n._
 
-import scala.util.matching.Regex
-
 object GHowWePayYou extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val bankDetailsMapping = mapping(
-    "accountHolderName" -> carersNonEmptyText(maxLength = 40),
+    "accountHolderName" -> carersNonEmptyText(maxLength = ACCOUNT_HOLDER_NAME_MAX_LENGTH),
     "bankFullName" -> carersNonEmptyText(maxLength = 100),
     "sortCode" -> (sortCode verifying requiredSortCode),
-    "accountNumber" -> (carersNonEmptyText(minLength = 6, maxLength = 10) verifying pattern(new Regex("\\d+"), "accountNumber", "error.number")),
+    "accountNumber" -> (carersNonEmptyText(minLength = CommonValidation.ACCOUNT_NUMBER_MIN_LENGTH, maxLength = CommonValidation.ACCOUNT_NUMBER_MAX_LENGTH) verifying pattern(CommonValidation.ACCOUNT_NUMBER_REGEX.r, "accountNumber", "error.number")),
     "rollOrReferenceNumber" -> carersText(maxLength = 18)
   )(BankBuildingSocietyDetails.apply)(BankBuildingSocietyDetails.unapply)
 

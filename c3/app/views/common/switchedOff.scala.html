@@ -1,8 +1,7 @@
 @(functionname: String, lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash: Flash, messages: play.api.i18n.Messages)
+@import views.html.common.switchedOffMain
 
-@import views.html.save_for_later.main
-
-    @main(messages("switchedoff.legend")) {
+    @switchedOffMain(messages("switchedoff.legend")) {
         <h2>@Html(messages("switchedoff.heading"))</h2>
         <p>@Html(messages("switchedoff.line1"))</p>
 

@@ -1,5 +1,6 @@
 package xml.claim
 
+import controllers.mappings.Mappings
 import models.domain._
 import scala.xml.NodeSeq
 import app.XMLValues._
@@ -10,7 +11,7 @@ import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 import play.api.i18n.Lang
 
 object Partner extends XMLComponent {
-
+  val datePattern = "dd-MM-yyyy"
   def xml(claim: Claim) = {
     val yourPartnerPersonalDetails = claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
     val personYouCareFor = claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
@@ -32,5 +33,30 @@ object Partner extends XMLComponent {
         {question(<IsCaree/>, "isPartnerPersonYouCareFor", personYouCareFor.isPartnerPersonYouCareFor)}
       </Partner>
     } else NodeSeq.Empty
+  }
+
+  def fromXml(xml: NodeSeq, claim: Claim) : Claim = {
+    claim.update(createPartnerDetailsFromXml(xml))
+  }
+
+  private def createPartnerDetailsFromXml(xml: NodeSeq) = {
+    val partner = (xml \\ "Partner")
+    partner.isEmpty match {
+      case false =>
+        models.domain.YourPartnerPersonalDetails(
+          title = createStringOptional((partner \ "Title" \ "Answer").text),
+          firstName = createStringOptional((partner \ "OtherNames" \ "Answer").text),
+          middleName = createStringOptional((partner \ "MiddleNames" \ "Answer").text),
+          surname = createStringOptional(decrypt((partner \ "Surname" \ "Answer").text)),
+          otherSurnames = createStringOptional((partner \ "OtherSurnames" \ "Answer").text),
+          dateOfBirth = createFormattedDateOptional((partner \ "DateOfBirth" \ "Answer").text),
+          nationalInsuranceNumber = createNationalInsuranceNumberOptional(partner),
+          nationality = createStringOptional((partner \ "NationalityPartner" \ "Answer").text),
+          separatedFromPartner = createYesNoTextOptional((partner \ "RelationshipStatus" \ "SeparatedFromPartner" \ "Answer").text),
+          isPartnerPersonYouCareFor = createYesNoTextOptional((partner \ "IsCaree" \ "Answer").text),
+          hadPartnerSinceClaimDate = Mappings.yes
+        )
+      case true => models.domain.YourPartnerPersonalDetails(None, None, None, None, None, None, None, None, None, None, Mappings.no)
+    }
   }
 }

@@ -20,11 +20,11 @@
 		<b>@label</b>
 	</td>
 	<td id="@getValueId(id, false)" class="review-value">
-		@value
+		@Html(value)
 	</td>
 	<td id="@getLinkContainerId(id, false)" class="review-action hide-print">
 		@if(!disableLink) {
-		<a class="secondary" id="@getLinkId(id, false)" href="@{controllers.preview.routes.Preview.redirect(id)}@{elementLinkedToId}">
+		<a class="previewChangeLink secondary" id="@getLinkId(id, false)" href="@{controllers.preview.routes.Preview.redirect(id)}@{elementLinkedToId}" onclick>
 			@Html(messages("preview.change"))
 			<span class="visuallyhidden">@label (optional)</span>
 		</a>

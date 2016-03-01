@@ -8,6 +8,7 @@ import play.api.data.{Form}
 import play.api.data.Forms._
 import play.api.i18n._
 import play.api.mvc._
+import utils.CommonValidation
 import scala.language.reflectiveCalls
 import controllers.CarersForms._
 import controllers.mappings.Mappings._
@@ -20,7 +21,7 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
 
   val form = Form(mapping(
     "firstName" -> carersNonEmptyText(maxLength = 17),
-    "surname" -> carersNonEmptyText(maxLength = Name.maxLength),
+    "surname" -> carersNonEmptyText(maxLength = CommonValidation.NAME_MAX_LENGTH),
     "nationalInsuranceNumber" -> nino.verifying(filledInNino, validNino),
     "dateOfBirth" -> dayMonthYear.verifying(validDate),
     "uuid" -> text
@@ -30,7 +31,7 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
     val encuuid = createParamsMap(request.queryString).getOrElse("x", "")
     val uuid = claim.getDecryptedUuid(encuuid)
     if (!getProperty("saveForLaterResumeEnabled", default = false)) {
-      BadRequest(views.html.save_for_later.switchedOff("sfl-resume", request2lang))
+      BadRequest(views.html.common.switchedOff("sfl-resume", request2lang))
     }
     else if (encuuid.equals("")) {
       BadRequest(views.html.save_for_later.resumeNotExist(request2lang))
@@ -53,7 +54,7 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
 
   def submit = resumeClaim { implicit claim => implicit request => implicit request2lang =>
     if (!getProperty("saveForLaterResumeEnabled", default = false)) {
-      BadRequest(views.html.save_for_later.switchedOff("sfl-resume", request2lang))
+      BadRequest(views.html.common.switchedOff("sfl-resume", request2lang))
     }
     else {
       form.bindEncrypted.fold(

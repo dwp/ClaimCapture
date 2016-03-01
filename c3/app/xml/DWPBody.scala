@@ -24,6 +24,7 @@ import scala.xml.{Elem, NodeSeq, XML}
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation={xmlValidator(claim).getSchemaLocation}>
     <Version>{getProperty("xml.schema.version", "No schema version found")}</Version>
+    <Origin>{getProperty("origin.tag", "No origin tag found")}</Origin>
     <DWPCATransaction id={transactionId}>
       <TransactionId>{transactionId}</TransactionId>
       <DateTimeGenerated>{new SimpleDateFormat("dd-MM-yyyy HH:mm").format(new Date())}</DateTimeGenerated>

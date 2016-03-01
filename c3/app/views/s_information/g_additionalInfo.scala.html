@@ -6,6 +6,7 @@
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
 @import views.html.s_information.main
+@import utils.helpers.OriginTagHelper._
 
 @main(messages("s10_2.g1") + " - " + messages("s10_2.longName"), Some(currentForm)) {
     @form(action = controllers.s_information.routes.GAdditionalInfo.submit, 'role -> "form") {
@@ -18,17 +19,17 @@
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(carersInputTextArea(currentForm("anythingElse")("text"),
-	                        'placeholder->messages("anythingElse.please.specify"),'textAreaHelper->Html(messages("3000charsLeft")), 'maxLength -> 3000,
+	                        'placeholder->messages("anythingElse.please.specify"),'textAreaHelper->Html(messages("2000charsLeft")), 'maxLength -> 2000,
 	                        'ignoreOptional -> true)
 	                    ),
 	                    'id -> "anythingElseWrapper",
 	                    'display ->  { if (currentForm("anythingElse.answer").value.getOrElse("no") == "yes") "yes" else "no" }
 	                )
 					@if(lang.language != "cy") {
-						@yesNoRadioGroup(currentForm("welshCommunication"))
+						@if(isOriginGB) { @yesNoRadioGroup(currentForm("welshCommunication")) } else { <input type="hidden" id="welshCommunication_no" name="welshCommunication" value="no"> }
 					} else {
 						<input type="hidden" id="welshCommunication_yes" name="welshCommunication" value="yes">
-						}
+					}
 	            </ul>
 	        </fieldset>
 	
@@ -42,7 +43,7 @@
 <script type="text/javascript">
     $(function(){
         @ga.stagePrompt()
-        window.areaCounter({selector:"@CarersCrypto.encryptAES("anythingElse_text")",maxChars:3000});
+        window.areaCounter({selector:"@CarersCrypto.encryptAES("anythingElse_text")",maxChars:2000});
         window.initEvents("@CarersCrypto.encryptAES("anythingElse_answer_yes")",
         "@CarersCrypto.encryptAES("anythingElse_answer_no")",
         "@CarersCrypto.encryptAES("anythingElse_text")");

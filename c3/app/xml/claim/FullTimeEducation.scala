@@ -1,5 +1,6 @@
 package xml.claim
 
+import controllers.mappings.Mappings
 import models.domain._
 import app.XMLValues._
 import scala.xml.NodeSeq
@@ -8,7 +9,7 @@ import xml.XMLComponent
 import models.domain.Claim
 
 object FullTimeEducation extends XMLComponent {
-
+  val datePattern = "dd-MM-yyyy"
   def xml(claim: Claim) = {
     val courseDetails = claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails(beenInEducationSinceClaimDate = no))
     val hasBeenInEducation = courseDetails.beenInEducationSinceClaimDate == yes
@@ -44,5 +45,22 @@ object FullTimeEducation extends XMLComponent {
       {/*TODO: Remove student reference number from the new schema*/}
       {question(<Tutor/>,"nameOfMainTeacherOrTutor", courseDetails.nameOfMainTeacherOrTutor)}
     </LocationDetails>
+  }
+
+  def fromXml(xml: NodeSeq, claim: Claim) : Claim = {
+    claim.update(createYourDetailsFromXml(xml))
+  }
+
+  private def createYourDetailsFromXml(xml: NodeSeq) = {
+    val fullTimeEducation = (xml \\ "FullTimeEducation")
+    YourCourseDetails (
+      beenInEducationSinceClaimDate = fullTimeEducation.isEmpty match { case false => Mappings.yes case true => Mappings.no },
+      title = createStringOptional((fullTimeEducation \ "CourseDetails" \ "Title" \ "Answer").text),
+      nameOfSchoolCollegeOrUniversity = createStringOptional((fullTimeEducation \ "LocationDetails" \ "Name" \ "Answer").text),
+      nameOfMainTeacherOrTutor = createStringOptional((fullTimeEducation \ "LocationDetails" \ "Tutor" \ "Answer").text),
+      courseContactNumber = createStringOptional((fullTimeEducation \ "LocationDetails" \ "PhoneNumber" \ "Answer").text),
+      startDate = createFormattedDateOptional((fullTimeEducation \ "CourseDetails" \ "DateStarted" \ "Answer").text),
+      expectedEndDate = createFormattedDateOptional((fullTimeEducation \ "CourseDetails" \ "ExpectedEndDate" \ "Answer").text)
+    )
   }
 }

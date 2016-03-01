@@ -1,14 +1,13 @@
 @(currentForm: Form[models.domain.HowWePayYou])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import app.PaymentFrequency._
-@import play.api.i18n.Messages
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.s_pay_details._
 @import utils.helpers.CarersTemplate._
 @import utils.helpers._
-
+@import utils.CommonValidation
 
     @main(messages("s10.g1") + " - " + messages("s10.longName"), Some(currentForm)) {
 
@@ -31,10 +30,10 @@
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            carersInputText(currentForm("bankDetails.accountHolderName"), 'maxLength -> "40"),
+                            carersInputText(currentForm("bankDetails.accountHolderName"), 'maxLength -> CommonValidation.ACCOUNT_HOLDER_NAME_MAX_LENGTH),
                             carersInputText(currentForm("bankDetails.bankFullName")),
                             sortCode(currentForm("bankDetails.sortCode"), 'ignoreOptional -> true, '_showId -> true),
-                            carersInputTel(currentForm("bankDetails.accountNumber"), 'maxLength -> "10"),
+                            carersInputTel(currentForm("bankDetails.accountNumber"), 'maxLength -> CommonValidation.ACCOUNT_NUMBER_MAX_LENGTH),
                             sliderHelp(messages("postOfficeTitle"),messages("postOfficeTitle"),Html(messages("postOfficeBody")), 'showMini->true),
                             carersInputText(currentForm("bankDetails.rollOrReferenceNumber"), 'maxLength -> "18")
                         ),

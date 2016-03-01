@@ -51,6 +51,7 @@ class EmailTemplateSpec extends Specification {
 
       renderedEmail must not contain escapeMessage("mail.cofc.title")
       renderedEmail must not contain escapeMessage("mail.cofc.successful")
+      renderedEmail must not contain(escapeMessage("evidence.include.documents"))
     }
 
     "Display claim employment and self-employment email" in new WithApplication {
@@ -74,6 +75,7 @@ class EmailTemplateSpec extends Specification {
       renderedEmail must contain(escapeMessage("evidence.email.employment.mostRecentPayslipBefore",DayMonthYear().`dd month yyyy`))
 
       renderedEmail must not contain escapeMessage("evidence.pensionStatements")
+      renderedEmail must contain(escapeMessage("evidence.include.documents"))
       renderedEmail must not contain escapeMessage("mail.next.line")
 
       renderedEmail must not contain escapeMessage("mail.cofc.title")
@@ -103,7 +105,7 @@ class EmailTemplateSpec extends Specification {
       renderedEmail must contain(escapeMessage("mail.next.send1"))
       renderedEmail must contain(escapeMessage("evidence.pensionStatements"))
       renderedEmail must contain(escapeMessage("evidence.email.employment.mostRecentPayslipBefore",DayMonthYear().`dd month yyyy`))
-
+      renderedEmail must contain(escapeMessage("evidence.include.documents"))
       renderedEmail must not contain escapeMessage("mail.next.line")
 
       renderedEmail must not contain escapeMessage("mail.cofc.title")
@@ -132,6 +134,7 @@ class EmailTemplateSpec extends Specification {
       emailWithStatutoryPayments must contain(escapeMessage("evidence.otherMoney.otherStatutoryPay"))
       emailWithEmploymentAsWell must contain(escapeMessage("evidence.otherMoney.statutorySickPay"))
       emailWithEmploymentAsWell must contain(escapeMessage("evidence.otherMoney.otherStatutoryPay"))
+      emailWithEmploymentAsWell must contain(escapeMessage("evidence.include.documents"))
     }
 
     "Display cofc employment email" in new WithApplication {
@@ -153,6 +156,7 @@ class EmailTemplateSpec extends Specification {
       renderedEmail must contain(escapeMessage("evidence.pensionStatements"))
 
       renderedEmail must not contain escapeMessage("evidence.email.employment.mostRecentPayslipBefore")
+      renderedEmail must contain(escapeMessage("evidence.include.documents"))
       renderedEmail must not contain escapeMessage("mail.next.line")
 
       renderedEmail must not contain escapeMessage("mail.claim.next.line1.alt")
@@ -177,6 +181,7 @@ class EmailTemplateSpec extends Specification {
       renderedEmail must not contain escapeMessage("mail.claim.title")
       renderedEmail must not contain escapeMessage("mail.claim.successful")
       renderedEmail must not contain escapeMessage("mail.claim.next.line1")
+      renderedEmail must not contain(escapeMessage("evidence.include.documents"))
     }
   }
   section("unit")

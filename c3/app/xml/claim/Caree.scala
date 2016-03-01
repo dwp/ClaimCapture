@@ -1,16 +1,15 @@
 package xml.claim
 
 import controllers.mappings.Mappings
-import models.{MultiLineAddress, DayMonthYear}
+import models.yesNo.{YesNoWithDate, RadioWithText, YesNoMandWithAddress}
+import models.MultiLineAddress
 import models.domain._
 import xml.XMLComponent
 import xml.XMLHelper._
 import scala.language.postfixOps
-import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 import scala.xml.NodeSeq
 
 object Caree extends XMLComponent {
-
   def xml(claim: Claim) = {
     val theirPersonalDetails = claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())
     val moreAboutTheCare = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
@@ -86,5 +85,63 @@ object Caree extends XMLComponent {
         {questionOther(<ReasonCaree/>,"wherePerson", break.wherePerson.answer, break.wherePerson.text)}
       </CareBreak>
     }} ++ xmlNoBreaks
+  }
+
+  def fromXml(xml: NodeSeq, claim: Claim) : Claim = {
+    val breaksInCareTuple = createBreaksInCare(xml)
+    val breaksInCareSummary = BreaksInCareSummary(answer = createYesNoText(breaksInCareTuple._2))
+    val newClaim = claim.update(createYourDetailsFromXml(xml)).update(createMoreAboutCareFromXml(xml)).update(breaksInCareSummary)
+    breaksInCareTuple._1.hasBreaks match {
+      case true => newClaim.update(breaksInCareTuple._1)
+      case false => newClaim.update(BreaksInCare())
+    }
+  }
+
+  private def createBreaksInCare(xml: NodeSeq) = {
+    val breaksInCareXml = (xml \\ "Caree" \ "CareBreak")
+    var breaks = List[Break]()
+    var breaksSinceClaim = Mappings.yes
+    breaksInCareXml.zip (Stream from 1).foreach(node =>
+      {
+        breaksSinceClaim = (node._1 \ "BreaksSinceClaim" \ "Answer").text
+        breaksSinceClaim.toLowerCase match {
+          case Mappings.yes =>
+            breaks = breaks :+ Break(
+              iterationID = s"${node._2}",
+              start = createFormattedDate((node._1 \ "StartDate" \ "Answer").text),
+              startTime = createStringOptional((node._1 \ "StartTime" \ "Answer").text),
+              wherePerson = RadioWithText((node._1 \ "ReasonCaree" \ "Answer").text, createStringOptional((node._1 \ "ReasonCaree" \ "Other").text)),
+              whereYou = RadioWithText((node._1 \ "ReasonClaimant" \ "Answer").text, createStringOptional((node._1 \ "ReasonClaimant" \ "Other").text)),
+              hasBreakEnded = YesNoWithDate(createYesNoText((node._1 \ "EndDateDoNotKnow" \ "Answer").text), createFormattedDateOptional((node._1 \ "EndDate" \ "Answer").text)),
+              endTime = createStringOptional((node._1 \ "EndTime" \ "Answer").text),
+              medicalDuringBreak = createYesNoText((node._1 \ "MedicalCare" \ "Answer").text)
+            )
+          case _ =>
+        }
+      })
+    (BreaksInCare(breaks), breaksSinceClaim)
+  }
+
+  private def createYourDetailsFromXml(xml: NodeSeq) = {
+    val caree = (xml \\ "Caree")
+    TheirPersonalDetails (
+      title = (caree \ "Title" \ "Answer").text,
+      firstName = (caree \ "OtherNames" \ "Answer").text,
+      middleName = createStringOptional((caree \ "MiddleNames" \ "Answer").text),
+      surname = decrypt((caree \ "Surname" \ "Answer").text),
+      dateOfBirth = createFormattedDate((caree \ "DateOfBirth" \ "Answer").text),
+      nationalInsuranceNumber = createNationalInsuranceNumberOptional(caree),
+      relationship = (caree \ "RelationToClaimant" \ "Answer").text,
+      theirAddress = YesNoMandWithAddress(
+                        answer = createYesNoText((caree \ "LiveSameAddress" \ "Answer").text),
+                        address = createAddressOptionalFromXml(caree),
+                        postCode = createStringOptional(decrypt((caree \ "Address" \ "Answer" \ "PostCode").text))
+                      )
+    )
+  }
+
+  private def createMoreAboutCareFromXml(xml: NodeSeq) = {
+    val claimant = (xml \\ "Caree")
+    MoreAboutTheCare(spent35HoursCaring = createYesNoText((claimant \ "Cared35Hours" \ "Answer").text))
   }
 }

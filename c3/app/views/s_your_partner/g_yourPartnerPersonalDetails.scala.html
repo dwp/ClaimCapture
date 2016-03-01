@@ -9,9 +9,9 @@
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
-@import play.api.i18n.Messages
 @import models.domain.YourPartnerPersonalDetails
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+@import utils.CommonValidation
 
     @displayDateForLabel = @{
         claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang, dmy))
@@ -68,9 +68,9 @@
 
                             carersInputText(currentForm("middleName"), 'maxLength -> 17,'ignoreOptional->true),
 
-                            carersInputText(currentForm("surname"), 'maxLength -> 35),
+                            carersInputText(currentForm("surname"), 'maxLength -> CommonValidation.NAME_MAX_LENGTH),
 
-                            carersInputText(currentForm("otherNames"), 'maxLength -> 35),
+                            carersInputText(currentForm("otherNames"), 'maxLength -> CommonValidation.NAME_MAX_LENGTH),
 
                             nationalInsuranceNumber(currentForm("nationalInsuranceNumber"),
                                 'ignoreOptional->true,
@@ -80,7 +80,7 @@
 
                             dateOfBirth(currentForm("dateOfBirth")),
 
-                            carersInputText(currentForm("partner.nationality"), '_label -> messages("partner.nationality"), 'maxLength -> 35, 'ignoreOptional->true),
+                            carersInputText(currentForm("partner.nationality"), '_label -> messages("partner.nationality"), 'maxLength -> CommonValidation.NATIONALITY_MAX_LENGTH, 'ignoreOptional->true),
 
                             yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> messages("separated_fromPartner.label"), 'helperAbove -> messages("separated_fromPartner.helper",displayDateForLabel)),
 

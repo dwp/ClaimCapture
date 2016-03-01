@@ -149,6 +149,26 @@ class GReportAChangeInYourCircumstancesSpec extends Specification{
       val claim = getClaimFromCache(result,CachedChangeOfCircs.key)
       claim.lang mustEqual None
     }
+
+    """should be valid submission with no contact number supplied".""" in new WithApplication with Claiming {
+      val request = FakeRequest()
+        .withFormUrlEncodedBody(
+          "fullName" -> fullName,
+          "nationalInsuranceNumber.nino" -> nino.toString,
+          "dateOfBirth.day" -> dateOfBirthDay.toString,
+          "dateOfBirth.month" -> dateOfBirthMonth.toString,
+          "dateOfBirth.year" -> dateOfBirthYear.toString,
+          "theirFullName" -> theirFullName,
+          "theirRelationshipToYou" -> theirRelationshipToYou,
+          "wantsEmailContactCircs"-> Mappings.no)
+
+      val result = start_of_process.GReportAChangeInYourCircumstances.submit(request)
+      getClaimFromCache(result,CachedChangeOfCircs.key).questionGroup(CircumstancesReportChange) should beLike {
+        case Some(f: CircumstancesReportChange) => f.wantsContactEmail shouldEqual "no"; f.email shouldEqual None
+      }
+      val claim = getClaimFromCache(result,CachedChangeOfCircs.key)
+      status(result) mustEqual SEE_OTHER
+    }
   }
   section("unit", models.domain.CircumstancesReportChanges.id)
 }

@@ -7,21 +7,24 @@ import play.api.mvc.{AnyContent, Request}
 import xml.DWPBody
 import models.domain.Claim
 import play.api.Logger
+import scala.collection.JavaConverters._
 
 object XmlSubmitter {
-  val transactionID = "1408TEST432"
+  val transactionID = "16010000027"
 
   def submission(claim: Claim, request: Request[AnyContent]): ClaimResult = {
     val validator = xmlValidator(claim)
     val fullXml = DWPBody().xml(claim,transactionID)
 
     if (getProperty("validateXml", default = true)) {
-      validator.validate(fullXml.mkString) match {
-        case true => claim -> Ok(fullXml)
-        case false => claim -> {
+      val xmlErrors = validator.validate(fullXml.mkString)
+      xmlErrors.hasFoundErrorOrWarning match {
+        case true => claim -> {
+          xmlErrors.getWarningAndErrors.asScala.foreach(error => Logger.error(s"Validation error: $error"))
           Logger.error(s"Failed validating claim: ${fullXml.mkString}")
           Ok("Failed validation")
         }
+        case false => claim -> Ok(fullXml)
       }
     } else {
      // TODO println(fullXml) -

@@ -7,7 +7,7 @@
 @import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
 @import views.html.s_other_money.main
-
+@import utils.CommonValidation
 
 @main(messages("s9.longName"), Some(currentForm)) {
 
@@ -27,7 +27,7 @@
 	                
 		            @otherDetailPlaceHolder(
 	                     inputDef = Seq(
-	                        carersInputText(currentForm("whoPaysYou"), 'maxLength -> mappings.Mappings.Name.maxLength, '_label -> messages("whoPaysYou.label")),
+	                        carersInputText(currentForm("whoPaysYou"), 'maxLength -> CommonValidation.NAME_MAX_LENGTH, '_label -> messages("whoPaysYou.label")),
 	                        carersCurrency(currentForm("howMuch"), 'maxLength -> mappings.Mappings.twelve, '_label -> messages("howMuch.label")),
 	                        paymentFrequencySelect(currentForm("howOften"),
 	                           'id -> "howOften",

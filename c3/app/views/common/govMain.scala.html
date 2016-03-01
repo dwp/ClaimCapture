@@ -4,7 +4,7 @@
 @import play.api.Play.current
 
 @if(Play.isTest) {
-    @govMainTest(title)(content)(footerCategories,request)
+    @common.govMainTest(title)(content)(footerCategories)(lang, request, flash, messages)
 } else {
-    @govMainDefault(title)(content)(isCookiePage)(footerCategories, lang, request,flash, messages)
+    @common.govMainDefault(title)(content)(isCookiePage)(footerCategories, lang, request,flash, messages)
 }

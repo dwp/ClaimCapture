@@ -6,7 +6,7 @@
 @import play.api.Play
 @import play.api.Play.current
 @import controllers.mappings.Mappings
-@import play.api.Logger
+@import utils.helpers.OriginTagHelper._
 
 @isEmployment = @{
     Employed.isEmployed(claim)
@@ -34,6 +34,16 @@
     getProperty("email.frontend",false) && claim.questionGroup[ContactDetails].getOrElse(ContactDetails()).wantsContactEmail == Mappings.yes
 }
 
+@assistedDecisionReason = @{
+    claim.questionGroup[AssistedDecisionDetails] match{
+        case Some(add) if add.reason != "None" => {
+            if (add.recommendation.contains("None")) add.reason
+            else s"${add.recommendation.split(",").head} - ${add.reason}"
+        }
+        case _ => "None"
+    }
+}
+
 @common.govMain(messages("thankyou")) {
 
 <div class="carers-allowance clearfix" data-journey="carers-allowance:page:thank-you">
@@ -42,30 +52,10 @@
 
     <div class="grid-row main-grid">
 
-        <aside class="column-quarter sidebar @{ 
-        if(!evidenceRequired) "no-employment"
-        }" id="sidebar" role="complementary" aria-labelledby="helpcontent">
-
+        <aside class="column-quarter sidebar" id="sidebar" role="complementary">
             <section class="font-xsmall" id="help">
-
-                <h2 class="heading-medium compound">@Html(messages("leftcol.title"))</h2>
-
-                @if((!request.uri.startsWith("/claim-help"))) {
-                    <p class="compound">
-                        <a id="helppage" rel="external" href="/claim-help" target="_blank" @views.html.ga.trackClickEvent(linkName = "Claim Notes - Left Column")>@Html(messages("leftcol.guide"))</a>
-                    </p>
-                }
-
-                <h3 class="heading-small compound">@Html(messages("leftcol.helpline"))</h3>
-
-                <p class="compound">@Html(messages("leftcol.helplinecontent.1"))</p>
-                <p class="compound">@Html(messages("leftcol.helplinecontent.2"))</p>
-                <p class="compound">@Html(messages("leftcol.helplinecontent.3"))</p>
-                <p class="compound">@Html(messages("leftcol.helplinecontent.4"))</p>
-                <p class="compound">@messages("leftcol.callcharges")</p>
-
+                <h2 class="heading-medium compound">&nbsp;</h2>
             </section>
-
         </aside>
 
         <article class="column-three-quarters main-content finish-statement">
@@ -117,13 +107,18 @@
                             }
                         </ul>
 
+                        <p>@Html(messages("evidence.include.documents"))</p>
+
                         <p>@Html(messages("address.send"))</p>
 
                         <p>
                             <span><b>@Html(messages("s11.g5.help11"))</b></span><br />
                             <span>@Html(messages("s11.g5.help12"))</span><br />
                             <span>@Html(messages("s11.g5.help13"))</span><br />
-                            <span>@Html(messages("s11.g5.help14"))</span>
+                            <span>@Html(messages("s11.g5.help14"))</span><br />
+                            @if(!isOriginGB) {
+                                <span>@Html(messages("s11.g5.help14.pc"))</span>
+                            }
                         </p>
 
                         <p>@Html(messages("address.details"))</p>
@@ -138,7 +133,9 @@
 
             <p><a rel="external" href="@Html(messages("thankyou.report.change.url"))" target="_blank">@Html(messages("thankyou.report.change"))</a></p>
 
-            <div class="finish-button">@Html(messages("claim.feedback.link"))</div>
+            <div class="finish-button">
+                @common.feedbackLink(isFooterItem = false, isThankYou = true) (Takes 30 seconds.)
+            </div>
 
         </article>
 
@@ -151,6 +148,7 @@
 </div>
 
 }
+@views.html.ga.sendTrackEvent("Assisted-Decision", assistedDecisionReason)
 
 
 <script type="text/javascript">

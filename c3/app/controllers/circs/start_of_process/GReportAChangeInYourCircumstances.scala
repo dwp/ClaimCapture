@@ -12,6 +12,7 @@ import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
 import play.api.mvc.{Call, Controller}
+import utils.CommonValidation
 import utils.helpers.CarersForm._
 import play.api.i18n.{MessagesApi, I18nSupport, MMessages}
 
@@ -30,10 +31,10 @@ object GReportAChangeInYourCircumstances extends Controller with CachedChangeOfC
   val theirRelationshipToYou = "theirRelationshipToYou"
 
   val form = Form(mapping(
-    fullName -> carersNonEmptyText(maxLength = 35),
+    fullName -> carersNonEmptyText(maxLength = CommonValidation.FULL_NAME_MAX_LENGTH),
     nationalInsuranceNumber -> nino.verifying(filledInNino).verifying(validNino),
     dateOfBirth -> dayMonthYear.verifying(validDate),
-    theirFullName -> carersNonEmptyText(maxLength = 35),
+    theirFullName -> carersNonEmptyText(maxLength = CommonValidation.FULL_NAME_MAX_LENGTH),
     theirRelationshipToYou -> carersNonEmptyText(maxLength = 35),
     "furtherInfoContact" -> optional(carersNonEmptyText.verifying(validPhoneNumberRequired)),
     "wantsEmailContactCircs" -> carersNonEmptyText.verifying(validYesNo),
@@ -98,7 +99,7 @@ object GReportAChangeInYourCircumstances extends Controller with CachedChangeOfC
 
   private def formatEmailAndPostCode(circumstancesReportChange: CircumstancesReportChange): CircumstancesReportChange = {
     circumstancesReportChange.copy(
-      email = Some(circumstancesReportChange.email.getOrElse("").trim),
-      emailConfirmation = Some(circumstancesReportChange.emailConfirmation.getOrElse("").trim))
+      email = circumstancesReportChange.email.getOrElse("").trim match { case y if y.isEmpty => None case x => Some(x) },
+      emailConfirmation = circumstancesReportChange.emailConfirmation.getOrElse("").trim match { case y if y.isEmpty => None case x => Some(x) })
   }
 }

@@ -2,6 +2,7 @@ package controllers.s_consent_and_declaration
 
 import play.api.Play._
 import play.api.i18n.{MMessages, MessagesApi, I18nSupport}
+import xml.claim.AssistedDecision
 
 import language.reflectiveCalls
 import play.api.mvc.{Action, AnyContent, Request, Controller}
@@ -55,7 +56,8 @@ class GDeclaration extends Controller with CachedClaim with Navigable with I18nS
         BadRequest(views.html.s_consent_and_declaration.g_declaration(updatedFormWithErrors))
       },
       declaration => {
-        val updatedClaim = copyInstance(claim.update(declaration))
+        val updatedClaimWithDecision = AssistedDecision.createAssistedDecisionDetails(claim)
+        val updatedClaim = copyInstance(updatedClaimWithDecision.update(declaration))
         checkForBot(updatedClaim, request)
         submission(updatedClaim, request, declaration.jsEnabled)
       })

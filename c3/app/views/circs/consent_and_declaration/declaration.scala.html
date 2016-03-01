@@ -23,7 +23,10 @@
                 <ul class="list-bullet">
                     <li>@messages("circs.declaration.1")</li>
                     <li>@messages("circs.declaration.overpayment")</li>
-                    <li>@messages("circs.declaration.2a") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-report-change">@messages("circs.declaration.2b")</a> @messages("circs.declaration.2c") <a rel="external" target="_blank" href="https://www.gov.uk/carers-allowance-unit">@messages("circs.declaration.2d")</a></li>                   
+                    <li>@messages("circs.declaration.2a")
+                        <a rel="external" target="_blank" href="@messages("circs.declaration.2b.url")">@messages("circs.declaration.2b")</a>
+                        @messages("circs.declaration.2c")
+                        <a rel="external" target="_blank" href="@messages("circs.declaration.2d.url")">@messages("circs.declaration.2d")</a></li>
                 </ul>
                 <p class="warning-text">
                     @messages("circs.declaration.warning")
@@ -36,8 +39,7 @@
 	            <ul class="third-party-decleration">
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
-	                        carersInputText(declarationForm("nameOrOrganisation"), 'maxLength -> mappings.Mappings.sixty),
-                                            Html("<br/>"),
+	                        carersInputText(declarationForm("nameOrOrganisation"), 'maxLength -> mappings.Mappings.sixty),                                            
                                             Html(messages("carerTermsDesc"))),
 	                    'id -> "nameOrOrganisationWrapper"
 	                )

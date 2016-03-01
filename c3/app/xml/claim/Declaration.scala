@@ -2,10 +2,14 @@ package xml.claim
 
 import controllers.mappings.Mappings
 import models.domain._
+import models.view.Navigation
+import models.yesNo.YesNoWithText
 import xml.XMLHelper._
 import xml.XMLComponent
-import play.api.i18n.{MMessages, MessagesApi}
+import play.api.i18n.{Lang, MMessages, MessagesApi}
 import play.api.Play.current
+
+import scala.xml.NodeSeq
 
 object  Declaration extends XMLComponent {
   val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
@@ -28,10 +32,38 @@ object  Declaration extends XMLComponent {
     </Declaration>
   }
 
-  def yesNoText(thirdParty : ThirdPartyDetails): String = {
+  private def yesNoText(thirdParty : ThirdPartyDetails): String = {
     thirdParty.thirdParty == ThirdPartyDetails.noCarer match {
       case true => Mappings.no
       case false => Mappings.yes
+    }
+  }
+
+  def fromXml(xml: NodeSeq, claim: Claim) : Claim = {
+    implicit val navigation = Navigation()
+    claim.update(createThirdPartyDetailsFromXml(xml)).update(createAdditionalInfoFromXml(xml)).copy(lang = createLanguageFromXml(xml))
+  }
+
+  private def createThirdPartyDetailsFromXml(xmlNode: NodeSeq) = {
+    val declaration = (xmlNode \\ "Declaration")
+    val declarationNameOrg = (declaration \ "DeclarationNameOrg" \ "Answer").text
+    ThirdPartyDetails(declarationNameOrg.isEmpty match { case false => ThirdPartyDetails.noCarer case true => ThirdPartyDetails.yesCarer }, createStringOptional(declarationNameOrg))
+  }
+
+  private def createAdditionalInfoFromXml(xmlNode: NodeSeq) = {
+    val otherInformation = (xmlNode \\ "OtherInformation")
+    models.domain.AdditionalInfo(
+      anythingElse = YesNoWithText(
+        answer = createYesNoText((otherInformation \ "AdditionalInformation" \ "Answer").text),
+        text = createStringOptional((otherInformation \ "AdditionalInformation" \ "Why" \ "Answer").text)),
+      welshCommunication = createYesNoText((otherInformation \ "WelshCommunication" \ "Answer").text)
+    )
+  }
+
+  private def createLanguageFromXml(xml: NodeSeq) = {
+    (xml \\ "DWPCATransaction" \ "LanguageUsed").text match {
+      case "Welsh" => Some(Lang("cy"))
+      case _ => Some(Lang("en"))
     }
   }
 }

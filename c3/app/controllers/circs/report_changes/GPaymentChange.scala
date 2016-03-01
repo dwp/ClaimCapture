@@ -9,6 +9,7 @@ import play.api.Play._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
+import utils.CommonValidation
 import utils.helpers.CarersForm._
 import play.api.i18n._
 
@@ -25,7 +26,7 @@ object GPaymentChange extends Controller with CachedChangeOfCircs with Navigable
 
   val form = Form(mapping(
     currentlyPaidIntoBankMapping,
-    "accountHolderName" -> carersNonEmptyText(maxLength = 60),
+    "accountHolderName" -> carersNonEmptyText(maxLength = CommonValidation.ACCOUNT_HOLDER_NAME_MAX_LENGTH),
     "bankFullName" -> carersNonEmptyText(maxLength = 100),
     "sortCode" -> (sortCode verifying requiredSortCode),
     "accountNumber" -> carersNonEmptyText(minLength = 6, maxLength = 10),

@@ -8,6 +8,7 @@
 @import views.html.helper.base._
 @import app.ConfigProperties._
 @import views.html.s_about_you.main
+@import utils.CommonValidation
 
 @saveForLaterEnabled=@{
     getProperty("saveForLaterSaveEnabled",false)
@@ -30,7 +31,7 @@
 
                     @carersInputPostcode(contactDetailsForm("postcode"), 'class -> "postcode", 'maxLength -> 10, 'ignoreOptional -> true)
 
-                    @carersInputTel(contactDetailsForm("howWeContactYou"),'ignoreOptional -> true, 'maxLength -> mappings.Mappings.twenty)
+                    @carersInputTel(contactDetailsForm("howWeContactYou"),'ignoreOptional -> true, 'maxLength -> CommonValidation.PHONE_NUMBER_MAX_LENGTH)
 
                     @carersCheckBox(contactDetailsForm("contactYouByTextphone"), 'track -> true)
 

@@ -10,6 +10,7 @@ import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 import models.DayMonthYear
 import play.api.i18n.Lang
 import models.domain.Claim
+import scala.xml.NodeSeq
 
 object DWPCAClaim extends XMLComponent {
 
@@ -62,4 +63,20 @@ object DWPCAClaim extends XMLComponent {
      displayPlaybackDatesFormat(Lang("en"), date)
   }
 
+  def fromXml(xml: NodeSeq, claim: Claim) : Claim = {
+    var newClaim = AssistedDecision.fromXml(xml, claim)
+    newClaim = Caree.fromXml(xml, newClaim)
+    newClaim = Claimant.fromXml(xml, newClaim)
+    newClaim = Consents.fromXml(xml, newClaim)
+    newClaim = Declaration.fromXml(xml, newClaim)
+    newClaim = Disclaimer.fromXml(xml, newClaim)
+    newClaim = Employment.fromXml(xml, newClaim)
+    newClaim = FullTimeEducation.fromXml(xml, newClaim)
+    newClaim = OtherBenefits.fromXml(xml, newClaim)
+    newClaim = Partner.fromXml(xml, newClaim)
+    newClaim = Payment.fromXml(xml, newClaim)
+    newClaim = Residency.fromXml(xml, newClaim)
+    newClaim = SelfEmployment.fromXml(xml, newClaim)
+    newClaim
+  }
 }

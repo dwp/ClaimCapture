@@ -1,9 +1,9 @@
 package services.submission
 
 import app.ConfigProperties._
-import models.view.CachedClaim
-import monitoring.{Counters}
+import monitoring.Counters
 import play.api.libs.ws.WSResponse
+import utils.helpers.GAHelper
 
 import scala.concurrent.ExecutionContext
 import play.api.{http, Logger}
@@ -11,12 +11,9 @@ import controllers.submission._
 import services.{EmailServices, SubmissionCacheService, ClaimTransactionComponent}
 import ExecutionContext.Implicits.global
 import ClaimSubmissionService._
-import models.domain.Claim
+import models.domain.{AssistedDecisionDetails, Claim}
 
-class AsyncClaimSubmissionComponent extends AsyncClaimSubmissionService
-with ClaimTransactionComponent
-with WebServiceClientComponent
- {
+class AsyncClaimSubmissionComponent extends AsyncClaimSubmissionService with ClaimTransactionComponent with WebServiceClientComponent {
   val webServiceClient = new WebServiceClient
   val claimTransaction = new ClaimTransaction
 }

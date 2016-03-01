@@ -26,7 +26,7 @@ object ClaimHandling {
   type ClaimResult = (Claim, Result)
   // Versioning
   val C3VERSION = "C3Version"
-  val C3VERSION_VALUE = "3.3.2"
+  val C3VERSION_VALUE = "3.4"
   val C3VERSION_SECSTOLIVE = 10*60*60
   val applicationFinished = "application-finished"
 
@@ -49,15 +49,16 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
   def newClaim(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
     request => {
       implicit val r = request
+      val key = keyFrom(request)
 
       recordMeasurements()
-      val key = keyFrom(request)
 
       if (request.getQueryString("changing").getOrElse("false") == "false") {
         // Delete any old data to avoid somebody getting access to session left by somebody else
         if (!key.isEmpty) Cache.remove(key)
         // Start with new claim
         val claim = newInstance()
+        renameThread(claim.uuid)
         Logger.info(s"New ${claim.key} ${claim.uuid}.")
         // Cookies need to be changed BEFORE session, session is within cookies.
         def tofilter(theCookie: Cookie): Boolean = {
@@ -110,6 +111,27 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
     }
   }
 
+  /*
+    If we have a claim, whether valid or not then we keep it since we might go back to it later.
+    If we dont have a claim then create a new one.
+ */
+  def optionalClaim(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
+    request => {
+      implicit val r = request
+      fromCache(request) match {
+        case Some(claim) => {
+          Logger.info("ClaimHandling optionalClaim for existing claim:" + claim.uuid)
+          withHeaders(action(claim, r, bestLang)(f))
+        }
+        case _ => {
+          val claim = newInstance()
+          Logger.info("ClaimHandling optionalClaim created new claim:" + claim.uuid)
+          withHeaders(action(claim, r, bestLang)(f))
+        }
+      }
+    }
+  }
+
   //============================================================================================================
   //         GOING THROUGH CLAIM
   //============================================================================================================
@@ -127,6 +149,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
 
   private def claimingWithConditions(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult], cookieCheck: Boolean, isNotValidClaim: Claim => Boolean = noClaimValidation): Action[AnyContent] = Action {
     implicit request =>
+      renameThread(request)
       enforceAlreadyFinishedRedirection(request,
         originCheck(
           fromCache(request) match {
@@ -148,11 +171,13 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
   private def noClaimValidation(claim: Claim) = false
 
   private def claimingWithClaim(f: (Claim) => (Request[AnyContent]) => (Lang) => Either[Result, (Claim, Result)], request: Request[AnyContent], claim: Claim): Result = {
-    // We log just to be able to invstigate issues with claims/circs and see path taken by customer. Do not need to log all GETs and POSTs in production (INFO).
+    val key = keyFrom(request)
+
+    // We log just to be able to investigate issues with claims/circs and see path taken by customer. Do not need to log all GETs and POSTs in production (INFO).
     if (request.method == HttpVerbs.GET) Logger.info(s"claimingWithClaim - ${claim.key} ${claim.uuid} - GET url ${request.path}")
     else Logger.debug(s"claimingWithClaim - ${claim.key} ${claim.uuid} - ${request.method} url ${request.path}")
     implicit val r = request
-    val key = keyFrom(request)
+
     if (key != claim.uuid) Logger.error(s"claimingWithClaim - Claim uuid ${claim.uuid} does not match cache key $key.")
     action(copyInstance(claim), request, getLang(claim))(f).withSession(claim.key -> claim.uuid)
   }
@@ -161,6 +186,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
     if (Play.isTest) {
       implicit val r = request
       val claim = newInstance()
+      renameThread(claim.uuid)
       saveInCache(claim) // place an empty claim in the cache to satisfy tests
       // Because a test can start at any point of the process we have to be sure the claim uuid is in the session.
       action(claim, request, bestLang)(f).withSession(claim.key -> claim.uuid)
@@ -226,7 +252,6 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
     val key = keyFrom(request)
     if (!key.isEmpty && key != claim.uuid) Logger.warn(s"action - Claim uuid ${claim.uuid} does not match cache key $key. Can happen if action new claim and user reuses session. Will disregard session key and use uuid.")
 
-    //val newRequest = createNewRequest(request) //??? //Create new request modifiying the current cookie to add whatever setLang does
     f(claim)(request)(lang) match {
       case Left(r: Result) => r
       case Right((c: Claim, r: Result)) => {

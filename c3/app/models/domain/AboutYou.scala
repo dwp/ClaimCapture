@@ -5,6 +5,7 @@ import models.{NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
 import models.yesNo.{YesNoWith2MandatoryFieldsOnYes, YesNoWith1MandatoryFieldOnYes, YesNoWithText}
 import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
 import controllers.mappings.Mappings.yes
+import utils.helpers.OriginTagHelper._
 
 object AboutYou extends Section.Identifier {
   val id = "s3"
@@ -50,11 +51,13 @@ object NationalityAndResidency extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g4"
 
   val british = "British"
+  val britishIrish = "British/Irish"
   val anothercountry = "Another nationality"
 
   def validNationality: Constraint[String] = Constraint[String]("constraint.nationality") {
-    // Nationality is a radio list with two possible values, British and Another Country
-    case `british` => Valid
+    // Nationality is a radio list with two possible values, British or British/Irish and Another Country
+    case `british` if (isOriginGB) => Valid
+    case `britishIrish` if (!isOriginGB) => Valid
     case `anothercountry` => Valid
     case _ => Invalid(ValidationError("nationality.invalid"))
   }

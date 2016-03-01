@@ -71,12 +71,12 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
     "reject too many characters in text fields" in new WithApplication {
       GReportAChangeInYourCircumstances.form.bind(
         Map(
-          "fullName" -> "HARACTERS,CHARACTE,HARACTERS,CHARACTE",
+          "fullName" -> "HARACTERS,CHARACTE,HARACTERS,CHARACTE,HARACTERS,CHARACTE,HARACTERS,CHARACTE",
           "nationalInsuranceNumber.nino" -> nino,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "theirFullName" -> "HARACTERS,CHARACTE,HARACTERS,CHARACTE",
+          "theirFullName" -> "HARACTERS,CHARACTE,HARACTERS,CHARACTE,HARACTERS,CHARACTE,HARACTERS,CHARACTE",
           "theirRelationshipToYou" -> "HARACTERS,CHARACTE,HARACTERS,CHARACTE",
           "furtherInfoContact" -> byTelephone,
           "wantsEmailContactCircs" -> wantsEmailContactCircs
