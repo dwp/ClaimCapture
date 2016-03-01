@@ -34,6 +34,7 @@ object Replica extends Controller with I18nSupport {
         }.flatMap(e => Seq(e,e+"/$id<[^/]+>"))
 
         val updatedList = Seq(pathList.filter(_.matches("/allowance.*")) ,
+                          pathList.filter(_.matches("/third-party.*")) ,
                           pathList.filter(_.matches("/your-claim-date.*")),
                           pathList.filter(_.matches("/your-claim-date")) ,
                           pathList.filter(_.matches("/about-you.*")) ,

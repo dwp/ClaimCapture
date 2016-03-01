@@ -13,39 +13,40 @@
     @form(action = controllers.s_information.routes.GAdditionalInfo.submit, 'role -> "form") {
         @DwpCSRFFormHelper.formField
 
-	        <fieldset class="form-elements" data-journey="carers-allowance:page:consent-and-declaration">
+            <fieldset class="form-elements" data-journey="carers-allowance:page:consent-and-declaration">
 
-	            <ul>
-	                @yesNoRadioGroup(currentForm("anythingElse.answer"), 'helperAbove -> messages("mustTellUs"))
-	
-	                @otherDetailPlaceHolder(
-	                    inputDef = Seq(carersInputTextArea(currentForm("anythingElse")("text"),
-	                        'placeholder->messages("anythingElse.please.specify"),
-							'textAreaHelper->Html( AdditionalInfo.textMaxLength+" "+messages("charsLeft")),
-							'maxLength -> AdditionalInfo.textMaxLength,
-	                        'ignoreOptional -> true)
-	                    ),
-	                    'id -> "anythingElseWrapper",
-	                    'display ->  { if (currentForm("anythingElse.answer").value.getOrElse("no") == "yes") "yes" else "no" }
-	                )
-					@if(lang.language != "cy") {
-						@if(isOriginGB) { @yesNoRadioGroup(currentForm("welshCommunication")) } else { <input type="hidden" id="welshCommunication_no" name="welshCommunication" value="no"> }
-					} else {
-						<input type="hidden" id="welshCommunication_yes" name="welshCommunication" value="yes">
-					}
-	            </ul>
-	        </fieldset>
-	
-		@views.html.common.bottomNavigation()
+                <ul>
+                    @yesNoRadioGroup(currentForm("anythingElse.answer"), 'helperAbove -> messages("mustTellUs"))
+    
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(carersInputTextArea(currentForm("anythingElse")("text"),
+                            'placeholder->messages("anythingElse.please.specify"),
+                            'textAreaHelper->Html( AdditionalInfo.textMaxLength+" "+messages("charsLeft")),
+                            'maxLength -> AdditionalInfo.textMaxLength,
+                            'ignoreOptional -> true)
+                        ),
+                        'id -> "anythingElseWrapper",
+                        'display ->  { if (currentForm("anythingElse.answer").value.getOrElse("no") == "yes") "yes" else "no" }
+                    )
+                    @if(lang.language != "cy") {
+                        @if(isOriginGB) { @yesNoRadioGroup(currentForm("welshCommunication")) } else { <input type="hidden" id="welshCommunication_no" name="welshCommunication" value="no"> }
+                    } else {
+                        <input type="hidden" id="welshCommunication_yes" name="welshCommunication" value="yes">
+                    }
+                </ul>
+            </fieldset>
+    
+        @views.html.common.bottomNavigation()
 
 
-	}
+    }
 <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
 <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_consent_and_declaration/g_additionalInfo.js")></script>
 
 <script type="text/javascript">
     $(function(){
         @ga.stagePrompt()
+
         window.areaCounter({selector:"@CarersCrypto.encryptAES("anythingElse_text")",maxChars:@AdditionalInfo.textMaxLength});
         window.initEvents("@CarersCrypto.encryptAES("anythingElse_answer_yes")",
         "@CarersCrypto.encryptAES("anythingElse_answer_no")",
