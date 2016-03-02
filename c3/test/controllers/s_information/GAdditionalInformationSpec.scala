@@ -50,6 +50,8 @@ class GAdditionalInformationSpec extends Specification {
       schemaVersion must not be "NOT-SET"
       additionalInformationMaxLength(schemaVersion) mustEqual 3000
     }
+
+    // This test requires xml.schema.version to be set correctly from properties into Information.scala
 /*
     "have text maxlength set correctly in present()" in new WithApplication {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
@@ -67,6 +69,7 @@ class GAdditionalInformationSpec extends Specification {
   section("unit", models.domain.AdditionalInfo.id)
 
   def additionalInformationMaxLength(schemaVersion: String) = {
+    SchemaValidation.clearSchema()
     lazy val validation = new SchemaValidation(schemaVersion)
     Option(validation.getRestriction("OtherInformation//AdditionalInformation//Why//Answer")) match {
       case Some(restriction) => if (restriction.getMaxlength != null) restriction.getMaxlength else 2990
