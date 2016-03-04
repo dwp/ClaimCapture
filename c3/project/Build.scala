@@ -34,10 +34,10 @@ object ApplicationBuild extends Build {
     "nl.rhinofly" %% "play-mailer" % "3.0.0",
     "gov.dwp.carers" %% "play2-resilient-memcached" % "2.5",
     "gov.dwp" %% "play2-multimessages" % "2.4.3",
-    "net.sourceforge.htmlunit" % "htmlunit" % "2.18" % "test",
-    "org.seleniumhq.selenium" % "selenium-java" % "2.47.1" % "test",
-    "org.apache.httpcomponents" % "httpclient" % "4.5",
-    "org.apache.httpcomponents" % "httpcore" % "4.4.1",
+    "net.sourceforge.htmlunit" % "htmlunit" % "2.19" % "test",
+    "org.seleniumhq.selenium" % "selenium-java" % "2.52.0" % "test",
+    "org.apache.httpcomponents" % "httpclient" % "4.5.1",
+    "org.apache.httpcomponents" % "httpcore" % "4.4.4",
     "commons-io" % "commons-io" % "2.4",
     "org.specs2" %% "specs2-core" % "3.3.1" % "test" withSources() withJavadoc(),
     "org.specs2" %% "specs2-mock" % "3.3.1" % "test" withSources() withJavadoc(),
@@ -84,5 +84,5 @@ object ApplicationBuild extends Build {
 
   var appSettings: Seq[Def.Setting[_]] = sV ++ sO ++ sR ++ gS ++ sTest ++ jO ++ f ++ jcoco ++ keyStoreOptions ++ jacoco.settings ++ vS ++ net.virtualvoid.sbt.graph.Plugin.graphSettings
 
-  val main = Project(appName, file(".")).enablePlugins(play.sbt.PlayScala, SbtWeb).settings(appSettings: _*)
+  val main = Project(appName, file(".")).enablePlugins(play.sbt.PlayScala, SbtWeb).settings(appSettings: _*).settings(unmanagedResourceDirectories in Test <+= baseDirectory( _ / "target/web/public/test" ))
 }
