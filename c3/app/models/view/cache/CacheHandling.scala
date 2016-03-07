@@ -15,7 +15,7 @@ import play.api.Play.current
 import play.api.cache.CacheApi
 import play.api.libs.json.JsValue
 import play.api.mvc.{AnyContent, Request}
-import utils.SaveForLaterEncryption
+import utils.{RenameThread, SaveForLaterEncryption}
 import scala.concurrent.duration._
 
 import scala.concurrent.duration.Duration
@@ -26,10 +26,10 @@ protected trait CacheHandling {
 
   def cacheKey: String
 
-  def renameThread(uuid : String): Unit = if(!uuid.isEmpty)Thread.currentThread().setName(uuid)
-  def renameThread(request : Request[AnyContent]): Unit = renameThread(request.session.get(cacheKey).getOrElse(""))
+  def renameThread(uuid : String): Unit = RenameThread.renameThreadFromUuid(uuid)
+  def renameThread(request : Request[AnyContent]): Unit = RenameThread.renameThreadFromRequest(request, cacheKey)
 
-  def keyFrom(request: Request[AnyContent]): String = { renameThread(request.session.get(cacheKey).getOrElse("")); request.session.get(cacheKey).getOrElse("") }
+  def keyFrom(request: Request[AnyContent]): String = { renameThread(request); request.session.get(cacheKey).getOrElse("") }
 
   def claimFullKey(uuid: String): String = {
     s"${CacheHandling.claimCacheNamespace}$uuid"
