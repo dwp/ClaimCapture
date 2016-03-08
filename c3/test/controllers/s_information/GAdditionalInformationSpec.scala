@@ -56,7 +56,6 @@ class GAdditionalInformationSpec extends Specification {
     "have text maxlength set correctly in present()" in new WithBrowser {
       browser.goTo(GAdditionalInfoPage.url)
       browser.click("#anythingElse_answer_yes")
-      println(browser.pageSource())
       val anythingelse = browser.$("#anythingElse_text")
       // use + css selector to find adjacent sibling i.e. <textarea id=anythingElse_text></textarea><span class=countdown><span>
       val countdown = browser.$("#anythingElse_text + .countdown")
