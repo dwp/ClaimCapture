@@ -52,13 +52,11 @@ object LightFakeApplication {
 
   // Default switch positions ... so we dont need to set config for every switch position during tests, add default them here and override if required.
   lazy val defaultSwitchPositions={
-    println("COLING setting switch poisitions including xml.schema.version")
     Map(
       "origin.tag" -> "GB",
       "i18n.messagelisting" -> "messagelisting.properties",
       "saveForLaterSaveEnabled" -> "true",
-      "feedback.cads.enabled" -> "true",
-      "xml.schema.version" -> "0.20"
+      "feedback.cads.enabled" -> "true"
     )
   }
 
@@ -87,13 +85,11 @@ object LightFakeApplication {
   }
 
   def fa = {
-    println("fa adding defaultSwitchPositions")
     val app = FakeApplication(additionalConfiguration = configurationMap ++ defaultSwitchPositions)
     app
   }
 
   def apply() = {
-    println("COLING apply calling fa")
     fa
   }
 }
