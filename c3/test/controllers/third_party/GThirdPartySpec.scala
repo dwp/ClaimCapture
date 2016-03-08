@@ -1,11 +1,13 @@
 package controllers.third_party
 
+import controllers.s_information.GAdditionalInfo
 import models.domain.Claiming
 import models.view.CachedClaim
 import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.WithApplication
+import utils.{WithBrowser, WithApplication}
+import app.ConfigProperties._
 
 class GThirdPartySpec extends Specification {
   val inputCarer = Seq("thirdParty" -> "yesCarer")
@@ -39,6 +41,18 @@ class GThirdPartySpec extends Specification {
 
       val result = GThirdParty.submit(request)
       status(result) mustEqual SEE_OTHER
+    }
+
+    "pull maxlength from xml commons OK" in new WithApplication {
+      val schemaVersion = getProperty("xml.schema.version", "NOT-SET")
+      //additionalInformationMaxLength(schemaVersion, "Declaration//DeclarationNameOrg//Answer") mustEqual 60
+      additionalInformationMaxLength(schemaVersion, "Declaration//DeclarationNameOrg//Answer") mustEqual 120
+    }
+
+    "have text maxlength set correctly in present()" in new WithBrowser{
+      browser.goTo("/third-party/third-party")
+      val mainfeedback = browser.$("#thirdParty_nameAndOrganisation")
+      mainfeedback.getAttribute("maxlength") mustEqual "60"
     }
   }
   section("unit", models.domain.ThirdParty.id)

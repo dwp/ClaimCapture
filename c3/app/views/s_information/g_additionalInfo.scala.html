@@ -29,7 +29,11 @@
                         'display ->  { if (currentForm("anythingElse.answer").value.getOrElse("no") == "yes") "yes" else "no" }
                     )
                     @if(lang.language != "cy") {
-                        @if(isOriginGB) { @yesNoRadioGroup(currentForm("welshCommunication")) } else { <input type="hidden" id="welshCommunication_no" name="welshCommunication" value="no"> }
+                        @if(isOriginGB) {
+                            @yesNoRadioGroup(currentForm("welshCommunication"), 'track->true, 'trackLabel->messages("welshCommunication"))
+                        } else {
+                            <input type="hidden" id="welshCommunication_no" name="welshCommunication" value="no">
+                        }
                     } else {
                         <input type="hidden" id="welshCommunication_yes" name="welshCommunication" value="yes">
                     }
