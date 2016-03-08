@@ -1,6 +1,5 @@
 package controllers.third_party
 
-import controllers.s_information.GAdditionalInfo
 import models.domain.Claiming
 import models.view.CachedClaim
 import org.specs2.mutable._
@@ -45,8 +44,8 @@ class GThirdPartySpec extends Specification {
 
     "pull maxlength from xml commons OK" in new WithApplication {
       val schemaVersion = getProperty("xml.schema.version", "NOT-SET")
-      //additionalInformationMaxLength(schemaVersion, "Declaration//DeclarationNameOrg//Answer") mustEqual 60
-      additionalInformationMaxLength(schemaVersion, "Declaration//DeclarationNameOrg//Answer") mustEqual 120
+      //schemaMaxLength(schemaVersion, "Declaration//DeclarationNameOrg//Answer") mustEqual 60
+      schemaMaxLength(schemaVersion, "Declaration//DeclarationNameOrg//Answer") mustEqual 120
     }
 
     "have text maxlength set correctly in present()" in new WithBrowser{
