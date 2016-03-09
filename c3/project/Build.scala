@@ -23,7 +23,7 @@ object ApplicationBuild extends Build {
     "com.typesafe.akka" %% "akka-agent" % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-remote" % "2.3.9" % "test" withSources() withJavadoc(),
     "gov.dwp.carers" %% "xmlcommons" % "7.8",
-    "gov.dwp.carers" %% "carerscommon" % "7.6",
+    "gov.dwp.carers" %% "carerscommon" % "7.7",
     "gov.dwp.carers" %% "wscommons" % "3.0",
     "org.postgresql" % "postgresql" % "9.3-1103-jdbc41",
     "com.h2database" % "h2" % "1.4.186" % "test",
