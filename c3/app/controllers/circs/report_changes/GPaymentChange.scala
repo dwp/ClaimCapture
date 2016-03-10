@@ -32,7 +32,7 @@ object GPaymentChange extends Controller with CachedChangeOfCircs with Navigable
     "accountNumber" -> carersNonEmptyText(minLength = 6, maxLength = 10),
     "rollOrReferenceNumber" -> carersText(maxLength = 18),
     "paymentFrequency" -> carersNonEmptyText(maxLength = 20),
-    "moreAboutChanges" -> optional(carersText(maxLength = 300))
+    "moreAboutChanges" -> optional(carersText(maxLength = CircumstancesPaymentChange.textMaxLength))
   )
   (CircumstancesPaymentChange.apply)(CircumstancesPaymentChange.unapply))
 

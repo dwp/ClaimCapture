@@ -1,6 +1,8 @@
 package controllers.circs.report_changes
 
-import utils.WithApplication
+import app.ConfigProperties._
+import utils.pageobjects.circumstances.report_changes.GBreaksInCarePage
+import utils.{WithBrowser, WithApplication}
 import org.specs2.mutable._
 import app.CircsBreaksWhereabouts
 import scala.Predef._
@@ -31,6 +33,7 @@ class GBreaksInCareFormSpec extends Specification {
     val breaksInCareStartTime = "10 am"
     val yes = Mappings.yes
     val no = Mappings.no
+    val breaksInCarePath = "DWPCAChangeOfCircumstances//BreakFromCaring//MoreChanges//Answer"
 
     "map data into case class" in new WithApplication {
        GBreaksInCare.form.bind(
@@ -219,6 +222,27 @@ class GBreaksInCareFormSpec extends Specification {
         },
         form => "This mapping should not happen." must equalTo("Valid")
       )
+    }
+
+    "handle gracefully when bad schema number passed to SchemaValidation getRestriction" in new WithApplication {
+      val schemaVersion = "BAD-SCHEMA"
+      schemaMaxLength(schemaVersion, breaksInCarePath) mustEqual -1
+    }
+
+    "pull maxlength from xml commons OK" in new WithApplication {
+      val schemaVersion = getProperty("xml.schema.version", "NOT-SET")
+      schemaVersion must not be "NOT-SET"
+      schemaMaxLength(schemaVersion, breaksInCarePath) mustEqual 3000
+    }
+
+    "have text maxlength set correctly in present()" in new WithBrowser {
+      browser.goTo(GBreaksInCarePage.url)
+      val anythingElse = browser.$("#moreAboutChanges")
+      val countdown = browser.$("#moreAboutChanges + .countdown")
+
+      anythingElse.getAttribute("maxlength") mustEqual "3000"
+      countdown.getText must contain( "3000 char")
+      browser.pageSource must contain("maxChars:3000")
     }
   }
   section("unit", models.domain.CircumstancesAddressChange.id)

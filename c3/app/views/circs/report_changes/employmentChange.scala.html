@@ -10,7 +10,8 @@
 @import views.html.helper.dates._
 @import controllers.mappings.Mappings._
 @import utils.helpers.CarersCrypto
-@import play.api.i18n.Messages
+@import models.domain.CircumstancesSelfEmployment
+
 
 @stillCaring = @{employmentChange("stillCaring")}
 @hasWorkStartedYet = @{employmentChange("hasWorkStartedYet")}
@@ -91,7 +92,7 @@
                         inputDef = Seq(
                             carersInputText(typeOfWork("selfEmployedTypeOfWork"), 'maxLength -> 35, 'ignoreOptional -> true),
                             yesNoRadioGroup(typeOfWork("selfEmployedTotalIncome"), 'ignoreOptional -> true, 'values -> Seq("yes" -> messages("label.yes7"), "no" -> messages("label.no"), "dontknow" -> messages("label.dontknow"))),
-                            carersInputTextArea(typeOfWork("selfEmployedMoreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), '_label -> "moreAboutChanges", 'textAreaHelper -> Html(messages("300charsLeft")), 'maxLength -> 300)
+                            carersInputTextArea(typeOfWork("selfEmployedMoreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), '_label -> "moreAboutChanges", 'textAreaHelper -> Html(messages(s"${CircumstancesSelfEmployment.textMaxLength}charsLeft")), 'maxLength -> CircumstancesSelfEmployment.textMaxLength)
                         ),
                         'id -> "typeOfWorkSelfEmployedWrap"
                     )
@@ -110,7 +111,7 @@
     <script type="text/javascript">
 
         $(function(){
-            window.areaCounter({selector:"@CarersCrypto.encryptAES(typeOfWork("selfEmployedMoreAboutChanges").id)",maxChars:300});
+            window.areaCounter({selector:"@CarersCrypto.encryptAES(typeOfWork("selfEmployedMoreAboutChanges").id)",maxChars:@CircumstancesSelfEmployment.textMaxLength});
         })
 
         $(function(){

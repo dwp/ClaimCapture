@@ -10,6 +10,7 @@
 @import views.html.helper.dates._
 @import views.html.helper.dropdowns._
 @import controllers.mappings.Mappings._
+@import models.domain.CircumstancesStartedEmploymentAndOngoing
 
 
     @beenPaidYet = @{
@@ -160,7 +161,7 @@
                             'id -> "whatCostsWrap"
                         )
 
-                        @carersInputTextArea(moreAboutChanges, 'helperAbove -> messages("moreAboutChanges.helper"), 'textAreaHelper -> Html(messages("300charsLeft")), 'maxLength -> 300)
+                        @carersInputTextArea(moreAboutChanges, 'helperAbove -> messages("moreAboutChanges.helper"), 'textAreaHelper -> Html(messages(s"${CircumstancesStartedEmploymentAndOngoing.textMaxLength}charsLeft")), 'maxLength -> CircumstancesStartedEmploymentAndOngoing.textMaxLength)
                     </ul>
 
                 </fieldset>
@@ -182,7 +183,7 @@
             window.areaCounter ( { selector : "@CarersCrypto.encryptAES(doYouPayIntoPension("whatFor").id)",maxChars:300});
             window.areaCounter ( { selector : "@CarersCrypto.encryptAES(doCareCostsForThisWork("whatCosts").id)",maxChars:300});
             window.areaCounter ( { selector : "@CarersCrypto.encryptAES(doYouPayForThings("whatFor").id)",maxChars:300});
-            window.areaCounter ( { selector : "@CarersCrypto.encryptAES(moreAboutChanges.id)",maxChars:300});
+            window.areaCounter ( { selector : "@CarersCrypto.encryptAES(moreAboutChanges.id)",maxChars:@CircumstancesStartedEmploymentAndOngoing.textMaxLength});
 
             window.fixErrorMessages ( { beenPaidYetY : "@CarersCrypto.encryptAES(beenPaidYet("yes").id)",
             beenPaidYetN : "@CarersCrypto.encryptAES(beenPaidYet("no").id)",

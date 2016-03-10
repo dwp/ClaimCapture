@@ -49,7 +49,7 @@ object GStartedAndFinishedEmployment extends Controller with CachedChangeOfCircs
     payIntoPension,
     payForThings,
     careCostsForThisWork,
-    "moreAboutChanges" -> optional(carersText(maxLength = 300))
+    "moreAboutChanges" -> optional(carersText(maxLength = CircumstancesStartedAndFinishedEmployment.textMaxLength))
   )(CircumstancesStartedAndFinishedEmployment.apply)(CircumstancesStartedAndFinishedEmployment.unapply)
     .verifying("expected.monthlyPayDay", validateMonthlyPayDay _)
     .verifying("expected.employerOwesYouMoneyInfo", validateEmployerOwesYou _)

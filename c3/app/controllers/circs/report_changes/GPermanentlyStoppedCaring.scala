@@ -17,7 +17,7 @@ object GPermanentlyStoppedCaring extends Controller with CachedChangeOfCircs wit
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val form = Form(mapping(
     "stoppedCaringDate" -> dayMonthYear.verifying(validDate),
-    "moreAboutChanges" -> optional(carersText(maxLength = 300))
+    "moreAboutChanges" -> optional(carersText(maxLength = CircumstancesStoppedCaring.textMaxLength))
   )(CircumstancesStoppedCaring.apply)(CircumstancesStoppedCaring.unapply))
 
   def present = claimingWithCheck {implicit circs => implicit request => implicit request2lang =>

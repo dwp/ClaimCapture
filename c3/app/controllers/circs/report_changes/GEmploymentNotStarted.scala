@@ -45,7 +45,7 @@ object GEmploymentNotStarted extends Controller with CachedChangeOfCircs with Na
     payIntoPension,
     payForThings,
     careCostsForThisWork,
-    "moreAboutChanges" -> optional(carersText(maxLength = 300))
+    "moreAboutChanges" -> optional(carersText(maxLength = CircumstancesEmploymentNotStarted.textMaxLength))
   )(CircumstancesEmploymentNotStarted.apply)(CircumstancesEmploymentNotStarted.unapply)
     .verifying("expected.howMuchPaid",validateHowMuchPaid _)
     .verifying("expected.whenExpectedToBePaidDate",validateWhenExpectedToBePaid _)

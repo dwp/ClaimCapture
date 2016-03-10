@@ -60,7 +60,7 @@ object GEmploymentChange extends Controller with CachedChangeOfCircs with Naviga
       "employerPayroll" -> optional(carersText(maxLength = 15)),
       "selfEmployedTypeOfWork" -> optional(carersText(maxLength = 35)),
       "selfEmployedTotalIncome" -> optional(carersText.verifying(validYesNoDontKnow)),
-      "selfEmployedMoreAboutChanges" -> optional(carersText(maxLength = 300))
+      "selfEmployedMoreAboutChanges" -> optional(carersText(maxLength = CircumstancesSelfEmployment.textMaxLength))
     )(YesNoWithAddressAnd2TextOrTextWithYesNoAndText.apply)(YesNoWithAddressAnd2TextOrTextWithYesNoAndText.unapply)
       .verifying("expected.employerName", YesNoWithAddressAnd2TextOrTextWithYesNoAndText.validateNameOnSpecifiedAnswer(_, "employed"))
       .verifying("expected.employerNameAndAddress1", YesNoWithAddressAnd2TextOrTextWithYesNoAndText.validateAddressOnSpecifiedAnswer(_, "employed"))

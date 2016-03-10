@@ -9,6 +9,7 @@
 @import views.html.circs.report_changes.main
 @import app.PaymentFrequency._
 @import utils.CommonValidation
+@import models.domain.CircumstancesPaymentChange
 
 @main(messages("c2.g5") + " - " + messages("c2.name")) {
     @errorsSummary(currentForm)
@@ -68,7 +69,7 @@
                                     'items -> Seq(EveryWeek -> messages("label.everyWeek"), FourWeekly -> messages("label.fourWeekly"), ThirteenWeekly -> messages("label.thirteenWeekly")),
                                     '_nestedFieldSet -> true)
 
-	                @carersInputTextArea(currentForm("moreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), 'textAreaHelper -> Html(messages("300charsLeft")), 'maxLength -> 300)
+	                @carersInputTextArea(currentForm("moreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), 'textAreaHelper -> Html(messages(s"${CircumstancesPaymentChange.textMaxLength}charsLeft")), 'maxLength -> CircumstancesPaymentChange.textMaxLength)
 
 	            </ul>
 
@@ -84,7 +85,7 @@
 
 	<script type="text/javascript">
 		$(function(){
-			window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:300});
+			window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:@CircumstancesPaymentChange.textMaxLength});
 		})
 		$(function(){
 			window.initEvents("@CarersCrypto.encryptAES("currentlyPaidIntoBank_answer_yes")",

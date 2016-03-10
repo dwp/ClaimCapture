@@ -1,12 +1,14 @@
 package controllers.circs.report_changes
 
+import app.ConfigProperties._
 import org.specs2.mutable._
 import play.api.test.FakeRequest
 import models.domain.MockForm
 import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
 import models.SortCode
-import utils.WithApplication
+import utils.pageobjects.circumstances.report_changes.GPaymentChangePage
+import utils.{WithBrowser, WithApplication}
 
 class GPaymentChangeSpec extends Specification {
   val yes = "yes"
@@ -24,6 +26,7 @@ class GPaymentChangeSpec extends Specification {
   val rollOrReferenceNumber = "My Ref: 123"
   val paymentFrequency = "everyWeek"
   val moreAboutChanges = "Some additional info goes here"
+  val paymentChangePath = "DWPCAChangeOfCircumstances//PaymentChange//OtherChanges//Answer"
 
   val validPaymentChangeFormInputScenario1 = Seq(
     "currentlyPaidIntoBank.answer" -> yes,
@@ -82,6 +85,27 @@ class GPaymentChangeSpec extends Specification {
 
       val result = GPaymentChange.submit(request)
       redirectLocation(result) must beSome("/circumstances/consent-and-declaration/declaration")
+    }
+
+    "handle gracefully when bad schema number passed to SchemaValidation getRestriction" in new WithApplication {
+      val schemaVersion = "BAD-SCHEMA"
+      schemaMaxLength(schemaVersion, paymentChangePath) mustEqual -1
+    }
+
+    "pull maxlength from xml commons OK" in new WithApplication {
+      val schemaVersion = getProperty("xml.schema.version", "NOT-SET")
+      schemaVersion must not be "NOT-SET"
+      schemaMaxLength(schemaVersion, paymentChangePath) mustEqual 3000
+    }
+
+    "have text maxlength set correctly in present()" in new WithBrowser {
+      browser.goTo(GPaymentChangePage.url)
+      val anythingElse = browser.$("#moreAboutChanges")
+      val countdown = browser.$("#moreAboutChanges + .countdown")
+
+      anythingElse.getAttribute("maxlength") mustEqual "3000"
+      countdown.getText must contain( "3000 char")
+      browser.pageSource must contain("maxChars:3000")
     }
   }
   section("unit", models.domain.CircumstancesReportChanges.id)

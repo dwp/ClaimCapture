@@ -46,7 +46,7 @@ object GAddressChange extends Controller with CachedChangeOfCircs with Navigable
     "newPostcode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode)),
     changedAddressMapping,
     sameAddressMapping,
-    "moreAboutChanges" -> optional(carersText(maxLength = 300))
+    "moreAboutChanges" -> optional(carersText(maxLength = CircumstancesAddressChange.textMaxLength))
   )(CircumstancesAddressChange.apply)(CircumstancesAddressChange.unapply)
     .verifying("caredForChangedAddress.answer", validateCaredForChangedAddress _)
     .verifying("sameAddress.answer", validateSameAddress _)

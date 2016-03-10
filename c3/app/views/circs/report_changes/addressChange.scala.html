@@ -8,7 +8,7 @@
 @import utils.helpers.CarersCrypto
 @import views.html.circs.report_changes.main
 @import scala.language.postfixOps
-
+@import models.domain.CircumstancesAddressChange
 
 @main(messages("c2.g6") + " - " + messages("c2.name")) {
     @errorsSummary(addressForm)
@@ -67,7 +67,7 @@
 	                    ),
 	                    'id -> "sameAddressData"
 	                )
-	                @carersInputTextArea(addressForm("moreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), 'textAreaHelper -> Html(messages("300charsLeft")), 'maxLength -> 300)
+	                @carersInputTextArea(addressForm("moreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), 'textAreaHelper -> Html(messages(s"${CircumstancesAddressChange.textMaxLength}charsLeft")), 'maxLength -> CircumstancesAddressChange.textMaxLength)
 
 	            </ul>
 	
@@ -84,7 +84,7 @@
 	<script type="text/javascript">
 
 		$(function(){
-			window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:300});
+			window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:@CircumstancesAddressChange.textMaxLength});
 		})
 
 		$(function(){

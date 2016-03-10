@@ -58,7 +58,7 @@ object GBreaksInCare  extends Controller with CachedChangeOfCircs with Navigable
     breakEndedMapping,
     expectStartCaringMapping,
     "medicalCareDuringBreak" -> (nonEmptyText verifying validYesNo),
-    "moreAboutChanges" -> optional(carersText(maxLength = 300))
+    "moreAboutChanges" -> optional(carersText(maxLength = CircumstancesBreaksInCare.textMaxLength))
   )(CircumstancesBreaksInCare.apply)(CircumstancesBreaksInCare.unapply)
     .verifying("expectStartCaring", validateBreakEnded _)
   )

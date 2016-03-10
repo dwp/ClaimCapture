@@ -26,7 +26,7 @@ object GSelfEmployment extends Controller with CachedChangeOfCircs with Navigabl
     "whenThisSelfEmploymentStarted" -> dayMonthYear.verifying(validDate),
     "typeOfBusiness" -> carersNonEmptyText(maxLength = 35),
     "totalOverWeeklyIncomeThreshold" -> nonEmptyText.verifying(validYesNoDontKnow),
-    "moreAboutChanges" -> optional(carersText(maxLength = 300))
+    "moreAboutChanges" -> optional(carersText(maxLength = CircumstancesSelfEmployment.textMaxLength))
   )(CircumstancesSelfEmployment.apply)(CircumstancesSelfEmployment.unapply))
 
   def present = claimingWithCheck {implicit circs => implicit request => implicit request2lang =>

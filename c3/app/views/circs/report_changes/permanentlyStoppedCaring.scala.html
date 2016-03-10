@@ -7,6 +7,7 @@
 @import views.html.helper.base._
 @import views.html.helper.dates._
 @import views.html.circs.report_changes.main
+@import models.domain.CircumstancesStoppedCaring
 
 @main(messages("c2.g3") + " - " + messages("c2.name")) {
     @errorsSummary(stoppedCaringForm)
@@ -18,7 +19,7 @@
 	            <legend class="form-label-bold heading-medium">@Html(messages("c2.g3"))</legend>
 	            <ul class="coc-layout">
 	                @inputDayMonthYear(stoppedCaringForm("stoppedCaringDate"),  'helperAbove-> messages("stoppedCaringDate.helper"))
-	                @carersInputTextArea(stoppedCaringForm("moreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), 'textAreaHelper -> Html(messages("300charsLeft")), 'maxLength -> 300)
+	                @carersInputTextArea(stoppedCaringForm("moreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), 'textAreaHelper -> Html(messages(s"${CircumstancesStoppedCaring.textMaxLength}charsLeft")), 'maxLength -> CircumstancesStoppedCaring.textMaxLength)
 	            </ul>
 	        </fieldset>
 	
@@ -30,7 +31,7 @@
 
 <script type="text/javascript">
     $(function(){
-        window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:300});
+        window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:@CircumstancesStoppedCaring.textMaxLength});
         @ga.stagePrompt()
     });
     $(function(){
