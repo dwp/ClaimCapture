@@ -87,7 +87,7 @@ object ClaimEncryption {
   }
 
   def encryptCircumstancesReportChange(claim: Claim): Claim = {
-    claim.questionGroup[CircumstancesReportChange] match {
+    claim.questionGroup[CircumstancesYourDetails] match {
       case Some(circumstancesReportChange) =>
         claim.update(circumstancesReportChange.copy(
           encryptString(circumstancesReportChange.fullName),
@@ -228,7 +228,7 @@ object ClaimEncryption {
   }
 
   def decryptCircumstancesReportChange(claim: Claim): Claim = {
-    claim.questionGroup[CircumstancesReportChange] match {
+    claim.questionGroup[CircumstancesYourDetails] match {
       case Some(circumstancesReportChange) =>
         claim.update(circumstancesReportChange.copy(
           decryptString(circumstancesReportChange.fullName),

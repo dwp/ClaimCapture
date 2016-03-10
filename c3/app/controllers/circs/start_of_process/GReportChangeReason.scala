@@ -14,37 +14,37 @@ import play.api.i18n.{MessagesApi, I18nSupport, MMessages}
 import scala.language.postfixOps
 
 
-object GReportChanges extends Controller with CachedChangeOfCircs with Navigable with I18nSupport {
+object GReportChangeReason extends Controller with CachedChangeOfCircs with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
 
   val form = Form(mapping(
     "jsEnabled" -> boolean,
     "reportChanges" -> carersNonEmptyText(maxLength = 20)
-  )(ReportChanges.apply)(ReportChanges.unapply))
+  )(ReportChangeReason.apply)(ReportChangeReason.unapply))
 
   def present = newClaim{implicit circs => implicit request => lang =>
     Logger.info(s"Starting new $cacheKey - ${circs.uuid}")
-    track(ReportChanges) {
-      implicit circs => Ok(views.html.circs.start_of_process.reportChanges(form.fill(ReportChanges)))
+    track(ReportChangeReason) {
+      implicit circs => Ok(views.html.circs.start_of_process.reportChangeReason(form.fill(ReportChangeReason)))
     }
   }
 
   def submit = claiming {implicit circs => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.circs.start_of_process.reportChanges(formWithErrors)),
+      formWithErrors => BadRequest(views.html.circs.start_of_process.reportChangeReason(formWithErrors)),
       f => checkForChangeInSelection(circs, f) -> {
         if (!f.jsEnabled) {
           Logger.info(s"No JS - Start ${circs.key} ${circs.uuid} User-Agent : ${request.headers.get("User-Agent").orNull}")
         }
-        Redirect(routes.GReportAChangeInYourCircumstances.present())
+        Redirect(controllers.circs.your_details.routes.GYourDetails.present())
       }
     )
   }
 
-  private def checkForChangeInSelection(circs: Claim, reportNewChanges: ReportChanges) = {
-    val reportChanges = circs.questionGroup[ReportChanges].getOrElse(ReportChanges()).reportChanges
+  private def checkForChangeInSelection(circs: Claim, reportNewChanges: ReportChangeReason) = {
+    val reportChanges = circs.questionGroup[ReportChangeReason].getOrElse(ReportChangeReason()).reportChanges
     if (reportNewChanges.reportChanges != reportChanges)
-      circs.update(reportNewChanges).removeQuestionGroups(CircumstancesReportChanges, Set(CircumstancesReportChange, reportNewChanges.identifier) )
+      circs.update(reportNewChanges).removeQuestionGroups(CircumstancesReportChanges, Set(CircumstancesYourDetails, reportNewChanges.identifier) )
     else circs.update(reportNewChanges)
   }
 }

@@ -209,11 +209,11 @@ POST        /consent-and-declaration/declaration                        @control
 GET         /consent-and-declaration/error                              controllers.s_consent_and_declaration.GError.present
 
 # Circumstances
-GET         /circumstances/report-changes/selection                     controllers.circs.start_of_process.GReportChanges.present
-POST        /circumstances/report-changes/selection                     controllers.circs.start_of_process.GReportChanges.submit
+GET         /circumstances/report-changes/selection                     controllers.circs.start_of_process.GReportChangeReason.present
+POST        /circumstances/report-changes/selection                     controllers.circs.start_of_process.GReportChangeReason.submit
 
-GET         /circumstances/identification/about-you                     controllers.circs.start_of_process.GReportAChangeInYourCircumstances.present
-POST        /circumstances/identification/about-you                     controllers.circs.start_of_process.GReportAChangeInYourCircumstances.submit
+GET         /circumstances/identification/about-you                     controllers.circs.your_details.GYourDetails.present
+POST        /circumstances/identification/about-you                     controllers.circs.your_details.GYourDetails.submit
 
 GET         /circumstances/report-changes/self-employment               controllers.circs.report_changes.GSelfEmployment.present
 POST        /circumstances/report-changes/self-employment               controllers.circs.report_changes.GSelfEmployment.submit

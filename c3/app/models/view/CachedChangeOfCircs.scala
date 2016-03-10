@@ -4,7 +4,7 @@ import java.util.UUID._
 
 import app.ConfigProperties._
 import controllers.routes
-import models.domain.{CircumstancesReportChange, Claim}
+import models.domain.{CircumstancesYourDetails, Claim}
 
 object CachedChangeOfCircs {
   val key = "change-of-circs"
@@ -14,7 +14,7 @@ trait CachedChangeOfCircs extends ClaimHandling {
 
   override lazy val cacheKey = CachedChangeOfCircs.key
 
-  override lazy val startPage: String = getProperty("cofc.start.page", controllers.circs.start_of_process.routes.GReportChanges.present().url)
+  override lazy val startPage: String = getProperty("cofc.start.page", controllers.circs.start_of_process.routes.GReportChangeReason.present().url)
   override lazy val timeoutPage = routes.CircsEnding.timeout()
   override lazy val errorPageCookie = routes.CircsEnding.errorCookie()
   override lazy val errorPage = routes.CircsEnding.error()
@@ -26,9 +26,9 @@ trait CachedChangeOfCircs extends ClaimHandling {
   override def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang,claim.uuid,claim.transactionId)(claim.navigation)
 
   override protected def claimNotValid(claim:Claim):Boolean = {
-    claim.questionGroup[CircumstancesReportChange] match {
+    claim.questionGroup[CircumstancesYourDetails] match {
       case None => true
-      case Some(CircumstancesReportChange(fullname,nino,_,_,_,_,_,_,_)) if fullname.isEmpty || nino.nino.isEmpty => true
+      case Some(CircumstancesYourDetails(fullname,nino,_,_,_,_,_,_,_)) if fullname.isEmpty || nino.nino.isEmpty => true
       case _ => false
     }
   }

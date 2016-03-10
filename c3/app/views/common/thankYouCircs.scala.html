@@ -1,6 +1,6 @@
+@import models.domain.CircumstancesYourDetails
 @(lang: Lang)(implicit circs: models.domain.Claim, request: Request[AnyContent],flash:Flash, messages: Messages)
 
-@import models.domain.CircumstancesReportChange
 @import controllers.mappings.Mappings
 @import app.ConfigProperties._
 @import models.domain.{CircumstancesBreaksInCare, CircumstancesEmploymentNotStarted, CircumstancesStartedAndFinishedEmployment, CircumstancesStartedEmploymentAndOngoing}
@@ -46,7 +46,7 @@ show
 }
 
 @isEmail = @{
-getProperty("email.frontend",false) && circs.questionGroup[CircumstancesReportChange].getOrElse(CircumstancesReportChange()).wantsContactEmail == Mappings.yes
+getProperty("email.frontend",false) && circs.questionGroup[CircumstancesYourDetails].getOrElse(CircumstancesYourDetails()).wantsContactEmail == Mappings.yes
 }
 
 @common.govMain(messages("circs.thankyou")) {

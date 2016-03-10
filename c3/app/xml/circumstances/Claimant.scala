@@ -1,9 +1,8 @@
 package xml.circumstances
 
-import models.domain.{CircumstancesDeclaration, CircumstancesReportChange, Claim}
+import models.domain._
 import scala.xml.NodeSeq
 import xml.XMLHelper._
-import models.domain.Claim
 import scala.Some
 
 /**
@@ -11,7 +10,7 @@ import scala.Some
  */
 object Claimant {
   def xml(circs :Claim): NodeSeq = {
-    val reportChange = circs.questionGroup[CircumstancesReportChange].getOrElse(CircumstancesReportChange())
+    val reportChange = circs.questionGroup[CircumstancesYourDetails].getOrElse(CircumstancesYourDetails())
 
     <ClaimantDetails>
       {question(<FullName/>, "fullName", encrypt(reportChange.fullName))}

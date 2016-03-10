@@ -1,16 +1,17 @@
-package controllers.circs.start_of_process
+package controllers.circs.your_details
 
 import controllers.circs.start_of_process
+import controllers.circs.start_of_process.GReportChangeReason
 import controllers.mappings.Mappings
 import models.domain._
 import models.view.CachedChangeOfCircs
 import models.{DayMonthYear, NationalInsuranceNumber}
 import org.specs2.mutable._
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.api.test.{FakeRequest}
 import utils.WithApplication
 
-class GReportAChangeInYourCircumstancesSpec extends Specification{
+class GYourDetailsSpec extends Specification{
 
   section("unit", models.domain.CircumstancesReportChanges.id)
   "Circumstances - About You - Controller" should {
@@ -39,7 +40,7 @@ class GReportAChangeInYourCircumstancesSpec extends Specification{
     "present 'Circumstances About You' " in new WithApplication with MockForm {
       val request = FakeRequest()
 
-      val result = GReportAChangeInYourCircumstances.present(request)
+      val result = GYourDetails.present(request)
       status(result) mustEqual OK
     }
 
@@ -47,11 +48,11 @@ class GReportAChangeInYourCircumstancesSpec extends Specification{
       val request = FakeRequest()
         .withFormUrlEncodedBody(aboutYouInput: _*)
 
-      val result = start_of_process.GReportAChangeInYourCircumstances.submit(request)
+      val result = GYourDetails.submit(request)
       val claim = getClaimFromCache(result,CachedChangeOfCircs.key)
       val section: Section = claim.section(models.domain.CircumstancesIdentification)
-      section.questionGroup(CircumstancesReportChange) must beLike {
-        case Some(f: CircumstancesReportChange) => {
+      section.questionGroup(CircumstancesYourDetails) must beLike {
+        case Some(f: CircumstancesYourDetails) => {
           f.fullName must equalTo(fullName)
           f.nationalInsuranceNumber must equalTo(NationalInsuranceNumber(Some(nino)))
           f.dateOfBirth must equalTo(DayMonthYear(dateOfBirthDay, dateOfBirthMonth, dateOfBirthYear))
@@ -63,7 +64,7 @@ class GReportAChangeInYourCircumstancesSpec extends Specification{
       val request = FakeRequest()
         .withFormUrlEncodedBody("firstName" -> "")
 
-      val result = start_of_process.GReportAChangeInYourCircumstances.submit(request)
+      val result = GYourDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -71,7 +72,7 @@ class GReportAChangeInYourCircumstancesSpec extends Specification{
       val request = FakeRequest()
         .withFormUrlEncodedBody(aboutYouInput: _*)
 
-      val result = start_of_process.GReportAChangeInYourCircumstances.submit(request)
+      val result = GYourDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
@@ -87,7 +88,7 @@ class GReportAChangeInYourCircumstancesSpec extends Specification{
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "wantsEmailContactCircs"-> Mappings.no)
 
-      val result = start_of_process.GReportAChangeInYourCircumstances.submit(request)
+      val result = GYourDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
@@ -104,7 +105,7 @@ class GReportAChangeInYourCircumstancesSpec extends Specification{
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "wantsEmailContactCircs"-> Mappings.no)
 
-      val result = start_of_process.GReportAChangeInYourCircumstances.submit(request)
+      val result = GYourDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -121,7 +122,7 @@ class GReportAChangeInYourCircumstancesSpec extends Specification{
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "wantsEmailContactCircs"-> Mappings.no)
 
-      val result = start_of_process.GReportAChangeInYourCircumstances.submit(request)
+      val result = GYourDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -138,14 +139,14 @@ class GReportAChangeInYourCircumstancesSpec extends Specification{
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "wantsEmailContactCircs"-> Mappings.no)
 
-      val result = start_of_process.GReportAChangeInYourCircumstances.submit(request)
+      val result = GYourDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     "when present called Lang should not be set on Claim" in new WithApplication with MockForm {
       val request = FakeRequest().withHeaders(REFERER -> "http://localhost:9000/circumstances/identification/about-you")
 
-      val result = start_of_process.GReportAChangeInYourCircumstances.present(request)
+      val result = GYourDetails.present(request)
       val claim = getClaimFromCache(result,CachedChangeOfCircs.key)
       claim.lang mustEqual None
     }
@@ -162,9 +163,9 @@ class GReportAChangeInYourCircumstancesSpec extends Specification{
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "wantsEmailContactCircs"-> Mappings.no)
 
-      val result = start_of_process.GReportAChangeInYourCircumstances.submit(request)
-      getClaimFromCache(result,CachedChangeOfCircs.key).questionGroup(CircumstancesReportChange) should beLike {
-        case Some(f: CircumstancesReportChange) => f.wantsContactEmail shouldEqual "no"; f.email shouldEqual None
+      val result = GYourDetails.submit(request)
+      getClaimFromCache(result,CachedChangeOfCircs.key).questionGroup(CircumstancesYourDetails) should beLike {
+        case Some(f: CircumstancesYourDetails) => f.wantsContactEmail shouldEqual "no"; f.email shouldEqual None
       }
       val claim = getClaimFromCache(result,CachedChangeOfCircs.key)
       status(result) mustEqual SEE_OTHER

@@ -23,7 +23,7 @@ class GReportChangesSpec extends Specification {
     "present 'CoC Report Changes' " in new WithApplication with MockForm {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
 
-      val result = GReportChanges.present(request)
+      val result = GReportChangeReason.present(request)
       status(result) mustEqual OK
     }
 
@@ -31,7 +31,7 @@ class GReportChangesSpec extends Specification {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validAdditionalDetailsReportChangesFormInput: _*)
 
-      val result = GReportChanges.submit(request)
+      val result = GReportChangeReason.submit(request)
       redirectLocation(result) must beSome("/circumstances/identification/about-you")
     }
   }

@@ -9,7 +9,7 @@ class GReportChangesFormSpec extends Specification {
   section("unit", models.domain.CircumstancesReportChanges.id)
    "Report a change in your circumstances - Change in circumstances" should {
      "map additionalInfo into case class" in new WithApplication {
-       GReportChanges.form.bind(
+       GReportChangeReason.form.bind(
          Map(
            "reportChanges" -> AdditionalInfo.name
          )
@@ -22,7 +22,7 @@ class GReportChangesFormSpec extends Specification {
      }
 
      "map breakFromcaring into case class" in new WithApplication {
-       GReportChanges.form.bind(
+       GReportChangeReason.form.bind(
          Map(
            "reportChanges" -> BreakFromCaring.name
          )
@@ -35,7 +35,7 @@ class GReportChangesFormSpec extends Specification {
      }
 
      "mandatory fields must be populated" in new WithApplication {
-       GReportChanges.form.bind(
+       GReportChangeReason.form.bind(
          Map("reportChanges" -> "")
        ).fold(
            formWithErrors => {

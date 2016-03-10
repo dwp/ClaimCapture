@@ -1,4 +1,4 @@
-package controllers.circs.start_of_process
+package controllers.circs.your_details
 
 import app.ReportChange
 import controllers.mappings.Mappings
@@ -10,7 +10,7 @@ import play.api.test.FakeRequest
 import Mappings._
 import utils.WithApplication
 
-class GReportAChangeInYourCircumstancesFormSpec extends Specification {
+class GYourDetailsFormSpec extends Specification {
   val fullName = "Mr John Joe Smith"
   val nino = "AB123456C"
   val dateOfBirthDay = 5
@@ -25,7 +25,7 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
   section("unit", models.domain.CircumstancesReportChanges.id)
   "Change of circumstances - About You Form" should {
     "map data into case class" in new WithApplication {
-      GReportAChangeInYourCircumstances.form.bind(
+      GYourDetails.form.bind(
         Map(
           "fullName" -> fullName,
           "nationalInsuranceNumber.nino" -> nino,
@@ -42,14 +42,14 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
           println(s"errors $formWithErrors.errors")
           "This mapping should not happen." must equalTo("Error")
         },
-          f => {
-            f.fullName must equalTo("Mr John Joe Smith")
-          }
-        )
+        f => {
+          f.fullName must equalTo("Mr John Joe Smith")
+        }
+      )
     }
 
     "map data into case class no contact info" in new WithApplication {
-      GReportAChangeInYourCircumstances.form.bind(
+      GYourDetails.form.bind(
         Map(
           "fullName" -> fullName,
           "nationalInsuranceNumber.nino" -> nino,
@@ -69,7 +69,7 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
     }
 
     "reject too many characters in text fields" in new WithApplication {
-      GReportAChangeInYourCircumstances.form.bind(
+      GYourDetails.form.bind(
         Map(
           "fullName" -> "HARACTERS,CHARACTE,HARACTERS,CHARACTE,HARACTERS,CHARACTE,HARACTERS,CHARACTE",
           "nationalInsuranceNumber.nino" -> nino,
@@ -81,17 +81,17 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
           "furtherInfoContact" -> byTelephone,
           "wantsEmailContactCircs" -> wantsEmailContactCircs
         )).fold(
-          formWithErrors => {
-            formWithErrors.errors.length must equalTo(3)
-            formWithErrors.errors(0).message must equalTo(Mappings.maxLengthError)
-            formWithErrors.errors(1).message must equalTo(Mappings.maxLengthError)
-            formWithErrors.errors(2).message must equalTo(Mappings.maxLengthError)
-          },
-          f => "This mapping should not happen." must equalTo("Valid"))
+        formWithErrors => {
+          formWithErrors.errors.length must equalTo(3)
+          formWithErrors.errors(0).message must equalTo(Mappings.maxLengthError)
+          formWithErrors.errors(1).message must equalTo(Mappings.maxLengthError)
+          formWithErrors.errors(2).message must equalTo(Mappings.maxLengthError)
+        },
+        f => "This mapping should not happen." must equalTo("Valid"))
     }
 
     "reject characters in contact number field" in new WithApplication {
-      GReportAChangeInYourCircumstances.form.bind(
+      GYourDetails.form.bind(
         Map(
           "fullName" -> fullName,
           "nationalInsuranceNumber.nino" -> nino,
@@ -111,7 +111,7 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
     }
 
     "reject too many digits in contact number field" in new WithApplication {
-      GReportAChangeInYourCircumstances.form.bind(
+      GYourDetails.form.bind(
         Map(
           "fullName" -> fullName,
           "nationalInsuranceNumber.nino" -> nino,
@@ -131,7 +131,7 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
     }
 
     "reject too few digits in contact number field" in new WithApplication {
-      GReportAChangeInYourCircumstances.form.bind(
+      GYourDetails.form.bind(
         Map(
           "fullName" -> fullName,
           "nationalInsuranceNumber.nino" -> nino,
@@ -151,7 +151,7 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
     }
 
     "reject special characters in text fields" in new WithApplication {
-      GReportAChangeInYourCircumstances.form.bind(
+      GYourDetails.form.bind(
         Map(
           "fullName" -> "John >",
           "nationalInsuranceNumber.nino" -> nino,
@@ -173,7 +173,7 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
     }
 
     "have 5 mandatory fields (plus invalid Nino)" in new WithApplication {
-      GReportAChangeInYourCircumstances.form.bind(
+      GYourDetails.form.bind(
         Map("fullName" -> "")).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(7)
@@ -188,7 +188,7 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
     }
 
     "reject invalid national insurance number" in new WithApplication {
-      GReportAChangeInYourCircumstances.form.bind(
+      GYourDetails.form.bind(
         Map(
           "fullName" -> fullName,
           "nationalInsuranceNumber.nino" -> "INVALID",
@@ -208,7 +208,7 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
     }
 
     "reject invalid date" in new WithApplication {
-      GReportAChangeInYourCircumstances.form.bind(
+      GYourDetails.form.bind(
         Map(
           "fullName" -> fullName,
           "nationalInsuranceNumber.nino" -> nino.toString,
@@ -265,9 +265,9 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
       "redirect to the next page after a valid additional info submission" in new WithApplication with MockForm {
         val claim = Claim(claimKey)
 
-        cache.set("default"+claimKey, claim.update(ReportChanges(false, ReportChange.AdditionalInfo.name)))
+        cache.set("default" + claimKey, claim.update(ReportChangeReason(false, ReportChange.AdditionalInfo.name)))
 
-        val result = GReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
+        val result = GYourDetails.submit(g2FakeRequest(claimKey))
 
         redirectLocation(result) must beSome("/circumstances/report-changes/other-change")
       }
@@ -276,9 +276,9 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
 
         val claim = Claim(claimKey)
 
-        cache.set("default"+claimKey, claim.update(ReportChanges(false, ReportChange.SelfEmployment.name)))
+        cache.set("default" + claimKey, claim.update(ReportChangeReason(false, ReportChange.SelfEmployment.name)))
 
-        val result = GReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
+        val result = GYourDetails.submit(g2FakeRequest(claimKey))
 
         redirectLocation(result) must beSome("/circumstances/report-changes/self-employment")
       }
@@ -286,9 +286,9 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
       "redirect to the next page after a valid stopped caring submission" in new WithApplication with MockForm {
         val claim = Claim(claimKey)
 
-        cache.set("default"+claimKey, claim.update(ReportChanges(false, ReportChange.StoppedCaring.name)))
+        cache.set("default" + claimKey, claim.update(ReportChangeReason(false, ReportChange.StoppedCaring.name)))
 
-        val result = GReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
+        val result = GYourDetails.submit(g2FakeRequest(claimKey))
 
         redirectLocation(result) must beSome("/circumstances/report-changes/stopped-caring")
       }
@@ -296,9 +296,9 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
       "redirect to the next page after a valid address change submission" in new WithApplication with MockForm {
         val claim = Claim(claimKey)
 
-        cache.set("default"+claimKey, claim.update(ReportChanges(false, ReportChange.AddressChange.name)))
+        cache.set("default" + claimKey, claim.update(ReportChangeReason(false, ReportChange.AddressChange.name)))
 
-        val result = GReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
+        val result = GYourDetails.submit(g2FakeRequest(claimKey))
 
         redirectLocation(result) must beSome("/circumstances/report-changes/address-change")
       }
@@ -306,9 +306,9 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
       "redirect to the next page after a valid payment change submission" in new WithApplication with MockForm {
         val claim = Claim(claimKey)
 
-        cache.set("default"+claimKey, claim.update(ReportChanges(false, ReportChange.PaymentChange.name)))
+        cache.set("default" + claimKey, claim.update(ReportChangeReason(false, ReportChange.PaymentChange.name)))
 
-        val result = GReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
+        val result = GYourDetails.submit(g2FakeRequest(claimKey))
 
         redirectLocation(result) must beSome("/circumstances/report-changes/payment-change")
       }
@@ -316,9 +316,9 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
       "redirect to the next page after a valid break from caring submission" in new WithApplication with MockForm {
         val claim = Claim(claimKey)
 
-        cache.set("default"+claimKey, claim.update(ReportChanges(false, ReportChange.BreakFromCaring.name)))
+        cache.set("default" + claimKey, claim.update(ReportChangeReason(false, ReportChange.BreakFromCaring.name)))
 
-        val result = GReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
+        val result = GYourDetails.submit(g2FakeRequest(claimKey))
 
         redirectLocation(result) must beSome("/circumstances/report-changes/breaks-in-care")
       }
@@ -326,9 +326,9 @@ class GReportAChangeInYourCircumstancesFormSpec extends Specification {
       "redirect to the next page after a valid break from caring submission because of you" in new WithApplication with MockForm {
         val claim = Claim(claimKey)
 
-        cache.set("default"+claimKey, claim.update(ReportChanges(false, ReportChange.BreakFromCaringYou.name)))
+        cache.set("default" + claimKey, claim.update(ReportChangeReason(false, ReportChange.BreakFromCaringYou.name)))
 
-        val result = GReportAChangeInYourCircumstances.submit(g2FakeRequest(claimKey))
+        val result = GYourDetails.submit(g2FakeRequest(claimKey))
 
         redirectLocation(result) must beSome("/circumstances/report-changes/breaks-in-care")
       }
