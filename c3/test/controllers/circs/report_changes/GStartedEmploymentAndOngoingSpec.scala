@@ -8,7 +8,7 @@ import models.domain.MockForm
 import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
 import utils.pageobjects.circumstances.report_changes.GStartedEmploymentAndOngoingPage
-import utils.pageobjects.circumstances.start_of_process.GReportAChangeInYourCircumstancesPage
+import utils.pageobjects.circumstances.start_of_process.GCircsYourDetailsPage
 import utils.{WithBrowser, LightFakeApplication, WithApplication}
 import play.api.i18n.{MMessages, MessagesApi}
 import play.api.Play.current
@@ -30,7 +30,7 @@ class GStartedEmploymentAndOngoingSpec extends Specification {
   val doCareCostsForThisWorkText = "care text"
   val moreInfo = "more information"
   val ongoingPath = "DWPCAChangeOfCircumstances//EmploymentChange//StartedEmploymentAndOngoing//MoreAboutChanges//Answer"
-  val nextPageUrl = GReportAChangeInYourCircumstancesPage.url
+  val nextPageUrl = GCircsYourDetailsPage.url
 
   val validOngoingWeeklyPaymentEmployment = Seq(
     "beenPaidYet" -> yes,

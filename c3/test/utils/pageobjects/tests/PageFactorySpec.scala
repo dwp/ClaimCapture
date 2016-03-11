@@ -4,7 +4,7 @@ import org.specs2.mutable._
 import utils.WithApplication
 import utils.pageobjects.{PageObjectsContext, CircumstancesPageFactory, UnknownPage, ClaimPageFactory}
 import utils.pageobjects.s_eligibility.GBenefitsPage
-import utils.pageobjects.circumstances.start_of_process.GReportAChangeInYourCircumstancesPage
+import utils.pageobjects.circumstances.start_of_process.GCircsYourDetailsPage
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -25,8 +25,8 @@ class PageFactorySpec extends Specification {
     }
 
     "Return an AboutYouPage if provided AboutYouPage page title" in new WithApplication with MockPageContext {
-      val newPage = CircumstancesPageFactory buildPageFromUrl(GReportAChangeInYourCircumstancesPage.url,PageObjectsContext(browser))
-      newPage must beAnInstanceOf[GReportAChangeInYourCircumstancesPage]
+      val newPage = CircumstancesPageFactory buildPageFromUrl(GCircsYourDetailsPage.url,PageObjectsContext(browser))
+      newPage must beAnInstanceOf[GCircsYourDetailsPage]
     }
   }
   section("unit")

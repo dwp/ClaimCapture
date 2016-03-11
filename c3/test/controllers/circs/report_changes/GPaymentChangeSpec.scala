@@ -8,7 +8,7 @@ import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
 import models.SortCode
 import utils.pageobjects.circumstances.report_changes.GPaymentChangePage
-import utils.pageobjects.circumstances.start_of_process.GReportAChangeInYourCircumstancesPage
+import utils.pageobjects.circumstances.start_of_process.GCircsYourDetailsPage
 import utils.{WithBrowser, WithApplication}
 
 class GPaymentChangeSpec extends Specification {
@@ -28,7 +28,7 @@ class GPaymentChangeSpec extends Specification {
   val paymentFrequency = "everyWeek"
   val moreAboutChanges = "Some additional info goes here"
   val paymentChangePath = "DWPCAChangeOfCircumstances//PaymentChange//OtherChanges//Answer"
-  val nextPageUrl = GReportAChangeInYourCircumstancesPage.url
+  val nextPageUrl = GCircsYourDetailsPage.url
 
   val validPaymentChangeFormInputScenario1 = Seq(
     "currentlyPaidIntoBank.answer" -> yes,

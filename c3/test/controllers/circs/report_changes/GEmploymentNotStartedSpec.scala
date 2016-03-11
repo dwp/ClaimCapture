@@ -4,7 +4,7 @@ import app.ConfigProperties._
 import org.specs2.mutable._
 import play.api.test.FakeRequest
 import models.domain.MockForm
-import utils.pageobjects.circumstances.start_of_process.GReportAChangeInYourCircumstancesPage
+import utils.pageobjects.circumstances.start_of_process.GCircsYourDetailsPage
 import utils.{WithBrowser, LightFakeApplication, WithApplication}
 import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
@@ -27,7 +27,7 @@ class GEmploymentNotStartedSpec extends Specification {
   val willCareCostsForThisWorkText = "care text"
   val moreInfo = "more information"
   val employmentNoStartedPath = "DWPCAChangeOfCircumstances//EmploymentChange//NotStartedEmployment//MoreAboutChanges//Answer"
-  val nextPageUrl = GReportAChangeInYourCircumstancesPage.url
+  val nextPageUrl = GCircsYourDetailsPage.url
 
   "Report an Employment change in your circumstances where employment has not started - Employment Controller" should {
     val validWeeklyPaymentEmployment = Seq(

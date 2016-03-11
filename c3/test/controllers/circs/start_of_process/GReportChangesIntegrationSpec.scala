@@ -7,7 +7,7 @@ import org.specs2.mutable._
 import utils.WithBrowser
 import utils.pageobjects.circumstances.consent_and_declaration.GCircsDeclarationPage
 import utils.pageobjects.{TestData, PageObjects}
-import utils.pageobjects.circumstances.start_of_process.{GReportAChangeInYourCircumstancesPage, GReportChangesPage}
+import utils.pageobjects.circumstances.start_of_process.{GCircsYourDetailsPage, GReportChangesPage}
 import utils.pageobjects.circumstances.report_changes.{GOtherChangeInfoPage, _}
 import CircumstancesScenarioFactory._
 
@@ -26,7 +26,7 @@ class GReportChangesIntegrationSpec extends Specification {
       page fillPageWith claim
 
       val nextPage = page submitPage()
-      nextPage must beAnInstanceOf[GReportAChangeInYourCircumstancesPage]
+      nextPage must beAnInstanceOf[GCircsYourDetailsPage]
     }
 
     "page contains JS enabled check" in new WithBrowser with PageObjects {

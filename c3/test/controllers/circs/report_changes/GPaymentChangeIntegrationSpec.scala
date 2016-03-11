@@ -1,7 +1,7 @@
 package controllers.circs.report_changes
 
 import utils.WithBrowser
-import utils.pageobjects.circumstances.start_of_process.{GReportAChangeInYourCircumstancesPage, GReportChangesPage}
+import utils.pageobjects.circumstances.start_of_process.{GCircsYourDetailsPage, GReportChangesPage}
 import utils.pageobjects.circumstances.report_changes._
 import controllers.CircumstancesScenarioFactory
 import org.specs2.mutable._
@@ -29,7 +29,7 @@ class GPaymentChangeIntegrationSpec extends Specification {
        reportChangesPage must beAnInstanceOf[GPaymentChangePage]
 
        val prevPage = reportChangesPage.goBack()
-       prevPage must beAnInstanceOf[GReportAChangeInYourCircumstancesPage]
+       prevPage must beAnInstanceOf[GCircsYourDetailsPage]
 
      }
 

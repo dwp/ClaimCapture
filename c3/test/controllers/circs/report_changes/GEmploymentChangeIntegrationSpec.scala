@@ -3,7 +3,7 @@ package controllers.circs.report_changes
 import org.specs2.mutable._
 import utils.{WithBrowser, LightFakeApplication}
 import utils.pageobjects.PageObjects
-import utils.pageobjects.circumstances.start_of_process.{GReportAChangeInYourCircumstancesPage, GReportChangesPage}
+import utils.pageobjects.circumstances.start_of_process.{GReportChangesPage, GCircsYourDetailsPage}
 import utils.pageobjects.circumstances.report_changes.GEmploymentChangePage
 import controllers.CircumstancesScenarioFactory
 import utils.pageobjects.circumstances.consent_and_declaration.GCircsDeclarationPage
@@ -30,7 +30,7 @@ class GEmploymentChangeIntegrationSpec extends Specification {
 
       val prevPage = employmentChangePage.goBack()
 
-      prevPage must beAnInstanceOf[GReportAChangeInYourCircumstancesPage]
+      prevPage must beAnInstanceOf[GCircsYourDetailsPage]
     }
 
     "navigate to next page when not caring and not yet started self-employment details added" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {

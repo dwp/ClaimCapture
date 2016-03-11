@@ -6,7 +6,7 @@ import play.api.test.FakeRequest
 import models.domain.MockForm
 import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
-import utils.pageobjects.circumstances.start_of_process.GReportAChangeInYourCircumstancesPage
+import utils.pageobjects.circumstances.start_of_process.GCircsYourDetailsPage
 import utils.{WithBrowser, WithApplication, LightFakeApplication}
 import utils.pageobjects.circumstances.report_changes.GEmploymentChangePage
 
@@ -24,7 +24,7 @@ class GEmploymentChangeSpec extends Specification {
   val employed = "employed"
   val selfEmployedTypeOfWork = "IT Consultant"
   val selfEmploymentChangePath = "DWPCAChangeOfCircumstances//EmploymentChange//SelfEmployment//MoreAboutChanges//Answer"
-  val nextPageUrl = GReportAChangeInYourCircumstancesPage.url
+  val nextPageUrl = GCircsYourDetailsPage.url
 
   val validNotCaringSelfEmploymentNotYetStartedFormInput = Seq(
     "stillCaring.answer" -> no,

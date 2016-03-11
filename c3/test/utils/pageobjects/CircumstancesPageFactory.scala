@@ -10,7 +10,7 @@ object CircumstancesPageFactory extends PageFactory {
     // Generic solution using mapping does not work because the objects should register themselves
     // and there is no way to get that registration triggered automatically when test are loaded.
     url.replaceFirst("\\?.*$","") match {
-      case GReportAChangeInYourCircumstancesPage.url => GReportAChangeInYourCircumstancesPage (ctx)
+      case GCircsYourDetailsPage.url => GCircsYourDetailsPage (ctx)
       case GReportChangesPage.url => GReportChangesPage (ctx)
       case GSelfEmploymentPage.url => GSelfEmploymentPage (ctx)
       case GPermanentlyStoppedCaringPage.url => GPermanentlyStoppedCaringPage (ctx)

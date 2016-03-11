@@ -5,7 +5,7 @@ import org.specs2.mutable._
 import play.api.test.FakeRequest
 import models.domain.MockForm
 import utils.pageobjects.circumstances.report_changes.GStartedAndFinishedEmploymentPage
-import utils.pageobjects.circumstances.start_of_process.GReportAChangeInYourCircumstancesPage
+import utils.pageobjects.circumstances.start_of_process.GCircsYourDetailsPage
 import utils.{WithBrowser, LightFakeApplication, WithApplication}
 import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
@@ -29,7 +29,7 @@ class GStartedAndFinishedEmploymentSpec extends Specification {
   val didCareCostsForThisWorkText = "care text"
   val moreInfo = "more information"
   val startedAndFinishedPath = "DWPCAChangeOfCircumstances//EmploymentChange//StartedEmploymentAndFinished//MoreAboutChanges//Answer"
-  val nextPageUrl = GReportAChangeInYourCircumstancesPage.url
+  val nextPageUrl = GCircsYourDetailsPage.url
 
   val validFinishedWeeklyPaymentEmployment = Seq(
     "beenPaidYet" -> no,
