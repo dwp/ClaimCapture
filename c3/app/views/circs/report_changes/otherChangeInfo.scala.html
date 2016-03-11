@@ -22,7 +22,7 @@
 	            <legend class="heading-medium form-label-bold">@Html(messages("c2.g4"))</legend>
 
 	            <ul class="coc-layout">
-	                @carersInputTextArea(otherInfoForm("changeInCircs"), 'maxLength -> 2000, 'textAreaHelper -> Html(messages(s"${CircumstancesOtherInfo.textMaxLength}charsLeft")), 'maxLength -> CircumstancesOtherInfo.textMaxLength)
+	                @carersInputTextArea(otherInfoForm("changeInCircs"), 'textAreaHelper -> Html(messages(s"${CircumstancesOtherInfo.textMaxLength}charsLeft")), 'maxLength -> CircumstancesOtherInfo.textMaxLength)
 	            </ul>
                 
 	        </fieldset>

@@ -57,8 +57,8 @@ class GOtherChangeInfoSpec extends Specification {
 
     "have text maxlength set correctly in present()" in new WithBrowser {
       browser.goTo(GOtherChangeInfoPage.url)
-      val anythingElse = browser.$("#moreAboutChanges")
-      val countdown = browser.$("#moreAboutChanges + .countdown")
+      val anythingElse = browser.$("#changeInCircs")
+      val countdown = browser.$("#changeInCircs + .countdown")
 
       anythingElse.getAttribute("maxlength") mustEqual "3000"
       countdown.getText must contain( "3000 char")
