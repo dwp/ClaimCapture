@@ -5,6 +5,7 @@ import org.specs2.mutable._
 import play.api.test.FakeRequest
 import models.domain.MockForm
 import utils.pageobjects.circumstances.report_changes.GStartedAndFinishedEmploymentPage
+import utils.pageobjects.circumstances.start_of_process.GReportAChangeInYourCircumstancesPage
 import utils.{WithBrowser, LightFakeApplication, WithApplication}
 import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
@@ -28,6 +29,7 @@ class GStartedAndFinishedEmploymentSpec extends Specification {
   val didCareCostsForThisWorkText = "care text"
   val moreInfo = "more information"
   val startedAndFinishedPath = "DWPCAChangeOfCircumstances//EmploymentChange//StartedEmploymentAndFinished//MoreAboutChanges//Answer"
+  val nextPageUrl = GReportAChangeInYourCircumstancesPage.url
 
   val validFinishedWeeklyPaymentEmployment = Seq(
     "beenPaidYet" -> no,
@@ -96,7 +98,7 @@ class GStartedAndFinishedEmploymentSpec extends Specification {
         .withFormUrlEncodedBody(validFinishedWeeklyPaymentEmployment: _*)
 
       val result = GStartedAndFinishedEmployment.submit(request)
-      redirectLocation(result) must beSome("/circumstances/consent-and-declaration/declaration")
+      redirectLocation(result) must beSome(nextPageUrl)
     }
 
     "redirect to the next page after valid submission of monthly on going employment" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
@@ -104,7 +106,7 @@ class GStartedAndFinishedEmploymentSpec extends Specification {
         .withFormUrlEncodedBody(validFinishedMonthlyPaymentEmployment: _*)
 
       val result = GStartedAndFinishedEmployment.submit(request)
-      redirectLocation(result) must beSome("/circumstances/consent-and-declaration/declaration")
+      redirectLocation(result) must beSome(nextPageUrl)
     }
 
     "redirect to the next page after valid submission of other on going employment" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
@@ -112,7 +114,7 @@ class GStartedAndFinishedEmploymentSpec extends Specification {
         .withFormUrlEncodedBody(validFinishedOtherPaymentEmployment: _*)
 
       val result = GStartedAndFinishedEmployment.submit(request)
-      redirectLocation(result) must beSome("/circumstances/consent-and-declaration/declaration")
+      redirectLocation(result) must beSome(nextPageUrl)
     }
 
     "handle gracefully when bad schema number passed to SchemaValidation getRestriction" in new WithApplication {
@@ -132,7 +134,7 @@ class GStartedAndFinishedEmploymentSpec extends Specification {
       val countdown = browser.$("#moreAboutChanges + .countdown")
 
       anythingElse.getAttribute("maxlength") mustEqual "3000"
-      countdown.getText must contain( "3000 char")
+      countdown.getText must contain("3000 char")
       browser.pageSource must contain("maxChars:3000")
     }
   }

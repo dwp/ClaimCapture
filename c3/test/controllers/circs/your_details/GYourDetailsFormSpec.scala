@@ -7,8 +7,8 @@ import models.view.CachedChangeOfCircs
 import org.specs2.mutable._
 import play.api.test.Helpers._
 import play.api.test.FakeRequest
-import Mappings._
 import utils.WithApplication
+import utils.pageobjects.circumstances.consent_and_declaration.GCircsDeclarationPage
 
 class GYourDetailsFormSpec extends Specification {
   val fullName = "Mr John Joe Smith"
@@ -21,6 +21,7 @@ class GYourDetailsFormSpec extends Specification {
 
   val byTelephone = "01254897675"
   val wantsEmailContactCircs = "no"
+  val nextPageUrl = GCircsDeclarationPage.url
 
   section("unit", models.domain.CircumstancesReportChanges.id)
   "Change of circumstances - About You Form" should {
@@ -163,28 +164,28 @@ class GYourDetailsFormSpec extends Specification {
           "furtherInfoContact" -> byTelephone,
           "wantsEmailContactCircs" -> wantsEmailContactCircs
         )).fold(
-          formWithErrors => {
-            formWithErrors.errors.length must equalTo(3)
-            formWithErrors.errors(0).message must equalTo(Mappings.errorRestrictedCharacters)
-            formWithErrors.errors(1).message must equalTo(Mappings.errorRestrictedCharacters)
-            formWithErrors.errors(2).message must equalTo(Mappings.errorRestrictedCharacters)
-          },
-          f => "This mapping should not happen." must equalTo("Valid"))
+        formWithErrors => {
+          formWithErrors.errors.length must equalTo(3)
+          formWithErrors.errors(0).message must equalTo(Mappings.errorRestrictedCharacters)
+          formWithErrors.errors(1).message must equalTo(Mappings.errorRestrictedCharacters)
+          formWithErrors.errors(2).message must equalTo(Mappings.errorRestrictedCharacters)
+        },
+        f => "This mapping should not happen." must equalTo("Valid"))
     }
 
     "have 5 mandatory fields (plus invalid Nino)" in new WithApplication {
       GYourDetails.form.bind(
         Map("fullName" -> "")).fold(
-          formWithErrors => {
-            formWithErrors.errors.length must equalTo(7)
-            formWithErrors.errors(0).message must equalTo(Mappings.errorRequired)
-            formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
-            formWithErrors.errors(2).message must equalTo("error.nationalInsuranceNumber")
-            formWithErrors.errors(3).message must equalTo(Mappings.errorRequired)
-            formWithErrors.errors(4).message must equalTo(Mappings.errorRequired)
-            formWithErrors.errors(5).message must equalTo(Mappings.errorRequired)
-          },
-          f => "This mapping should not happen." must equalTo("Valid"))
+        formWithErrors => {
+          formWithErrors.errors.length must equalTo(7)
+          formWithErrors.errors(0).message must equalTo(Mappings.errorRequired)
+          formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
+          formWithErrors.errors(2).message must equalTo("error.nationalInsuranceNumber")
+          formWithErrors.errors(3).message must equalTo(Mappings.errorRequired)
+          formWithErrors.errors(4).message must equalTo(Mappings.errorRequired)
+          formWithErrors.errors(5).message must equalTo(Mappings.errorRequired)
+        },
+        f => "This mapping should not happen." must equalTo("Valid"))
     }
 
     "reject invalid national insurance number" in new WithApplication {
@@ -200,11 +201,11 @@ class GYourDetailsFormSpec extends Specification {
           "furtherInfoContact" -> byTelephone,
           "wantsEmailContactCircs" -> wantsEmailContactCircs
         )).fold(
-          formWithErrors => {
-            formWithErrors.errors.length must equalTo(1)
-            formWithErrors.errors.head.message must equalTo("error.nationalInsuranceNumber")
-          },
-          f => "This mapping should not happen." must equalTo("Valid"))
+        formWithErrors => {
+          formWithErrors.errors.length must equalTo(1)
+          formWithErrors.errors.head.message must equalTo("error.nationalInsuranceNumber")
+        },
+        f => "This mapping should not happen." must equalTo("Valid"))
     }
 
     "reject invalid date" in new WithApplication {
@@ -220,11 +221,11 @@ class GYourDetailsFormSpec extends Specification {
           "furtherInfoContact" -> byTelephone,
           "wantsEmailContactCircs" -> wantsEmailContactCircs
         )).fold(
-          formWithErrors => {
-            formWithErrors.errors.length must equalTo(1)
-            formWithErrors.errors.head.message must equalTo(Mappings.errorInvalid)
-          },
-          f => "This mapping should not happen." must equalTo("Valid"))
+        formWithErrors => {
+          formWithErrors.errors.length must equalTo(1)
+          formWithErrors.errors.head.message must equalTo(Mappings.errorInvalid)
+        },
+        f => "This mapping should not happen." must equalTo("Valid"))
     }
 
     val startDateDay = 1
@@ -253,7 +254,7 @@ class GYourDetailsFormSpec extends Specification {
         val claim = Claim(claimKey)
         cache.set("default" + claimKey, claim.update(ReportChangeReason(false, ReportChange.AdditionalInfo.name)))
         val result = GYourDetails.submit(g2FakeRequest(claimKey))
-        redirectLocation(result) must beSome("/circumstances/report-changes/gotofunction")
+        redirectLocation(result) must beSome(nextPageUrl)
       }
     }
   }

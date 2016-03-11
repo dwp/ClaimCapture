@@ -7,6 +7,7 @@ import org.specs2.mutable.Specification
 import play.api.test.Helpers._
 import utils.WithApplication
 import play.api.test.FakeRequest
+import utils.pageobjects.circumstances.start_of_process.GGoToCircsPage
 
 class GReportChangesSpec extends Specification {
   val startDateDay = 1
@@ -17,6 +18,7 @@ class GReportChangesSpec extends Specification {
   val validAdditionalDetailsReportChangesFormInput = Seq(
     "reportChanges" -> AdditionalInfo.name
   )
+  val nextPageUrl = GGoToCircsPage.url
 
   section("unit", models.domain.CircumstancesReportChanges.id)
   "Report a change in your circumstances - Change in circumstances - Controller" should {
@@ -32,7 +34,7 @@ class GReportChangesSpec extends Specification {
         .withFormUrlEncodedBody(validAdditionalDetailsReportChangesFormInput: _*)
 
       val result = GReportChangeReason.submit(request)
-      redirectLocation(result) must beSome("/circumstances/identification/about-you")
+      redirectLocation(result) must beSome(nextPageUrl)
     }
   }
   section("unit", models.domain.CircumstancesReportChanges.id)

@@ -8,6 +8,7 @@ import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
 import models.SortCode
 import utils.pageobjects.circumstances.report_changes.GPaymentChangePage
+import utils.pageobjects.circumstances.start_of_process.GReportAChangeInYourCircumstancesPage
 import utils.{WithBrowser, WithApplication}
 
 class GPaymentChangeSpec extends Specification {
@@ -27,6 +28,7 @@ class GPaymentChangeSpec extends Specification {
   val paymentFrequency = "everyWeek"
   val moreAboutChanges = "Some additional info goes here"
   val paymentChangePath = "DWPCAChangeOfCircumstances//PaymentChange//OtherChanges//Answer"
+  val nextPageUrl = GReportAChangeInYourCircumstancesPage.url
 
   val validPaymentChangeFormInputScenario1 = Seq(
     "currentlyPaidIntoBank.answer" -> yes,
@@ -76,7 +78,7 @@ class GPaymentChangeSpec extends Specification {
         .withFormUrlEncodedBody(validPaymentChangeFormInputScenario1: _*)
 
       val result = GPaymentChange.submit(request)
-      redirectLocation(result) must beSome("/circumstances/consent-and-declaration/declaration")
+      redirectLocation(result) must beSome(nextPageUrl)
     }
 
     "redirect to the next page after a valid submission when 'no' answered to currently paid into bank " in new WithApplication with MockForm {
@@ -84,7 +86,7 @@ class GPaymentChangeSpec extends Specification {
         .withFormUrlEncodedBody(validPaymentChangeFormInputScenario2: _*)
 
       val result = GPaymentChange.submit(request)
-      redirectLocation(result) must beSome("/circumstances/consent-and-declaration/declaration")
+      redirectLocation(result) must beSome(nextPageUrl)
     }
 
     "handle gracefully when bad schema number passed to SchemaValidation getRestriction" in new WithApplication {

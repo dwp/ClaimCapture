@@ -6,6 +6,7 @@ import play.api.test.FakeRequest
 import models.domain.MockForm
 import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
+import utils.pageobjects.circumstances.start_of_process.GReportAChangeInYourCircumstancesPage
 import utils.{WithBrowser, WithApplication, LightFakeApplication}
 import utils.pageobjects.circumstances.report_changes.GEmploymentChangePage
 
@@ -23,6 +24,7 @@ class GEmploymentChangeSpec extends Specification {
   val employed = "employed"
   val selfEmployedTypeOfWork = "IT Consultant"
   val selfEmploymentChangePath = "DWPCAChangeOfCircumstances//EmploymentChange//SelfEmployment//MoreAboutChanges//Answer"
+  val nextPageUrl = GReportAChangeInYourCircumstancesPage.url
 
   val validNotCaringSelfEmploymentNotYetStartedFormInput = Seq(
     "stillCaring.answer" -> no,
@@ -75,7 +77,7 @@ class GEmploymentChangeSpec extends Specification {
        .withFormUrlEncodedBody(validNotCaringSelfEmploymentNotYetStartedFormInput: _*)
 
      val result = GEmploymentChange.submit(request)
-     redirectLocation(result) must beSome("/circumstances/consent-and-declaration/declaration")
+     redirectLocation(result) must beSome(nextPageUrl)
    }
 
    "redirect to the next page after a valid caring and self-employment not yet started details submission" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
@@ -83,7 +85,7 @@ class GEmploymentChangeSpec extends Specification {
        .withFormUrlEncodedBody(validCaringSelfEmploymentNotYetStartedFormInput: _*)
 
      val result = GEmploymentChange.submit(request)
-     redirectLocation(result) must beSome("/circumstances/consent-and-declaration/declaration")
+     redirectLocation(result) must beSome(nextPageUrl)
    }
 
    "redirect to the next page after a valid caring and ongoing self-employment started details submission" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
@@ -91,7 +93,7 @@ class GEmploymentChangeSpec extends Specification {
        .withFormUrlEncodedBody(validCaringAndOngoingSelfEmploymentStartedFormInput: _*)
 
      val result = GEmploymentChange.submit(request)
-     redirectLocation(result) must beSome("/circumstances/consent-and-declaration/declaration")
+     redirectLocation(result) must beSome(nextPageUrl)
    }
 
     "handle gracefully when bad schema number passed to SchemaValidation getRestriction" in new WithApplication {

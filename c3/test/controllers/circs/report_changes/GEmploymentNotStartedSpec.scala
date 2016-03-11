@@ -4,6 +4,7 @@ import app.ConfigProperties._
 import org.specs2.mutable._
 import play.api.test.FakeRequest
 import models.domain.MockForm
+import utils.pageobjects.circumstances.start_of_process.GReportAChangeInYourCircumstancesPage
 import utils.{WithBrowser, LightFakeApplication, WithApplication}
 import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
@@ -26,6 +27,7 @@ class GEmploymentNotStartedSpec extends Specification {
   val willCareCostsForThisWorkText = "care text"
   val moreInfo = "more information"
   val employmentNoStartedPath = "DWPCAChangeOfCircumstances//EmploymentChange//NotStartedEmployment//MoreAboutChanges//Answer"
+  val nextPageUrl = GReportAChangeInYourCircumstancesPage.url
 
   "Report an Employment change in your circumstances where employment has not started - Employment Controller" should {
     val validWeeklyPaymentEmployment = Seq(
@@ -88,7 +90,7 @@ class GEmploymentNotStartedSpec extends Specification {
           .withFormUrlEncodedBody(validWeeklyPaymentEmployment: _*)
 
         val result = GEmploymentNotStarted.submit(request)
-        redirectLocation(result) must beSome("/circumstances/consent-and-declaration/declaration")
+        redirectLocation(result) must beSome(nextPageUrl)
       }
 
       "redirect to the next page after valid submission of employment with expected monthly payment" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
@@ -96,7 +98,7 @@ class GEmploymentNotStartedSpec extends Specification {
           .withFormUrlEncodedBody(validMonthlyPaymentEmployment: _*)
 
         val result = GEmploymentNotStarted.submit(request)
-        redirectLocation(result) must beSome("/circumstances/consent-and-declaration/declaration")
+        redirectLocation(result) must beSome(nextPageUrl)
       }
 
       "redirect to the next page after valid submission of employment with expected other payment" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
@@ -104,7 +106,7 @@ class GEmploymentNotStartedSpec extends Specification {
           .withFormUrlEncodedBody(validOtherPaymentEmployment: _*)
 
         val result = GEmploymentNotStarted.submit(request)
-        redirectLocation(result) must beSome("/circumstances/consent-and-declaration/declaration")
+        redirectLocation(result) must beSome(nextPageUrl)
       }
     }
 
