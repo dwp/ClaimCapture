@@ -36,7 +36,7 @@ object GReportChangeReason extends Controller with CachedChangeOfCircs with Navi
         if (!f.jsEnabled) {
           Logger.info(s"No JS - Start ${circs.key} ${circs.uuid} User-Agent : ${request.headers.get("User-Agent").orNull}")
         }
-        Redirect(controllers.circs.your_details.routes.GYourDetails.present())
+        Redirect(circsPathAfterReason)
       }
     )
   }

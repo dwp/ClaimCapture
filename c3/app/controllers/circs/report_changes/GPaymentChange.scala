@@ -36,7 +36,7 @@ object GPaymentChange extends Controller with CachedChangeOfCircs with Navigable
   )
   (CircumstancesPaymentChange.apply)(CircumstancesPaymentChange.unapply))
 
-  def present = claimingWithCheck {implicit circs => implicit request => implicit request2lang =>
+  def present = claiming {implicit circs => implicit request => implicit request2lang =>
     track(CircumstancesPaymentChange) {
       implicit circs => Ok(views.html.circs.report_changes.paymentChange(form.fill(CircumstancesPaymentChange)))
     }
@@ -49,7 +49,7 @@ object GPaymentChange extends Controller with CachedChangeOfCircs with Navigable
         val afterIgnoreGroupBy = ignoreGroupByForSortCode(updatedFormWithErrors)
         BadRequest(views.html.circs.report_changes.paymentChange(afterIgnoreGroupBy))
       },
-      f => circs.update(f) -> Redirect(controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present())
+      f => circs.update(f) -> Redirect(circsPathAfterFunction)
     )
   }
 }

@@ -87,7 +87,7 @@ object GBreaksInCare  extends Controller with CachedChangeOfCircs with Navigable
     }
   }
 
-  def present = claimingWithCheck {implicit circs => implicit request => implicit request2lang =>
+  def present = claiming {implicit circs => implicit request => implicit request2lang =>
     track(CircumstancesBreaksInCare) {
       implicit circs => Ok(views.html.circs.report_changes.breaksInCare(form.fill(CircumstancesBreaksInCare)))
     }

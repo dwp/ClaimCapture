@@ -76,7 +76,7 @@ object GAddressChange extends Controller with CachedChangeOfCircs with Navigable
     }
   }
 
-  def present = claimingWithCheck {implicit circs => implicit request => implicit request2lang =>
+  def present = claiming {implicit circs => implicit request => implicit request2lang =>
     track(CircumstancesAddressChange) {
       implicit circs => Ok(views.html.circs.report_changes.addressChange(form.fill(CircumstancesAddressChange)))
     }
@@ -92,7 +92,7 @@ object GAddressChange extends Controller with CachedChangeOfCircs with Navigable
           .replaceError("","caredForChangedAddress.answer", FormError("caredForChangedAddress.answer", errorRequired))
         BadRequest(views.html.circs.report_changes.addressChange(updatedFormWithErrors))
       },
-      addressChange => circs.update(formatPostCodes(addressChange)) -> Redirect(controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present())
+      addressChange => circs.update(formatPostCodes(addressChange)) -> Redirect(circsPathAfterFunction)
     )
   }
 

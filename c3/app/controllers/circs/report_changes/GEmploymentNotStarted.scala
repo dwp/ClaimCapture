@@ -75,7 +75,7 @@ object GEmploymentNotStarted extends Controller with CachedChangeOfCircs with Na
 
         BadRequest(views.html.circs.report_changes.employmentNotStarted(formWithErrorsUpdate))
       },
-      f => circs.update(f) -> Redirect(controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present())
+      f => circs.update(f) -> Redirect(circsPathAfterFunction)
     )
   }
 

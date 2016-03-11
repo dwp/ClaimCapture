@@ -76,7 +76,7 @@ object GEmploymentChange extends Controller with CachedChangeOfCircs with Naviga
     .verifying("expected.hasWorkFinished", validHasWorkFinished _)
   )
 
-  def present = claimingWithCheck {implicit circs => implicit request => implicit request2lang =>
+  def present = claiming {implicit circs => implicit request => implicit request2lang =>
     track(CircumstancesEmploymentChange) {
       implicit circs => Ok(views.html.circs.report_changes.employmentChange(form.fill(CircumstancesEmploymentChange)))
     }
@@ -93,7 +93,7 @@ object GEmploymentChange extends Controller with CachedChangeOfCircs with Naviga
           case _ => CircumstancesEmploymentNotStarted -> controllers.circs.report_changes.routes.GEmploymentNotStarted.present()
         }
       }
-      case _ => CircumstancesEmploymentChange -> controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present()
+      case _ => CircumstancesEmploymentChange -> circsPathAfterFunction()
     }
 
     @tailrec

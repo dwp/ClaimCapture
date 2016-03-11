@@ -60,7 +60,7 @@ object GYourDetails extends Controller with CachedChangeOfCircs with Navigable w
 
           BadRequest(views.html.circs.your_details.yourDetails(formWithErrorsUpdate))
         },
-        yourDetailsChange => circs.update(formatEmailAndPostCode(yourDetailsChange)) -> Redirect(controllers.circs.start_of_process.routes.GGoToCircsFunction.present())
+        yourDetailsChange => circs.update(formatEmailAndPostCode(yourDetailsChange)) -> Redirect(circsPathAfterYourDetails())
       )
   },checkCookie=true)
 

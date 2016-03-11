@@ -75,7 +75,7 @@ object GStartedAndFinishedEmployment extends Controller with CachedChangeOfCircs
 
         BadRequest(views.html.circs.report_changes.startedAndFinishedEmployment(formWithErrorsUpdate))
       },
-      f => circs.update(f) -> Redirect(controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present())
+      f => circs.update(f) -> Redirect(circsPathAfterFunction)
     )
   }
 
