@@ -15,7 +15,7 @@ object GOtherChangeInfo extends Controller with CachedChangeOfCircs with Navigab
   val change = "changeInCircs"
 
   val form = Form(mapping(
-    change -> carersNonEmptyText(maxLength = 2000)
+    change -> carersNonEmptyText(maxLength = CircumstancesOtherInfo.textMaxLength)
   )(CircumstancesOtherInfo.apply)(CircumstancesOtherInfo.unapply))
 
   def present = claimingWithCheck {implicit circs => implicit request => implicit request2lang =>
