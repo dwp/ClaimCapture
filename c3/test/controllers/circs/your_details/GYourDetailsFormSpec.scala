@@ -233,19 +233,6 @@ class GYourDetailsFormSpec extends Specification {
     val selfEmployed = "self-employed"
     val selfEmployedTypeOfWork = "IT Consultant"
 
-    val validCaringAndOngoingSelfEmploymentStartedFormInput = Seq(
-      "stillCaring.answer" -> yes,
-      "hasWorkStartedYet.answer" -> yes,
-      "hasWorkStartedYet.dateWhenStarted.day" -> startDateDay.toString,
-      "hasWorkStartedYet.dateWhenStarted.month" -> startDateMonth.toString,
-      "hasWorkStartedYet.dateWhenStarted.year" -> startDateYear.toString,
-      "hasWorkFinishedYet.answer" -> no,
-      "typeOfWork.answer" -> selfEmployed,
-      "typeOfWork.selfEmployedTypeOfWork" -> selfEmployedTypeOfWork,
-      "typeOfWork.selfEmployedTotalIncome" -> dontknow,
-      "furtherInfoContact" -> byTelephone,
-      "wantsEmailContactCircs" -> wantsEmailContactCircs
-    )
 
     def g2FakeRequest(claimKey: String) = {
       FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey).withFormUrlEncodedBody(
@@ -264,73 +251,9 @@ class GYourDetailsFormSpec extends Specification {
     "Controller flow " should {
       "redirect to the next page after a valid additional info submission" in new WithApplication with MockForm {
         val claim = Claim(claimKey)
-
         cache.set("default" + claimKey, claim.update(ReportChangeReason(false, ReportChange.AdditionalInfo.name)))
-
         val result = GYourDetails.submit(g2FakeRequest(claimKey))
-
-        redirectLocation(result) must beSome("/circumstances/report-changes/other-change")
-      }
-
-      "redirect to the next page after a valid self-employment submission" in new WithApplication with MockForm {
-
-        val claim = Claim(claimKey)
-
-        cache.set("default" + claimKey, claim.update(ReportChangeReason(false, ReportChange.SelfEmployment.name)))
-
-        val result = GYourDetails.submit(g2FakeRequest(claimKey))
-
-        redirectLocation(result) must beSome("/circumstances/report-changes/self-employment")
-      }
-
-      "redirect to the next page after a valid stopped caring submission" in new WithApplication with MockForm {
-        val claim = Claim(claimKey)
-
-        cache.set("default" + claimKey, claim.update(ReportChangeReason(false, ReportChange.StoppedCaring.name)))
-
-        val result = GYourDetails.submit(g2FakeRequest(claimKey))
-
-        redirectLocation(result) must beSome("/circumstances/report-changes/stopped-caring")
-      }
-
-      "redirect to the next page after a valid address change submission" in new WithApplication with MockForm {
-        val claim = Claim(claimKey)
-
-        cache.set("default" + claimKey, claim.update(ReportChangeReason(false, ReportChange.AddressChange.name)))
-
-        val result = GYourDetails.submit(g2FakeRequest(claimKey))
-
-        redirectLocation(result) must beSome("/circumstances/report-changes/address-change")
-      }
-
-      "redirect to the next page after a valid payment change submission" in new WithApplication with MockForm {
-        val claim = Claim(claimKey)
-
-        cache.set("default" + claimKey, claim.update(ReportChangeReason(false, ReportChange.PaymentChange.name)))
-
-        val result = GYourDetails.submit(g2FakeRequest(claimKey))
-
-        redirectLocation(result) must beSome("/circumstances/report-changes/payment-change")
-      }
-
-      "redirect to the next page after a valid break from caring submission" in new WithApplication with MockForm {
-        val claim = Claim(claimKey)
-
-        cache.set("default" + claimKey, claim.update(ReportChangeReason(false, ReportChange.BreakFromCaring.name)))
-
-        val result = GYourDetails.submit(g2FakeRequest(claimKey))
-
-        redirectLocation(result) must beSome("/circumstances/report-changes/breaks-in-care")
-      }
-
-      "redirect to the next page after a valid break from caring submission because of you" in new WithApplication with MockForm {
-        val claim = Claim(claimKey)
-
-        cache.set("default" + claimKey, claim.update(ReportChangeReason(false, ReportChange.BreakFromCaringYou.name)))
-
-        val result = GYourDetails.submit(g2FakeRequest(claimKey))
-
-        redirectLocation(result) must beSome("/circumstances/report-changes/breaks-in-care")
+        redirectLocation(result) must beSome("/circumstances/report-changes/gotofunction")
       }
     }
   }

@@ -212,6 +212,8 @@ GET         /consent-and-declaration/error                              controll
 GET         /circumstances/report-changes/selection                     controllers.circs.start_of_process.GReportChangeReason.present
 POST        /circumstances/report-changes/selection                     controllers.circs.start_of_process.GReportChangeReason.submit
 
+GET         /circumstances/report-changes/gotofunction                  controllers.circs.start_of_process.GGoToCircsFunction.present
+
 GET         /circumstances/identification/about-you                     controllers.circs.your_details.GYourDetails.present
 POST        /circumstances/identification/about-you                     controllers.circs.your_details.GYourDetails.submit
 
