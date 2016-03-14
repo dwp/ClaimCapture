@@ -92,16 +92,16 @@ protected trait CacheHandling {
     new DateTime(secs * 1000)
   }
 
-  def claimExpirySecs() = {
+  def sflClaimExpirySecs() = {
     CacheHandling.saveForLaterCacheExpiry
   }
 
-  def claimExpiryDate() = {
-    DateTime.now.plusSeconds(claimExpirySecs)
+  def sflClaimExpiryDate() = {
+    DateTime.now.plusSeconds(sflClaimExpirySecs)
   }
 
-  def claimExpiryDateSecs() = {
-    claimExpiryDate.getMillis / 1000
+  def sflClaimExpiryDateSecs() = {
+    sflClaimExpiryDate.getMillis / 1000
   }
 
   def memcacheExpirySecs() = {
@@ -114,6 +114,18 @@ protected trait CacheHandling {
 
   def memcacheExpiryDateSecs() = {
     memcacheExpiryDate().getMillis / 1000
+  }
+
+  def feedbackClaimExpirySecs() = {
+    CacheHandling.feedbackExpirySecs
+  }
+
+  def feedbackClaimExpiryDate() = {
+    DateTime.now.plusSeconds(feedbackClaimExpirySecs)
+  }
+
+  def feedbackClaimExpiryDateSecs() = {
+    feedbackClaimExpiryDate.getMillis / 1000
   }
 
   def createSaveForLaterKey(resumeSaveForLater: ResumeSaveForLater): String = {
@@ -136,7 +148,7 @@ protected trait CacheHandling {
         case Failure(e) => return setSaveForLaterRemainingAttempts(saveForLaterUuid, saveForLater)
         case Success(s) =>
           saveInCache(s)
-          return updateSaveForLaterInCache(saveForLaterUuid, saveForLater, CacheHandling.saveForLaterAuthenticationAttempts, claimExpiryDateSecs, memcacheExpiryDateSecs())
+          return updateSaveForLaterInCache(saveForLaterUuid, saveForLater, CacheHandling.saveForLaterAuthenticationAttempts, sflClaimExpiryDateSecs, memcacheExpiryDateSecs())
       }
     }
     saveForLater
@@ -155,7 +167,7 @@ protected trait CacheHandling {
   def updateSaveForLaterInCache(saveForLaterUuid: String, saveForLater: SaveForLater, remainingAuthenticationAttempts: Int, applicationExpiry: Long, cacheExpiry: Long) = {
     val updatedSaveForLater = saveForLater.update(remainingAuthenticationAttempts, applicationExpiry, cacheExpiry)
     cache.set(saveForLaterFullKey(saveForLaterUuid), updatedSaveForLater, Duration(updatedSaveForLater.cacheExpiryPeriod, SECONDS))
-    Logger.info(s"SFL updateSaveForLater " + saveForLaterFullKey(saveForLaterUuid) + " updated with triesleft:$remainingAuthenticationAttempts claim expires:" + secsToDate(updatedSaveForLater.applicationExpiry) + " and memcache expires:" + secsToDate(updatedSaveForLater.cacheExpiryPeriod))
+    Logger.info(s"SFL updateSaveForLater " + saveForLaterFullKey(saveForLaterUuid) + " updated with tries left:$remainingAuthenticationAttempts claim expires:" + secsToDate(updatedSaveForLater.applicationExpiry) + " and memcache expires:" + secsToDate(updatedSaveForLater.cacheExpiryPeriod))
     if (remainingAuthenticationAttempts != CacheHandling.saveForLaterAuthenticationAttempts) updatedSaveForLater.update("FAILED-RETRY-LEFT" + remainingAuthenticationAttempts)
     else updatedSaveForLater
   }
@@ -205,7 +217,7 @@ protected trait CacheHandling {
     val uuid = claim.uuid
     val saveForLater = new SaveForLater(claim = SaveForLaterEncryption.encryptClaim(claim, key), location = path,
       remainingAuthenticationAttempts = CacheHandling.saveForLaterAuthenticationAttempts, status = "OK",
-      applicationExpiry = claimExpiryDateSecs,
+      applicationExpiry = sflClaimExpiryDateSecs,
       cacheExpiryPeriod = memcacheExpiryDateSecs,
       appVersion = ClaimHandling.C3VERSION_VALUE)
     cache.set(saveForLaterFullKey(uuid), saveForLater, Duration(saveForLater.cacheExpiryPeriod, SECONDS))
@@ -274,8 +286,8 @@ protected trait CacheHandling {
 
   def saveFeedbackInCache(json: String): Unit = {
     val fbuuid = randomUUID.toString
-    cache.set(feedbackFullKey(fbuuid), json, Duration(CacheHandling.feedbackExpirySecs, SECONDS))
-    Logger.info(s"FEEDBACK save " + feedbackFullKey(fbuuid) + " saved with memcache expiry:" + DateTime.now.plusSeconds(CacheHandling.feedbackExpirySecs))
+    cache.set(feedbackFullKey(fbuuid), json, Duration(feedbackClaimExpiryDateSecs, SECONDS))
+    Logger.info(s"FEEDBACK save " + feedbackFullKey(fbuuid) + " saved with memcache expiry:" + feedbackClaimExpiryDate)
     Logger.debug("FEEDBACK save to cache json:" + json)
     createFeedbackInList(feedbackFullKey(fbuuid))
   }
