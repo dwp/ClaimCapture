@@ -11,47 +11,47 @@ import utils.pageobjects.circumstances.consent_and_declaration.GCircsDeclaration
 class GPaymentChangeIntegrationSpec extends Specification {
   section("integration", models.domain.CircumstancesIdentification.id)
   "Report a change in your circumstances" should {
-     "be presented" in new WithBrowser with PageObjects{
-       val page =  GPaymentChangePage(context)
-       page goToThePage()
-     }
+    "be presented" in new WithBrowser with PageObjects {
+      val page = GPaymentChangePage(context)
+      page goToThePage()
+    }
 
-     "navigate to previous page" in new WithBrowser with PageObjects{
-       val page =  GReportChangesPage(context)
-       page goToThePage()
+    "navigate to previous page" in new WithBrowser with PageObjects {
+      val page = GReportChangesPage(context)
+      page goToThePage()
 
-       val claim = CircumstancesScenarioFactory.paymentChangesChangeInfo
-       page fillPageWith(claim)
-       val completedPage = page submitPage()
+      val claim = CircumstancesScenarioFactory.paymentChangesChangeInfo
+      page fillPageWith (claim)
+      val completedPage = page submitPage()
 
-       val reportChangesPage = completedPage runClaimWith (claim, GPaymentChangePage.url)
+      val reportChangesPage = completedPage runClaimWith(claim, GPaymentChangePage.url)
 
-       reportChangesPage must beAnInstanceOf[GPaymentChangePage]
+      reportChangesPage must beAnInstanceOf[GPaymentChangePage]
 
-       val prevPage = reportChangesPage.goBack()
-       prevPage must beAnInstanceOf[GCircsYourDetailsPage]
+      val prevPage = reportChangesPage.goBack()
+      println("Previous page " + prevPage.url)
+      prevPage.url mustEqual (pageBeforeFunctionsUrl)
+    }
 
-     }
+    "navigate to next page when 'yes' is selected for currently paid into bank selected" in new WithBrowser with PageObjects {
+      val page = GPaymentChangePage(context)
+      val claim = CircumstancesScenarioFactory.reportChangesPaymentChangeScenario1
+      page goToThePage()
+      page fillPageWith claim
 
-     "navigate to next page when 'yes' is selected for currently paid into bank selected" in new WithBrowser with PageObjects{
-       val page =  GPaymentChangePage(context)
-       val claim = CircumstancesScenarioFactory.reportChangesPaymentChangeScenario1
-       page goToThePage()
-       page fillPageWith claim
+      val nextPage = page submitPage()
+      nextPage.url mustEqual pageAfterFunctionsUrl
+    }
 
-       val nextPage = page submitPage ()
-       nextPage must beAnInstanceOf[GCircsDeclarationPage]
-     }
+    "navigate to next page when 'no' is selected for currently paid into bank selected" in new WithBrowser with PageObjects {
+      val page = GPaymentChangePage(context)
+      val claim = CircumstancesScenarioFactory.reportChangesPaymentChangeScenario2
+      page goToThePage()
+      page fillPageWith claim
 
-     "navigate to next page when 'no' is selected for currently paid into bank selected" in new WithBrowser with PageObjects{
-       val page =  GPaymentChangePage(context)
-       val claim = CircumstancesScenarioFactory.reportChangesPaymentChangeScenario2
-       page goToThePage()
-       page fillPageWith claim
-
-       val nextPage = page submitPage ()
-       nextPage must beAnInstanceOf[GCircsDeclarationPage]
-     }
-   }
-   section("integration", models.domain.CircumstancesIdentification.id)
- }
+      val nextPage = page submitPage()
+      nextPage.url mustEqual pageAfterFunctionsUrl
+    }
+  }
+  section("integration", models.domain.CircumstancesIdentification.id)
+}

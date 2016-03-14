@@ -37,7 +37,7 @@ class GOtherChangeInfoIntegrationSpec extends Specification {
       page fillPageWith claim
 
       val nextPage = page submitPage ()
-      nextPage must beAnInstanceOf[GCircsDeclarationPage]
+      nextPage.url mustEqual pageAfterFunctionsUrl
     }
   }
   section("integration", models.domain.CircumstancesIdentification.id)
