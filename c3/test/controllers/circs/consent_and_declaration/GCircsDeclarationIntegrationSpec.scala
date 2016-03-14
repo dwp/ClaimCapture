@@ -4,8 +4,8 @@ import utils.WithJsBrowser
 import controllers.CircumstancesScenarioFactory
 import org.specs2.mutable._
 import utils.pageobjects.circumstances.consent_and_declaration.GCircsDeclarationPage
+import utils.pageobjects.circumstances.start_of_process.GCircsYourDetailsPage
 import utils.pageobjects.{PageObjects, TestData}
-import utils.pageobjects.circumstances.report_changes.GOtherChangeInfoPage
 
 class GCircsDeclarationIntegrationSpec extends Specification {
   section("integration", models.domain.CircumstancesConsentAndDeclaration.id)
@@ -20,17 +20,13 @@ class GCircsDeclarationIntegrationSpec extends Specification {
     }
 
     "navigate to previous page" in new WithJsBrowser  with PageObjects{
-			val page =  GOtherChangeInfoPage(context)
+      val page=GCircsYourDetailsPage(context)
       page goToThePage()
-
-      val claim = CircumstancesScenarioFactory.declaration
-      val otherChangeInfoPage = page runClaimWith (claim, GCircsDeclarationPage.url)
-
-      otherChangeInfoPage must beAnInstanceOf[GCircsDeclarationPage]
-
-      val prevPage = otherChangeInfoPage.goBack()
-
-      prevPage must beAnInstanceOf[GOtherChangeInfoPage]
+      val claim = CircumstancesScenarioFactory.aboutDetails
+      val declarePage=page runClaimWith(claim,GCircsDeclarationPage.url)
+      declarePage must beAnInstanceOf[GCircsDeclarationPage]
+      val prevPage=declarePage.goBack()
+      prevPage must beAnInstanceOf[GCircsYourDetailsPage]
     }
 
     "navigate to next page" in new WithJsBrowser  with PageObjects{

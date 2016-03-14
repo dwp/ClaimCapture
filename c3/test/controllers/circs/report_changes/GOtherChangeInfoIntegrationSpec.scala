@@ -27,8 +27,7 @@ class GOtherChangeInfoIntegrationSpec extends Specification {
       otherChangeInfoPage must beAnInstanceOf[GOtherChangeInfoPage]
 
       val prevPage = otherChangeInfoPage.goBack()
-
-      prevPage must beAnInstanceOf[GCircsYourDetailsPage]
+      prevPage.url mustEqual pageBeforeFunctionsUrl
     }
 
     "navigate to next page" in new WithBrowser with PageObjects{

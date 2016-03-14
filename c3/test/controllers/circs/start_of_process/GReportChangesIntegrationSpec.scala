@@ -5,7 +5,6 @@ import controllers.CircumstancesScenarioFactory
 import org.openqa.selenium.By
 import org.specs2.mutable._
 import utils.WithBrowser
-import utils.pageobjects.circumstances.consent_and_declaration.GCircsDeclarationPage
 import utils.pageobjects.{TestData, PageObjects}
 import utils.pageobjects.circumstances.start_of_process.{GCircsYourDetailsPage, GReportChangesPage}
 import utils.pageobjects.circumstances.report_changes.{GOtherChangeInfoPage, _}
@@ -26,7 +25,7 @@ class GReportChangesIntegrationSpec extends Specification {
       page fillPageWith claim
 
       val nextPage = page submitPage()
-      nextPage must beAnInstanceOf[GCircsYourDetailsPage]
+      nextPage.url mustEqual pageAfterFunctionsUrl
     }
 
     "page contains JS enabled check" in new WithBrowser with PageObjects {
@@ -105,7 +104,7 @@ class GReportChangesIntegrationSpec extends Specification {
       otherChangeInfoPageSecond.ctx.browser.getDriver.findElement(By.id("changeInCircs")).getText must_== "bla bla"
       //the submit is valid
       val samePage = otherChangeInfoPageSecond.submitPage()
-      samePage must beAnInstanceOf[GCircsDeclarationPage]
+      samePage.url mustEqual pageAfterFunctionsUrl
     }
   }
   section("integration", models.domain.CircumstancesReportChanges.id)
