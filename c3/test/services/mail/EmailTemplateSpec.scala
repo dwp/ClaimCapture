@@ -5,8 +5,7 @@ import models.domain._
 import models.view.CachedClaim
 import models.yesNo.{YesNoWithEmployerAndMoney, YesNo, YesNoWithText}
 import org.specs2.mutable._
-import play.api.test.{FakeApplication}
-import play.twirl.api.{HtmlFormat}
+import play.api.test.FakeRequest
 import controllers.mappings.Mappings
 import utils.WithApplication
 import utils.LightFakeApplication
@@ -42,13 +41,10 @@ class EmailTemplateSpec extends Specification {
       val renderedEmail = views.html.mail(claim,isClaim = true,isEmployment = false).body
 
       renderedEmail.size must beGreaterThan(0)
-
-
       renderedEmail must contain(escapeMessage("mail.claim.title"))
       renderedEmail must contain(escapeMessage("mail.claim.successful"))
       renderedEmail must contain(escapeMessage("mail.claim.next.line1"))
       renderedEmail must contain(escapeMessage("mail.next.line"))
-
       renderedEmail must not contain escapeMessage("mail.cofc.title")
       renderedEmail must not contain escapeMessage("mail.cofc.successful")
       renderedEmail must not contain(escapeMessage("evidence.include.documents"))
@@ -64,20 +60,16 @@ class EmailTemplateSpec extends Specification {
       val renderedEmail = views.html.mail(claim,isClaim = true,isEmployment = true).body
 
       renderedEmail.size must beGreaterThan(0)
-
       renderedEmail must contain(escapeMessage("evidence.selfEmployment.accounts"))
-
       renderedEmail must contain(escapeMessage("mail.claim.title"))
       renderedEmail must contain(escapeMessage("mail.claim.successful"))
       renderedEmail must contain(escapeMessage("mail.claim.next.line1.alt"))
       renderedEmail must contain(escapeMessage("mail.next.line2"))
       renderedEmail must contain(escapeMessage("mail.next.send1"))
       renderedEmail must contain(escapeMessage("evidence.email.employment.mostRecentPayslipBefore",DayMonthYear().`dd month yyyy`))
-
       renderedEmail must not contain escapeMessage("evidence.pensionStatements")
       renderedEmail must contain(escapeMessage("evidence.include.documents"))
       renderedEmail must not contain escapeMessage("mail.next.line")
-
       renderedEmail must not contain escapeMessage("mail.cofc.title")
       renderedEmail must not contain escapeMessage("mail.cofc.successful")
     }
@@ -95,9 +87,7 @@ class EmailTemplateSpec extends Specification {
       val renderedEmail = views.html.mail(claim,isClaim = true,isEmployment = true).body
 
       renderedEmail.size must beGreaterThan(0)
-
       renderedEmail must contain(escapeMessage("evidence.selfEmployment.accounts"))
-
       renderedEmail must contain(escapeMessage("mail.claim.title"))
       renderedEmail must contain(escapeMessage("mail.claim.successful"))
       renderedEmail must contain(escapeMessage("mail.claim.next.line1.alt"))
@@ -107,7 +97,6 @@ class EmailTemplateSpec extends Specification {
       renderedEmail must contain(escapeMessage("evidence.email.employment.mostRecentPayslipBefore",DayMonthYear().`dd month yyyy`))
       renderedEmail must contain(escapeMessage("evidence.include.documents"))
       renderedEmail must not contain escapeMessage("mail.next.line")
-
       renderedEmail must not contain escapeMessage("mail.cofc.title")
       renderedEmail must not contain escapeMessage("mail.cofc.successful")
     }
@@ -145,20 +134,15 @@ class EmailTemplateSpec extends Specification {
       val renderedEmail = views.html.mail(claim,isClaim = false,isEmployment = true).body
 
       renderedEmail.size must beGreaterThan(0)
-
-
       renderedEmail must contain(escapeMessage("mail.cofc.title"))
       renderedEmail must contain(escapeMessage("mail.cofc.successful"))
       renderedEmail must contain(escapeMessage("evidence.email.cofc.employment.anyPayslips"))
-
       renderedEmail must contain(escapeMessage("mail.next.send1"))
       renderedEmail must contain(escapeMessage("mail.next.line2"))
       renderedEmail must contain(escapeMessage("evidence.pensionStatements"))
-
       renderedEmail must not contain escapeMessage("evidence.email.employment.mostRecentPayslipBefore")
       renderedEmail must contain(escapeMessage("evidence.include.documents"))
       renderedEmail must not contain escapeMessage("mail.next.line")
-
       renderedEmail must not contain escapeMessage("mail.claim.next.line1.alt")
       renderedEmail must not contain escapeMessage("mail.claim.title")
       renderedEmail must not contain escapeMessage("mail.claim.successful")
@@ -173,15 +157,22 @@ class EmailTemplateSpec extends Specification {
       val renderedEmail = views.html.mail(claim,false,false).body
 
       renderedEmail.size must beGreaterThan(0)
-
       renderedEmail must contain(escapeMessage("mail.cofc.title"))
       renderedEmail must contain(escapeMessage("mail.cofc.successful"))
       renderedEmail must contain(escapeMessage("mail.next.line"))
-
       renderedEmail must not contain escapeMessage("mail.claim.title")
       renderedEmail must not contain escapeMessage("mail.claim.successful")
       renderedEmail must not contain escapeMessage("mail.claim.next.line1")
       renderedEmail must not contain(escapeMessage("evidence.include.documents"))
+    }
+
+    "Display Saved Email should contain XML schema version number" in new WithApplication(app = LightFakeApplication.faXmlVersion(xmlSchemaVersionNumber)){
+      implicit val lang = Lang("en")
+      val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
+      implicit val messages = Messages(lang, messagesApi)
+      val claim = Claim(CachedClaim.key)
+      val renderedEmail = views.html.savedMail(claim, FakeRequest()).body
+      renderedEmail must contain(xmlSchemaVersionNumber)
     }
   }
   section("unit")
