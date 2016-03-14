@@ -24,13 +24,16 @@ class EmailTemplateSpec extends Specification {
   section ("unit")
   "Email template" should {
     val xmlSchemaVersionNumber = "some value"
+    val transactionId = "some transaction"
     "Display XML schema version number" in new WithApplication(app = LightFakeApplication.faXmlVersion(xmlSchemaVersionNumber)){
       implicit val lang = Lang("en")
       val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
       implicit val messages = Messages(lang, messagesApi)
-      val claim = Claim(CachedClaim.key)
+      val claim = Claim(CachedClaim.key).withTransactionId(transactionId)
       val renderedEmail = views.html.mail(claim,isClaim = true,isEmployment = false).body
+
       renderedEmail must contain(xmlSchemaVersionNumber)
+      renderedEmail must contain(transactionId)
     }
 
     "Display claim email" in new WithApplication {

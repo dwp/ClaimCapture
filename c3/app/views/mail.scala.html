@@ -202,7 +202,7 @@
         <div class="footer">
             <p><b>@Html(messages("mail.donotreply"))</b></p>
             <br />
-            <p style="font-size: 16px; color: #BFC1C3;">@getProperty("xml.schema.version", "No schema version found")</p>
+            <p style="font-size: 16px; color: #BFC1C3;">@getProperty("xml.schema.version", "No schema version found")&nbsp@{claim.transactionId.getOrElse("")}</p>
         </div>
 
     </body>
