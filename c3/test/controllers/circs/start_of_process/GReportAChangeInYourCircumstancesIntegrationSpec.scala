@@ -1,9 +1,11 @@
 package controllers.circs.start_of_process
 
+import controllers.circs.consent_and_declaration.GCircsDeclaration
 import play.api.Play._
 import play.api.i18n.{MMessages, MessagesApi}
 import utils.WithApplication
 import org.specs2.mutable._
+import utils.pageobjects.circumstances.consent_and_declaration.GCircsDeclarationPage
 import utils.{LightFakeApplication, WithBrowser}
 import controllers.CircumstancesScenarioFactory
 import utils.pageobjects.circumstances.start_of_process.{GReportChangesPage, GCircsYourDetailsPage}
@@ -24,22 +26,20 @@ class GReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
     val byPost = "01254 123456"
     val wantsEmailContact = "No"
 
-
     "be presented" in new WithBrowser with PageObjects {
       val page = GCircsYourDetailsPage(context)
       page goToThePage()
     }
 
-    "navigate to previous page" in new WithBrowser with PageObjects{
-      val page =  GReportChangesPage(context)
+    "navigate to previous page" in new WithBrowser with PageObjects {
+      val page = GReportChangesPage(context)
       val claim = CircumstancesScenarioFactory.reportChangesStoppedCaring
       page goToThePage()
       page fillPageWith claim
 
       val reportAChange = page submitPage()
 
-      reportAChange must beAnInstanceOf[GCircsYourDetailsPage]
-
+      reportAChange must beAnInstanceOf[GPermanentlyStoppedCaringPage]
       reportAChange.goBack() must beAnInstanceOf[GReportChangesPage]
     }
 
@@ -168,81 +168,69 @@ class GReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
       errors(0) must contain("Their relationship to you - You must complete this section")
     }
 
-    "navigate to next page when addition info selected" in new WithBrowser with PageObjects{
-      val page =  GReportChangesPage(context)
+    "navigate to next page when addition info selected" in new WithBrowser with PageObjects {
+      val page = GReportChangesPage(context)
       val claim = CircumstancesScenarioFactory.reportChangesOtherChangeInfo
       page goToThePage()
       page fillPageWith claim
 
-      val nextPage = page submitPage ()
-      nextPage must beAnInstanceOf[GCircsYourDetailsPage]
-      nextPage fillPageWith claim
-      val lastPage = nextPage submitPage ()
-      lastPage must beAnInstanceOf[GOtherChangeInfoPage]
+      val nextPage = page submitPage()
+      nextPage must beAnInstanceOf[GOtherChangeInfoPage]
     }
 
-    "navigate to next page when self-employment selected" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "false"))) with PageObjects{
-      val page =  GReportChangesPage(context)
+    "navigate to next page when self-employment selected" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "false"))) with PageObjects {
+      val page = GReportChangesPage(context)
       val claim = CircumstancesScenarioFactory.reportChangesSelfEmployment
       page goToThePage()
       page fillPageWith claim
 
-      val nextPage = page submitPage ()
-      nextPage must beAnInstanceOf[GCircsYourDetailsPage]
-      nextPage fillPageWith claim
-      val lastPage = nextPage submitPage ()
-      lastPage must beAnInstanceOf[GSelfEmploymentPage]
+      val nextPage = page submitPage()
+      nextPage must beAnInstanceOf[GSelfEmploymentPage]
     }
 
-    "navigate to next page when stopped caring selected" in new WithBrowser with PageObjects{
-      val page =  GReportChangesPage(context)
+    "navigate to next page when stopped caring selected" in new WithBrowser with PageObjects {
+      val page = GReportChangesPage(context)
       val claim = CircumstancesScenarioFactory.reportChangesStoppedCaring
       page goToThePage()
       page fillPageWith claim
 
-      val nextPage = page submitPage ()
-      nextPage must beAnInstanceOf[GCircsYourDetailsPage]
-      nextPage fillPageWith claim
-      val lastPage = nextPage submitPage ()
-      lastPage must beAnInstanceOf[GPermanentlyStoppedCaringPage]
+      val nextPage = page submitPage()
+      nextPage must beAnInstanceOf[GPermanentlyStoppedCaringPage]
     }
 
-    "navigate to next page when break from caring selected" in new WithBrowser with PageObjects{
-      val page =  GReportChangesPage(context)
+    "navigate to next page when break from caring selected" in new WithBrowser with PageObjects {
+      val page = GReportChangesPage(context)
       val claim = CircumstancesScenarioFactory.reportBreakFromCaring
       page goToThePage()
       page fillPageWith claim
 
-      val nextPage = page submitPage ()
-      nextPage must beAnInstanceOf[GCircsYourDetailsPage]
-      nextPage fillPageWith claim
-      val lastPage = nextPage submitPage ()
-      lastPage must beAnInstanceOf[GBreaksInCarePage]
+      val nextPage = page submitPage()
+      nextPage must beAnInstanceOf[GBreaksInCarePage]
     }
 
-    "valid submission if 'Contact number' not filled in" in new WithBrowser with PageObjects{
-      val page =  GCircsYourDetailsPage(context)
+    "valid submission if 'Contact number' not filled in" in new WithBrowser with PageObjects {
+      val page = GCircsYourDetailsPage(context)
       val claim = CircumstancesScenarioFactory.reportChangesOtherChangeInfo
       claim.FurtherInfoContact = ""
       page goToThePage()
       page fillPageWith claim
 
       val nextPage = page submitPage()
-      nextPage must beAnInstanceOf[GOtherChangeInfoPage]
+      nextPage must beAnInstanceOf[GCircsDeclarationPage]
     }
 
-    "valid submission if 'Contact number' is filled in with number" in new WithBrowser with PageObjects{
-      val page =  GCircsYourDetailsPage(context)
+    "valid submission if 'Contact number' is filled in with number" in new WithBrowser with PageObjects {
+      val page = GCircsYourDetailsPage(context)
       val claim = CircumstancesScenarioFactory.reportChangesOtherChangeInfo
       page goToThePage()
       page fillPageWith claim
 
       val nextPage = page submitPage()
-      nextPage must beAnInstanceOf[GOtherChangeInfoPage]
+      nextPage must beAnInstanceOf[GCircsDeclarationPage]
     }
 
-    "contain error if 'Contact number' is filled in with text" in new WithBrowser with PageObjects{
-      val page =  GCircsYourDetailsPage(context)
+    "contain error if 'Contact number' is filled in with text" in new WithBrowser with PageObjects {
+      val page = GCircsYourDetailsPage(context)
       val claim = CircumstancesScenarioFactory.reportBreakFromCaring
       claim.FurtherInfoContact = "hjhjsddh"
       page goToThePage()
@@ -253,8 +241,8 @@ class GReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
       errors(0) must contain("Contact number - Invalid value")
     }
 
-    "contain error if 'Contact number' is field length less than min length" in new WithBrowser with PageObjects{
-      val page =  GCircsYourDetailsPage(context)
+    "contain error if 'Contact number' is field length less than min length" in new WithBrowser with PageObjects {
+      val page = GCircsYourDetailsPage(context)
       val claim = CircumstancesScenarioFactory.reportBreakFromCaring
       claim.FurtherInfoContact = "012345"
       page goToThePage()
@@ -265,8 +253,8 @@ class GReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
       errors(0) must contain("Contact number - Invalid value")
     }
 
-    "contain error if 'Contact number' is field length greater than max length" in new WithBrowser with PageObjects{
-      val page =  GCircsYourDetailsPage(context)
+    "contain error if 'Contact number' is field length greater than max length" in new WithBrowser with PageObjects {
+      val page = GCircsYourDetailsPage(context)
       val claim = CircumstancesScenarioFactory.reportBreakFromCaring
       claim.FurtherInfoContact = "012345678901234567890"
       page goToThePage()
@@ -277,7 +265,7 @@ class GReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
       errors(0) must contain("Contact number - Invalid value")
     }
 
-    "feedback link should contain circs feedback" in new WithBrowser with PageObjects{
+    "feedback link should contain circs feedback" in new WithBrowser with PageObjects {
       val page = GCircsYourDetailsPage(context)
       page goToThePage()
 
