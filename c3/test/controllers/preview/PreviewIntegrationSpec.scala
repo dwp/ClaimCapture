@@ -41,6 +41,7 @@ class PreviewIntegrationSpec extends Specification {
       previewPage must beAnInstanceOf[PreviewPage]
       browser.findFirst(getLinkId("about_you_contact")).click()
       browser.findFirst("button[value='next']").getText mustEqual messagesApi("form.returnToSummary")
+      browser.findFirst("button[id='ReturnToCheckYourAnswers']").getText mustEqual messagesApi("form.returnToSummary")
     }
 
     "change dob to be older and bank details not visible" in new WithJsBrowser with PageObjects {
