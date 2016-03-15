@@ -125,6 +125,17 @@ class AssistedDecisionSpec extends Specification {
 
     "Create an assisted decision section if no EEA and in education" in new WithApplication {
       val moreAboutTheCare = MoreAboutTheCare("yes")
+      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = "no", field1=Some(YesNoWith1MandatoryFieldOnYes(answer="no")), field2=Some(YesNoWith1MandatoryFieldOnYes(answer="no"))))
+      val benefits = Benefits(benefitsAnswer = Benefits.caa)
+      val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = "yes")
+      val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(otherEEAStateOrSwitzerland).update(benefits).update(yourCourseDetails))
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "Reason").text must contain("Send DS790/790B COMB to customer.")
+      (xml \\ "RecommendedDecision").text must contain ("None")
+    }
+
+    "Create an assisted decision section if no EEA but yes to EEA guard question and in education" in new WithApplication {
+      val moreAboutTheCare = MoreAboutTheCare("yes")
       val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = "no", field1=Some(YesNoWith1MandatoryFieldOnYes(answer="yes")), field2=Some(YesNoWith1MandatoryFieldOnYes(answer="yes"))))
       val benefits = Benefits(benefitsAnswer = Benefits.caa)
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = "yes")
@@ -134,11 +145,11 @@ class AssistedDecisionSpec extends Specification {
       (xml \\ "RecommendedDecision").text must contain ("None")
     }
 
-    "Not create an assisted decision section if no EEA and in education but aa claim" in new WithApplication {
+    "Not create an assisted decision section if no EEA and not in education" in new WithApplication {
       val moreAboutTheCare = MoreAboutTheCare("yes")
-      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = "yes", field1=Some(YesNoWith1MandatoryFieldOnYes(answer="no")), field2=Some(YesNoWith1MandatoryFieldOnYes(answer="no"))))
+      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = "no", field1=Some(YesNoWith1MandatoryFieldOnYes(answer="no")), field2=Some(YesNoWith1MandatoryFieldOnYes(answer="no"))))
       val benefits = Benefits(benefitsAnswer = Benefits.aa)
-      val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = "yes")
+      val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = "no")
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(otherEEAStateOrSwitzerland).update(benefits).update(yourCourseDetails))
       val xml = AssistedDecision.xml(claim)
       (xml \\ "AssistedDecision")(0) mustEqual emptyAssistedDecisionNode
