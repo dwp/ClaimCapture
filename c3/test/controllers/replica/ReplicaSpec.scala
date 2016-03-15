@@ -56,7 +56,7 @@ class ReplicaSpec extends Specification {
     def replicaUrlsLessExclusions(pathList: Seq[String]): Seq[String] = {
       pathList
         .filterNot(value => value.equals("/"))
-//        .filterNot(value => value.contains("/circumstances"))
+        .filterNot(value => value.contains("/circumstances"))
         .filterNot(value => value.contains("/circs"))
         .filterNot(value => value.contains("/feedback"))
         .filterNot(value => value.contains("/disclaimer"))
