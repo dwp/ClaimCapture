@@ -217,9 +217,6 @@ GET         /circumstances/report-changes/gotofunction                  controll
 GET         /circumstances/identification/about-you                     controllers.circs.your_details.GYourDetails.present
 POST        /circumstances/identification/about-you                     controllers.circs.your_details.GYourDetails.submit
 
-GET         /circumstances/report-changes/self-employment               controllers.circs.report_changes.GSelfEmployment.present
-POST        /circumstances/report-changes/self-employment               controllers.circs.report_changes.GSelfEmployment.submit
-
 GET         /circumstances/report-changes/address-change                controllers.circs.report_changes.GAddressChange.present
 POST        /circumstances/report-changes/address-change                controllers.circs.report_changes.GAddressChange.submit
 
