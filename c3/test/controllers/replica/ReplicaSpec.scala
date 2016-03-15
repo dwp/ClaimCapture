@@ -1,16 +1,17 @@
 package controllers.replica
 
 import org.specs2.mutable.Specification
-import play.api.Play
 import play.api.Play._
 import play.api.routing.Router
 import utils.pageobjects.replica.ReplicaPage
-import utils.{WithApplication, WithJsBrowser}
+import utils.{WithJsBrowser}
 import utils.pageobjects.PageObjects
 
 import scala.collection.mutable.ListBuffer
 
 class ReplicaSpec extends Specification {
+  section("unit", "replica")
+
   "Replica page" should {
     "present a list of links with expected number of sections and links" in new WithJsBrowser with PageObjects {
       val page = ReplicaPage(context)
@@ -83,6 +84,6 @@ class ReplicaSpec extends Specification {
         .filterNot(value => value.contains("/employment/about-expenses"))
         .distinct
     }
-    section("unit")
+    section("unit", "replica")
   }
 }
