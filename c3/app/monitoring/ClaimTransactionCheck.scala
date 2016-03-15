@@ -1,13 +1,14 @@
 package monitoring
 
-import com.codahale.metrics.health.HealthCheck
-import com.codahale.metrics.health.HealthCheck.Result
+import gov.dwp.carers.CADSHealthCheck
+import gov.dwp.carers.CADSHealthCheck.Result
+import models.view.ClaimHandling
 import services.ClaimTransactionComponent
 
-class ClaimTransactionCheck extends HealthCheck with ClaimTransactionComponent {
+class ClaimTransactionCheck extends CADSHealthCheck(ClaimHandling.C3NAME, ClaimHandling.C3VERSION_VALUE) with ClaimTransactionComponent {
   val claimTransaction = new ClaimTransaction
 
-  override protected def check: HealthCheck.Result = {
+  override protected def check: CADSHealthCheck.Result = {
     try {
       claimTransaction.health()
       Result.healthy

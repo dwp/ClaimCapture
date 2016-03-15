@@ -2,7 +2,6 @@ package controllers.feedback
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import controllers.ClaimScenarioFactory
-import gov.dwp.carers.feedback.FeedbackCacheObject
 import models.view.cache.EncryptedCacheHandling
 import org.joda.time.DateTime
 import org.specs2.mutable._
@@ -13,7 +12,7 @@ import utils.pageobjects.feedback.GFeedbackPage
 class GFeedbackIntegrationSpec extends Specification {
   sequential
 
-  val SatisfiedVSScore = 5
+  val SatisfiedVSScore = "5"
 
   section("integration", models.domain.Feedback.id)
 
@@ -66,13 +65,14 @@ class GFeedbackIntegrationSpec extends Specification {
       page fillPageWith ClaimScenarioFactory.feedbackSatisfiedVS
       val nextPage = page submitPage()
 
-      val feedbackFromCache = getFeedbackFromCache
-      feedbackFromCache.getSatisfiedScore mustEqual (SatisfiedVSScore)
-      feedbackFromCache.getOrigin mustEqual ("GB")
+      val mapFromCache = getFeedbackFromCache
+      mapFromCache.get("satisfiedScore") mustEqual (SatisfiedVSScore)
+      mapFromCache.get("origin") mustEqual ("GB")
       val secsOneMinuteAgo = new DateTime().minusMinutes(1).getMillis / 1000
       val secsNow = new DateTime().getMillis / 1000
-      feedbackFromCache.getDatesecs must between(secsOneMinuteAgo, secsNow)
-      feedbackFromCache.getUseragent must contain("Mozilla")
+      val dateSecs=mapFromCache.get("datesecs")
+      dateSecs.toLong must between(secsOneMinuteAgo, secsNow)
+      mapFromCache.get("useragent").toString must contain("Mozilla")
     }
 
     "add feedback item to memcache claimOrCircs set correctly for Claim" in new WithJsBrowser with PageObjects {
@@ -83,8 +83,8 @@ class GFeedbackIntegrationSpec extends Specification {
       browser.pageSource() must contain("id=\"send\"")
       browser.click("#send")
 
-      val feedbackFromCache = getFeedbackFromCache
-      feedbackFromCache.getClaimOrCircs mustEqual ("Claim")
+      val mapFromCache = getFeedbackFromCache
+      mapFromCache.get("claimOrCircs") mustEqual ("Claim")
     }
 
     "add feedback item to memcache claimOrCircs set correctly for Circs" in new WithJsBrowser with PageObjects {
@@ -95,8 +95,8 @@ class GFeedbackIntegrationSpec extends Specification {
       browser.pageSource() must contain("id=\"send\"")
       browser.click("#send")
 
-      val feedbackFromCache = getFeedbackFromCache
-      feedbackFromCache.getClaimOrCircs mustEqual ("Circs")
+      val mapFromCache = getFeedbackFromCache
+      mapFromCache.get("claimOrCircs") mustEqual ("Circs")
     }
   }
   section("integration", models.domain.ThirdParty.id)
@@ -114,7 +114,7 @@ class GFeedbackIntegrationSpec extends Specification {
     val fbkeylist = encryptedCacheHandling.getFeedbackList()
     val jsonString = encryptedCacheHandling.getFeedbackFromCache(fbkeylist)
     val objectMapper: ObjectMapper = new ObjectMapper
-    val cacheObject = objectMapper.readValue(jsonString, classOf[FeedbackCacheObject])
+    val cacheObject = objectMapper.readValue(jsonString, classOf[java.util.HashMap[String,String]])
     cacheObject
   }
 }

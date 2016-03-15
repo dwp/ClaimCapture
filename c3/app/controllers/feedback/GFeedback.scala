@@ -2,7 +2,6 @@ package controllers.feedback
 
 import controllers.CarersForms._
 import controllers.mappings.Mappings._
-import gov.dwp.carers.feedback.FeedbackCacheObject
 import models.yesNo.{OptYesNoWith2Text}
 import play.api.i18n.{MMessages, MessagesApi, I18nSupport}
 import language.reflectiveCalls
@@ -18,6 +17,8 @@ import app.ConfigProperties._
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import play.api.mvc._
+
+import scala.collection.mutable
 
 object GFeedback extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
@@ -73,15 +74,21 @@ object GFeedback extends Controller with CachedClaim with Navigable with I18nSup
     }
   }
 
+  /* Note that changes to this object and thus the json string created may need to be reflected in the CarersUtils reporting suite
+     But since we are using a simple java hashmap, adding new fields will not break the CarersUtils.
+  * */
   def populateFeedbackCacheObject(form: Feedback, request: Request[AnyContent], claimOrCircs: String) = {
-    val feedbackCacheObject = new FeedbackCacheObject
-    feedbackCacheObject.setDatesecs(form.datetimesecs)
-    feedbackCacheObject.setOrigin(form.origin)
-    feedbackCacheObject.setClaimOrCircs(claimOrCircs)
-    feedbackCacheObject.setSatisfiedScore(form.satisfiedScore)
-    feedbackCacheObject.setDifficulty(form.difficultyAndText.answer.getOrElse(""))
-    feedbackCacheObject.setComment(form.difficultyAndText.text)
-    feedbackCacheObject.setUseragent(request.headers.get("User-Agent").getOrElse(""))
+    val feedbackVersion = "1.0"
+
+    val feedbackCacheObject = new java.util.HashMap[String, String]()
+    feedbackCacheObject.put("feedbackversion", feedbackVersion)
+    feedbackCacheObject.put("datesecs", form.datetimesecs.toString)
+    feedbackCacheObject.put("origin", form.origin)
+    feedbackCacheObject.put("claimOrCircs", claimOrCircs)
+    feedbackCacheObject.put("satisfiedScore", form.satisfiedScore.toString)
+    feedbackCacheObject.put("difficulty", form.difficultyAndText.answer.getOrElse(""))
+    feedbackCacheObject.put("comment", form.difficultyAndText.text)
+    feedbackCacheObject.put("useragent", request.headers.get("User-Agent").getOrElse(""))
     feedbackCacheObject
   }
 

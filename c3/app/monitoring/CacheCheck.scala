@@ -1,14 +1,15 @@
 package monitoring
 
-import com.codahale.metrics.health.HealthCheck
-import com.codahale.metrics.health.HealthCheck.Result
-import play.api.cache.{CacheApi, Cache}
+import gov.dwp.carers.CADSHealthCheck
+import gov.dwp.carers.CADSHealthCheck.Result
+import models.view.ClaimHandling
+import play.api.cache.CacheApi
 import play.api.Play.current
 import scala.concurrent.duration._
 
-class CacheCheck extends HealthCheck {
+class CacheCheck extends CADSHealthCheck(ClaimHandling.C3NAME, ClaimHandling.C3VERSION_VALUE) {
 
-  override protected def check: HealthCheck.Result = {
+  override protected def check: CADSHealthCheck.Result = {
     val cache = current.injector.instanceOf[CacheApi]
     cache.set("cache-test", "testing", Duration(500, MILLISECONDS) )
     cache.get("cache-test") match {

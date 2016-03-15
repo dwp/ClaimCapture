@@ -1,7 +1,6 @@
 package models.view
 
 import java.util.UUID._
-
 import app.ConfigProperties._
 import gov.dwp.exceptions.DwpRuntimeException
 import models.domain.{Claim, QuestionGroup}
@@ -9,7 +8,6 @@ import models.view.ClaimHandling.ClaimResult
 import models.view.cache.EncryptedCacheHandling
 import play.api.cache.Cache
 import play.api.data.Form
-import play.api.http.HeaderNames._
 import play.api.http.HttpVerbs
 import play.api.i18n.Lang
 import play.api.http.HeaderNames._
@@ -25,9 +23,10 @@ import scala.reflect.ClassTag
 object ClaimHandling {
   type ClaimResult = (Claim, Result)
   // Versioning
-  val C3VERSION = "C3Version"
-  val C3VERSION_VALUE = "3.4"
-  val C3VERSION_SECSTOLIVE = 10*60*60
+  val C3NAME = s"${getProperty("application.name", default="c3")}"
+  val C3VERSION = s"${C3NAME.toUpperCase}Version"
+  val C3VERSION_VALUE = getProperty("application.version", default="x1").takeWhile(_ != '-')
+  val C3VERSION_SECSTOLIVE = getProperty("application.seconds.to.live", default=36000)
   val applicationFinished = "application-finished"
 
 }

@@ -5,7 +5,7 @@ import models.domain.{Claim, Claiming}
 import models.view.cache.EncryptedCacheHandling
 import org.specs2.mutable._
 import play.api.test.FakeRequest
-import utils.WithMemcacheApplication
+import utils.{WithMemcacheApplication}
 
 class CacheHandlingMemcacheSpec extends Specification {
   section("unit")

@@ -131,6 +131,27 @@ class GEmploymentAdditionalInfoIntegrationSpec extends Specification {
 
       otherMoneyPage must beAnInstanceOf[GAboutOtherMoneyPage]
     }
+
+    "should be presented when self employment is answered yes and no employment and help text must be visible" in new WithBrowser with PageObjects {
+      val claim = ClaimScenarioFactory.s7SelfEmployedNotEmployed()
+
+      val claimDatePage = GClaimDatePage(context) goToThePage()
+      claimDatePage fillPageWith claim
+      claimDatePage submitPage()
+
+      val empPage = GEmploymentPage(context) goToThePage ()
+      empPage fillPageWith claim
+      empPage submitPage()
+
+      val page =  GSelfEmploymentPensionsAndExpensesPage(context)
+      page goToThePage()
+      page fillPageWith ClaimScenarioFactory.s9SelfEmployment
+
+      val nextPage = page submitPage()
+
+      nextPage must beAnInstanceOf[GEmploymentAdditionalInfoPage]
+      nextPage.source must contain("Don't include any information about your pension, if you get one.")
+    }
   }
   section("integration", models.domain.EmploymentAdditionalInfo.id)
 

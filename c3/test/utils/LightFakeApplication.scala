@@ -45,38 +45,22 @@ object LightFakeApplication {
     "memcached.2.host" -> memcachedHost2
   )
 
-  val memcacheConfigurationMap: Map[String, Object] = Map(
-    "play.modules.enabled" -> List(
-      "gov.dwp.carers.play2.resilientmemcached.MemcachedModule",
-      "play.api.i18n.I18nModule",
-      "play.api.db.HikariCPModule",
-      "play.api.db.DBModule",
-      "play.api.inject.BuiltinModule",
-      "com.kenshoo.play.metrics.PlayModule",
-      "utils.TestSubmissionModule",
-      "play.api.i18n.MultiMessageModule",
-      "play.api.libs.ws.ning.NingWSModule"
-    ),
-
-    "play.modules.disabled" -> List("play.api.cache.EhCacheModule", "utils.TestEhCacheModule"),
-    "play.modules.cache.defaultCache" -> "",
-    "play.modules.cache.bindCaches" -> List("play"),
-    "memcached.1.host" -> memcachedHost1,
-    "memcached.2.host" -> memcachedHost2
-  )
-
   def apply(withGlobal: Some[GlobalSettings], additionalConfiguration: Map[String, _ <: Any] = configurationMap) = FakeApplication(
     withGlobal = withGlobal,
     additionalConfiguration = additionalConfiguration
   )
 
   // Default switch positions ... so we dont need to set config for every switch position during tests, add default them here and override if required.
-  lazy val defaultSwitchPositions=Map(
-    "origin.tag" -> "GB",
-    "i18n.messagelisting" -> "messagelisting.properties",
-    "saveForLaterSaveEnabled" -> "true",
-    "feedback.cads.enabled" -> "true"
-  )
+  lazy val defaultSwitchPositions={
+    println("COLING setting switch poisitions including xml.schema.version")
+    Map(
+      "origin.tag" -> "GB",
+      "i18n.messagelisting" -> "messagelisting.properties",
+      "saveForLaterSaveEnabled" -> "true",
+      "feedback.cads.enabled" -> "true",
+      "xml.schema.version" -> "0.20"
+    )
+  }
 
 
   lazy val faCEAFalse = FakeApplication(
@@ -103,16 +87,13 @@ object LightFakeApplication {
   }
 
   def fa = {
+    println("fa adding defaultSwitchPositions")
     val app = FakeApplication(additionalConfiguration = configurationMap ++ defaultSwitchPositions)
     app
   }
 
-  def memcachefa = {
-    val app = FakeApplication(additionalConfiguration = memcacheConfigurationMap ++ defaultSwitchPositions)
-    app
-  }
-
   def apply() = {
+    println("COLING apply calling fa")
     fa
   }
 }
@@ -129,8 +110,8 @@ class TestEhCacheModule extends Module {
 @Singleton
 class TestSubmissionModule extends Module {
   override def bindings(environment: Environment, configuration: Configuration): Seq[Binding[_]] = {
-      (
-        configuration.getBoolean("submit.prints.xml") match {
+    (
+      configuration.getBoolean("submit.prints.xml") match {
         case Some(true) => {
           Seq(
             bind(classOf[AsyncClaimSubmissionComponent]).to(classOf[AsyncClaimSubmissionComponentXML]),
@@ -146,10 +127,10 @@ class TestSubmissionModule extends Module {
           )
         }
       }
-        ) ++ Seq(
-          bind(classOf[ClaimTransactionCheck]).to(classOf[ClaimTransactionCheckStub]),
-          bind(classOf[HealthMonitor]).to(classOf[ProdHealthMonitor])
-        )
+      ) ++ Seq(
+      bind(classOf[ClaimTransactionCheck]).to(classOf[ClaimTransactionCheckStub]),
+      bind(classOf[HealthMonitor]).to(classOf[ProdHealthMonitor])
+    )
   }
 }
 

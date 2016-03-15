@@ -1,9 +1,7 @@
 package controllers.circs.consent_and_declaration
 
 import controllers.mappings.Mappings._
-import models.domain.EMail._
 import play.api.Play._
-import play.api.data.validation.Constraints
 import play.api.mvc._
 import models.view.{Navigable, CachedChangeOfCircs}
 import play.api.data.Form
@@ -39,7 +37,7 @@ class GCircsDeclaration extends Controller with CachedChangeOfCircs with Navigab
 
   )
 
-  def present = claiming { implicit circs => implicit request => implicit request2lang =>
+  def present = claimingWithCheck { implicit circs => implicit request => implicit request2lang =>
       track(CircumstancesDeclaration) {
         implicit circs => Ok(views.html.circs.consent_and_declaration.declaration(form.fill(CircumstancesDeclaration)))
       }

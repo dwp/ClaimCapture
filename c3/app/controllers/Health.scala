@@ -1,20 +1,22 @@
 package controllers
 
+import gov.dwp.carers.CADSHealthCheck
 import play.api.Play._
 import play.api.mvc.{Controller, Action}
 import play.api.libs.json._
-import com.codahale.metrics.health.HealthCheck
 import monitor.HealthMonitor
 import utils.helpers.CarersLanguageHelper
 
 
-trait HealthController extends CarersLanguageHelper{
+trait HealthController extends CarersLanguageHelper {
   this: Controller =>
 
   private val healthMonitor = current.injector.instanceOf[HealthMonitor]
 
-  implicit val healthWrites = new Writes[(String,HealthCheck.Result)] {
-    def writes(healthCheck:(String,HealthCheck.Result)) = Json.obj(
+  implicit val healthWrites = new Writes[(String, CADSHealthCheck.Result)] {
+    def writes(healthCheck:(String, CADSHealthCheck.Result)) = Json.obj(
+      "application name" -> healthCheck._2.getApplication,
+      "version" -> healthCheck._2.getVersion,
       "name" -> healthCheck._1,
       "isHealthy" -> healthCheck._2.isHealthy
     )
