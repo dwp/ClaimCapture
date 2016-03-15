@@ -21,7 +21,7 @@ object GAdditionalInfo extends Controller with CachedClaim with Navigable with I
   val anythingElseMapping =
     "anythingElse" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
-      "text" -> optional(carersText(maxLength = AdditionalInfo.textMaxLength))
+      "text" -> optional(carersNonEmptyText(maxLength = AdditionalInfo.textMaxLength))
     )(YesNoWithText.apply)(YesNoWithText.unapply)
       .verifying("text.required", YesNoWithText.validateOnYes _)
 
