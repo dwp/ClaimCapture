@@ -62,7 +62,6 @@ class ReplicaSpec extends Specification {
         .filterNot(value => value.contains("/disclaimer"))
         .filterNot(value => value.contains("$id"))
         .filterNot(value => value.contains("$file"))
-        .filterNot(value => value.matches("<.*>"))
         .filterNot(value => value.contains("/save"))
         .filterNot(value => value.contains("/resume"))
         .filterNot(value => value.contains("error"))
