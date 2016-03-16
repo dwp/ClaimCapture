@@ -7,7 +7,7 @@ import models.DayMonthYear
 import org.joda.time.DateTime
 import models.PaymentFrequency
 import utils.WithApplication
-import models.yesNo.{YesNoWith1MandatoryFieldOnYes, YesNoWith2MandatoryFieldsOnYes, YesNoWithText}
+import models.yesNo._
 import xml.claim.AssistedDecision
 
 class AssistedDecisionSpec extends Specification {
@@ -153,6 +153,27 @@ class AssistedDecisionSpec extends Specification {
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(otherEEAStateOrSwitzerland).update(benefits).update(yourCourseDetails))
       val xml = AssistedDecision.xml(claim)
       (xml \\ "AssistedDecision")(0) mustEqual emptyAssistedDecisionNode
+    }
+
+    "Happy path" in new WithApplication {
+      val moreAboutTheCare = MoreAboutTheCare("yes")
+      val nationality = NationalityAndResidency(nationality = "British", resideInUK = YesNoWithText("yes", None))
+      val abroadForMoreThan52Weeks = AbroadForMoreThan52Weeks(anyTrips = "no")
+      val breaksInCare = BreaksInCare()
+      val employment = Employment(beenSelfEmployedSince1WeekBeforeClaim = "no", beenEmployedSince6MonthsBeforeClaim = "no")
+      val aboutOtherMoney = AboutOtherMoney(anyPaymentsSinceClaimDate = YesNo("no"), statutorySickPay = YesNoWithEmployerAndMoney(answer = "no"), otherStatutoryPay = YesNoWithEmployerAndMoney(answer = "no"))
+      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = "no", field1=Some(YesNoWith1MandatoryFieldOnYes(answer="no")), field2=Some(YesNoWith1MandatoryFieldOnYes(answer="no"))))
+      val howWePayYou = HowWePayYou(likeToBePaid = "yes")
+      val benefits = Benefits(benefitsAnswer = Benefits.aa)
+      val additionalInfo = AdditionalInfo(anythingElse = YesNoWithText("no"))
+      val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = "no")
+      val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare)
+        .update(otherEEAStateOrSwitzerland).update(benefits).update(yourCourseDetails).update(nationality)
+        .update(abroadForMoreThan52Weeks).update(breaksInCare).update(employment).update(aboutOtherMoney).update(howWePayYou)
+        .update(additionalInfo))
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "Reason").text must contain("Check CIS for benefits")
+      (xml \\ "RecommendedDecision").text must contain ("Potential award,show table")
     }
   }
   section("unit")
