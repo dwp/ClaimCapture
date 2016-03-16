@@ -37,7 +37,8 @@ class GEmploymentChangeSpec extends Specification {
     "hasWorkStartedYet.dateWhenWillItStart.year" -> startDateYear.toString,
     "typeOfWork.answer" -> selfEmployed,
     "typeOfWork.selfEmployedTypeOfWork" -> selfEmployedTypeOfWork,
-    "typeOfWork.selfEmployedTotalIncome" -> no
+    "typeOfWork.selfEmployedTotalIncome" -> no,
+    "paidMoneyYet.answer" -> no
   )
 
   val validCaringSelfEmploymentNotYetStartedFormInput = Seq(
@@ -48,7 +49,8 @@ class GEmploymentChangeSpec extends Specification {
     "hasWorkStartedYet.dateWhenWillItStart.year" -> startDateYear.toString,
     "typeOfWork.answer" -> selfEmployed,
     "typeOfWork.selfEmployedTypeOfWork" -> selfEmployedTypeOfWork,
-    "typeOfWork.selfEmployedTotalIncome" -> yes
+    "typeOfWork.selfEmployedTotalIncome" -> yes,
+    "paidMoneyYet.answer" -> no
   )
 
   val validCaringAndOngoingSelfEmploymentStartedFormInput = Seq(
@@ -60,7 +62,8 @@ class GEmploymentChangeSpec extends Specification {
     "hasWorkFinishedYet.answer" -> no,
     "typeOfWork.answer" -> selfEmployed,
     "typeOfWork.selfEmployedTypeOfWork" -> selfEmployedTypeOfWork,
-    "typeOfWork.selfEmployedTotalIncome" -> dontknow
+    "typeOfWork.selfEmployedTotalIncome" -> dontknow,
+    "paidMoneyYet.answer" -> no
   )
 
   section("unit", models.domain.CircumstancesReportChanges.id)
@@ -77,6 +80,8 @@ class GEmploymentChangeSpec extends Specification {
        .withFormUrlEncodedBody(validNotCaringSelfEmploymentNotYetStartedFormInput: _*)
 
      val result = GEmploymentChange.submit(request)
+     val bodyText: String = contentAsString(result)
+     println(bodyText)
      redirectLocation(result) must beSome(nextPageUrl)
    }
 

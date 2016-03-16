@@ -33,6 +33,7 @@ class GEmploymentChangeFormSpec extends Specification {
           "hasWorkStartedYet.dateWhenWillItStart.year" -> startDateYear.toString,
           "typeOfWork.answer" -> selfEmployed,
           "typeOfWork.selfEmployedTypeOfWork" -> selfEmployedTypeOfWork,
+          "paidMoneyYet.answer" -> no,
           "typeOfWork.selfEmployedTotalIncome" -> no
         )
       ).fold(
@@ -59,6 +60,7 @@ class GEmploymentChangeFormSpec extends Specification {
           "hasWorkStartedYet.dateWhenWillItStart.year" -> startDateYear.toString,
           "typeOfWork.answer" -> selfEmployed,
           "typeOfWork.selfEmployedTypeOfWork" -> selfEmployedTypeOfWork,
+          "paidMoneyYet.answer" -> no,
           "typeOfWork.selfEmployedTotalIncome" -> yes
         )
       ).fold(
@@ -85,6 +87,7 @@ class GEmploymentChangeFormSpec extends Specification {
           "hasWorkFinishedYet.answer" -> no,
           "typeOfWork.answer" -> selfEmployed,
           "typeOfWork.selfEmployedTypeOfWork" -> selfEmployedTypeOfWork,
+          "paidMoneyYet.answer" -> no,
           "typeOfWork.selfEmployedTotalIncome" -> dontknow
         )
       ).fold(

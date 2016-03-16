@@ -13,6 +13,8 @@ final class GEmploymentChangePage(ctx:PageObjectsContext) extends CircumstancesP
   declareDate("#hasWorkFinishedYet_dateWhenFinished", "CircumstancesEmploymentChangeDateWhenFinished")
   declareRadioList("#typeOfWork_answer", "CircumstancesEmploymentChangeTypeOfWork")
   declareInput("#typeOfWork_selfEmployedTypeOfWork", "CircumstancesEmploymentChangeSelfEmployedTypeOfWork")
+  declareYesNo("#paidMoneyYet_answer", "CircumstancesEmploymentChangeSelfEmployedPaidMoneyYet")
+  declareDate("#paidMoneyYet_date", "CircumstancesEmploymentChangeSelfEmployedPaidMoneyDate")
   declareYesNoDontKnow("#typeOfWork_selfEmployedTotalIncome", "CircumstancesEmploymentChangeSelfEmployedTotalIncome")
   declareInput("#typeOfWork_selfEmployedMoreAboutChanges", "CircumstancesEmploymentChangeSelfEmployedMoreAboutChanges")
   declareInput("#typeOfWork_employerName", "CircumstancesEmploymentChangeEmployerName")

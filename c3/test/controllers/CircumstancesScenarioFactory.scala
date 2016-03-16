@@ -39,6 +39,7 @@ object CircumstancesScenarioFactory {
     claim.CircumstancesEmploymentChangeTypeOfWork = "self-employed"
     claim.CircumstancesEmploymentChangeSelfEmployedTypeOfWork = "IT Consultant"
     claim.CircumstancesEmploymentChangeSelfEmployedTotalIncome = "no"
+    claim.CircumstancesEmploymentChangeSelfEmployedPaidMoneyYetx = "no"
 
     claim.FurtherInfoContact = "0171123455"
     claim.CircumstancesDeclarationWantsEmailContact = "no"
