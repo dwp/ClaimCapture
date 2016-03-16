@@ -1,23 +1,19 @@
 @(employmentChange: Form[models.domain.CircumstancesEmploymentChange])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
-@import helper._
 @import utils.helpers.CarersTemplate._
 @import utils.csrf.DwpCSRFFormHelper
-@import views.html.common._
 @import views.html.helper._
-@import views.html.helper.dropdowns._
 @import views.html.helper.base._
 @import views.html.helper.dates._
-@import controllers.mappings.Mappings._
 @import utils.helpers.CarersCrypto
 @import models.domain.CircumstancesSelfEmployment
-
+@import views.html.circs.report_changes.main
 
 @stillCaring = @{employmentChange("stillCaring")}
 @hasWorkStartedYet = @{employmentChange("hasWorkStartedYet")}
 @hasWorkFinishedYet = @{employmentChange("hasWorkFinishedYet")}
 @typeOfWork = @{employmentChange("typeOfWork")}
-
+@paidMoneyYet = @{employmentChange("paidMoneyYet")}
     
 
     @main(messages("c2.g9") + " - " + messages("c2.name")) {
@@ -91,6 +87,8 @@
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             carersInputText(typeOfWork("selfEmployedTypeOfWork"), 'maxLength -> 35, 'ignoreOptional -> true),
+                            yesNoRadioGroup(paidMoneyYet("answer"), 'helperAbove -> messages("paidMoneyYet.helper")),
+                            otherDetailPlaceHolder(inputDef = Seq(inputDayMonthYear(paidMoneyYet("date"))), 'id -> "paidMoneyYetWrap"),
                             yesNoRadioGroup(typeOfWork("selfEmployedTotalIncome"), 'ignoreOptional -> true, 'values -> Seq("yes" -> messages("label.yes7"), "no" -> messages("label.no"), "dontknow" -> messages("label.dontknow"))),
                             carersInputTextArea(typeOfWork("selfEmployedMoreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), '_label -> "moreAboutChanges", 'textAreaHelper -> Html(messages(s"${CircumstancesSelfEmployment.textMaxLength}charsLeft")), 'maxLength -> CircumstancesSelfEmployment.textMaxLength)
                         ),
@@ -152,6 +150,7 @@
         $(function(){
             window.typeOfWork("@CarersCrypto.encryptAES(typeOfWork("answer")("employed").id)",
             "@CarersCrypto.encryptAES(typeOfWork("answer")("self-employed").id)",
+            "@CarersCrypto.encryptAES(typeOfWork("employerName").id)",
             "@CarersCrypto.encryptAES(typeOfWork("employerNameAndAddress")("lineOne").id)",
             "@CarersCrypto.encryptAES(typeOfWork("employerNameAndAddress")("lineTwo").id)",
             "@CarersCrypto.encryptAES(typeOfWork("employerNameAndAddress")("lineThree").id)",
@@ -165,6 +164,15 @@
             "@CarersCrypto.encryptAES(typeOfWork("selfEmployedMoreAboutChanges").id)");
         });
 
+        $(function(){
+            window.paidMoneyYet(
+            "@CarersCrypto.encryptAES(employmentChange("paidMoneyYet")("answer")("yes").id)",
+            "@CarersCrypto.encryptAES(employmentChange("paidMoneyYet")("answer")("no").id)",
+            "@CarersCrypto.encryptAES(employmentChange("paidMoneyYet")("date")("day").id)",
+            "@CarersCrypto.encryptAES(employmentChange("paidMoneyYet")("date")("month").id)",
+            "@CarersCrypto.encryptAES(employmentChange("paidMoneyYet")("date")("year").id)",
+            "@CarersCrypto.encryptAES("paidMoneyYetWrap")");
+        });
     </script>
 
 }

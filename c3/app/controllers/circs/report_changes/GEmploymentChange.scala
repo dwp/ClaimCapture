@@ -33,7 +33,7 @@ object GEmploymentChange extends Controller with CachedChangeOfCircs with Naviga
     )(YesNoWithDate.apply)(YesNoWithDate.unapply)
       .verifying("dateRequired", YesNoWithDate.validateNo _)
 
-  val hasWorkFinishedYet  =
+  val hasWorkFinishedYet =
     "hasWorkFinishedYet" -> mapping(
       "answer" -> optional(nonEmptyText.verifying(validYesNo)),
       "dateWhenFinished" -> optional(dayMonthYear.verifying(validDate))
@@ -47,7 +47,6 @@ object GEmploymentChange extends Controller with CachedChangeOfCircs with Naviga
       "dateWhenWillItStart" -> optional(dayMonthYear.verifying(validDate))
     )(YesNoWithMutuallyExclusiveDates.apply)(YesNoWithMutuallyExclusiveDates.unapply)
       .verifying("expected.yesDateValue", YesNoWithMutuallyExclusiveDates.validateDateOnYes _)
-//      .verifying("expected.yesYesNoValue", YesNoWithMutuallyExclusiveDates.validateYesNoOnYes _)
       .verifying("expected.noDateValue", YesNoWithMutuallyExclusiveDates.validateDateOnNo _)
 
   val typeOfWork =
@@ -67,23 +66,32 @@ object GEmploymentChange extends Controller with CachedChangeOfCircs with Naviga
       .verifying("expected.selfEmploymentTypeOfWork", YesNoWithAddressAnd2TextOrTextWithYesNoAndText.validateText2OnSpecifiedAnswer(_, "self-employed"))
       .verifying("expected.selfEmploymentTotalIncome", YesNoWithAddressAnd2TextOrTextWithYesNoAndText.validateAnswer2OnSpecifiedAnswer(_, "self-employed"))
 
+  val paidMoneyYetMapping =
+    "paidMoneyYet" -> mapping(
+      "answer" -> optional(nonEmptyText.verifying(validYesNo)),
+      "date" -> optional(dayMonthYear.verifying(validDate))
+    )(OptYesNoWithDate.apply)(OptYesNoWithDate.unapply)
+      .verifying("dateRequired", OptYesNoWithDate.validateOnYes _)
+
   val form = Form(mapping(
     stillCaringMapping,
     hasWorkStartedYet,
     hasWorkFinishedYet,
-    typeOfWork
+    typeOfWork,
+    paidMoneyYetMapping
   )(CircumstancesEmploymentChange.apply)(CircumstancesEmploymentChange.unapply)
+    .verifying("expected.paidMoney", validPaidMoneyYet _)
     .verifying("expected.hasWorkFinished", validHasWorkFinished _)
   )
 
-  def present = claiming {implicit circs => implicit request => implicit request2lang =>
+  def present = claiming { implicit circs => implicit request => implicit request2lang =>
     track(CircumstancesEmploymentChange) {
       implicit circs => Ok(views.html.circs.report_changes.employmentChange(form.fill(CircumstancesEmploymentChange)))
     }
   }
 
-  def submit = claiming {implicit circs => implicit request => implicit request2lang =>
-    def next(employmentChange: CircumstancesEmploymentChange):(QuestionGroup.Identifier,Call) = employmentChange.typeOfWork.answer match {
+  def submit = claiming { implicit circs => implicit request => implicit request2lang =>
+    def next(employmentChange: CircumstancesEmploymentChange): (QuestionGroup.Identifier, Call) = employmentChange.typeOfWork.answer match {
       case `employed` => {
         employmentChange.hasWorkStartedYet.answer match {
           case `yes` => {
@@ -97,25 +105,27 @@ object GEmploymentChange extends Controller with CachedChangeOfCircs with Naviga
     }
 
     @tailrec
-    def popDeleteQG(circs:Claim,optSections:Stack[QuestionGroup.Identifier]):Claim = {
+    def popDeleteQG(circs: Claim, optSections: Stack[QuestionGroup.Identifier]): Claim = {
       if (optSections.isEmpty) circs
-      else popDeleteQG(circs delete(optSections top),optSections pop)
+      else popDeleteQG(circs delete (optSections top), optSections pop)
     }
 
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors
-          .replaceError("stillCaring","dateRequired", FormError("stillCaring.date", errorRequired))
-          .replaceError("hasWorkStartedYet","expected.yesDateValue", FormError("hasWorkStartedYet.dateWhenStarted", errorRequired))
-          .replaceError("hasWorkStartedYet","expected.yesYesNoValue", FormError("hasWorkFinishedYet.answer", errorRequired))
-          .replaceError("hasWorkFinishedYet","expected.yesValue", FormError("hasWorkFinishedYet.dateWhenFinished", errorRequired))
-          .replaceError("hasWorkStartedYet","expected.noDateValue", FormError("hasWorkStartedYet.dateWhenWillItStart", errorRequired))
-          .replaceError("typeOfWork","expected.employerName", FormError("typeOfWork.employerName", errorRequired))
-          .replaceError("typeOfWork","expected.employerNameAndAddress1", FormError("typeOfWork.employerNameAndAddress", errorRequired))
-          .replaceError("typeOfWork","expected.employerNameAndAddress2", FormError("typeOfWork.employerNameAndAddress", "nameAndAddress.required"))
-          .replaceError("typeOfWork","expected.employerPostCode", FormError("typeOfWork.employerPostcode", errorRequired))
-          .replaceError("typeOfWork","expected.selfEmploymentTypeOfWork", FormError("typeOfWork.selfEmployedTypeOfWork", errorRequired))
-          .replaceError("typeOfWork","expected.selfEmploymentTotalIncome", FormError("typeOfWork.selfEmployedTotalIncome", errorRequired))
+          .replaceError("stillCaring", "dateRequired", FormError("stillCaring.date", errorRequired))
+          .replaceError("hasWorkStartedYet", "expected.yesDateValue", FormError("hasWorkStartedYet.dateWhenStarted", errorRequired))
+          .replaceError("hasWorkStartedYet", "expected.yesYesNoValue", FormError("hasWorkFinishedYet.answer", errorRequired))
+          .replaceError("hasWorkFinishedYet", "expected.yesValue", FormError("hasWorkFinishedYet.dateWhenFinished", errorRequired))
+          .replaceError("hasWorkStartedYet", "expected.noDateValue", FormError("hasWorkStartedYet.dateWhenWillItStart", errorRequired))
+          .replaceError("typeOfWork", "expected.employerName", FormError("typeOfWork.employerName", errorRequired))
+          .replaceError("typeOfWork", "expected.employerNameAndAddress1", FormError("typeOfWork.employerNameAndAddress", errorRequired))
+          .replaceError("typeOfWork", "expected.employerNameAndAddress2", FormError("typeOfWork.employerNameAndAddress", "nameAndAddress.required"))
+          .replaceError("typeOfWork", "expected.employerPostCode", FormError("typeOfWork.employerPostcode", errorRequired))
+          .replaceError("typeOfWork", "expected.selfEmploymentTypeOfWork", FormError("typeOfWork.selfEmployedTypeOfWork", errorRequired))
+          .replaceError("typeOfWork", "expected.selfEmploymentTotalIncome", FormError("typeOfWork.selfEmployedTotalIncome", errorRequired))
+          .replaceError("paidMoneyYet", "dateRequired", FormError("paidMoneyYet.date", errorRequired))
+          .replaceError("", "expected.paidMoney", FormError("paidMoneyYet.answer", errorRequired))
           .replaceError("", "expected.hasWorkFinished", FormError("hasWorkFinishedYet.answer", errorRequired))
         BadRequest(views.html.circs.report_changes.employmentChange(updatedFormWithErrors))
       },
@@ -148,7 +158,13 @@ object GEmploymentChange extends Controller with CachedChangeOfCircs with Naviga
   }
 
   def validHasWorkFinished(input: CircumstancesEmploymentChange): Boolean = {
+    println("COLING validating workFinished")
     if ((input.hasWorkStartedYet.answer == "yes") && (input.hasWorkFinishedYet.answer == None)) false
+    else true
+  }
+
+  def validPaidMoneyYet(input: CircumstancesEmploymentChange): Boolean = {
+    if ((input.typeOfWork.answer == "self-employed") && (input.paidMoneyYet.answer == None)) false
     else true
   }
 }
