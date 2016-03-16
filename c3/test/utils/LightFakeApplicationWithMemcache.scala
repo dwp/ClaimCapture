@@ -43,10 +43,6 @@ object LightFakeApplicationWithMemcache {
     "feedback.cads.enabled" -> "true"
   )
 
-
-  lazy val faCEAFalse = FakeApplication(
-    additionalConfiguration = configurationMap ++ Map("circs.employment.active" -> "false")
-  )
   lazy val faCEATrue = FakeApplication(
     additionalConfiguration = configurationMap ++ Map("circs.employment.active" -> "true")
   )
@@ -60,8 +56,7 @@ object LightFakeApplicationWithMemcache {
   )
 
   def apply(additionalConfiguration: Map[String, _ <: Any]) = (additionalConfiguration.get("circs.employment.active"): @unchecked ) match {
-    case Some("true") => faCEATrue
-    case Some("false") => faCEAFalse
+    case Some(_) => faCEATrue
     case None => FakeApplication(
       additionalConfiguration = configurationMap ++ additionalConfiguration
     )
