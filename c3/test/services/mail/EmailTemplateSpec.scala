@@ -34,6 +34,7 @@ class EmailTemplateSpec extends Specification {
 
       renderedEmail must contain(xmlSchemaVersionNumber)
       renderedEmail must contain(transactionId)
+      renderedEmail must contain(s"$xmlSchemaVersionNumber $transactionId")
     }
 
     "Display claim email" in new WithApplication {
