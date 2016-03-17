@@ -6,7 +6,6 @@ import play.sbt.PlayImport._
 import de.johoop.jacoco4sbt.JacocoPlugin._
 import utils.ConfigurationChangeHelper._
 
-
 object ApplicationBuild extends Build {
   val appName = "c3"
   val appVersion = "3.6-SNAPSHOT"
@@ -81,7 +80,11 @@ object ApplicationBuild extends Build {
 
   var keyStoreOptions: Seq[Def.Setting[_]] = Seq(javaOptions in Test += ("-Dcarers.keystore=" + keyStore))
 
-  var vS: Seq[Def.Setting[_]] = Seq(version := appVersion, libraryDependencies ++= appDependencies)
+  var vS: Seq[Def.Setting[_]] = Seq(libraryDependencies ++= appDependencies)
+
+  var sAppN: Seq[Def.Setting[_]] = Seq(name := appName)
+  var sAppV: Seq[Def.Setting[_]] = Seq(version := appVersion)
+  var sOrg: Seq[Def.Setting[_]] = Seq(organization := "gov.dwp.carers")
 
   val isSnapshotBuild = appVersion.endsWith("-SNAPSHOT")
   var publ: Seq[Def.Setting[_]] = Seq(
@@ -94,10 +97,7 @@ object ApplicationBuild extends Build {
           Some("releases" at "http://build.3cbeta.co.uk:8080/artifactory/libs-release-local")
     })
 
-  var appSettings: Seq[Def.Setting[_]] = sV ++ sO ++ sR ++ gS ++ sTest ++ jO ++ f ++ jcoco ++ keyStoreOptions ++ jacoco.settings ++ vS ++ net.virtualvoid.sbt.graph.Plugin.graphSettings ++ sAppN ++ sOrg ++ publ
+  var appSettings: Seq[Def.Setting[_]] = sV ++ sO ++ sR ++ gS ++ sTest ++ jO ++ f ++ jcoco ++ keyStoreOptions ++ jacoco.settings ++ sAppN ++ sAppV ++ sOrg ++ vS ++ publ ++ net.virtualvoid.sbt.graph.Plugin.graphSettings
 
-  val main = Project(appName, file(".")).enablePlugins(play.sbt.PlayScala, SbtWeb).settings(appSettings: _*).settings(
-    unmanagedResourceDirectories in Test <+= baseDirectory( _ / "target/web/public/test" )
-
-  )
+  val main = Project(appName, file(".")).enablePlugins(play.sbt.PlayScala, SbtWeb).settings(appSettings: _*).settings(unmanagedResourceDirectories in Test <+= baseDirectory( _ / "target/web/public/test" ))
 }
