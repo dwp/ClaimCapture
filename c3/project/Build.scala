@@ -83,13 +83,16 @@ object ApplicationBuild extends Build {
 
   var vS: Seq[Def.Setting[_]] = Seq(version := appVersion, libraryDependencies ++= appDependencies)
 
+  val isSnapshotBuild = appVersion.endsWith("-SNAPSHOT")
   var publ: Seq[Def.Setting[_]] = Seq(
     publishTo := Some("Artifactory Realm" at "http://build.3cbeta.co.uk:8080/artifactory/repo/"),
     publishTo <<= version {
       (v: String) =>
-        Some("releases" at "http://build.3cbeta.co.uk:8080/artifactory/libs-snapshot-local")
-    }, isSnapshot := true)
-
+        if (isSnapshotBuild)
+          Some("snapshots" at "http://build.3cbeta.co.uk:8080/artifactory/libs-snapshot-local")
+        else
+          Some("releases" at "http://build.3cbeta.co.uk:8080/artifactory/libs-release-local")
+    })
 
   var appSettings: Seq[Def.Setting[_]] = sV ++ sO ++ sR ++ gS ++ sTest ++ jO ++ f ++ jcoco ++ keyStoreOptions ++ jacoco.settings ++ vS ++ net.virtualvoid.sbt.graph.Plugin.graphSettings ++ sAppN ++ sOrg ++ publ
 
