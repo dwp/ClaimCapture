@@ -87,10 +87,12 @@
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             carersInputText(typeOfWork("selfEmployedTypeOfWork"), 'maxLength -> 35, 'ignoreOptional -> true),
-                            yesNoRadioGroup(paidMoneyYet("answer"), 'helperAbove -> messages("paidMoneyYet.helper")),
+                            yesNoRadioGroup(paidMoneyYet("answer"), 'helperAbove -> messages("paidMoneyYet.helper"), 'track -> true, 'trackLabel -> messages("paidMoneyYet.answer")),
                             otherDetailPlaceHolder(inputDef = Seq(inputDayMonthYear(paidMoneyYet("date"))), 'id -> "paidMoneyYetWrap"),
-                            yesNoRadioGroup(typeOfWork("selfEmployedTotalIncome"), 'ignoreOptional -> true, 'values -> Seq("yes" -> messages("label.yes7"), "no" -> messages("label.no"), "dontknow" -> messages("label.dontknow"))),
-                            carersInputTextArea(typeOfWork("selfEmployedMoreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), '_label -> "moreAboutChanges", 'textAreaHelper -> Html(messages(s"${CircumstancesSelfEmployment.textMaxLength}charsLeft")), 'maxLength -> CircumstancesSelfEmployment.textMaxLength)
+                            yesNoRadioGroup(typeOfWork("selfEmployedTotalIncome"), 'ignoreOptional -> true, 'track -> true, 'trackLabel -> messages("typeOfWork.selfEmployedTotalIncome"),
+                                'values -> Seq("yes" -> messages("label.yes7"), "no" -> messages("label.no"), "dontknow" -> messages("label.dontknow"))),
+                            carersInputTextArea(typeOfWork("selfEmployedMoreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), '_label -> "moreAboutChanges",
+                                'textAreaHelper -> Html(messages(s"${CircumstancesSelfEmployment.textMaxLength}charsLeft")), 'maxLength -> CircumstancesSelfEmployment.textMaxLength)
                         ),
                         'id -> "typeOfWorkSelfEmployedWrap"
                     )
