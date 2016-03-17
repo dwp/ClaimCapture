@@ -12,7 +12,6 @@ object CircumstancesPageFactory extends PageFactory {
     url.replaceFirst("\\?.*$","") match {
       case GCircsYourDetailsPage.url => GCircsYourDetailsPage (ctx)
       case GReportChangesPage.url => GReportChangesPage (ctx)
-      case GSelfEmploymentPage.url => GSelfEmploymentPage (ctx)
       case GPermanentlyStoppedCaringPage.url => GPermanentlyStoppedCaringPage (ctx)
       case GOtherChangeInfoPage.url => GOtherChangeInfoPage (ctx)
       case GPaymentChangePage.url => GPaymentChangePage (ctx)

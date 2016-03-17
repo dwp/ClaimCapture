@@ -9,7 +9,7 @@ import utils.pageobjects.circumstances.consent_and_declaration.GCircsDeclaration
 import utils.{LightFakeApplication, WithBrowser}
 import controllers.CircumstancesScenarioFactory
 import utils.pageobjects.circumstances.start_of_process.{GReportChangesPage, GCircsYourDetailsPage}
-import utils.pageobjects.circumstances.report_changes.{GBreaksInCarePage, GPermanentlyStoppedCaringPage, GSelfEmploymentPage, GOtherChangeInfoPage}
+import utils.pageobjects.circumstances.report_changes.{GBreaksInCarePage, GPermanentlyStoppedCaringPage, GOtherChangeInfoPage}
 import utils.pageobjects.{PageObjects, TestData}
 import app.ConfigProperties._
 

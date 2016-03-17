@@ -80,7 +80,7 @@ object ClaimSubmissionService {
     val changesMap = Map(
       StoppedCaring.name -> Some(0),
       AddressChange.name -> Some(1),
-      SelfEmployment.name -> Some(2),
+      EmploymentChange.name -> Some(2),
       PaymentChange.name -> Some(3),
       AdditionalInfo.name -> Some(4),
       BreakFromCaring.name -> Some(5),
