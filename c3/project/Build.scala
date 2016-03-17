@@ -6,6 +6,7 @@ import play.sbt.PlayImport._
 import de.johoop.jacoco4sbt.JacocoPlugin._
 import utils.ConfigurationChangeHelper._
 
+
 object ApplicationBuild extends Build {
   val appName = "c3"
   val appVersion = "3.6-SNAPSHOT"
@@ -82,7 +83,18 @@ object ApplicationBuild extends Build {
 
   var vS: Seq[Def.Setting[_]] = Seq(version := appVersion, libraryDependencies ++= appDependencies)
 
-  var appSettings: Seq[Def.Setting[_]] = sV ++ sO ++ sR ++ gS ++ sTest ++ jO ++ f ++ jcoco ++ keyStoreOptions ++ jacoco.settings ++ vS ++ net.virtualvoid.sbt.graph.Plugin.graphSettings
+  var publ: Seq[Def.Setting[_]] = Seq(
+    publishTo := Some("Artifactory Realm" at "http://build.3cbeta.co.uk:8080/artifactory/repo/"),
+    publishTo <<= version {
+      (v: String) =>
+        Some("releases" at "http://build.3cbeta.co.uk:8080/artifactory/libs-snapshot-local")
+    }, isSnapshot := true)
 
-  val main = Project(appName, file(".")).enablePlugins(play.sbt.PlayScala, SbtWeb).settings(appSettings: _*).settings(unmanagedResourceDirectories in Test <+= baseDirectory( _ / "target/web/public/test" ))
+
+  var appSettings: Seq[Def.Setting[_]] = sV ++ sO ++ sR ++ gS ++ sTest ++ jO ++ f ++ jcoco ++ keyStoreOptions ++ jacoco.settings ++ vS ++ net.virtualvoid.sbt.graph.Plugin.graphSettings ++ sAppN ++ sOrg ++ publ
+
+  val main = Project(appName, file(".")).enablePlugins(play.sbt.PlayScala, SbtWeb).settings(appSettings: _*).settings(
+    unmanagedResourceDirectories in Test <+= baseDirectory( _ / "target/web/public/test" )
+
+  )
 }
