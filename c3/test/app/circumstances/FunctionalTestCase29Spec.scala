@@ -1,9 +1,7 @@
 package app.circumstances
 
-import utils.{WithJsBrowser, LightFakeApplication}
+import utils.{WithJsBrowser}
 
-import utils.pageobjects.{PageObjects, XmlPage, TestData, Page}
-import utils.pageobjects.xml_validation.{XMLCircumstancesBusinessValidation, XMLBusinessValidation}
 import app.FunctionalTestCommon
 import utils.pageobjects.circumstances.start_of_process.GReportChangesPage
 import utils.pageobjects.xml_validation.{XMLBusinessValidation, XMLCircumstancesBusinessValidation}
