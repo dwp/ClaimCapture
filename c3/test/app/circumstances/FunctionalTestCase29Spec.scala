@@ -1,9 +1,7 @@
 package app.circumstances
 
-import utils.{WithJsBrowser, LightFakeApplication}
+import utils.{WithJsBrowser}
 
-import utils.pageobjects.{PageObjects, XmlPage, TestData, Page}
-import utils.pageobjects.xml_validation.{XMLCircumstancesBusinessValidation, XMLBusinessValidation}
 import app.FunctionalTestCommon
 import utils.pageobjects.circumstances.start_of_process.GReportChangesPage
 import utils.pageobjects.xml_validation.{XMLBusinessValidation, XMLCircumstancesBusinessValidation}
@@ -14,7 +12,7 @@ class FunctionalTestCase29Spec extends FunctionalTestCommon {
 
   section("functional")
   "The application Circumstances" should {
-    "Successfully run absolute Circumstances Test Case 29" in new WithJsBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
+    "Successfully run absolute Circumstances Test Case 29" in new WithJsBrowser with PageObjects {
       val page = GReportChangesPage(context)
       val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase29.csv")
       page goToThePage()

@@ -77,7 +77,7 @@ class GEmploymentNotStartedSpec extends Specification {
 
     section("unit", models.domain.CircumstancesSelfEmployment.id)
     "Report an Employment change in your circumstances where the employment is ongoing - Employment - Controller" should {
-      "present 'CoC Future Employment Change'" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
+      "present 'CoC Future Employment Change'" in new WithApplication with MockForm {
 
         val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
 
@@ -85,7 +85,7 @@ class GEmploymentNotStartedSpec extends Specification {
         status(result) mustEqual OK
       }
 
-      "redirect to the next page after valid submission of employment with expected weekly payment" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
+      "redirect to the next page after valid submission of employment with expected weekly payment" in new WithApplication with MockForm {
         val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
           .withFormUrlEncodedBody(validWeeklyPaymentEmployment: _*)
 
@@ -93,7 +93,7 @@ class GEmploymentNotStartedSpec extends Specification {
         redirectLocation(result) must beSome(nextPageUrl)
       }
 
-      "redirect to the next page after valid submission of employment with expected monthly payment" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
+      "redirect to the next page after valid submission of employment with expected monthly payment" in new WithApplication with MockForm {
         val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
           .withFormUrlEncodedBody(validMonthlyPaymentEmployment: _*)
 
@@ -101,7 +101,7 @@ class GEmploymentNotStartedSpec extends Specification {
         redirectLocation(result) must beSome(nextPageUrl)
       }
 
-      "redirect to the next page after valid submission of employment with expected other payment" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
+      "redirect to the next page after valid submission of employment with expected other payment" in new WithApplication with MockForm {
         val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
           .withFormUrlEncodedBody(validOtherPaymentEmployment: _*)
 

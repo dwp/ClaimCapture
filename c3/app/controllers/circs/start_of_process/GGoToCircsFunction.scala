@@ -27,7 +27,6 @@ object GGoToCircsFunction extends Controller with CachedChangeOfCircs with Navig
 
     val selectedQG:(QuestionGroup.Identifier,Call) = {
       reportChanges match {
-        case r.SelfEmployment.name => CircumstancesSelfEmployment -> controllers.circs.report_changes.routes.GSelfEmployment.present()
         case r.EmploymentChange.name => CircumstancesEmploymentChange -> controllers.circs.report_changes.routes.GEmploymentChange.present()
         case r.AddressChange.name => CircumstancesAddressChange  -> controllers.circs.report_changes.routes.GAddressChange.present()
         case r.StoppedCaring.name =>  CircumstancesStoppedCaring  -> controllers.circs.report_changes.routes.GPermanentlyStoppedCaring.present()

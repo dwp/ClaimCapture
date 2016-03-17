@@ -86,6 +86,13 @@ object EmploymentChange {
   def selfEmploymentChange(circsEmploymentChange: CircumstancesEmploymentChange): NodeSeq = {
     <SelfEmployment>
       {question(<TypeOfSelfEmployment/>, "typeOfWork.selfEmployedTypeOfWork",circsEmploymentChange.typeOfWork.text2a.get)}
+      {question(<PaidYet/>,"paidMoneyYet.answer", circsEmploymentChange.paidMoneyYet.answer)}
+      {
+        circsEmploymentChange.paidMoneyYet.answer match {
+          case Some("yes") => {question(<DatePaid/>, "paidMoneyYet.date",circsEmploymentChange.paidMoneyYet.date.get)}
+          case _ => NodeSeq.Empty
+      }
+      }
       {question(<TotalIncome/>, "typeOfWork.selfEmployedTotalIncome", messagesApi(circsEmploymentChange.typeOfWork.answer2.get))}
       {question(<MoreAboutChanges/>, "typeOfWork.selfEmployedMoreAboutChanges", circsEmploymentChange.typeOfWork.text2b)}
     </SelfEmployment>

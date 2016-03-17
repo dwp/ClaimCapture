@@ -10,12 +10,12 @@ import controllers.CircumstancesScenarioFactory
 class GEmploymentChangeIntegrationSpec extends Specification {
   section("integration", models.domain.CircumstancesIdentification.id)
   "Report a change in your circumstance - Employment" should {
-    "be presented" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
+    "be presented" in new WithBrowser with PageObjects {
       val page = GEmploymentChangePage(context)
       page goToThePage()
     }
 
-    "navigate to the previous page" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
+    "navigate to the previous page" in new WithBrowser with PageObjects {
       val page = GReportChangesPage(context)
       page goToThePage()
 
@@ -28,7 +28,7 @@ class GEmploymentChangeIntegrationSpec extends Specification {
       prevPage.url mustEqual pageBeforeFunctionsUrl
     }
 
-    "navigate to next page when not caring and not yet started self-employment details added" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
+    "navigate to next page when not caring and not yet started self-employment details added" in new WithBrowser with PageObjects {
       val page = GEmploymentChangePage(context)
       page goToThePage()
 
@@ -39,7 +39,7 @@ class GEmploymentChangeIntegrationSpec extends Specification {
       nextPage.url mustEqual pageAfterFunctionsUrl
     }
 
-    "navigate to next page when caring and self-employment started details added" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
+    "navigate to next page when caring and self-employment started details added" in new WithBrowser with PageObjects {
       val page = GEmploymentChangePage(context)
       page goToThePage()
 
@@ -50,7 +50,7 @@ class GEmploymentChangeIntegrationSpec extends Specification {
       nextPage.url mustEqual pageAfterFunctionsUrl
     }
 
-    "navigate to next page and back for postcode with space" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
+    "navigate to next page and back for postcode with space" in new WithBrowser with PageObjects {
       val page = GEmploymentChangePage(context)
       page goToThePage()
 

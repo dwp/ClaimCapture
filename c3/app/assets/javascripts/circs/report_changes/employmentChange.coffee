@@ -1,5 +1,5 @@
 window.stillCaring = (stillCaringY, stillCaringN, whenStoppedCaringDay, whenStoppedCaringMonth, whenStoppedCaringYear, moreAboutChanges) ->
-  $("#"+moreAboutChanges).trigger("blur")
+  $("#" + moreAboutChanges).trigger("blur")
   if not $("#" + stillCaringN).prop("checked")
     hideStillCaringWrap(whenStoppedCaringDay, whenStoppedCaringMonth, whenStoppedCaringYear)
 
@@ -11,7 +11,8 @@ window.stillCaring = (stillCaringY, stillCaringN, whenStoppedCaringDay, whenStop
 
 window.hasWorkStartedYet = (hasWorkStartedYetY, hasWorkStartedYetN, dateWhenStartedDay, dateWhenStartedMonth, dateWhenStartedYear, dateWhenWillItStartDay, dateWhenWillItStartMonth, dateWhenWillItStartYear, hasWorkFinishedYetYes, hasWorkFinishedYetNo, dateWhenFinishedDay, dateWhenFinishedMonth, dateWhenFinishedYear) ->
   if not $("#" + hasWorkStartedYetY).prop("checked")
-    hideHasWorkStartedYetWrap(dateWhenStartedDay, dateWhenStartedMonth, dateWhenStartedYear, hasWorkFinishedYetYes, hasWorkFinishedYetNo)
+    hideHasWorkStartedYetWrap(dateWhenStartedDay, dateWhenStartedMonth, dateWhenStartedYear, hasWorkFinishedYetYes,
+      hasWorkFinishedYetNo)
     hideHasWorkFinishedYetWrap(dateWhenFinishedDay, dateWhenFinishedMonth, dateWhenFinishedYear)
 
   if not $("#" + hasWorkStartedYetN).prop("checked")
@@ -23,7 +24,8 @@ window.hasWorkStartedYet = (hasWorkStartedYetY, hasWorkStartedYetN, dateWhenStar
 
   $("#" + hasWorkStartedYetN).on "click", ->
     showWorkNotStartedYetWrap()
-    hideHasWorkStartedYetWrap(dateWhenStartedDay, dateWhenStartedMonth, dateWhenStartedYear, hasWorkFinishedYetYes, hasWorkFinishedYetNo)
+    hideHasWorkStartedYetWrap(dateWhenStartedDay, dateWhenStartedMonth, dateWhenStartedYear, hasWorkFinishedYetYes,
+      hasWorkFinishedYetNo)
     hideHasWorkFinishedYetWrap(dateWhenFinishedDay, dateWhenFinishedMonth, dateWhenFinishedYear)
 
 window.hasWorkFinishedYet = (hasWorkFinishedYetY, hasWorkFinishedYetN, dateWhenFinishedDay, dateWhenFinishedMonth, dateWhenFinishedYear) ->
@@ -36,19 +38,23 @@ window.hasWorkFinishedYet = (hasWorkFinishedYetY, hasWorkFinishedYetN, dateWhenF
   $("#" + hasWorkFinishedYetN).on "click", ->
     hideHasWorkFinishedYetWrap(dateWhenFinishedDay, dateWhenFinishedMonth, dateWhenFinishedYear)
 
-window.typeOfWork = (typeOfWorkEmployed, typeOfWorkSelfEmployed, employerNameAndAddress1, employerNameAndAddress2, employerNameAndAddress3, employerPostcode, employerContactNumber, employerPayrollNumber, selfEmployedTypeOfWork, selfEmployedTotalIncomeYes, selfEmployedTotalIncomeNo, selfEmployedTotalIncomeDontKnow, selfEmployedMoreAboutChanges, moreAboutChanges) ->
+window.typeOfWork = (typeOfWorkEmployed, typeOfWorkSelfEmployed, employerName, employerNameAndAddress1, employerNameAndAddress2, employerNameAndAddress3, employerPostcode, employerContactNumber, employerPayrollNumber, selfEmployedTypeOfWork, selfEmployedTotalIncomeYes, selfEmployedTotalIncomeNo, selfEmployedTotalIncomeDontKnow, selfEmployedMoreAboutChanges, moreAboutChanges) ->
   if not $("#" + typeOfWorkEmployed).prop("checked")
-    hideTypeOfWorkEmployedWrap(employerNameAndAddress1, employerNameAndAddress2, employerNameAndAddress3, employerPostcode, employerContactNumber, employerPayrollNumber)
+    hideTypeOfWorkEmployedWrap(employerName, employerNameAndAddress1, employerNameAndAddress2, employerNameAndAddress3,
+      employerPostcode, employerContactNumber, employerPayrollNumber)
 
   if not $("#" + typeOfWorkSelfEmployed).prop("checked")
-    hideTypeOfWorkSelfEmployedWrap(selfEmployedTypeOfWork, selfEmployedTotalIncomeYes, selfEmployedTotalIncomeNo, selfEmployedTotalIncomeDontKnow, selfEmployedMoreAboutChanges)
+    hideTypeOfWorkSelfEmployedWrap(selfEmployedTypeOfWork, selfEmployedTotalIncomeYes, selfEmployedTotalIncomeNo,
+      selfEmployedTotalIncomeDontKnow, selfEmployedMoreAboutChanges)
 
   $("#" + typeOfWorkEmployed).on "click", ->
     showTypeOfWorkEmployedWrap()
-    hideTypeOfWorkSelfEmployedWrap(selfEmployedTypeOfWork, selfEmployedTotalIncomeYes, selfEmployedTotalIncomeNo, selfEmployedTotalIncomeDontKnow, selfEmployedMoreAboutChanges)
+    hideTypeOfWorkSelfEmployedWrap(selfEmployedTypeOfWork, selfEmployedTotalIncomeYes, selfEmployedTotalIncomeNo,
+      selfEmployedTotalIncomeDontKnow, selfEmployedMoreAboutChanges)
 
   $("#" + typeOfWorkSelfEmployed).on "click", ->
-    hideTypeOfWorkEmployedWrap(employerNameAndAddress1, employerNameAndAddress2, employerNameAndAddress3, employerPostcode, employerContactNumber, employerPayrollNumber)
+    hideTypeOfWorkEmployedWrap(employerName, employerNameAndAddress1, employerNameAndAddress2, employerNameAndAddress3,
+      employerPostcode, employerContactNumber, employerPayrollNumber)
     showTypeOfWorkSelfEmployedWrap()
 
 showStillCaringWrap = () ->
@@ -89,8 +95,9 @@ hideHasWorkFinishedYetWrap = (dateWhenFinishedDay, dateWhenFinishedMonth, dateWh
 showHasWorkFinishedYetWrap = () ->
   $("#hasWorkFinishedYetWrap").slideDown 0
 
-hideTypeOfWorkEmployedWrap = (employerNameAndAddress1, employerNameAndAddress2, employerNameAndAddress3, employerPostcode, employerContactNumber, employerPayrollNumber) ->
+hideTypeOfWorkEmployedWrap = (employerName, employerNameAndAddress1, employerNameAndAddress2, employerNameAndAddress3, employerPostcode, employerContactNumber, employerPayrollNumber) ->
   $("#typeOfWorkEmployedWrap").slideUp 0, ->
+    $("#" + employerName).val("")
     $("#" + employerNameAndAddress1).val("")
     $("#" + employerNameAndAddress2).val("")
     $("#" + employerNameAndAddress3).val("")
@@ -111,3 +118,23 @@ hideTypeOfWorkSelfEmployedWrap = (selfEmployedTypeOfWork, selfEmployedTotalIncom
 
 showTypeOfWorkSelfEmployedWrap = () ->
   $("#typeOfWorkSelfEmployedWrap").slideDown 0
+
+
+window.paidMoneyYet = (Y, N, day, month, year, wrapper) ->
+  if not $("#" + Y).prop("checked")
+    hidePaidMoneyYetWrap(day, month, year, wrapper)
+
+  $("#" + Y).on "click", ->
+    showPaidMoneyYetWrap(wrapper)
+
+  $("#" + N).on "click", ->
+    hidePaidMoneyYetWrap(day, month, year, wrapper)
+
+showPaidMoneyYetWrap = (wrapper) ->
+  $("#" + wrapper).slideDown 0
+
+hidePaidMoneyYetWrap = (day, month, year, wrapper) ->
+  $("#" + wrapper).slideUp 0, ->
+    $("#" + day).val("")
+    $("#" + month).val("")
+    $("#" + year).val("")

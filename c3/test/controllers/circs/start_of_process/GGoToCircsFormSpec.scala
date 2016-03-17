@@ -23,13 +23,6 @@ class GGoToCircsFormSpec extends Specification {
       redirectLocation(result) must beSome("/circumstances/report-changes/other-change")
     }
 
-    "redirect to the next page after a valid self-employment submission" in new WithApplication with MockForm {
-      val claim = Claim(claimKey)
-      cache.set("default" + claimKey, claim.update(ReportChangeReason(false, ReportChange.SelfEmployment.name)))
-      val result = GGoToCircsFunction.present(g2FakeRequest(claimKey))
-      redirectLocation(result) must beSome("/circumstances/report-changes/self-employment")
-    }
-
     "redirect to the next page after a valid stopped caring submission" in new WithApplication with MockForm {
       val claim = Claim(claimKey)
       cache.set("default" + claimKey, claim.update(ReportChangeReason(false, ReportChange.StoppedCaring.name)))

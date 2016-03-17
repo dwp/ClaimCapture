@@ -15,7 +15,7 @@ class FunctionalTestCase30Spec extends FunctionalTestCommon {
 
   section("functional")
   "The application Circumstances" should {
-    "Successfully run absolute Circumstances Test Case 30" in new WithJsBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
+    "Successfully run absolute Circumstances Test Case 30" in new WithJsBrowser with PageObjects {
       val page = GReportChangesPage(context)
       val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase30.csv")
       page goToThePage()

@@ -15,6 +15,7 @@ case object CircumstancesReportChanges extends Section.Identifier {
 case class CircumstancesSelfEmployment(stillCaring: YesNoWithDate = YesNoWithDate("", None),
                                        whenThisSelfEmploymentStarted: DayMonthYear = DayMonthYear(),
                                        typeOfBusiness: String = "",
+                                       paidMoneyYet: OptYesNoWithDate = OptYesNoWithDate(None, None),
                                        totalOverWeeklyIncomeThreshold: String = "",
                                        moreAboutChanges: Option[String] = None)
   extends QuestionGroup(CircumstancesSelfEmployment)
@@ -98,7 +99,9 @@ object CircumstancesBreaksInCareSummary extends QuestionGroup.Identifier {
 case class CircumstancesEmploymentChange(stillCaring: YesNoWithDate = YesNoWithDate("", None),
                                          hasWorkStartedYet: YesNoWithMutuallyExclusiveDates = YesNoWithMutuallyExclusiveDates("", None, None),
                                          hasWorkFinishedYet: OptYesNoWithDate = OptYesNoWithDate (None, None),
-                                         typeOfWork: YesNoWithAddressAnd2TextOrTextWithYesNoAndText = YesNoWithAddressAnd2TextOrTextWithYesNoAndText("", None, None, None, None))
+                                         typeOfWork: YesNoWithAddressAnd2TextOrTextWithYesNoAndText = YesNoWithAddressAnd2TextOrTextWithYesNoAndText("", None, None, None, None),
+                                          paidMoneyYet: OptYesNoWithDate = OptYesNoWithDate (None, None)
+                                          )
   extends QuestionGroup(CircumstancesEmploymentChange)
 
 object CircumstancesEmploymentChange extends QuestionGroup.Identifier {
