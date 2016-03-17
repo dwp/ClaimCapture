@@ -68,14 +68,14 @@ class GEmploymentChangeSpec extends Specification {
 
   section("unit", models.domain.CircumstancesReportChanges.id)
   "Report a change in your circumstances - Employment - Controller" should {
-   "present 'CoC Employment Changes'" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
+   "present 'CoC Employment Changes'" in new WithApplication with MockForm {
      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
 
      val result = GEmploymentChange.present(request)
      status(result) mustEqual OK
    }
 
-   "redirect to the next page after a valid not caring and self-employment not yet started details submission" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
+   "redirect to the next page after a valid not caring and self-employment not yet started details submission" in new WithApplication with MockForm {
      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
        .withFormUrlEncodedBody(validNotCaringSelfEmploymentNotYetStartedFormInput: _*)
 
@@ -85,7 +85,7 @@ class GEmploymentChangeSpec extends Specification {
      redirectLocation(result) must beSome(nextPageUrl)
    }
 
-   "redirect to the next page after a valid caring and self-employment not yet started details submission" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
+   "redirect to the next page after a valid caring and self-employment not yet started details submission" in new WithApplication with MockForm {
      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
        .withFormUrlEncodedBody(validCaringSelfEmploymentNotYetStartedFormInput: _*)
 
@@ -93,7 +93,7 @@ class GEmploymentChangeSpec extends Specification {
      redirectLocation(result) must beSome(nextPageUrl)
    }
 
-   "redirect to the next page after a valid caring and ongoing self-employment started details submission" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with MockForm {
+   "redirect to the next page after a valid caring and ongoing self-employment started details submission" in new WithApplication with MockForm {
      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
        .withFormUrlEncodedBody(validCaringAndOngoingSelfEmploymentStartedFormInput: _*)
 

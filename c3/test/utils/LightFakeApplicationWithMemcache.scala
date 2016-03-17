@@ -44,7 +44,7 @@ object LightFakeApplicationWithMemcache {
   )
 
   lazy val faCEATrue = FakeApplication(
-    additionalConfiguration = configurationMap ++ Map("circs.employment.active" -> "true")
+    additionalConfiguration = configurationMap
   )
 
   lazy val SaveForLaterOff = FakeApplication(
