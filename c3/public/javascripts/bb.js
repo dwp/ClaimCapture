@@ -6,13 +6,13 @@ $(document).ready(function() {
     window.addEventListener('popstate', function(event) {
         console.log('popstate fired! location.pathname=' + location.pathname + ' and location.hash=' + location.hash + ' and state=' + JSON.stringify(history, null, 4) + " event state=" + JSON.stringify(event.state, null, 4));
         //fires on hash change which is coming from and going to preview
-        if (location.hash) return;
+        if (location.hash && !event) return;
         if (!location.hash && $("#ReturnToCheckYourAnswers").length > 0) {
             $("#ReturnToCheckYourAnswers")[0].click();
         } else if (event && event.state) {
             checkButtonSelected(event.state.nexturl);
-        } else {
-            console.log('no state goto gov.uk');
+        } else if (!history)  {
+            console.log('no history goto gov.uk');
             location.href="http://www.gov.uk/carers-allowance/how-to-claim"
         }
     }, false);
@@ -39,10 +39,12 @@ $(document).ready(function() {
             location.href="http://www.gov.uk/carers-allowance/how-to-claim"
         } else {
             console.log('next from back');
-            $("button[value='next']").length > 0
+            $("button[value='next']")[0].click();
         }
     }
 
-    history.pushState({nexturl: "back"}, null, null);
-    history.pushState({nexturl: "forward"}, null, null);
+    if (window.history && window.history.pushState) {
+        history.pushState({nexturl: "back"}, null, null);
+        history.pushState({nexturl: "forward"}, null, null);
+    }
 });
