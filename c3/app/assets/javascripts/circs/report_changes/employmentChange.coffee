@@ -38,19 +38,19 @@ window.hasWorkFinishedYet = (hasWorkFinishedYetY, hasWorkFinishedYetN, dateWhenF
   $("#" + hasWorkFinishedYetN).on "click", ->
     hideHasWorkFinishedYetWrap(dateWhenFinishedDay, dateWhenFinishedMonth, dateWhenFinishedYear)
 
-window.typeOfWork = (typeOfWorkEmployed, typeOfWorkSelfEmployed, employerName, employerNameAndAddress1, employerNameAndAddress2, employerNameAndAddress3, employerPostcode, employerContactNumber, employerPayrollNumber, selfEmployedTypeOfWork, selfEmployedTotalIncomeYes, selfEmployedTotalIncomeNo, selfEmployedTotalIncomeDontKnow, selfEmployedMoreAboutChanges, moreAboutChanges) ->
+window.typeOfWork = (typeOfWorkEmployed, typeOfWorkSelfEmployed, employerName, employerNameAndAddress1, employerNameAndAddress2, employerNameAndAddress3, employerPostcode, employerContactNumber, employerPayrollNumber, selfEmployedTypeOfWork, selfEmployedTotalIncomeYes, selfEmployedTotalIncomeNo, selfEmployedTotalIncomeDontKnow, selfEmployedMoreAboutChanges, paidMoneyYes, paidMoneyNo, moreAboutChanges) ->
   if not $("#" + typeOfWorkEmployed).prop("checked")
     hideTypeOfWorkEmployedWrap(employerName, employerNameAndAddress1, employerNameAndAddress2, employerNameAndAddress3,
       employerPostcode, employerContactNumber, employerPayrollNumber)
 
   if not $("#" + typeOfWorkSelfEmployed).prop("checked")
     hideTypeOfWorkSelfEmployedWrap(selfEmployedTypeOfWork, selfEmployedTotalIncomeYes, selfEmployedTotalIncomeNo,
-      selfEmployedTotalIncomeDontKnow, selfEmployedMoreAboutChanges)
+      selfEmployedTotalIncomeDontKnow, selfEmployedMoreAboutChanges, paidMoneyYes, paidMoneyNo)
 
   $("#" + typeOfWorkEmployed).on "click", ->
     showTypeOfWorkEmployedWrap()
     hideTypeOfWorkSelfEmployedWrap(selfEmployedTypeOfWork, selfEmployedTotalIncomeYes, selfEmployedTotalIncomeNo,
-      selfEmployedTotalIncomeDontKnow, selfEmployedMoreAboutChanges)
+      selfEmployedTotalIncomeDontKnow, selfEmployedMoreAboutChanges, paidMoneyYes, paidMoneyNo)
 
   $("#" + typeOfWorkSelfEmployed).on "click", ->
     hideTypeOfWorkEmployedWrap(employerName, employerNameAndAddress1, employerNameAndAddress2, employerNameAndAddress3,
@@ -108,7 +108,9 @@ hideTypeOfWorkEmployedWrap = (employerName, employerNameAndAddress1, employerNam
 showTypeOfWorkEmployedWrap = () ->
   $("#typeOfWorkEmployedWrap").slideDown 0
 
-hideTypeOfWorkSelfEmployedWrap = (selfEmployedTypeOfWork, selfEmployedTotalIncomeYes, selfEmployedTotalIncomeNo, selfEmployedTotalIncomeDontKnow, selfEmployedMoreAboutChanges) ->
+hideTypeOfWorkSelfEmployedWrap = (selfEmployedTypeOfWork, selfEmployedTotalIncomeYes, selfEmployedTotalIncomeNo, selfEmployedTotalIncomeDontKnow, selfEmployedMoreAboutChanges, paidMoneyYes, paidMoneyNo) ->
+  $("#" + paidMoneyYes).prop('checked', false)
+  $("#" + paidMoneyNo).prop('checked', false)
   $("#typeOfWorkSelfEmployedWrap").slideUp 0, ->
     $("#" + selfEmployedTypeOfWork).val("")
     $("#" + selfEmployedTotalIncomeYes).prop('checked', false)
