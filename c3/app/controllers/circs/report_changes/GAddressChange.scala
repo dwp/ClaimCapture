@@ -92,7 +92,7 @@ object GAddressChange extends Controller with CachedChangeOfCircs with Navigable
           .replaceError("","caredForChangedAddress.answer", FormError("caredForChangedAddress.answer", errorRequired))
         BadRequest(views.html.circs.report_changes.addressChange(updatedFormWithErrors))
       },
-      addressChange => circs.update(formatPostCodes(addressChange)) -> Redirect(circsPathAfterFunction)
+      addressChange => circs.update(formatPostCodes(addressChange)) -> Redirect(controllers.circs.your_details.routes.GYourDetails.present())
     )
   }
 

@@ -8,8 +8,9 @@
 @import views.html.helper.base._
 @import utils.helpers._
 @import models.domain.CircumstancesOtherInfo
+@import views.html.circs.report_changes.main
 
-@main(messages("c2.g4") + " - " + messages("c2.name")) {
+@main(messages("c2.g4") + " - " + messages("c2.name"), isChanging = true) {
     @errorsSummary(otherInfoForm)
 
     @form(action = controllers.circs.report_changes.routes.GOtherChangeInfo.submit) {

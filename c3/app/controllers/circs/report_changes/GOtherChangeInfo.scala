@@ -27,7 +27,7 @@ object GOtherChangeInfo extends Controller with CachedChangeOfCircs with Navigab
   def submit = claiming {implicit circs => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.circs.report_changes.otherChangeInfo(formWithErrors)),
-      f => circs.update(f) -> Redirect(circsPathAfterFunction)
+      f => circs.update(f) -> Redirect(controllers.circs.your_details.routes.GYourDetails.present())
     )
   }
 }

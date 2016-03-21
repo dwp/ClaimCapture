@@ -1,5 +1,6 @@
 package controllers.circs.start_of_process
 
+import app.{ReportChange => r}
 import controllers.CarersForms._
 import models.domain._
 import models.view.{CachedChangeOfCircs, Navigable}
@@ -7,12 +8,12 @@ import play.api.Logger
 import play.api.Play._
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.mvc.Controller
+import play.api.mvc.{Call, Controller}
 import utils.helpers.CarersForm._
 import play.api.i18n.{MessagesApi, I18nSupport, MMessages}
-
-import scala.language.postfixOps
-
+import scala.annotation.tailrec
+import scala.collection.immutable.Stack
+import scala.language.{postfixOps, reflectiveCalls}
 
 object GReportChangeReason extends Controller with CachedChangeOfCircs with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
@@ -32,19 +33,48 @@ object GReportChangeReason extends Controller with CachedChangeOfCircs with Navi
   def submit = claiming {implicit circs => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.circs.start_of_process.reportChangeReason(formWithErrors)),
-      f => checkForChangeInSelection(circs, f) -> {
-        if (!f.jsEnabled) {
-          Logger.info(s"No JS - Start ${circs.key} ${circs.uuid} User-Agent : ${request.headers.get("User-Agent").orNull}")
-        }
-        Redirect(circsPathAfterReason)
-      }
+      f => checkForChangeInSelection(circs, f) -> getReportChangesRedirect(checkForChangeInSelection(circs, f))
     )
   }
 
-  private def checkForChangeInSelection(circs: Claim, reportNewChanges: ReportChangeReason) = {
+  private def getReportChangesRedirect(circs:Claim) = {
+    val reportChanges = circs.questionGroup[ReportChangeReason].getOrElse(ReportChangeReason()).reportChanges
+    val breakInCare = circs.questionGroup[CircumstancesBreaksInCare].getOrElse(CircumstancesBreaksInCare())
+
+    // for qs groups under this section, if it is not reportedChange - delete
+    val optSections = Stack(CircumstancesSelfEmployment,CircumstancesOtherInfo,CircumstancesStoppedCaring,
+      CircumstancesPaymentChange, CircumstancesAddressChange, CircumstancesBreaksInCare, CircumstancesEmploymentChange)
+
+    val selectedQG:(QuestionGroup.Identifier,Call) = {
+      reportChanges match {
+        case r.SelfEmployment.name => CircumstancesSelfEmployment -> controllers.circs.report_changes.routes.GSelfEmployment.present()
+        case r.EmploymentChange.name => CircumstancesEmploymentChange -> controllers.circs.report_changes.routes.GEmploymentChange.present()
+        case r.AddressChange.name => CircumstancesAddressChange  -> controllers.circs.report_changes.routes.GAddressChange.present()
+        case r.StoppedCaring.name =>  CircumstancesStoppedCaring  -> controllers.circs.report_changes.routes.GPermanentlyStoppedCaring.present()
+        case r.PaymentChange.name => CircumstancesPaymentChange  -> controllers.circs.report_changes.routes.GPaymentChange.present()
+        case r.BreakFromCaring.name if(breakInCare.medicalCareDuringBreak != "") => CircumstancesBreaksInCare  -> controllers.circs.report_changes.routes.GBreaksInCareSummary.present()
+        case r.BreakFromCaring.name => CircumstancesBreaksInCare  -> controllers.circs.report_changes.routes.GBreaksInCare.present()
+        case r.BreakFromCaringYou.name if(breakInCare.medicalCareDuringBreak != "") => CircumstancesBreaksInCare  -> controllers.circs.report_changes.routes.GBreaksInCareSummary.present()
+        case r.BreakFromCaringYou.name => CircumstancesBreaksInCare  -> controllers.circs.report_changes.routes.GBreaksInCare.present()
+        case _ => CircumstancesOtherInfo -> controllers.circs.report_changes.routes.GOtherChangeInfo.present()
+      }
+    }
+
+    val updatedCircs = popDeleteQG(circs,optSections.filter(_.id != selectedQG._1.id))
+    Redirect(selectedQG._2)
+  }
+
+  @tailrec
+  private def popDeleteQG(circs:Claim,optSections:Stack[QuestionGroup.Identifier]):Claim = {
+    if (optSections.isEmpty) circs
+    else popDeleteQG(circs delete(optSections top),optSections pop)
+  }
+
+  private def checkForChangeInSelection(circs: Claim, reportNewChanges: ReportChangeReason): Claim = {
     val reportChanges = circs.questionGroup[ReportChangeReason].getOrElse(ReportChangeReason()).reportChanges
     if (reportNewChanges.reportChanges != reportChanges)
       circs.update(reportNewChanges).removeQuestionGroups(CircumstancesReportChanges, Set(CircumstancesYourDetails, reportNewChanges.identifier) )
-    else circs.update(reportNewChanges)
+    else
+      circs.update(reportNewChanges)
   }
 }

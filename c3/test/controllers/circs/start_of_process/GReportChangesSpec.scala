@@ -1,6 +1,7 @@
 package controllers.circs.start_of_process
 
 import app.ReportChange.AdditionalInfo
+import controllers.circs.report_changes.GOtherChangeInfo
 import models.domain._
 import models.view.CachedChangeOfCircs
 import org.specs2.mutable.Specification
@@ -18,7 +19,7 @@ class GReportChangesSpec extends Specification {
   val validAdditionalDetailsReportChangesFormInput = Seq(
     "reportChanges" -> AdditionalInfo.name
   )
-  val nextPageUrl = GGoToCircsPage.url
+  val nextPageUrl = "/circumstances/report-changes/other-change"
 
   section("unit", models.domain.CircumstancesReportChanges.id)
   "Report a change in your circumstances - Change in circumstances - Controller" should {

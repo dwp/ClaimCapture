@@ -101,7 +101,7 @@ object GEmploymentChange extends Controller with CachedChangeOfCircs with Naviga
           case _ => CircumstancesEmploymentNotStarted -> controllers.circs.report_changes.routes.GEmploymentNotStarted.present()
         }
       }
-      case _ => CircumstancesEmploymentChange -> circsPathAfterFunction()
+      case _ => CircumstancesEmploymentChange -> controllers.circs.your_details.routes.GYourDetails.present()
     }
 
     @tailrec
