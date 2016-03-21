@@ -1,6 +1,5 @@
 package controllers.circs.your_details
 
-import app.{ReportChange => r}
 import controllers.CarersForms._
 import controllers.mappings.Mappings._
 import controllers.mappings.NINOMappings._
@@ -12,7 +11,7 @@ import play.api.data.Forms._
 import play.api.data.validation.Constraints
 import play.api.data.{Form, FormError}
 import play.api.i18n.{I18nSupport, MMessages, MessagesApi}
-import play.api.mvc.{Call, Controller}
+import play.api.mvc.Controller
 import utils.CommonValidation
 import utils.helpers.CarersForm._
 
@@ -60,7 +59,7 @@ object GYourDetails extends Controller with CachedChangeOfCircs with Navigable w
 
           BadRequest(views.html.circs.your_details.yourDetails(formWithErrorsUpdate))
         },
-        yourDetailsChange => circs.update(formatEmailAndPostCode(yourDetailsChange)) -> Redirect(circsPathAfterYourDetails())
+        yourDetailsChange => circs.update(formatEmailAndPostCode(yourDetailsChange)) -> Redirect(controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present())
       )
   },checkCookie=true)
 

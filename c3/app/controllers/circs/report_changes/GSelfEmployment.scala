@@ -41,7 +41,7 @@ object GSelfEmployment extends Controller with CachedChangeOfCircs with Navigabl
         val updatedFormWithErrors = formWithErrors.replaceError("stillCaring","dateRequired", FormError("stillCaring.date", errorRequired))
         BadRequest(views.html.circs.report_changes.selfEmployment(updatedFormWithErrors))
       },
-      f => circs.update(f) -> Redirect(circsPathAfterFunction)
+      f => circs.update(f) -> Redirect(controllers.circs.your_details.routes.GYourDetails.present())
     )
   }
 }

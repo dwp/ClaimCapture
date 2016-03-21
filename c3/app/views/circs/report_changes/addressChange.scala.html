@@ -10,7 +10,7 @@
 @import scala.language.postfixOps
 @import models.domain.CircumstancesAddressChange
 
-@main(messages("c2.g6") + " - " + messages("c2.name")) {
+@main(messages("c2.g6") + " - " + messages("c2.name"), isChanging = true) {
     @errorsSummary(addressForm)
 
     @form(action = controllers.circs.report_changes.routes.GAddressChange.submit) {

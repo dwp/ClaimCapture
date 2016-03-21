@@ -11,7 +11,7 @@
 @import controllers.mappings.Mappings._
 @import utils.helpers.CarersCrypto
 @import models.domain.CircumstancesSelfEmployment
-
+@import views.html.circs.report_changes.main
 
 @stillCaring = @{employmentChange("stillCaring")}
 @hasWorkStartedYet = @{employmentChange("hasWorkStartedYet")}
@@ -20,7 +20,7 @@
 
     
 
-    @main(messages("c2.g9") + " - " + messages("c2.name")) {
+@main(messages("c2.g9") + " - " + messages("c2.name"), isChanging = true) {
     @errorsSummary(employmentChange)
 
     @form(action = controllers.circs.report_changes.routes.GEmploymentChange.submit) {

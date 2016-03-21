@@ -18,7 +18,7 @@ object GGoToCircsFunction extends Controller with CachedChangeOfCircs with Navig
     getReportChangesRedirect(circs)
   })
 
-  private def getReportChangesRedirect(circs:Claim) = {
+  def getReportChangesRedirect(circs:Claim) = {
     val reportChanges = circs.questionGroup[ReportChangeReason].getOrElse(ReportChangeReason()).reportChanges
 
     // for qs groups under this section, if it is not reportedChange - delete

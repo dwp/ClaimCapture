@@ -11,6 +11,7 @@
 @import controllers.mappings.Mappings._
 @import utils.helpers.CarersCrypto
 @import models.domain.CircumstancesEmploymentNotStarted
+    @import views.html.circs.report_changes.main
 
 @beenPaidYet = @{employmentNotStarted("beenPaidYet")}
 @howMuchPaid = @{employmentNotStarted("howMuchPaid")}
@@ -23,9 +24,7 @@
 @willCareCostsForThisWork = @{employmentNotStarted("willCareCostsForThisWork")}
 @moreAboutChanges = @{employmentNotStarted("moreAboutChanges")}
 
-    
-
-    @main(messages("c2.g12") + " - " + messages("c2.name")) {
+@main(messages("c2.g12") + " - " + messages("c2.name")) {
     @errorsSummary(employmentNotStarted)
 
     @form(action = controllers.circs.report_changes.routes.GEmploymentNotStarted.submit) {

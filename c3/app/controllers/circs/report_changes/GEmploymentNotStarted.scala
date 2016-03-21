@@ -1,6 +1,6 @@
 package controllers.circs.report_changes
 
-import models.domain.CircumstancesEmploymentNotStarted
+import models.domain.{CircumstancesEmploymentChange, CircumstancesEmploymentNotStarted}
 import play.api.Play._
 import play.api.mvc.Controller
 import models.view.{Navigable, CachedChangeOfCircs}
@@ -54,7 +54,7 @@ object GEmploymentNotStarted extends Controller with CachedChangeOfCircs with Na
   )
 
   def present = claiming {implicit circs => implicit request => implicit request2lang =>
-    track(CircumstancesEmploymentNotStarted) {
+    track(CircumstancesEmploymentChange) {
       implicit circs => Ok(views.html.circs.report_changes.employmentNotStarted(form.fill(CircumstancesEmploymentNotStarted)))
     }
   }
