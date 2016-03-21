@@ -137,28 +137,28 @@ GET         /breaks/breaks-in-care                                      controll
 POST        /breaks/breaks-in-care                                      controllers.s_breaks.GBreaksInCare.submit
 POST        /breaks/delete-break-in-care                                controllers.s_breaks.GBreaksInCare.delete
 
-GET         /breaks/break/:id                                           controllers.s_breaks.GBreak.present(id: String)
-POST        /breaks/break                                               controllers.s_breaks.GBreak.submit
+GET         /breaks/break/:id                     controllers.s_breaks.GBreak.present(id: String)
+POST        /breaks/break                         controllers.s_breaks.GBreak.submit
 
 
 # Education
 ###############
-GET         /education/your-course-details                              controllers.s_education.GYourCourseDetails.present
-POST        /education/your-course-details                              controllers.s_education.GYourCourseDetails.submit
+GET         /education/your-course-details        controllers.s_education.GYourCourseDetails.present
+POST        /education/your-course-details        controllers.s_education.GYourCourseDetails.submit
 
 # Employment
 ###############
-GET         /employment/employment                                      controllers.s_self_employment.GEmployment.present
-POST        /employment/employment                                      controllers.s_self_employment.GEmployment.submit
+GET         /employment/employment                controllers.your_income.GEmployment.present
+POST        /employment/employment                controllers.your_income.GEmployment.submit
 
-GET         /employment/been-employed                                   controllers.s_employment.GBeenEmployed.present
-POST        /employment/been-employed                                   controllers.s_employment.GBeenEmployed.submit
+GET         /employment/been-employed             controllers.s_employment.GBeenEmployed.present
+POST        /employment/been-employed             controllers.s_employment.GBeenEmployed.submit
 
-POST        /employment/delete-job                                      controllers.s_employment.Employment.delete
+POST        /employment/delete-job                controllers.s_employment.Employment.delete
 
-GET         /employment/job/:id                                         controllers.s_employment.GJobDetails.job(id: String)
+GET         /employment/job/:id                   controllers.s_employment.GJobDetails.job(id: String)
 
-GET         /employment/job-details/:id                                 controllers.s_employment.GJobDetails.present(id: String)
+GET         /employment/job-details/:id           controllers.s_employment.GJobDetails.present(id: String)
 POST        /employment/job-details                                     controllers.s_employment.GJobDetails.submit
 
 GET         /employment/last-wage/:id                                   controllers.s_employment.GLastWage.present(id: String)

@@ -15,12 +15,6 @@ case object SelfEmployment extends Section.Identifier {
   }
 }
 
-case class Employment(beenSelfEmployedSince1WeekBeforeClaim: String = "", beenEmployedSince6MonthsBeforeClaim: String = "") extends QuestionGroup(Employment)
-
-object Employment extends QuestionGroup.Identifier {
-  val id = s"${SelfEmployment.id}.g0"
-}
-
 case object AboutSelfEmployment extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g1"
 }

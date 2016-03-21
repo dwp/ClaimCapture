@@ -4,30 +4,26 @@
 @import helper._
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
-@import play.api.i18n.Messages
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 @import models.domain.Employment
 @import models.domain.Jobs
-
-@bulletsConstructor(label: String, maxBullets: Int) = @{
-    for(i<-1 to maxBullets) yield label+i
-}
-
-@bulletsSelfEmployed = @{
-    bulletsConstructor("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label.helper.l", 4)
-}
-
-@bulletsEmployed = @{
-    bulletsConstructor("aboutYou_beenEmployedSince6MonthsBeforeClaim.label.helper.l", 7)
-}
 
 @previousClaimEmployment = @{
     claim.checkYAnswers.previouslySavedClaim.get.questionGroup[Employment].getOrElse(Employment())
 }
 
-@main(messages("s7.g1") + " " + messages("s7.longName"), messages("s7.g1"), Some(employmentForm)) {
+@benefitsList(implicit lang:Lang) = @{
+    val benefitsSeq = Seq(
+       "dla" -> messages("s0.g1.help4"),
+       "aa" -> messages("s0.g1.help6"),
+       "caa" -> messages("s0.g1.help7"),
+       "afip" -> messages("s0.g1.help10"),
+       "noneOfTheBenefits" -> messages("s0.g1.help12"))
+}
 
-    @form(action = controllers.s_self_employment.routes.GEmployment.submit, 'role -> "form") {
+@main(messages("s7.g1"), messages("s7.g1"), Some(employmentForm)) {
+
+    @form(action = controllers.your_income.routes.GEmployment.submit, 'role -> "form") {
 
         @DwpCSRFFormHelper.formField
 
@@ -36,26 +32,20 @@
             <legend class="visuallyhidden">@Html(messages("s7.g1"))</legend>
 
             <ul>
-                @yesNoRadioGroup(employmentForm("beenSelfEmployedSince1WeekBeforeClaim"),
-                    '_label -> messages("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label", displayPlaybackDatesFormat(lang, claim.dateOfClaim.get - 1 week)),
-                    'helperAbove -> messages("aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label.helper"),
-                    'bullets -> bulletsSelfEmployed)
-
                 @yesNoRadioGroup(employmentForm("beenEmployedSince6MonthsBeforeClaim"),
-                    '_label -> messages("aboutYou_beenEmployedSince6MonthsBeforeClaim.label", displayPlaybackDatesFormat(lang, claim.dateOfClaim.get - 6 months)),
-                    'helperAbove -> messages("aboutYou_beenEmployedSince6MonthsBeforeClaim.label.helper"),
-                    'bullets -> bulletsEmployed,
-                    'paragraph -> "aboutYou_beenEmployedSince6MonthsBeforeClaim.label.helper.p")
-        
+                    '_label -> messages("beenEmployedSince6MonthsBeforeClaim.label", displayPlaybackDatesFormat(lang, claim.dateOfClaim.get - 6 months)))
+
+                @yesNoRadioGroup(employmentForm("beenSelfEmployedSince1WeekBeforeClaim"),
+                    '_label -> messages("beenSelfEmployedSince1WeekBeforeClaim.label", displayPlaybackDatesFormat(lang, claim.dateOfClaim.get - 1 week)))
             </ul>
 
         </fieldset>
 	    
-        @views.html.common.bottomNavigation(customTrack =Some(views.html.ga.trackSubmit(isOptional=true)))
+        @views.html.common.bottomNavigation(customTrack = Some(views.html.ga.trackSubmit(isOptional=true)))
 
     }
 
-    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_self_employment/g_employment.js")></script>
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/your_income/g_your_income.js")></script>
 
     <script type="text/javascript">
         $(function(){
@@ -66,7 +56,7 @@
             window.updateNextLabel("@CarersCrypto.encryptAES("beenEmployedSince6MonthsBeforeClaim_yes")","@CarersCrypto.encryptAES("beenEmployedSince6MonthsBeforeClaim_no")"
                                   ,"@CarersCrypto.encryptAES("beenSelfEmployedSince1WeekBeforeClaim_yes")","@CarersCrypto.encryptAES("beenSelfEmployedSince1WeekBeforeClaim_no")"
                                   ,"@previousClaimEmployment.beenEmployedSince6MonthsBeforeClaim","@previousClaimEmployment.beenSelfEmployedSince1WeekBeforeClaim"
-                                  ,@claim.questionGroup[Jobs].getOrElse(Jobs()).size == 0
+                    ,@claim.questionGroup[Jobs].getOrElse(Jobs()).size == 0
                                   ,"@messages("form.next")","@messages("form.returnToSummary")")
             }
         })

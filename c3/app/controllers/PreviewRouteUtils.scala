@@ -1,5 +1,7 @@
 package controllers
 
+import controllers.your_income.GEmployment
+
 object PreviewRouteUtils {
 
   def yourDetailsRoute = {
@@ -27,7 +29,7 @@ object PreviewRouteUtils {
   }
 
   def employmentRoute = {
-    val employmentRoute = controllers.s_self_employment.routes.GEmployment.present.toString
+    val employmentRoute = GEmployment.present.toString
     val jobsRoute           = controllers.s_employment.routes.GBeenEmployed.present.toString
     val aboutSelfEmployment = controllers.s_self_employment.routes.GAboutSelfEmployment.present.toString
     val additionalInfoRoute = controllers.s_employment.routes.GEmploymentAdditionalInfo.present.toString

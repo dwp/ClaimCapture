@@ -157,3 +157,10 @@ case class EmploymentAdditionalInfo(empAdditionalInfo: YesNoWithText = YesNoWith
 object EmploymentAdditionalInfo extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g5"
 }
+
+case class Employment(beenSelfEmployedSince1WeekBeforeClaim: String = "", beenEmployedSince6MonthsBeforeClaim: String = "") extends QuestionGroup(Employment)
+
+object Employment extends QuestionGroup.Identifier {
+  val id = s"${SelfEmployment.id}.g0"
+}
+

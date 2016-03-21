@@ -1,4 +1,4 @@
-package controllers.s_self_employment
+package controllers.your_income
 
 import controllers.mappings.Mappings._
 import controllers.s_employment.Employment
@@ -7,9 +7,9 @@ import models.view.{CachedClaim, Navigable}
 import play.api.Play._
 import play.api.data.Forms._
 import play.api.data.{Form, FormError}
+import play.api.i18n._
 import play.api.mvc.Controller
 import utils.helpers.CarersForm._
-import play.api.i18n._
 
 import scala.language.{postfixOps, reflectiveCalls}
 
@@ -21,7 +21,7 @@ object GEmployment extends Controller with CachedClaim with Navigable with I18nS
       )(Emp.apply)(Emp.unapply))
 
     def present = claimingWithCheck {  implicit claim => implicit request => implicit request2lang =>
-      track(Employment) { implicit claim => Ok(views.html.s_self_employment.g_employment(form.fill(Emp))) }
+      track(Employment) { implicit claim => Ok(views.html.your_income.g_your_income(form.fill(Emp))) }
     }
 
     def submit = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
@@ -36,18 +36,18 @@ object GEmployment extends Controller with CachedClaim with Navigable with I18nS
               FormError("beenEmployedSince6MonthsBeforeClaim",
                 errorRequired,
                 Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => (dmy - 6 months).`dd/MM/yyyy`),claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
-          BadRequest(views.html.s_self_employment.g_employment(formWithErrorsUpdate))
+          BadRequest(views.html.your_income.g_your_income(formWithErrorsUpdate))
         },employment => {
           val updatedClaim = claim.showHideSection(employment.beenEmployedSince6MonthsBeforeClaim == yes, models.domain.Employed)
                                   .showHideSection(employment.beenSelfEmployedSince1WeekBeforeClaim == yes, models.domain.SelfEmployment)
 
-          val deletedEmployment = if(employment.beenEmployedSince6MonthsBeforeClaim == no){
+          val deletedEmployment = if(employment.beenEmployedSince6MonthsBeforeClaim == no) {
             updatedClaim.delete(BeenEmployed).delete(Jobs)
           } else updatedClaim
 
-          val deletedSelfEmployment = if(employment.beenSelfEmployedSince1WeekBeforeClaim == no){
+          val deletedSelfEmployment = if(employment.beenSelfEmployedSince1WeekBeforeClaim == no) {
             deletedEmployment.delete(AboutSelfEmployment).delete(SelfEmploymentYourAccounts).delete(SelfEmploymentPensionsAndExpenses)
-          }else deletedEmployment
+          } else deletedEmployment
 
           deletedSelfEmployment.update(employment) -> Redirect(controllers.s_self_employment.routes.GAboutSelfEmployment.present())
         }
@@ -55,7 +55,7 @@ object GEmployment extends Controller with CachedClaim with Navigable with I18nS
     }.withPreviewConditionally[Emp](checkGoPreview)
 
 
-  private def checkGoPreview(t:(Option[Emp],Emp),c:(Option[Claim],Claim)):Boolean = {
+  private def checkGoPreview(t:(Option[Emp],Emp),c:(Option[Claim],Claim)): Boolean = {
     val previousEmp = t._1
     val currentEmp = t._2
     val currentClaim = c._2
@@ -69,14 +69,12 @@ object GEmployment extends Controller with CachedClaim with Navigable with I18nS
     val bothAnswersAreNo = currentEmp.beenEmployedSince6MonthsBeforeClaim == no && currentEmp.beenSelfEmployedSince1WeekBeforeClaim == no
     val doesNotHaveJobs = currentEmp.beenEmployedSince6MonthsBeforeClaim == yes && currentClaim.questionGroup[Jobs].getOrElse(Jobs()).isEmpty
 
-    if(doesNotHaveJobs){
+    if (doesNotHaveJobs) {
       false
-    }else{
+    } else {
       previousEmp.isDefined && ( bothHaveNotChanged || selfENotChangedAndEmploymentNo || empNotChangedAndSENo) ||  bothAnswersAreNo
     }
     //We want to go back to preview from Employment guard questions page if
     // both answers haven't changed or if one hasn't changed and the changed one is 'no' or both answers are no, or
-
-
   }
 }
