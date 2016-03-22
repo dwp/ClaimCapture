@@ -17,7 +17,7 @@ object NINOMappings {
   private def ninoValidation(nino: NationalInsuranceNumber): ValidationResult = {
     val ninoPattern = NINO_REGEX.r
 
-    ninoPattern.pattern.matcher(nino.nino.get.toUpperCase).matches match {
+    ninoPattern.pattern.matcher(nino.nino.get.toUpperCase.replace(" ","")).matches match {
       case true => Valid
       case false => Invalid(ValidationError("error.nationalInsuranceNumber"))
     }
