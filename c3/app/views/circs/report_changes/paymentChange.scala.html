@@ -11,7 +11,7 @@
 @import utils.CommonValidation
 @import models.domain.CircumstancesPaymentChange
 
-@main(messages("c2.g5") + " - " + messages("c2.name")) {
+@main(messages("c2.g5") + " - " + messages("c2.name"), isChanging = true) {
     @errorsSummary(currentForm)
 
 

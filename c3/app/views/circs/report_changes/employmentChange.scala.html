@@ -16,7 +16,7 @@
 @paidMoneyYet = @{employmentChange("paidMoneyYet")}
     
 
-    @main(messages("c2.g9") + " - " + messages("c2.name")) {
+@main(messages("c2.g9") + " - " + messages("c2.name"), isChanging = true) {
     @errorsSummary(employmentChange)
 
     @form(action = controllers.circs.report_changes.routes.GEmploymentChange.submit) {

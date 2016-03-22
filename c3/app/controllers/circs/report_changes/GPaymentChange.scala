@@ -49,7 +49,7 @@ object GPaymentChange extends Controller with CachedChangeOfCircs with Navigable
         val afterIgnoreGroupBy = ignoreGroupByForSortCode(updatedFormWithErrors)
         BadRequest(views.html.circs.report_changes.paymentChange(afterIgnoreGroupBy))
       },
-      f => circs.update(f) -> Redirect(circsPathAfterFunction)
+      f => circs.update(f) -> Redirect(controllers.circs.your_details.routes.GYourDetails.present())
     )
   }
 }
