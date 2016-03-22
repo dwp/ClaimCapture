@@ -7,18 +7,21 @@
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 @import models.domain.Employment
 @import models.domain.Jobs
+@import models.domain.YourIncome
+
 
 @previousClaimEmployment = @{
     claim.checkYAnswers.previouslySavedClaim.get.questionGroup[Employment].getOrElse(Employment())
 }
 
-@benefitsList(implicit lang:Lang) = @{
-    val benefitsSeq = Seq(
-       "dla" -> messages("s0.g1.help4"),
-       "aa" -> messages("s0.g1.help6"),
-       "caa" -> messages("s0.g1.help7"),
-       "afip" -> messages("s0.g1.help10"),
-       "noneOfTheBenefits" -> messages("s0.g1.help12"))
+@yourIncomeOptionsList(implicit lang:Lang) = @{
+    Seq(YourIncome.ssp -> messages("yourIncome.ssp"),
+        YourIncome.spmp -> messages("yourIncome.spmp"),
+        YourIncome.fa -> messages("yourIncome.fostering"),
+        YourIncome.dp -> messages("yourIncome.direct"),
+        YourIncome.ao -> messages("yourIncome.anyother"),
+        YourIncome.n -> messages("yourIncome.none")
+    )
 }
 
 @main(messages("s7.g1"), messages("s7.g1"), Some(employmentForm)) {
@@ -37,6 +40,15 @@
 
                 @yesNoRadioGroup(employmentForm("beenSelfEmployedSince1WeekBeforeClaim"),
                     '_label -> messages("beenSelfEmployedSince1WeekBeforeClaim.label", displayPlaybackDatesFormat(lang, claim.dateOfClaim.get - 1 week)))
+
+                <li class="form-group">
+                @standaloneListCheckboxGroup(employmentForm("yourIncomeCheckboxList"),
+                    'items -> yourIncomeOptionsList,
+                    'helperAbove -> "yourIncome.checkBoxHelp1",
+                    'track -> true,
+                    'ignoreOptional -> true,
+                    '_label -> messages("yourIncome.otherIncome.label", displayPlaybackDatesFormat(lang, claim.dateOfClaim.get)))
+                </li>
             </ul>
 
         </fieldset>

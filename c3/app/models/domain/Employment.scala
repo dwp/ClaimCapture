@@ -164,3 +164,11 @@ object Employment extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g0"
 }
 
+object YourIncome {
+  val ssp = "sickpay"
+  val spmp = "patmatadoppay"
+  val fa = "fostering"
+  val dp = "directpay"
+  val ao = "anyother"
+  val n = "none"
+}
