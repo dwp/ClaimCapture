@@ -52,7 +52,7 @@ object GEmployment extends Controller with CachedClaim with Navigable with I18nS
     }.withPreviewConditionally[Emp](checkGoPreview)
 
   private def redirect(claim: Claim, employment: Emp) = {
-    claim.update(employment) -> Redirect(controllers.s_self_employment.routes.GAboutSelfEmployment.present())
+    claim.update(employment) -> Redirect(controllers.s_employment.routes.GBeenEmployed.present())
   }
 
   private def showHideSections(claim: Claim, employment: Emp): Claim = {
