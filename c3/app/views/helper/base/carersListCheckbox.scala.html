@@ -1,4 +1,4 @@
-@(field: play.api.data.Field, options: Seq[(String, String)], args: (Symbol, Any)*)(implicit handler: helper.FieldConstructor, lang: play.api.i18n.Lang, request: Request[AnyContent], messages: play.api.i18n.Messages)
+@(field: play.api.data.Field, form: Form[AnyContent], options: Seq[(String, String)], args: (Symbol, Any)*)(implicit handler: helper.FieldConstructor, lang: play.api.i18n.Lang, request: Request[AnyContent], messages: play.api.i18n.Messages)
 
 @import utils.helpers.CarersCrypto
 @import play.api.Play
@@ -7,41 +7,20 @@
 @import app.ConfigProperties._
 @import play.api.i18n.Messages
 
-    @gaTrack(id: String,v: (String,String)) = @{
-        val tracking = args.find(_._1 == 'track).getOrElse('track->false)._2.asInstanceOf[Boolean]
+@boxValue = @{ args.toMap.get('value).getOrElse("true") }
 
-        if(getProperty("include.analytics", true) && tracking) {
-            trackEvent(request.path,args.find(_._1 == 'trackLabel).getOrElse('trackLabel->(id+".tracking"))._2.toString,Some(v._2))
-        }
+@gaTrack(id: String, checked: String) = @{
+    val tracking = args.find(_._1 == 'track).getOrElse('track->false)._2.asInstanceOf[Boolean]
+
+    if(getProperty("include.analytics", true) && tracking) {
+        trackEvent(request.path,args.find(_._1 == 'trackLabel).getOrElse('trackLabel->(id+".tracking"))._2.toString, Some(checked))
     }
+}
 
-    @replaceCharacters(id:String) = @{
-        id.replace(" ","_").replace("'","").replace("/","_")
-    }
+@replaceCharacters(id:String) = @{
+    id.replace(" ","_").replace("'","").replace("/","_")
+}
 
-    @addOtherValue(value:String,htmlArgs:Map[Symbol,Any]) = @{
-        if(value == args.toMap.get('otherValue).map(_.toString).getOrElse("empty")) {
-            val classes = if(htmlArgs.contains('class)){
-                htmlArgs.get('class).get.toString + " otherValue"
-            } else {
-                "otherValue"
-            }
-            htmlArgs + ('class -> classes)
-        } else {
-            htmlArgs
-        }
-    }
-
-
-@helper.input(field, args.filter(a => a._1 == 'class):_*) { (id, name, value, htmlArgs) =>
-    @options.map { v =>
-        <li>
-            @{/* printing the id needs replacement of spaces for underscores because browsers don't like spaces */}
-            <label class="block-label" for="@CarersCrypto.encryptAES(id+"_"+replaceCharacters(v._1))" onmousedown="@gaTrack(id,v)">
-                <input type="checkbox" id="@CarersCrypto.encryptAES(id+"_"+replaceCharacters(v._1))" name="@CarersCrypto.encryptAES(field.name+"_"+replaceCharacters(v._1))" onmousedown="@gaTrack(id,v)"  value="@v._1" @(if(value == Some(v._1)) "checked" else "") @{toHtmlArgs(addOtherValue(v._1,htmlArgs))}/>
-                <span>@{s"${v._2}"}</span>
-            </label>
-        </li>
-    }
-
+@options.map { v =>
+    <li>@carersDeclareListCheckBox(form(field.id+"_"+replaceCharacters(v._1)), v._2, args:_*)</li>
 }

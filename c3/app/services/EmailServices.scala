@@ -59,7 +59,7 @@ object EmailServices extends I18nSupport {
   }
 
   def claimEmailSubject(claim: Claim) = (claim.questionGroup[Employment], claim.questionGroup[SelfEmploymentPensionsAndExpenses]) match {
-    case (Some(Employment(XMLValues.yes, _)), _) | (Some(Employment(_, XMLValues.yes)), _) => messagesApi("subject.claim.employed")
+    case (Some(Employment(XMLValues.yes, _, _, _, _, _, _, _)), _) | (Some(Employment(_, XMLValues.yes, _, _, _, _, _, _)), _) => messagesApi("subject.claim.employed")
     case (_, Some(SelfEmploymentPensionsAndExpenses(YesNoWithText(XMLValues.yes, _), _))) => messagesApi("subject.claim.employed")
     case _ => messagesApi("subject.claim.notemployed")
   }

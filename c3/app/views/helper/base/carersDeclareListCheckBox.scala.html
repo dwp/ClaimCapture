@@ -1,0 +1,25 @@
+@(field: play.api.data.Field, label: String, args: (Symbol, Any)*)(implicit handler: helper.FieldConstructor, lang: play.api.i18n.Lang, request: Request[AnyContent], messages: play.api.i18n.Messages)
+
+@import helper._
+@import utils.helpers.CarersCrypto
+@import utils.helpers._
+@import views.html.helper.base._
+@import utils.helpers.GAHelper._
+@import app.ConfigProperties._
+
+@boxValue = @{ args.toMap.get('value).getOrElse("true") }
+
+@gaTrack(id: String, label: String, value: String) = @{
+    val tracking = args.find(_._1 == 'track).getOrElse('track->false)._2.asInstanceOf[Boolean]
+
+    if(getProperty("include.analytics", true) && tracking){
+        trackEvent(request.path, label, Some(value))
+    }
+}
+
+@input(field, args.filter(p => p._1 == 'class): _*) { (id, name, value, htmlArgs) =>
+    <label class="block-label" for="@CarersCrypto.encryptAES(id)">
+        <input type="checkbox" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" onclick="if($(this).is(':checked')) { @gaTrack(id, label, "checked") } else { @gaTrack(id, label, "unchecked") }" value="@boxValue" @(if(value == Some(boxValue)) "checked" else "") @toHtmlArgs(htmlArgs)>
+        <span>@{s"${label}"}</span>
+    </label>
+}

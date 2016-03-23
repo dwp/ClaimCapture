@@ -25,6 +25,7 @@ object Mappings {
   val threeHundred = 300
   val yes = "yes"
   val no = "no"
+  val someTrue = Some("true")
   val dontknow = "dontknow"
   val errorRequired = "error.required"
   val required = "required"

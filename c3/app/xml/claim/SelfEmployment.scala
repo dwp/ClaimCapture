@@ -154,6 +154,13 @@ object SelfEmployment extends XMLComponent{
     val jobDetails = (xmlNode \\ "Employment" \ "JobDetails")
     models.domain.Employment(
       beenSelfEmployedSince1WeekBeforeClaim = selfEmployment.isEmpty match { case false => Mappings.yes case true => Mappings.no },
-      beenEmployedSince6MonthsBeforeClaim = jobDetails.isEmpty match { case false => Mappings.yes case true => Mappings.no })
+      beenEmployedSince6MonthsBeforeClaim = jobDetails.isEmpty match { case false => Mappings.yes case true => Mappings.no },
+      yourIncome_sickpay = None,
+      yourIncome_patmatadoppay = None,
+      yourIncome_fostering = None,
+      yourIncome_directpay = None,
+      yourIncome_anyother = None,
+      yourIncome_none = None
+    )
   }
 }

@@ -158,7 +158,15 @@ object EmploymentAdditionalInfo extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g5"
 }
 
-case class Employment(beenSelfEmployedSince1WeekBeforeClaim: String = "", beenEmployedSince6MonthsBeforeClaim: String = "") extends QuestionGroup(Employment)
+case class Employment(beenSelfEmployedSince1WeekBeforeClaim: String = "",
+                      beenEmployedSince6MonthsBeforeClaim: String = "",
+                      yourIncome_sickpay: Option[String] = None,
+                      yourIncome_patmatadoppay: Option[String] = None,
+                      yourIncome_fostering: Option[String] = None,
+                      yourIncome_directpay: Option[String] = None,
+                      yourIncome_anyother: Option[String] = None,
+                      yourIncome_none: Option[String] = None
+                     ) extends QuestionGroup(Employment)
 
 object Employment extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g0"

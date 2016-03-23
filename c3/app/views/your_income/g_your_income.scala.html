@@ -8,7 +8,7 @@
 @import models.domain.Employment
 @import models.domain.Jobs
 @import models.domain.YourIncome
-
+@import views.html.helper.base._
 
 @previousClaimEmployment = @{
     claim.checkYAnswers.previouslySavedClaim.get.questionGroup[Employment].getOrElse(Employment())
@@ -41,16 +41,15 @@
                 @yesNoRadioGroup(employmentForm("beenSelfEmployedSince1WeekBeforeClaim"),
                     '_label -> messages("beenSelfEmployedSince1WeekBeforeClaim.label", displayPlaybackDatesFormat(lang, claim.dateOfClaim.get - 1 week)))
 
-                <li class="form-group">
-                @standaloneListCheckboxGroup(employmentForm("yourIncomeCheckboxList"),
+                @standaloneListCheckboxGroup(employmentForm("yourIncome"),
+                    employmentForm.asInstanceOf[Form[AnyContent]],
                     'items -> yourIncomeOptionsList,
                     'helperAbove -> "yourIncome.checkBoxHelp1",
                     'track -> true,
+                    'trackLabel -> Seq("yourIncome_ssp.tracking" -> "Statutory Sick Pay"),
                     'ignoreOptional -> true,
                     '_label -> messages("yourIncome.otherIncome.label", displayPlaybackDatesFormat(lang, claim.dateOfClaim.get)))
-                </li>
             </ul>
-
         </fieldset>
 	    
         @views.html.common.bottomNavigation(customTrack = Some(views.html.ga.trackSubmit(isOptional=true)))
