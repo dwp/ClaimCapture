@@ -17,6 +17,8 @@
         }
     }
 
-@strippedHtmlConstraintRequired(ninoField, args: _*)
-@carersNINOInputText(field("nino"), 'maxLength -> 9, 'ignoreLabel -> true, 'class -> "ni-number")
+    @strippedHtmlConstraintRequired(ninoField, args: _*)
+
+    <!-- We accept a possible space around each character with 9 max in nino ie. AB010203D so 9*2+1 ==> 19 chars max -->
+    @carersNINOInputText(field("nino"), 'maxLength -> 19, 'ignoreLabel -> true, 'class -> "ni-number")
 
