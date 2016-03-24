@@ -13,8 +13,8 @@ import play.api.i18n._
 import play.api.Play.current
 
 /**
- * Created by valtechuk on 24/03/2015.
- */
+  * Created by valtechuk on 24/03/2015.
+  */
 class EmailTemplateSpec extends Specification {
   def escapeMessage(id:String,param:String="") = {
     val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
