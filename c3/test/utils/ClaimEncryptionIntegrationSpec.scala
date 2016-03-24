@@ -19,7 +19,7 @@ class ClaimEncryptionIntegrationSpec extends Specification {
   def theirPersonalDetails = TheirPersonalDetails("Mrs","H", None, "Dawg",
     Some(NationalInsuranceNumber(Some("AA123456A"))), DayMonthYear(1,1,1988),"Wifey",
     YesNoMandWithAddress("No", Some(MultiLineAddress(Some("122"), Some("Fake street"),None)), None))
-  def circumstancesReportChange = CircumstancesReportChange("H-dawg",
+  def circumstancesReportChange = CircumstancesYourDetails("H-dawg",
     NationalInsuranceNumber(Some("AA123456A")), DayMonthYear(1,1,1986),
     "blah", "blah", Some("blah"), "blah", Some("blah@blah.com"), Some("blah@blah.com"))
   def howWePayYou = HowWePayYou( "Daily", Some(BankBuildingSocietyDetails(
@@ -79,7 +79,7 @@ class ClaimEncryptionIntegrationSpec extends Specification {
       claim.questionGroup[YourDetails] mustNotEqual claimFromCache.questionGroup[YourDetails]
       claim.questionGroup[ContactDetails] mustNotEqual claimFromCache.questionGroup[ContactDetails]
       claim.questionGroup[TheirPersonalDetails] mustNotEqual claimFromCache.questionGroup[TheirPersonalDetails]
-      claim.questionGroup[CircumstancesReportChange] mustNotEqual claimFromCache.questionGroup[CircumstancesReportChange]
+      claim.questionGroup[CircumstancesYourDetails] mustNotEqual claimFromCache.questionGroup[CircumstancesYourDetails]
       claim.questionGroup[HowWePayYou] mustNotEqual claimFromCache.questionGroup[HowWePayYou]
       claim.questionGroup[YourPartnerPersonalDetails] mustNotEqual claimFromCache.questionGroup[YourPartnerPersonalDetails]
       claim.questionGroup[CircumstancesAddressChange] mustNotEqual claimFromCache.questionGroup[CircumstancesAddressChange]
@@ -88,7 +88,7 @@ class ClaimEncryptionIntegrationSpec extends Specification {
       claim.questionGroup[YourDetails] mustEqual ClaimEncryption.decryptYourDetails(claimFromCache).questionGroup[YourDetails]
       claim.questionGroup[ContactDetails] mustEqual ClaimEncryption.decryptContactDetails(claimFromCache).questionGroup[ContactDetails]
       claim.questionGroup[TheirPersonalDetails] mustEqual ClaimEncryption.decryptTheirPersonalDetails(claimFromCache).questionGroup[TheirPersonalDetails]
-      claim.questionGroup[CircumstancesReportChange] mustEqual ClaimEncryption.decryptCircumstancesReportChange(claimFromCache).questionGroup[CircumstancesReportChange]
+      claim.questionGroup[CircumstancesYourDetails] mustEqual ClaimEncryption.decryptCircumstancesReportChange(claimFromCache).questionGroup[CircumstancesYourDetails]
       claim.questionGroup[HowWePayYou] mustEqual ClaimEncryption.decryptHowWePayYou(claimFromCache).questionGroup[HowWePayYou]
       claim.questionGroup[YourPartnerPersonalDetails] mustEqual ClaimEncryption.decryptYourPartnerPersonalDetails(claimFromCache).questionGroup[YourPartnerPersonalDetails]
       claim.questionGroup[CircumstancesAddressChange] mustEqual ClaimEncryption.decryptCircumstancesAddressChange(claimFromCache).questionGroup[CircumstancesAddressChange]
@@ -117,7 +117,7 @@ class ClaimEncryptionIntegrationSpec extends Specification {
       claim.questionGroup[YourDetails] mustEqual claimFromCache.questionGroup[YourDetails]
       claim.questionGroup[ContactDetails] mustEqual claimFromCache.questionGroup[ContactDetails]
       claim.questionGroup[TheirPersonalDetails] mustEqual claimFromCache.questionGroup[TheirPersonalDetails]
-      claim.questionGroup[CircumstancesReportChange] mustEqual claimFromCache.questionGroup[CircumstancesReportChange]
+      claim.questionGroup[CircumstancesYourDetails] mustEqual claimFromCache.questionGroup[CircumstancesYourDetails]
       claim.questionGroup[HowWePayYou] mustEqual claimFromCache.questionGroup[HowWePayYou]
       claim.questionGroup[YourPartnerPersonalDetails] mustEqual claimFromCache.questionGroup[YourPartnerPersonalDetails]
       claim.questionGroup[CircumstancesAddressChange] mustEqual claimFromCache.questionGroup[CircumstancesAddressChange]

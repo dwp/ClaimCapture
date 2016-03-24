@@ -1,13 +1,13 @@
 package controllers.s_information
 
 import app.ConfigProperties._
-import gov.dwp.carers.xml.schemavalidations.SchemaValidation
 import models.domain.Claiming
 import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import models.view.CachedClaim
-import utils.{LightFakeApplication, WithApplication}
+import utils.pageobjects.s_information.GAdditionalInfoPage
+import utils.{WithBrowser, WithApplication}
 
 class GAdditionalInformationSpec extends Specification {
   val validYesInput = Seq(
@@ -15,6 +15,8 @@ class GAdditionalInformationSpec extends Specification {
     "anythingElse.text" -> "Additional info text",
     "welshCommunication" -> "yes"
   )
+
+  val additionalInfoPath = "OtherInformation//AdditionalInformation//Why//Answer"
 
   section("unit", models.domain.AdditionalInfo.id)
   "Additional information" should {
@@ -42,38 +44,26 @@ class GAdditionalInformationSpec extends Specification {
 
     "handle gracefully when bad schema number passed to SchemaValidation getRestriction" in new WithApplication {
       val schemaVersion = "BAD-SCHEMA"
-      additionalInformationMaxLength(schemaVersion) mustEqual 2990
+      schemaMaxLength(schemaVersion, additionalInfoPath) mustEqual -1
     }
 
     "pull maxlength from xml commons OK" in new WithApplication {
       val schemaVersion = getProperty("xml.schema.version", "NOT-SET")
       schemaVersion must not be "NOT-SET"
-      additionalInformationMaxLength(schemaVersion) mustEqual 3000
+      schemaMaxLength(schemaVersion, additionalInfoPath) mustEqual 3000
     }
 
-    // This test requires xml.schema.version to be set correctly from properties into Information.scala
-/*
-    "have text maxlength set correctly in present()" in new WithApplication {
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-        .withFormUrlEncodedBody(validYesInput: _*)
+    "have text maxlength set correctly in present()" in new WithBrowser {
+      browser.goTo(GAdditionalInfoPage.url)
+      browser.click("#anythingElse_answer_yes")
+      val anythingelse = browser.$("#anythingElse_text")
+      // use + css selector to find adjacent sibling i.e. <textarea id=anythingElse_text></textarea><span class=countdown><span>
+      val countdown = browser.$("#anythingElse_text + .countdown")
 
-      val result = GAdditionalInfo.present(request)
-      val source = contentAsString(result)
-      // we have max in 3 places 1) on the textarea 2) on the char counter 3) on the char counter javascript init
-      source must contain("maxLength=\"3000\"")
-      source must contain("3000 characters left")
-      source must contain("maxChars:3000")
+      anythingelse.getAttribute("maxlength") mustEqual "3000"
+      countdown.getText must contain( "3000 char")
+      browser.pageSource must contain("maxChars:3000")
     }
-*/
   }
   section("unit", models.domain.AdditionalInfo.id)
-
-  def additionalInformationMaxLength(schemaVersion: String) = {
-    SchemaValidation.clearSchema()
-    lazy val validation = new SchemaValidation(schemaVersion)
-    Option(validation.getRestriction("OtherInformation//AdditionalInformation//Why//Answer")) match {
-      case Some(restriction) => if (restriction.getMaxlength != null) restriction.getMaxlength else 2990
-      case _ => 2990
-    }
-  }
 }

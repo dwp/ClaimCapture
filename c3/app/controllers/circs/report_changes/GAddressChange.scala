@@ -46,7 +46,7 @@ object GAddressChange extends Controller with CachedChangeOfCircs with Navigable
     "newPostcode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode)),
     changedAddressMapping,
     sameAddressMapping,
-    "moreAboutChanges" -> optional(carersText(maxLength = 300))
+    "moreAboutChanges" -> optional(carersText(maxLength = CircumstancesAddressChange.textMaxLength))
   )(CircumstancesAddressChange.apply)(CircumstancesAddressChange.unapply)
     .verifying("caredForChangedAddress.answer", validateCaredForChangedAddress _)
     .verifying("sameAddress.answer", validateSameAddress _)
@@ -76,7 +76,7 @@ object GAddressChange extends Controller with CachedChangeOfCircs with Navigable
     }
   }
 
-  def present = claimingWithCheck {implicit circs => implicit request => implicit request2lang =>
+  def present = claiming {implicit circs => implicit request => implicit request2lang =>
     track(CircumstancesAddressChange) {
       implicit circs => Ok(views.html.circs.report_changes.addressChange(form.fill(CircumstancesAddressChange)))
     }
@@ -92,7 +92,7 @@ object GAddressChange extends Controller with CachedChangeOfCircs with Navigable
           .replaceError("","caredForChangedAddress.answer", FormError("caredForChangedAddress.answer", errorRequired))
         BadRequest(views.html.circs.report_changes.addressChange(updatedFormWithErrors))
       },
-      addressChange => circs.update(formatPostCodes(addressChange)) -> Redirect(controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present())
+      addressChange => circs.update(formatPostCodes(addressChange)) -> Redirect(controllers.circs.your_details.routes.GYourDetails.present())
     )
   }
 

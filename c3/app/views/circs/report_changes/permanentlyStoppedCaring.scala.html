@@ -7,8 +7,9 @@
 @import views.html.helper.base._
 @import views.html.helper.dates._
 @import views.html.circs.report_changes.main
+@import models.domain.CircumstancesStoppedCaring
 
-@main(messages("c2.g3") + " - " + messages("c2.name")) {
+@main(messages("c2.g3") + " - " + messages("c2.name"), isChanging = true) {
     @errorsSummary(stoppedCaringForm)
 
     @form(action = controllers.circs.report_changes.routes.GPermanentlyStoppedCaring.submit) {
@@ -18,11 +19,11 @@
 	            <legend class="form-label-bold heading-medium">@Html(messages("c2.g3"))</legend>
 	            <ul class="coc-layout">
 	                @inputDayMonthYear(stoppedCaringForm("stoppedCaringDate"),  'helperAbove-> messages("stoppedCaringDate.helper"))
-	                @carersInputTextArea(stoppedCaringForm("moreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), 'textAreaHelper -> Html(messages("300charsLeft")), 'maxLength -> 300)
+	                @carersInputTextArea(stoppedCaringForm("moreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), 'textAreaHelper -> Html(messages(s"${CircumstancesStoppedCaring.textMaxLength}charsLeft")), 'maxLength -> CircumstancesStoppedCaring.textMaxLength)
 	            </ul>
 	        </fieldset>
 	
-            @views.html.common.bottomNavigation()
+            @views.html.common.bottomNavigation(changing = true)
         </div>
         }
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
@@ -30,7 +31,7 @@
 
 <script type="text/javascript">
     $(function(){
-        window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:300});
+        window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:@CircumstancesStoppedCaring.textMaxLength});
         @ga.stagePrompt()
     });
     $(function(){

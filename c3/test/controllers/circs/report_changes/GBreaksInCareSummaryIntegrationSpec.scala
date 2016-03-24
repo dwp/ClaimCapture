@@ -5,7 +5,7 @@ import utils.WithBrowser
 import utils.pageobjects.PageObjects
 import utils.pageobjects.circumstances.report_changes.GBreaksInCareSummaryPage
 import controllers.CircumstancesScenarioFactory
-import utils.pageobjects.circumstances.consent_and_declaration.GCircsDeclarationPage
+import utils.pageobjects.circumstances.start_of_process.GCircsYourDetailsPage
 
 class GBreaksInCareSummaryIntegrationSpec extends Specification {
   section("integration", models.domain.CircumstancesIdentification.id)
@@ -22,7 +22,7 @@ class GBreaksInCareSummaryIntegrationSpec extends Specification {
       page fillPageWith claim
 
       val nextPage = page submitPage ()
-      nextPage must beAnInstanceOf[GCircsDeclarationPage]
+      nextPage must beAnInstanceOf[GCircsYourDetailsPage]
     }
 
     "navigate to next page when 'has this break from caring ended' yes and no additional breaks" in new WithBrowser with PageObjects {
@@ -32,7 +32,7 @@ class GBreaksInCareSummaryIntegrationSpec extends Specification {
       page fillPageWith claim
 
       val nextPage = page submitPage ()
-      nextPage must beAnInstanceOf[GCircsDeclarationPage]
+      nextPage must beAnInstanceOf[GCircsYourDetailsPage]
     }
 
     "show errors when additional breaks answer not specified" in new WithBrowser with PageObjects{

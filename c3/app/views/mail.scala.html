@@ -32,6 +32,9 @@
     claim.questionGroup[CircumstancesStartedAndFinishedEmployment].exists(_ =>true)
 }
 
+@schemaTransactionVersion = @{
+    s"${getProperty("xml.schema.version", "No schema version found")} ${claim.transactionId.getOrElse("")}"
+}
 
 <!DOCTYPE html>
 <!--[if IE 7]>         <html class="ie ie7" lang="en"> <![endif]-->
@@ -202,7 +205,7 @@
         <div class="footer">
             <p><b>@Html(messages("mail.donotreply"))</b></p>
             <br />
-            <p style="font-size: 16px; color: #BFC1C3;">@getProperty("xml.schema.version", "No schema version found")</p>
+            <p style="font-size: 16px; color: #BFC1C3;">@schemaTransactionVersion</p>
         </div>
 
     </body>

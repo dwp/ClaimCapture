@@ -13,12 +13,11 @@ case class AdditionalInfo(anythingElse: YesNoWithText = YesNoWithText(answer = "
 object AdditionalInfo extends QuestionGroup.Identifier {
   val id = s"${Information.id}.g1"
 
-  val textMaxLength:Integer={
+  def textMaxLength:Integer={
     val schemaVersion=getProperty("xml.schema.version", "xml.schema.version not found")
-    lazy val validation=new SchemaValidation(schemaVersion)
-    Option(validation.getRestriction("OtherInformation//AdditionalInformation//Why//Answer")) match {
-      case Some(restriction) => if( restriction.getMaxlength!=null) restriction.getMaxlength else 2990
-      case _ => 2990
+    Option(new SchemaValidation(schemaVersion).getRestriction("OtherInformation//AdditionalInformation//Why//Answer")) match {
+      case Some(restriction) => if( restriction.getMaxlength!=null) restriction.getMaxlength else -1
+      case _ => -1
     }
   }
 }

@@ -3,16 +3,14 @@
 
 @import views.html.helper.base._
 @import views.html.helper._
-@import models.DayMonthYear._
 @import models.domain.{ClaimDate, Education, Employed, OtherMoney, SelfEmployment}
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
-@import play.api.i18n.Messages
 @import language.postfixOps
-@import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 @import scala.language.postfixOps
 @import app.CircsBreaksWhereabouts._
 @import controllers.s_breaks.GBreaksInCare
+@import views.html.s_breaks.main
 
 @dateWeRequireBreakInCareInformationFrom() = @{
 
@@ -41,9 +39,7 @@ else OtherMoney.name
         <div class="data-table">
 
             <ul class="break-data">
-
-                @for(break <- breaksInCare.breaks) {
-
+                @for((break, breakNum) <- breaksInCare.breaks.zipWithIndex){
                     <li id="@break.iterationID" class="@break.iterationID">
                     	
                       	<h3 class="heading-small">
@@ -85,8 +81,8 @@ else OtherMoney.name
                       	</dl>
                       	
                     	<div class="actions">
-                    		<input type="button" name="changerow" value="@Html(messages("change"))" aria-label="@Html(messages("change.button"))">
-                        	<input type="button" name="deleterow" value="@Html(messages("delete"))" aria-label="@Html(messages("delete.button"))">
+                    		<input type="button" name="changerow" id="changerow@breakNum" value="@Html(messages("change"))" aria-label="@Html(messages("change.button"))">
+                        	<input type="button" name="deleterow" id="deleterow@breakNum" value="@Html(messages("delete"))" aria-label="@Html(messages("delete.button"))">
                     	</div>
 
                 	</li>

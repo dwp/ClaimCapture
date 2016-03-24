@@ -8,11 +8,9 @@
 @import utils.helpers.CarersCrypto
 @import views.html.circs.report_changes.main
 @import app.CircsBreaksWhereabouts._
+@import models.domain.CircumstancesBreaksInCare
 
-
-    
-
-@main(messages("c2.g7") + " - " + messages("c2.name")) {
+@main(messages("c2.g7") + " - " + messages("c2.name"), isChanging = true) {
     @errorsSummary(breaksForm)
 
     @form(action = controllers.circs.report_changes.routes.GBreaksInCare.submit) {
@@ -88,13 +86,13 @@
 
                     @yesNoRadioGroup(breaksForm("medicalCareDuringBreak"),'values -> Seq("yes" -> Html(messages("label.yes3")), "no" -> Html(messages("label.no"))))
 
-                    @carersInputTextArea(breaksForm("moreAboutChanges"), 'helperAbove-> Html(messages("moreAboutChanges.helper")), 'textAreaHelper -> Html(messages("300charsLeft")), 'maxLength -> 300)
+                    @carersInputTextArea(breaksForm("moreAboutChanges"), 'helperAbove-> Html(messages("moreAboutChanges.helper")), 'textAreaHelper -> Html(messages(s"${CircumstancesBreaksInCare.textMaxLength}charsLeft")), 'maxLength -> CircumstancesBreaksInCare.textMaxLength)
 
                 </ul>
 
             </fieldset>
 
-            @views.html.common.bottomNavigation()
+            @views.html.common.bottomNavigation(changing = true)
         </div>
 
     }
@@ -107,7 +105,7 @@
         $(function(){
             window.areaCounter({selector:"@CarersCrypto.encryptAES("wherePersonBreaksInCare_text")",maxChars:60});
             window.areaCounter({selector:"@CarersCrypto.encryptAES("whereYouBreaksInCare_text")",maxChars:60});
-            window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:300});
+            window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:@CircumstancesBreaksInCare.textMaxLength});
 
             window.initEvents("@CarersCrypto.encryptAES("breakEnded_answer_yes")",
             "@CarersCrypto.encryptAES("breakEnded_answer_no")",

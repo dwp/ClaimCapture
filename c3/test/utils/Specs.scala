@@ -2,6 +2,7 @@ package utils
 
 import java.util.UUID._
 
+import gov.dwp.carers.xml.schemavalidations.SchemaValidation
 import org.openqa.selenium.htmlunit.HtmlUnitDriver
 import play.api.test._
 import org.specs2.mutable._
@@ -23,6 +24,15 @@ abstract class WithApplication(val app: FakeApplication = LightFakeApplication.f
   implicit def implicitApp = app
   override def around[T: AsResult](t: => T): Result = {
     Helpers.running(app)(AsResult.effectively(t))
+  }
+
+  def schemaMaxLength(schemaVersion: String, xmlPath: String) = {
+    SchemaValidation.clearSchema()
+    lazy val validation = new SchemaValidation(schemaVersion)
+    Option(validation.getRestriction(xmlPath)) match {
+      case Some(restriction) => if (restriction.getMaxlength != null) restriction.getMaxlength else -1
+      case _ => -1
+    }
   }
 }
 

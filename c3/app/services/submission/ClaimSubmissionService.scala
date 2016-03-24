@@ -4,7 +4,7 @@ import app.ConfigProperties._
 import app.ReportChange._
 import app.XMLValues.NotAsked
 import controllers.submission.{StatusRoutingController, claimType}
-import models.domain.{CircumstancesDeclaration, Claim, ReportChanges}
+import models.domain.{ReportChangeReason, CircumstancesDeclaration, Claim}
 import models.view.ClaimHandling.ClaimResult
 import models.view.{ClaimHandling, CachedChangeOfCircs, CachedClaim}
 import play.api.Logger
@@ -90,7 +90,7 @@ object ClaimSubmissionService {
     )
     val declaration = claim.questionGroup[CircumstancesDeclaration].getOrElse(CircumstancesDeclaration())
     val thirdParty = declaration.circsSomeOneElse.isDefined
-    val circsChange = changesMap(claim.questionGroup[ReportChanges].getOrElse(ReportChanges()).reportChanges)
+    val circsChange = changesMap(claim.questionGroup[ReportChangeReason].getOrElse(ReportChangeReason()).reportChanges)
     recordMI(id, thirdParty, circsChange, claim.lang)
   }
 

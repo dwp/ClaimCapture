@@ -1,4 +1,4 @@
-@(reportAChangeForm: Form[models.domain.CircumstancesReportChange])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
+@(reportAChangeForm: Form[models.domain.CircumstancesYourDetails])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import utils.csrf.DwpCSRFFormHelper
 @import utils.helpers.CarersTemplate._
@@ -9,10 +9,11 @@
 @import utils.helpers.CarersCrypto
 @import play.api.Play
 @import utils.CommonValidation
+@import views.html.circs.start_of_process.main
 
     @main(messages("c1") + " - " + messages("c2.longName"), Some(reportAChangeForm), back = true) {
 
-        @form(action = controllers.circs.start_of_process.routes.GReportAChangeInYourCircumstances.submit) {
+        @form(action = controllers.circs.your_details.routes.GYourDetails.submit) {
             @DwpCSRFFormHelper.formField
 
             <div class="form-wrap">
@@ -70,11 +71,8 @@
                     </ul>
 
                 </fieldset>
-
-                @views.html.common.bottomNavigation( changing = true)
-
+                @views.html.common.bottomNavigation()
             </div>
-
         }
 
         @if(getProperty("email.frontend",false)){

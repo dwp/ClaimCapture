@@ -26,10 +26,10 @@ object GSelfEmployment extends Controller with CachedChangeOfCircs with Navigabl
     "whenThisSelfEmploymentStarted" -> dayMonthYear.verifying(validDate),
     "typeOfBusiness" -> carersNonEmptyText(maxLength = 35),
     "totalOverWeeklyIncomeThreshold" -> nonEmptyText.verifying(validYesNoDontKnow),
-    "moreAboutChanges" -> optional(carersText(maxLength = 300))
+    "moreAboutChanges" -> optional(carersText(maxLength = CircumstancesSelfEmployment.textMaxLength))
   )(CircumstancesSelfEmployment.apply)(CircumstancesSelfEmployment.unapply))
 
-  def present = claimingWithCheck {implicit circs => implicit request => implicit request2lang =>
+  def present = claiming {implicit circs => implicit request => implicit request2lang =>
     track(CircumstancesSelfEmployment) {
       implicit circs => Ok(views.html.circs.report_changes.selfEmployment(form.fill(CircumstancesSelfEmployment)))
     }
@@ -41,7 +41,7 @@ object GSelfEmployment extends Controller with CachedChangeOfCircs with Navigabl
         val updatedFormWithErrors = formWithErrors.replaceError("stillCaring","dateRequired", FormError("stillCaring.date", errorRequired))
         BadRequest(views.html.circs.report_changes.selfEmployment(updatedFormWithErrors))
       },
-      f => circs.update(f) -> Redirect(controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present())
+      f => circs.update(f) -> Redirect(controllers.circs.your_details.routes.GYourDetails.present())
     )
   }
 }

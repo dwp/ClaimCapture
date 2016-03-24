@@ -232,13 +232,14 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
           f => "This mapping should not happen." must equalTo("Valid"))
     }
 
+    /* at symbol accepted in most fields now */
     "reject special characters" in new WithApplication {
       GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
         Map("title" -> title,
           "firstName" -> "MyNa>me",
           "middleName" -> "middleNam©e",
           "surname" -> ";My Surn˙h∫ame;",
-          "otherNames" -> "other@Names",
+          "otherNames" -> "at like col@bt ok now",
           "nationalInsuranceNumber.nino" -> nino.toString,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
@@ -248,7 +249,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
           "isPartnerPersonYouCareFor"->"yes",
           "hadPartnerSinceClaimDate" -> "yes")).fold(
         formWithErrors => {
-          formWithErrors.errors.length must equalTo(4)
+          formWithErrors.errors.length must equalTo(3)
           formWithErrors.errors.head.message must equalTo(Mappings.errorRestrictedCharacters)
         },
         f => "This mapping should not happen." must equalTo("Valid"))

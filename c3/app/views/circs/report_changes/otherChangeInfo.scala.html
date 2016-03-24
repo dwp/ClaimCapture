@@ -6,11 +6,11 @@
 @import views.html.common._
 @import views.html.helper._
 @import views.html.helper.base._
-@import play.api.i18n.Messages
 @import utils.helpers._
+@import models.domain.CircumstancesOtherInfo
+@import views.html.circs.report_changes.main
 
-
-@main(messages("c2.g4") + " - " + messages("c2.name")) {
+@main(messages("c2.g4") + " - " + messages("c2.name"), isChanging = true) {
     @errorsSummary(otherInfoForm)
 
     @form(action = controllers.circs.report_changes.routes.GOtherChangeInfo.submit) {
@@ -23,12 +23,12 @@
 	            <legend class="heading-medium form-label-bold">@Html(messages("c2.g4"))</legend>
 
 	            <ul class="coc-layout">
-	                @carersInputTextArea(otherInfoForm("changeInCircs"), 'maxLength -> 2000, 'textAreaHelper -> Html(messages("2000charsLeft")), 'maxLength -> 2000 )
+	                @carersInputTextArea(otherInfoForm("changeInCircs"), 'textAreaHelper -> Html(messages(s"${CircumstancesOtherInfo.textMaxLength}charsLeft")), 'maxLength -> CircumstancesOtherInfo.textMaxLength)
 	            </ul>
                 
 	        </fieldset>
 	
-            @views.html.common.bottomNavigation()
+            @views.html.common.bottomNavigation(changing = true)
         </div>
 
     }
@@ -38,7 +38,7 @@
 
     <script type="text/javascript">
         $(function(){
-            window.areaCounter({selector:"@CarersCrypto.encryptAES("changeInCircs")",maxChars:2000});
+            window.areaCounter({selector:"@CarersCrypto.encryptAES("changeInCircs")",maxChars:@CircumstancesOtherInfo.textMaxLength});
             @ga.stagePrompt()
         });
         $(function(){

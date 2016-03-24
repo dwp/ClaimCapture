@@ -80,7 +80,7 @@ class GSaveForLaterSpec extends Specification {
       val cacheHandling = new EncryptedCacheHandling() {
         val cacheKey = "12345678"
       }
-      cacheHandling.claimExpirySecs() mustEqual(0)
+      cacheHandling.sflClaimExpirySecs() mustEqual(0)
       cacheHandling.memcacheExpirySecs() mustEqual(1)
 
       var claim = new Claim(CachedClaim.key, List(), System.currentTimeMillis(), Some(Lang("en")),  "UUID-1234")

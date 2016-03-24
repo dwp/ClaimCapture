@@ -17,10 +17,10 @@ object GPermanentlyStoppedCaring extends Controller with CachedChangeOfCircs wit
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val form = Form(mapping(
     "stoppedCaringDate" -> dayMonthYear.verifying(validDate),
-    "moreAboutChanges" -> optional(carersText(maxLength = 300))
+    "moreAboutChanges" -> optional(carersText(maxLength = CircumstancesStoppedCaring.textMaxLength))
   )(CircumstancesStoppedCaring.apply)(CircumstancesStoppedCaring.unapply))
 
-  def present = claimingWithCheck {implicit circs => implicit request => implicit request2lang =>
+  def present = claiming {implicit circs => implicit request => implicit request2lang =>
     track(CircumstancesStoppedCaring) {
       implicit circs => Ok(views.html.circs.report_changes.permanentlyStoppedCaring(form.fill(CircumstancesStoppedCaring)))
     }
@@ -28,7 +28,7 @@ object GPermanentlyStoppedCaring extends Controller with CachedChangeOfCircs wit
   def submit = claiming {implicit circs => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.circs.report_changes.permanentlyStoppedCaring(formWithErrors)),
-      f => circs.update(f) -> Redirect(controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present())
+      f => circs.update(f) -> Redirect(controllers.circs.your_details.routes.GYourDetails.present())
     )
   }
 }

@@ -2,7 +2,7 @@ package xml.circumstances
 
 import javax.xml.bind.DatatypeConverter
 import gov.dwp.carers.security.encryption.EncryptorAES
-import models.domain.{CircumstancesReportChange, Claim}
+import models.domain.{CircumstancesYourDetails, Claim}
 import models.view.CachedChangeOfCircs
 import org.specs2.mutable._
 import utils.WithApplication
@@ -14,7 +14,7 @@ class CareeSpec extends Specification {
   section("unit")
   "Careree" should {
     "generate Careree xml from a given circumstances" in new WithApplication {
-      val yourDetails = CircumstancesReportChange(
+      val yourDetails = CircumstancesYourDetails(
         theirFullName = "Mr Phil Joe Smith",
         theirRelationshipToYou = "Wife of civil partner")
 

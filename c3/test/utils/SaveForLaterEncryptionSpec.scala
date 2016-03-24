@@ -19,7 +19,7 @@ class SaveForLaterEncryptionSpec extends Specification {
   def theirPersonalDetails = TheirPersonalDetails("Mrs", "H", None, "Dawg",
     Some(NationalInsuranceNumber(Some("AA123456A"))), DayMonthYear(1,1,1988),"Wifey",
     YesNoMandWithAddress("No", Some(MultiLineAddress(Some("122"), Some("Fake street"),None)), None))
-  def circumstancesReportChange = CircumstancesReportChange("H-dawg",
+  def circumstancesYourDetails = CircumstancesYourDetails("H-dawg",
     NationalInsuranceNumber(Some("AA123456A")), DayMonthYear(1,1,1986),
     "blah", "blah", Some("blah"), "blah", Some("blah@blah.com"), Some("blah@blah.com"))
   def howWePayYou = HowWePayYou("Daily", Some(BankBuildingSocietyDetails(
@@ -38,7 +38,7 @@ class SaveForLaterEncryptionSpec extends Specification {
   def claim = Claim(CachedClaim.key, List(
     Section(AboutYou, List(yourDetails, contactDetails)),
     Section(CareYouProvide, List(theirPersonalDetails)),
-    Section(CircumstancesIdentification, List(circumstancesReportChange)),
+    Section(CircumstancesIdentification, List(circumstancesYourDetails)),
     Section(PayDetails, List(howWePayYou)),
     Section(YourPartner, List(yourPartnerPersonalDetails)),
     Section(CircumstancesReportChanges, List(circumstancesPaymentChange, circumstancesAddressChange))
@@ -53,7 +53,7 @@ class SaveForLaterEncryptionSpec extends Specification {
       claim.questionGroup[YourDetails] mustEqual newClaim.questionGroup[YourDetails]
       claim.questionGroup[ContactDetails] mustEqual newClaim.questionGroup[ContactDetails]
       claim.questionGroup[TheirPersonalDetails] mustEqual newClaim.questionGroup[TheirPersonalDetails]
-      claim.questionGroup[CircumstancesReportChange] mustEqual newClaim.questionGroup[CircumstancesReportChange]
+      claim.questionGroup[CircumstancesYourDetails] mustEqual newClaim.questionGroup[CircumstancesYourDetails]
       claim.questionGroup[HowWePayYou] mustEqual newClaim.questionGroup[HowWePayYou]
       claim.questionGroup[YourPartnerPersonalDetails] mustEqual newClaim.questionGroup[YourPartnerPersonalDetails]
       claim.questionGroup[CircumstancesAddressChange] mustEqual newClaim.questionGroup[CircumstancesAddressChange]
@@ -165,7 +165,7 @@ class SaveForLaterEncryptionSpec extends Specification {
           claim.questionGroup[YourDetails] mustEqual newClaim.questionGroup[YourDetails]
           claim.questionGroup[ContactDetails] mustEqual newClaim.questionGroup[ContactDetails]
           claim.questionGroup[TheirPersonalDetails] mustEqual newClaim.questionGroup[TheirPersonalDetails]
-          claim.questionGroup[CircumstancesReportChange] mustEqual newClaim.questionGroup[CircumstancesReportChange]
+          claim.questionGroup[CircumstancesYourDetails] mustEqual newClaim.questionGroup[CircumstancesYourDetails]
           claim.questionGroup[HowWePayYou] mustEqual newClaim.questionGroup[HowWePayYou]
           claim.questionGroup[YourPartnerPersonalDetails] mustEqual newClaim.questionGroup[YourPartnerPersonalDetails]
           claim.questionGroup[CircumstancesAddressChange] mustEqual newClaim.questionGroup[CircumstancesAddressChange]

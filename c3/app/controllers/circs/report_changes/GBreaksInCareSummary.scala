@@ -9,7 +9,7 @@ import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import controllers.mappings.Mappings._
 import models.yesNo.YesNoWithText
-import models.domain.{CircumstancesBreaksInCareSummary,CircumstancesBreaksInCare}
+import models.domain.{CircumstancesBreaksInCareSummary, CircumstancesBreaksInCare}
 import controllers.CarersForms._
 import play.api.i18n._
 
@@ -28,20 +28,20 @@ object GBreaksInCareSummary extends Controller with CachedChangeOfCircs with Nav
   )(CircumstancesBreaksInCareSummary.apply)(CircumstancesBreaksInCareSummary.unapply)
   )
 
-  def present = claimingWithCheck{implicit circs => implicit request => implicit request2lang =>
+  def present = claiming { implicit circs => implicit request => implicit request2lang =>
     track(CircumstancesBreaksInCareSummary) {
       implicit circs => Ok(views.html.circs.report_changes.breaksInCareSummary(form.fill(CircumstancesBreaksInCareSummary), circs.questionGroup[CircumstancesBreaksInCare].getOrElse(new CircumstancesBreaksInCare())))
     }
   }
 
-  def submit = claiming {implicit circs => implicit request => implicit request2lang =>
+  def submit = claiming { implicit circs => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
           .replaceError("additionalBreaks", "additionalBreaks.text.required", FormError("additionalBreaks.text", errorRequired))
         BadRequest(views.html.circs.report_changes.breaksInCareSummary(formWithErrorsUpdate, circs.questionGroup[CircumstancesBreaksInCare].getOrElse(new CircumstancesBreaksInCare())))
       },
-      f => circs.update(f) -> Redirect(controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present())
+      f => circs.update(f) -> Redirect(controllers.circs.your_details.routes.GYourDetails.present())
     )
   }
 

@@ -66,7 +66,7 @@ object EmailServices extends I18nSupport {
 
 
   private def sendCofcEmail(claim: Claim) = {
-    claim.questionGroup[CircumstancesReportChange] -> claim.lang match {
+    claim.questionGroup[CircumstancesYourDetails] -> claim.lang match {
       case (Some(circumstancesRepChange), language) if circumstancesRepChange.email.isDefined =>
         implicit val lang = language.getOrElse(Lang("en"))
 

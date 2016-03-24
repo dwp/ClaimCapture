@@ -58,7 +58,7 @@ object GBreaksInCare  extends Controller with CachedChangeOfCircs with Navigable
     breakEndedMapping,
     expectStartCaringMapping,
     "medicalCareDuringBreak" -> (nonEmptyText verifying validYesNo),
-    "moreAboutChanges" -> optional(carersText(maxLength = 300))
+    "moreAboutChanges" -> optional(carersText(maxLength = CircumstancesBreaksInCare.textMaxLength))
   )(CircumstancesBreaksInCare.apply)(CircumstancesBreaksInCare.unapply)
     .verifying("expectStartCaring", validateBreakEnded _)
   )
@@ -87,10 +87,8 @@ object GBreaksInCare  extends Controller with CachedChangeOfCircs with Navigable
     }
   }
 
-  def present = claimingWithCheck {implicit circs => implicit request => implicit request2lang =>
-    track(CircumstancesBreaksInCare) {
-      implicit circs => Ok(views.html.circs.report_changes.breaksInCare(form.fill(CircumstancesBreaksInCare)))
-    }
+  def present = claiming {implicit circs => implicit request => implicit request2lang =>
+    Ok(views.html.circs.report_changes.breaksInCare(form.fill(CircumstancesBreaksInCare)))
   }
 
   def submit = claiming {implicit circs => implicit request => implicit request2lang =>

@@ -17,7 +17,7 @@ class ClaimEncryptionSpec extends Specification {
   def theirPersonalDetails = TheirPersonalDetails("Mrs", "H", None, "Dawg",
     Some(NationalInsuranceNumber(Some("AA123456A"))), DayMonthYear(1,1,1988),"Wifey",
     YesNoMandWithAddress("No", Some(MultiLineAddress(Some("122"), Some("Fake street"),None)), None))
-  def circumstancesReportChange = CircumstancesReportChange("H-dawg",
+  def circumstancesReportChange = CircumstancesYourDetails("H-dawg",
     NationalInsuranceNumber(Some("AA123456A")), DayMonthYear(1,1,1986),
     "blah", "blah", Some("blah"), "blah", Some("blah@blah.com"), Some("blah@blah.com"))
   def howWePayYou = HowWePayYou("Daily", Some(BankBuildingSocietyDetails(
@@ -53,7 +53,7 @@ class ClaimEncryptionSpec extends Specification {
       claim.questionGroup[YourDetails] mustNotEqual encryptedClaim.questionGroup[YourDetails]
       claim.questionGroup[ContactDetails] mustNotEqual encryptedClaim.questionGroup[ContactDetails]
       claim.questionGroup[TheirPersonalDetails] mustNotEqual encryptedClaim.questionGroup[TheirPersonalDetails]
-      claim.questionGroup[CircumstancesReportChange] mustNotEqual encryptedClaim.questionGroup[CircumstancesReportChange]
+      claim.questionGroup[CircumstancesYourDetails] mustNotEqual encryptedClaim.questionGroup[CircumstancesYourDetails]
       claim.questionGroup[HowWePayYou] mustNotEqual encryptedClaim.questionGroup[HowWePayYou]
       claim.questionGroup[YourPartnerPersonalDetails] mustNotEqual encryptedClaim.questionGroup[YourPartnerPersonalDetails]
       claim.questionGroup[CircumstancesAddressChange] mustNotEqual encryptedClaim.questionGroup[CircumstancesAddressChange]
@@ -62,7 +62,7 @@ class ClaimEncryptionSpec extends Specification {
       claim.questionGroup[YourDetails] mustEqual ClaimEncryption.decryptYourDetails(encryptedClaim).questionGroup[YourDetails]
       claim.questionGroup[ContactDetails] mustEqual ClaimEncryption.decryptContactDetails(encryptedClaim).questionGroup[ContactDetails]
       claim.questionGroup[TheirPersonalDetails] mustEqual ClaimEncryption.decryptTheirPersonalDetails(encryptedClaim).questionGroup[TheirPersonalDetails]
-      claim.questionGroup[CircumstancesReportChange] mustEqual ClaimEncryption.decryptCircumstancesReportChange(encryptedClaim).questionGroup[CircumstancesReportChange]
+      claim.questionGroup[CircumstancesYourDetails] mustEqual ClaimEncryption.decryptCircumstancesReportChange(encryptedClaim).questionGroup[CircumstancesYourDetails]
       claim.questionGroup[HowWePayYou] mustEqual ClaimEncryption.decryptHowWePayYou(encryptedClaim).questionGroup[HowWePayYou]
       claim.questionGroup[YourPartnerPersonalDetails] mustEqual ClaimEncryption.decryptYourPartnerPersonalDetails(encryptedClaim).questionGroup[YourPartnerPersonalDetails]
       claim.questionGroup[CircumstancesAddressChange] mustEqual ClaimEncryption.decryptCircumstancesAddressChange(encryptedClaim).questionGroup[CircumstancesAddressChange]
@@ -79,7 +79,7 @@ class ClaimEncryptionSpec extends Specification {
       claim.questionGroup[YourDetails] mustEqual decryptedClaim.questionGroup[YourDetails]
       claim.questionGroup[ContactDetails] mustEqual decryptedClaim.questionGroup[ContactDetails]
       claim.questionGroup[TheirPersonalDetails] mustEqual decryptedClaim.questionGroup[TheirPersonalDetails]
-      claim.questionGroup[CircumstancesReportChange] mustEqual decryptedClaim.questionGroup[CircumstancesReportChange]
+      claim.questionGroup[CircumstancesYourDetails] mustEqual decryptedClaim.questionGroup[CircumstancesYourDetails]
       claim.questionGroup[HowWePayYou] mustEqual decryptedClaim.questionGroup[HowWePayYou]
       claim.questionGroup[YourPartnerPersonalDetails] mustEqual decryptedClaim.questionGroup[YourPartnerPersonalDetails]
       claim.questionGroup[CircumstancesAddressChange] mustEqual decryptedClaim.questionGroup[CircumstancesAddressChange]
@@ -121,13 +121,13 @@ class ClaimEncryptionSpec extends Specification {
 
     "Encrypt CircumstancesReportChange question group" in new WithApplication {
       val encryptedData = ClaimEncryption.encryptCircumstancesReportChange(claim)
-      claim.questionGroup[CircumstancesReportChange] mustNotEqual encryptedData.questionGroup[CircumstancesReportChange]
+      claim.questionGroup[CircumstancesYourDetails] mustNotEqual encryptedData.questionGroup[CircumstancesYourDetails]
     }
 
     "Decrypt CircumstancesReportChange question group" in new WithApplication {
       val encryptedData = ClaimEncryption.encryptCircumstancesReportChange(claim)
       val decryptedData = ClaimEncryption.decryptCircumstancesReportChange(encryptedData)
-      claim.questionGroup[CircumstancesReportChange] mustEqual decryptedData.questionGroup[CircumstancesReportChange]
+      claim.questionGroup[CircumstancesYourDetails] mustEqual decryptedData.questionGroup[CircumstancesYourDetails]
     }
 
     "Encrypt HowWePayYou question group" in new WithApplication {

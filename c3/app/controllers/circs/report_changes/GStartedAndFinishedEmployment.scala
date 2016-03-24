@@ -1,6 +1,6 @@
 package controllers.circs.report_changes
 
-import models.domain.CircumstancesStartedAndFinishedEmployment
+import models.domain.{CircumstancesEmploymentChange, CircumstancesStartedAndFinishedEmployment}
 import play.api.Play._
 import play.api.data.{Form, FormError}
 import play.api.data.Forms._
@@ -49,14 +49,14 @@ object GStartedAndFinishedEmployment extends Controller with CachedChangeOfCircs
     payIntoPension,
     payForThings,
     careCostsForThisWork,
-    "moreAboutChanges" -> optional(carersText(maxLength = 300))
+    "moreAboutChanges" -> optional(carersText(maxLength = CircumstancesStartedAndFinishedEmployment.textMaxLength))
   )(CircumstancesStartedAndFinishedEmployment.apply)(CircumstancesStartedAndFinishedEmployment.unapply)
     .verifying("expected.monthlyPayDay", validateMonthlyPayDay _)
     .verifying("expected.employerOwesYouMoneyInfo", validateEmployerOwesYou _)
   )
 
   def present = claiming {implicit circs => implicit request => implicit request2lang =>
-    track(CircumstancesStartedAndFinishedEmployment) {
+    track(CircumstancesEmploymentChange) {
       implicit circs => Ok(views.html.circs.report_changes.startedAndFinishedEmployment(form.fill(CircumstancesStartedAndFinishedEmployment)))
     }
   }
@@ -75,7 +75,7 @@ object GStartedAndFinishedEmployment extends Controller with CachedChangeOfCircs
 
         BadRequest(views.html.circs.report_changes.startedAndFinishedEmployment(formWithErrorsUpdate))
       },
-      f => circs.update(f) -> Redirect(controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present())
+      f => circs.update(f) -> Redirect(circsPathAfterFunction)
     )
   }
 

@@ -10,7 +10,7 @@
 @import views.html.helper.dates._
 @import controllers.mappings.Mappings._
 @import utils.helpers.CarersCrypto
-@import play.api.i18n.Messages
+@import models.domain.CircumstancesStartedAndFinishedEmployment
 
 @beenPaidYet = @{startedAndFinishedEmployment("beenPaidYet")}
 @howMuchPaid = @{startedAndFinishedEmployment("howMuchPaid")}
@@ -158,7 +158,7 @@
                         'id -> "whatCostsWrap"
                     )
 
-                    @carersInputTextArea(moreAboutChanges, 'helperAbove-> messages("moreAboutChanges.helper"), 'helper -> Html(messages("300charsLeft")), 'maxLength -> 300)
+                    @carersInputTextArea(moreAboutChanges, 'helperAbove -> messages("moreAboutChanges.helper"), 'textAreaHelper -> Html(messages(s"${CircumstancesStartedAndFinishedEmployment.textMaxLength}charsLeft")), 'maxLength -> CircumstancesStartedAndFinishedEmployment.textMaxLength)
                 </ul>
 	        </fieldset>
 	
@@ -258,7 +258,7 @@ $(function(){
     window.areaCounter({selector: "@CarersCrypto.encryptAES(didYouPayIntoPension("whatFor").id)",maxChars:300});
     window.areaCounter({selector: "@CarersCrypto.encryptAES(didYouPayForThings("whatFor").id)",maxChars:300});
     window.areaCounter({selector: "@CarersCrypto.encryptAES(didCareCostsForThisWork("whatCosts").id)",maxChars:300});
-    window.areaCounter({selector: "@CarersCrypto.encryptAES(moreAboutChanges.id)",maxChars:300});
+    window.areaCounter({selector: "@CarersCrypto.encryptAES(moreAboutChanges.id)",maxChars:@CircumstancesStartedAndFinishedEmployment.textMaxLength});
     window.areaCounter({selector: "@CarersCrypto.encryptAES(employerOwesYouMoneyInfo.id)",maxChars:300});
 
 });

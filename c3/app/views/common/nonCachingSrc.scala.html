@@ -1,2 +1,4 @@
 @(href:String)
-src="@routes.Assets.at(href)?@{models.view.ClaimHandling.C3VERSION_VALUE}"
+@import play.api.Play
+@if(Play.isTest(Play.current)) { src="@{routes.Assets.at(href)}" } else { src="@{routes.Assets.at(href)}?@{models.view.ClaimHandling.C3VERSION_VALUE}" }
+

@@ -3,7 +3,7 @@ package utils.pageobjects.circumstances.start_of_process
 import utils.WithBrowser
 import utils.pageobjects.{PageObjectsContext, CircumstancesPage, PageContext}
 
-final class GReportAChangeInYourCircumstancesPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, GReportAChangeInYourCircumstancesPage.url) {
+final class GCircsYourDetailsPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, GCircsYourDetailsPage.url) {
   declareInput("#fullName","CircumstancesAboutYouFullName")
   declareNino("#nationalInsuranceNumber","CircumstancesAboutYouNationalInsuranceNumber")
   declareDate("#dateOfBirth", "CircumstancesAboutYouDateOfBirth")
@@ -19,15 +19,15 @@ final class GReportAChangeInYourCircumstancesPage(ctx:PageObjectsContext) extend
  * Companion object that integrates factory method.
  * It is used by PageFactory object defined in PageFactory.scala
  */
-object GReportAChangeInYourCircumstancesPage {
+object GCircsYourDetailsPage {
   val url  = "/circumstances/identification/about-you"
 
-  def apply(ctx:PageObjectsContext) = new GReportAChangeInYourCircumstancesPage(ctx)
+  def apply(ctx:PageObjectsContext) = new GCircsYourDetailsPage(ctx)
 }
 
 /** The context for Specs tests */
-trait GReportAChangeInYourCircumstancesPageContext extends PageContext {
+trait GCircsYourDetailsPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = GReportAChangeInYourCircumstancesPage(PageObjectsContext(browser))
+  val page = GCircsYourDetailsPage(PageObjectsContext(browser))
 }

@@ -1,6 +1,6 @@
 package controllers.circs.report_changes
 
-import models.domain.CircumstancesStartedEmploymentAndOngoing
+import models.domain.{CircumstancesEmploymentChange, CircumstancesStartedEmploymentAndOngoing}
 import play.api.Play._
 import play.api.mvc.Controller
 import models.view.{Navigable, CachedChangeOfCircs}
@@ -46,12 +46,12 @@ object GStartedEmploymentAndOngoing extends Controller with CachedChangeOfCircs 
     payIntoPension,
     payForThings,
     careCostsForThisWork,
-    "moreAboutChanges" -> optional(carersText(maxLength = 300))
+    "moreAboutChanges" -> optional(carersText(maxLength = CircumstancesStartedEmploymentAndOngoing.textMaxLength))
   )(CircumstancesStartedEmploymentAndOngoing.apply)(CircumstancesStartedEmploymentAndOngoing.unapply)
     .verifying("expected.monthlyPayDay", validateMonthlyPayDay _))
 
   def present = claiming {implicit circs => implicit request => implicit request2lang =>
-    track(CircumstancesStartedEmploymentAndOngoing) {
+    track(CircumstancesEmploymentChange) {
       implicit circs => Ok(views.html.circs.report_changes.startedEmploymentAndOngoing(form.fill(CircumstancesStartedEmploymentAndOngoing)))
     }
   }
@@ -70,7 +70,7 @@ object GStartedEmploymentAndOngoing extends Controller with CachedChangeOfCircs 
 
         BadRequest(views.html.circs.report_changes.startedEmploymentAndOngoing(formWithErrorsUpdate))
       },
-      f => circs.update(f) -> Redirect(controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present())
+      f => circs.update(f) -> Redirect(controllers.circs.your_details.routes.GYourDetails.present())
     )
   }
 

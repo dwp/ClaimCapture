@@ -1,6 +1,6 @@
 package controllers.circs.report_changes
 
-import models.domain.CircumstancesEmploymentNotStarted
+import models.domain.{CircumstancesEmploymentChange, CircumstancesEmploymentNotStarted}
 import play.api.Play._
 import play.api.mvc.Controller
 import models.view.{Navigable, CachedChangeOfCircs}
@@ -45,7 +45,7 @@ object GEmploymentNotStarted extends Controller with CachedChangeOfCircs with Na
     payIntoPension,
     payForThings,
     careCostsForThisWork,
-    "moreAboutChanges" -> optional(carersText(maxLength = 300))
+    "moreAboutChanges" -> optional(carersText(maxLength = CircumstancesEmploymentNotStarted.textMaxLength))
   )(CircumstancesEmploymentNotStarted.apply)(CircumstancesEmploymentNotStarted.unapply)
     .verifying("expected.howMuchPaid",validateHowMuchPaid _)
     .verifying("expected.whenExpectedToBePaidDate",validateWhenExpectedToBePaid _)
@@ -54,7 +54,7 @@ object GEmploymentNotStarted extends Controller with CachedChangeOfCircs with Na
   )
 
   def present = claiming {implicit circs => implicit request => implicit request2lang =>
-    track(CircumstancesEmploymentNotStarted) {
+    track(CircumstancesEmploymentChange) {
       implicit circs => Ok(views.html.circs.report_changes.employmentNotStarted(form.fill(CircumstancesEmploymentNotStarted)))
     }
   }
@@ -75,7 +75,7 @@ object GEmploymentNotStarted extends Controller with CachedChangeOfCircs with Na
 
         BadRequest(views.html.circs.report_changes.employmentNotStarted(formWithErrorsUpdate))
       },
-      f => circs.update(f) -> Redirect(controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present())
+      f => circs.update(f) -> Redirect(circsPathAfterFunction)
     )
   }
 

@@ -10,10 +10,9 @@
 @import views.html.helper.dates._
 @import controllers.mappings.Mappings._
 @import utils.helpers.CarersCrypto
-@import play.api.i18n.Messages
 @import scala.language.postfixOps
-
-
+@import models.domain.CircumstancesSelfEmployment
+@import views.html.circs.report_changes.main
 
 @main(messages("c2.g2") + " - " + messages("c2.name")) {
 
@@ -48,7 +47,7 @@
 	                @yesNoRadioGroup(selfEmployment("totalOverWeeklyIncomeThreshold"),
 	                    'values -> Seq("yes" -> messages("label.yes7"), "no" -> messages("label.no"), "dontknow" -> messages("label.dontknow")))
 	
-	                @carersInputTextArea(selfEmployment("moreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), 'textAreaHelper -> Html(messages("300charsLeft")), 'maxLength -> 300)
+	                @carersInputTextArea(selfEmployment("moreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), 'textAreaHelper -> Html(messages(s"${CircumstancesSelfEmployment.textMaxLength}charsLeft")), 'maxLength -> CircumstancesSelfEmployment.textMaxLength)
 
 	            </ul>
 
@@ -65,7 +64,7 @@
 	<script type="text/javascript">
 
 		$(function(){
-			window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:300});
+			window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:@CircumstancesSelfEmployment.textMaxLength});
 		})
 
 		$(function(){

@@ -15,10 +15,10 @@ object GOtherChangeInfo extends Controller with CachedChangeOfCircs with Navigab
   val change = "changeInCircs"
 
   val form = Form(mapping(
-    change -> carersNonEmptyText(maxLength = 2000)
+    change -> carersNonEmptyText(maxLength = CircumstancesOtherInfo.textMaxLength)
   )(CircumstancesOtherInfo.apply)(CircumstancesOtherInfo.unapply))
 
-  def present = claimingWithCheck {implicit circs => implicit request => implicit request2lang =>
+  def present = claiming {implicit circs => implicit request => implicit request2lang =>
     track(CircumstancesOtherInfo) {
       implicit circs => Ok(views.html.circs.report_changes.otherChangeInfo(form.fill(CircumstancesOtherInfo)))
     }
@@ -27,7 +27,7 @@ object GOtherChangeInfo extends Controller with CachedChangeOfCircs with Navigab
   def submit = claiming {implicit circs => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.circs.report_changes.otherChangeInfo(formWithErrors)),
-      f => circs.update(f) -> Redirect(controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present())
+      f => circs.update(f) -> Redirect(controllers.circs.your_details.routes.GYourDetails.present())
     )
   }
 }

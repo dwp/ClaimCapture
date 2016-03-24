@@ -60,7 +60,7 @@ object GEmploymentChange extends Controller with CachedChangeOfCircs with Naviga
       "employerPayroll" -> optional(carersText(maxLength = 15)),
       "selfEmployedTypeOfWork" -> optional(carersText(maxLength = 35)),
       "selfEmployedTotalIncome" -> optional(carersText.verifying(validYesNoDontKnow)),
-      "selfEmployedMoreAboutChanges" -> optional(carersText(maxLength = 300))
+      "selfEmployedMoreAboutChanges" -> optional(carersText(maxLength = CircumstancesSelfEmployment.textMaxLength))
     )(YesNoWithAddressAnd2TextOrTextWithYesNoAndText.apply)(YesNoWithAddressAnd2TextOrTextWithYesNoAndText.unapply)
       .verifying("expected.employerName", YesNoWithAddressAnd2TextOrTextWithYesNoAndText.validateNameOnSpecifiedAnswer(_, "employed"))
       .verifying("expected.employerNameAndAddress1", YesNoWithAddressAnd2TextOrTextWithYesNoAndText.validateAddressOnSpecifiedAnswer(_, "employed"))
@@ -76,7 +76,7 @@ object GEmploymentChange extends Controller with CachedChangeOfCircs with Naviga
     .verifying("expected.hasWorkFinished", validHasWorkFinished _)
   )
 
-  def present = claimingWithCheck {implicit circs => implicit request => implicit request2lang =>
+  def present = claiming {implicit circs => implicit request => implicit request2lang =>
     track(CircumstancesEmploymentChange) {
       implicit circs => Ok(views.html.circs.report_changes.employmentChange(form.fill(CircumstancesEmploymentChange)))
     }
@@ -93,7 +93,7 @@ object GEmploymentChange extends Controller with CachedChangeOfCircs with Naviga
           case _ => CircumstancesEmploymentNotStarted -> controllers.circs.report_changes.routes.GEmploymentNotStarted.present()
         }
       }
-      case _ => CircumstancesEmploymentChange -> controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present()
+      case _ => CircumstancesEmploymentChange -> controllers.circs.your_details.routes.GYourDetails.present()
     }
 
     @tailrec

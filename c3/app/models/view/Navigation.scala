@@ -37,6 +37,18 @@ trait Navigable {
 
     updatedClaim -> f(updatedClaim)
   }
+
+  def circsPathAfterReason() = {
+    controllers.circs.start_of_process.routes.GGoToCircsFunction.present()
+  }
+
+  def circsPathAfterFunction() = {
+    controllers.circs.your_details.routes.GYourDetails.present()
+  }
+
+  def circsPathAfterYourDetails() = {
+    controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present()
+  }
 }
 
 case class Navigation(routes: List[Route[_]] = List(), beenInPreview: Boolean = false, routesAfterPreview: List[Route[_]] = List.empty[Route[_]], showSaveButton: Boolean = true) {
@@ -77,7 +89,7 @@ case class Navigation(routes: List[Route[_]] = List(), beenInPreview: Boolean = 
   def current: Route[_] = if (routes.isEmpty) Route("") else routes.last
 
   def saveForLaterRoute(resumeRoute: String): Route[_] = {
-    if(resumeRoute.length()>0){
+    if (resumeRoute.length() > 0) {
       Route(resumeRoute)
     }
     else if (routesAfterPreview.isEmpty) {

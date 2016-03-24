@@ -2,7 +2,7 @@ package views
 
 import org.specs2.mutable._
 import utils.pageobjects.PageObjects
-import utils.pageobjects.circumstances.start_of_process.{GReportAChangeInYourCircumstancesPage, GReportChangesPage}
+import utils.pageobjects.circumstances.start_of_process.{GCircsYourDetailsPage, GReportChangesPage}
 import utils.pageobjects.s_eligibility.{GBenefitsPage, GEligibilityPage}
 
 import scala.collection.JavaConversions._
@@ -27,7 +27,7 @@ class BackButtonPageIntegrationSpec extends Specification {
 
     "show if browser back button clicked in circs Thank You page" in new WithJsBrowser with PageObjects {
       val report = new GReportChangesPage(context).goToThePage()
-      val benefits = new GReportAChangeInYourCircumstancesPage(context).goToThePage()
+      val benefits = new GCircsYourDetailsPage(context).goToThePage()
 
       browser goTo "/thankyou/change-carers"
       browser url() mustEqual "/thankyou/change-carers"

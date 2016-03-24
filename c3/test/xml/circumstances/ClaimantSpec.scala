@@ -4,7 +4,7 @@ import javax.xml.bind.DatatypeConverter
 import gov.dwp.carers.security.encryption.EncryptorAES
 import models.view.CachedChangeOfCircs
 import models.{DayMonthYear, NationalInsuranceNumber}
-import models.domain.{CircumstancesReportChange, Claim}
+import models.domain.{CircumstancesYourDetails, Claim}
 import org.specs2.mutable._
 import utils.WithApplication
 
@@ -13,7 +13,7 @@ class ClaimantSpec extends Specification {
   val contact = "by post"
 
   def getCircumstancesReportChange = {
-    CircumstancesReportChange(
+    CircumstancesYourDetails(
       fullName = "Mr Phil Joe Smith",
       nationalInsuranceNumber = nationalInsuranceNr,
       dateOfBirth = DayMonthYear(1, 1, 1963),

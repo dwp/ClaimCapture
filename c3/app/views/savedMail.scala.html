@@ -1,5 +1,7 @@
 @(claim: models.domain.Claim, request: Request[AnyContent])(implicit lang:Lang, messages: play.api.i18n.Messages)
 
+@import app.ConfigProperties._
+
 @environmentPath=@{"http" + (if(request.secure)"s" else "") + "://" + request.host}
 
 <!DOCTYPE html>
@@ -79,7 +81,9 @@
         </div>
 
         <div class="footer">
-            <p><b>@Html(messages("savedMail.doNotReply"))</b></p>                        
+            <p><b>@Html(messages("savedMail.doNotReply"))</b></p>
+            <br />
+            <p style="font-size: 16px; color: #BFC1C3;">@getProperty("xml.schema.version", "No schema version found")</p>
         </div>
     </body>
 </html>

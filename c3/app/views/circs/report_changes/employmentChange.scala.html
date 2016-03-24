@@ -10,7 +10,8 @@
 @import views.html.helper.dates._
 @import controllers.mappings.Mappings._
 @import utils.helpers.CarersCrypto
-@import play.api.i18n.Messages
+@import models.domain.CircumstancesSelfEmployment
+@import views.html.circs.report_changes.main
 
 @stillCaring = @{employmentChange("stillCaring")}
 @hasWorkStartedYet = @{employmentChange("hasWorkStartedYet")}
@@ -19,7 +20,7 @@
 
     
 
-    @main(messages("c2.g9") + " - " + messages("c2.name")) {
+@main(messages("c2.g9") + " - " + messages("c2.name"), isChanging = true) {
     @errorsSummary(employmentChange)
 
     @form(action = controllers.circs.report_changes.routes.GEmploymentChange.submit) {
@@ -91,7 +92,7 @@
                         inputDef = Seq(
                             carersInputText(typeOfWork("selfEmployedTypeOfWork"), 'maxLength -> 35, 'ignoreOptional -> true),
                             yesNoRadioGroup(typeOfWork("selfEmployedTotalIncome"), 'ignoreOptional -> true, 'values -> Seq("yes" -> messages("label.yes7"), "no" -> messages("label.no"), "dontknow" -> messages("label.dontknow"))),
-                            carersInputTextArea(typeOfWork("selfEmployedMoreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), '_label -> "moreAboutChanges", 'textAreaHelper -> Html(messages("300charsLeft")), 'maxLength -> 300)
+                            carersInputTextArea(typeOfWork("selfEmployedMoreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), '_label -> "moreAboutChanges", 'textAreaHelper -> Html(messages(s"${CircumstancesSelfEmployment.textMaxLength}charsLeft")), 'maxLength -> CircumstancesSelfEmployment.textMaxLength)
                         ),
                         'id -> "typeOfWorkSelfEmployedWrap"
                     )
@@ -99,7 +100,7 @@
                 
 	        </fieldset>
 	
-            @views.html.common.bottomNavigation()
+            @views.html.common.bottomNavigation(changing = true)
         </div>
 
     }
@@ -110,7 +111,7 @@
     <script type="text/javascript">
 
         $(function(){
-            window.areaCounter({selector:"@CarersCrypto.encryptAES(typeOfWork("selfEmployedMoreAboutChanges").id)",maxChars:300});
+            window.areaCounter({selector:"@CarersCrypto.encryptAES(typeOfWork("selfEmployedMoreAboutChanges").id)",maxChars:@CircumstancesSelfEmployment.textMaxLength});
         })
 
         $(function(){

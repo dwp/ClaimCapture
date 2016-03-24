@@ -1,11 +1,11 @@
 package models.domain
 
-import app.XMLValues._
 import models.yesNo._
 import models.DayMonthYear
 import models.SortCode
 import models.MultiLineAddress
 import models._
+import utils.helpers.TextLengthHelper
 
 
 case object CircumstancesReportChanges extends Section.Identifier {
@@ -21,6 +21,8 @@ case class CircumstancesSelfEmployment(stillCaring: YesNoWithDate = YesNoWithDat
 
 object CircumstancesSelfEmployment extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g2"
+
+  def textMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//EmploymentChange//SelfEmployment//MoreAboutChanges//Answer")
 }
 
 case class CircumstancesStoppedCaring(stoppedCaringDate: DayMonthYear = DayMonthYear(None, None, None),
@@ -28,12 +30,16 @@ case class CircumstancesStoppedCaring(stoppedCaringDate: DayMonthYear = DayMonth
 
 object CircumstancesStoppedCaring extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g3"
+
+  def textMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//StoppedCaring//OtherChanges//Answer")
 }
 
 case class CircumstancesOtherInfo(change: String = "") extends QuestionGroup(CircumstancesOtherInfo)
 
 object CircumstancesOtherInfo extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g4"
+
+  def textMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//OtherChanges//Answer")
 }
 
 case class CircumstancesPaymentChange(
@@ -49,6 +55,8 @@ case class CircumstancesPaymentChange(
 
 object CircumstancesPaymentChange extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g5"
+
+  def textMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//PaymentChange//OtherChanges//Answer")
 }
 
 case class CircumstancesAddressChange(previousAddress: MultiLineAddress = new MultiLineAddress(),
@@ -62,6 +70,8 @@ case class CircumstancesAddressChange(previousAddress: MultiLineAddress = new Mu
 
 object CircumstancesAddressChange extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g6"
+
+  def textMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//AddressChange//OtherChanges//Answer")
 }
 
 case class CircumstancesBreaksInCare(breaksInCareStartDate: DayMonthYear = DayMonthYear(None, None, None),
@@ -75,6 +85,8 @@ case class CircumstancesBreaksInCare(breaksInCareStartDate: DayMonthYear = DayMo
 
 object CircumstancesBreaksInCare extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g7"
+
+  def textMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//BreakFromCaring//MoreChanges//Answer")
 }
 
 case class CircumstancesBreaksInCareSummary(additionalBreaks: YesNoWithText = YesNoWithText("", None)) extends QuestionGroup(CircumstancesBreaksInCareSummary)
@@ -107,6 +119,8 @@ case class CircumstancesStartedEmploymentAndOngoing(beenPaid: String,
 
 object CircumstancesStartedEmploymentAndOngoing extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g10"
+
+  def textMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//EmploymentChange//StartedEmploymentAndOngoing//MoreAboutChanges//Answer")
 }
 
 case class CircumstancesStartedAndFinishedEmployment(beenPaid: String,
@@ -126,6 +140,8 @@ case class CircumstancesStartedAndFinishedEmployment(beenPaid: String,
 
 object CircumstancesStartedAndFinishedEmployment extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g11"
+
+  def textMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//EmploymentChange//StartedEmploymentAndFinished//MoreAboutChanges//Answer")
 }
 
 case class CircumstancesEmploymentNotStarted(beenPaid: String,
@@ -141,4 +157,6 @@ case class CircumstancesEmploymentNotStarted(beenPaid: String,
 
 object CircumstancesEmploymentNotStarted extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g12"
+
+  def textMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//EmploymentChange//NotStartedEmployment//MoreAboutChanges//Answer")
 }

@@ -8,4 +8,11 @@
     }
 }
 
-<button type="submit" id="next" name="@{nextButtonName}" value="@{nextButtonValue}" class="button" @{if(trackSubmit) views.html.ga.trackSubmit()} @{customTrack.fold(Html(""))(t=>t)}>@messages(label)</button>
+@id = @{
+    label == "form.returnToSummary" match {
+        case true => "ReturnToCheckYourAnswers"
+        case false => "next"
+    }
+}
+
+<button type="submit" id="@id" name="@{nextButtonName}" value="@{nextButtonValue}" class="button" @{if(trackSubmit) views.html.ga.trackSubmit()} @{customTrack.fold(Html(""))(t=>t)}>@messages(label)</button>
