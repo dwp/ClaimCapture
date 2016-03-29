@@ -26,8 +26,6 @@ class PreviewPageEmploymentContentSpec extends Specification {
       source must contain("£600 every time including expenses")
       source must contain("Have you been self-employed at any time since 3 October 2016?")
       source must contain("Yes - Details provided including expenses")
-      source must contain("Type of work or business?")
-      source must contain("Some type of business")
     }
   }
   section("preview")
