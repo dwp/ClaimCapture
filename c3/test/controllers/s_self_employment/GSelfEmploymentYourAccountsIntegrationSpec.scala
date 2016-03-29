@@ -2,7 +2,6 @@ package controllers.s_self_employment
 
 import org.specs2.mutable._
 import utils.{WithApplication, WithBrowser}
-import utils.pageobjects.s_self_employment.{GSelfEmploymentYourAccountsPage}
 import utils.pageobjects.{PageObjects, TestData}
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s_other_money.GAboutOtherMoneyPage
