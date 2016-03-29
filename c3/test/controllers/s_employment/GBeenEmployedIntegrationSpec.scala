@@ -8,7 +8,7 @@ import utils.{WithJsBrowser, WithBrowser}
 import utils.pageobjects._
 import utils.pageobjects.s_education.GYourCourseDetailsPage
 import utils.pageobjects.s_employment._
-import utils.pageobjects.s_self_employment.{GSelfEmploymentDatesPage, GAboutSelfEmploymentPage}
+import utils.pageobjects.s_self_employment.{GSelfEmploymentDatesPage}
 import utils.pageobjects.s_claim_date.{GClaimDatePage, GClaimDatePageContext}
 import utils.pageobjects.s_other_money.GAboutOtherMoneyPage
 
