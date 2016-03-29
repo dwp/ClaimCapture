@@ -234,6 +234,49 @@ class GYourDetailsFormSpec extends Specification {
     val selfEmployed = "self-employed"
     val selfEmployedTypeOfWork = "IT Consultant"
 
+    "allow maximum spaces in and around nino totalling 19 chars" in new WithApplication {
+      GYourDetails.form.bind(
+        Map(
+          "fullName" -> fullName,
+          "nationalInsuranceNumber.nino" -> " N R 0 1 0 2 0 3 A ",
+          "dateOfBirth.day" -> dateOfBirthDay.toString,
+          "dateOfBirth.month" -> dateOfBirthMonth.toString,
+          "dateOfBirth.year" -> dateOfBirthYear.toString,
+          "theirFullName" -> theirFullName,
+          "theirRelationshipToYou" -> theirRelationshipToYou,
+          "furtherInfoContact" -> byTelephone,
+          "wantsEmailContactCircs" -> wantsEmailContactCircs
+        )).fold(
+        formWithErrors => {
+          formWithErrors.errors.length must equalTo(0)
+        },
+        f => {
+          f.nationalInsuranceNumber.nino.getOrElse("").length mustEqual 19
+          f.nationalInsuranceNumber.nino mustEqual Some(" N R 0 1 0 2 0 3 A ")
+          f.nationalInsuranceNumber.stringify mustEqual "NR010203A"
+        })
+    }
+
+    "enforce usual validation on nino" in new WithApplication {
+      GYourDetails.form.bind(
+        Map(
+          "fullName" -> fullName,
+          "nationalInsuranceNumber.nino" -> " N R X 1 0 2 0 3 A ",
+          "dateOfBirth.day" -> dateOfBirthDay.toString,
+          "dateOfBirth.month" -> dateOfBirthMonth.toString,
+          "dateOfBirth.year" -> dateOfBirthYear.toString,
+          "theirFullName" -> theirFullName,
+          "theirRelationshipToYou" -> theirRelationshipToYou,
+          "furtherInfoContact" -> byTelephone,
+          "wantsEmailContactCircs" -> wantsEmailContactCircs
+        )).fold(
+        formWithErrors => {
+          formWithErrors.errors.length must equalTo(1)
+        },
+        f => {
+          "This mapping should not happen." must equalTo("Valid")
+        })
+    }
 
     def g2FakeRequest(claimKey: String) = {
       FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey).withFormUrlEncodedBody(

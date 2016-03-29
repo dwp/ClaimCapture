@@ -9,7 +9,7 @@
 @import views.html.circs.report_changes.main
 @import models.domain.CircumstancesStoppedCaring
 
-@main(messages("c2.g3") + " - " + messages("c2.name")) {
+@main(messages("c2.g3") + " - " + messages("c2.name"), isChanging = true) {
     @errorsSummary(stoppedCaringForm)
 
     @form(action = controllers.circs.report_changes.routes.GPermanentlyStoppedCaring.submit) {

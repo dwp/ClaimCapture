@@ -10,7 +10,7 @@
 @import app.CircsBreaksWhereabouts._
 @import models.domain.CircumstancesBreaksInCare
 
-@main(messages("c2.g7") + " - " + messages("c2.name")) {
+@main(messages("c2.g7") + " - " + messages("c2.name"), isChanging = true) {
     @errorsSummary(breaksForm)
 
     @form(action = controllers.circs.report_changes.routes.GBreaksInCare.submit) {

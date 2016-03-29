@@ -16,7 +16,7 @@
 @paidMoneyYet = @{employmentChange("paidMoneyYet")}
     
 
-    @main(messages("c2.g9") + " - " + messages("c2.name")) {
+@main(messages("c2.g9") + " - " + messages("c2.name"), isChanging = true) {
     @errorsSummary(employmentChange)
 
     @form(action = controllers.circs.report_changes.routes.GEmploymentChange.submit) {
@@ -87,10 +87,12 @@
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             carersInputText(typeOfWork("selfEmployedTypeOfWork"), 'maxLength -> 35, 'ignoreOptional -> true),
-                            yesNoRadioGroup(paidMoneyYet("answer"), 'helperAbove -> messages("paidMoneyYet.helper")),
+                            yesNoRadioGroup(paidMoneyYet("answer"), 'helperAbove -> messages("paidMoneyYet.helper"), 'track -> true, 'trackLabel -> messages("paidMoneyYet.answer")),
                             otherDetailPlaceHolder(inputDef = Seq(inputDayMonthYear(paidMoneyYet("date"))), 'id -> "paidMoneyYetWrap"),
-                            yesNoRadioGroup(typeOfWork("selfEmployedTotalIncome"), 'ignoreOptional -> true, 'values -> Seq("yes" -> messages("label.yes7"), "no" -> messages("label.no"), "dontknow" -> messages("label.dontknow"))),
-                            carersInputTextArea(typeOfWork("selfEmployedMoreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), '_label -> "moreAboutChanges", 'textAreaHelper -> Html(messages(s"${CircumstancesSelfEmployment.textMaxLength}charsLeft")), 'maxLength -> CircumstancesSelfEmployment.textMaxLength)
+                            yesNoRadioGroup(typeOfWork("selfEmployedTotalIncome"), 'ignoreOptional -> true, 'track -> true, 'trackLabel -> messages("typeOfWork.selfEmployedTotalIncome"),
+                                'values -> Seq("yes" -> messages("label.yes7"), "no" -> messages("label.no"), "dontknow" -> messages("label.dontknow"))),
+                            carersInputTextArea(typeOfWork("selfEmployedMoreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), '_label -> "moreAboutChanges",
+                                'textAreaHelper -> Html(messages(s"${CircumstancesSelfEmployment.textMaxLength}charsLeft")), 'maxLength -> CircumstancesSelfEmployment.textMaxLength)
                         ),
                         'id -> "typeOfWorkSelfEmployedWrap"
                     )
@@ -161,6 +163,8 @@
             "@CarersCrypto.encryptAES(typeOfWork("selfEmployedTotalIncome")("yes").id)",
             "@CarersCrypto.encryptAES(typeOfWork("selfEmployedTotalIncome")("no").id)",
             "@CarersCrypto.encryptAES(typeOfWork("selfEmployedTotalIncome")("dontknow").id)",
+            "@CarersCrypto.encryptAES(employmentChange("paidMoneyYet")("answer")("yes").id)",
+            "@CarersCrypto.encryptAES(employmentChange("paidMoneyYet")("answer")("no").id)",
             "@CarersCrypto.encryptAES(typeOfWork("selfEmployedMoreAboutChanges").id)");
         });
 
@@ -171,7 +175,7 @@
             "@CarersCrypto.encryptAES(employmentChange("paidMoneyYet")("date")("day").id)",
             "@CarersCrypto.encryptAES(employmentChange("paidMoneyYet")("date")("month").id)",
             "@CarersCrypto.encryptAES(employmentChange("paidMoneyYet")("date")("year").id)",
-            "@CarersCrypto.encryptAES("paidMoneyYetWrap")");
+            "paidMoneyYetWrap");
         });
     </script>
 

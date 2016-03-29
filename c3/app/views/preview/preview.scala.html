@@ -62,7 +62,7 @@
 					</div>
 
 					<p class="hide-print hide-no-js">
-						<a href="javascript:window.print()" class="button" role="button" value="@Html(messages("button.print.summary"))" aria-label="@Html(messages("button.print.summary"))">							
+						<a href="javascript:window.print()" class="button button-print" role="button" value="@Html(messages("button.print.summary"))" aria-label="@Html(messages("button.print.summary"))">
 						@Html(messages("button.print.summary"))</a>
 					</p>
 
@@ -77,7 +77,7 @@
                         @DwpCSRFFormHelper.formField
                         <nav class="form-steps">
 							<ul>
-								<li><button type="submit" name="action" value="next" class="button" aria-label="@Html(messages("form.next.help"))">@Html(messages("form.next"))</button></li>
+								<li><button type="submit" name="action" id="next" value="next" class="button" aria-label="@Html(messages("form.next.help"))">@Html(messages("form.next"))</button></li>
 								@if(showSaveButton) {
 									<li>@views.html.common.saveButton()</li>
 								}

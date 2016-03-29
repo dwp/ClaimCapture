@@ -8,7 +8,7 @@ import utils.ConfigurationChangeHelper._
 
 object ApplicationBuild extends Build {
   val appName = "c3"
-  val appVersion = "3.5-SNAPSHOT"
+  val appVersion = "3.6-SNAPSHOT"
 
   processConfFiles(Seq("conf/application-info.conf"), Seq("application.version" -> appVersion, "application.name" -> appName))
 
@@ -22,7 +22,7 @@ object ApplicationBuild extends Build {
     "com.typesafe.akka" %% "akka-testkit" % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-agent" % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-remote" % "2.3.9" % "test" withSources() withJavadoc(),
-    "gov.dwp.carers" %% "xmlcommons" % "7.13",
+    "gov.dwp.carers" %% "xmlcommons" % "7.14-SNAPSHOT",
     "gov.dwp.carers" %% "carerscommon" % "7.7",
     "gov.dwp.carers" %% "wscommons" % "3.0",
     "org.postgresql" % "postgresql" % "9.3-1103-jdbc41",
@@ -80,9 +80,24 @@ object ApplicationBuild extends Build {
 
   var keyStoreOptions: Seq[Def.Setting[_]] = Seq(javaOptions in Test += ("-Dcarers.keystore=" + keyStore))
 
-  var vS: Seq[Def.Setting[_]] = Seq(version := appVersion, libraryDependencies ++= appDependencies)
+  var vS: Seq[Def.Setting[_]] = Seq(libraryDependencies ++= appDependencies)
 
-  var appSettings: Seq[Def.Setting[_]] = sV ++ sO ++ sR ++ gS ++ sTest ++ jO ++ f ++ jcoco ++ keyStoreOptions ++ jacoco.settings ++ vS ++ net.virtualvoid.sbt.graph.Plugin.graphSettings
+  var sAppN: Seq[Def.Setting[_]] = Seq(name := appName)
+  var sAppV: Seq[Def.Setting[_]] = Seq(version := appVersion)
+  var sOrg: Seq[Def.Setting[_]] = Seq(organization := "gov.dwp.carers")
+
+  val isSnapshotBuild = appVersion.endsWith("-SNAPSHOT")
+  var publ: Seq[Def.Setting[_]] = Seq(
+    publishTo := Some("Artifactory Realm" at "http://build.3cbeta.co.uk:8080/artifactory/repo/"),
+    publishTo <<= version {
+      (v: String) =>
+        if (isSnapshotBuild)
+          Some("snapshots" at "http://build.3cbeta.co.uk:8080/artifactory/libs-snapshot-local")
+        else
+          Some("releases" at "http://build.3cbeta.co.uk:8080/artifactory/libs-release-local")
+    })
+
+  var appSettings: Seq[Def.Setting[_]] = sV ++ sO ++ sR ++ gS ++ sTest ++ jO ++ f ++ jcoco ++ keyStoreOptions ++ jacoco.settings ++ sAppN ++ sAppV ++ sOrg ++ vS ++ publ ++ net.virtualvoid.sbt.graph.Plugin.graphSettings
 
   val main = Project(appName, file(".")).enablePlugins(play.sbt.PlayScala, SbtWeb).settings(appSettings: _*).settings(unmanagedResourceDirectories in Test <+= baseDirectory( _ / "target/web/public/test" ))
 }
