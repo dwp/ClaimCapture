@@ -35,7 +35,7 @@ class GAboutSelfEmploymentSpec extends Specification {
     "present 'About Self-Employment' " in new WithApplication with Claiming {
       val request = FakeRequest()
 
-      val result = controllers.s_self_employment.GAboutSelfEmployment.present(request)
+      val result = controllers.s_self_employment.GSelfEmploymentDates.present(request)
       status(result) mustEqual OK
     }
 
@@ -43,26 +43,24 @@ class GAboutSelfEmploymentSpec extends Specification {
       val request = FakeRequest()
         .withFormUrlEncodedBody(aboutSelfEmploymentInput: _*)
 
-      val result = controllers.s_self_employment.GAboutSelfEmployment.submit(request)
+      val result = controllers.s_self_employment.GSelfEmploymentDates.submit(request)
       val claim = getClaimFromCache(result)
       val section: Section = claim.section(models.domain.SelfEmployment)
-      section.questionGroup(AboutSelfEmployment) must beLike {
-        case Some(f: AboutSelfEmployment) => {
-          f.areYouSelfEmployedNow must equalTo(areYouSelfEmployedNow)
-          f.whenDidYouStartThisJob should beLike {
+      section.questionGroup(SelfEmploymentDates) must beLike {
+        case Some(f: SelfEmploymentDates) => {
+          f.stillSelfEmployed must equalTo(areYouSelfEmployedNow)
+          f.startThisWork.getOrElse(None) should beLike {
             case dmy: DayMonthYear =>
               dmy.day must equalTo(Some(startDay))
               dmy.month must equalTo(Some(startMonth))
               dmy.year must equalTo(Some(startYear))
           }
-          f.whenDidTheJobFinish should beLike {
+          f.finishThisWork.getOrElse(None) should beLike {
             case Some(dmy: DayMonthYear) =>
               dmy.day must equalTo(Some(finishDay))
               dmy.month must equalTo(Some(finishMonth))
               dmy.year must equalTo(Some(finishYear))
           }
-          f.haveYouCeasedTrading must equalTo(Some(haveYouCeasedTrading))
-          f.natureOfYourBusiness must equalTo(natureOfYourBusiness)
         }
       }
     }
@@ -71,7 +69,7 @@ class GAboutSelfEmploymentSpec extends Specification {
       val request = FakeRequest()
         .withFormUrlEncodedBody("areYouSelfEmployedNow" -> "")
 
-      val result = controllers.s_self_employment.GAboutSelfEmployment.submit(request)
+      val result = controllers.s_self_employment.GSelfEmploymentDates.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -82,7 +80,7 @@ class GAboutSelfEmploymentSpec extends Specification {
         "whenDidYouStartThisJob.month" -> startMonth.toString,
         "whenDidYouStartThisJob.year" -> startYear.toString)
 
-      val result = controllers.s_self_employment.GAboutSelfEmployment.submit(request)
+      val result = controllers.s_self_employment.GSelfEmploymentDates.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -90,7 +88,7 @@ class GAboutSelfEmploymentSpec extends Specification {
       val request = FakeRequest()
         .withFormUrlEncodedBody(aboutSelfEmploymentInput: _*)
 
-      val result = controllers.s_self_employment.GAboutSelfEmployment.submit(request)
+      val result = controllers.s_self_employment.GSelfEmploymentDates.submit(request)
       status(result) mustEqual SEE_OTHER
     }
   }

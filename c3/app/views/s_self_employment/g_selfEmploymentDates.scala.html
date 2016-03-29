@@ -1,0 +1,93 @@
+@(currentForm: Form[models.domain.SelfEmploymentDates])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
+
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import utils.csrf.DwpCSRFFormHelper
+@import views.html.helper.dates._
+@import scala.language.postfixOps
+@import views.html.s_self_employment.main
+
+@haveAccountsYesHelperText=@{
+		"<p class=\"form-hint\" id=\"haveAccountsYesWrap\">"+messages("haveAccountsHelper")+"</p>"
+}
+@main(messages("s8.g1") + " " + messages("s8.longName"), messages("s8.longName"), Some(currentForm),ignorePreview = true) {
+    @form(action = controllers.s_self_employment.routes.GSelfEmploymentDates.submit, 'role -> "form") {
+        @DwpCSRFFormHelper.formField
+	        <fieldset class="form-elements" data-journey="carers-allowance:page:self-employment">
+	            <ul>
+	                @yesNoRadioGroup(currentForm("stillSelfEmployed"), 'helper->"<br><br>")
+					@otherDetailPlaceHolder(
+						inputDef = Seq(
+							inputDayMonthYear(currentForm("finishThisWork"), 'helper-> "<br><br>", 'ignoreOptional-> true)
+						),
+						'id-> "selfEmployedNoWrap"
+					)
+					@otherDetailPlaceHolder(
+						inputDef = Seq(
+							yesNoRadioGroup(currentForm("moreThanYearAgo"), 'helper-> "<br><br>", 'ignoreOptional-> true),
+							otherDetailPlaceHolder(
+								inputDef = Seq(
+									yesNoRadioGroup(currentForm("haveAccounts"), 'helper-> haveAccountsYesHelperText, 'ignoreOptional-> true),
+									otherDetailPlaceHolder(
+										inputDef = Seq(
+											yesNoRadioGroup(currentForm("knowTradingYear"), 'helperAbove->messages("knowTradingYearHelper"), 'ignoreOptional-> true),
+											otherDetailPlaceHolder(
+												inputDef = Seq(
+													inputDayMonthYear(currentForm("tradingYearStart"), 'ignoreOptional-> true)
+												),
+												'id->"tradingYearYesWrap"
+											)
+										),
+										'id->"haveAccountsNoWrap"
+									)
+								),
+								'id->"moreThanYearAgoYesWrap"
+							),
+							otherDetailPlaceHolder(
+								inputDef = Seq(
+									inputDayMonthYear(currentForm("startThisWork")),
+									yesNoRadioGroup(currentForm("paidMoney"), 'helperAbove-> messages("paidMoneyHelper"), 'ignoreOptional-> true),
+									otherDetailPlaceHolder(
+										inputDef = Seq(
+											inputDayMonthYear(currentForm("paidMoneyDate"), 'ignoreOptional-> true)
+										),
+										'id-> "paidMoneyYesWrap"
+									)
+								),
+								'id-> "moreThanYearAgoNoWrap"
+							)
+						)
+					)
+	            </ul>
+	        </fieldset>
+		@views.html.common.bottomNavigation(nextLabel = Some("form.next"))
+	}
+
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_self_employment/g_selfEmploymentDates.js")></script>
+    <script type="text/javascript">
+        $(function () {
+            window.initEvents(
+            	"stillSelfEmployed_yes",
+            	"stillSelfEmployed_no",
+            	"selfEmployedNoWrap",
+            	"moreThanYearAgo_yes",
+            	"moreThanYearAgo_no",
+            	"moreThanYearAgoYesWrap",
+            	"moreThanYearAgoNoWrap",
+            	"haveAccounts_yes",
+            	"haveAccounts_no",
+            	"haveAccountsYesWrap",
+               	"haveAccountsNoWrap",
+            	"knowTradingYear_yes",
+            	"knowTradingYear_no",
+            	"tradingYearYesWrap",
+            	"paidMoney_yes",
+            	"paidMoney_no",
+            	"paidMoneyYesWrap"
+            	);
+            @ga.stagePrompt()
+        });
+    </script>
+
+}
+
