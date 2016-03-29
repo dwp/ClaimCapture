@@ -46,10 +46,10 @@ object GEmployment extends Controller with CachedClaim with Navigable with I18nS
           } else updatedClaim
 
           val deletedSelfEmployment = if(employment.beenSelfEmployedSince1WeekBeforeClaim == no){
-            deletedEmployment.delete(AboutSelfEmployment).delete(SelfEmploymentYourAccounts).delete(SelfEmploymentPensionsAndExpenses)
+            deletedEmployment.delete(SelfEmploymentDates).delete(SelfEmploymentDates).delete(SelfEmploymentPensionsAndExpenses)
           }else deletedEmployment
 
-          deletedSelfEmployment.update(employment) -> Redirect(controllers.s_self_employment.routes.GAboutSelfEmployment.present())
+          deletedSelfEmployment.update(employment) -> Redirect(controllers.s_self_employment.routes.GSelfEmploymentDates.present())
         }
       )
     }.withPreviewConditionally[Emp](checkGoPreview)

@@ -21,33 +21,30 @@ object Employment extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g0"
 }
 
-case object AboutSelfEmployment extends QuestionGroup.Identifier {
+case object SelfEmploymentDates extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g1"
 }
 
-case class AboutSelfEmployment(areYouSelfEmployedNow: String = "",
-                               whenDidYouStartThisJob: DayMonthYear = DayMonthYear(None, None, None),
-                               whenDidTheJobFinish: Option[DayMonthYear] = None,
-                               haveYouCeasedTrading: Option[String] = None,
-                               natureOfYourBusiness: String = "") extends QuestionGroup(AboutSelfEmployment)
+case class SelfEmploymentDates(
+                                stillSelfEmployed: String = "",
+                                moreThanYearAgo: Option[String] = None,
+                                startThisWork: Option[DayMonthYear] = None,
+                                haveAccounts: Option[String] = None,
+                                knowTradingYear: Option[String] = None,
+                                tradingYearStart: Option[DayMonthYear] = None,
+                                paidMoney: Option[String] = None,
+                                paidMoneyDate: Option[DayMonthYear] = None,
+                                finishThisWork: Option[DayMonthYear] = None
+                                ) extends QuestionGroup(SelfEmploymentDates)
 
-case object SelfEmploymentYourAccounts extends QuestionGroup.Identifier {
-  val id = s"${SelfEmployment.id}.g2"
-}
-
-case class SelfEmploymentYourAccounts(doYouKnowYourTradingYear: String = "",
-                                      whatWasOrIsYourTradingYearFrom: Option[DayMonthYear] = None,
-                                      whatWasOrIsYourTradingYearTo: Option[DayMonthYear] = None,
-                                      areIncomeOutgoingsProfitSimilarToTrading: Option[String] = None,
-                                      tellUsWhyAndWhenTheChangeHappened: Option[String] = None) extends QuestionGroup(SelfEmploymentYourAccounts)
 
 case object SelfEmploymentPensionsAndExpenses extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g4"
 }
 
 case class SelfEmploymentPensionsAndExpenses(payPensionScheme: YesNoWithText = YesNoWithText("", None),
-                              haveExpensesForJob: YesNoWithText = YesNoWithText("", None)
-                             ) extends QuestionGroup(SelfEmploymentPensionsAndExpenses)
+                                             haveExpensesForJob: YesNoWithText = YesNoWithText("", None)
+                                              ) extends QuestionGroup(SelfEmploymentPensionsAndExpenses)
 
 
 

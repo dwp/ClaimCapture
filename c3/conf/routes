@@ -172,11 +172,8 @@ POST        /employment/additional-info                                 controll
 
 # Self-employment
 ###############
-GET         /self-employment/about-self-employment                      controllers.s_self_employment.GAboutSelfEmployment.present
-POST        /self-employment/about-self-employment                      controllers.s_self_employment.GAboutSelfEmployment.submit
-
-GET         /self-employment/your-accounts                              controllers.s_self_employment.GSelfEmploymentYourAccounts.present
-POST        /self-employment/your-accounts                              controllers.s_self_employment.GSelfEmploymentYourAccounts.submit
+GET         /self-employment/self-employment-dates                      controllers.s_self_employment.GSelfEmploymentDates.present
+POST        /self-employment/self-employment-dates                      controllers.s_self_employment.GSelfEmploymentDates.submit
 
 GET         /self-employment/pensions-and-expenses                      controllers.s_self_employment.GSelfEmploymentPensionsAndExpenses.present
 POST        /self-employment/pensions-and-expenses                      controllers.s_self_employment.GSelfEmploymentPensionsAndExpenses.submit
