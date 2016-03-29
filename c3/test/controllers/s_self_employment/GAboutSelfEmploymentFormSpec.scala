@@ -6,7 +6,7 @@ import models.DayMonthYear
 import utils.WithApplication
 
 class GAboutSelfEmploymentFormSpec extends Specification {
-
+/*
   section("unit", models.domain.SelfEmployment.id)
   "About Self Employment - About Self Employment Form" should {
     val areYouSelfEmployedNow = "no"
@@ -104,4 +104,5 @@ class GAboutSelfEmploymentFormSpec extends Specification {
     }
   }
   section("unit", models.domain.SelfEmployment.id)
+  */
 }

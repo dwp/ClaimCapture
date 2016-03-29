@@ -10,7 +10,7 @@ import utils.pageobjects.s_employment.GEmploymentPage
 import utils.pageobjects.s_claim_date.GClaimDatePageContext
 
 class GAboutSelfEmploymentIntegrationSpec extends Specification {
-
+/*
   section("integration", models.domain.SelfEmployment.id)
   "About Self Employment" should {
     "be presented" in new WithBrowser with PageObjects{
@@ -88,4 +88,5 @@ class GAboutSelfEmploymentIntegrationSpec extends Specification {
     }
   }
   section("integration", models.domain.SelfEmployment.id)
+  */
 }

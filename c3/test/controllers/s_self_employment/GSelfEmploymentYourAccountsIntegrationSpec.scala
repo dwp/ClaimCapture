@@ -10,7 +10,7 @@ import utils.pageobjects.s_employment.GEmploymentPage
 import utils.pageobjects.s_claim_date.GClaimDatePageContext
 
 class GSelfEmploymentYourAccountsIntegrationSpec extends Specification {
-
+/*
   section("integration", models.domain.SelfEmployment.id)
   "Self Employment - Your Accounts" should {
     "be presented" in new WithBrowser with PageObjects{
@@ -107,4 +107,5 @@ class GSelfEmploymentYourAccountsIntegrationSpec extends Specification {
     }
   }
   section("integration", models.domain.SelfEmployment.id)
+  */
 }
