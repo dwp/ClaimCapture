@@ -47,10 +47,7 @@ class PreviewPageEmploymentContentSpec extends Specification {
     val selfEmploymentPage = employmentPage submitPage()
     selfEmploymentPage fillPageWith selfEmploymentData
 
-    val selfEmployedAccountsPage = selfEmploymentPage submitPage()
-    selfEmployedAccountsPage fillPageWith selfEmploymentData
-
-    val selfEmployedPensionsPage = selfEmployedAccountsPage submitPage()
+    val selfEmployedPensionsPage = selfEmploymentPage submitPage()
     selfEmployedPensionsPage fillPageWith selfEmploymentData
 
     val jobDetailsPage = selfEmployedPensionsPage submitPage()

@@ -11,7 +11,7 @@ final class GSelfEmploymentDatesPage(ctx:PageObjectsContext) extends ClaimPage(c
   declareYesNo("#haveAccounts", "SelfEmployedHaveAccounts")
   declareYesNo("#knowTradingYear", "SelfEmployedKnowTradingYear")
   declareDate("#tradingYearStart", "SelfEmployedTradingYearStart")
-  declareYesNo("#paidMoney", "SelfEmployedPaidMoney")
+  declareYesNo("#paidMoney", "SelfEmployedPaidMoneyYet")
   declareDate("#paidMoneyDate", "SelfEmployedPaidMoneyDate")
 }
 
