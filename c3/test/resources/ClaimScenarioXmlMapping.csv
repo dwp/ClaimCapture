@@ -107,6 +107,7 @@ Employment,About other employment history,"Have you had another job at any time 
 Employment,Employment,Do you want to add anything about your work?,EmploymentDoYouWantToAddAnythingAboutYourWork,DWPCAClaim>EmploymentAdditionalInfo>Answer
 Employment,Employment,Do you want to add anything about your work?Other,EmploymentAdditionalInfo,DWPCAClaim>EmploymentAdditionalInfo>Other
 Self-Employed,Your job,Are you self-employed now?,SelfEmployedAreYouSelfEmployedNow,SelfEmployment>SelfEmployedNow>Answer
+Self-Employed,Your job,Did you start this work more than a year ago?,SelfEmployedMoreThanYearAgo,SelfEmployment>MoreThanYearAgo>Answer
 Self-Employed,Your job,When did the job finish?,SelfEmployedWhenDidTheJobFinish,SelfEmployment>DateEnded>Answer
 Self-Employed,Your accounts,Do you know your trading year?,SelfEmployedKnowTradingYear,SelfEmployment>KnowTradingYear>Answer
 Self-Employed,Your accounts,Trading year start,SelfEmployedTradingYearStart,SelfEmployment>TradingYearStart>Answer
