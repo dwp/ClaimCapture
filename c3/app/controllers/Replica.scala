@@ -89,7 +89,7 @@ object ReplicaData {
           YourCourseDetails(beenInEducationSinceClaimDate = Mappings.yes,title = Some("Biology"),nameOfSchoolCollegeOrUniversity = Some("A College"),
           nameOfMainTeacherOrTutor = Some("A Tutor"),startDate = Some(DayMonthYear.today - 1 month),expectedEndDate = Some(DayMonthYear.today + 2 years)) +
           Employment(beenSelfEmployedSince1WeekBeforeClaim = Mappings.yes, beenEmployedSince6MonthsBeforeClaim = Mappings.yes) +
-          SelfEmploymentDates(stillSelfEmployed = Mappings.no, finishThisWork=Some(DayMonthYear.today - 2 months), moreThanYearAgo = Some(Mappings.no), startThisWork = Some(DayMonthYear.today - 6 months), paidMoney = Some(Mappings.yes), paidMoneyDate = Some(DayMonthYear.today - 5 months)) +
+          SelfEmploymentDates(stillSelfEmployed = Mappings.no, finishThisWork=Some(DayMonthYear.today - 2 months), moreThanYearAgo = Mappings.no, startThisWork = Some(DayMonthYear.today - 6 months), paidMoney = Some(Mappings.yes), paidMoneyDate = Some(DayMonthYear.today - 5 months)) +
           SelfEmploymentPensionsAndExpenses(payPensionScheme = YesNoWithText(Mappings.no),haveExpensesForJob = YesNoWithText(Mappings.no)) +
           Jobs(List(
             models.domain.Iteration("1", List(

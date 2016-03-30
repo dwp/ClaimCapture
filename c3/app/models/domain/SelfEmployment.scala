@@ -27,7 +27,7 @@ case object SelfEmploymentDates extends QuestionGroup.Identifier {
 
 case class SelfEmploymentDates(
                                 stillSelfEmployed: String = "",
-                                moreThanYearAgo: Option[String] = None,
+                                moreThanYearAgo: String = "",
                                 startThisWork: Option[DayMonthYear] = None,
                                 haveAccounts: Option[String] = None,
                                 knowTradingYear: Option[String] = None,

@@ -20,7 +20,7 @@ object GSelfEmploymentDates extends Controller with CachedClaim with Navigable w
 
   val form = Form(mapping(
     "stillSelfEmployed" -> carersNonEmptyText.verifying(validYesNo),
-    "moreThanYearAgo" -> optional(text.verifying(validYesNo)),
+    "moreThanYearAgo" -> carersNonEmptyText.verifying(validYesNo),
     "startThisWork" -> optional(dayMonthYear.verifying(validDate)),
     "haveAccounts" -> optional(text.verifying(validYesNo)),
     "knowTradingYear" -> optional(text.verifying(validYesNo)),
@@ -29,7 +29,6 @@ object GSelfEmploymentDates extends Controller with CachedClaim with Navigable w
     "paidMoneyDate" -> optional(dayMonthYear.verifying(validDate)),
     "finishThisWork" -> optional(dayMonthYear.verifying(validDate))
   )(SelfEmploymentDates.apply)(SelfEmploymentDates.unapply)
-    .verifying("moreThanYearAgo.required", validateMoreThanYearAgo _)
     .verifying("haveAccounts.required", validateHaveAccounts _)
     .verifying("knowTradingYear.required", validateKnowTradingYear _)
     .verifying("tradingYearStart.required", validateTradingYearStart _)
@@ -39,16 +38,9 @@ object GSelfEmploymentDates extends Controller with CachedClaim with Navigable w
     .verifying("finishThisWork.required", validateFinishThisWork _)
   )
 
-  private def validateMoreThanYearAgo(selfEmploymentDates: SelfEmploymentDates) = {
-    selfEmploymentDates.stillSelfEmployed match {
-      case `yes` => selfEmploymentDates.moreThanYearAgo.isDefined
-      case _ => true
-    }
-  }
-
   private def validateHaveAccounts(selfEmploymentDates: SelfEmploymentDates) = {
     selfEmploymentDates.moreThanYearAgo match {
-      case Some(`yes`) => selfEmploymentDates.haveAccounts.isDefined
+      case `yes` => selfEmploymentDates.haveAccounts.isDefined
       case _ => true
     }
   }
@@ -69,14 +61,14 @@ object GSelfEmploymentDates extends Controller with CachedClaim with Navigable w
 
   private def validateStartThisWork(selfEmploymentDates: SelfEmploymentDates) = {
     selfEmploymentDates.moreThanYearAgo match {
-      case Some(`no`) => selfEmploymentDates.startThisWork.isDefined
+      case `no` => selfEmploymentDates.startThisWork.isDefined
       case _ => true
     }
   }
 
   private def validatePaidMoney(selfEmploymentDates: SelfEmploymentDates) = {
     selfEmploymentDates.moreThanYearAgo match {
-      case Some(`no`) => selfEmploymentDates.paidMoney.isDefined
+      case `no` => selfEmploymentDates.paidMoney.isDefined
       case _ => true
     }
   }
