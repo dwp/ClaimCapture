@@ -206,7 +206,6 @@ Self-Employed,Dates,Are you self-employed now?,SelfEmployedAreYouSelfEmployedNow
 Self-Employed,Dates,When did you finish this work?,SelfEmployedWhenDidTheJobFinish,01/02/2010
 Self-Employed,Dates,Did you start this work more than a year ago?,SelfEmployedMoreThanYearAgo,Yes
 Self-Employed,Dates,Do you have accounts?,SelfEmployedHaveAccounts,Yes
-Self-Employed,Dates,Paid money yet?,SelfEmployedPaidMoneyYet,No
 Self-Employed,Pension and expenses,"[[past=Did you]] [[present=Do you]] pay into a pension and/or have any work related expenses?",SelfEmploymentDoYouPayForPensionExpenses,Yes
 Self-Employed,Pension and expenses,"Tell us what this [[past=was]] [[present=is]] for, how much and how often",SelfEmploymentPensionExpenses,some pension expenses
 Self-Employed,Pension and expenses,"[[past=Did you]] [[present=Do you]] have any care costs because of this work?",SelfEmploymentDoYouPayForAnythingNecessaryToDoYourJob,Yes
