@@ -6,6 +6,7 @@
 @import views.html.helper.dates._
 @import scala.language.postfixOps
 @import views.html.s_self_employment.main
+@import utils.helpers.CarersCrypto
 
 @haveAccountsYesHelperText=@{
 		"<p class=\"form-hint\" id=\"haveAccountsYesWrap\">"+messages("haveAccountsHelper")+"</p>"
@@ -67,23 +68,23 @@
     <script type="text/javascript">
         $(function () {
             window.initEvents(
-            	"stillSelfEmployed_yes",
-            	"stillSelfEmployed_no",
-            	"selfEmployedNoWrap",
-            	"moreThanYearAgo_yes",
-            	"moreThanYearAgo_no",
-            	"moreThanYearAgoYesWrap",
-            	"moreThanYearAgoNoWrap",
-            	"haveAccounts_yes",
-            	"haveAccounts_no",
-            	"haveAccountsYesWrap",
-               	"haveAccountsNoWrap",
-            	"knowTradingYear_yes",
-            	"knowTradingYear_no",
-            	"tradingYearYesWrap",
-            	"paidMoney_yes",
-            	"paidMoney_no",
-            	"paidMoneyYesWrap"
+				"@CarersCrypto.encryptAES("stillSelfEmployed_yes")",
+				"@CarersCrypto.encryptAES("stillSelfEmployed_no")",
+				"selfEmployedNoWrap",
+				"@CarersCrypto.encryptAES("moreThanYearAgo_yes")",
+				"@CarersCrypto.encryptAES("moreThanYearAgo_no")",
+				"moreThanYearAgoYesWrap",
+				"moreThanYearAgoNoWrap",
+				"@CarersCrypto.encryptAES("haveAccounts_yes")",
+				"@CarersCrypto.encryptAES("haveAccounts_no")",
+				"haveAccountsYesWrap",
+				"haveAccountsNoWrap",
+				"@CarersCrypto.encryptAES("knowTradingYear_yes")",
+				"@CarersCrypto.encryptAES("knowTradingYear_no")",
+				"tradingYearYesWrap",
+				"@CarersCrypto.encryptAES("paidMoney_yes")",
+				"@CarersCrypto.encryptAES("paidMoney_no")",
+				"paidMoneyYesWrap"
             	);
             @ga.stagePrompt()
         });
