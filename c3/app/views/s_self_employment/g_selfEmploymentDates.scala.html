@@ -24,7 +24,7 @@
 						'id-> "selfEmployedNoWrap"
 					)
 					<br><br>
-					@yesNoRadioGroup(currentForm("moreThanYearAgo"), 'ignoreOptional-> true),
+					@yesNoRadioGroup(currentForm("moreThanYearAgo"), 'ignoreOptional-> true)
 					@otherDetailPlaceHolder(
 						inputDef = Seq(
 							yesNoRadioGroup(currentForm("haveAccounts"), 'helper-> haveAccountsYesHelperText, 'ignoreOptional-> true),
@@ -42,7 +42,7 @@
 							)
 						),
 						'id->"moreThanYearAgoYesWrap"
-					),
+					)
 					@otherDetailPlaceHolder(
 						inputDef = Seq(
 							inputDayMonthYear(currentForm("startThisWork")),
