@@ -53,15 +53,15 @@ hideWrapper = (wrapper)->
   clearDownStreamInputs(wrapper)
   $("#" + wrapper).slideUp(0).attr 'aria-hidden', 'true'
 
-cgdebug = ->
-  $(this).val("")
-
 clearDownStreamInputs = (wrapper)->
-#  $("#" + wrapper).find("input").each(cgdebug)
+  $("#" + wrapper).find("input").each(clearInput)
 
-
-#  $("#" + wrapper).find("input").val("")
-#  $("#" + wrapper).find("input:radio").prop('checked', false)
-#  $("#" + wrapper).find("input:radio").parent().removeClass("selected")
-#  $("#" + wrapper).find(".validation-error").removeClass("validation-error")
-#  $("#" + wrapper).find(".validation-message").remove()
+# If we want to also clear the validation error when item is hidden ?
+# $("#" + wrapper).find(".validation-error").removeClass("validation-error")
+# $("#" + wrapper).find(".validation-message").remove()
+clearInput = ->
+  if( $(this).attr("type") == "radio" )
+    $(this).prop('checked', false)
+    $(this).parent().removeClass("selected")
+  else
+    $(this).val("")
