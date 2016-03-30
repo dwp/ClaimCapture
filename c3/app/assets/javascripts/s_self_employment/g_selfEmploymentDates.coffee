@@ -47,23 +47,17 @@ window.initEvents = (answerY, answerN, noWrap,
     hideWrapper(paidMoneyYWrap)
 
 showWrapper = (wrapper) ->
-  console.log("showWrapper:"+wrapper)
   $("#" + wrapper).slideDown(0).attr 'aria-hidden', 'false'
 
 hideWrapper = (wrapper)->
-  console.log("hideWrapper:"+wrapper)
   clearDownStreamInputs(wrapper)
   $("#" + wrapper).slideUp(0).attr 'aria-hidden', 'true'
 
 cgdebug = ->
-  console.log("Resetting:"+$(this).attr("id"))
   $(this).val("")
-  console.log("Done resetting")
 
 clearDownStreamInputs = (wrapper)->
-  console.log("cg doing debug")
 #  $("#" + wrapper).find("input").each(cgdebug)
-  console.log("cg done debug")
 
 
 #  $("#" + wrapper).find("input").val("")

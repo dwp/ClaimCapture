@@ -107,15 +107,9 @@ Employment,About other employment history,"Have you had another job at any time 
 Employment,Employment,Do you want to add anything about your work?,EmploymentDoYouWantToAddAnythingAboutYourWork,DWPCAClaim>EmploymentAdditionalInfo>Answer
 Employment,Employment,Do you want to add anything about your work?Other,EmploymentAdditionalInfo,DWPCAClaim>EmploymentAdditionalInfo>Other
 Self-Employed,Your job,Are you self-employed now?,SelfEmployedAreYouSelfEmployedNow,SelfEmployment>SelfEmployedNow>Answer
-Self-Employed,Your job,When did you start this job?,SelfEmployedWhenDidYouStartThisJob,SelfEmployment>RecentJobDetails>DateStarted>Answer|SelfEmployment>CurrentJobDetails>DateStarted>Answer
-Self-Employed,Your job,When did the job finish?,SelfEmployedWhenDidTheJobFinish,SelfEmployment>RecentJobDetails>DateEnded>Answer
-Self-Employed,Your job,Have you ceased trading?,SelfEmployedHaveYouCeasedTrading,SelfEmployment>RecentJobDetails>TradingCeased>Answer
-Self-Employed,Your job,Nature of your business,SelfEmployedNatureofYourBusiness,SelfEmployment>RecentJobDetails>NatureBusiness>Answer|SelfEmployment>CurrentJobDetails>NatureBusiness>Answer
-Self-Employed,Your accounts,Do you know your trading year?,SelfEmployedDoYouKnowYourTradingYear,SelfEmployment>RecentJobDetails>DoYouKnowYourTradingYear>Answer|SelfEmployment>CurrentJobDetails>DoYouKnowYourTradingYear>Answer
-Self-Employed,Your accounts,Trading year start,SelfEmployedWhatWasIsYourTradingYearfrom,SelfEmployment>RecentJobDetails>TradingYear>DateFrom>Answer|SelfEmployment>CurrentJobDetails>TradingYear>DateFrom>Answer
-Self-Employed,Your accounts,Trading year end,SelfEmployedWhatWasIsYourTradingYearIs,SelfEmployment>RecentJobDetails>TradingYear>DateTo>Answer|SelfEmployment>CurrentJobDetails>TradingYear>DateTo>Answer
-Self-Employed,Your accounts,"Are the income, outgoings and profit in these accounts similar to your current level of trading?",SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent,SelfEmployment>RecentJobDetails>SameIncomeOutgoingLevels>Answer|SelfEmployment>CurrentJobDetails>SameIncomeOutgoingLevels>Answer
-Self-Employed,Your accounts,Please tell us why and when the change happened,SelfEmployedTellUsWhyandWhentheChangeHappened,SelfEmployment>RecentJobDetails>WhyWhenChange>Answer|SelfEmployment>CurrentJobDetails>WhyWhenChange>Answer
+Self-Employed,Your job,When did the job finish?,SelfEmployedWhenDidTheJobFinish,SelfEmployment>DateEnded>Answer
+Self-Employed,Your accounts,Do you know your trading year?,SelfEmployedKnowTradingYear,SelfEmployment>KnowTradingYear>Answer
+Self-Employed,Your accounts,Trading year start,SelfEmployedTradingYearStart,SelfEmployment>TradingYearStart>Answer
 Self-Employed,Pension and expenses,"[[past=Did you]] [[present=Do you]] pay into a pension and/or have any work related expenses?",SelfEmploymentDoYouPayForPensionExpenses,SelfEmployment>PaidForPension>Answer
 Self-Employed,Pension and expenses,"Tell us what this [[past=was]] [[present=is]] for, how much and how often",SelfEmploymentPensionExpenses,SelfEmployment>PensionExpenses>Expense>Answer
 Self-Employed,Pension and expenses,"[[past=Did you]] [[present=Do you]] have any care costs because of this work?",SelfEmploymentDoYouPayForAnythingNecessaryToDoYourJob,SelfEmployment>PaidForJobExpenses>Answer

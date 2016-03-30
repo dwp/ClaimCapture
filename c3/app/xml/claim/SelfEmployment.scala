@@ -75,18 +75,9 @@ object SelfEmployment extends XMLComponent {
     (xml \\ "SelfEmployment").isEmpty match {
       case false =>
         claim
-          .update(createSelfEmploymentDatesFromXml(xml))
           .update(createSelfEmploymentPensionsAndExpensesFromXml(xml))
           .update(createEmploymentFromXml(xml))
       case true => claim
-    }
-  }
-
-  private def createSelfEmploymentDatesFromXml(xml: NodeSeq) = {
-    val selfEmployment = (xml \\ "SelfEmployment")
-    (xml \\ "CurrentJobDetails") match {
-      case currentJob if (currentJob.nonEmpty) => createAboutSelfEmploymentWithJobDetailsFromXml(selfEmployment, currentJob)
-      case _ => createAboutSelfEmploymentWithJobDetailsFromXml(selfEmployment, (xml \\ "RecentJobDetails"))
     }
   }
 
