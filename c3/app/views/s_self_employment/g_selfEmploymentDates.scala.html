@@ -16,48 +16,45 @@
         @DwpCSRFFormHelper.formField
 	        <fieldset class="form-elements" data-journey="carers-allowance:page:self-employment">
 	            <ul>
-	                @yesNoRadioGroup(currentForm("stillSelfEmployed"), 'helper->"<br><br>")
+	                @yesNoRadioGroup(currentForm("stillSelfEmployed"))
 					@otherDetailPlaceHolder(
 						inputDef = Seq(
-							inputDayMonthYear(currentForm("finishThisWork"), 'helper-> "<br><br>", 'ignoreOptional-> true)
+							inputDayMonthYear(currentForm("finishThisWork"), 'ignoreOptional-> true)
 						),
 						'id-> "selfEmployedNoWrap"
 					)
+					<br><br>
+					@yesNoRadioGroup(currentForm("moreThanYearAgo"), 'ignoreOptional-> true),
 					@otherDetailPlaceHolder(
 						inputDef = Seq(
-							yesNoRadioGroup(currentForm("moreThanYearAgo"), 'helper-> "<br><br>", 'ignoreOptional-> true),
+							yesNoRadioGroup(currentForm("haveAccounts"), 'helper-> haveAccountsYesHelperText, 'ignoreOptional-> true),
 							otherDetailPlaceHolder(
 								inputDef = Seq(
-									yesNoRadioGroup(currentForm("haveAccounts"), 'helper-> haveAccountsYesHelperText, 'ignoreOptional-> true),
+									yesNoRadioGroup(currentForm("knowTradingYear"), 'helperAbove->messages("knowTradingYearHelper"), 'ignoreOptional-> true),
 									otherDetailPlaceHolder(
 										inputDef = Seq(
-											yesNoRadioGroup(currentForm("knowTradingYear"), 'helperAbove->messages("knowTradingYearHelper"), 'ignoreOptional-> true),
-											otherDetailPlaceHolder(
-												inputDef = Seq(
-													inputDayMonthYear(currentForm("tradingYearStart"), 'ignoreOptional-> true)
-												),
-												'id->"tradingYearYesWrap"
-											)
+											inputDayMonthYear(currentForm("tradingYearStart"), 'ignoreOptional-> true)
 										),
-										'id->"haveAccountsNoWrap"
+										'id->"tradingYearYesWrap"
 									)
 								),
-								'id->"moreThanYearAgoYesWrap"
-							),
-							otherDetailPlaceHolder(
-								inputDef = Seq(
-									inputDayMonthYear(currentForm("startThisWork")),
-									yesNoRadioGroup(currentForm("paidMoney"), 'helperAbove-> messages("paidMoneyHelper"), 'ignoreOptional-> true),
-									otherDetailPlaceHolder(
-										inputDef = Seq(
-											inputDayMonthYear(currentForm("paidMoneyDate"), 'ignoreOptional-> true)
-										),
-										'id-> "paidMoneyYesWrap"
-									)
-								),
-								'id-> "moreThanYearAgoNoWrap"
+								'id->"haveAccountsNoWrap"
 							)
-						)
+						),
+						'id->"moreThanYearAgoYesWrap"
+					),
+					@otherDetailPlaceHolder(
+						inputDef = Seq(
+							inputDayMonthYear(currentForm("startThisWork")),
+							yesNoRadioGroup(currentForm("paidMoney"), 'helperAbove-> messages("paidMoneyHelper"), 'ignoreOptional-> true),
+							otherDetailPlaceHolder(
+								inputDef = Seq(
+									inputDayMonthYear(currentForm("paidMoneyDate"), 'ignoreOptional-> true)
+								),
+								'id-> "paidMoneyYesWrap"
+							)
+						),
+						'id-> "moreThanYearAgoNoWrap"
 					)
 	            </ul>
 	        </fieldset>
