@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.StatutorySickPay])(implicit claim: models.domain.Claim,lang: Lang,request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
+@(currentForm: Form[models.domain.StatutoryMaternityPaternityAdoptionPay])(implicit claim: models.domain.Claim,lang: Lang,request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
@@ -8,6 +8,7 @@
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
+@import app.PaymentTypes._
 
 @listOfOptions = @{
     Seq(Weekly -> messages("weekly"),
@@ -17,8 +18,15 @@
         ItVaries -> messages("itVaries"))
 }
 
-@main(messages("s7.g1")+ " " + messages("s17.g1"), messages("s7.g1")+ " - " + messages("s17.g1"), Some(currentForm)) {
-    @form(action = controllers.your_income.routes.GStatutorySickPay.submit, 'role -> "form") {
+@listOfPaymentTypes = @{
+    Seq(
+        MaternityPaternity -> messages("maternityPaternity"),
+        Adoption -> messages("adoption")
+    )
+}
+
+@main(messages("s7.g1")+ " " + messages("s18.g1"), messages("s7.g1")+ " - " + messages("s18.g1"), Some(currentForm)) {
+    @form(action = controllers.your_income.routes.GStatutoryMaternityPaternityAdoptionPay.submit, 'role -> "form") {
 
         @DwpCSRFFormHelper.formField
 
@@ -26,6 +34,12 @@
             <legend class="visuallyhidden">@Html(messages("s7.g1"))</legend>
 
             <ul>
+                @listRadioGroup(currentForm("paymentTypesForThisPay"),
+                    'items -> listOfPaymentTypes,
+                    '_nestedFieldSet -> true,
+                    'track -> true,
+                    'ignoreOptional -> true)
+
                 @yesNoRadioGroup(currentForm("stillBeingPaidThisPay"))
 
                 @otherDetailPlaceHolder(

@@ -49,7 +49,7 @@ class GHowWePayYouIntegrationSpec extends Specification {
      */
     "navigate back to Other Statutory Pay - Other Money" in new WithBrowser with PageObjects {
       val page = GStatutorySickPayPage(context)
-      val claim = ClaimScenarioFactory.s9StatutorySickPay
+      val claim = ClaimScenarioFactory.s9OtherIncome
       page goToThePage()
       page fillPageWith claim
       page submitPage()

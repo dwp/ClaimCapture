@@ -37,7 +37,7 @@ class PreviewPageOtherMoneyContentSpec extends Specification {
 
     val statutorySickPayPage = GStatutorySickPayPage(context)
     statutorySickPayPage goToThePage ()
-    statutorySickPayPage fillPageWith ClaimScenarioFactory.s9StatutorySickPay
+    statutorySickPayPage fillPageWith ClaimScenarioFactory.s9OtherIncome
     statutorySickPayPage submitPage()
   }
 }

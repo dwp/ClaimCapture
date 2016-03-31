@@ -65,6 +65,11 @@ package object app {
     val ThirteenWeekly = "Every thirteen weeks"
   }
 
+  object PaymentTypes {
+    val MaternityPaternity = "MaternityOrPaternityPay"
+    val Adoption = "AdoptionPay"
+  }
+
   object PensionPaymentFrequency {
     val Weekly = "Weekly"
     val Fortnightly = "Fortnightly"

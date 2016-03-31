@@ -1,5 +1,7 @@
 package controllers.mappings
 
+import app.PaymentTypes._
+import app.StatutoryPaymentFrequency._
 import controllers.CarersForms._
 import models._
 import org.joda.time.DateTime
@@ -275,4 +277,20 @@ object Mappings {
     })
   }
 
+  def validPaymentType: Constraint[String] = Constraint[String]("constraint.paymentType") {
+    case `MaternityPaternity` => Valid
+    case `Adoption` => Valid
+    case _ => Invalid(ValidationError("paymentType.invalid"))
+  }
+
+  def validPaymentFrequency: Constraint[String] = Constraint[String]("constraint.paymentFrequency") {
+    case `Weekly` => Valid
+    case `Fortnightly` => Valid
+    case `FourWeekly` => Valid
+    case `DontKnowYet` => Valid
+    case `Monthly` => Valid
+    case `Other` => Valid
+    case `ItVaries` => Valid
+    case _ => Invalid(ValidationError("paymentFrequency.invalid"))
+  }
 }

@@ -6,7 +6,8 @@ import utils.pageobjects.{PageContext, ClaimPage, PageObjectsContext}
 /**
   * Created by peterwhitehead on 29/03/2016.
   */
-class GStatutorySickPayPage(ctx:PageObjectsContext) extends ClaimPage(ctx, GStatutorySickPayPage.url) {
+class GStatutoryMaternityPaternityAdoptionPayPage(ctx:PageObjectsContext) extends ClaimPage(ctx, GStatutoryMaternityPaternityAdoptionPayPage.url) {
+  declareRadioList("#paymentTypesForThisPay", "PaymentTypesForThisPay")
   declareYesNo("#stillBeingPaidThisPay", "StillBeingPaidThisPay")
   declareDate("#whenDidYouLastGetPaid", "WhenDidYouLastGetPaid")
   declareInput("#whoPaidYouThisPay", "WhoPaidYouThisPay")
@@ -15,15 +16,15 @@ class GStatutorySickPayPage(ctx:PageObjectsContext) extends ClaimPage(ctx, GStat
   declareInput("#howOftenPaidThisPayOther", "HowOftenPaidThisPayOther")
 }
 
-object GStatutorySickPayPage {
-  val url  = "/your-income/statutory-sick-pay"
+object GStatutoryMaternityPaternityAdoptionPayPage {
+  val url  = "/your-income/statutory-mpa-pay"
 
-  def apply(ctx:PageObjectsContext) = new GStatutorySickPayPage(ctx)
+  def apply(ctx:PageObjectsContext) = new GStatutoryMaternityPaternityAdoptionPayPage(ctx)
 }
 
-trait GStatutorySickPayPageContext extends PageContext {
+trait GStatutoryMaternityPaternityAdoptionPayPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = GStatutorySickPayPage (PageObjectsContext(browser))
+  val page = GStatutoryMaternityPaternityAdoptionPayPage (PageObjectsContext(browser))
 }
 

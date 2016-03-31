@@ -30,55 +30,40 @@ object YourIncomes extends QuestionGroup.Identifier {
   val id = s"${YourIncome.id}.g0"
 }
 
-
-
 object YourIncomeStatutorySickPay extends Section.Identifier {
   val id = "s17"
 }
 
-object StatutorySickPay extends QuestionGroup.Identifier {
+object StatutorySickPay extends QuestionGroup.Identifier with OtherIncomes {
   val id = s"${YourIncomeStatutorySickPay.id}.g1"
-
-  def howOftenPaidStatutorySickPayItVariesRequired: Constraint[StatutorySickPay] = Constraint[StatutorySickPay]("constraint.statutorySickPay.howOftenPaidStatutorySickPay") {
-    statutorySickPay =>
-      if (statutorySickPay.howOftenPaidStatutorySickPay == StatutoryPaymentFrequency.ItVaries) {
-        statutorySickPay.howOftenPaidStatutorySickPayOther match {
-          case Some(howOften) => Valid
-          case _ => Invalid(ValidationError("statutorySickPay.howOftenPaidStatutorySickPay.required"))
-        }
-      }
-      else Valid
-  }
-
-  def whenDidYouLastGetPaidRequired: Constraint[StatutorySickPay] = Constraint[StatutorySickPay]("constraint.statutorySickPay.whenDidYouLastGetPaid") {
-    statutorySickPay =>
-      if (statutorySickPay.stillBeingPaidStatutorySickPay == Mappings.no) {
-        statutorySickPay.whenDidYouLastGetPaid match {
-          case Some(whenLastPaid) => Valid
-          case _ => Invalid(ValidationError("statutorySickPay.whenDidYouLastGetPaid.required"))
-        }
-      }
-      else Valid
-  }
 }
 
-case class StatutorySickPay(stillBeingPaidStatutorySickPay: String = "",
-                            whenDidYouLastGetPaid: Option[DayMonthYear] = None,
-                            whoPaidYouStatutorySickPay: String = "",
-                            amountOfStatutorySickPay: String = "",
-                            howOftenPaidStatutorySickPay: String = "",
-                            howOftenPaidStatutorySickPayOther: Option[String] = None
- ) extends QuestionGroup(StatutorySickPay)
+case class StatutorySickPay(
+                            override val stillBeingPaidThisPay: String = "",
+                            override val whenDidYouLastGetPaid: Option[DayMonthYear] = None,
+                            override val whoPaidYouThisPay: String = "",
+                            override val amountOfThisPay: String = "",
+                            override val howOftenPaidThisPay: String = "",
+                            override val howOftenPaidThisPayOther: Option[String] = None
+                           ) extends QuestionGroup(StatutorySickPay) with OtherIncomes
 
-object YourIncomeStatutoryMaternityAdoptionPay extends Section.Identifier {
+object YourIncomeStatutoryMaternityPaternityAdoptionPay extends Section.Identifier {
   val id = "s18"
 }
 
-object StatutoryMaternityAdoptionPay extends QuestionGroup.Identifier {
-  val id = s"${YourIncomeStatutoryMaternityAdoptionPay.id}.g1"
+object StatutoryMaternityPaternityAdoptionPay extends QuestionGroup.Identifier with OtherIncomes {
+  val id = s"${YourIncomeStatutoryMaternityPaternityAdoptionPay.id}.g1"
 }
 
-case class StatutoryMaternityAdoptionPay() extends QuestionGroup(StatutoryMaternityAdoptionPay)
+case class StatutoryMaternityPaternityAdoptionPay(
+                                                  override val paymentTypesForThisPay: String = "",
+                                                  override val stillBeingPaidThisPay: String = "",
+                                                  override val whenDidYouLastGetPaid: Option[DayMonthYear] = None,
+                                                  override val whoPaidYouThisPay: String = "",
+                                                  override val amountOfThisPay: String = "",
+                                                  override val howOftenPaidThisPay: String = "",
+                                                  override val howOftenPaidThisPayOther: Option[String] = None
+                                                 ) extends QuestionGroup(StatutoryMaternityPaternityAdoptionPay) with OtherIncomes
 
 object YourIncomeFosteringAllowance extends Section.Identifier {
   val id = "s19"
@@ -111,4 +96,34 @@ object AnyOtherIncome extends QuestionGroup.Identifier {
 case class AnyOtherIncome() extends QuestionGroup(AnyOtherIncome)
 
 
+trait OtherIncomes {
+  val paymentTypesForThisPay: String = ""
+  val stillBeingPaidThisPay: String = ""
+  val whenDidYouLastGetPaid: Option[DayMonthYear] = None
+  val whoPaidYouThisPay: String = ""
+  val amountOfThisPay: String = ""
+  val howOftenPaidThisPay: String = ""
+  val howOftenPaidThisPayOther: Option[String] = None
 
+  def howOftenPaidThisPayItVariesRequired: Constraint[OtherIncomes] = Constraint[OtherIncomes]("constraint.howOftenPaidThisPay") {
+    statutorySickPay =>
+      if (statutorySickPay.howOftenPaidThisPay == StatutoryPaymentFrequency.ItVaries) {
+        statutorySickPay.howOftenPaidThisPayOther match {
+          case Some(howOften) => Valid
+          case _ => Invalid(ValidationError("howOftenPaidThisPay.required"))
+        }
+      }
+      else Valid
+  }
+
+  def whenDidYouLastGetPaidRequired: Constraint[OtherIncomes] = Constraint[OtherIncomes]("constraint.whenDidYouLastGetPaid") {
+    statutorySickPay =>
+      if (statutorySickPay.stillBeingPaidThisPay == Mappings.no) {
+        statutorySickPay.whenDidYouLastGetPaid match {
+          case Some(whenLastPaid) => Valid
+          case _ => Invalid(ValidationError("whenDidYouLastGetPaid.required"))
+        }
+      }
+      else Valid
+  }
+}

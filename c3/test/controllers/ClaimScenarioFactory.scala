@@ -894,29 +894,31 @@ object ClaimScenarioFactory {
     claim
   }
 
-  def s9StatutorySickPay = {
+  def s9OtherIncome = {
     val claim = s7Employment()
-    claim.StatutorySickPayStillBeingPaidStatutorySickPay = "yes"
-    claim.StatutorySickPayWhoPaidYouStatutorySickPay = "The Man"
-    claim.StatutorySickPayAmountOfStatutorySickPay = "12"
-    claim.StatutorySickPayHowOftenPaidStatutorySickPay = "Monthly"
+    claim.PaymentTypesForThisPay = "MaternityOrPaternityPay"
+    claim.StillBeingPaidThisPay = "yes"
+    claim.WhoPaidYouThisPay = "The Man"
+    claim.AmountOfThisPay = "12"
+    claim.HowOftenPaidThisPay = "Monthly"
 
     claim
   }
 
-  def s9StatutorySickPayOther = {
+  def s9OtherIncomeOther = {
     val claim = s7Employment()
-    claim.StatutorySickPayStillBeingPaidStatutorySickPay = "yes"
-    claim.StatutorySickPayWhoPaidYouStatutorySickPay = "The Man"
-    claim.StatutorySickPayAmountOfStatutorySickPay = "12"
-    claim.StatutorySickPayHowOftenPaidStatutorySickPay = "Other"
-    claim.StatutorySickPayHowOftenPaidStatutorySickPayOther = "every day and twice on Sundays"
+    claim.PaymentTypesForThisPay = "MaternityOrPaternityPay"
+    claim.StillBeingPaidThisPay = "yes"
+    claim.WhoPaidYouThisPay = "The Man"
+    claim.AmountOfThisPay = "12"
+    claim.HowOftenPaidThisPay = "Other"
+    claim.HowOftenPaidThisPayOther = "every day and twice on Sundays"
 
     claim
   }
 
   def s9SelfEmployment = {
-    val claim = s9StatutorySickPay
+    val claim = s9OtherIncome
     // About self-employment
     claim.SelfEmployedAreYouSelfEmployedNow = "no"
     claim.SelfEmployedMoreThanYearAgo = "no"

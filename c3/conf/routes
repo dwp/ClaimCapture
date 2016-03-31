@@ -183,8 +183,11 @@ POST        /self-employment/completed                                  controll
 
 # Other payments
 ###############
-GET         /your-income/statutory-sick-pay                              controllers.your_income.GStatutorySickPay.present
-POST        /your-income/statutory-sick-pay                              controllers.your_income.GStatutorySickPay.submit
+GET         /your-income/statutory-sick-pay                             controllers.your_income.GStatutorySickPay.present
+POST        /your-income/statutory-sick-pay                             controllers.your_income.GStatutorySickPay.submit
+
+GET         /your-income/statutory-mpa-pay                              controllers.your_income.GStatutoryMaternityPaternityAdoptionPay.present
+POST        /your-income/statutory-mpa-pay                              controllers.your_income.GStatutoryMaternityPaternityAdoptionPay.submit
 
 # Pay details
 ###############

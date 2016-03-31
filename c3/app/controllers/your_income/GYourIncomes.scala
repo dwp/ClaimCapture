@@ -57,7 +57,7 @@ object GYourIncomes extends Controller with CachedClaim with Navigable with I18n
     claim.showHideSection(yourIncomes.beenEmployedSince6MonthsBeforeClaim == yes, models.domain.Employed)
       .showHideSection(yourIncomes.beenSelfEmployedSince1WeekBeforeClaim == yes, models.domain.SelfEmployment)
       .showHideSection(yourIncomes.yourIncome_sickpay == someTrue, models.domain.YourIncomeStatutorySickPay)
-      .showHideSection(yourIncomes.yourIncome_patmatadoppay == someTrue, models.domain.YourIncomeStatutoryMaternityAdoptionPay)
+      .showHideSection(yourIncomes.yourIncome_patmatadoppay == someTrue, models.domain.YourIncomeStatutoryMaternityPaternityAdoptionPay)
       .showHideSection(yourIncomes.yourIncome_fostering == someTrue, models.domain.YourIncomeFosteringAllowance)
       .showHideSection(yourIncomes.yourIncome_directpay == someTrue, models.domain.YourIncomeDirectPayment)
       .showHideSection(yourIncomes.yourIncome_anyother == someTrue, models.domain.YourIncomeAnyOtherIncome)
@@ -77,7 +77,7 @@ object GYourIncomes extends Controller with CachedClaim with Navigable with I18n
     } else directPayment
 
     val statutoryMaternityAdoptionPay = if(yourIncomes.yourIncome_patmatadoppay == None) {
-      fosteringAllowance.delete(StatutoryMaternityAdoptionPay)
+      fosteringAllowance.delete(StatutoryMaternityPaternityAdoptionPay)
     } else fosteringAllowance
 
     val statutorySickPay = if(yourIncomes.yourIncome_sickpay == None) {

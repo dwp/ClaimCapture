@@ -3,17 +3,18 @@ package controllers.your_income
 import models.domain._
 import org.specs2.mutable._
 import play.api.test.FakeRequest
-import utils.WithApplication
 import play.api.test.Helpers._
+import utils.WithApplication
 
-class GStatutorySickPaySpec extends Specification {
-  section ("unit", models.domain.StatutorySickPay.id)
+class GStatutoryMaternityPaternityAdoptionPaySpec extends Specification {
+  section ("unit", models.domain.StatutoryMaternityPaternityAdoptionPay.id)
   "Statutory Maternity Paternity Adoption Pay - Controller" should {
     val whoPaysYou = "The Man"
     val howMuch = "12"
     val yes = "yes"
 
     val formInput = Seq(
+      "paymentTypesForThisPay" -> "MaternityOrPaternityPay",
       "stillBeingPaidThisPay" -> yes,
       "whenDidYouLastGetPaid" -> "",
       "whoPaidYouThisPay" -> whoPaysYou,
@@ -22,10 +23,10 @@ class GStatutorySickPaySpec extends Specification {
       "howOftenPaidThisPayOther" -> ""
     )
 
-    "present 'Statutory Sick Pay '" in new WithApplication with Claiming {
+    "present 'Statutory Maternity Paternity Adoption Pay '" in new WithApplication with Claiming {
       val request = FakeRequest()
 
-      val result = GStatutorySickPay.present(request)
+      val result = GStatutoryMaternityPaternityAdoptionPay.present(request)
 
       status(result) mustEqual OK
     }
@@ -34,12 +35,12 @@ class GStatutorySickPaySpec extends Specification {
       val request = FakeRequest()
         .withFormUrlEncodedBody(formInput: _*)
 
-      val result = GStatutorySickPay.submit(request)
+      val result = GStatutoryMaternityPaternityAdoptionPay.submit(request)
       val claim = getClaimFromCache(result)
-      val section: Section = claim.section(YourIncomeStatutorySickPay)
+      val section: Section = claim.section(YourIncomeStatutoryMaternityPaternityAdoptionPay)
 
-      section.questionGroup(StatutorySickPay) must beLike {
-        case Some(f: StatutorySickPay) => {
+      section.questionGroup(StatutoryMaternityPaternityAdoptionPay) must beLike {
+        case Some(f: StatutoryMaternityPaternityAdoptionPay) => {
           f.stillBeingPaidThisPay must equalTo(yes)
           f.whenDidYouLastGetPaid must equalTo(None)
           f.whoPaidYouThisPay must equalTo(whoPaysYou)
@@ -59,7 +60,7 @@ class GStatutorySickPaySpec extends Specification {
             "amountOfThisPay" -> "INVALID"
           )
 
-        val result = GStatutorySickPay.submit(request)
+        val result = GStatutoryMaternityPaternityAdoptionPay.submit(request)
         status(result) mustEqual BAD_REQUEST
       }
 
@@ -67,13 +68,14 @@ class GStatutorySickPaySpec extends Specification {
         val request = FakeRequest()
           .withFormUrlEncodedBody("" -> "")
 
-        val result = GStatutorySickPay.submit(request)
+        val result = GStatutoryMaternityPaternityAdoptionPay.submit(request)
         status(result) mustEqual BAD_REQUEST
       }
 
       "reject a howOften frequency of other with no other text entered" in new WithApplication with Claiming {
         val request = FakeRequest()
           .withFormUrlEncodedBody(
+            "paymentTypesForThisPay" -> "MaternityOrPaternityPay",
             "stillBeingPaidThisPay" -> yes,
             "whenDidYouLastGetPaid" -> "",
             "whoPaidYouThisPay" -> whoPaysYou,
@@ -81,7 +83,7 @@ class GStatutorySickPaySpec extends Specification {
             "howOftenPaidThisPay" -> "Other",
             "howOftenPaidThisPayOther" -> ""
           )
-        val result = GStatutorySickPay.submit(request)
+        val result = GStatutoryMaternityPaternityAdoptionPay.submit(request)
         status(result) mustEqual BAD_REQUEST
       }
     }
@@ -90,10 +92,10 @@ class GStatutorySickPaySpec extends Specification {
       val request = FakeRequest()
         .withFormUrlEncodedBody(formInput: _*)
 
-      val result = GStatutorySickPay.submit(request)
+      val result = GStatutoryMaternityPaternityAdoptionPay.submit(request)
 
       status(result) mustEqual SEE_OTHER
     }
   }
-  section ("unit", models.domain.StatutorySickPay.id)
+  section ("unit", models.domain.StatutoryMaternityPaternityAdoptionPay.id)
 }
