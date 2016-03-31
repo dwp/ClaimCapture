@@ -40,7 +40,7 @@
                     'track -> true,
                     'ignoreOptional -> true)
 
-                @yesNoRadioGroup(currentForm("stillBeingPaidThisPay"))
+                @yesNoRadioGroup(currentForm("stillBeingPaidThisPay"), '_label -> messages("stillBeingPaidThisPay_paternityMaternityAdoption"))
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
@@ -49,7 +49,7 @@
                     'id -> "stillBeingPaidThisPayWrap"
                 )
 
-                @carersInputText(currentForm("whoPaidYouThisPay"), 'maxLength -> mappings.Mappings.sixty)
+                @carersInputText(currentForm("whoPaidYouThisPay"), 'maxLength -> mappings.Mappings.sixty, '_label -> messages("whoPaidYouThisPay_paternityMaternityAdoption"))
 
                 @carersCurrency(currentForm("amountOfThisPay"), 'maxLength -> mappings.Mappings.twelve)
 
