@@ -1,13 +1,12 @@
 @()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 @import models.domain._
 @import scala.language.postfixOps
-@import play.api.i18n.Messages
 @import helper._
 @import controllers.mappings.Mappings._
 @import views.html.preview.jobsPreview
 
 @claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
-@emp = @{claim.questionGroup[Employment].getOrElse(Employment())}
+@emp = @{claim.questionGroup[YourIncomes].getOrElse(YourIncomes())}
 @aboutSelfEmployment = @{claim.questionGroup[AboutSelfEmployment].getOrElse(AboutSelfEmployment())}
 @additionalInfo = @{claim.questionGroup[EmploymentAdditionalInfo].getOrElse(EmploymentAdditionalInfo())}
 @sixMonthsBeforeDate(date:DayMonthYear) = @{date - 6 months}

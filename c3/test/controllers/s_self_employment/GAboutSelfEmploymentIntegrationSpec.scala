@@ -5,8 +5,7 @@ import utils.{WithApplication, WithBrowser}
 import utils.pageobjects.s_self_employment.{GAboutSelfEmploymentPage, GSelfEmploymentYourAccountsPage}
 import utils.pageobjects.{PageObjects,TestData}
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s_other_money.GAboutOtherMoneyPage
-import utils.pageobjects.s_employment.GEmploymentPage
+import utils.pageobjects.your_income.{GStatutorySickPayPage, GYourIncomePage}
 import utils.pageobjects.s_claim_date.GClaimDatePageContext
 
 class GAboutSelfEmploymentIntegrationSpec extends Specification {
@@ -22,11 +21,11 @@ class GAboutSelfEmploymentIntegrationSpec extends Specification {
       val claim = ClaimScenarioFactory.s4CareYouProvideWithNoBreaksInCareWithNoEducationAndNotEmployed()
       page goToThePage()
 
-      val contactDetailsPage = page runClaimWith(claim, GEmploymentPage.url, waitForPage = true, trace = true)
+      val contactDetailsPage = page runClaimWith(claim, GYourIncomePage.url, waitForPage = true, trace = true)
       contactDetailsPage fillPageWith(claim)
 
       val nextPage = contactDetailsPage submitPage()
-      nextPage must beAnInstanceOf[GAboutOtherMoneyPage]
+      nextPage must beAnInstanceOf[GStatutorySickPayPage]
     }
 
     "contain errors on invalid submission" in new WithApplication {

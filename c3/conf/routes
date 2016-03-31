@@ -148,17 +148,17 @@ POST        /education/your-course-details        controllers.s_education.GYourC
 
 # Employment
 ###############
-GET         /employment/employment                controllers.your_income.GEmployment.present
-POST        /employment/employment                controllers.your_income.GEmployment.submit
+GET         /your-income/your-income                                    controllers.your_income.GYourIncomes.present
+POST        /your-income/your-income                                    controllers.your_income.GYourIncomes.submit
 
-GET         /employment/been-employed             controllers.s_employment.GBeenEmployed.present
-POST        /employment/been-employed             controllers.s_employment.GBeenEmployed.submit
+GET         /employment/been-employed                                   controllers.s_employment.GBeenEmployed.present
+POST        /employment/been-employed                                   controllers.s_employment.GBeenEmployed.submit
 
-POST        /employment/delete-job                controllers.s_employment.Employment.delete
+POST        /employment/delete-job                                      controllers.s_employment.Employment.delete
 
-GET         /employment/job/:id                   controllers.s_employment.GJobDetails.job(id: String)
+GET         /employment/job/:id                                         controllers.s_employment.GJobDetails.job(id: String)
 
-GET         /employment/job-details/:id           controllers.s_employment.GJobDetails.present(id: String)
+GET         /employment/job-details/:id                                 controllers.s_employment.GJobDetails.present(id: String)
 POST        /employment/job-details                                     controllers.s_employment.GJobDetails.submit
 
 GET         /employment/last-wage/:id                                   controllers.s_employment.GLastWage.present(id: String)
@@ -184,10 +184,10 @@ POST        /self-employment/pensions-and-expenses                      controll
 GET         /self-employment/completed                                  controllers.s_self_employment.SelfEmployment.completed
 POST        /self-employment/completed                                  controllers.s_self_employment.SelfEmployment.completedSubmit
 
-# Other money
+# Other payments
 ###############
-GET         /other-money/about-other-money                              controllers.s_other_money.GAboutOtherMoney.present
-POST        /other-money/about-other-money                              controllers.s_other_money.GAboutOtherMoney.submit
+GET         /your-income/statutory-sick-pay                              controllers.your_income.GStatutorySickPay.present
+POST        /your-income/statutory-sick-pay                              controllers.your_income.GStatutorySickPay.submit
 
 # Pay details
 ###############

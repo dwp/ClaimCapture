@@ -894,44 +894,29 @@ object ClaimScenarioFactory {
     claim
   }
 
-  def s9otherMoney = {
+  def s9StatutorySickPay = {
     val claim = s7Employment()
-    // G1 About other money
-    claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
-    claim.OtherMoneyWhoPaysYou = "The Man"
-    claim.OtherMoneyHowMuch = "12"
-    // G1 Statutory Sick Pay
-    claim.OtherMoneyHaveYouSSPSinceClaim = "yes"
-    claim.OtherMoneySSPHowMuch = "123"
-    claim.OtherMoneySSPEmployerName = "Burger King"
-    // G1 Other Statutory Pay
-    claim.OtherMoneyHaveYouSMPSinceClaim = "yes"
-    claim.OtherMOneySMPHowMuch = "123"
-    claim.OtherMoneySMPEmployerName = "Employers Name"
+    claim.StatutorySickPayStillBeingPaidStatutorySickPay = "yes"
+    claim.StatutorySickPayWhoPaidYouStatutorySickPay = "The Man"
+    claim.StatutorySickPayAmountOfStatutorySickPay = "12"
+    claim.StatutorySickPayHowOftenPaidStatutorySickPay = "Monthly"
 
     claim
   }
 
-  def s9otherMoneyOther = {
+  def s9StatutorySickPayOther = {
     val claim = s7Employment()
-    // G1 About other money
-    claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
-    claim.OtherMoneyWhoPaysYou = "The Man"
-    claim.OtherMoneyHowMuch = "12"
-    claim.OtherMoneyHowOften = "Other"
-    claim.OtherMoneyHowOftenOther = "every day and twice on Sundays"
-    // G1 Statutory Sick Pay
-    claim.OtherMoneyHaveYouSSPSinceClaim = "no"
-
-    // G1 Other Statutory Pay
-    claim.OtherMoneyHaveYouSMPSinceClaim = "no"
-
+    claim.StatutorySickPayStillBeingPaidStatutorySickPay = "yes"
+    claim.StatutorySickPayWhoPaidYouStatutorySickPay = "The Man"
+    claim.StatutorySickPayAmountOfStatutorySickPay = "12"
+    claim.StatutorySickPayHowOftenPaidStatutorySickPay = "Other"
+    claim.StatutorySickPayHowOftenPaidStatutorySickPayOther = "every day and twice on Sundays"
 
     claim
   }
 
   def s9SelfEmployment = {
-    val claim = s9otherMoney
+    val claim = s9StatutorySickPay
     // About self-employment
     claim.SelfEmployedAreYouSelfEmployedNow = "no"
     claim.SelfEmployedDoYouKnowYourTradingYear = "no"

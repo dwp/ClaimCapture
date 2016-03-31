@@ -6,18 +6,18 @@ import utils.WithBrowser
 import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects.s_about_you.{GNationalityAndResidencyPage, GAbroadForMoreThan52WeeksPage, GOtherEEAStateOrSwitzerlandPage}
 import utils.pageobjects.s_claim_date.GClaimDatePage
-import utils.pageobjects.s_other_money._
 import utils.pageobjects.s_pay_details.GHowWePayYouPage
 import utils.pageobjects.s_information.GAdditionalInfoPage
+import utils.pageobjects.your_income.GStatutorySickPayPage
 import utils.pageobjects.{Page, TestData, PageObjects, PageObjectsContext}
 
 class GHowWePayYouIntegrationSpec extends Specification {
   section("integration", models.domain.PayDetails.id)
   "Pay details" should {
     "be presented" in new WithBrowser with PageObjects {
-      val page = GAboutOtherMoneyPage(context)
+      val page = GStatutorySickPayPage(context)
       page goToThePage()
-      page must beAnInstanceOf[GAboutOtherMoneyPage]
+      page must beAnInstanceOf[GStatutorySickPayPage]
     }
 
     "be hidden when having state pension" in new WithBrowser with BrowserMatchers {
@@ -31,7 +31,7 @@ class GHowWePayYouIntegrationSpec extends Specification {
     }
 
     "contain errors on invalid submission" in new WithBrowser with PageObjects {
-      val page = GAboutOtherMoneyPage(context)
+      val page = GStatutorySickPayPage(context)
       page goToThePage()
       val samePage = page.submitPage()
       Logger.info(samePage.toString)
@@ -48,19 +48,19 @@ class GHowWePayYouIntegrationSpec extends Specification {
      * Please modify the other test cases when you address them
      */
     "navigate back to Other Statutory Pay - Other Money" in new WithBrowser with PageObjects {
-      val page = GAboutOtherMoneyPage(context)
-      val claim = ClaimScenarioFactory.s9otherMoney
+      val page = GStatutorySickPayPage(context)
+      val claim = ClaimScenarioFactory.s9StatutorySickPay
       page goToThePage()
       page fillPageWith claim
       page submitPage()
 
-      val OtherStatutoryPage = page goToPage new GAboutOtherMoneyPage(PageObjectsContext(browser))
+      val OtherStatutoryPage = page goToPage new GStatutorySickPayPage(PageObjectsContext(browser))
       OtherStatutoryPage fillPageWith claim
       OtherStatutoryPage submitPage()
 
       val howWePayPage = OtherStatutoryPage goToPage new GHowWePayYouPage(PageObjectsContext(browser))
       val previousPage = howWePayPage goBack()
-      previousPage must beAnInstanceOf[GAboutOtherMoneyPage]
+      previousPage must beAnInstanceOf[GStatutorySickPayPage]
     }
 
     "navigate to 'Consent And Declaration'" in new WithBrowser with PageObjects {

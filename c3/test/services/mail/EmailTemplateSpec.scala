@@ -58,7 +58,7 @@ class EmailTemplateSpec extends Specification {
       implicit val lang = Lang("en")
       val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
       implicit val messages = Messages(lang, messagesApi)
-      val jobs= Employment(Mappings.yes,Mappings.yes)
+      val jobs= YourIncomes(Mappings.yes,Mappings.yes)
       val claim = Claim(CachedClaim.key).+(ClaimDate(DayMonthYear())).update(jobs)
 
       val renderedEmail = views.html.mail(claim,isClaim = true,isEmployment = true).body
@@ -82,7 +82,7 @@ class EmailTemplateSpec extends Specification {
       implicit val lang = Lang("en")
       val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
       implicit val messages = Messages(lang, messagesApi)
-      val employment= Employment(Mappings.yes,Mappings.yes)
+      val employment= YourIncomes(Mappings.yes,Mappings.yes)
       val pensionAndExpenses = PensionAndExpenses("", YesNoWithText(Mappings.yes, Some("blah blah blah")),
         YesNoWithText("", None), YesNoWithText("", None))
       val jobs = Jobs(List(Iteration("1", List(pensionAndExpenses))))

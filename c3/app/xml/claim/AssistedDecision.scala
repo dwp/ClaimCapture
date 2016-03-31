@@ -66,7 +66,7 @@ object AssistedDecision extends XMLComponent {
 
   private def isHappyPath(claim: Claim): AssistedDecisionDetails = {
     val aboutYourMoney = claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney())
-    val employment = claim.questionGroup[Employment].getOrElse(models.domain.Employment())
+    val employment = claim.questionGroup[YourIncomes].getOrElse(models.domain.YourIncomes())
     val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(nationality = "British"))
       (checkBenefits(claim.questionGroup[Benefits].getOrElse(Benefits()).benefitsAnswer),
         nationalityAndResidency.nationality,

@@ -1,12 +1,12 @@
 package controllers.s_employment
 
 import org.specs2.mutable._
+import utils.pageobjects.your_income.{GStatutorySickPayPage, GYourIncomePage}
 import utils.{WithJsBrowser, WithBrowser}
 import utils.pageobjects.{PageObjectsContext, TestData, PageObjects}
-import utils.pageobjects.s_employment.{GBeenEmployedPage, GEmploymentPage, GEmploymentAdditionalInfoPage}
+import utils.pageobjects.s_employment.{GBeenEmployedPage, GEmploymentAdditionalInfoPage}
 import utils.pageobjects.s_self_employment.GSelfEmploymentPensionsAndExpensesPage
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s_other_money.GAboutOtherMoneyPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import controllers.ClaimScenarioFactory._
 
@@ -26,7 +26,7 @@ class GEmploymentAdditionalInfoIntegrationSpec extends Specification {
       claimDatePage fillPageWith claim
       claimDatePage submitPage()
 
-      val empPage = GEmploymentPage(context) goToThePage ()
+      val empPage = GYourIncomePage(context) goToThePage ()
       empPage fillPageWith claim
       empPage submitPage()
 
@@ -58,7 +58,7 @@ class GEmploymentAdditionalInfoIntegrationSpec extends Specification {
       page fillPageWith ClaimScenarioFactory.s7EmploymentAdditionalInfo
 
       val nextPage = page submitPage()
-      nextPage must beAnInstanceOf[GAboutOtherMoneyPage]
+      nextPage must beAnInstanceOf[GStatutorySickPayPage]
     }
 
 
@@ -69,7 +69,7 @@ class GEmploymentAdditionalInfoIntegrationSpec extends Specification {
       claimDatePage fillPageWith ClaimScenarioFactory.s12ClaimDate()
       claimDatePage submitPage()
 
-      val empPage = GEmploymentPage(context) goToThePage ()
+      val empPage = GYourIncomePage(context) goToThePage ()
       empPage fillPageWith claim
       val jobDetailsPage = empPage submitPage()
       jobDetailsPage fillPageWith s7Employment()
@@ -129,7 +129,7 @@ class GEmploymentAdditionalInfoIntegrationSpec extends Specification {
 
       val otherMoneyPage = nextPage fillPageWith s7EmploymentAdditionalInfo submitPage()
 
-      otherMoneyPage must beAnInstanceOf[GAboutOtherMoneyPage]
+      otherMoneyPage must beAnInstanceOf[GStatutorySickPayPage]
     }
 
     "should be presented when self employment is answered yes and no employment and help text must be visible" in new WithBrowser with PageObjects {
@@ -139,7 +139,7 @@ class GEmploymentAdditionalInfoIntegrationSpec extends Specification {
       claimDatePage fillPageWith claim
       claimDatePage submitPage()
 
-      val empPage = GEmploymentPage(context) goToThePage ()
+      val empPage = GYourIncomePage(context) goToThePage ()
       empPage fillPageWith claim
       empPage submitPage()
 
@@ -162,7 +162,7 @@ class GEmploymentAdditionalInfoIntegrationSpec extends Specification {
     claimDatePage fillPageWith claim
     claimDatePage submitPage()
 
-    val empPage = GEmploymentPage(context) goToThePage ()
+    val empPage = GYourIncomePage(context) goToThePage ()
     empPage fillPageWith claim
     empPage submitPage()
 

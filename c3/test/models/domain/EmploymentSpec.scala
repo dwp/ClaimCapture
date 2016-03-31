@@ -11,10 +11,10 @@ class EmploymentSpec extends Specification {
   section("unit")
   "Employment" should {
     def claimEmployed = Claim(CachedClaim.key, List(
-      Section(SelfEmployment, List(Employment(Mappings.no, Mappings.yes)))
+      Section(SelfEmployment, List(YourIncomes(Mappings.no, Mappings.yes)))
     ))
     def claimNotEmployed = Claim(CachedClaim.key, List(
-      Section(SelfEmployment, List(Employment(Mappings.no, Mappings.no)))
+      Section(SelfEmployment, List(YourIncomes(Mappings.no, Mappings.no)))
     ))
     def claimWithNoEmploymentDetails = Claim(CachedClaim.key, List(
       Section(SelfEmployment, List())

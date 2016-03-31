@@ -11,7 +11,7 @@ import xml.XMLComponent
 object SelfEmployment extends XMLComponent{
   val datePattern = "dd-MM-yyyy"
   def xml(claim: Claim) = {
-    val employment = claim.questionGroup[models.domain.Employment].getOrElse(models.domain.Employment())
+    val employment = claim.questionGroup[models.domain.YourIncomes].getOrElse(models.domain.YourIncomes())
     val aboutSelfEmployment = claim.questionGroup[AboutSelfEmployment].getOrElse(AboutSelfEmployment())
     val yourAccounts =  claim.questionGroup[SelfEmploymentYourAccounts].getOrElse(SelfEmploymentYourAccounts())
 
@@ -152,7 +152,7 @@ object SelfEmployment extends XMLComponent{
   private def createEmploymentFromXml(xmlNode: NodeSeq) = {
     val selfEmployment = (xmlNode \\ "SelfEmployment")
     val jobDetails = (xmlNode \\ "Employment" \ "JobDetails")
-    models.domain.Employment(
+    models.domain.YourIncomes(
       beenSelfEmployedSince1WeekBeforeClaim = selfEmployment.isEmpty match { case false => Mappings.yes case true => Mappings.no },
       beenEmployedSince6MonthsBeforeClaim = jobDetails.isEmpty match { case false => Mappings.yes case true => Mappings.no },
       yourIncome_sickpay = None,

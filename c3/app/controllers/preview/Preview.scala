@@ -43,7 +43,7 @@ object Preview extends Controller with CachedClaim with Navigable with I18nSuppo
       case _ => ""
     }
 
-    val routesMap = PreviewRouteUtils.yourDetailsRoute ++ PreviewRouteUtils.otherMoneyRoute ++
+    val routesMap = //PreviewRouteUtils.yourDetailsRoute ++ PreviewRouteUtils.otherMoneyRoute ++
       PreviewRouteUtils.educationRoute ++ PreviewRouteUtils.careYouProvide ++ PreviewRouteUtils.breaks ++ PreviewRouteUtils.yourPartner ++
       PreviewRouteUtils.employmentRoute ++ PreviewRouteUtils.bankDetailsRoute ++ PreviewRouteUtils.additionalInfoRoute ++ PreviewRouteUtils.thirdPartyRoute
 

@@ -1,14 +1,12 @@
 package controllers.s_employment
 
-import javax.inject.Inject
-
 import controllers.IterationID
 import controllers.mappings.Mappings
 import models.view.{Navigable, CachedClaim}
 import play.api.mvc._
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
-import models.domain.{Employment => Emp, Jobs, BeenEmployed}
+import models.domain.{YourIncomes, Jobs, BeenEmployed}
 import utils.helpers.CarersForm._
 import controllers.mappings.Mappings._
 import controllers.s_employment.Employment.jobs
@@ -27,8 +25,8 @@ object GBeenEmployed extends Controller with CachedClaim with Navigable with I18
   )(BeenEmployed.apply)(BeenEmployed.unapply))
 
   private def presentConditionally(c: => Either[Result,ClaimResult])(implicit claim: Claim, lang:Lang, request: Request[AnyContent]): Either[Result,ClaimResult] = {
-    claim.questionGroup[Emp].collect {
-      case e: Emp if e.beenEmployedSince6MonthsBeforeClaim == yes => c
+    claim.questionGroup[YourIncomes].collect {
+      case e: YourIncomes if e.beenEmployedSince6MonthsBeforeClaim == yes => c
     }.getOrElse(redirect(lang))
   }
 
@@ -42,8 +40,8 @@ object GBeenEmployed extends Controller with CachedClaim with Navigable with I18
    * @return
    */
   private def redirect(lang:Lang)(implicit claim: Claim, request: Request[AnyContent]): Either[Result,ClaimResult] = {
-    claim.questionGroup[Emp].collect {
-      case e: Emp if e.beenEmployedSince6MonthsBeforeClaim == no && e.beenSelfEmployedSince1WeekBeforeClaim == no => Left(Redirect(controllers.s_other_money.routes.GAboutOtherMoney.present()))
+    claim.questionGroup[YourIncomes].collect {
+      case e: YourIncomes if e.beenEmployedSince6MonthsBeforeClaim == no && e.beenSelfEmployedSince1WeekBeforeClaim == no => Left(Redirect(controllers.your_income.routes.GStatutorySickPay.present()))
     }.getOrElse(Left(Redirect(controllers.s_employment.routes.GEmploymentAdditionalInfo.present())))
   }
 

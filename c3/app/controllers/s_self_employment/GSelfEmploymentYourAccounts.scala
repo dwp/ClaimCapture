@@ -11,7 +11,6 @@ import play.api.mvc.AnyContent
 import play.api.data.Form
 import controllers.mappings.Mappings._
 import models.domain.SelfEmploymentYourAccounts
-import models.domain.{Employment => Emp}
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import SelfEmployment._

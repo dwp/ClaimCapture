@@ -80,6 +80,7 @@ package object app {
     val DontKnowYet = "Dont-Know-Yet"
     val Monthly = "Monthly"
     val Other = "Other"
+    val ItVaries = "Other"
 
     private def mapToHumanReadableString(frequencyCode: String, otherCode: Option[String]): String = frequencyCode match {
       case Weekly => "Weekly"
@@ -87,6 +88,7 @@ package object app {
       case FourWeekly => "Four-weekly"
       case DontKnowYet => "Don't know yet"
       case Monthly => "Monthly"
+      case ItVaries => "It varies"
       case Other => otherCode match {
         case Some(s) => "Other: " + s
         case _ => "Other"

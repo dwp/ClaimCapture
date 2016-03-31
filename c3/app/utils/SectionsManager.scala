@@ -13,8 +13,7 @@ object SectionsManager {
     CareYouProvide,
     Breaks,
     Education,
-    SelfEmployment,
-    Employed,
+    YourIncome,
     OtherMoney,
     PayDetails,
     Information

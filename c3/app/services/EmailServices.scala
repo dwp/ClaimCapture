@@ -35,7 +35,7 @@ object CadsEmail {
 object EmailServices extends I18nSupport {
   val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   private def isEmployment(claim: Claim) = {
-    (claim.questionGroup[Employment] match {
+    (claim.questionGroup[YourIncomes] match {
       case Some(employment) => employment.beenEmployedSince6MonthsBeforeClaim == Mappings.yes || employment.beenSelfEmployedSince1WeekBeforeClaim == Mappings.yes
       case _ => false
     }) ||
@@ -58,8 +58,8 @@ object EmailServices extends I18nSupport {
     }
   }
 
-  def claimEmailSubject(claim: Claim) = (claim.questionGroup[Employment], claim.questionGroup[SelfEmploymentPensionsAndExpenses]) match {
-    case (Some(Employment(XMLValues.yes, _, _, _, _, _, _, _)), _) | (Some(Employment(_, XMLValues.yes, _, _, _, _, _, _)), _) => messagesApi("subject.claim.employed")
+  def claimEmailSubject(claim: Claim) = (claim.questionGroup[YourIncomes], claim.questionGroup[SelfEmploymentPensionsAndExpenses]) match {
+    case (Some(YourIncomes(XMLValues.yes, _, _, _, _, _, _, _)), _) | (Some(YourIncomes(_, XMLValues.yes, _, _, _, _, _, _)), _) => messagesApi("subject.claim.employed")
     case (_, Some(SelfEmploymentPensionsAndExpenses(YesNoWithText(XMLValues.yes, _), _))) => messagesApi("subject.claim.employed")
     case _ => messagesApi("subject.claim.notemployed")
   }

@@ -1,6 +1,6 @@
 package controllers
 
-import controllers.your_income.GEmployment
+import controllers.your_income.GYourIncomes
 
 object PreviewRouteUtils {
 
@@ -29,7 +29,7 @@ object PreviewRouteUtils {
   }
 
   def employmentRoute = {
-    val employmentRoute = GEmployment.present.toString
+    val employmentRoute = GYourIncomes.present.toString
     val jobsRoute           = controllers.s_employment.routes.GBeenEmployed.present.toString
     val aboutSelfEmployment = controllers.s_self_employment.routes.GAboutSelfEmployment.present.toString
     val additionalInfoRoute = controllers.s_employment.routes.GEmploymentAdditionalInfo.present.toString
@@ -43,14 +43,14 @@ object PreviewRouteUtils {
     routesMap
   }
 
-  def otherMoneyRoute = {
-    val gAboutOtherMoneyRoute = controllers.s_other_money.routes.GAboutOtherMoney.present.toString
-    val idList = Seq("other_money_anyPaymentsSinceClaimDate", "other_money_statutoryPay", "other_money_otherStatutoryPay")
-
-    val routesMap = Map(idList map {id => (id, gAboutOtherMoneyRoute)} : _*)
-
-    routesMap
-  }
+//  def otherMoneyRoute = {
+//    val gAboutOtherMoneyRoute = controllers.s_other_money.routes.GAboutOtherMoney.present.toString
+//    val idList = Seq("other_money_anyPaymentsSinceClaimDate", "other_money_statutoryPay", "other_money_otherStatutoryPay")
+//
+//    val routesMap = Map(idList map {id => (id, gAboutOtherMoneyRoute)} : _*)
+//
+//    routesMap
+//  }
 
   def educationRoute = {
     val gYourCourseDetailsRoute = controllers.s_education.routes.GYourCourseDetails.present.toString

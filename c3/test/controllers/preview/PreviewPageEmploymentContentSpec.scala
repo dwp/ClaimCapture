@@ -6,7 +6,7 @@ import utils.pageobjects.{PageObjectsContext, PageObjects}
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s_employment.GEmploymentPage
+import utils.pageobjects.your_income.GYourIncomePage
 
 class PreviewPageEmploymentContentSpec extends Specification {
   section("preview")
@@ -42,7 +42,7 @@ class PreviewPageEmploymentContentSpec extends Specification {
     claimDatePage fillPageWith claimDate
     claimDatePage submitPage()
 
-    val employmentPage = GEmploymentPage(context)
+    val employmentPage = GYourIncomePage(context)
     employmentPage goToThePage ()
     employmentPage fillPageWith employmentData
 

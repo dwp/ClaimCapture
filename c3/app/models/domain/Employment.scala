@@ -13,7 +13,7 @@ object Employed extends Section.Identifier {
   val id = "s8"
 
   def isEmployed(claim: Claim): Boolean = {
-    claim.questionGroup[Employment] match {
+    claim.questionGroup[YourIncomes] match {
       case Some(employment) => employment.beenEmployedSince6MonthsBeforeClaim == Mappings.yes
       case _ => false
     }
@@ -156,27 +156,4 @@ case class EmploymentAdditionalInfo(empAdditionalInfo: YesNoWithText = YesNoWith
 
 object EmploymentAdditionalInfo extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g5"
-}
-
-case class Employment(beenSelfEmployedSince1WeekBeforeClaim: String = "",
-                      beenEmployedSince6MonthsBeforeClaim: String = "",
-                      yourIncome_sickpay: Option[String] = None,
-                      yourIncome_patmatadoppay: Option[String] = None,
-                      yourIncome_fostering: Option[String] = None,
-                      yourIncome_directpay: Option[String] = None,
-                      yourIncome_anyother: Option[String] = None,
-                      yourIncome_none: Option[String] = None
-                     ) extends QuestionGroup(Employment)
-
-object Employment extends QuestionGroup.Identifier {
-  val id = s"${SelfEmployment.id}.g0"
-}
-
-object YourIncome {
-  val ssp = "sickpay"
-  val spmp = "patmatadoppay"
-  val fa = "fostering"
-  val dp = "directpay"
-  val ao = "anyother"
-  val n = "none"
 }

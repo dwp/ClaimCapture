@@ -2,17 +2,17 @@ package controllers.preview
 
 import org.specs2.mutable._
 import utils.WithBrowser
+import utils.pageobjects.your_income.GStatutorySickPayPage
 import utils.pageobjects.{PageObjectsContext, PageObjects}
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s_other_money.GAboutOtherMoneyPage
 
 class PreviewPageOtherMoneyContentSpec extends Specification {
   section("preview")
   "Preview Page" should {
     "display other money data" in new WithBrowser with PageObjects {
-      fillOtherMoneySection(context)
+      fillStatutorySickPaySection(context)
       val page =  PreviewPage(context)
       page goToThePage()
       val source = page.source.toLowerCase
@@ -28,16 +28,16 @@ class PreviewPageOtherMoneyContentSpec extends Specification {
   }
   section("preview")
 
-  def fillOtherMoneySection (context:PageObjectsContext) = {
+  def fillStatutorySickPaySection (context:PageObjectsContext) = {
     val claimDatePage = GClaimDatePage(context)
     claimDatePage goToThePage()
     val claimDate = ClaimScenarioFactory.s12ClaimDate()
     claimDatePage fillPageWith claimDate
     claimDatePage submitPage()
 
-    val otherMoneyPage = GAboutOtherMoneyPage(context)
-    otherMoneyPage goToThePage ()
-    otherMoneyPage fillPageWith ClaimScenarioFactory.s9otherMoney
-    otherMoneyPage submitPage()
+    val statutorySickPayPage = GStatutorySickPayPage(context)
+    statutorySickPayPage goToThePage ()
+    statutorySickPayPage fillPageWith ClaimScenarioFactory.s9StatutorySickPay
+    statutorySickPayPage submitPage()
   }
 }

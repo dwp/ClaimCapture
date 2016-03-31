@@ -160,7 +160,7 @@ class AssistedDecisionSpec extends Specification {
       val nationality = NationalityAndResidency(nationality = "British", resideInUK = YesNoWithText("yes", None))
       val abroadForMoreThan52Weeks = AbroadForMoreThan52Weeks(anyTrips = "no")
       val breaksInCare = BreaksInCare()
-      val employment = Employment(beenSelfEmployedSince1WeekBeforeClaim = "no", beenEmployedSince6MonthsBeforeClaim = "no")
+      val employment = YourIncomes(beenSelfEmployedSince1WeekBeforeClaim = "no", beenEmployedSince6MonthsBeforeClaim = "no")
       val aboutOtherMoney = AboutOtherMoney(anyPaymentsSinceClaimDate = YesNo("no"), statutorySickPay = YesNoWithEmployerAndMoney(answer = "no"), otherStatutoryPay = YesNoWithEmployerAndMoney(answer = "no"))
       val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = "no", field1=Some(YesNoWith1MandatoryFieldOnYes(answer="no")), field2=Some(YesNoWith1MandatoryFieldOnYes(answer="no"))))
       val howWePayYou = HowWePayYou(likeToBePaid = "yes")
