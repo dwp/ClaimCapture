@@ -919,10 +919,11 @@ object ClaimScenarioFactory {
     val claim = s9StatutorySickPay
     // About self-employment
     claim.SelfEmployedAreYouSelfEmployedNow = "no"
+    claim.SelfEmployedMoreThanYearAgo = "no"
     claim.SelfEmployedDoYouKnowYourTradingYear = "no"
     claim.SelfEmployedWhenDidYouStartThisJob = "11/09/2001"
     claim.SelfEmployedWhenDidTheJobFinish = "07/07/2005"
-    claim.SelfEmployedNatureofYourBusiness = "Some type of business"
+    claim.SelfEmployedPaidMoneyYet = "no"
 
     // G Pension and Expenses
     claim.SelfEmploymentDoYouPayForPensionExpenses = "Yes"

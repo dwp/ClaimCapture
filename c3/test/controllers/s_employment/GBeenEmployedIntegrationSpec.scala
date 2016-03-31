@@ -9,7 +9,7 @@ import utils.{WithJsBrowser, WithBrowser}
 import utils.pageobjects._
 import utils.pageobjects.s_education.GYourCourseDetailsPage
 import utils.pageobjects.s_employment._
-import utils.pageobjects.s_self_employment.GAboutSelfEmploymentPage
+import utils.pageobjects.s_self_employment.{GSelfEmploymentDatesPage}
 import utils.pageobjects.s_claim_date.{GClaimDatePage, GClaimDatePageContext}
 
 
@@ -52,7 +52,7 @@ class GBeenEmployedIntegrationSpec extends Specification {
       val selfEmployment = employment.submitPage()
 
 
-      selfEmployment must beAnInstanceOf[GAboutSelfEmploymentPage]
+      selfEmployment must beAnInstanceOf[GSelfEmploymentDatesPage]
     }
 
     "start employment entry" in new WithBrowser with PageObjects {

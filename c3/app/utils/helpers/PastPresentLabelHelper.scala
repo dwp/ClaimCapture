@@ -23,8 +23,8 @@ object PastPresentLabelHelper {
     }
   }
 
-  private def isSelfEmployed(claim: Claim) = claim.questionGroup(AboutSelfEmployment) match {
-    case Some(a: AboutSelfEmployment) => a.areYouSelfEmployedNow == "yes"
+  private def isSelfEmployed(claim: Claim) = claim.questionGroup(SelfEmploymentDates) match {
+    case Some(a: SelfEmploymentDates) => a.stillSelfEmployed == "yes"
     case _ => false
   }
 

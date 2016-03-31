@@ -2,14 +2,13 @@ package controllers.s_self_employment
 
 import org.specs2.mutable._
 import utils.{WithApplication, WithBrowser}
-import utils.pageobjects.s_self_employment.{GSelfEmploymentYourAccountsPage}
 import utils.pageobjects.{PageObjects, TestData}
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.your_income.{GStatutorySickPayPage, GYourIncomePage}
 import utils.pageobjects.s_claim_date.GClaimDatePageContext
 
 class GSelfEmploymentYourAccountsIntegrationSpec extends Specification {
-
+/*
   section("integration", models.domain.SelfEmployment.id)
   "Self Employment - Your Accounts" should {
     "be presented" in new WithBrowser with PageObjects{
@@ -106,4 +105,5 @@ class GSelfEmploymentYourAccountsIntegrationSpec extends Specification {
     }
   }
   section("integration", models.domain.SelfEmployment.id)
+  */
 }
