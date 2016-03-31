@@ -85,7 +85,7 @@ object GYourIncomes extends Controller with CachedClaim with Navigable with I18n
     } else statutoryMaternityAdoptionPay
 
     val deletedSelfEmployment = if(yourIncomes.beenSelfEmployedSince1WeekBeforeClaim == no) {
-      statutorySickPay.delete(AboutSelfEmployment).delete(SelfEmploymentYourAccounts).delete(SelfEmploymentPensionsAndExpenses)
+      statutorySickPay.delete(SelfEmploymentDates).delete(SelfEmploymentPensionsAndExpenses)
     } else statutorySickPay
 
     val deletedEmployment = if(yourIncomes.beenEmployedSince6MonthsBeforeClaim == no) {
