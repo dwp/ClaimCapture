@@ -73,24 +73,33 @@ object FosteringAllowance extends QuestionGroup.Identifier with OtherIncomes {
   val id = s"${YourIncomeFosteringAllowance.id}.g1"
 }
 
-case class FosteringAllowance(override val paymentTypesForThisPay: String = "",
+case class FosteringAllowance(
+                              override val paymentTypesForThisPay: String = "",
                               override val paymentTypesForThisPayOther: Option[String] = None,
                               override val stillBeingPaidThisPay: String = "",
                               override val whenDidYouLastGetPaid: Option[DayMonthYear] = None,
                               override val whoPaidYouThisPay: String = "",
                               override val amountOfThisPay: String = "",
                               override val howOftenPaidThisPay: String = "",
-                              override val howOftenPaidThisPayOther: Option[String] = None) extends QuestionGroup(FosteringAllowance) with OtherIncomes
+                              override val howOftenPaidThisPayOther: Option[String] = None
+                             ) extends QuestionGroup(FosteringAllowance) with OtherIncomes
 
 object YourIncomeDirectPayment extends Section.Identifier {
   val id = "s20"
 }
 
-object DirectPayment extends QuestionGroup.Identifier {
+object DirectPayment extends QuestionGroup.Identifier with OtherIncomes {
   val id = s"${YourIncomeDirectPayment.id}.g1"
 }
 
-case class DirectPayment() extends QuestionGroup(DirectPayment)
+case class DirectPayment(
+                         override val stillBeingPaidThisPay: String = "",
+                         override val whenDidYouLastGetPaid: Option[DayMonthYear] = None,
+                         override val whoPaidYouThisPay: String = "",
+                         override val amountOfThisPay: String = "",
+                         override val howOftenPaidThisPay: String = "",
+                         override val howOftenPaidThisPayOther: Option[String] = None
+                        ) extends QuestionGroup(DirectPayment) with OtherIncomes
 
 object YourIncomeAnyOtherIncome extends Section.Identifier {
   val id = "s21"

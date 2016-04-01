@@ -192,6 +192,8 @@ POST        /your-income/statutory-mpa-pay                              controll
 GET         /your-income/fostering-allowance                            controllers.your_income.GFosteringAllowance.present
 POST        /your-income/fostering-allowance                            controllers.your_income.GFosteringAllowance.submit
 
+GET         /your-income/direct-payment                                 controllers.your_income.GDirectPayment.present
+POST        /your-income/direct-payment                                 controllers.your_income.GDirectPayment.submit
 
 # Pay details
 ###############

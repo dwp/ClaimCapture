@@ -15,7 +15,7 @@ class GStatutorySickPayIntegrationSpec extends Specification {
   val monthlyFrequency = "Monthly"
 
   section ("integration", models.domain.StatutorySickPay.id)
-  "Statutory Maternity Paternity Adoption Pay" should {
+  "Statutory Sick Pay" should {
     "be presented" in new WithBrowser with PageObjects {
       val page = GStatutorySickPayPage(context)
       page goToThePage ()

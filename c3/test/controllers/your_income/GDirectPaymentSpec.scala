@@ -3,30 +3,30 @@ package controllers.your_income
 import models.domain._
 import org.specs2.mutable._
 import play.api.test.FakeRequest
-import utils.WithApplication
 import play.api.test.Helpers._
+import utils.WithApplication
 
-class GStatutorySickPaySpec extends Specification {
-  section ("unit", models.domain.StatutorySickPay.id)
-  "Statutory Sick Pay - Controller" should {
+class GDirectPaymentSpec extends Specification {
+  section ("unit", models.domain.DirectPayment.id)
+  "Direct Payment - Controller" should {
     val whoPaysYou = "The Man"
     val howMuch = "12"
     val yes = "yes"
     val monthlyFrequency = "Monthly"
 
     val formInput = Seq(
-      "stillBeingPaidThisPay" -> yes,
+      "stillBeingPaidThisPay_directPayment" -> yes,
       "whenDidYouLastGetPaid" -> "",
-      "whoPaidYouThisPay" -> whoPaysYou,
+      "whoPaidYouThisPay_directPayment" -> whoPaysYou,
       "amountOfThisPay" -> howMuch,
       "howOftenPaidThisPay" -> monthlyFrequency,
       "howOftenPaidThisPayOther" -> ""
     )
 
-    "present 'Statutory Sick Pay '" in new WithApplication with Claiming {
+    "present 'Direct Payment '" in new WithApplication with Claiming {
       val request = FakeRequest()
 
-      val result = GStatutorySickPay.present(request)
+      val result = GDirectPayment.present(request)
 
       status(result) mustEqual OK
     }
@@ -35,12 +35,12 @@ class GStatutorySickPaySpec extends Specification {
       val request = FakeRequest()
         .withFormUrlEncodedBody(formInput: _*)
 
-      val result = GStatutorySickPay.submit(request)
+      val result = GDirectPayment.submit(request)
       val claim = getClaimFromCache(result)
-      val section: Section = claim.section(YourIncomeStatutorySickPay)
+      val section: Section = claim.section(YourIncomeDirectPayment)
 
-      section.questionGroup(StatutorySickPay) must beLike {
-        case Some(f: StatutorySickPay) => {
+      section.questionGroup(DirectPayment) must beLike {
+        case Some(f: DirectPayment) => {
           f.stillBeingPaidThisPay must equalTo(yes)
           f.whenDidYouLastGetPaid must equalTo(None)
           f.whoPaidYouThisPay must equalTo(whoPaysYou)
@@ -54,12 +54,12 @@ class GStatutorySickPaySpec extends Specification {
     "reject invalid yesNo answers" in new WithApplication with Claiming {
       val request = FakeRequest()
         .withFormUrlEncodedBody(
-          "stillBeingPaidThisPay" -> "INVALID",
+          "stillBeingPaidThisPay_directPayment" -> "INVALID",
           "whenDidYouLastGetPaid" -> "INVALID",
           "amountOfThisPay" -> "INVALID"
         )
 
-      val result = GStatutorySickPay.submit(request)
+      val result = GDirectPayment.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -67,21 +67,21 @@ class GStatutorySickPaySpec extends Specification {
       val request = FakeRequest()
         .withFormUrlEncodedBody("" -> "")
 
-      val result = GStatutorySickPay.submit(request)
+      val result = GDirectPayment.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     "reject a howOften frequency of other with no other text entered" in new WithApplication with Claiming {
       val request = FakeRequest()
         .withFormUrlEncodedBody(
-          "stillBeingPaidThisPay" -> yes,
+          "stillBeingPaidThisPay_directPayment" -> yes,
           "whenDidYouLastGetPaid" -> "",
-          "whoPaidYouThisPay" -> whoPaysYou,
+          "whoPaidYouThisPay_directPayment" -> whoPaysYou,
           "amountOfThisPay" -> howMuch,
           "howOftenPaidThisPay" -> "Other",
           "howOftenPaidThisPayOther" -> ""
         )
-      val result = GStatutorySickPay.submit(request)
+      val result = GDirectPayment.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -90,10 +90,10 @@ class GStatutorySickPaySpec extends Specification {
       val request = FakeRequest()
         .withFormUrlEncodedBody(formInput: _*)
 
-      val result = GStatutorySickPay.submit(request)
+      val result = GDirectPayment.submit(request)
 
       status(result) mustEqual SEE_OTHER
     }
   }
-  section ("unit", models.domain.StatutorySickPay.id)
+  section ("unit", models.domain.DirectPayment.id)
 }

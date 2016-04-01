@@ -3,8 +3,7 @@ package controllers.your_income
 import controllers.ClaimScenarioFactory
 import org.specs2.mutable._
 import utils.pageobjects._
-import utils.pageobjects.s_pay_details.GHowWePayYouPage
-import utils.pageobjects.your_income.GFosteringAllowancePage
+import utils.pageobjects.your_income.{GDirectPaymentPage, GFosteringAllowancePage}
 import utils.{WithBrowser, WithJsBrowser}
 
 class GFosteringAllowanceIntegrationSpec extends Specification {
@@ -35,7 +34,7 @@ class GFosteringAllowanceIntegrationSpec extends Specification {
       page fillPageWith claim
 
       val nextPage = page submitPage()
-      nextPage must beAnInstanceOf[GHowWePayYouPage]
+      nextPage must beAnInstanceOf[GDirectPaymentPage]
     }
 
     "present errors if mandatory fields are not populated" in new WithJsBrowser with PageObjects {
@@ -54,7 +53,7 @@ class GFosteringAllowanceIntegrationSpec extends Specification {
 
       val nextPage = page submitPage ()
 
-      nextPage must beAnInstanceOf[GHowWePayYouPage]
+      nextPage must beAnInstanceOf[GDirectPaymentPage]
     }
 
     "howOften frequency of other with no other text entered" in new WithJsBrowser with PageObjects {
@@ -116,7 +115,7 @@ class GFosteringAllowanceIntegrationSpec extends Specification {
 
       submittedPage fillPageWith claimAfterError
       val differentPage = submittedPage submitPage()
-      differentPage must beAnInstanceOf[GHowWePayYouPage]
+      differentPage must beAnInstanceOf[GDirectPaymentPage]
     }
 
     "data should be saved in claim and displayed when go back to page" in new WithJsBrowser with PageObjects {
@@ -128,10 +127,10 @@ class GFosteringAllowanceIntegrationSpec extends Specification {
       page fillPageWith claim
 
       val nextPage = page submitPage ()
-      nextPage must beAnInstanceOf[GHowWePayYouPage]
-      val statutorySickPayPageAgain = nextPage.goBack()
-      statutorySickPayPageAgain.source must contain(whoPaysYou)
-      statutorySickPayPageAgain.source must contain(howMuch)
+      nextPage must beAnInstanceOf[GDirectPaymentPage]
+      val fosteringAllowanceAgain = nextPage.goBack()
+      fosteringAllowanceAgain.source must contain(whoPaysYou)
+      fosteringAllowanceAgain.source must contain(howMuch)
     }
   }
   section ("integration", models.domain.FosteringAllowance.id)
