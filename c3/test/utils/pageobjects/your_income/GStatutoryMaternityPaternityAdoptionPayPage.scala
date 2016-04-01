@@ -8,9 +8,9 @@ import utils.pageobjects.{PageContext, ClaimPage, PageObjectsContext}
   */
 class GStatutoryMaternityPaternityAdoptionPayPage(ctx:PageObjectsContext) extends ClaimPage(ctx, GStatutoryMaternityPaternityAdoptionPayPage.url) {
   declareRadioList("#paymentTypesForThisPay", "PaymentTypesForThisPay")
-  declareYesNo("#stillBeingPaidThisPay", "StillBeingPaidThisPay")
+  declareYesNo("#stillBeingPaidThisPay_paternityMaternityAdoption", "StillBeingPaidThisPay")
   declareDate("#whenDidYouLastGetPaid", "WhenDidYouLastGetPaid")
-  declareInput("#whoPaidYouThisPay", "WhoPaidYouThisPay")
+  declareInput("#whoPaidYouThisPay_paternityMaternityAdoption", "WhoPaidYouThisPay")
   declareInput("#amountOfThisPay", "AmountOfThisPay")
   declareRadioList("#howOftenPaidThisPay", "HowOftenPaidThisPay")
   declareInput("#howOftenPaidThisPayOther", "HowOftenPaidThisPayOther")

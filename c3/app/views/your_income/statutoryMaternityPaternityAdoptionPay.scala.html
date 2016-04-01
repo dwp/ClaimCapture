@@ -11,11 +11,13 @@
 @import app.PaymentTypes._
 
 @listOfOptions = @{
-    Seq(Weekly -> messages("weekly"),
+    Seq(
+        Weekly -> messages("weekly"),
         Fortnightly -> messages("fortnightly"),
         FourWeekly -> messages("fourWeekly"),
         Monthly -> messages("monthly"),
-        ItVaries -> messages("itVaries"))
+        ItVaries -> messages("itVaries")
+    )
 }
 
 @listOfPaymentTypes = @{
@@ -31,7 +33,7 @@
         @DwpCSRFFormHelper.formField
 
         <fieldset class="form-elements">
-            <legend class="visuallyhidden">@Html(messages("s7.g1"))</legend>
+            <legend class="visuallyhidden">@Html(messages("s18.g1"))</legend>
 
             <ul>
                 @listRadioGroup(currentForm("paymentTypesForThisPay"),
@@ -40,7 +42,7 @@
                     'track -> true,
                     'ignoreOptional -> true)
 
-                @yesNoRadioGroup(currentForm("stillBeingPaidThisPay"), '_label -> messages("stillBeingPaidThisPay_paternityMaternityAdoption"))
+                @yesNoRadioGroup(currentForm("stillBeingPaidThisPay_paternityMaternityAdoption"))
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
@@ -49,7 +51,7 @@
                     'id -> "stillBeingPaidThisPayWrap"
                 )
 
-                @carersInputText(currentForm("whoPaidYouThisPay"), 'maxLength -> mappings.Mappings.sixty, '_label -> messages("whoPaidYouThisPay_paternityMaternityAdoption"))
+                @carersInputText(currentForm("whoPaidYouThisPay_paternityMaternityAdoption"), 'maxLength -> mappings.Mappings.sixty)
 
                 @carersCurrency(currentForm("amountOfThisPay"), 'maxLength -> mappings.Mappings.twelve)
 
@@ -62,7 +64,7 @@
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
                         carersInputText(currentForm("howOftenPaidThisPayOther"),
-                            '_label -> messages("howOftenPaidThisPayOther"),
+                            '_label -> "howOftenPaidThisPayOther",
                             'maxLength -> 60)
                     ),
                     'id -> "howOftenPaidThisPayWrap"
@@ -78,11 +80,11 @@
     <script type="text/javascript">
         $(function() {
             conditionRequired = function(){
-                return $("#"+"@CarersCrypto.encryptAES("stillBeingPaidThisPay_no")").is(':checked');
+                return $("#"+"@CarersCrypto.encryptAES("stillBeingPaidThisPay_paternityMaternityAdoption_no")").is(':checked');
             };
-            window.initStatutorySickPayEvents(
-                "@CarersCrypto.encryptAES("stillBeingPaidThisPay_yes")",
-                "@CarersCrypto.encryptAES("stillBeingPaidThisPay_no")",
+            window.initEvents(
+                "@CarersCrypto.encryptAES("stillBeingPaidThisPay_paternityMaternityAdoption_yes")",
+                "@CarersCrypto.encryptAES("stillBeingPaidThisPay_paternityMaternityAdoption_no")",
                 "@CarersCrypto.encryptAES("whenDidYouLastGetPaid_day")",
                 "@CarersCrypto.encryptAES("whenDidYouLastGetPaid_month")",
                 "@CarersCrypto.encryptAES("whenDidYouLastGetPaid_year")",

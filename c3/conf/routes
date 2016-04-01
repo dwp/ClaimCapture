@@ -189,6 +189,10 @@ POST        /your-income/statutory-sick-pay                             controll
 GET         /your-income/statutory-mpa-pay                              controllers.your_income.GStatutoryMaternityPaternityAdoptionPay.present
 POST        /your-income/statutory-mpa-pay                              controllers.your_income.GStatutoryMaternityPaternityAdoptionPay.submit
 
+GET         /your-income/fostering-allowance                            controllers.your_income.GFosteringAllowance.present
+POST        /your-income/fostering-allowance                            controllers.your_income.GFosteringAllowance.submit
+
+
 # Pay details
 ###############
 GET         /pay-details/how-we-pay-you                                 controllers.s_pay_details.GHowWePayYou.present

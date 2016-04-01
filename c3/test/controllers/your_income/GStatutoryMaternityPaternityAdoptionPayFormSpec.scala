@@ -10,27 +10,29 @@ class GStatutoryMaternityPaternityAdoptionPayFormSpec extends Specification {
     val howMuch = "12"
     val yes = "yes"
     val no = "no"
+    val monthlyFrequency = "Monthly"
+    val paymentType = "MaternityOrPaternityPay"
 
     "map data into case class" in new WithApplication {
       GStatutoryMaternityPaternityAdoptionPay.form.bind(
         Map(
-          "paymentTypesForThisPay" -> "MaternityOrPaternityPay",
-          "stillBeingPaidThisPay" -> yes,
+          "paymentTypesForThisPay" -> paymentType,
+          "stillBeingPaidThisPay_paternityMaternityAdoption" -> yes,
           "whenDidYouLastGetPaid" -> "",
-          "whoPaidYouThisPay" -> whoPaysYou,
+          "whoPaidYouThisPay_paternityMaternityAdoption" -> whoPaysYou,
           "amountOfThisPay" -> howMuch,
-          "howOftenPaidThisPay" -> "Monthly",
+          "howOftenPaidThisPay" -> monthlyFrequency,
           "howOftenPaidThisPayOther" -> ""
         )
       ).fold(
           formWithErrors => "This mapping should not happen." must equalTo("Error"),
           f => {
-            f.paymentTypesForThisPay must equalTo("MaternityOrPaternityPay")
+            f.paymentTypesForThisPay must equalTo(paymentType)
             f.stillBeingPaidThisPay must equalTo(yes)
             f.whenDidYouLastGetPaid must equalTo(None)
             f.whoPaidYouThisPay must equalTo(whoPaysYou)
             f.amountOfThisPay must equalTo(howMuch)
-            f.howOftenPaidThisPay must equalTo("Monthly")
+            f.howOftenPaidThisPay must equalTo(monthlyFrequency)
             f.howOftenPaidThisPayOther must equalTo(None)
           })
     }
@@ -38,7 +40,7 @@ class GStatutoryMaternityPaternityAdoptionPayFormSpec extends Specification {
     "reject invalid yesNo answers" in new WithApplication {
       GStatutoryMaternityPaternityAdoptionPay.form.bind(
         Map(
-          "stillBeingPaidThisPay" -> "INVALID"
+          "stillBeingPaidThisPay_paternityMaternityAdoption" -> "INVALID"
         )
       ).fold(
           formWithErrors => {
@@ -49,13 +51,13 @@ class GStatutoryMaternityPaternityAdoptionPayFormSpec extends Specification {
           f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject a howOften frequency of other with no other text entered - statutory sick pay" in new WithApplication {
+    "reject a howOften frequency of other with no other text entered" in new WithApplication {
       GStatutoryMaternityPaternityAdoptionPay.form.bind(
         Map(
-          "paymentTypesForThisPay" -> "MaternityOrPaternityPay",
-          "stillBeingPaidThisPay" -> yes,
+          "paymentTypesForThisPay" -> paymentType,
+          "stillBeingPaidThisPay_paternityMaternityAdoption" -> yes,
           "whenDidYouLastGetPaid" -> "",
-          "whoPaidYouThisPay" -> whoPaysYou,
+          "whoPaidYouThisPay_paternityMaternityAdoption" -> whoPaysYou,
           "amountOfThisPay" -> howMuch,
           "howOftenPaidThisPay" -> "Other",
           "howOftenPaidThisPayOther" -> ""
@@ -71,12 +73,12 @@ class GStatutoryMaternityPaternityAdoptionPayFormSpec extends Specification {
     "reject when last paid blank when answer is no" in new WithApplication {
       GStatutoryMaternityPaternityAdoptionPay.form.bind(
         Map(
-          "paymentTypesForThisPay" -> "MaternityOrPaternityPay",
-          "stillBeingPaidThisPay" -> no,
+          "paymentTypesForThisPay" -> paymentType,
+          "stillBeingPaidThisPay_paternityMaternityAdoption" -> no,
           "whenDidYouLastGetPaid" -> "",
-          "whoPaidYouThisPay" -> whoPaysYou,
+          "whoPaidYouThisPay_paternityMaternityAdoption" -> whoPaysYou,
           "amountOfThisPay" -> howMuch,
-          "howOftenPaidThisPay" -> "Monthly",
+          "howOftenPaidThisPay" -> monthlyFrequency,
           "howOftenPaidThisPayOther" -> ""
         )
       ).fold(

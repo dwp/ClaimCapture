@@ -26,8 +26,8 @@ object GStatutorySickPay extends Controller with CachedClaim with Navigable with
     "howOftenPaidThisPay" -> carersNonEmptyText.verifying(validPaymentFrequency),
     "howOftenPaidThisPayOther" -> optional(carersNonEmptyText(maxLength = Mappings.sixty))
   )(StatutorySickPay.apply)(StatutorySickPay.unapply)
-    .verifying(StatutorySickPay.whenDidYouLastGetPaidRequired)
     .verifying(StatutorySickPay.howOftenPaidThisPayItVariesRequired)
+    .verifying(StatutorySickPay.whenDidYouLastGetPaidRequired)
   )
 
   def present = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>

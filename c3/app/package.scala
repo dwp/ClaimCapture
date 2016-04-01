@@ -68,6 +68,9 @@ package object app {
   object PaymentTypes {
     val MaternityPaternity = "MaternityOrPaternityPay"
     val Adoption = "AdoptionPay"
+    val FosteringAllowance = "FosteringAllowance"
+    val LocalAuthority = "LocalAuthority"
+    val Other = "Other"
   }
 
   object PensionPaymentFrequency {

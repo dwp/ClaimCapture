@@ -3,7 +3,7 @@ package utils.pageobjects
 import utils.pageobjects.s_breaks.{GBreaksInCarePage, GBreakPage}
 import utils.pageobjects.save_for_later.{GSaveForLaterResumePage, GSaveForLaterSavePage}
 import utils.pageobjects.third_party.GThirdPartyPage
-import utils.pageobjects.your_income.{GStatutoryMaternityPaternityAdoptionPayPage, GStatutorySickPayPage, GYourIncomePage}
+import utils.pageobjects.your_income.{GFosteringAllowancePage, GStatutoryMaternityPaternityAdoptionPayPage, GStatutorySickPayPage, GYourIncomePage}
 import scala.language.dynamics
 import utils.pageobjects.s_eligibility._
 import utils.pageobjects.s_disclaimer._
@@ -90,6 +90,7 @@ object ClaimPageFactory extends PageFactory {
       // S8
       case GStatutorySickPayPage.url => GStatutorySickPayPage(ctx)
       case GStatutoryMaternityPaternityAdoptionPayPage.url => GStatutoryMaternityPaternityAdoptionPayPage(ctx)
+      case GFosteringAllowancePage.url => GFosteringAllowancePage(ctx)
       // S9
       case GHowWePayYouPage.url => GHowWePayYouPage(ctx)
       // S9

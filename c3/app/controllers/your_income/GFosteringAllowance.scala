@@ -3,7 +3,7 @@ package controllers.your_income
 import controllers.CarersForms._
 import controllers.mappings.Mappings
 import controllers.mappings.Mappings._
-import models.domain.{StatutoryMaternityPaternityAdoptionPay, Claim}
+import models.domain.{FosteringAllowance, Claim}
 import models.view.ClaimHandling._
 import models.view.{CachedClaim, Navigable}
 import play.api.Play._
@@ -16,42 +16,45 @@ import utils.helpers.CarersForm._
 /**
   * Created by peterwhitehead on 24/03/2016.
   */
-object GStatutoryMaternityPaternityAdoptionPay extends Controller with CachedClaim with Navigable with I18nSupport {
+object GFosteringAllowance extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val form = Form(mapping(
-    "paymentTypesForThisPay" -> carersNonEmptyText.verifying(validPaymentType),
-    "stillBeingPaidThisPay_paternityMaternityAdoption" -> carersNonEmptyText.verifying(validYesNo),
+    "fosteringAllowancePay" -> carersNonEmptyText.verifying(validFosteringAllowancePaymentType),
+    "fosteringAllowancePayOther" -> optional(carersNonEmptyText(maxLength = Mappings.sixty)),
+    "stillBeingPaidThisPay_fosteringAllowance" -> carersNonEmptyText.verifying(validYesNo),
     "whenDidYouLastGetPaid" -> optional(dayMonthYear.verifying(validDate)),
-    "whoPaidYouThisPay_paternityMaternityAdoption" -> carersNonEmptyText(maxLength = Mappings.sixty),
+    "whoPaidYouThisPay_fosteringAllowance" -> carersNonEmptyText(maxLength = Mappings.sixty),
     "amountOfThisPay" -> carersNonEmptyText(maxLength = Mappings.twelve),
     "howOftenPaidThisPay" -> carersNonEmptyText.verifying(validPaymentFrequency),
     "howOftenPaidThisPayOther" -> optional(carersNonEmptyText(maxLength = Mappings.sixty))
-  )(StatutoryMaternityPaternityAdoptionPay.apply)(StatutoryMaternityPaternityAdoptionPay.unapply)
-    .verifying(StatutoryMaternityPaternityAdoptionPay.howOftenPaidThisPayItVariesRequired)
-    .verifying(StatutoryMaternityPaternityAdoptionPay.whenDidYouLastGetPaidRequired)
+  )(FosteringAllowance.apply)(FosteringAllowance.unapply)
+    .verifying(FosteringAllowance.paymentTypesForThisPayOtherRequired)
+    .verifying(FosteringAllowance.howOftenPaidThisPayItVariesRequired)
+    .verifying(FosteringAllowance.whenDidYouLastGetPaidRequired)
   )
 
   def present = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
-    presentConditionally(statutoryMaternityPaternityPay)
+    presentConditionally(fosteringAllowance)
   }
 
   def submit = claiming { implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
+          .replaceError("", "paymentTypesForThisPay.required", FormError("paymentTypesForThisPay", errorRequired))
           .replaceError("", "howOftenPaidThisPay.required", FormError("howOftenPaidThisPayOther", errorRequired))
           .replaceError("", "whenDidYouLastGetPaid.required", FormError("whenDidYouLastGetPaid", errorRequired))
-        BadRequest(views.html.your_income.statutoryMaternityPaternityAdoptionPay(formWithErrorsUpdate))
+        BadRequest(views.html.your_income.fosteringAllowance(formWithErrorsUpdate))
       },
-      statutoryMaternityPaternityAdoptionPay => claim.update(statutoryMaternityPaternityAdoptionPay) -> Redirect(controllers.your_income.routes.GFosteringAllowance.present()))
+      fosteringAllowance => claim.update(fosteringAllowance) -> Redirect(controllers.s_pay_details.routes.GHowWePayYou.present()))
   } withPreview()
 
-  def statutoryMaternityPaternityPay(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
-    track(StatutoryMaternityPaternityAdoptionPay) { implicit claim => Ok(views.html.your_income.statutoryMaternityPaternityAdoptionPay(form.fill(StatutoryMaternityPaternityAdoptionPay))) }
+  def fosteringAllowance(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+    track(FosteringAllowance) { implicit claim => Ok(views.html.your_income.fosteringAllowance(form.fill(FosteringAllowance))) }
   }
 
   def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
-    if (models.domain.YourIncomeStatutoryMaternityPaternityAdoptionPay.visible) c
-    else claim -> Redirect(controllers.your_income.routes.GFosteringAllowance.present())
+    if (models.domain.YourIncomeFosteringAllowance.visible) c
+    else claim -> Redirect(controllers.s_pay_details.routes.GHowWePayYou.present())
   }
 }

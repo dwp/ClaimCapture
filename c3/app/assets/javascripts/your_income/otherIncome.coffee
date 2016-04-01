@@ -1,37 +1,37 @@
-window.initStatutorySickPayEvents = (stillBeingPaidThisPay_yes,
-                                    stillBeingPaidThisPay_no,
-                                    whenDidYouLastGetPaid_day,
-                                    whenDidYouLastGetPaid_month,
-                                    whenDidYouLastGetPaid_year,
-                                    howOftenPaidThisPay_Other,
-                                    howOftenPaidThisPay,
-                                    howOftenPaidThisPayValue,
-                                    howOftenPaidThisPayOther) ->
+window.initEvents = (stillBeingPaidThisPay_yes,
+                      stillBeingPaidThisPay_no,
+                      whenDidYouLastGetPaid_day,
+                      whenDidYouLastGetPaid_month,
+                      whenDidYouLastGetPaid_year,
+                      howOftenPaidThisPay_Other,
+                      howOftenPaidThisPay,
+                      howOftenPaidThisPayValue,
+                      howOftenPaidThisPayOther) ->
   if not $("#" + stillBeingPaidThisPay_no).prop('checked')
-    hidestillBeingPaidThisPayWrap(whenDidYouLastGetPaid_day, whenDidYouLastGetPaid_month, whenDidYouLastGetPaid_year)
+    hideStillBeingPaidThisPayWrap(whenDidYouLastGetPaid_day, whenDidYouLastGetPaid_month, whenDidYouLastGetPaid_year)
 
   if $("#" + stillBeingPaidThisPay_no).prop('checked')
-    showstillBeingPaidThisPayWrap()
+    showStillBeingPaidThisPayWrap()
 
   $("#" + stillBeingPaidThisPay_no).on "click", ->
-    showstillBeingPaidThisPayWrap()
+    showStillBeingPaidThisPayWrap()
 
   $("#" + stillBeingPaidThisPay_yes).on "click", ->
-    hidestillBeingPaidThisPayWrap(whenDidYouLastGetPaid_day, whenDidYouLastGetPaid_month, whenDidYouLastGetPaid_year)
+    hideStillBeingPaidThisPayWrap(whenDidYouLastGetPaid_day, whenDidYouLastGetPaid_month, whenDidYouLastGetPaid_year)
 
   if not $("#" + howOftenPaidThisPay_Other).prop('checked')
-    hidehowOftenPaidThisPayWrap(howOftenPaidThisPayOther)
+    hideHowOftenPaidThisPayWrap(howOftenPaidThisPayOther)
 
   if $("#" + howOftenPaidThisPay_Other).prop('checked')
-    showhowOftenPaidThisPayWrap()
+    showHowOftenPaidThisPayWrap()
 
   $("#" + howOftenPaidThisPay + " input").on "change", ->
     if $(this).val() == howOftenPaidThisPayValue
-      showhowOftenPaidThisPayWrap()
+      showHowOftenPaidThisPayWrap()
     else
-      hidehowOftenPaidThisPayWrap(howOftenPaidThisPayOther)
+      hideHowOftenPaidThisPayWrap(howOftenPaidThisPayOther)
 
-hidestillBeingPaidThisPayWrap = (whenDidYouLastGetPaid_day, whenDidYouLastGetPaid_month, whenDidYouLastGetPaid_year) ->
+hideStillBeingPaidThisPayWrap = (whenDidYouLastGetPaid_day, whenDidYouLastGetPaid_month, whenDidYouLastGetPaid_year) ->
   emptyWhenDidYouLastGetPaid = ->
     $("#" + whenDidYouLastGetPaid_day).val("")
     $("#" + whenDidYouLastGetPaid_month).val("")
@@ -39,14 +39,36 @@ hidestillBeingPaidThisPayWrap = (whenDidYouLastGetPaid_day, whenDidYouLastGetPai
 
   $("#stillBeingPaidThisPayWrap").slideUp(0, emptyWhenDidYouLastGetPaid).attr 'aria-hidden', 'true'
 
-showstillBeingPaidThisPayWrap = ->
+showStillBeingPaidThisPayWrap = ->
   $("#stillBeingPaidThisPayWrap").slideDown(0).attr 'aria-hidden', 'false'
 
-hidehowOftenPaidThisPayWrap = (howOftenPaidThisPayOther) ->
-  emptyhowOftenPaidThisPay = ->
+hideHowOftenPaidThisPayWrap = (howOftenPaidThisPayOther) ->
+  emptyHowOftenPaidThisPay = ->
     $("#" + howOftenPaidThisPayOther).val("")
 
-  $("#howOftenPaidThisPayWrap").slideUp(0, emptyhowOftenPaidThisPay).attr 'aria-hidden', 'true'
+  $("#howOftenPaidThisPayWrap").slideUp(0, emptyHowOftenPaidThisPay).attr 'aria-hidden', 'true'
 
-showhowOftenPaidThisPayWrap = ->
+showHowOftenPaidThisPayWrap = ->
   $("#howOftenPaidThisPayWrap").slideDown(0).attr 'aria-hidden', 'false'
+
+window.initFosteringAllowanceEvents = (fosteringAllowancePay, fosteringAllowancePay_Other, fosteringAllowancePayValue, fosteringAllowancePayOther) ->
+  if not $("#" + fosteringAllowancePay_Other).prop('checked')
+    hideFosteringAllowancePayWrap(fosteringAllowancePayOther)
+
+  if $("#" + fosteringAllowancePay_Other).prop('checked')
+    showFosteringAllowancePayWrap()
+
+  $("#" + fosteringAllowancePay + " input").on "change", ->
+    if $(this).val() == fosteringAllowancePayValue
+      showFosteringAllowancePayWrap()
+    else
+      hideFosteringAllowancePayWrap(fosteringAllowancePayOther)
+
+hideFosteringAllowancePayWrap = (fosteringAllowancePayOther) ->
+  emptyFosteringAllowancePay = ->
+    $("#" + fosteringAllowancePayOther).val("")
+
+  $("#fosteringAllowancePayWrap").slideUp(0, emptyFosteringAllowancePay).attr 'aria-hidden', 'true'
+
+showFosteringAllowancePayWrap = ->
+  $("#fosteringAllowancePayWrap").slideDown(0).attr 'aria-hidden', 'false'

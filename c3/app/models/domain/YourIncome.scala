@@ -1,6 +1,6 @@
 package models.domain
 
-import app.StatutoryPaymentFrequency
+import app.{PaymentTypes, StatutoryPaymentFrequency}
 import controllers.mappings.Mappings
 import models.DayMonthYear
 import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
@@ -69,11 +69,18 @@ object YourIncomeFosteringAllowance extends Section.Identifier {
   val id = "s19"
 }
 
-object FosteringAllowance extends QuestionGroup.Identifier {
+object FosteringAllowance extends QuestionGroup.Identifier with OtherIncomes {
   val id = s"${YourIncomeFosteringAllowance.id}.g1"
 }
 
-case class FosteringAllowance() extends QuestionGroup(FosteringAllowance)
+case class FosteringAllowance(override val paymentTypesForThisPay: String = "",
+                              override val paymentTypesForThisPayOther: Option[String] = None,
+                              override val stillBeingPaidThisPay: String = "",
+                              override val whenDidYouLastGetPaid: Option[DayMonthYear] = None,
+                              override val whoPaidYouThisPay: String = "",
+                              override val amountOfThisPay: String = "",
+                              override val howOftenPaidThisPay: String = "",
+                              override val howOftenPaidThisPayOther: Option[String] = None) extends QuestionGroup(FosteringAllowance) with OtherIncomes
 
 object YourIncomeDirectPayment extends Section.Identifier {
   val id = "s20"
@@ -98,6 +105,7 @@ case class AnyOtherIncome() extends QuestionGroup(AnyOtherIncome)
 
 trait OtherIncomes {
   val paymentTypesForThisPay: String = ""
+  val paymentTypesForThisPayOther: Option[String] = None
   val stillBeingPaidThisPay: String = ""
   val whenDidYouLastGetPaid: Option[DayMonthYear] = None
   val whoPaidYouThisPay: String = ""
@@ -106,9 +114,9 @@ trait OtherIncomes {
   val howOftenPaidThisPayOther: Option[String] = None
 
   def howOftenPaidThisPayItVariesRequired: Constraint[OtherIncomes] = Constraint[OtherIncomes]("constraint.howOftenPaidThisPay") {
-    statutorySickPay =>
-      if (statutorySickPay.howOftenPaidThisPay == StatutoryPaymentFrequency.ItVaries) {
-        statutorySickPay.howOftenPaidThisPayOther match {
+    income =>
+      if (income.howOftenPaidThisPay == StatutoryPaymentFrequency.ItVaries) {
+        income.howOftenPaidThisPayOther match {
           case Some(howOften) => Valid
           case _ => Invalid(ValidationError("howOftenPaidThisPay.required"))
         }
@@ -117,11 +125,22 @@ trait OtherIncomes {
   }
 
   def whenDidYouLastGetPaidRequired: Constraint[OtherIncomes] = Constraint[OtherIncomes]("constraint.whenDidYouLastGetPaid") {
-    statutorySickPay =>
-      if (statutorySickPay.stillBeingPaidThisPay == Mappings.no) {
-        statutorySickPay.whenDidYouLastGetPaid match {
+    income =>
+      if (income.stillBeingPaidThisPay == Mappings.no) {
+        income.whenDidYouLastGetPaid match {
           case Some(whenLastPaid) => Valid
           case _ => Invalid(ValidationError("whenDidYouLastGetPaid.required"))
+        }
+      }
+      else Valid
+  }
+
+  def paymentTypesForThisPayOtherRequired: Constraint[OtherIncomes] = Constraint[OtherIncomes]("constraint.paymentTypesForThisPay") {
+    income =>
+      if (income.paymentTypesForThisPay == PaymentTypes.Other) {
+        income.paymentTypesForThisPayOther match {
+          case Some(howOften) => Valid
+          case _ => Invalid(ValidationError("paymentTypesForThisPay.required"))
         }
       }
       else Valid

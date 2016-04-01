@@ -12,13 +12,14 @@ class GStatutorySickPaySpec extends Specification {
     val whoPaysYou = "The Man"
     val howMuch = "12"
     val yes = "yes"
+    val monthlyFrequency = "Monthly"
 
     val formInput = Seq(
       "stillBeingPaidThisPay" -> yes,
       "whenDidYouLastGetPaid" -> "",
       "whoPaidYouThisPay" -> whoPaysYou,
       "amountOfThisPay" -> howMuch,
-      "howOftenPaidThisPay" -> "Monthly",
+      "howOftenPaidThisPay" -> monthlyFrequency,
       "howOftenPaidThisPayOther" -> ""
     )
 
@@ -44,47 +45,46 @@ class GStatutorySickPaySpec extends Specification {
           f.whenDidYouLastGetPaid must equalTo(None)
           f.whoPaidYouThisPay must equalTo(whoPaysYou)
           f.amountOfThisPay must equalTo(howMuch)
-          f.howOftenPaidThisPay must equalTo("Monthly")
+          f.howOftenPaidThisPay must equalTo(monthlyFrequency)
           f.howOftenPaidThisPayOther must equalTo(None)
         }
       }
     }
 
-    "return a bad request after an invalid submission" in new WithApplication {
-      "reject invalid yesNo answers" in new WithApplication with Claiming {
-        val request = FakeRequest()
-          .withFormUrlEncodedBody(
-            "stillBeingPaidThisPay" -> "INVALID",
-            "whenDidYouLastGetPaid" -> "INVALID",
-            "amountOfThisPay" -> "INVALID"
-          )
+    "reject invalid yesNo answers" in new WithApplication with Claiming {
+      val request = FakeRequest()
+        .withFormUrlEncodedBody(
+          "stillBeingPaidThisPay" -> "INVALID",
+          "whenDidYouLastGetPaid" -> "INVALID",
+          "amountOfThisPay" -> "INVALID"
+        )
 
-        val result = GStatutorySickPay.submit(request)
-        status(result) mustEqual BAD_REQUEST
-      }
-
-      "missing mandatory fields" in new WithApplication with Claiming {
-        val request = FakeRequest()
-          .withFormUrlEncodedBody("" -> "")
-
-        val result = GStatutorySickPay.submit(request)
-        status(result) mustEqual BAD_REQUEST
-      }
-
-      "reject a howOften frequency of other with no other text entered" in new WithApplication with Claiming {
-        val request = FakeRequest()
-          .withFormUrlEncodedBody(
-            "stillBeingPaidThisPay" -> yes,
-            "whenDidYouLastGetPaid" -> "",
-            "whoPaidYouThisPay" -> whoPaysYou,
-            "amountOfThisPay" -> howMuch,
-            "howOftenPaidThisPay" -> "Other",
-            "howOftenPaidThisPayOther" -> ""
-          )
-        val result = GStatutorySickPay.submit(request)
-        status(result) mustEqual BAD_REQUEST
-      }
+      val result = GStatutorySickPay.submit(request)
+      status(result) mustEqual BAD_REQUEST
     }
+
+    "missing mandatory fields" in new WithApplication with Claiming {
+      val request = FakeRequest()
+        .withFormUrlEncodedBody("" -> "")
+
+      val result = GStatutorySickPay.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+
+    "reject a howOften frequency of other with no other text entered" in new WithApplication with Claiming {
+      val request = FakeRequest()
+        .withFormUrlEncodedBody(
+          "stillBeingPaidThisPay" -> yes,
+          "whenDidYouLastGetPaid" -> "",
+          "whoPaidYouThisPay" -> whoPaysYou,
+          "amountOfThisPay" -> howMuch,
+          "howOftenPaidThisPay" -> "Other",
+          "howOftenPaidThisPayOther" -> ""
+        )
+      val result = GStatutorySickPay.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
       val request = FakeRequest()

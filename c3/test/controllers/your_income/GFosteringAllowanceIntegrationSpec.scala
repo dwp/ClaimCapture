@@ -3,26 +3,27 @@ package controllers.your_income
 import controllers.ClaimScenarioFactory
 import org.specs2.mutable._
 import utils.pageobjects._
-import utils.pageobjects.your_income.{GFosteringAllowancePage, GStatutoryMaternityPaternityAdoptionPayPage}
+import utils.pageobjects.s_pay_details.GHowWePayYouPage
+import utils.pageobjects.your_income.GFosteringAllowancePage
 import utils.{WithBrowser, WithJsBrowser}
 
-class GStatutoryMaternityPaternityAdoptionPayIntegrationSpec extends Specification {
+class GFosteringAllowanceIntegrationSpec extends Specification {
   val whoPaysYou = "The Man"
   val howMuch = "12"
   val yes = "yes"
   val no = "no"
   val monthlyFrequency = "Monthly"
-  val paymentType = "MaternityOrPaternityPay"
+  val paymentType = "FosteringAllowance"
 
-  section ("integration", models.domain.StatutoryMaternityPaternityAdoptionPay.id)
-  "Statutory Maternity Paternity Adoption Pay" should {
+  section ("integration", models.domain.FosteringAllowance.id)
+  "Fostering Allowance" should {
     "be presented" in new WithBrowser with PageObjects {
-      val page = GStatutoryMaternityPaternityAdoptionPayPage(context)
+      val page = GFosteringAllowancePage(context)
       page goToThePage ()
     }
 
     "navigate to next page on valid submission" in new WithJsBrowser with PageObjects {
-      val page =  GStatutoryMaternityPaternityAdoptionPayPage(context)
+      val page =  GFosteringAllowancePage(context)
       page goToThePage ()
 
       val claim = new TestData
@@ -32,29 +33,32 @@ class GStatutoryMaternityPaternityAdoptionPayIntegrationSpec extends Specificati
       claim.AmountOfThisPay = howMuch
       claim.HowOftenPaidThisPay = monthlyFrequency
       page fillPageWith claim
-      page submitPage() must beAnInstanceOf[GFosteringAllowancePage]
+
+      val nextPage = page submitPage()
+      nextPage must beAnInstanceOf[GHowWePayYouPage]
     }
 
     "present errors if mandatory fields are not populated" in new WithJsBrowser with PageObjects {
-			val page =  GStatutoryMaternityPaternityAdoptionPayPage(context)
+			val page =  GFosteringAllowancePage(context)
       page goToThePage ()
       page.submitPage().listErrors.size mustEqual 5
     }
 
     "navigate to next page on valid submission with other field selected" in new WithJsBrowser with PageObjects {
-      val page = GStatutoryMaternityPaternityAdoptionPayPage(context)
+      val page = GFosteringAllowancePage(context)
       val claim = ClaimScenarioFactory.s9OtherIncomeOther
+      claim.PaymentTypesForThisPay = paymentType
 
       page goToThePage ()
       page fillPageWith claim
 
       val nextPage = page submitPage ()
 
-      nextPage must beAnInstanceOf[GFosteringAllowancePage]
+      nextPage must beAnInstanceOf[GHowWePayYouPage]
     }
 
     "howOften frequency of other with no other text entered" in new WithJsBrowser with PageObjects {
-      val page = GStatutoryMaternityPaternityAdoptionPayPage(context)
+      val page = GFosteringAllowancePage(context)
       val claim = new TestData
       claim.PaymentTypesForThisPay = paymentType
       claim.StillBeingPaidThisPay = no
@@ -71,7 +75,7 @@ class GStatutoryMaternityPaternityAdoptionPayIntegrationSpec extends Specificati
     }
 
     "no payment type selected" in new WithJsBrowser with PageObjects {
-      val page = GStatutoryMaternityPaternityAdoptionPayPage(context)
+      val page = GFosteringAllowancePage(context)
       val claim = new TestData
       claim.StillBeingPaidThisPay = no
       claim.WhoPaidYouThisPay = whoPaysYou
@@ -83,11 +87,11 @@ class GStatutoryMaternityPaternityAdoptionPayIntegrationSpec extends Specificati
       val errors = page.submitPage().listErrors
 
       errors.size mustEqual 1
-      errors(0) must contain("Which are you paid")
+      errors(0) must contain("What type of organisation pays")
     }
 
     "howOften frequency of other with no other text entered then select yes and be able to move to next page" in new WithJsBrowser with PageObjects {
-      val page = GStatutoryMaternityPaternityAdoptionPayPage(context)
+      val page = GFosteringAllowancePage(context)
       val claim = new TestData
       claim.PaymentTypesForThisPay = paymentType
       claim.StillBeingPaidThisPay = no
@@ -112,22 +116,23 @@ class GStatutoryMaternityPaternityAdoptionPayIntegrationSpec extends Specificati
 
       submittedPage fillPageWith claimAfterError
       val differentPage = submittedPage submitPage()
-      differentPage must beAnInstanceOf[GFosteringAllowancePage]
+      differentPage must beAnInstanceOf[GHowWePayYouPage]
     }
 
     "data should be saved in claim and displayed when go back to page" in new WithJsBrowser with PageObjects {
-      val page =  GStatutoryMaternityPaternityAdoptionPayPage(context)
+      val page =  GFosteringAllowancePage(context)
       val claim = ClaimScenarioFactory.s9OtherIncomeOther
+      claim.PaymentTypesForThisPay = paymentType
 
       page goToThePage ()
       page fillPageWith claim
 
       val nextPage = page submitPage ()
-      nextPage must beAnInstanceOf[GFosteringAllowancePage]
+      nextPage must beAnInstanceOf[GHowWePayYouPage]
       val statutorySickPayPageAgain = nextPage.goBack()
       statutorySickPayPageAgain.source must contain(whoPaysYou)
       statutorySickPayPageAgain.source must contain(howMuch)
     }
   }
-  section ("integration", models.domain.StatutoryMaternityPaternityAdoptionPay.id)
+  section ("integration", models.domain.FosteringAllowance.id)
 }
