@@ -42,7 +42,7 @@ object GDirectPayment extends Controller with CachedClaim with Navigable with I1
           .replaceError("", "whenDidYouLastGetPaid.required", FormError("whenDidYouLastGetPaid", errorRequired))
         BadRequest(views.html.your_income.directPayment(formWithErrorsUpdate))
       },
-      directPayment => claim.update(directPayment) -> Redirect(controllers.s_pay_details.routes.GHowWePayYou.present()))
+      directPayment => claim.update(directPayment) -> Redirect(controllers.your_income.routes.GOtherPayments.present()))
   } withPreview()
 
   def directPayment(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
@@ -51,6 +51,6 @@ object GDirectPayment extends Controller with CachedClaim with Navigable with I1
 
   def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     if (models.domain.YourIncomeDirectPayment.visible) c
-    else claim -> Redirect(controllers.s_pay_details.routes.GHowWePayYou.present())
+    else claim -> Redirect(controllers.your_income.routes.GOtherPayments.present())
   }
 }

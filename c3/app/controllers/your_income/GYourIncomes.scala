@@ -60,12 +60,12 @@ object GYourIncomes extends Controller with CachedClaim with Navigable with I18n
       .showHideSection(yourIncomes.yourIncome_patmatadoppay == someTrue, models.domain.YourIncomeStatutoryMaternityPaternityAdoptionPay)
       .showHideSection(yourIncomes.yourIncome_fostering == someTrue, models.domain.YourIncomeFosteringAllowance)
       .showHideSection(yourIncomes.yourIncome_directpay == someTrue, models.domain.YourIncomeDirectPayment)
-      .showHideSection(yourIncomes.yourIncome_anyother == someTrue, models.domain.YourIncomeAnyOtherIncome)
+      .showHideSection(yourIncomes.yourIncome_anyother == someTrue, models.domain.YourIncomeOtherPayments)
   }
 
   private def deleteUnselectedSections(claim: Claim, yourIncomes: YourIncomes): Claim = {
     val deletedAnyOther = if(yourIncomes.yourIncome_anyother == None) {
-      claim.delete(AnyOtherIncome)
+      claim.delete(OtherPayments)
     } else claim
 
     val directPayment = if(yourIncomes.yourIncome_directpay == None) {

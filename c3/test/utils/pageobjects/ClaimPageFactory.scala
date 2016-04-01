@@ -92,6 +92,7 @@ object ClaimPageFactory extends PageFactory {
       case GStatutoryMaternityPaternityAdoptionPayPage.url => GStatutoryMaternityPaternityAdoptionPayPage(ctx)
       case GFosteringAllowancePage.url => GFosteringAllowancePage(ctx)
       case GDirectPaymentPage.url => GDirectPaymentPage(ctx)
+      case GOtherPaymentsPage.url => GOtherPaymentsPage(ctx)
       // S9
       case GHowWePayYouPage.url => GHowWePayYouPage(ctx)
       // S9

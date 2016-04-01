@@ -47,7 +47,7 @@ class GDirectPaymentFormSpec extends Specification {
           f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject a howOften frequency of other with no other text entered - statutory sick pay" in new WithApplication {
+    "reject a howOften frequency of other with no other text entered" in new WithApplication {
       GDirectPayment.form.bind(
         Map(
           "stillBeingPaidThisPay_directPayment" -> yes,

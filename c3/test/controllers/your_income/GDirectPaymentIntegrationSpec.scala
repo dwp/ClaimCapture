@@ -3,8 +3,7 @@ package controllers.your_income
 import controllers.ClaimScenarioFactory
 import org.specs2.mutable._
 import utils.pageobjects._
-import utils.pageobjects.s_pay_details.GHowWePayYouPage
-import utils.pageobjects.your_income.GDirectPaymentPage
+import utils.pageobjects.your_income.{GOtherPaymentsPage, GDirectPaymentPage}
 import utils.{WithBrowser, WithJsBrowser}
 
 class GDirectPaymentIntegrationSpec extends Specification {
@@ -31,7 +30,7 @@ class GDirectPaymentIntegrationSpec extends Specification {
       claim.AmountOfThisPay = howMuch
       claim.HowOftenPaidThisPay = monthlyFrequency
       page fillPageWith claim
-        page submitPage() must beAnInstanceOf[GHowWePayYouPage]
+        page submitPage() must beAnInstanceOf[GOtherPaymentsPage]
     }
 
     "present errors if mandatory fields are not populated" in new WithJsBrowser with PageObjects {
@@ -49,7 +48,7 @@ class GDirectPaymentIntegrationSpec extends Specification {
 
       val nextPage = page submitPage ()
 
-      nextPage must beAnInstanceOf[GHowWePayYouPage]
+      nextPage must beAnInstanceOf[GOtherPaymentsPage]
     }
 
     "howOften frequency of other with no other text entered" in new WithJsBrowser with PageObjects {
@@ -92,7 +91,7 @@ class GDirectPaymentIntegrationSpec extends Specification {
 
       submittedPage fillPageWith claimAfterError
       val differentPage = submittedPage submitPage()
-      differentPage must beAnInstanceOf[GHowWePayYouPage]
+      differentPage must beAnInstanceOf[GOtherPaymentsPage]
     }
 
     "data should be saved in claim and displayed when go back to page" in new WithJsBrowser with PageObjects {
@@ -103,7 +102,7 @@ class GDirectPaymentIntegrationSpec extends Specification {
       page fillPageWith claim
 
       val nextPage = page submitPage ()
-      nextPage must beAnInstanceOf[GHowWePayYouPage]
+      nextPage must beAnInstanceOf[GOtherPaymentsPage]
       val directPaymentPageAgain = nextPage.goBack()
       directPaymentPageAgain.source must contain(whoPaysYou)
       directPaymentPageAgain.source must contain(howMuch)

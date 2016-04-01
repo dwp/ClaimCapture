@@ -72,3 +72,6 @@ hideFosteringAllowancePayWrap = (fosteringAllowancePayOther) ->
 
 showFosteringAllowancePayWrap = ->
   $("#fosteringAllowancePayWrap").slideDown(0).attr 'aria-hidden', 'false'
+
+window.initOtherPaymentsEvents = (textArea) ->
+  $("#" + textArea).trigger("blur")

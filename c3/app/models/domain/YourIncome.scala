@@ -101,15 +101,17 @@ case class DirectPayment(
                          override val howOftenPaidThisPayOther: Option[String] = None
                         ) extends QuestionGroup(DirectPayment) with OtherIncomes
 
-object YourIncomeAnyOtherIncome extends Section.Identifier {
+object YourIncomeOtherPayments extends Section.Identifier {
   val id = "s21"
 }
 
-object AnyOtherIncome extends QuestionGroup.Identifier {
-  val id = s"${YourIncomeAnyOtherIncome.id}.g1"
+object OtherPayments extends QuestionGroup.Identifier {
+  val id = s"${YourIncomeOtherPayments.id}.g1"
 }
 
-case class AnyOtherIncome() extends QuestionGroup(AnyOtherIncome)
+case class OtherPayments(
+                        otherPaymentsInfo: String = ""
+                        ) extends QuestionGroup(OtherPayments)
 
 
 trait OtherIncomes {

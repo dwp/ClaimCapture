@@ -25,6 +25,7 @@ object Mappings {
   val twelve = 12
   val twenty = 20
   val threeHundred = 300
+  val threeThousand = 3000
   val yes = "yes"
   val no = "no"
   val someTrue = Some("true")
