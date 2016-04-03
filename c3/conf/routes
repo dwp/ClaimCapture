@@ -206,6 +206,9 @@ POST        /consent-and-declaration/declaration                        @control
 GET         /consent-and-declaration/error                              controllers.s_consent_and_declaration.GError.present
 
 # Circumstances
+GET         /circumstances/report-changes/origin                        controllers.circs.origin.GOrigin.present
+POST        /circumstances/report-changes/origin                        controllers.circs.origin.GOrigin.submit
+
 GET         /circumstances/report-changes/selection                     controllers.circs.start_of_process.GReportChangeReason.present
 POST        /circumstances/report-changes/selection                     controllers.circs.start_of_process.GReportChangeReason.submit
 
