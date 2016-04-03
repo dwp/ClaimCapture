@@ -1,0 +1,34 @@
+@(currentForm: Form[models.domain.ReportChangeOrigin])(implicit claim: models.domain.Claim, lang:Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
+
+@import utils.csrf.DwpCSRFFormHelper
+@import views.html.helper._
+@import views.html.circs.origin.main
+    @main(messages("circs.origin.title")) {
+        @errorsSummary(currentForm)
+
+        @form(action = controllers.circs.origin.routes.GOrigin.submit) {
+            @DwpCSRFFormHelper.formField
+            @helper.jsEnabled()
+
+            <div class="form-wrap">
+                <fieldset class="form-elements">
+                    @listRadioGroupWithSubGroups(currentForm("origin"),
+                        '_showLabel -> false,
+                        'track -> true,
+                        'items -> Seq(
+                            "GB" -> messages("circs.origin.gb"),
+                            "NI" -> messages("circs.origin.ni"),
+                            "OTHER" -> messages("circs.origin.other")))
+                </fieldset>
+
+                <nav class="form-steps">
+                    <ul>
+                        <li><button type="submit" name="action" value="next" class="button">@Html(messages("form.next"))</button></li>
+                    </ul>
+                </nav>
+
+            </div>
+
+        }
+    }
+

@@ -1,0 +1,13 @@
+@(lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash: Flash, messages: play.api.i18n.Messages)
+
+@import views.html.feedback.main
+
+    @main(messages("circs.origin.error.heading")) {
+        <p></p>
+        <h2>@Html(messages("circs.origin.error.line1"))</h2>
+        <p></p>
+        <button onClick="location.href='https://www.gov.uk/carers-allowance-report-change'" id="gotogov" type="button" class="button">Continue to GOV.UK</button>
+
+    @views.html.ga.sendTrackEvent("Origin","Error")
+}
+

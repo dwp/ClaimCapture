@@ -7,6 +7,12 @@ import models.{DayMonthYear, NationalInsuranceNumber}
 case object CircumstancesIdentification extends Section.Identifier {
   val id = "c1"
 }
+
+case class ReportChangeOrigin(origin: String = NotAsked) extends QuestionGroup(ReportChangeOrigin)
+object ReportChangeOrigin extends QuestionGroup.Identifier {
+  val id = s"${CircumstancesIdentification.id}.g1"
+}
+
 case class ReportChangeReason(jsEnabled: Boolean = false, reportChanges: String = NotAsked) extends QuestionGroup(ReportChangeReason)
 
 object ReportChangeReason extends QuestionGroup.Identifier {
