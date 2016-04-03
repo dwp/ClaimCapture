@@ -94,6 +94,8 @@ case class CircumstancesBreaksInCareSummary(additionalBreaks: YesNoWithText = Ye
 
 object CircumstancesBreaksInCareSummary extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g8"
+
+  def textMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//BreakFromCaring//AdditionalBreaksNotReportedDesc//Answer")
 }
 
 case class CircumstancesEmploymentChange(stillCaring: YesNoWithDate = YesNoWithDate("", None),
