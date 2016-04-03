@@ -1,5 +1,5 @@
 window.initEvents = (answerY, answerN, noWrap,
-                     startY, startN, startYesWrap, startNoWrap,
+                     moreThanYearY, moreThanYearN, moreThanYearYWrap, moreThanYearNWrap,
                      haveAccountsY, haveAccountsN, haveAccountsYWrap, haveAccountsNWrap,
                      tradingYearY, tradingYearN, tradingYearYWrap,
                       paidMoneyY, paidMoneyN, paidMoneyYWrap) ->
@@ -10,16 +10,18 @@ window.initEvents = (answerY, answerN, noWrap,
   $("#" + answerN).on "click", ->
     showWrapper(noWrap)
 
-  if not $("#"+startY).prop 'checked'
-    hideWrapper(startYesWrap)
-  if not $("#"+startN).prop 'checked'
-    hideWrapper(startNoWrap)
-  $("#" + startY).on "click", ->
-    showWrapper(startYesWrap)
-    hideWrapper(startNoWrap)
-  $("#" + startN).on "click", ->
-    showWrapper(startNoWrap)
-    hideWrapper(startYesWrap)
+  if not $("#"+moreThanYearY).prop 'checked'
+    hideWrapper(moreThanYearYWrap)
+  if not $("#"+moreThanYearN).prop 'checked'
+    hideWrapper(moreThanYearNWrap)
+    hideWrapper(paidMoneyYWrap)
+  $("#" + moreThanYearY).on "click", ->
+    showWrapper(moreThanYearYWrap)
+    hideWrapper(moreThanYearNWrap)
+    hideWrapper(paidMoneyYWrap)
+  $("#" + moreThanYearN).on "click", ->
+    showWrapper(moreThanYearNWrap)
+    hideWrapper(moreThanYearYWrap)
 
   if not $("#"+haveAccountsY).prop 'checked'
     hideWrapper(haveAccountsYWrap)
