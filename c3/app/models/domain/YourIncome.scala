@@ -28,6 +28,14 @@ case class YourIncomes(beenSelfEmployedSince1WeekBeforeClaim: String = "",
 
 object YourIncomes extends QuestionGroup.Identifier {
   val id = s"${YourIncome.id}.g0"
+
+  def receivesStatutorySickPay(claim: Claim) = {
+    claim.questionGroup[YourIncomes].getOrElse(YourIncomes()).yourIncome_sickpay.getOrElse("false") == "true"
+  }
+
+  def receivesStatutoryPay(claim: Claim) = {
+    claim.questionGroup[YourIncomes].getOrElse(YourIncomes()).yourIncome_sickpay.getOrElse("false") == "true"
+  }
 }
 
 object YourIncomeStatutorySickPay extends Section.Identifier {

@@ -16,10 +16,10 @@
 }
 
 @hasStatutorySickPay = @{
-    claim.questionGroup[YourIncomes].getOrElse(YourIncomes()).yourIncome_sickpay.getOrElse("false") == "true"
+    YourIncomes.receivesStatutorySickPay(claim)
 }
 @hasStatutoryPay = @{
-    claim.questionGroup[YourIncomes].getOrElse(YourIncomes()).yourIncome_patmatadoppay.getOrElse("false") == "true"
+    YourIncomes.receivesStatutoryPay(claim)
 }
 
 @evidenceRequired = @{
