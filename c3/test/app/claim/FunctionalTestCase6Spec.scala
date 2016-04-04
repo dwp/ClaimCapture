@@ -52,9 +52,6 @@ class FunctionalTestCase6Spec extends FunctionalTestCommon {
       dateConversion("EducationWhenDoYouExpectTheCourseToEnd") +
       "EmploymentHaveYouBeenEmployedAtAnyTime_0" +
       "EmploymentEmployerName_1"  +
-      "EmploymentHaveYouBeenSelfEmployedAtAnyTime" +
-      "OtherMoneyAnyPaymentsSinceClaimDate" +
-      "OtherMoneyHaveYouSSPSinceClaim" +
-      "OtherMoneyHaveYouSMPSinceClaim"
+      "EmploymentHaveYouBeenSelfEmployedAtAnyTime"
   }
 }

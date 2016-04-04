@@ -86,7 +86,7 @@ class ThankYouIntegrationSpec extends Specification {
 
 //      thankYouPage must contain(messagesApi("evidence.otherMoney.statutorySickPay"))
 //      thankYouPage must contain(messagesApi("evidence.otherMoney.otherStatutoryPay"))
-      thankYouPage must contain(messagesApi("evidence.include.documents"))
+//      thankYouPage must contain(messagesApi("evidence.include.documents"))
     }
 
     "not request statutory pay evidence if they don't have statutory pay" in new WithJsBrowser {

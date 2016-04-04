@@ -52,9 +52,6 @@ class FunctionalTestCase4Spec extends FunctionalTestCommon {
       "EmploymentHaveYouBeenEmployedAtAnyTime_0" +
       "EmploymentEmployerName_1"  +
       "EmploymentEmployerName_2" +
-      "EmploymentHaveYouBeenSelfEmployedAtAnyTime" +
-      "OtherMoneyAnyPaymentsSinceClaimDate" +
-      "OtherMoneyHaveYouSSPSinceClaim" +
-      "OtherMoneyHaveYouSMPSinceClaim"
+      "EmploymentHaveYouBeenSelfEmployedAtAnyTime"
   }
 }
