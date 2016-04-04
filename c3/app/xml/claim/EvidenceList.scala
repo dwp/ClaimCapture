@@ -40,8 +40,8 @@ object EvidenceList {
     val evidenceEmployedStatements = Seq(messagesApi("evidence.employment.lastPayslip", stringify(claimDate.dateOfClaim)), "evidence.employment.payslipsSinceClaimDate")
     val evidenceSelfEmployedStatements = Seq("evidence.selfEmployment.accounts")
     val evidencePensionStatements = Seq("evidence.pensionStatements")
-//    val evidenceStatutorySickPay = Seq("evidence.otherMoney.statutorySickPay")
-//    val evidenceOtherStatutoryPay = Seq("evidence.otherMoney.otherStatutoryPay")
+//    val evidenceStatutorySickPay = Seq("evidence.yourIncome.otherPayments.statutorySickPay")
+//    val evidenceOtherStatutoryPay = Seq("evidence.yourIncome.otherPayments.statutoryPay")
     val evidenceSendDocuments = Seq("evidence.include.documents")
 
     var nodes = NodeSeq.Empty

@@ -10,19 +10,18 @@
     claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateOfClaim.`dd month yyyy`
 }
 
-@*
 @receivesStatutorySickPay = @{
-    OtherMoney.receivesStatutorySickPay(claim)
+    claim.questionGroup[YourIncomes].getOrElse(YourIncomes()).yourIncome_sickpay.getOrElse("false") == "true"
 }
 
-@receivesOtherStatutoryPay = @{
-    OtherMoney.receivesOtherStatutoryPay(claim)
+@receivesStatutoryMaternityPaternityAdoptionPay = @{
+    claim.questionGroup[YourIncomes].getOrElse(YourIncomes()).yourIncome_patmatadoppay.getOrElse("false") == "true"
 }
 
 @receivesStatutoryPay = @{
-    receivesStatutorySickPay || receivesOtherStatutoryPay
+    receivesStatutorySickPay || receivesStatutoryMaternityPaternityAdoptionPay
 }
-*@
+
 @isCofcSelfEmployment = @{
     claim.questionGroup[CircumstancesEmploymentChange] match {
         case Some(ec) if ec.typeOfWork.answer == GEmploymentChange.selfemployed => true
@@ -113,7 +112,7 @@
 
                     <h2>@Html(messages("mail.next.title"))</h2>
 
-                    @if((isEmployment && !isCofcSelfEmployment)){ @* || receivesStatutoryPay) { *@
+                    @if((isEmployment && !isCofcSelfEmployment) || receivesStatutoryPay) {
 
                         <p>@Html(messages("mail.next.send1"))</p>
 
@@ -127,10 +126,10 @@
                                     <li>@Html(messages("evidence.email.employment.anyPayslipsSince", claimDate))</li>
                                 }
                                 @if(ClaimUtils.pensionStatementsRequired(claim)) {<li>@Html(messages("evidence.pensionStatements"))</li>}
-                                @*
-                                @if(receivesStatutorySickPay) {<li>@Html(messages("evidence.otherMoney.statutorySickPay"))</li>}
-                                @if(receivesOtherStatutoryPay) {<li>@Html(messages("evidence.otherMoney.otherStatutoryPay"))</li>}
-                                *@
+
+                                @if(receivesStatutorySickPay) {<li>@Html(messages("evidence.yourIncome.otherPayments.statutorySickPay"))</li>}
+                                @if(receivesStatutoryPay) {<li>@Html(messages("evidence.yourIncome.otherPayments.statutoryPay"))</li>}
+
                             }else{
                                 @if(!isCofcSelfEmployment){
                                     <li>@Html(messages("evidence.email.cofc.employment.anyPayslips"))</li>

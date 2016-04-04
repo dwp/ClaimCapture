@@ -1,7 +1,8 @@
 package controllers
 
 import controllers.mappings.Mappings
-import models.domain.Claim
+import models.DayMonthYear
+import models.domain.{YourIncomes, StatutorySickPay, StatutoryMaternityPaternityAdoptionPay, Claim}
 import models.view.CachedClaim
 import models.yesNo.{YesNoWithEmployerAndMoney, YesNo}
 import org.specs2.mutable._
@@ -74,37 +75,35 @@ class ThankYouIntegrationSpec extends Specification {
       implicit val lang = Lang("en")
       val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
       implicit val messages = Messages(lang, messagesApi)
-//      val otherPayments = AboutOtherMoney(YesNo(""), None, None, None,
-//        YesNoWithEmployerAndMoney(Mappings.yes, None, None, None, None, None),
-//        YesNoWithEmployerAndMoney(Mappings.yes, None, None, None, None, None))
+      val yourIncomes = YourIncomes(yourIncome_sickpay = Some("true"), yourIncome_patmatadoppay = Some("true"))
+      val statutorySickPay = StatutorySickPay(stillBeingPaidThisPay = "no", whenDidYouLastGetPaid = Some(DayMonthYear.today), whoPaidYouThisPay = "ASDA", amountOfThisPay = "12", howOftenPaidThisPay = "other", howOftenPaidThisPayOther = Some("It varies"))
+      val statutoryPay = StatutoryMaternityPaternityAdoptionPay(paymentTypesForThisPay = "AdoptionPay", stillBeingPaidThisPay = "no", whenDidYouLastGetPaid = Some(DayMonthYear.today), whoPaidYouThisPay = "ASDA", amountOfThisPay = "12", howOftenPaidThisPay = "other", howOftenPaidThisPayOther = Some("It varies"))
 
-      implicit val claim = Claim(CachedClaim.key) //.update(otherPayments)
+      implicit val claim = Claim(CachedClaim.key).update(yourIncomes).update(statutorySickPay).update(statutoryPay)
       implicit val request = FakeRequest()
       implicit val flash = Flash()
 
       val thankYouPage = views.html.common.thankYouClaim(lang).body
 
-//      thankYouPage must contain(messagesApi("evidence.otherMoney.statutorySickPay"))
-//      thankYouPage must contain(messagesApi("evidence.otherMoney.otherStatutoryPay"))
-//      thankYouPage must contain(messagesApi("evidence.include.documents"))
+      thankYouPage must contain(messagesApi("evidence.yourIncome.otherPayments.statutorySickPay"))
+      thankYouPage must contain(messagesApi("evidence.yourIncome.otherPayments.statutoryPay"))
+      thankYouPage must contain(messagesApi("evidence.include.documents"))
     }
 
     "not request statutory pay evidence if they don't have statutory pay" in new WithJsBrowser {
       implicit val lang = Lang("en")
       val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
       implicit val messages = Messages(lang, messagesApi)
-//      val otherPayments = AboutOtherMoney(YesNo(""), None, None, None,
-//        YesNoWithEmployerAndMoney(Mappings.no, None, None, None, None, None),
-//        YesNoWithEmployerAndMoney(Mappings.no, None, None, None, None, None))
+      val yourIncomes = YourIncomes(yourIncome_none = Some("true"))
 
-      implicit val claim = Claim(CachedClaim.key) //.update(otherPayments)
+      implicit val claim = Claim(CachedClaim.key).update(yourIncomes)
       implicit val request = FakeRequest()
       implicit val flash = Flash()
 
       val thankYouPage = views.html.common.thankYouClaim(lang).body
 
-//      thankYouPage must not contain messagesApi("evidence.otherMoney.statutorySickPay")
-//      thankYouPage must not contain messagesApi("evidence.otherMoney.otherStatutoryPay")
+      thankYouPage must not contain messagesApi("evidence.yourIncome.otherPayments.statutorySickPay")
+      thankYouPage must not contain messagesApi("evidence.yourIncome.otherPayments.statutoryPay")
       browser.pageSource() must not contain(messagesApi("evidence.include.documents"))
     }
   }

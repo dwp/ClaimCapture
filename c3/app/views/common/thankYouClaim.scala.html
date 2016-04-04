@@ -14,16 +14,16 @@
 @isSelfEmployment = @{
     SelfEmployment.isSelfEmployed(claim)
 }
-@*
-//@hasStatutorySickPay = @{
-//    OtherMoney.receivesStatutorySickPay(claim)
-//}
-//@hasOtherStatutoryPay = @{
-//    OtherMoney.receivesOtherStatutoryPay(claim)
-//}
-*@
+
+@hasStatutorySickPay = @{
+    claim.questionGroup[YourIncomes].getOrElse(YourIncomes()).yourIncome_sickpay.getOrElse("false") == "true"
+}
+@hasStatutoryPay = @{
+    claim.questionGroup[YourIncomes].getOrElse(YourIncomes()).yourIncome_patmatadoppay.getOrElse("false") == "true"
+}
+
 @evidenceRequired = @{
-    isEmployment || isSelfEmployment //|| hasStatutorySickPay || hasOtherStatutoryPay
+    isEmployment || isSelfEmployment || hasStatutorySickPay || hasStatutoryPay
 }
 @claimDate = @{
     claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateOfClaim
@@ -101,14 +101,13 @@
                             @if(ClaimUtils.pensionStatementsRequired(claim)) {
                                 <li>@messages("evidence.pensionStatements")</li>
                             }
-                            @*
                             @if(hasStatutorySickPay) {
-                                <li>@messages("evidence.otherMoney.statutorySickPay")</li>
+                                <li>@messages("evidence.yourIncome.otherPayments.statutorySickPay")</li>
                             }
-                            @if(hasOtherStatutoryPay) {
-                                <li>@messages("evidence.otherMoney.otherStatutoryPay")</li>
+                            @if(hasStatutoryPay) {
+                                <li>@messages("evidence.yourIncome.otherPayments.statutoryPay")</li>
                             }
-                            *@
+
                         </ul>
 
                         <p>@Html(messages("evidence.include.documents"))</p>
