@@ -8,7 +8,6 @@
 @import controllers.mappings.Mappings._
 @import models.domain._
 
-
 @toggle = @{
 	!app.ConfigProperties.getProperty("cyaToggleVisible",true)
 }
@@ -54,7 +53,7 @@
                         @breaks()
 	                    @education()
 	                    @employment()
-	                    @otherMoney()
+	                    @* @otherMoney() *@
 						@if(showBankDetails){
 							@bankDetails()
 						}

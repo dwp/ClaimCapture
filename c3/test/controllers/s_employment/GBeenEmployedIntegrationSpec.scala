@@ -28,7 +28,7 @@ class GBeenEmployedIntegrationSpec extends Specification {
       employment must beAnInstanceOf[GYourIncomePage]
     }
 
-    """be bypassed and go onto "other money" having indicated that "employment" is not required.""" in new WithBrowser with PageObjects {
+    """be bypassed and go onto "statutory sick pay" having indicated that "employment" is not required.""" in new WithBrowser with PageObjects {
       val claimDate = new GClaimDatePage(context) goToThePage()
       claimDate.fillPageWith(s7NotEmployedNorSelfEmployed())
       claimDate.submitPage()
@@ -36,7 +36,6 @@ class GBeenEmployedIntegrationSpec extends Specification {
       val employment = new GYourIncomePage(claimDate.ctx) goToThePage()
       employment.fillPageWith(s7NotEmployedNorSelfEmployed())
       val statutorySickPay = employment.submitPage()
-
 
       statutorySickPay must beAnInstanceOf[GStatutorySickPayPage]
     }
@@ -49,10 +48,9 @@ class GBeenEmployedIntegrationSpec extends Specification {
 
       val employment = new GYourIncomePage(claimDate.ctx) goToThePage()
       employment.fillPageWith(s7SelfEmployedAndEmployed())
-      val selfEmployment = employment.submitPage()
+      val jobDetails = employment.submitPage()
 
-
-      selfEmployment must beAnInstanceOf[GSelfEmploymentDatesPage]
+      jobDetails must beAnInstanceOf[GJobDetailsPage]
     }
 
     "start employment entry" in new WithBrowser with PageObjects {
@@ -63,7 +61,6 @@ class GBeenEmployedIntegrationSpec extends Specification {
       val employment = new GYourIncomePage(claimDate.ctx) goToThePage()
       employment.fillPageWith(s7EmployedNotSelfEmployed())
       val jobDetails = employment.submitPage()
-
 
       jobDetails must beAnInstanceOf[GJobDetailsPage]
     }
@@ -152,6 +149,7 @@ trait EmployedHistoryPage extends GClaimDatePageContext {
 
     employmentData.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
     employmentData.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
+    employmentData.YourIncomeNone = "true"
 
     val employmentPage = page goToPage new GYourIncomePage(PageObjectsContext(browser))
     employmentPage fillPageWith employmentData

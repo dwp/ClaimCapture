@@ -14,7 +14,6 @@ object SectionsManager {
     Breaks,
     Education,
     YourIncome,
-    OtherMoney,
     PayDetails,
     Information
   )

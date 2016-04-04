@@ -1,9 +1,8 @@
-@import play.api.Play
 @(yesNoForm: Form[models.domain.BreaksInCareSummary], breaksInCare: models.domain.BreaksInCare)(implicit claim: models.domain.Claim, lang: Lang, request: play.api.mvc.Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
 
 @import views.html.helper.base._
 @import views.html.helper._
-@import models.domain.{ClaimDate, Education, Employed, OtherMoney, SelfEmployment}
+@import models.domain.{ClaimDate, Education, Employed, SelfEmployment, YourIncomeStatutorySickPay}
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
 @import language.postfixOps
@@ -23,7 +22,7 @@
 if (Education.visible) Education.name
 else if (Employed.visible) Employed.name
 else if (SelfEmployment.visible) SelfEmployment.name
-else OtherMoney.name
+else YourIncomeStatutorySickPay.name
 }
 
 @displayReason(reasonList:Seq[(String,Html)], answer:String) = @{

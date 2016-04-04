@@ -174,6 +174,7 @@ object ClaimScenarioFactory {
     // Employment
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "Yes"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
+    claim.YourIncomeNone = "true"
     claim
   }
 
@@ -523,6 +524,7 @@ object ClaimScenarioFactory {
     // Employment
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "Yes"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
+    claim.YourIncomeNone = "true"
     claim
   }
 
@@ -532,6 +534,7 @@ object ClaimScenarioFactory {
     // Employment
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "Yes"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "No"
+    claim.YourIncomeNone = "true"
     claim
   }
 
@@ -541,6 +544,7 @@ object ClaimScenarioFactory {
     // Employment
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
+    claim.YourIncomeNone = "true"
     claim
   }
 
@@ -550,6 +554,7 @@ object ClaimScenarioFactory {
     // Employment
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "No"
+    claim.YourIncomeStatutorySickPay = "true"
     claim
   }
 
@@ -605,6 +610,7 @@ object ClaimScenarioFactory {
     claim.EducationHaveYouBeenOnACourseOfEducation = "no"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
+    claim.YourIncomeNone = "true"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime = "yes"
     claim.EmploymentDoYouWantToAddAnythingAboutYourWork = "no"
 
@@ -645,6 +651,7 @@ object ClaimScenarioFactory {
     claim.EducationHaveYouBeenOnACourseOfEducation = "no"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
+    claim.YourIncomeNone = "true"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime = "yes"
     claim.EmploymentDoYouWantToAddAnythingAboutYourWork = "no"
 
@@ -964,6 +971,7 @@ object ClaimScenarioFactory {
   def s7EmploymentAdditionalInfo = {
     val claim = new TestData
     claim.EmploymentDoYouWantToAddAnythingAboutYourWork = "yes"
+    claim.YourIncomeStatutorySickPay = "true"
     claim.EmploymentAdditionalInfo = "I do not have more information"
     claim
   }

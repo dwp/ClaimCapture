@@ -31,17 +31,17 @@ object EvidenceList {
   def evidence(claim: Claim): NodeSeq = {
     val employed = Employed.isEmployed(claim)
     val selfEmployed = models.domain.SelfEmployment.isSelfEmployed(claim)
-    val receivesStatutorySickPay = OtherMoney.receivesStatutorySickPay(claim)
-    val receivesOtherStatutoryPay = OtherMoney.receivesOtherStatutoryPay(claim)
+//    val receivesStatutorySickPay = OtherMoney.receivesStatutorySickPay(claim)
+//    val receivesOtherStatutoryPay = OtherMoney.receivesOtherStatutoryPay(claim)
     val claimDate = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
     val isEmail = claim.questionGroup[ContactDetails].getOrElse(ContactDetails()).wantsContactEmail == Mappings.yes
-    val evidenceRequired = employed || selfEmployed || receivesStatutorySickPay || receivesOtherStatutoryPay
+    val evidenceRequired = employed || selfEmployed //|| receivesStatutorySickPay || receivesOtherStatutoryPay
 
     val evidenceEmployedStatements = Seq(messagesApi("evidence.employment.lastPayslip", stringify(claimDate.dateOfClaim)), "evidence.employment.payslipsSinceClaimDate")
     val evidenceSelfEmployedStatements = Seq("evidence.selfEmployment.accounts")
     val evidencePensionStatements = Seq("evidence.pensionStatements")
-    val evidenceStatutorySickPay = Seq("evidence.otherMoney.statutorySickPay")
-    val evidenceOtherStatutoryPay = Seq("evidence.otherMoney.otherStatutoryPay")
+//    val evidenceStatutorySickPay = Seq("evidence.otherMoney.statutorySickPay")
+//    val evidenceOtherStatutoryPay = Seq("evidence.otherMoney.otherStatutoryPay")
     val evidenceSendDocuments = Seq("evidence.include.documents")
 
     var nodes = NodeSeq.Empty
@@ -67,11 +67,13 @@ object EvidenceList {
       val employment = emptySeqIfFalse(employed,evidenceEmployedStatements)
       val selfEmployment = emptySeqIfFalse(selfEmployed,evidenceSelfEmployedStatements)
       val pension = emptySeqIfFalse(ClaimUtils.pensionStatementsRequired(claim),evidencePensionStatements)
-      val statutorySickPay = emptySeqIfFalse(receivesStatutorySickPay, evidenceStatutorySickPay)
-      val otherStatutoryPay = emptySeqIfFalse(receivesOtherStatutoryPay, evidenceOtherStatutoryPay)
-      val sendDocument = emptySeqIfFalse(employed || selfEmployed || receivesOtherStatutoryPay || receivesStatutorySickPay, evidenceSendDocuments)
+//      val statutorySickPay = emptySeqIfFalse(receivesStatutorySickPay, evidenceStatutorySickPay)
+//      val otherStatutoryPay = emptySeqIfFalse(receivesOtherStatutoryPay, evidenceOtherStatutoryPay)
+      val sendDocument = emptySeqIfFalse(employed || selfEmployed, evidenceSendDocuments)// || receivesOtherStatutoryPay || receivesStatutorySickPay, evidenceSendDocuments)
       nodes ++= evidenceSection(true,"evidence.required",Seq("thankyou.send")++employment++selfEmployment++
-        pension++statutorySickPay++otherStatutoryPay++sendDocument++commonMessages)
+        pension
+//        ++statutorySickPay++otherStatutoryPay
+        ++sendDocument++commonMessages)
     }
     nodes
   }

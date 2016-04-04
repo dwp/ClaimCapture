@@ -8,7 +8,7 @@ import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import controllers.ClaimScenarioFactory
 
-class PreviewPageOtherMoneyContentSpec extends Specification {
+class PreviewPageYourIncomeOtherPaymentsContentSpec extends Specification {
   section("preview")
   "Preview Page" should {
     "display other money data" in new WithBrowser with PageObjects {

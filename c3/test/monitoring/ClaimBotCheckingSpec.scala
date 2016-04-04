@@ -223,95 +223,199 @@ class ClaimBotCheckingSpec extends Specification with Mockito {
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns true given AboutOtherMoney answered no and honeyPot howOften filled" in new WithBrowser {
-      val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), Some("Toys R Us"), Some("12"), howOften = Some(models.PaymentFrequency(frequency = PensionPaymentFrequency.Weekly, other = Some("other text"))),
-        YesNoWithEmployerAndMoney("no", None, None, None, None, None),
-        YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
+    "returns true given StatutorySickPay checked, stillBeingPaidThisPay answered yes and whenDidYouLastGetPaid honeyPot filled" in new WithBrowser {
+      val claim = Claim(CachedClaim.key)
+        .update(YourIncomes(yourIncome_sickpay = Some("true")))
+        .update(
+          StatutorySickPay(
+            stillBeingPaidThisPay = "yes",
+            whenDidYouLastGetPaid = Some(DayMonthYear.today),
+            whoPaidYouThisPay = "ASDA",
+            amountOfThisPay = "12",
+            howOftenPaidThisPay = "other",
+            howOftenPaidThisPayOther = Some("It varies")
+          )
+        )
 
       controller.honeyPot(claim) should beTrue
     }
 
-    "returns false given StatutorySickPay answered yes and honeyPot filled" in new WithBrowser {
-      val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("yes", howMuch = Some("12"), None, None, None, None),
-        YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
-      controller.honeyPot(claim) should beFalse
-    }
+    "returns true given StatutorySickPay checked and howOftenPaidThisPayOther honeyPot filled" in new WithBrowser {
+      val claim = Claim(CachedClaim.key)
+        .update(YourIncomes(yourIncome_sickpay = Some("true")))
+        .update(
+          StatutorySickPay(
+            stillBeingPaidThisPay = "no",
+            whenDidYouLastGetPaid = Some(DayMonthYear.today),
+            whoPaidYouThisPay = "ASDA",
+            amountOfThisPay = "12",
+            howOftenPaidThisPay = "monthly",
+            howOftenPaidThisPayOther = Some("It varies")
+          )
+        )
 
-    "returns false given StatutorySickPay answered no and honeyPot not filled" in new WithBrowser {
-      val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
-        YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
-      controller.honeyPot(claim) should beFalse
-    }
-
-    "returns false given StatutorySickPay answered no and honeyPot howMuch filled" in new WithBrowser {
-      val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", howMuch = None, None, None, None, None),
-        YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
-      controller.honeyPot(claim) should beFalse
-    }
-
-    "returns false given StatutorySickPay answered no and honeyPot howOften filled"in new WithBrowser {
-      val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("yes",  None, Some(models.PaymentFrequency(frequency = PensionPaymentFrequency.Weekly)), None, None, None),
-        YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
-      controller.honeyPot(claim) should beFalse
-    }
-
-    "returns true given StatutorySickPay answered no and honeyPot employersName filled" in new WithBrowser {
-      val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, employersName = Some("some employersName"), None, None),
-        YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
       controller.honeyPot(claim) should beTrue
     }
 
-    "returns false given StatutorySickPay answered no and honeyPot employersAddress filled" in new WithBrowser {
-      val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("yes", None, None, None, Some(MultiLineAddress(Some("some lineOne"))), None),
-        YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
+    "returns false given StatutorySickPay not checked and not honeyPot filled" in new WithBrowser {
+      val claim = Claim(CachedClaim.key)
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns true given StatutorySickPay answered no and honeyPot employersPostcode filled" in new WithBrowser {
-      val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, Some("PR1A4JQ")),
-        YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
-      controller.honeyPot(claim) should beTrue
-    }
-
-    "returns false given OtherStatutoryPay answered yes and honeyPot filled" in new WithBrowser {
-      val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
-        YesNoWithEmployerAndMoney("yes", Some("12"), None, None, None, None)))
+    "returns false given StatutoryPay not checked not honeyPot filled" in new WithBrowser {
+      val claim = Claim(CachedClaim.key)
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns false given OtherStatutoryPay answered no and honeyPot not filled" in new WithBrowser {
-      val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
-        YesNoWithEmployerAndMoney("no", None, None, None, None, None)))
+    "returns false given FosteringAllowance not checked and not honeyPot filled" in new WithBrowser {
+      val claim = Claim(CachedClaim.key)
       controller.honeyPot(claim) should beFalse
     }
 
-    "returns true given OtherStatutoryPay answered no and honeyPot howMuch filled" in new WithBrowser {
-      val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
-        YesNoWithEmployerAndMoney("no", howMuch=Some("12"), None, None, None, None)))
+    "returns false given DirectPay not checked and not honeypot filled"in new WithBrowser {
+      val claim = Claim(CachedClaim.key)
+      controller.honeyPot(claim) should beFalse
+    }
+
+    "returns false given OtherPayments not checked and not honeypot filled"in new WithBrowser {
+      val claim = Claim(CachedClaim.key)
+      controller.honeyPot(claim) should beFalse
+    }
+
+    "returns true given StatutoryPay checked, stillBeingPaidThisPay answered yes and whenDidYouLastGetPaid honeyPot filled" in new WithBrowser {
+      val claim = Claim(CachedClaim.key)
+        .update(YourIncomes(yourIncome_patmatadoppay = Some("true")))
+        .update(
+          StatutoryMaternityPaternityAdoptionPay(
+            paymentTypesForThisPay = "AdoptionPay",
+            stillBeingPaidThisPay = "yes",
+            whenDidYouLastGetPaid = Some(DayMonthYear.today),
+            whoPaidYouThisPay = "ASDA",
+            amountOfThisPay = "12",
+            howOftenPaidThisPay = "other",
+            howOftenPaidThisPayOther = Some("It varies")
+          )
+        )
+
       controller.honeyPot(claim) should beTrue
     }
 
-    "returns true given OtherStatutoryPay answered no and honeyPot howOften filled" in new WithBrowser {
-      val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
-        YesNoWithEmployerAndMoney("no", None, Some(models.PaymentFrequency(frequency = PensionPaymentFrequency.Weekly)), None, None, None)))
+    "returns true given StatutoryPay checked and howOftenPaidThisPayOther honeyPot filled" in new WithBrowser {
+      val claim = Claim(CachedClaim.key)
+        .update(YourIncomes(yourIncome_patmatadoppay = Some("true")))
+        .update(
+          StatutoryMaternityPaternityAdoptionPay(
+            paymentTypesForThisPay = "AdoptionPay",
+            stillBeingPaidThisPay = "no",
+            whenDidYouLastGetPaid = Some(DayMonthYear.today),
+            whoPaidYouThisPay = "ASDA",
+            amountOfThisPay = "12",
+            howOftenPaidThisPay = "monthly",
+            howOftenPaidThisPayOther = Some("It varies")
+          )
+        )
+
       controller.honeyPot(claim) should beTrue
     }
 
-    "returns true given OtherStatutoryPay answered no and honeyPot employersName filled" in new WithBrowser {
-      val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
-        YesNoWithEmployerAndMoney("no", None, None, employersName = Some("some employersName"), None, None)))
+    "returns true given FosteringAllowance checked, stillBeingPaidThisPay answered yes and whenDidYouLastGetPaid honeyPot filled" in new WithBrowser {
+      val claim = Claim(CachedClaim.key)
+        .update(YourIncomes(yourIncome_fostering = Some("true")))
+        .update(
+          FosteringAllowance(
+            paymentTypesForThisPay = "FosteringAllowance",
+            stillBeingPaidThisPay = "yes",
+            whenDidYouLastGetPaid = Some(DayMonthYear.today),
+            whoPaidYouThisPay = "ASDA",
+            amountOfThisPay = "12",
+            howOftenPaidThisPay = "other",
+            howOftenPaidThisPayOther = Some("It varies")
+          )
+        )
+
       controller.honeyPot(claim) should beTrue
     }
 
-    "returns true given OtherStatutoryPay answered no and honeyPot employersAddress filled" in new WithBrowser {
-      val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
-        YesNoWithEmployerAndMoney("no", None, None, None, Some(MultiLineAddress(Some("some lineOne"))), None)))
+    "returns true given FosteringAllowance checked and howOftenPaidThisPayOther honeyPot filled" in new WithBrowser {
+      val claim = Claim(CachedClaim.key)
+        .update(YourIncomes(yourIncome_fostering = Some("true")))
+        .update(
+          FosteringAllowance(
+            paymentTypesForThisPay = "FosteringAllowance",
+            stillBeingPaidThisPay = "no",
+            whenDidYouLastGetPaid = Some(DayMonthYear.today),
+            whoPaidYouThisPay = "ASDA",
+            amountOfThisPay = "12",
+            howOftenPaidThisPay = "monthly",
+            howOftenPaidThisPayOther = Some("It varies")
+          )
+        )
+
       controller.honeyPot(claim) should beTrue
     }
 
-    "returns true given OtherStatutoryPay answered no and honeyPot employersPostcode filled" in new WithBrowser {
-      val claim = Claim(CachedClaim.key).update(AboutOtherMoney(YesNo("no"), None, None, None, YesNoWithEmployerAndMoney("no", None, None, None, None, None),
-        YesNoWithEmployerAndMoney("no", None, None, None, None, Some("PR1A4JQ"))))
+    "returns true given FosteringAllowance checked, paymentTypesForThisPay not other and paymentTypesForThisPayOther honeyPot filled" in new WithBrowser {
+      val claim = Claim(CachedClaim.key)
+        .update(YourIncomes(yourIncome_fostering = Some("true")))
+        .update(
+          FosteringAllowance(
+            paymentTypesForThisPay = "FosteringAllowance",
+            paymentTypesForThisPayOther = Some("Test1234"),
+            stillBeingPaidThisPay = "no",
+            whenDidYouLastGetPaid = Some(DayMonthYear.today),
+            whoPaidYouThisPay = "ASDA",
+            amountOfThisPay = "12",
+            howOftenPaidThisPay = "other",
+            howOftenPaidThisPayOther = Some("It varies")
+          )
+        )
+
+      controller.honeyPot(claim) should beTrue
+    }
+
+    "returns true given DirectPayment checked, stillBeingPaidThisPay answered yes and whenDidYouLastGetPaid honeyPot filled" in new WithBrowser {
+      val claim = Claim(CachedClaim.key)
+        .update(YourIncomes(yourIncome_directpay = Some("true")))
+        .update(
+          DirectPayment(
+            stillBeingPaidThisPay = "yes",
+            whenDidYouLastGetPaid = Some(DayMonthYear.today),
+            whoPaidYouThisPay = "ASDA",
+            amountOfThisPay = "12",
+            howOftenPaidThisPay = "other",
+            howOftenPaidThisPayOther = Some("It varies")
+          )
+        )
+
+      controller.honeyPot(claim) should beTrue
+    }
+
+    "returns true given DirectPayment checked and howOftenPaidThisPayOther honeyPot filled" in new WithBrowser {
+      val claim = Claim(CachedClaim.key)
+        .update(YourIncomes(yourIncome_directpay = Some("true")))
+        .update(
+          DirectPayment(
+            stillBeingPaidThisPay = "no",
+            whenDidYouLastGetPaid = Some(DayMonthYear.today),
+            whoPaidYouThisPay = "ASDA",
+            amountOfThisPay = "12",
+            howOftenPaidThisPay = "monthly",
+            howOftenPaidThisPayOther = Some("It varies")
+          )
+        )
+
+      controller.honeyPot(claim) should beTrue
+    }
+
+    "returns true given OtherPayments checked and whenDidYouLastGetPaid honeyPot filled" in new WithBrowser {
+      val claim = Claim(CachedClaim.key)
+        .update(YourIncomes())
+        .update(
+          OtherPayments(
+            otherPaymentsInfo = "Test1234"
+          )
+        )
+
       controller.honeyPot(claim) should beTrue
     }
   }

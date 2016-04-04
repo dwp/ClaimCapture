@@ -65,7 +65,7 @@ object AssistedDecision extends XMLComponent {
   }
 
   private def isHappyPath(claim: Claim): AssistedDecisionDetails = {
-    val aboutYourMoney = claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney())
+    //val aboutYourMoney = claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney())
     val employment = claim.questionGroup[YourIncomes].getOrElse(models.domain.YourIncomes())
     val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(nationality = "British"))
       (checkBenefits(claim.questionGroup[Benefits].getOrElse(Benefits()).benefitsAnswer),
@@ -78,9 +78,9 @@ object AssistedDecision extends XMLComponent {
         claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails()).beenInEducationSinceClaimDate,
         employment.beenEmployedSince6MonthsBeforeClaim,
         employment.beenSelfEmployedSince1WeekBeforeClaim,
-        aboutYourMoney.anyPaymentsSinceClaimDate.answer,
-        aboutYourMoney.statutorySickPay.answer,
-        aboutYourMoney.otherStatutoryPay.answer,
+//        aboutYourMoney.anyPaymentsSinceClaimDate.answer,
+//        aboutYourMoney.statutorySickPay.answer,
+//        aboutYourMoney.otherStatutoryPay.answer,
         claim.questionGroup[HowWePayYou].getOrElse(HowWePayYou()).likeToBePaid,
         claim.questionGroup[AdditionalInfo].getOrElse(AdditionalInfo()).anythingElse.answer
        ) match {
@@ -94,9 +94,9 @@ object AssistedDecision extends XMLComponent {
               "no",  //been in education
               "no",  //employed
               "no",  //self employed
-              "no",  //any payments
-              "no",  //SSP
-              "no",  //other payments
+//              "no",  //any payments
+//              "no",  //SSP
+//              "no",  //other payments
               "yes", //bank account
               "no"   //additional info
               ) => decisionModel("Check CIS for benefits.", "Potential award,show table")

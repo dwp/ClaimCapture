@@ -1,16 +1,17 @@
 package controllers.s_employment
 
+import models.view.ClaimHandling._
 import play.api.Play._
 
 import language.reflectiveCalls
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
-import play.api.mvc.Controller
+import play.api.mvc.{AnyContent, Request, Controller}
 import controllers.mappings.Mappings._
 import utils.helpers.CarersForm._
 import controllers.CarersForms._
 import models.view.{Navigable, CachedClaim}
-import models.domain.EmploymentAdditionalInfo
+import models.domain.{Claim, EmploymentAdditionalInfo}
 import models.yesNo.YesNoWithText
 import play.api.i18n._
 
@@ -39,7 +40,12 @@ object GEmploymentAdditionalInfo extends Controller with CachedClaim with Naviga
         .replaceError("empAdditionalInfo", "empAdditionalInfo.text.required", FormError("empAdditionalInfo.text", errorRequired))
         BadRequest(views.html.s_employment.g_employmentAdditionalInfo(formWithErrorsUpdate))
       },
-      employmentAdditionalInfo => claim.update(employmentAdditionalInfo) -> Redirect(controllers.s_self_employment.routes.GSelfEmploymentDates.present())
+      employmentAdditionalInfo => claim.update(employmentAdditionalInfo) -> Redirect(controllers.your_income.routes.GStatutorySickPay.present())
     )
   } withPreview()
+
+  def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+    if (models.domain.SelfEmployment.visible || models.domain.Employed.visible) c
+    else claim -> Redirect(controllers.your_income.routes.GStatutorySickPay.present())
+  }
 }

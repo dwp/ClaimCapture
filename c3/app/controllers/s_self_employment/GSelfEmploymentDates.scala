@@ -3,7 +3,7 @@ package controllers.s_self_employment
 import controllers.CarersForms._
 import controllers.mappings.Mappings._
 import controllers.s_self_employment.SelfEmployment._
-import models.domain.{SelfEmploymentDates, Claim}
+import models.domain.{YourIncomes, SelfEmploymentDates, Claim}
 import models.view.ClaimHandling.ClaimResult
 import models.view.{CachedClaim, Navigable}
 import play.api.Play._
@@ -91,10 +91,13 @@ object GSelfEmploymentDates extends Controller with CachedClaim with Navigable w
     presentConditionally(aboutSelfEmployment)
   }
 
+  def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+    if (models.domain.SelfEmployment.visible) c
+    else claim -> Redirect(controllers.s_employment.routes.GEmploymentAdditionalInfo.present())
+  }
+
   private def aboutSelfEmployment(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
-    track(SelfEmploymentDates) {
-      implicit claim => Ok(views.html.s_self_employment.g_selfEmploymentDates(form.fill(SelfEmploymentDates)))
-    }
+     track(SelfEmploymentDates) { implicit claim => Ok(views.html.s_self_employment.g_selfEmploymentDates(form.fill(SelfEmploymentDates))) }
   }
 
   def submit = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>

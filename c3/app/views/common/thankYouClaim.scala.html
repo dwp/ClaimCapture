@@ -14,14 +14,16 @@
 @isSelfEmployment = @{
     SelfEmployment.isSelfEmployed(claim)
 }
-@hasStatutorySickPay = @{
-    OtherMoney.receivesStatutorySickPay(claim)
-}
-@hasOtherStatutoryPay = @{
-    OtherMoney.receivesOtherStatutoryPay(claim)
-}
+@*
+//@hasStatutorySickPay = @{
+//    OtherMoney.receivesStatutorySickPay(claim)
+//}
+//@hasOtherStatutoryPay = @{
+//    OtherMoney.receivesOtherStatutoryPay(claim)
+//}
+*@
 @evidenceRequired = @{
-    isEmployment || isSelfEmployment || hasStatutorySickPay || hasOtherStatutoryPay
+    isEmployment || isSelfEmployment //|| hasStatutorySickPay || hasOtherStatutoryPay
 }
 @claimDate = @{
     claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateOfClaim
@@ -99,12 +101,14 @@
                             @if(ClaimUtils.pensionStatementsRequired(claim)) {
                                 <li>@messages("evidence.pensionStatements")</li>
                             }
+                            @*
                             @if(hasStatutorySickPay) {
                                 <li>@messages("evidence.otherMoney.statutorySickPay")</li>
                             }
                             @if(hasOtherStatutoryPay) {
                                 <li>@messages("evidence.otherMoney.otherStatutoryPay")</li>
                             }
+                            *@
                         </ul>
 
                         <p>@Html(messages("evidence.include.documents"))</p>

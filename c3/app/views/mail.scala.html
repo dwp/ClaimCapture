@@ -10,6 +10,7 @@
     claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateOfClaim.`dd month yyyy`
 }
 
+@*
 @receivesStatutorySickPay = @{
     OtherMoney.receivesStatutorySickPay(claim)
 }
@@ -21,7 +22,7 @@
 @receivesStatutoryPay = @{
     receivesStatutorySickPay || receivesOtherStatutoryPay
 }
-
+*@
 @isCofcSelfEmployment = @{
     claim.questionGroup[CircumstancesEmploymentChange] match {
         case Some(ec) if ec.typeOfWork.answer == GEmploymentChange.selfemployed => true
@@ -112,7 +113,7 @@
 
                     <h2>@Html(messages("mail.next.title"))</h2>
 
-                    @if((isEmployment && !isCofcSelfEmployment) || receivesStatutoryPay) {
+                    @if((isEmployment && !isCofcSelfEmployment)){ @* || receivesStatutoryPay) { *@
 
                         <p>@Html(messages("mail.next.send1"))</p>
 
@@ -126,8 +127,10 @@
                                     <li>@Html(messages("evidence.email.employment.anyPayslipsSince", claimDate))</li>
                                 }
                                 @if(ClaimUtils.pensionStatementsRequired(claim)) {<li>@Html(messages("evidence.pensionStatements"))</li>}
+                                @*
                                 @if(receivesStatutorySickPay) {<li>@Html(messages("evidence.otherMoney.statutorySickPay"))</li>}
                                 @if(receivesOtherStatutoryPay) {<li>@Html(messages("evidence.otherMoney.otherStatutoryPay"))</li>}
+                                *@
                             }else{
                                 @if(!isCofcSelfEmployment){
                                     <li>@Html(messages("evidence.email.cofc.employment.anyPayslips"))</li>

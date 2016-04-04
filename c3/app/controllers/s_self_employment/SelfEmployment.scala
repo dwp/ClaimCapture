@@ -31,5 +31,5 @@ object SelfEmployment extends Controller with CachedClaim with Navigable with I1
   }
 
   private def redirect()(implicit claim: Claim, lang: Lang, messages: Messages, request: Request[AnyContent]): ClaimResult =
-    claim -> Redirect(controllers.your_income.routes.GStatutorySickPay.present())
+    claim -> Redirect(controllers.s_employment.routes.GEmploymentAdditionalInfo.present())
 }

@@ -96,11 +96,11 @@ package object app {
       case FourWeekly => "Four-weekly"
       case DontKnowYet => "Don't know yet"
       case Monthly => "Monthly"
-      case ItVaries => "It varies"
       case Other => otherCode match {
         case Some(s) => "Other: " + s
         case _ => "Other"
       } //+ paymentFrequency.other.getOrElse("")
+      case ItVaries => "It varies"
       case _ => ""
     }
 

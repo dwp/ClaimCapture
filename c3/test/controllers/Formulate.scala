@@ -97,6 +97,7 @@ object Formulate {
     browser.goTo("/your-income/your-income")
     browser.click("#beenEmployedSince6MonthsBeforeClaim_yes")
     browser.click("#beenSelfEmployedSince1WeekBeforeClaim_yes")
+    browser.click("#yourIncome_none")
     browser.submit("button[type='submit']")
   }
 
@@ -104,6 +105,7 @@ object Formulate {
     browser.goTo("/your-income/your-income")
     browser.click("#beenEmployedSince6MonthsBeforeClaim_yes")
     browser.click("#beenSelfEmployedSince1WeekBeforeClaim_no")
+    browser.click("#yourIncome_none")
     browser.submit("button[type='submit']")
   }
 
@@ -111,6 +113,7 @@ object Formulate {
     browser.goTo("/your-income/your-income")
     browser.click("#beenEmployedSince6MonthsBeforeClaim_no")
     browser.click("#beenSelfEmployedSince1WeekBeforeClaim_yes")
+    browser.click("#yourIncome_none")
     browser.submit("button[type='submit']")
   }
 
@@ -118,6 +121,7 @@ object Formulate {
     browser.goTo("/your-income/your-income")
     browser.click("#beenEmployedSince6MonthsBeforeClaim_no")
     browser.click("#beenSelfEmployedSince1WeekBeforeClaim_yes")
+    browser.click("#yourIncome_none")
     browser.submit("button[type='submit']")
   }
 
@@ -125,6 +129,7 @@ object Formulate {
     browser.goTo("/your-income/your-income")
     browser.click("#beenEmployedSince6MonthsBeforeClaim_no")
     browser.click("#beenSelfEmployedSince1WeekBeforeClaim_no")
+    browser.click("#yourIncome_none")
     browser.submit("button[type='submit']")
   }
 

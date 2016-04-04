@@ -1,7 +1,7 @@
 package controllers
 
 import controllers.mappings.Mappings
-import models.domain.{AboutOtherMoney, Claim}
+import models.domain.Claim
 import models.view.CachedClaim
 import models.yesNo.{YesNoWithEmployerAndMoney, YesNo}
 import org.specs2.mutable._
@@ -74,18 +74,18 @@ class ThankYouIntegrationSpec extends Specification {
       implicit val lang = Lang("en")
       val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
       implicit val messages = Messages(lang, messagesApi)
-      val otherPayments = AboutOtherMoney(YesNo(""), None, None, None,
-        YesNoWithEmployerAndMoney(Mappings.yes, None, None, None, None, None),
-        YesNoWithEmployerAndMoney(Mappings.yes, None, None, None, None, None))
+//      val otherPayments = AboutOtherMoney(YesNo(""), None, None, None,
+//        YesNoWithEmployerAndMoney(Mappings.yes, None, None, None, None, None),
+//        YesNoWithEmployerAndMoney(Mappings.yes, None, None, None, None, None))
 
-      implicit val claim = Claim(CachedClaim.key).update(otherPayments)
+      implicit val claim = Claim(CachedClaim.key) //.update(otherPayments)
       implicit val request = FakeRequest()
       implicit val flash = Flash()
 
       val thankYouPage = views.html.common.thankYouClaim(lang).body
 
-      thankYouPage must contain(messagesApi("evidence.otherMoney.statutorySickPay"))
-      thankYouPage must contain(messagesApi("evidence.otherMoney.otherStatutoryPay"))
+//      thankYouPage must contain(messagesApi("evidence.otherMoney.statutorySickPay"))
+//      thankYouPage must contain(messagesApi("evidence.otherMoney.otherStatutoryPay"))
       thankYouPage must contain(messagesApi("evidence.include.documents"))
     }
 
@@ -93,18 +93,18 @@ class ThankYouIntegrationSpec extends Specification {
       implicit val lang = Lang("en")
       val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
       implicit val messages = Messages(lang, messagesApi)
-      val otherPayments = AboutOtherMoney(YesNo(""), None, None, None,
-        YesNoWithEmployerAndMoney(Mappings.no, None, None, None, None, None),
-        YesNoWithEmployerAndMoney(Mappings.no, None, None, None, None, None))
+//      val otherPayments = AboutOtherMoney(YesNo(""), None, None, None,
+//        YesNoWithEmployerAndMoney(Mappings.no, None, None, None, None, None),
+//        YesNoWithEmployerAndMoney(Mappings.no, None, None, None, None, None))
 
-      implicit val claim = Claim(CachedClaim.key).update(otherPayments)
+      implicit val claim = Claim(CachedClaim.key) //.update(otherPayments)
       implicit val request = FakeRequest()
       implicit val flash = Flash()
 
       val thankYouPage = views.html.common.thankYouClaim(lang).body
 
-      thankYouPage must not contain messagesApi("evidence.otherMoney.statutorySickPay")
-      thankYouPage must not contain messagesApi("evidence.otherMoney.otherStatutoryPay")
+//      thankYouPage must not contain messagesApi("evidence.otherMoney.statutorySickPay")
+//      thankYouPage must not contain messagesApi("evidence.otherMoney.otherStatutoryPay")
       browser.pageSource() must not contain(messagesApi("evidence.include.documents"))
     }
   }

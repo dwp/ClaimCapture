@@ -44,13 +44,7 @@ class PreviewPageEmploymentContentSpec extends Specification {
     employmentPage goToThePage ()
     employmentPage fillPageWith employmentData
 
-    val selfEmploymentPage = employmentPage submitPage()
-    selfEmploymentPage fillPageWith selfEmploymentData
-
-    val selfEmployedPensionsPage = selfEmploymentPage submitPage()
-    selfEmployedPensionsPage fillPageWith selfEmploymentData
-
-    val jobDetailsPage = selfEmployedPensionsPage submitPage()
+    val jobDetailsPage = employmentPage submitPage()
     jobDetailsPage fillPageWith employmentData
 
     val lastWagePage = jobDetailsPage submitPage()
@@ -63,6 +57,14 @@ class PreviewPageEmploymentContentSpec extends Specification {
     employmentData.EmploymentHaveYouBeenEmployedAtAnyTime_1 = "No"
     beenEmployedPage fillPageWith employmentData
 
-    beenEmployedPage submitPage()
+    val additionalInfoPage = beenEmployedPage submitPage()
+    additionalInfoPage fillPageWith employmentData
+
+    val selfEmploymentPage = additionalInfoPage submitPage()
+    selfEmploymentPage fillPageWith selfEmploymentData
+
+    val selfEmployedPensionsPage = selfEmploymentPage submitPage()
+    selfEmployedPensionsPage fillPageWith selfEmploymentData
+    selfEmployedPensionsPage.submitPage()
   }
 }
