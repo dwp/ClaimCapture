@@ -57,7 +57,8 @@ Education,Your course details,When did you start the course?,EducationWhenDidYou
 Education,Your course details,When do you expect the course to end?,EducationWhenDoYouExpectTheCourseToEnd,
 Your Income,Employment,Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)?,EmploymentHaveYouBeenEmployedAtAnyTime_0,no
 Your Income,Employment,Have you been self-employed at any time since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyy>)?,EmploymentHaveYouBeenSelfEmployedAtAnyTime,no
-Your Income,Other Payments,What other income have you had since <ddmmyyyy>?,YourIncomeNone,true
+Your Income,Other Income,What other income have you had since <ddmmyyyy>?,YourIncomeAnyOtherPay,true
+Your Income,other payments,What other income have you had since <ddmmyyyy>?,OtherPaymentsInfo,Testing12345
 How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,
 How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,
 How we pay you,Bank/Building society details,Name of account holder,HowWePayYouNameOfAccountHolder,

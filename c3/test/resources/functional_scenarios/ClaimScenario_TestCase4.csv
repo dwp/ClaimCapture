@@ -207,7 +207,15 @@ Self-Employed,Pension and expenses,"[[past=Did you]] [[present=Do you]] have any
 Self-Employed,Pension and expenses,"Tell us what the cost [[past=was]] [[present=is]] for, how much, how often and who to",SelfEmploymentWhatAreNecessaryJobExpenses,some job expenses
 Your Income,Employment,Do you want to add anything about your work?,EmploymentDoYouWantToAddAnythingAboutYourWork,No
 Your Income,Employment,Do you want to add anything about your work?,EmploymentAdditionalInfo,
-Your Income,Other Payments,What other income have you had since <ddmmyyyy>?,YourIncomeNone,true
+Your Income,Other Income,What other income have you had since <ddmmyyyy>?,YourIncomeFosteringAllowance,true
+Your Income,Fostering Allowance,Which are you paid?,PaymentTypesForThisPay,Other
+Your Income,Fostering Allowance,Who paid you Fostering Allowance?,PaymentTypesForThisPayOther,Testing1234
+Your Income,Fostering Allowance,Are you still being paid statutory sick pay?,StillBeingPaidThisPay,No
+Your Income,Fostering Allowance,When were you last paid?,WhenDidYouLastGetPaid,14/09/2015
+Your Income,Fostering Allowance,Who paid you statutory sick pay?,WhoPaidYouThisPay,ASDA 2
+Your Income,Fostering Allowance,Amount paid,AmountOfThisPay,123.23
+Your Income,Fostering Allowance,How often are you paid?,HowOftenPaidThisPay,Other
+Your Income,Fostering Allowance,How often are you paid?,HowOftenPaidThisPayOther,Not sure
 How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,yes
 How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,Every four weeks
 How we pay you,Bank/Building society details,Name of account holder,HowWePayYouNameOfAccountHolder,Mr Test Casefour
