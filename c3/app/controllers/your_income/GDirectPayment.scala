@@ -22,7 +22,7 @@ object GDirectPayment extends Controller with CachedClaim with Navigable with I1
     "stillBeingPaidThisPay_directPayment" -> carersNonEmptyText.verifying(validYesNo),
     "whenDidYouLastGetPaid" -> optional(dayMonthYear.verifying(validDate)),
     "whoPaidYouThisPay_directPayment" -> carersNonEmptyText(maxLength = Mappings.sixty),
-    "amountOfThisPay" -> carersNonEmptyText(maxLength = Mappings.twelve),
+    "amountOfThisPay" -> nonEmptyText.verifying(validCurrency8Required),
     "howOftenPaidThisPay" -> carersNonEmptyText.verifying(validPaymentFrequency),
     "howOftenPaidThisPayOther" -> optional(carersNonEmptyText(maxLength = Mappings.sixty))
   )(DirectPayment.apply)(DirectPayment.unapply)

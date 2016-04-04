@@ -22,7 +22,7 @@ object GStatutorySickPay extends Controller with CachedClaim with Navigable with
     "stillBeingPaidThisPay" -> carersNonEmptyText.verifying(validYesNo),
     "whenDidYouLastGetPaid" -> optional(dayMonthYear.verifying(validDate)),
     "whoPaidYouThisPay" -> carersNonEmptyText(maxLength = Mappings.sixty),
-    "amountOfThisPay" -> carersNonEmptyText(maxLength = Mappings.twelve),
+    "amountOfThisPay" -> nonEmptyText.verifying(validCurrency8Required),
     "howOftenPaidThisPay" -> carersNonEmptyText.verifying(validPaymentFrequency),
     "howOftenPaidThisPayOther" -> optional(carersNonEmptyText(maxLength = Mappings.sixty))
   )(StatutorySickPay.apply)(StatutorySickPay.unapply)

@@ -24,7 +24,7 @@ object GFosteringAllowance extends Controller with CachedClaim with Navigable wi
     "stillBeingPaidThisPay_fosteringAllowance" -> carersNonEmptyText.verifying(validYesNo),
     "whenDidYouLastGetPaid" -> optional(dayMonthYear.verifying(validDate)),
     "whoPaidYouThisPay_fosteringAllowance" -> carersNonEmptyText(maxLength = Mappings.sixty),
-    "amountOfThisPay" -> carersNonEmptyText(maxLength = Mappings.twelve),
+    "amountOfThisPay" -> nonEmptyText.verifying(validCurrency8Required),
     "howOftenPaidThisPay" -> carersNonEmptyText.verifying(validPaymentFrequency),
     "howOftenPaidThisPayOther" -> optional(carersNonEmptyText(maxLength = Mappings.sixty))
   )(FosteringAllowance.apply)(FosteringAllowance.unapply)
