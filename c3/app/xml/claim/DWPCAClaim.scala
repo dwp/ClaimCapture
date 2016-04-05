@@ -35,11 +35,7 @@ object DWPCAClaim extends XMLComponent {
       {Caree.xml(claim)}
       {Residency.xml(claim)}
       {question(<CourseOfEducation/>, "beenInEducationSinceClaimDate.label",courseDetails.beenInEducationSinceClaimDate, claimDate)}
-      {FullTimeEducation.xml(claim)}
-      {question(<SelfEmployed/>, "aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label",employment.beenSelfEmployedSince1WeekBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 1 week}")(dmy => displayClaimDate(dmy - 1 week)),claimDate)}
-      {SelfEmployment.xml(claim)}
-      {question(<Employed/>,"aboutYou_beenEmployedSince6MonthsBeforeClaim.label",employment.beenEmployedSince6MonthsBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => displayClaimDate(dmy - 6 months)), claimDate)}
-      {Employment.xml(claim)}
+      {Incomes.xml(claim)}
       {if(!empAdditionalInfo.empAdditionalInfo.answer.isEmpty) questionOther(<EmploymentAdditionalInfo/>, "empAdditionalInfo.answer", empAdditionalInfo.empAdditionalInfo.answer, empAdditionalInfo.empAdditionalInfo.text)}
       {question(<HavePartner/>,"hadPartnerSinceClaimDate",havePartner,claimDate)}
       {Partner.xml(claim)}
