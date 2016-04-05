@@ -17,11 +17,11 @@ object Incomes extends XMLComponent {
     <Incomes>
       {question(<Employed/>, "aboutYou_beenEmployedSince6MonthsBeforeClaim.label", incomes.beenEmployedSince6MonthsBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => DWPCAClaim.displayClaimDate(dmy - 6 months)), claimDate)}
       {question(<SelfEmployed/>, "aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label", incomes.beenSelfEmployedSince1WeekBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 1 week}")(dmy => DWPCAClaim.displayClaimDate(dmy - 1 week)), claimDate)}
-      {question(<SickPay/>, "yourIncome.ssp", incomes.yourIncome_sickpay)}
-      {question(<PatMatAdopPay/>, "yourIncome.spmp", incomes.yourIncome_patmatadoppay)}
-      {question(<Fostering/>, "yourIncome.fostering", incomes.yourIncome_fostering)}
-      {question(<DirectPay/>, "yourIncome.direct", incomes.yourIncome_directpay)}
-      {question(<AnyOther/>, "yourIncome.anyother", incomes.yourIncome_anyother)}
+      {question(<SickPayment/>, "yourIncome.ssp", incomes.yourIncome_sickpay)}
+      {question(<PatMatAdopPayment/>, "yourIncome.spmp", incomes.yourIncome_patmatadoppay)}
+      {question(<FosteringPayment/>, "yourIncome.fostering", incomes.yourIncome_fostering)}
+      {question(<DirectPayment/>, "yourIncome.direct", incomes.yourIncome_directpay)}
+      {question(<AnyOtherPayment/>, "yourIncome.anyother", incomes.yourIncome_anyother)}
       {question(<None/>, "yourIncome.none", incomes.yourIncome_none)}
       {Employment.xml(claim)}
       {SelfEmployment.xml(claim)}
