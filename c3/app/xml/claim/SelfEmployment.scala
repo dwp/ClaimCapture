@@ -60,17 +60,6 @@ object SelfEmployment extends XMLComponent {
     }
   }
 
-  def currencyAmount(currency: Option[String]): Option[String] = {
-    val poundSign = "£"
-    currency match {
-      case Some(s) => {
-        if (s.split(poundSign).size > 1) Some(s.split(poundSign)(1))
-        else Some(s)
-      }
-      case _ => None
-    }
-  }
-
   def fromXml(xml: NodeSeq, claim: Claim): Claim = {
     (xml \\ "SelfEmployment").isEmpty match {
       case false =>
