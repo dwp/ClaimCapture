@@ -6,7 +6,7 @@ import play.api.Play._
 import play.api.i18n.{MMessages, MessagesApi}
 import xml.XMLComponent
 import xml.XMLHelper._
-
+import scala.language.postfixOps
 import scala.xml.NodeSeq
 
 object Incomes extends XMLComponent {
@@ -22,7 +22,7 @@ object Incomes extends XMLComponent {
       {question(<FosteringPayment/>, "yourIncome.fostering", incomes.yourIncome_fostering)}
       {question(<DirectPayment/>, "yourIncome.direct", incomes.yourIncome_directpay)}
       {question(<AnyOtherPayment/>, "yourIncome.anyother", incomes.yourIncome_anyother)}
-      {question(<None/>, "yourIncome.none", incomes.yourIncome_none)}
+      {question(<NoOtherPayment/>, "yourIncome.none", incomes.yourIncome_none)}
       {Employment.xml(claim)}
       {SelfEmployment.xml(claim)}
       {sickPayXml(claim)}
@@ -106,14 +106,14 @@ object Incomes extends XMLComponent {
     val data = claim.questionGroup[DirectPayment].getOrElse(DirectPayment())
     val showXml = claim.questionGroup[YourIncomes].getOrElse(YourIncomes()).yourIncome_directpay.getOrElse("").toLowerCase == "true"
     if (showXml) {
-      <DirectPayment>
+      <DirectPay>
         {question(<StillBeingPaidThisPay/>, "stillBeingPaidThisPay_directPayment", data.stillBeingPaidThisPay)}
         {question(<WhenDidYouLastGetPaid/>, "whenDidYouLastGetPaid", data.whenDidYouLastGetPaid)}
         {question(<HowOftenPaidThisPay/>, "howOftenPaidThisPay", data.howOftenPaidThisPay)}
         {question(<AmountOfThisPay/>, "amountOfThisPay", currencyAmount(data.amountOfThisPay))}
         {question(<WhoPaidYouThisPay/>, "whoPaidYouThisPay_directPayment", data.whoPaidYouThisPay)}
         {question(<HowOftenPaidThisPayOther/>, "howOftenPaidThisPayOther", data.howOftenPaidThisPayOther)}
-      </DirectPayment>
+      </DirectPay>
     }
     else {
       NodeSeq.Empty
