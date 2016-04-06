@@ -63,7 +63,7 @@ class GEligibilityIntegrationSpec extends Specification {
       val nextPage = page submitPage()
       nextPage must beAnInstanceOf[GEligibilityPage]
       nextPage.source must contain("You can't apply using this service")
-      nextPage.source must contain("You must use the service for Northern Ireland")
+      nextPage.source must contain("you must use the service on Northern Ireland Direct")
     }
 
     "display warning on current page if Another country is selected but allow progress to next page" in new WithJsBrowser with PageObjects {
