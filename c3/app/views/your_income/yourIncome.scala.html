@@ -46,6 +46,7 @@
                     'helperAbove -> "yourIncome.checkBoxHelp1",
                     'track -> true,
                     'ignoreOptional -> true,
+                    '_showId -> true,
                     '_label -> messages("yourIncome.otherIncome.label", displayPlaybackDatesFormat(lang, claim.dateOfClaim.getOrElse(DayMonthYear.today))))
             </ul>
         </fieldset>
@@ -62,15 +63,29 @@
                 return $("#"+"@CarersCrypto.encryptAES("beenEmployedSince6MonthsBeforeClaim_no")").is(':checked');
             };
             @if(claim.navigation.beenInPreview){
-            window.updateNextLabel("@CarersCrypto.encryptAES("beenEmployedSince6MonthsBeforeClaim_yes")"
-                                  ,"@CarersCrypto.encryptAES("beenEmployedSince6MonthsBeforeClaim_no")"
-                                  ,"@CarersCrypto.encryptAES("beenSelfEmployedSince1WeekBeforeClaim_yes")"
-                                  ,"@CarersCrypto.encryptAES("beenSelfEmployedSince1WeekBeforeClaim_no")"
-                                  ,"@previousClaimEmployment.beenEmployedSince6MonthsBeforeClaim"
-                                  ,"@previousClaimEmployment.beenSelfEmployedSince1WeekBeforeClaim"
-                                  ,@claim.questionGroup[Jobs].getOrElse(Jobs()).size == 0
-                                  ,"@messages("form.next")","@messages("form.returnToSummary")"
-                                  )
+            window.updateNextLabel(
+                    {
+                        employment_yes: "@CarersCrypto.encryptAES("beenEmployedSince6MonthsBeforeClaim_yes")"
+                        ,employment_no: "@CarersCrypto.encryptAES("beenEmployedSince6MonthsBeforeClaim_no")"
+                        ,selfEmployment_yes: "@CarersCrypto.encryptAES("beenSelfEmployedSince1WeekBeforeClaim_yes")"
+                        ,selfEmployment_no: "@CarersCrypto.encryptAES("beenSelfEmployedSince1WeekBeforeClaim_no")"
+                        ,previousEmployed: "@previousClaimEmployment.beenEmployedSince6MonthsBeforeClaim"
+                        ,previousSelfEmployed: "@previousClaimEmployment.beenSelfEmployedSince1WeekBeforeClaim"
+                        ,noJobs: @claim.questionGroup[Jobs].getOrElse(Jobs()).size == 0
+                        ,textNext: "@messages("form.next")"
+                        ,textReturn: "@messages("form.returnToSummary")"
+                        ,previousStatutorySickPay: "@previousClaimEmployment.yourIncome_sickpay"
+                        ,previousStatutoryPay: "@previousClaimEmployment.yourIncome_patmatadoppay"
+                        ,previousFosteringAllowance: "@previousClaimEmployment.yourIncome_fostering"
+                        ,previousDirectPayment: "@previousClaimEmployment.yourIncome_directpay"
+                        ,previousOtherPayments: "@previousClaimEmployment.yourIncome_anyother"
+                        ,sickPay: "@CarersCrypto.encryptAES("yourIncome_sickpay")"
+                        ,statutoryPay: "@CarersCrypto.encryptAES("yourIncome_patmatadoppay")"
+                        ,fostering: "@CarersCrypto.encryptAES("yourIncome_fostering")"
+                        ,directPayment: "@CarersCrypto.encryptAES("yourIncome_directpay")"
+                        ,otherPayments: "@CarersCrypto.encryptAES("yourIncome_anyother")"
+                        ,noPayments: "@CarersCrypto.encryptAES("yourIncome_none")"
+                    })
             }
         })
     </script>

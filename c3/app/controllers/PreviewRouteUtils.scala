@@ -1,7 +1,5 @@
 package controllers
 
-import controllers.your_income.GYourIncomes
-
 object PreviewRouteUtils {
 
   def yourDetailsRoute = {
@@ -29,28 +27,36 @@ object PreviewRouteUtils {
   }
 
   def employmentRoute = {
-    val employmentRoute = GYourIncomes.present.toString
-    val jobsRoute           = controllers.s_employment.routes.GBeenEmployed.present.toString
+    val employmentRoute = controllers.your_income.routes.GYourIncomes.present.toString
+    val jobsRoute = controllers.s_employment.routes.GBeenEmployed.present.toString
     val selfEmploymentDates = controllers.s_self_employment.routes.GSelfEmploymentDates.present.toString
     val additionalInfoRoute = controllers.s_employment.routes.GEmploymentAdditionalInfo.present.toString
     val routesMap = Map(
+      "your_income" -> employmentRoute,
       "employment_been_employed_since" -> employmentRoute,
       "employment_jobs" -> jobsRoute,
       "self_employment_been_self_employed" -> employmentRoute,
-      "self_employment_nature_of_business" -> selfEmploymentDates,
+      "self_employment_dates" -> selfEmploymentDates,
       "employment_additional_info" -> additionalInfoRoute
     )
     routesMap
   }
 
-//  def otherMoneyRoute = {
-//    val gAboutOtherMoneyRoute = controllers.s_other_money.routes.GAboutOtherMoney.present.toString
-//    val idList = Seq("other_money_anyPaymentsSinceClaimDate", "other_money_statutoryPay", "other_money_otherStatutoryPay")
-//
-//    val routesMap = Map(idList map {id => (id, gAboutOtherMoneyRoute)} : _*)
-//
-//    routesMap
-//  }
+  def yourIncomeOtherPaymentsRoute = {
+    val statutorySickPayRoute = controllers.your_income.routes.GStatutorySickPay.present.toString
+    val statutoryPayRoute = controllers.your_income.routes.GStatutoryMaternityPaternityAdoptionPay.present.toString
+    val fosteringAllowanceRoute = controllers.your_income.routes.GFosteringAllowance.present.toString
+    val directPayment = controllers.your_income.routes.GDirectPayment.present.toString
+    val otherPayments = controllers.your_income.routes.GOtherPayments.present.toString
+
+    Map(
+      "your_income_statutory_sick_pay" -> statutorySickPayRoute,
+      "your_income_statutory_pay" -> statutoryPayRoute,
+      "your_income_fostering_allowance" -> fosteringAllowanceRoute,
+      "your_income_direct_payment" -> directPayment,
+      "your_income_other_payments" -> otherPayments
+    )
+  }
 
   def educationRoute = {
     val gYourCourseDetailsRoute = controllers.s_education.routes.GYourCourseDetails.present.toString
