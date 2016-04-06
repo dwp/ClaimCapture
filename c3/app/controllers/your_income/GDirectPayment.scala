@@ -3,7 +3,7 @@ package controllers.your_income
 import controllers.CarersForms._
 import controllers.mappings.Mappings
 import controllers.mappings.Mappings._
-import models.domain.{Claim, DirectPayment}
+import models.domain.{YourIncomes, Claim, DirectPayment}
 import models.view.ClaimHandling._
 import models.view.{CachedClaim, Navigable}
 import play.api.Play._
@@ -43,14 +43,26 @@ object GDirectPayment extends Controller with CachedClaim with Navigable with I1
         BadRequest(views.html.your_income.directPayment(formWithErrorsUpdate))
       },
       directPayment => claim.update(directPayment) -> Redirect(controllers.your_income.routes.GOtherPayments.present()))
-  } withPreview()
+  }.withPreviewConditionally[YourIncomes](checkGoPreview)
 
   def directPayment(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     track(DirectPayment) { implicit claim => Ok(views.html.your_income.directPayment(form.fill(DirectPayment))) }
   }
 
   def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
-    if (models.domain.YourIncomeDirectPayment.visible) c
+    val previousYourIncome = if (claim.navigation.beenInPreview)claim.checkYAnswers.previouslySavedClaim.get.questionGroup[YourIncomes].get else YourIncomes()
+    val yourIncomes = claim.questionGroup[YourIncomes].get
+    if (previousYourIncome.yourIncome_directpay != yourIncomes.yourIncome_directpay && yourIncomes.yourIncome_directpay.isDefined && models.domain.YourIncomeDirectPayment.visible) c
     else claim -> Redirect(controllers.your_income.routes.GOtherPayments.present())
+  }
+
+  private def checkGoPreview(t:(Option[YourIncomes], YourIncomes), c:(Option[Claim],Claim)): Boolean = {
+    val previousEmp = t._1.get
+    val currentEmp = t._2
+    val otherPaymentsChanged = !previousEmp.yourIncome_anyother.isDefined && currentEmp.yourIncome_anyother.isDefined
+    !(otherPaymentsChanged)
+
+    //We want to go back to preview from Employment guard questions page if
+    // both answers haven't changed or if one hasn't changed and the changed one is 'no' or both answers are no, or
   }
 }

@@ -3,7 +3,7 @@ package controllers.your_income
 import controllers.CarersForms._
 import controllers.mappings.Mappings
 import controllers.mappings.Mappings._
-import models.domain.{FosteringAllowance, Claim}
+import models.domain.{YourIncomes, FosteringAllowance, Claim}
 import models.view.ClaimHandling._
 import models.view.{CachedClaim, Navigable}
 import play.api.Play._
@@ -47,14 +47,27 @@ object GFosteringAllowance extends Controller with CachedClaim with Navigable wi
         BadRequest(views.html.your_income.fosteringAllowance(formWithErrorsUpdate))
       },
       fosteringAllowance => claim.update(fosteringAllowance) -> Redirect(controllers.your_income.routes.GDirectPayment.present()))
-  } withPreview()
+  }.withPreviewConditionally[YourIncomes](checkGoPreview)
 
   def fosteringAllowance(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     track(FosteringAllowance) { implicit claim => Ok(views.html.your_income.fosteringAllowance(form.fill(FosteringAllowance))) }
   }
 
   def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
-    if (models.domain.YourIncomeFosteringAllowance.visible) c
+    val previousYourIncome = if (claim.navigation.beenInPreview)claim.checkYAnswers.previouslySavedClaim.get.questionGroup[YourIncomes].get else YourIncomes()
+    val yourIncomes = claim.questionGroup[YourIncomes].get
+    if (previousYourIncome.yourIncome_fostering != yourIncomes.yourIncome_fostering && yourIncomes.yourIncome_fostering.isDefined && models.domain.YourIncomeFosteringAllowance.visible) c
     else claim -> Redirect(controllers.your_income.routes.GDirectPayment.present())
+  }
+
+  private def checkGoPreview(t:(Option[YourIncomes], YourIncomes), c:(Option[Claim],Claim)): Boolean = {
+    val previousEmp = t._1.get
+    val currentEmp = t._2
+    val directPaymentChanged = !previousEmp.yourIncome_directpay.isDefined && currentEmp.yourIncome_directpay.isDefined
+    val otherPaymentsChanged = !previousEmp.yourIncome_anyother.isDefined && currentEmp.yourIncome_anyother.isDefined
+    !(directPaymentChanged || otherPaymentsChanged)
+
+    //We want to go back to preview from Employment guard questions page if
+    // both answers haven't changed or if one hasn't changed and the changed one is 'no' or both answers are no, or
   }
 }

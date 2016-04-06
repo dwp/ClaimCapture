@@ -1,5 +1,6 @@
 package controllers.s_employment
 
+import controllers.your_income.GYourIncomes
 import models.view.ClaimHandling._
 import play.api.Play._
 
@@ -11,7 +12,7 @@ import controllers.mappings.Mappings._
 import utils.helpers.CarersForm._
 import controllers.CarersForms._
 import models.view.{Navigable, CachedClaim}
-import models.domain.{Claim, EmploymentAdditionalInfo}
+import models.domain.{YourIncomes, Claim, EmploymentAdditionalInfo}
 import models.yesNo.YesNoWithText
 import play.api.i18n._
 
@@ -42,10 +43,17 @@ object GEmploymentAdditionalInfo extends Controller with CachedClaim with Naviga
       },
       employmentAdditionalInfo => claim.update(employmentAdditionalInfo) -> Redirect(controllers.your_income.routes.GStatutorySickPay.present())
     )
-  } withPreview()
+  }.withPreviewConditionally[YourIncomes](checkGoPreview)
 
   def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     if (models.domain.SelfEmployment.visible || models.domain.Employed.visible) c
     else claim -> Redirect(controllers.your_income.routes.GStatutorySickPay.present())
+  }
+
+  private def checkGoPreview(t:(Option[YourIncomes], YourIncomes), c:(Option[Claim],Claim)): Boolean = {
+    val previousEmp = t._1.get
+    val currentEmp = t._2
+
+    GYourIncomes.haveOtherPaymentsChanged(previousEmp, currentEmp)
   }
 }
