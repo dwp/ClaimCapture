@@ -63,11 +63,11 @@ with ClaimTransactionComponent{
           }
           case ("GB-NIR", _) => {
             Logger.info("Origin Select - NISSA site user posted selected originating country of:" + f.origin + ". Displaying origin error page")
-            Ok(views.html.circs.origin.originError(request2lang))
+            Ok(views.html.common.origin.NIoriginError(true, request2lang))
           }
           case _ => {
             Logger.error("Origin Select - GB site user posted selected originating country of:" + f.origin + ". Displaying origin error page")
-            Ok(views.html.circs.origin.originError(request2lang))
+            Ok(views.html.common.origin.GBoriginError(true, request2lang))
           }
         }
       }

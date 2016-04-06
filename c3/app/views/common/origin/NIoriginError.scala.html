@@ -1,0 +1,25 @@
+@(circs: Boolean, lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash: Flash, messages: play.api.i18n.Messages)
+
+@import views.html.feedback.main
+
+@headingLabel=@{
+    circs match{
+        case true => "circs.origin.error.heading"
+        case _ => "claim.origin.error.heading"
+    }
+}
+@govUrl=@{
+    circs match{
+        case true => "https://www.gov.uk/carers-allowance-report-change"
+        case _ => "https://www.gov.uk/carers-allowance/overview "
+    }
+}
+    @main(messages(headingLabel)) {
+        <p></p>
+        <h2>@Html(messages("ni.origin.error.line1"))</h2>
+        <p></p>
+        <button onClick="location.href='@govUrl'" id="gotogov" type="button" class="button">Continue to GOV.UK</button>
+
+    @views.html.ga.sendTrackEvent("Origin","Error")
+}
+

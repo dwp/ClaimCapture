@@ -1,5 +1,7 @@
 package controllers.s_eligibility
 
+import controllers.CarersForms._
+import play.api.Logger
 import play.api.Play._
 
 import language.reflectiveCalls
@@ -18,19 +20,34 @@ object GEligibility extends Controller with CachedClaim with Navigable with I18n
   val form = Form(mapping(
     "hours.answer" -> nonEmptyText.verifying(validYesNo),
     "over16.answer" -> nonEmptyText.verifying(validYesNo),
-    "livesInGB.answer" -> nonEmptyText.verifying(validYesNo)
+    "origin" -> carersNonEmptyText(maxLength = 20)
   )(Eligibility.apply)(Eligibility.unapply))
 
-  def present = claiming ({implicit claim => implicit request => implicit request2lang =>
+  def present = claiming({ implicit claim => implicit request => implicit request2lang =>
     track(Eligibility) {
       implicit claim => Ok(views.html.s_eligibility.g_eligibility(form.fill(Eligibility)))
-    }},checkCookie=true)
+    }
+  }, checkCookie = true)
 
-  def submit = claiming {implicit claim => implicit request => implicit request2lang =>
+  def submit = claiming { implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         BadRequest(views.html.s_eligibility.g_eligibility(formWithErrors))
       },
-      f => claim.update(f) -> Redirect(routes.CarersAllowance.approve()))
+      f => {
+        (app.ConfigProperties.getProperty("origin.tag", "GB"), f.origin) match {
+          case ("GB-NIR", "GB") => {
+            Logger.info("Claim Origin Select - NISSA site user posted selected originating country of:" + f.origin + ". Displaying NI origin error page")
+            Ok(views.html.common.origin.NIoriginError(false, request2lang))
+          }
+          case ("GB", "NI") => {
+            Logger.info("Claim Origin Select - GB site user posted selected originating country of:" + f.origin + ". Displaying GB origin error page")
+            Ok(views.html.common.origin.GBoriginError(false, request2lang))
+          }
+          case (_, _) => {
+            claim.update(f) -> Redirect(routes.CarersAllowance.approve())
+          }
+        }
+      })
   }
 }

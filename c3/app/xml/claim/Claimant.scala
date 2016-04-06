@@ -101,7 +101,7 @@ object Claimant extends XMLComponent {
   }
 
   private def createEligibilityFromXml(xml: NodeSeq) = {
-    Eligibility(hours = Mappings.yes, over16 = Mappings.yes, livesInGB = Mappings.yes)
+    Eligibility(hours = Mappings.yes, over16 = Mappings.yes, origin = "GB")
   }
 
   private def createProceedAnywayFromXml(xml: NodeSeq) = {

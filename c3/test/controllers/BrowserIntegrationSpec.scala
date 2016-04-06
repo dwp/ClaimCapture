@@ -14,7 +14,7 @@ class BrowserIntegrationSpec extends Specification {
       claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = "PIP"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "yes"
-      claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "yes"
+      claim.CanYouGetCarersAllowanceWhichCountryLivein= "GB"
       page goToThePage()
 
       val eligibilityPage = page fillPageWith claim submitPage()

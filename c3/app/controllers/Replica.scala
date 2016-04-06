@@ -69,7 +69,7 @@ object ReplicaData {
       case Failure(e) =>
         Logger.error(s"Failed to load replica file, loading default class data: $e", e)
         claim + Benefits(Benefits.aa) +
-          Eligibility(hours = Mappings.yes, over16 = Mappings.yes,livesInGB = Mappings.yes) +
+          Eligibility(hours = Mappings.yes, over16 = Mappings.yes, origin = "GB") +
           ThirdPartyDetails(thirdParty = ThirdPartyDetails.noCarer, nameAndOrganisation  = Some("Jenny Bloggs Preston carers")) +
           ClaimDate(DayMonthYear.today,spent35HoursCaringBeforeClaim = YesNoWithDate(Mappings.yes,date = Some(DayMonthYear.today - 3 months))) +
           YourDetails(title = "Mr",firstName = "Joe",surname = "Bloggs",nationalInsuranceNumber = NationalInsuranceNumber(Some("AB123456D")),dateOfBirth = DayMonthYear(10,10,2014)) +

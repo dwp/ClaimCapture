@@ -23,7 +23,17 @@ object Benefits extends QuestionGroup.Identifier {
   val noneOfTheBenefits = "NONE" // None of the benefits
 }
 
-case class Eligibility(hours: String = "",over16: String = "",livesInGB: String = "") extends QuestionGroup(Eligibility) {
+case class Eligibility( hours: String = "",
+                        over16: String = "",
+                        origin: String = "") extends QuestionGroup(Eligibility) {
+  // livesInGB Yes/No actually reflects whether gbsite-living-in-gb or nisite-living-in-ni.
+  val livesInGB: String = {
+    ( app.ConfigProperties.getProperty("origin.tag", "GB"), origin ) match{
+      case ( "GB", "GB" ) => "yes"
+      case ( "GB-NIR", "NI" ) => "yes"
+      case _ => "no"
+    }
+  }
 }
 
 object Eligibility extends QuestionGroup.Identifier {
