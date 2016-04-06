@@ -132,13 +132,4 @@ object GYourIncomes extends Controller with CachedClaim with Navigable with I18n
     //We want to go back to preview from Employment guard questions page if
     // both answers haven't changed or if one hasn't changed and the changed one is 'no' or both answers are no, or
   }
-
-  private def haveOtherPaymentsChanged(previousEmp: YourIncomes, currentEmp: YourIncomes) = {
-    val statutorySickPayChanged = !previousEmp.yourIncome_sickpay.isDefined && currentEmp.yourIncome_sickpay.isDefined
-    val statutorySickChanged = !previousEmp.yourIncome_patmatadoppay.isDefined && currentEmp.yourIncome_patmatadoppay.isDefined
-    val fosteringAllowanceChanged = !previousEmp.yourIncome_fostering.isDefined && currentEmp.yourIncome_fostering.isDefined
-    val directPaymentChanged = !previousEmp.yourIncome_directpay.isDefined && currentEmp.yourIncome_directpay.isDefined
-    val otherPaymentsChanged = !previousEmp.yourIncome_anyother.isDefined && currentEmp.yourIncome_anyother.isDefined
-    !(statutorySickPayChanged || statutorySickChanged || fosteringAllowanceChanged || directPaymentChanged || otherPaymentsChanged)
-  }
 }

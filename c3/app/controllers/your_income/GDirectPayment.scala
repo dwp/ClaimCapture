@@ -12,6 +12,7 @@ import play.api.data.{Form, FormError}
 import play.api.i18n._
 import play.api.mvc.{AnyContent, Controller, Request}
 import utils.helpers.CarersForm._
+import utils.helpers.ReturnToSummaryHelper
 
 /**
   * Created by peterwhitehead on 24/03/2016.
@@ -52,15 +53,13 @@ object GDirectPayment extends Controller with CachedClaim with Navigable with I1
   def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     val previousYourIncome = if (claim.navigation.beenInPreview)claim.checkYAnswers.previouslySavedClaim.get.questionGroup[YourIncomes].get else YourIncomes()
     val yourIncomes = claim.questionGroup[YourIncomes].get
-    if (previousYourIncome.yourIncome_directpay != yourIncomes.yourIncome_directpay && yourIncomes.yourIncome_directpay.isDefined && models.domain.YourIncomeDirectPayment.visible) c
+    if ((previousYourIncome.yourIncome_directpay != yourIncomes.yourIncome_directpay && yourIncomes.yourIncome_directpay.isDefined || !request.flash.isEmpty) && models.domain.YourIncomeDirectPayment.visible) c
     else claim -> Redirect(controllers.your_income.routes.GOtherPayments.present())
   }
 
   private def checkGoPreview(t:(Option[YourIncomes], YourIncomes), c:(Option[Claim],Claim)): Boolean = {
-    val previousEmp = t._1.get
-    val currentEmp = t._2
-    val otherPaymentsChanged = !previousEmp.yourIncome_anyother.isDefined && currentEmp.yourIncome_anyother.isDefined
-    !(otherPaymentsChanged)
+    val currentClaim = c._2
+    ReturnToSummaryHelper.haveOtherPaymentsFromDirectPaymentChanged(currentClaim)
 
     //We want to go back to preview from Employment guard questions page if
     // both answers haven't changed or if one hasn't changed and the changed one is 'no' or both answers are no, or

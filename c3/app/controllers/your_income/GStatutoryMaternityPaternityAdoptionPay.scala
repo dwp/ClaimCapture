@@ -12,6 +12,7 @@ import play.api.data.{Form, FormError}
 import play.api.i18n._
 import play.api.mvc.{AnyContent, Controller, Request}
 import utils.helpers.CarersForm._
+import utils.helpers.ReturnToSummaryHelper
 
 /**
   * Created by peterwhitehead on 24/03/2016.
@@ -53,17 +54,13 @@ object GStatutoryMaternityPaternityAdoptionPay extends Controller with CachedCla
   def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     val previousYourIncome = if (claim.navigation.beenInPreview)claim.checkYAnswers.previouslySavedClaim.get.questionGroup[YourIncomes].get else YourIncomes()
     val yourIncomes = claim.questionGroup[YourIncomes].get
-    if (previousYourIncome.yourIncome_patmatadoppay != yourIncomes.yourIncome_patmatadoppay && yourIncomes.yourIncome_patmatadoppay.isDefined && models.domain.YourIncomeStatutoryMaternityPaternityAdoptionPay.visible) c
+    if ((previousYourIncome.yourIncome_patmatadoppay != yourIncomes.yourIncome_patmatadoppay && yourIncomes.yourIncome_patmatadoppay.isDefined || !request.flash.isEmpty) && models.domain.YourIncomeStatutoryMaternityPaternityAdoptionPay.visible) c
     else claim -> Redirect(controllers.your_income.routes.GFosteringAllowance.present())
   }
 
   private def checkGoPreview(t:(Option[YourIncomes], YourIncomes), c:(Option[Claim],Claim)): Boolean = {
-    val previousEmp = t._1.get
-    val currentEmp = t._2
-    val fosteringAllowanceChanged = !previousEmp.yourIncome_fostering.isDefined && currentEmp.yourIncome_fostering.isDefined
-    val directPaymentChanged = !previousEmp.yourIncome_directpay.isDefined && currentEmp.yourIncome_directpay.isDefined
-    val otherPaymentsChanged = !previousEmp.yourIncome_anyother.isDefined && currentEmp.yourIncome_anyother.isDefined
-    !(fosteringAllowanceChanged || directPaymentChanged || otherPaymentsChanged)
+    val currentClaim = c._2
+    ReturnToSummaryHelper.haveOtherPaymentsFromStatutoryPayChanged(currentClaim)
 
     //We want to go back to preview from Employment guard questions page if
     // both answers haven't changed or if one hasn't changed and the changed one is 'no' or both answers are no, or

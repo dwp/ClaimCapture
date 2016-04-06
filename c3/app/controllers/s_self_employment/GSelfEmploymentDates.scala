@@ -94,7 +94,7 @@ object GSelfEmploymentDates extends Controller with CachedClaim with Navigable w
   def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     val previousYourIncome = if (claim.navigation.beenInPreview)claim.checkYAnswers.previouslySavedClaim.get.questionGroup[YourIncomes].get else YourIncomes()
     val yourIncomes = claim.questionGroup[YourIncomes].get
-    if (previousYourIncome.beenSelfEmployedSince1WeekBeforeClaim != yourIncomes.beenSelfEmployedSince1WeekBeforeClaim && yourIncomes.beenSelfEmployedSince1WeekBeforeClaim == yes && models.domain.SelfEmployment.visible) c
+    if ((previousYourIncome.beenSelfEmployedSince1WeekBeforeClaim != yourIncomes.beenSelfEmployedSince1WeekBeforeClaim && yourIncomes.beenSelfEmployedSince1WeekBeforeClaim == yes || !request.flash.isEmpty) && models.domain.SelfEmployment.visible) c
     else if (previousYourIncome.beenEmployedSince6MonthsBeforeClaim != yourIncomes.beenEmployedSince6MonthsBeforeClaim && yourIncomes.beenEmployedSince6MonthsBeforeClaim == yes) claim -> Redirect(controllers.s_employment.routes.GEmploymentAdditionalInfo.present())
     else claim -> Redirect(controllers.your_income.routes.GStatutorySickPay.present())
   }
