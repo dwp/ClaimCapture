@@ -79,7 +79,7 @@ object Incomes extends XMLComponent {
   def fosteringAllowanceXml(claim: Claim): NodeSeq = {
     val data = claim.questionGroup[FosteringAllowance].getOrElse(FosteringAllowance())
     val showXml = claim.questionGroup[YourIncomes].getOrElse(YourIncomes()).yourIncome_fostering.getOrElse("").toLowerCase == "true"
-    val paymentType = data.paymentTypesForThisPay match{
+    val paymentType = data.paymentTypesForThisPay match {
       case PaymentTypes.LocalAuthority => messagesApi("paymentTypeLocalAuthority")
       case PaymentTypes.FosteringAllowance => messagesApi("paymentTypeMainFostering")
       case PaymentTypes.Other => messagesApi("paymentTypeOther")
@@ -87,8 +87,8 @@ object Incomes extends XMLComponent {
     }
     if (showXml) {
       <FosteringAllowance>
-        {question(<PaymentTypesForThisPay/>, "paymentTypesForThisPay", paymentType)}
-        {question(<PaymentTypesForThisPayOther/>, "paymentTypesForThisPayOther", data.paymentTypesForThisPayOther)}
+        {question(<PaymentTypesForThisPay/>, "fosteringAllowancePay", paymentType)}
+        {question(<PaymentTypesForThisPayOther/>, "fosteringAllowancePayOther", data.paymentTypesForThisPayOther)}
         {question(<StillBeingPaidThisPay/>, "stillBeingPaidThisPay_fosteringAllowance", data.stillBeingPaidThisPay)}
         {question(<WhenDidYouLastGetPaid/>, "whenDidYouLastGetPaid", data.whenDidYouLastGetPaid)}
         {question(<HowOftenPaidThisPay/>, "howOftenPaidThisPay", data.howOftenPaidThisPay)}
