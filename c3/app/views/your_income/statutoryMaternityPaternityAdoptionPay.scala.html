@@ -9,6 +9,7 @@
 @import views.html.helper._
 @import views.html.helper.base._
 @import app.PaymentTypes._
+@import utils.helpers.ReturnToSummaryHelper._
 
 @listOfOptions = @{
     Seq(
@@ -72,16 +73,13 @@
             </ul>
         </fieldset>
 
-        @views.html.common.bottomNavigation(customTrack = Some(views.html.ga.trackSubmit(isOptional=true)))
+        @views.html.common.bottomNavigation(nextLabel=displayReturnToSummaryFromStatutoryPayInfo(claim),trackSubmit = true)
 
     }
 
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/your_income/otherIncome.js")></script>
     <script type="text/javascript">
         $(function() {
-            conditionRequired = function(){
-                return $("#"+"@CarersCrypto.encryptAES("stillBeingPaidThisPay_paternityMaternityAdoption_no")").is(':checked');
-            };
             window.initEvents(
                 "@CarersCrypto.encryptAES("stillBeingPaidThisPay_paternityMaternityAdoption_yes")",
                 "@CarersCrypto.encryptAES("stillBeingPaidThisPay_paternityMaternityAdoption_no")",

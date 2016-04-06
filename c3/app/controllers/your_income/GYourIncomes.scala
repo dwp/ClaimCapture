@@ -10,6 +10,7 @@ import play.api.data.{Form, FormError}
 import play.api.i18n._
 import play.api.mvc.Controller
 import utils.helpers.CarersForm._
+import utils.helpers.ReturnToSummaryHelper
 import scala.language.{postfixOps, reflectiveCalls}
 
 object GYourIncomes extends Controller with CachedClaim with Navigable with I18nSupport {
@@ -127,12 +128,12 @@ object GYourIncomes extends Controller with CachedClaim with Navigable with I18n
       else { previousEmp.isDefined && ( bothHaveNotChanged || selfENotChangedAndEmploymentNo || empNotChangedAndSENo) ||  bothAnswersAreNo }
     }
 
-    if (!result) result else haveOtherPaymentsChanged(previousEmp.get, currentEmp)
+    if (!result) result else ReturnToSummaryHelper.haveOtherPaymentsChanged(currentClaim)
     //We want to go back to preview from Employment guard questions page if
     // both answers haven't changed or if one hasn't changed and the changed one is 'no' or both answers are no, or
   }
 
-  def haveOtherPaymentsChanged(previousEmp: YourIncomes, currentEmp: YourIncomes) = {
+  private def haveOtherPaymentsChanged(previousEmp: YourIncomes, currentEmp: YourIncomes) = {
     val statutorySickPayChanged = !previousEmp.yourIncome_sickpay.isDefined && currentEmp.yourIncome_sickpay.isDefined
     val statutorySickChanged = !previousEmp.yourIncome_patmatadoppay.isDefined && currentEmp.yourIncome_patmatadoppay.isDefined
     val fosteringAllowanceChanged = !previousEmp.yourIncome_fostering.isDefined && currentEmp.yourIncome_fostering.isDefined

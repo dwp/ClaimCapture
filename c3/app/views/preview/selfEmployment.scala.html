@@ -4,6 +4,7 @@
 @import helper._
 @import controllers.mappings.Mappings._
 @import models.yesNo.YesNoWithText
+@import scala.language.postfixOps
 
 @selfEmployment = @{claim.questionGroup[SelfEmploymentDates].getOrElse(SelfEmploymentDates())}
 @selfEmploymentPensionsAndExpenses = @{claim.questionGroup[SelfEmploymentPensionsAndExpenses].getOrElse(SelfEmploymentPensionsAndExpenses())}

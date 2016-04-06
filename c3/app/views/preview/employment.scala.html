@@ -4,6 +4,7 @@
 @import models.domain._
 @import helper._
 @import controllers.mappings.Mappings._
+@import scala.language.postfixOps
 
 @claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
 @sixMonthsBeforeDate(date:DayMonthYear) = @{date - 6 months}

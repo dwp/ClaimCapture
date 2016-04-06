@@ -3,6 +3,7 @@ package controllers.s_employment
 import controllers.your_income.GYourIncomes
 import models.view.ClaimHandling._
 import play.api.Play._
+import utils.helpers.ReturnToSummaryHelper
 
 import language.reflectiveCalls
 import play.api.data.{FormError, Form}
@@ -51,9 +52,6 @@ object GEmploymentAdditionalInfo extends Controller with CachedClaim with Naviga
   }
 
   private def checkGoPreview(t:(Option[YourIncomes], YourIncomes), c:(Option[Claim],Claim)): Boolean = {
-    val previousEmp = t._1.get
-    val currentEmp = t._2
-
-    GYourIncomes.haveOtherPaymentsChanged(previousEmp, currentEmp)
+    ReturnToSummaryHelper.haveOtherPaymentsChanged(c._2)
   }
 }
