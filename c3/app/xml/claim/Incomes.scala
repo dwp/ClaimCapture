@@ -15,6 +15,8 @@ object Incomes extends XMLComponent {
     val claimDate = claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)
     val incomes = claim.questionGroup[YourIncomes].getOrElse(YourIncomes())
     val empAdditionalInfo = claim.questionGroup[EmploymentAdditionalInfo].getOrElse(EmploymentAdditionalInfo())
+    val otherPaymentsNone = claim.questionGroup[YourIncomes].getOrElse(YourIncomes()).yourIncome_none.getOrElse("").toLowerCase == "true"
+
     <Incomes>
       {question(<Employed/>, "aboutYou_beenEmployedSince6MonthsBeforeClaim.label", incomes.beenEmployedSince6MonthsBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => DWPCAClaim.displayClaimDate(dmy - 6 months)), claimDate)}
       {question(<SelfEmployed/>, "aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label", incomes.beenSelfEmployedSince1WeekBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 1 week}")(dmy => DWPCAClaim.displayClaimDate(dmy - 1 week)), claimDate)}
@@ -23,7 +25,7 @@ object Incomes extends XMLComponent {
       {question(<FosteringPayment/>, "yourIncome.fostering", incomes.yourIncome_fostering)}
       {question(<DirectPayment/>, "yourIncome.direct", incomes.yourIncome_directpay)}
       {question(<AnyOtherPayment/>, "yourIncome.anyother", incomes.yourIncome_anyother)}
-      {question(<NoOtherPayment/>, "yourIncome.none", incomes.yourIncome_none)}
+      {if(otherPaymentsNone) question(<NoOtherPayment/>, "yourIncome.otherIncome.label", "None", claimDate)}
       {Employment.xml(claim)}
       {SelfEmployment.xml(claim)}
       {if(!empAdditionalInfo.empAdditionalInfo.answer.isEmpty) questionOther(<EmploymentAdditionalInfo/>, "empAdditionalInfo.answer", empAdditionalInfo.empAdditionalInfo.answer, empAdditionalInfo.empAdditionalInfo.text)}
@@ -38,7 +40,6 @@ object Incomes extends XMLComponent {
   def sickPayXml(claim: Claim): NodeSeq = {
     val data = claim.questionGroup[StatutorySickPay].getOrElse(StatutorySickPay())
     val showXml = claim.questionGroup[YourIncomes].getOrElse(YourIncomes()).yourIncome_sickpay.getOrElse("").toLowerCase == "true"
-    // claim.questionGroup[YourIncomes].getOrElse(YourIncomes()
     if (showXml) {
       <SickPay>
         {question(<StillBeingPaidThisPay/>, "stillBeingPaidThisPay", data.stillBeingPaidThisPay)}

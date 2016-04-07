@@ -23,6 +23,8 @@ object DWPCAClaim extends XMLComponent {
     val yourPartnerPersonalDetails = claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
     val havePartner = yourPartnerPersonalDetails.hadPartnerSinceClaimDate
     val qualifyingBenefit = claim.questionGroup[Benefits].getOrElse(Benefits())
+    val empAdditionalInfo = claim.questionGroup[EmploymentAdditionalInfo].getOrElse(EmploymentAdditionalInfo())
+
 
     Logger.info(s"Build XML for: ${claim.key} ${claim.uuid}.")
 
@@ -35,6 +37,7 @@ object DWPCAClaim extends XMLComponent {
       {question(<CourseOfEducation/>, "beenInEducationSinceClaimDate.label",courseDetails.beenInEducationSinceClaimDate, claimDate)}
       {FullTimeEducation.xml(claim)}
       {Incomes.xml(claim)}
+      {if(!empAdditionalInfo.empAdditionalInfo.answer.isEmpty) questionOther(<EmploymentAdditionalInfo/>, "empAdditionalInfo.answer", empAdditionalInfo.empAdditionalInfo.answer, empAdditionalInfo.empAdditionalInfo.text)}
       {question(<HavePartner/>,"hadPartnerSinceClaimDate",havePartner,claimDate)}
       {Partner.xml(claim)}
       {OtherBenefits.xml(claim)}
