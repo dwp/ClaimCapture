@@ -11,15 +11,15 @@
 }
 
 @receivesStatutorySickPay = @{
-    OtherMoney.receivesStatutorySickPay(claim)
+    YourIncomes.receivesStatutorySickPay(claim)
 }
 
-@receivesOtherStatutoryPay = @{
-    OtherMoney.receivesOtherStatutoryPay(claim)
+@receivesStatutoryMaternityPaternityAdoptionPay = @{
+    YourIncomes.receivesStatutoryPay(claim)
 }
 
 @receivesStatutoryPay = @{
-    receivesStatutorySickPay || receivesOtherStatutoryPay
+    receivesStatutorySickPay || receivesStatutoryMaternityPaternityAdoptionPay
 }
 
 @isCofcSelfEmployment = @{
@@ -126,8 +126,10 @@
                                     <li>@Html(messages("evidence.email.employment.anyPayslipsSince", claimDate))</li>
                                 }
                                 @if(ClaimUtils.pensionStatementsRequired(claim)) {<li>@Html(messages("evidence.pensionStatements"))</li>}
-                                @if(receivesStatutorySickPay) {<li>@Html(messages("evidence.otherMoney.statutorySickPay"))</li>}
-                                @if(receivesOtherStatutoryPay) {<li>@Html(messages("evidence.otherMoney.otherStatutoryPay"))</li>}
+
+                                @if(receivesStatutorySickPay) {<li>@Html(messages("evidence.yourIncome.otherPayments.statutorySickPay"))</li>}
+                                @if(receivesStatutoryPay) {<li>@Html(messages("evidence.yourIncome.otherPayments.statutoryPay"))</li>}
+
                             }else{
                                 @if(!isCofcSelfEmployment){
                                     <li>@Html(messages("evidence.email.cofc.employment.anyPayslips"))</li>

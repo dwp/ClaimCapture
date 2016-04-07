@@ -3,7 +3,7 @@ package services.mail
 import models.DayMonthYear
 import models.domain._
 import models.view.CachedClaim
-import models.yesNo.{YesNoWithEmployerAndMoney, YesNo, YesNoWithText}
+import models.yesNo.YesNoWithText
 import org.specs2.mutable._
 import play.api.test.FakeRequest
 import controllers.mappings.Mappings
@@ -58,7 +58,7 @@ class EmailTemplateSpec extends Specification {
       implicit val lang = Lang("en")
       val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
       implicit val messages = Messages(lang, messagesApi)
-      val jobs= Employment(Mappings.yes,Mappings.yes)
+      val jobs= YourIncomes(Mappings.yes,Mappings.yes)
       val claim = Claim(CachedClaim.key).+(ClaimDate(DayMonthYear())).update(jobs)
 
       val renderedEmail = views.html.mail(claim,isClaim = true,isEmployment = true).body
@@ -82,7 +82,7 @@ class EmailTemplateSpec extends Specification {
       implicit val lang = Lang("en")
       val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
       implicit val messages = Messages(lang, messagesApi)
-      val employment= Employment(Mappings.yes,Mappings.yes)
+      val employment= YourIncomes(Mappings.yes,Mappings.yes)
       val pensionAndExpenses = PensionAndExpenses("", YesNoWithText(Mappings.yes, Some("blah blah blah")),
         YesNoWithText("", None), YesNoWithText("", None))
       val jobs = Jobs(List(Iteration("1", List(pensionAndExpenses))))
@@ -109,24 +109,24 @@ class EmailTemplateSpec extends Specification {
       implicit val lang = Lang("en")
       val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
       implicit val messages = Messages(lang, messagesApi)
-      val otherPayments = AboutOtherMoney(YesNo(""), None, None, None,
-        YesNoWithEmployerAndMoney(Mappings.yes, None, None, None, None, None),
-        YesNoWithEmployerAndMoney(Mappings.yes, None, None, None, None, None))
+      val yourIncomes = YourIncomes(yourIncome_sickpay = Some("true"), yourIncome_patmatadoppay = Some("true"))
+      val statutorySickPay = StatutorySickPay(stillBeingPaidThisPay = "no", whenDidYouLastGetPaid = Some(DayMonthYear.today), whoPaidYouThisPay = "ASDA", amountOfThisPay = "12", howOftenPaidThisPay = "other", howOftenPaidThisPayOther = Some("It varies"))
+      val statutoryPay = StatutoryMaternityPaternityAdoptionPay(paymentTypesForThisPay = "AdoptionPay", stillBeingPaidThisPay = "no", whenDidYouLastGetPaid = Some(DayMonthYear.today), whoPaidYouThisPay = "ASDA", amountOfThisPay = "12", howOftenPaidThisPay = "other", howOftenPaidThisPayOther = Some("It varies"))
 
       // Without statutory payments
       val claim = Claim(CachedClaim.key).+(ClaimDate(DayMonthYear()))
       val email = views.html.mail(claim,isClaim = true,isEmployment = true).body
-      email must not contain escapeMessage("evidence.otherMoney.statutorySickPay")
-      email must not contain escapeMessage("evidence.otherMoney.otherStatutoryPay")
+      email must not contain escapeMessage("evidence.yourIncome.otherPayments.statutorySickPay")
+      email must not contain escapeMessage("evidence.yourIncome.otherPayments.statutoryPay")
 
       // With statutory payments
-      val claimWithStatutoryPayments = claim.update(otherPayments)
+      val claimWithStatutoryPayments = claim.update(yourIncomes).update(statutorySickPay).update(statutoryPay)
       val emailWithStatutoryPayments = views.html.mail(claimWithStatutoryPayments,isClaim = true,isEmployment = false).body
       val emailWithEmploymentAsWell = views.html.mail(claimWithStatutoryPayments,isClaim = true,isEmployment = true).body
-      emailWithStatutoryPayments must contain(escapeMessage("evidence.otherMoney.statutorySickPay"))
-      emailWithStatutoryPayments must contain(escapeMessage("evidence.otherMoney.otherStatutoryPay"))
-      emailWithEmploymentAsWell must contain(escapeMessage("evidence.otherMoney.statutorySickPay"))
-      emailWithEmploymentAsWell must contain(escapeMessage("evidence.otherMoney.otherStatutoryPay"))
+      emailWithStatutoryPayments must contain(escapeMessage("evidence.yourIncome.otherPayments.statutorySickPay"))
+      emailWithStatutoryPayments must contain(escapeMessage("evidence.yourIncome.otherPayments.statutoryPay"))
+      emailWithEmploymentAsWell must contain(escapeMessage("evidence.yourIncome.otherPayments.statutorySickPay"))
+      emailWithEmploymentAsWell must contain(escapeMessage("evidence.yourIncome.otherPayments.statutoryPay"))
       emailWithEmploymentAsWell must contain(escapeMessage("evidence.include.documents"))
     }
 

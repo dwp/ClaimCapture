@@ -4,13 +4,14 @@ import controllers.ClaimScenarioFactory
 import org.specs2.mutable._
 import play.api.test.FakeApplication
 import controllers.ClaimScenarioFactory._
+import utils.pageobjects.your_income.{GStatutorySickPayPage, GYourIncomePage}
 import utils.{WithJsBrowser, WithBrowser}
 import utils.pageobjects._
 import utils.pageobjects.s_education.GYourCourseDetailsPage
 import utils.pageobjects.s_employment._
 import utils.pageobjects.s_self_employment.{GSelfEmploymentDatesPage}
 import utils.pageobjects.s_claim_date.{GClaimDatePage, GClaimDatePageContext}
-import utils.pageobjects.s_other_money.GAboutOtherMoneyPage
+
 
 class GBeenEmployedIntegrationSpec extends Specification {
   section("integration", models.domain.Employed.id)
@@ -22,22 +23,21 @@ class GBeenEmployedIntegrationSpec extends Specification {
 
       override implicit def implicitApp: FakeApplication = super.implicitApp
 
-      val employment = new GEmploymentPage(claimDate.ctx) goToThePage()
+      val employment = new GYourIncomePage(claimDate.ctx) goToThePage()
 
-      employment must beAnInstanceOf[GEmploymentPage]
+      employment must beAnInstanceOf[GYourIncomePage]
     }
 
-    """be bypassed and go onto "other money" having indicated that "employment" is not required.""" in new WithBrowser with PageObjects {
+    """be bypassed and go onto "statutory sick pay" having indicated that "employment" is not required.""" in new WithBrowser with PageObjects {
       val claimDate = new GClaimDatePage(context) goToThePage()
       claimDate.fillPageWith(s7NotEmployedNorSelfEmployed())
       claimDate.submitPage()
 
-      val employment = new GEmploymentPage(claimDate.ctx) goToThePage()
+      val employment = new GYourIncomePage(claimDate.ctx) goToThePage()
       employment.fillPageWith(s7NotEmployedNorSelfEmployed())
-      val otherMoney = employment.submitPage()
+      val statutorySickPay = employment.submitPage()
 
-
-      otherMoney must beAnInstanceOf[GAboutOtherMoneyPage]
+      statutorySickPay must beAnInstanceOf[GStatutorySickPayPage]
     }
 
 
@@ -46,12 +46,11 @@ class GBeenEmployedIntegrationSpec extends Specification {
       claimDate.fillPageWith(s7SelfEmployedAndEmployed())
       claimDate.submitPage()
 
-      val employment = new GEmploymentPage(claimDate.ctx) goToThePage()
+      val employment = new GYourIncomePage(claimDate.ctx) goToThePage()
       employment.fillPageWith(s7SelfEmployedAndEmployed())
-      val selfEmployment = employment.submitPage()
+      val jobDetails = employment.submitPage()
 
-
-      selfEmployment must beAnInstanceOf[GSelfEmploymentDatesPage]
+      jobDetails must beAnInstanceOf[GJobDetailsPage]
     }
 
     "start employment entry" in new WithBrowser with PageObjects {
@@ -59,10 +58,9 @@ class GBeenEmployedIntegrationSpec extends Specification {
       claimDate.fillPageWith(s7EmployedNotSelfEmployed())
       claimDate.submitPage()
 
-      val employment = new GEmploymentPage(claimDate.ctx) goToThePage()
+      val employment = new GYourIncomePage(claimDate.ctx) goToThePage()
       employment.fillPageWith(s7EmployedNotSelfEmployed())
       val jobDetails = employment.submitPage()
-
 
       jobDetails must beAnInstanceOf[GJobDetailsPage]
     }
@@ -81,7 +79,7 @@ class GBeenEmployedIntegrationSpec extends Specification {
       claimDate.submitPage()
 
       val education = new GYourCourseDetailsPage(claimDate.ctx) goToThePage()
-      val employment = new GEmploymentPage(education.ctx) goToThePage()
+      val employment = new GYourIncomePage(education.ctx) goToThePage()
       employment.goBack() must beAnInstanceOf[GYourCourseDetailsPage]
     }
 
@@ -151,8 +149,9 @@ trait EmployedHistoryPage extends GClaimDatePageContext {
 
     employmentData.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
     employmentData.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
+    employmentData.YourIncomeNone = "true"
 
-    val employmentPage = page goToPage new GEmploymentPage(PageObjectsContext(browser))
+    val employmentPage = page goToPage new GYourIncomePage(PageObjectsContext(browser))
     employmentPage fillPageWith employmentData
     val jobDetailsPage = employmentPage submitPage()
     jobDetailsPage fillPageWith employmentData

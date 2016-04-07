@@ -205,21 +205,17 @@ Self-Employed,Pension and expenses,"[[past=Did you]] [[present=Do you]] pay into
 Self-Employed,Pension and expenses,"Tell us what this [[past=was]] [[present=is]] for, how much and how often",SelfEmploymentPensionExpenses,some pension expenses
 Self-Employed,Pension and expenses,"[[past=Did you]] [[present=Do you]] have any care costs because of this work?",SelfEmploymentDoYouPayForAnythingNecessaryToDoYourJob,Yes
 Self-Employed,Pension and expenses,"Tell us what the cost [[past=was]] [[present=is]] for, how much, how often and who to",SelfEmploymentWhatAreNecessaryJobExpenses,some job expenses
-Employment,Employment,Do you want to add anything about your work?,EmploymentDoYouWantToAddAnythingAboutYourWork,No
-Employment,Employment,Do you want to add anything about your work?,EmploymentAdditionalInfo,
-Other Money,Benefits and payments,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,No
-Other Money,Benefits and payments,Benefits and payments: Who pays you?,OtherMoneyWhoPaysYou,
-Other Money,Benefits and payments,Benefits and payments: How much?,OtherMoneyHowMuch,
-Other Money,Benefits and payments,Benefits and payments: How often?,OtherMoneyHowOften,
-Other Money,Benefits and payments,Benefits and payments: How often other?,OtherMoneyHowOftenOther,
-Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,No
-Other Money,Statutory Sick Pay,"Employer's Name",OtherMoneySSPEmployerName,
-Other Money,Statutory Sick Pay,"Employer's Address",OtherMoneySSPEmployerAddress,
-Other Money,Statutory Sick Pay,"Employer's Postcode",OtherMoneyEmployerPostcode,
-Other Money,Other Statutory Pay,"Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from?",OtherMoneyHaveYouSMPSinceClaim,No
-Other Money,Other Statutory Pay,"Employer's Name",OtherMoneySMPEmployerName,
-Other Money,Other Statutory Pay,"Employer's Address",OtherMoneySMPEmployerAddress,
-Other Money,Other Statutory Pay,"Employer's Postcode",OtherMoneySMPEmployerPostcode,
+Your Income,Employment,Do you want to add anything about your work?,EmploymentDoYouWantToAddAnythingAboutYourWork,No
+Your Income,Employment,Do you want to add anything about your work?,EmploymentAdditionalInfo,
+Your Income,Other Income,What other income have you had since <ddmmyyyy>?,YourIncomeFosteringAllowance,true
+Your Income,Fostering Allowance,Which are you paid?,PaymentTypesForThisPay,Other
+Your Income,Fostering Allowance,Who paid you Fostering Allowance?,PaymentTypesForThisPayOther,Testing1234
+Your Income,Fostering Allowance,Are you still being paid statutory sick pay?,StillBeingPaidThisPay,No
+Your Income,Fostering Allowance,When were you last paid?,WhenDidYouLastGetPaid,14/09/2015
+Your Income,Fostering Allowance,Who paid you statutory sick pay?,WhoPaidYouThisPay,ASDA 2
+Your Income,Fostering Allowance,Amount paid,AmountOfThisPay,123.23
+Your Income,Fostering Allowance,How often are you paid?,HowOftenPaidThisPay,Other
+Your Income,Fostering Allowance,How often are you paid?,HowOftenPaidThisPayOther,Not sure
 How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,yes
 How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,Every four weeks
 How we pay you,Bank/Building society details,Name of account holder,HowWePayYouNameOfAccountHolder,Mr Test Casefour

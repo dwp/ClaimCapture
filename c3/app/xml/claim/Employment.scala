@@ -18,7 +18,7 @@ object Employment extends XMLComponent{
   val datePattern = "dd-MM-yyyy"
   def xml(claim: Claim) = {
     val jobsQG = claim.questionGroup[Jobs].getOrElse(Jobs())
-    val employment = claim.questionGroup[models.domain.Employment]
+    val employment = claim.questionGroup[models.domain.YourIncomes]
 
     if (jobsQG.jobs.length > 0 && employment.fold(false)(_.beenEmployedSince6MonthsBeforeClaim == "yes")) {
 

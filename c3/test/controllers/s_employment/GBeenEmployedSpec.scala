@@ -4,7 +4,7 @@ import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import models.domain._
-import models.domain.{Employment => EmploymentDomain}
+import models.domain.YourIncomes
 import controllers.mappings.Mappings._
 import models.view.CachedClaim
 import utils.WithApplication
@@ -15,7 +15,7 @@ class GBeenEmployedSpec extends Specification {
     "first present job details" in new WithApplication with Claiming {
       val claim = Claim(CachedClaim.key)
         .update(ClaimDate())
-        .update(EmploymentDomain(beenEmployedSince6MonthsBeforeClaim = yes))
+        .update(YourIncomes(beenEmployedSince6MonthsBeforeClaim = yes))
 
       cache.set("default"+claimKey, claim)
 

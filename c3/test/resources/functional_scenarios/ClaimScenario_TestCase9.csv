@@ -55,21 +55,10 @@ Education,Your course details,Name of Main Teacher or Tutor,EducationNameOfMainT
 Education,Your course details,Course contact number,EducationPhoneNumber,
 Education,Your course details,When did you start the course?,EducationWhenDidYouStartTheCourse,
 Education,Your course details,When do you expect the course to end?,EducationWhenDoYouExpectTheCourseToEnd,
-Employment,Employment,Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)?,EmploymentHaveYouBeenEmployedAtAnyTime_0,no
-Employment,Employment,Have you been self-employed at any time since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyy>)?,EmploymentHaveYouBeenSelfEmployedAtAnyTime,no
-Other Money,Benefits and payments,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,No
-Other Money,Benefits and payments,Benefits and payments: Who pays you?,OtherMoneyWhoPaysYou,
-Other Money,Benefits and payments,Benefits and payments: How much?,OtherMoneyHowMuch,
-Other Money,Benefits and payments,Benefits and payments: How often?,OtherMoneyHowOften,
-Other Money,Benefits and payments,Benefits and payments: How often other?,OtherMoneyHowOftenOther,
-Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,No
-Other Money,Statutory Sick Pay,"Employer's Name",OtherMoneySSPEmployerName,
-Other Money,Statutory Sick Pay,"Employer's Address,OtherMoneySSPEmployerAddress,
-Other Money,Statutory Sick Pay,"Employer's Postcode,OtherMoneyEmployerPostcode,
-Other Money,Other Statutory Pay,"Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from?",OtherMoneyHaveYouSMPSinceClaim,No
-Other Money,Other Statutory Pay,Employer's Name,OtherMoneySMPEmployerName,
-Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,
-Other Money,Other Statutory Pay,Employer's Postcode,OtherMoneySMPEmployerPostcode,
+Your Income,Employment,Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)?,EmploymentHaveYouBeenEmployedAtAnyTime_0,no
+Your Income,Employment,Have you been self-employed at any time since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyy>)?,EmploymentHaveYouBeenSelfEmployedAtAnyTime,no
+Your Income,Other Income,What other income have you had since <ddmmyyyy>?,YourIncomeAnyOtherPay,true
+Your Income,other payments,What other income have you had since <ddmmyyyy>?,OtherPaymentsInfo,Testing12345
 How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,
 How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,
 How we pay you,Bank/Building society details,Name of account holder,HowWePayYouNameOfAccountHolder,

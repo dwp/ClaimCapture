@@ -1,0 +1,49 @@
+@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
+
+@import models.domain._
+@import helper._
+@import controllers.mappings.Mappings._
+@import models.yesNo.YesNoWithText
+@import scala.language.postfixOps
+
+@selfEmployment = @{claim.questionGroup[SelfEmploymentDates].getOrElse(SelfEmploymentDates())}
+@selfEmploymentPensionsAndExpenses = @{claim.questionGroup[SelfEmploymentPensionsAndExpenses].getOrElse(SelfEmploymentPensionsAndExpenses())}
+@claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
+@oneWeekBeforeDate(date:DayMonthYear) = @{date - 1 weeks}
+@displayMessage(data: String, message: String) = @{
+    if (data == "" || data == no) ""
+    else s"${messages(message)}<br/>"
+}
+@displayMessageDetails(data: Option[String], message: String) = @{
+    if (data == None || data == Some(no)) ""
+    else s"${messages(message)}<br/>"
+}
+@displayMessageDetailsNo(data: Option[String], message: String) = @{
+    if (data == None || data == Some(yes)) ""
+    else s"${messages(message)}<br/>"
+}
+@displayMessageDate(date: Option[DayMonthYear], message: String) = @{
+    if (date == None) ""
+    else s"${messages(message)} ${date.get.`d month yyyy`}<br/>"
+}
+@displayPensionsAndExpenses(haveExpensesForJob: YesNoWithText, payPensionScheme: YesNoWithText, message: String) = @{
+    if (haveExpensesForJob.answer == yes || payPensionScheme.answer == yes) s"${messages(message)}"
+    else ""
+}
+@yourIncome = @{claim.questionGroup[YourIncomes].getOrElse(YourIncomes())}
+@selfEmploymentDates = @{
+    displayMessage(selfEmployment.moreThanYearAgo, "preview.self_employed.moreThanAYearAgo") +
+            displayMessageDate(selfEmployment.startThisWork, "preview.self_employed.startThisWork") +
+            displayMessageDate(selfEmployment.finishThisWork, "preview.self_employed.finishThisWork") +
+            displayMessageDetails(selfEmployment.haveAccounts, "preview.self_employed.haveAccounts") +
+            displayMessageDate(selfEmployment.tradingYearStart, "preview.self_employed.tradingYearStart") +
+            displayMessageDetailsNo(selfEmployment.knowTradingYear, "preview.self_employed.unknownTradingYear") +
+            displayPensionsAndExpenses(selfEmploymentPensionsAndExpenses.haveExpensesForJob, selfEmploymentPensionsAndExpenses.payPensionScheme, "preview.self_employed.hasExpenses")
+}
+@isSelfEmployed = @{yourIncome.beenSelfEmployedSince1WeekBeforeClaim == yes}
+@disableChangeButton = @{!app.ConfigProperties.getProperty("cyaToggleVisible", true)}
+
+@fieldWithLink("self_employment_been_self_employed", messages("beenSelfEmployed.simple", oneWeekBeforeDate(claimDate.dateOfClaim).`d month yyyy`), messages("label." + yourIncome.beenSelfEmployedSince1WeekBeforeClaim), disableLink = disableChangeButton, elementId = Some("beenSelfEmployedSince1WeekBeforeClaim"))
+@if(isSelfEmployed) {
+    @fieldWithLink("self_employment_dates", messages("s8.longName", oneWeekBeforeDate(claimDate.dateOfClaim).`d month yyyy`), selfEmploymentDates, disableLink = disableChangeButton, elementId = Some("stillSelfEmployed"))
+}

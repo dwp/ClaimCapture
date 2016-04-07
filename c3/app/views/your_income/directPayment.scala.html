@@ -1,0 +1,82 @@
+@(currentForm: Form[models.domain.DirectPayment])(implicit claim: models.domain.Claim,lang: Lang,request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
+
+@import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
+@import views.html.helper.dates._
+@import scala.language.postfixOps
+@import app.StatutoryPaymentFrequency._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import utils.helpers.ReturnToSummaryHelper._
+
+@listOfOptions = @{
+    Seq(
+        Weekly -> messages("weekly"),
+        Fortnightly -> messages("fortnightly"),
+        FourWeekly -> messages("fourWeekly"),
+        Monthly -> messages("monthly"),
+        ItVaries -> messages("itVaries")
+    )
+}
+
+@main(messages("s7.g1")+ " " + messages("s20.g1"), messages("s7.g1")+ " - " + messages("s20.g1"), Some(currentForm)) {
+    @form(action = controllers.your_income.routes.GDirectPayment.submit, 'role -> "form") {
+
+        @DwpCSRFFormHelper.formField
+
+        <fieldset class="form-elements">
+            <legend class="visuallyhidden">@Html(messages("s20.g1"))</legend>
+
+            <ul>
+                @yesNoRadioGroup(currentForm("stillBeingPaidThisPay_directPayment"))
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        inputDayMonthYear(currentForm("whenDidYouLastGetPaid"))
+                    ),
+                    'id -> "stillBeingPaidThisPayWrap"
+                )
+
+                @carersInputText(currentForm("whoPaidYouThisPay_directPayment"), 'maxLength -> mappings.Mappings.sixty)
+
+                @carersCurrency(currentForm("amountOfThisPay"), 'maxLength -> mappings.Mappings.twelve)
+
+                @listRadioGroup(currentForm("howOftenPaidThisPay"),
+                    'items -> listOfOptions,
+                    '_nestedFieldSet -> true,
+                    'track -> true,
+                    'ignoreOptional -> true)
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        carersInputText(currentForm("howOftenPaidThisPayOther"),
+                            '_label -> "howOftenPaidThisPayOther",
+                            'maxLength -> 60)
+                    ),
+                    'id -> "howOftenPaidThisPayWrap"
+                )
+            </ul>
+        </fieldset>
+
+        @views.html.common.bottomNavigation(nextLabel=displayReturnToSummaryFromDirectPaymentInfo(claim),trackSubmit = true)
+
+    }
+
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/your_income/otherIncome.js")></script>
+    <script type="text/javascript">
+        $(function() {
+            window.initEvents(
+                "@CarersCrypto.encryptAES("stillBeingPaidThisPay_directPayment_yes")",
+                "@CarersCrypto.encryptAES("stillBeingPaidThisPay_directPayment_no")",
+                "@CarersCrypto.encryptAES("whenDidYouLastGetPaid_day")",
+                "@CarersCrypto.encryptAES("whenDidYouLastGetPaid_month")",
+                "@CarersCrypto.encryptAES("whenDidYouLastGetPaid_year")",
+                "@CarersCrypto.encryptAES("howOftenPaidThisPay_Other")",
+                "@CarersCrypto.encryptAES("howOftenPaidThisPay")",
+                "@ItVaries",
+                "@CarersCrypto.encryptAES("howOftenPaidThisPayOther")"
+            );
+        })
+    </script>
+}

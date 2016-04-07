@@ -1,8 +1,7 @@
 @(title: String, currentForm: Option[Form[_]] = None, employerName: Option[String] = None,ignorePreview:Boolean = false)(content: Html)(implicit claim: models.domain.Claim,request: Request[AnyContent], lang: Lang, flash:Flash, messages: play.api.i18n.Messages)
 
-@import models.domain.Employed
+@import models.domain.YourIncome
 @import helper._
-@import play.api.i18n.Messages
 @import views.html.common._
 
 
@@ -23,10 +22,10 @@
                 @views.html.common.upperBackButton()
 
                 @if(employerName.isDefined && !employerName.isEmpty) {
-                    <h1 class="form-title heading-large">@sectionTitle(Employed)@employerName </h1>
+                    <h1 class="form-title heading-large">@sectionTitle(YourIncome)@employerName </h1>
                 }
                 @if(!employerName.isDefined || employerName.isEmpty){
-                    <h1 class="form-title heading-large">@sectionTitle(Employed)@Html(messages("s7.main.help1"))</h1>
+                    <h1 class="form-title heading-large">@sectionTitle(YourIncome)@Html(messages("s7.main.help1"))</h1>
                 }
 
                 @if(currentForm.isDefined) {

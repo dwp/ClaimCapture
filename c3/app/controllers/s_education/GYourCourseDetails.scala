@@ -1,7 +1,6 @@
 package controllers.s_education
 
 import play.api.Play._
-
 import language.reflectiveCalls
 import play.api.mvc.{AnyContent, Request, Controller}
 import play.api.data.Form
@@ -47,7 +46,7 @@ object GYourCourseDetails extends Controller with CachedClaim with Navigable wit
   }
 
   private def redirect( claim: Claim, request: Request[AnyContent]): ClaimResult =
-    claim -> Redirect("/employment/employment")
+    claim -> Redirect("/your-income/your-income")
 
   def submit = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
@@ -61,6 +60,6 @@ object GYourCourseDetails extends Controller with CachedClaim with Navigable wit
           .replaceError("", "expectedEndDate.required", FormError("expectedEndDate", errorRequired))
         BadRequest(views.html.s_education.g_yourCourseDetails(formWithErrorsUpdate))
       },
-      yourCourseDetails => claim.update(yourCourseDetails) -> Redirect(controllers.s_self_employment.routes.GEmployment.present()))
+      yourCourseDetails => claim.update(yourCourseDetails) -> Redirect(controllers.your_income.routes.GYourIncomes.present()))
   } withPreview()
 }

@@ -7,7 +7,7 @@
 @import models.domain.YourDetails
 @import controllers.mappings.Mappings._
 @import models.domain._
-
+@import views.html.preview._
 
 @toggle = @{
 	!app.ConfigProperties.getProperty("cyaToggleVisible",true)
@@ -53,8 +53,7 @@
 	                    @careYouProvide()
                         @breaks()
 	                    @education()
-	                    @employment()
-	                    @otherMoney()
+	                    @yourIncome()
 						@if(showBankDetails){
 							@bankDetails()
 						}

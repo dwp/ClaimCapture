@@ -12,33 +12,33 @@ object OtherBenefits extends XMLComponent {
 
   def xml(claim: Claim) = {
     val yourDetails = claim.questionGroup[YourDetails].getOrElse(YourDetails())
-    val aboutOtherMoney = claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney())
-    val statutorySickPay = aboutOtherMoney.statutorySickPay
-    val otherStatutoryPayOption = aboutOtherMoney.otherStatutoryPay
+//    val aboutOtherMoney = claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney())
+//    val statutorySickPay = aboutOtherMoney.statutorySickPay
+//    val otherStatutoryPayOption = aboutOtherMoney.otherStatutoryPay
     val otherEEAState = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
 
 
+//      {question(<OtherMoneySSP/>,"haveYouHadAnyStatutorySickPay.label", statutorySickPay.answer)}
+//      {otherMoneySPPXml(statutorySickPay)}
+//      {question(<OtherMoneySP/>,"otherPay.label",otherStatutoryPayOption.answer)}
+//      {otherMoneySPDetails(otherStatutoryPayOption)}
+//      {question(<OtherMoneyPayments/>,"anyPaymentsSinceClaimDate.answer",aboutOtherMoney.anyPaymentsSinceClaimDate.answer)}
+//      {aboutOtherMoney.anyPaymentsSinceClaimDate.answer match {
+//          case "yes" =>{
+//            <OtherMoneyDetails>
+//              <Payment>
+//                {questionCurrency(<Payment/>,"howMuch.label", aboutOtherMoney.howMuch)}
+//                {if(aboutOtherMoney.howOften.isDefined){
+//                  {questionOther(<Frequency/>,"howOften", aboutOtherMoney.howOften.get.frequency, aboutOtherMoney.howOften.get.other)}
+//                }}
+//              </Payment>
+//              {question(<Name/>,"whoPaysYou.label", aboutOtherMoney.whoPaysYou)}
+//              </OtherMoneyDetails>
+//          }
+//          case "no" => NodeSeq.Empty
+//          case _ => throw new RuntimeException("AnyPaymentsSinceClaimDate is either Yes Or No")
+//        }}
     <OtherBenefits>
-      {question(<OtherMoneySSP/>,"haveYouHadAnyStatutorySickPay.label", statutorySickPay.answer)}
-      {otherMoneySPPXml(statutorySickPay)}
-      {question(<OtherMoneySP/>,"otherPay.label",otherStatutoryPayOption.answer)}
-      {otherMoneySPDetails(otherStatutoryPayOption)}
-      {question(<OtherMoneyPayments/>,"anyPaymentsSinceClaimDate.answer",aboutOtherMoney.anyPaymentsSinceClaimDate.answer)}
-      {aboutOtherMoney.anyPaymentsSinceClaimDate.answer match {
-          case "yes" =>{
-            <OtherMoneyDetails>
-              <Payment>
-                {questionCurrency(<Payment/>,"howMuch.label", aboutOtherMoney.howMuch)}
-                {if(aboutOtherMoney.howOften.isDefined){
-                  {questionOther(<Frequency/>,"howOften", aboutOtherMoney.howOften.get.frequency, aboutOtherMoney.howOften.get.other)}
-                }}
-              </Payment>
-              {question(<Name/>,"whoPaysYou.label", aboutOtherMoney.whoPaysYou)}
-              </OtherMoneyDetails>
-          }
-          case "no" => NodeSeq.Empty
-          case _ => throw new RuntimeException("AnyPaymentsSinceClaimDate is either Yes Or No")
-        }}
       <EEA>
         {question(<EEAGuardQuestion/>,"eeaGuardQuestion.answer", otherEEAState.guardQuestion.answer)}
         {question(<EEAReceivePensionsBenefits/>,"benefitsFromEEA", otherEEAState.guardQuestion.field1.fold("")(_.answer))}
@@ -87,20 +87,22 @@ object OtherBenefits extends XMLComponent {
   }
 
   def fromXml(xml: NodeSeq, claim: Claim) : Claim = {
-    claim.update(createOtherMoneyDetailsFromXml(xml)).update(createEEAStateFromXml(xml))
+    claim
+      //.update(createOtherMoneyDetailsFromXml(xml))
+      .update(createEEAStateFromXml(xml))
   }
 
-  private def createOtherMoneyDetailsFromXml(xml: NodeSeq) = {
-    val otherBenefits = (xml \\ "OtherBenefits")
-    models.domain.AboutOtherMoney(
-      anyPaymentsSinceClaimDate = YesNo(answer = createYesNoText((otherBenefits \ "OtherMoneyPayments" \ "Answer").text)),
-      whoPaysYou = createStringOptional((otherBenefits \ "OtherMoneyDetails" \ "Name" \ "Answer").text),
-      howMuch = createStringOptional((otherBenefits \ "OtherMoneyDetails" \ "Payment" \ "Payment" \ "Answer" \ "Amount").text),
-      howOften = createPaymentFrequencyOptionalFromXml((otherBenefits \ "OtherMoneyDetails" \ "Payment"), "Frequency"),
-      statutorySickPay = createOtherMoneySSPDetailsFromXml(otherBenefits),
-      otherStatutoryPay = createOtherMoneySPDetailsFromXml(otherBenefits)
-    )
-  }
+//  private def createOtherMoneyDetailsFromXml(xml: NodeSeq) = {
+//    val otherBenefits = (xml \\ "OtherBenefits")
+//    models.domain.AboutOtherMoney(
+//      anyPaymentsSinceClaimDate = YesNo(answer = createYesNoText((otherBenefits \ "OtherMoneyPayments" \ "Answer").text)),
+//      whoPaysYou = createStringOptional((otherBenefits \ "OtherMoneyDetails" \ "Name" \ "Answer").text),
+//      howMuch = createStringOptional((otherBenefits \ "OtherMoneyDetails" \ "Payment" \ "Payment" \ "Answer" \ "Amount").text),
+//      howOften = createPaymentFrequencyOptionalFromXml((otherBenefits \ "OtherMoneyDetails" \ "Payment"), "Frequency"),
+//      statutorySickPay = createOtherMoneySSPDetailsFromXml(otherBenefits),
+//      otherStatutoryPay = createOtherMoneySPDetailsFromXml(otherBenefits)
+//    )
+//  }
 
   private def createOtherMoneySPDetailsFromXml(otherBenefits: NodeSeq) = {
     val otherMoneySPDetails = (otherBenefits \\ "OtherMoneySPDetails")

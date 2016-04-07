@@ -27,11 +27,11 @@ trait Navigable {
 
   def trackBackToBeginningOfEmploymentSection[T](t: T)(f: => Claim => Result)(implicit claim: Claim, request: Request[AnyContent], classTag: ClassTag[T]): ClaimResult = {
     val updatedNavigationSec = if (claim.navigation.beenInPreview) {
-      claim.navigation.copy(routesAfterPreview = claim.navigation.routesAfterPreview.takeWhile(r => r.uri == "/employment/employment" || !r.uri.contains("employment"))).track(t)(request.uri)
+      claim.navigation.copy(routesAfterPreview = claim.navigation.routesAfterPreview.takeWhile(r => r.uri == "/your-income/your-income" || !r.uri.contains("employment"))).track(t)(request.uri)
     } else {
-      claim.navigation.copy(routes = claim.navigation.routes.takeWhile(r => r.uri == "/employment/employment" || !r.uri.contains("employment"))).track(t)(request.uri)
+      claim.navigation.copy(routes = claim.navigation.routes.takeWhile(r => r.uri == "/your-income/your-income" || !r.uri.contains("employment"))).track(t)(request.uri)
     }
-    // Similar to track but this removes all routes navigation entries up to /employment/employment.
+    // Similar to track but this removes all routes navigation entries up to /your-income/your-income.
     // Done so that when at the jobs summary page of employment, back can take you back to the initial guard questions page
     val updatedClaim = claim.copy(claim.key, claim.sections)(updatedNavigationSec)
 

@@ -6,7 +6,7 @@ import utils.pageobjects.{PageObjectsContext, PageObjects}
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s_employment.GEmploymentPage
+import utils.pageobjects.your_income.GYourIncomePage
 
 class PreviewPageEmploymentContentSpec extends Specification {
   section("preview")
@@ -40,17 +40,11 @@ class PreviewPageEmploymentContentSpec extends Specification {
     claimDatePage fillPageWith claimDate
     claimDatePage submitPage()
 
-    val employmentPage = GEmploymentPage(context)
+    val employmentPage = GYourIncomePage(context)
     employmentPage goToThePage ()
     employmentPage fillPageWith employmentData
 
-    val selfEmploymentPage = employmentPage submitPage()
-    selfEmploymentPage fillPageWith selfEmploymentData
-
-    val selfEmployedPensionsPage = selfEmploymentPage submitPage()
-    selfEmployedPensionsPage fillPageWith selfEmploymentData
-
-    val jobDetailsPage = selfEmployedPensionsPage submitPage()
+    val jobDetailsPage = employmentPage submitPage()
     jobDetailsPage fillPageWith employmentData
 
     val lastWagePage = jobDetailsPage submitPage()
@@ -63,6 +57,14 @@ class PreviewPageEmploymentContentSpec extends Specification {
     employmentData.EmploymentHaveYouBeenEmployedAtAnyTime_1 = "No"
     beenEmployedPage fillPageWith employmentData
 
-    beenEmployedPage submitPage()
+    val additionalInfoPage = beenEmployedPage submitPage()
+    additionalInfoPage fillPageWith employmentData
+
+    val selfEmploymentPage = additionalInfoPage submitPage()
+    selfEmploymentPage fillPageWith selfEmploymentData
+
+    val selfEmployedPensionsPage = selfEmploymentPage submitPage()
+    selfEmployedPensionsPage fillPageWith selfEmploymentData
+    selfEmployedPensionsPage.submitPage()
   }
 }

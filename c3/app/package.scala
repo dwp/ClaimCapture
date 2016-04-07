@@ -65,6 +65,14 @@ package object app {
     val ThirteenWeekly = "Every thirteen weeks"
   }
 
+  object PaymentTypes {
+    val MaternityPaternity = "MaternityOrPaternityPay"
+    val Adoption = "AdoptionPay"
+    val FosteringAllowance = "FosteringAllowance"
+    val LocalAuthority = "LocalAuthority"
+    val Other = "Other"
+  }
+
   object PensionPaymentFrequency {
     val Weekly = "Weekly"
     val Fortnightly = "Fortnightly"
@@ -80,6 +88,7 @@ package object app {
     val DontKnowYet = "Dont-Know-Yet"
     val Monthly = "Monthly"
     val Other = "Other"
+    val ItVaries = "Other"
 
     private def mapToHumanReadableString(frequencyCode: String, otherCode: Option[String]): String = frequencyCode match {
       case Weekly => "Weekly"
@@ -91,6 +100,7 @@ package object app {
         case Some(s) => "Other: " + s
         case _ => "Other"
       } //+ paymentFrequency.other.getOrElse("")
+      case ItVaries => "It varies"
       case _ => ""
     }
 

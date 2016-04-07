@@ -13,7 +13,7 @@ object Employed extends Section.Identifier {
   val id = "s8"
 
   def isEmployed(claim: Claim): Boolean = {
-    claim.questionGroup[Employment] match {
+    claim.questionGroup[YourIncomes] match {
       case Some(employment) => employment.beenEmployedSince6MonthsBeforeClaim == Mappings.yes
       case _ => false
     }

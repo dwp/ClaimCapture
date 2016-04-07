@@ -6,54 +6,53 @@
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
-@import play.api.i18n.Messages
-@import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+@import utils.helpers.ReturnToSummaryHelper._
+
+@main(messages("s7.g9") + "  " + messages("s7.longName"), Some(employmentAdditionalInfoForm)) {
+    @form(action = controllers.s_employment.routes.GEmploymentAdditionalInfo.submit, 'role -> "form") {
+        @DwpCSRFFormHelper.formField
+
+        <fieldset class="form-elements">
+
+            <legend class="visuallyhidden">@Html(messages("s7.g9"))</legend>
+
+            <ul>
+
+                @yesNoRadioGroup(employmentAdditionalInfoForm("empAdditionalInfo")("answer"), 'helperAbove-> messages("employment.additional.info.help"))
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        carersInputTextArea(employmentAdditionalInfoForm("empAdditionalInfo")("text"),
+                            'textAreaHelper -> Html(messages("3000charsLeft")),
+                            'ignoreLabel -> true,
+                            'ignoreOptional -> true,
+                            'maxLength -> 3000)
+                    ),
+                    'id -> "additionalInfoWrap"
+                )
+            </ul>
+
+        </fieldset>
 
 
-
-    @main(messages("s7.g9") + "  " + messages("s7.longName"), Some(employmentAdditionalInfoForm)) {
-        @form(action = controllers.s_employment.routes.GEmploymentAdditionalInfo.submit, 'role -> "form") {
-            @DwpCSRFFormHelper.formField
-
-            <fieldset class="form-elements">
-
-                <legend class="visuallyhidden">@Html(messages("s7.g9"))</legend>
-
-                <ul>
-
-                    @yesNoRadioGroup(employmentAdditionalInfoForm("empAdditionalInfo")("answer"), 'helperAbove-> messages("employment.additional.info.help"))
-
-                    @otherDetailPlaceHolder(
-                        inputDef = Seq(
-                            carersInputTextArea(employmentAdditionalInfoForm("empAdditionalInfo")("text"),
-                                'textAreaHelper -> Html(messages("3000charsLeft")),
-                                'ignoreLabel -> true,
-                                'ignoreOptional -> true,
-                                'maxLength -> 3000)
-                        ),
-                        'id -> "additionalInfoWrap"
-                    )
-                </ul>
-
-            </fieldset>
-
-
-            @views.html.common.bottomNavigation(trackSubmit = true)
-
-        }
-
-        <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
-        <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_employment/g_employmentAdditionalInfo.js")></script>
-
-        <script type="text/javascript">
-            $(function(){
-                @ga.stagePrompt()
-                window.areaCounter({selector:"@CarersCrypto.encryptAES("empAdditionalInfo_text")",maxChars:3000});
-                window.initEvents("@CarersCrypto.encryptAES("empAdditionalInfo_answer_yes")",
-                "@CarersCrypto.encryptAES("empAdditionalInfo_answer_no")",
-                "@CarersCrypto.encryptAES("empAdditionalInfo_text")");
-            });
-        </script>
+        @views.html.common.bottomNavigation(nextLabel=displayReturnToSummaryFromEmploymentAdditionInfo(claim),trackSubmit = true)
 
     }
+
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_employment/g_employmentAdditionalInfo.js")></script>
+
+    <script type="text/javascript">
+        $(function(){
+            @ga.stagePrompt()
+            window.areaCounter({selector:"@CarersCrypto.encryptAES("empAdditionalInfo_text")",maxChars:3000});
+            window.initEvents(
+                "@CarersCrypto.encryptAES("empAdditionalInfo_answer_yes")",
+                "@CarersCrypto.encryptAES("empAdditionalInfo_answer_no")",
+                "@CarersCrypto.encryptAES("empAdditionalInfo_text")"
+            );
+        });
+    </script>
+
+}
 

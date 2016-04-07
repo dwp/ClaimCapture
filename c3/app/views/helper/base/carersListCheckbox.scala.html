@@ -1,0 +1,26 @@
+@(field: play.api.data.Field, form: Form[AnyContent], options: Seq[(String, String)], args: (Symbol, Any)*)(implicit handler: helper.FieldConstructor, lang: play.api.i18n.Lang, request: Request[AnyContent], messages: play.api.i18n.Messages)
+
+@import utils.helpers.CarersCrypto
+@import play.api.Play
+@import play.api.Play.current
+@import utils.helpers.GAHelper._
+@import app.ConfigProperties._
+@import play.api.i18n.Messages
+
+@boxValue = @{ args.toMap.get('value).getOrElse("true") }
+
+@gaTrack(id: String, checked: String) = @{
+    val tracking = args.find(_._1 == 'track).getOrElse('track->false)._2.asInstanceOf[Boolean]
+
+    if(getProperty("include.analytics", true) && tracking) {
+        trackEvent(request.path,args.find(_._1 == 'trackLabel).getOrElse('trackLabel->(id+".tracking"))._2.toString, Some(checked))
+    }
+}
+
+@replaceCharacters(id:String) = @{
+    id.replace(" ","_").replace("'","").replace("/","_")
+}
+
+@options.map { v =>
+    <li>@carersDeclareListCheckBox(form(field.id+"_"+replaceCharacters(v._1)), v._2, args:_*)</li>
+}

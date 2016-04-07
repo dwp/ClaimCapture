@@ -1,0 +1,13 @@
+@(field: play.api.data.Field, form: Form[AnyContent], args: (Symbol, Any)*)(implicit request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
+
+@import helper.base._
+@import utils.helpers.CarersCrypto
+@import views.html.helper.checkConstraintRequired
+
+<li class="form-group @if(field.hasErrors) {validation-error}" id="@CarersCrypto.encryptAES(field.id)">
+    @checkConstraintRequired(field, args:_*)
+
+    <ul class="form-group form-group-compound">
+        @carersListCheckbox(field, form, args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items):_*)(utils.helpers.EmptyTemplate.fieldConstructor,lang,request,messages)
+    </ul>
+</li>

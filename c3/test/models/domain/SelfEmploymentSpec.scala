@@ -7,10 +7,10 @@ import utils.WithApplication
 
 class SelfEmploymentSpec extends Specification {
   def claimSelfEmployed = Claim(CachedClaim.key, List(
-    Section(SelfEmployment, List(Employment(Mappings.yes, Mappings.no)))
+    Section(SelfEmployment, List(YourIncomes(Mappings.yes, Mappings.no)))
   ))
   def claimNotSelfEmployed = Claim(CachedClaim.key, List(
-    Section(SelfEmployment, List(Employment(Mappings.no, Mappings.no)))
+    Section(SelfEmployment, List(YourIncomes(Mappings.no, Mappings.no)))
   ))
   def claimWithNoEmploymentDetails = Claim(CachedClaim.key, List(
     Section(SelfEmployment, List())

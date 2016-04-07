@@ -105,8 +105,9 @@ Education,Your course details,Name of Main Teacher or Tutor,EducationNameOfMainT
 Education,Your course details,Course contact number,EducationPhoneNumber,
 Education,Your course details,When did you start the course?,EducationWhenDidYouStartTheCourse,
 Education,Your course details,When do you expect the course to end?,EducationWhenDoYouExpectTheCourseToEnd,
-Employment,Employment,Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)?,EmploymentHaveYouBeenEmployedAtAnyTime_0,yes
-Employment,Employment,Have you been self-employed at any time since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyy>)?,EmploymentHaveYouBeenSelfEmployedAtAnyTime,yes
+Your Income,Employment,Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)?,EmploymentHaveYouBeenEmployedAtAnyTime_0,yes
+Your Income,Employment,Have you been self-employed at any time since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyy>)?,EmploymentHaveYouBeenSelfEmployedAtAnyTime,yes
+Your Income,Other Payments,What other income have you had since <ddmmyyyy>?,YourIncomeNone,true
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
 Employment,Your Job,Employers Name,EmploymentEmployerName_1,"Some company that is not paying me enough for my daily work'"
 Employment,Your Job,Did you start this job before claim date <ddmmyyyy_1>?,EmploymentDidYouStartThisJobBeforeClaimDate_1,No
@@ -169,14 +170,6 @@ Self-Employed,Pension and expenses,"[[past=Did you]] [[present=Do you]] have any
 Self-Employed,Pension and expenses,"Tell us what the cost [[past=was]] [[present=is]] for, how much, how often and who to",SelfEmploymentWhatAreNecessaryJobExpenses,
 Employment,Employment,Do you want to add anything about your work?,EmploymentDoYouWantToAddAnythingAboutYourWork,Yes
 Employment,Employment,Do you want to add anything about your work?,EmploymentAdditionalInfo,I want to tell more about my job
-Other Money,Benefits and payments,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,No
-Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,No
-Other Money,Other Statutory Pay,"Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from?",OtherMoneyHaveYouSMPSinceClaim,Yes
-Other Money,Other Statutory Pay,Other Statutory Pay: How much?,OtherMOneySMPHowMuch,£145
-Other Money,Other Statutory Pay,Other Statutory Pay: How often?,OtherMOneySMPHowOften,Monthly
-Other Money,Other Statutory Pay,"Employer's Name",OtherMoneySMPEmployerName,"A really big company which i don't remember the name just fi"
-Other Money,Other Statutory Pay,"Employer's Address",OtherMoneySMPEmployerAddress,1012 Preston  Road&Preston&Lancashure
-Other Money,Other Statutory Pay,"Employer's Postcode",OtherMoneySMPEmployerPostcode,PR45 6YH
 How we pay you,How would you like to get paid?,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,no
 How we pay you,How would you like to get paid?,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,Every four weeks
 Consent & Declaration,Additional information,Please tell us anything else you think we should know about your claim.,ConsentDeclarationTellUsAnythingElseAnswerAboutClaim,No

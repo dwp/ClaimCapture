@@ -1,0 +1,111 @@
+@(currentForm: Form[models.domain.FosteringAllowance])(implicit claim: models.domain.Claim,lang: Lang,request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
+
+@import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
+@import views.html.helper.dates._
+@import scala.language.postfixOps
+@import app.StatutoryPaymentFrequency._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import app.PaymentTypes._
+@import utils.helpers.OriginTagHelper._
+@import utils.helpers.ReturnToSummaryHelper._
+
+@listOfOptions = @{
+    Seq(
+        Weekly -> messages("weekly"),
+        Fortnightly -> messages("fortnightly"),
+        FourWeekly -> messages("fourWeekly"),
+        Monthly -> messages("monthly"),
+        ItVaries -> messages("itVaries")
+    )
+}
+
+@listOfPaymentTypes = @{
+    (isOriginGB() match {
+            case true => Seq(LocalAuthority -> messages("paymentTypeLocalAuthority"), FosteringAllowance -> messages("paymentTypeMainFostering"))
+            case false => Seq(FosteringAllowance -> messages("paymentTypeMainFostering"))
+        }
+    ) ++ Seq(app.PaymentTypes.Other -> messages("paymentTypeOther"))
+}
+
+@main(messages("s7.g1")+ " " + messages("s19.g1"), messages("s7.g1")+ " - " + messages("s19.g1"), Some(currentForm)) {
+    @form(action = controllers.your_income.routes.GFosteringAllowance.submit, 'role -> "form") {
+
+        @DwpCSRFFormHelper.formField
+
+        <fieldset class="form-elements">
+            <legend class="visuallyhidden">@Html(messages("s19.g1"))</legend>
+
+            <ul>
+                @listRadioGroup(currentForm("fosteringAllowancePay"),
+                    'items -> listOfPaymentTypes,
+                    '_nestedFieldSet -> true,
+                    'track -> true,
+                    'ignoreOptional -> true)
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        carersInputText(currentForm("fosteringAllowancePayOther"), 'maxLength -> 60)
+                    ),
+                    'id -> "fosteringAllowancePayWrap"
+                )
+
+                @yesNoRadioGroup(currentForm("stillBeingPaidThisPay_fosteringAllowance"))
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        inputDayMonthYear(currentForm("whenDidYouLastGetPaid"))
+                    ),
+                    'id -> "stillBeingPaidThisPayWrap"
+                )
+
+                @carersInputText(currentForm("whoPaidYouThisPay_fosteringAllowance"), 'maxLength -> mappings.Mappings.sixty)
+
+                @carersCurrency(currentForm("amountOfThisPay"), 'maxLength -> mappings.Mappings.twelve)
+
+                @listRadioGroup(currentForm("howOftenPaidThisPay"),
+                    'items -> listOfOptions,
+                    '_nestedFieldSet -> true,
+                    'track -> true,
+                    'ignoreOptional -> true)
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        carersInputText(currentForm("howOftenPaidThisPayOther"),
+                            '_label -> "howOftenPaidThisPayOther",
+                            'maxLength -> 60)
+                    ),
+                    'id -> "howOftenPaidThisPayWrap"
+                )
+            </ul>
+        </fieldset>
+
+        @views.html.common.bottomNavigation(nextLabel=displayReturnToSummaryFromFosteringAllowanceInfo(claim),trackSubmit = true)
+
+    }
+
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/your_income/otherIncome.js")></script>
+    <script type="text/javascript">
+        $(function() {
+            window.initEvents(
+                "@CarersCrypto.encryptAES("stillBeingPaidThisPay_fosteringAllowance_yes")",
+                "@CarersCrypto.encryptAES("stillBeingPaidThisPay_fosteringAllowance_no")",
+                "@CarersCrypto.encryptAES("whenDidYouLastGetPaid_day")",
+                "@CarersCrypto.encryptAES("whenDidYouLastGetPaid_month")",
+                "@CarersCrypto.encryptAES("whenDidYouLastGetPaid_year")",
+                "@CarersCrypto.encryptAES("howOftenPaidThisPay_Other")",
+                "@CarersCrypto.encryptAES("howOftenPaidThisPay")",
+                "@ItVaries",
+                "@CarersCrypto.encryptAES("howOftenPaidThisPayOther")"
+            );
+            window.initFosteringAllowanceEvents(
+                    "@CarersCrypto.encryptAES("fosteringAllowancePay")",
+                    "@CarersCrypto.encryptAES("fosteringAllowancePay_Other")",
+                    "@app.PaymentTypes.Other",
+                    "@CarersCrypto.encryptAES("fosteringAllowancePayOther")"
+            );
+        })
+    </script>
+}

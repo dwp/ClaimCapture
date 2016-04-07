@@ -174,6 +174,7 @@ object ClaimScenarioFactory {
     // Employment
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "Yes"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
+    claim.YourIncomeNone = "true"
     claim
   }
 
@@ -523,6 +524,7 @@ object ClaimScenarioFactory {
     // Employment
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "Yes"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
+    claim.YourIncomeNone = "true"
     claim
   }
 
@@ -532,6 +534,7 @@ object ClaimScenarioFactory {
     // Employment
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "Yes"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "No"
+    claim.YourIncomeNone = "true"
     claim
   }
 
@@ -541,6 +544,7 @@ object ClaimScenarioFactory {
     // Employment
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
+    claim.YourIncomeNone = "true"
     claim
   }
 
@@ -550,6 +554,7 @@ object ClaimScenarioFactory {
     // Employment
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "No"
+    claim.YourIncomeStatutorySickPay = "true"
     claim
   }
 
@@ -605,6 +610,7 @@ object ClaimScenarioFactory {
     claim.EducationHaveYouBeenOnACourseOfEducation = "no"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
+    claim.YourIncomeNone = "true"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime = "yes"
     claim.EmploymentDoYouWantToAddAnythingAboutYourWork = "no"
 
@@ -645,6 +651,7 @@ object ClaimScenarioFactory {
     claim.EducationHaveYouBeenOnACourseOfEducation = "no"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
+    claim.YourIncomeNone = "true"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime = "yes"
     claim.EmploymentDoYouWantToAddAnythingAboutYourWork = "no"
 
@@ -894,44 +901,31 @@ object ClaimScenarioFactory {
     claim
   }
 
-  def s9otherMoney = {
+  def s9OtherIncome = {
     val claim = s7Employment()
-    // G1 About other money
-    claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
-    claim.OtherMoneyWhoPaysYou = "The Man"
-    claim.OtherMoneyHowMuch = "12"
-    // G1 Statutory Sick Pay
-    claim.OtherMoneyHaveYouSSPSinceClaim = "yes"
-    claim.OtherMoneySSPHowMuch = "123"
-    claim.OtherMoneySSPEmployerName = "Burger King"
-    // G1 Other Statutory Pay
-    claim.OtherMoneyHaveYouSMPSinceClaim = "yes"
-    claim.OtherMOneySMPHowMuch = "123"
-    claim.OtherMoneySMPEmployerName = "Employers Name"
+    claim.PaymentTypesForThisPay = "MaternityOrPaternityPay"
+    claim.StillBeingPaidThisPay = "yes"
+    claim.WhoPaidYouThisPay = "The Man"
+    claim.AmountOfThisPay = "12"
+    claim.HowOftenPaidThisPay = "Monthly"
 
     claim
   }
 
-  def s9otherMoneyOther = {
+  def s9OtherIncomeOther = {
     val claim = s7Employment()
-    // G1 About other money
-    claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
-    claim.OtherMoneyWhoPaysYou = "The Man"
-    claim.OtherMoneyHowMuch = "12"
-    claim.OtherMoneyHowOften = "Other"
-    claim.OtherMoneyHowOftenOther = "every day and twice on Sundays"
-    // G1 Statutory Sick Pay
-    claim.OtherMoneyHaveYouSSPSinceClaim = "no"
-
-    // G1 Other Statutory Pay
-    claim.OtherMoneyHaveYouSMPSinceClaim = "no"
-
+    claim.PaymentTypesForThisPay = "MaternityOrPaternityPay"
+    claim.StillBeingPaidThisPay = "yes"
+    claim.WhoPaidYouThisPay = "The Man"
+    claim.AmountOfThisPay = "12"
+    claim.HowOftenPaidThisPay = "Other"
+    claim.HowOftenPaidThisPayOther = "every day and twice on Sundays"
 
     claim
   }
 
   def s9SelfEmployment = {
-    val claim = s9otherMoney
+    val claim = s9OtherIncome
     // About self-employment
     claim.SelfEmployedAreYouSelfEmployedNow = "no"
     claim.SelfEmployedMoreThanYearAgo = "no"
@@ -977,6 +971,7 @@ object ClaimScenarioFactory {
   def s7EmploymentAdditionalInfo = {
     val claim = new TestData
     claim.EmploymentDoYouWantToAddAnythingAboutYourWork = "yes"
+    claim.YourIncomeStatutorySickPay = "true"
     claim.EmploymentAdditionalInfo = "I do not have more information"
     claim
   }
