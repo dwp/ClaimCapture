@@ -1,7 +1,8 @@
 package utils.pageobjects.your_income
 
+import controllers.ClaimScenarioFactory._
 import utils.WithBrowser
-import utils.pageobjects.{PageContext, ClaimPage, PageObjectsContext}
+import utils.pageobjects.{TestData, PageContext, ClaimPage, PageObjectsContext}
 
 /**
   * Created by peterwhitehead on 29/03/2016.
@@ -21,6 +22,15 @@ object GYourIncomePage {
   val url  = "/your-income/your-income"
 
   def apply(ctx:PageObjectsContext) = new GYourIncomePage(ctx)
+
+  def fillYourIncomes(context: PageObjectsContext, f: => TestData => Unit) = {
+    val claimData = s7NotEmployedNorSelfEmployed()
+    claimData.YourIncomeStatutorySickPay = ""
+    f(claimData)
+    val employment = new GYourIncomePage(context) goToThePage()
+    employment.fillPageWith(claimData)
+    employment.submitPage()
+  }
 }
 
 trait GYourIncomePageContext extends PageContext {

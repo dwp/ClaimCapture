@@ -3,7 +3,7 @@ package controllers.your_income
 import controllers.ClaimScenarioFactory
 import org.specs2.mutable._
 import utils.pageobjects._
-import utils.pageobjects.your_income.{GDirectPaymentPage, GFosteringAllowancePage}
+import utils.pageobjects.your_income.{GYourIncomePage, GDirectPaymentPage, GFosteringAllowancePage}
 import utils.{WithBrowser, WithJsBrowser}
 
 class GFosteringAllowanceIntegrationSpec extends Specification {
@@ -17,11 +17,13 @@ class GFosteringAllowanceIntegrationSpec extends Specification {
   section ("integration", models.domain.FosteringAllowance.id)
   "Fostering Allowance" should {
     "be presented" in new WithBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeFosteringAllowance = "true" })
       val page = GFosteringAllowancePage(context)
       page goToThePage ()
     }
 
     "navigate to next page on valid submission" in new WithJsBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeFosteringAllowance = "true"; testData.YourIncomeDirectPay = "true" })
       val page =  GFosteringAllowancePage(context)
       page goToThePage ()
 
@@ -38,12 +40,14 @@ class GFosteringAllowanceIntegrationSpec extends Specification {
     }
 
     "present errors if mandatory fields are not populated" in new WithJsBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeFosteringAllowance = "true"; testData.YourIncomeDirectPay = "true" })
 			val page =  GFosteringAllowancePage(context)
       page goToThePage ()
       page.submitPage().listErrors.size mustEqual 5
     }
 
     "navigate to next page on valid submission with other field selected" in new WithJsBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeFosteringAllowance = "true"; testData.YourIncomeDirectPay = "true" })
       val page = GFosteringAllowancePage(context)
       val claim = ClaimScenarioFactory.s9OtherIncomeOther
       claim.PaymentTypesForThisPay = paymentType
@@ -57,6 +61,7 @@ class GFosteringAllowanceIntegrationSpec extends Specification {
     }
 
     "howOften frequency of other with no other text entered" in new WithJsBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeFosteringAllowance = "true"; testData.YourIncomeDirectPay = "true" })
       val page = GFosteringAllowancePage(context)
       val claim = new TestData
       claim.PaymentTypesForThisPay = paymentType
@@ -74,6 +79,7 @@ class GFosteringAllowanceIntegrationSpec extends Specification {
     }
 
     "no payment type selected" in new WithJsBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeFosteringAllowance = "true"; testData.YourIncomeDirectPay = "true" })
       val page = GFosteringAllowancePage(context)
       val claim = new TestData
       claim.StillBeingPaidThisPay = no
@@ -90,6 +96,7 @@ class GFosteringAllowanceIntegrationSpec extends Specification {
     }
 
     "howOften frequency of other with no other text entered then select yes and be able to move to next page" in new WithJsBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeFosteringAllowance = "true"; testData.YourIncomeDirectPay = "true" })
       val page = GFosteringAllowancePage(context)
       val claim = new TestData
       claim.PaymentTypesForThisPay = paymentType
@@ -119,6 +126,7 @@ class GFosteringAllowanceIntegrationSpec extends Specification {
     }
 
     "data should be saved in claim and displayed when go back to page" in new WithJsBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeFosteringAllowance = "true"; testData.YourIncomeDirectPay = "true" })
       val page =  GFosteringAllowancePage(context)
       val claim = ClaimScenarioFactory.s9OtherIncomeOther
       claim.PaymentTypesForThisPay = paymentType

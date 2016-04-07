@@ -3,7 +3,7 @@ package controllers.your_income
 import controllers.ClaimScenarioFactory
 import org.specs2.mutable._
 import utils.pageobjects._
-import utils.pageobjects.your_income.{GFosteringAllowancePage, GStatutoryMaternityPaternityAdoptionPayPage}
+import utils.pageobjects.your_income.{GYourIncomePage, GFosteringAllowancePage, GStatutoryMaternityPaternityAdoptionPayPage}
 import utils.{WithBrowser, WithJsBrowser}
 
 class GStatutoryMaternityPaternityAdoptionPayIntegrationSpec extends Specification {
@@ -17,11 +17,13 @@ class GStatutoryMaternityPaternityAdoptionPayIntegrationSpec extends Specificati
   section ("integration", models.domain.StatutoryMaternityPaternityAdoptionPay.id)
   "Statutory Maternity Paternity Adoption Pay" should {
     "be presented" in new WithBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomePatMatAdopPay = "true" })
       val page = GStatutoryMaternityPaternityAdoptionPayPage(context)
       page goToThePage ()
     }
 
     "navigate to next page on valid submission" in new WithJsBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomePatMatAdopPay = "true"; testData.YourIncomeFosteringAllowance = "true" })
       val page =  GStatutoryMaternityPaternityAdoptionPayPage(context)
       page goToThePage ()
 
@@ -36,12 +38,14 @@ class GStatutoryMaternityPaternityAdoptionPayIntegrationSpec extends Specificati
     }
 
     "present errors if mandatory fields are not populated" in new WithJsBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomePatMatAdopPay = "true"; testData.YourIncomeFosteringAllowance = "true" })
 			val page =  GStatutoryMaternityPaternityAdoptionPayPage(context)
       page goToThePage ()
       page.submitPage().listErrors.size mustEqual 5
     }
 
     "navigate to next page on valid submission with other field selected" in new WithJsBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomePatMatAdopPay = "true"; testData.YourIncomeFosteringAllowance = "true" })
       val page = GStatutoryMaternityPaternityAdoptionPayPage(context)
       val claim = ClaimScenarioFactory.s9OtherIncomeOther
 
@@ -54,6 +58,7 @@ class GStatutoryMaternityPaternityAdoptionPayIntegrationSpec extends Specificati
     }
 
     "howOften frequency of other with no other text entered" in new WithJsBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomePatMatAdopPay = "true"; testData.YourIncomeFosteringAllowance = "true" })
       val page = GStatutoryMaternityPaternityAdoptionPayPage(context)
       val claim = new TestData
       claim.PaymentTypesForThisPay = paymentType
@@ -71,6 +76,7 @@ class GStatutoryMaternityPaternityAdoptionPayIntegrationSpec extends Specificati
     }
 
     "no payment type selected" in new WithJsBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomePatMatAdopPay = "true"; testData.YourIncomeFosteringAllowance = "true" })
       val page = GStatutoryMaternityPaternityAdoptionPayPage(context)
       val claim = new TestData
       claim.StillBeingPaidThisPay = no
@@ -87,6 +93,7 @@ class GStatutoryMaternityPaternityAdoptionPayIntegrationSpec extends Specificati
     }
 
     "howOften frequency of other with no other text entered then select yes and be able to move to next page" in new WithJsBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomePatMatAdopPay = "true"; testData.YourIncomeFosteringAllowance = "true" })
       val page = GStatutoryMaternityPaternityAdoptionPayPage(context)
       val claim = new TestData
       claim.PaymentTypesForThisPay = paymentType
@@ -116,6 +123,7 @@ class GStatutoryMaternityPaternityAdoptionPayIntegrationSpec extends Specificati
     }
 
     "data should be saved in claim and displayed when go back to page" in new WithJsBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomePatMatAdopPay = "true"; testData.YourIncomeFosteringAllowance = "true" })
       val page =  GStatutoryMaternityPaternityAdoptionPayPage(context)
       val claim = ClaimScenarioFactory.s9OtherIncomeOther
 

@@ -4,7 +4,7 @@ import controllers.ClaimScenarioFactory
 import org.specs2.mutable._
 import utils.pageobjects._
 import utils.pageobjects.s_pay_details.GHowWePayYouPage
-import utils.pageobjects.your_income.GOtherPaymentsPage
+import utils.pageobjects.your_income.{GYourIncomePage, GOtherPaymentsPage}
 import utils.{WithBrowser, WithJsBrowser}
 
 class GOtherPaymentsIntegrationSpec extends Specification {
@@ -13,11 +13,13 @@ class GOtherPaymentsIntegrationSpec extends Specification {
   section ("integration", models.domain.OtherPayments.id)
   "Other Payments" should {
     "be presented" in new WithBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeAnyOtherPay = "true" })
       val page = GOtherPaymentsPage(context)
       page goToThePage ()
     }
 
     "navigate to next page on valid submission" in new WithJsBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeAnyOtherPay = "true" })
       val page =  GOtherPaymentsPage(context)
       page goToThePage ()
 
@@ -28,12 +30,14 @@ class GOtherPaymentsIntegrationSpec extends Specification {
     }
 
     "present errors if mandatory fields are not populated" in new WithJsBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeAnyOtherPay = "true" })
 			val page =  GOtherPaymentsPage(context)
       page goToThePage ()
       page.submitPage().listErrors.size mustEqual 1
     }
 
     "reject when other payments info spaces entered" in new WithJsBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeAnyOtherPay = "true" })
       val page = GOtherPaymentsPage(context)
       val claim = new TestData
       claim.OtherPaymentsInfo = "  "
@@ -48,6 +52,7 @@ class GOtherPaymentsIntegrationSpec extends Specification {
 
     //if you use WithJsBrowser javascript kicks in to trunacte field length
     "reject when other payments info too many characters entered" in new WithBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeAnyOtherPay = "true" })
       val page = GOtherPaymentsPage(context)
       val claim = new TestData
       claim.OtherPaymentsInfo = "testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing"
@@ -61,6 +66,7 @@ class GOtherPaymentsIntegrationSpec extends Specification {
     }
 
     "other payments info has errors then enter text and navigate to next field" in new WithJsBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeAnyOtherPay = "true" })
       val page =  GOtherPaymentsPage(context)
       page goToThePage ()
       val submittedPage = page.submitPage()
@@ -75,6 +81,7 @@ class GOtherPaymentsIntegrationSpec extends Specification {
     }
 
     "data should be saved in claim and displayed when go back to page" in new WithJsBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeAnyOtherPay = "true" })
       val page =  GOtherPaymentsPage(context)
       val claim = new TestData
       claim.OtherPaymentsInfo = otherPayments

@@ -5,6 +5,7 @@ import utils.WithBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s_employment._
 import utils.pageobjects.PageObjects
+import utils.pageobjects.your_income.GYourIncomePage
 
 class GPensionAndExpensesIntegrationSpec extends Specification {
   section("integration",models.domain.PensionAndExpenses.id)
@@ -15,13 +16,16 @@ class GPensionAndExpensesIntegrationSpec extends Specification {
     }
 
     "be able to navigate back to a completed form" in new WithBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeNone = "true" })
 			val page =  GPensionAndExpensesPage(context)
       val claim = ClaimScenarioFactory s7Employment()
       page goToThePage()
       page fillPageWith claim
+      println(page.source)
       val submitted = page submitPage()
+      println(submitted.source)
       val backPage = submitted goBack ()
-      backPage must beAnInstanceOf[GPensionAndExpensesPage]
+      backPage must beAnInstanceOf[GYourIncomePage]
     }
   }
   section("integration",models.domain.PensionAndExpenses.id)

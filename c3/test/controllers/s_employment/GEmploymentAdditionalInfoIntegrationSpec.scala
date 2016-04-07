@@ -52,10 +52,10 @@ class GEmploymentAdditionalInfoIntegrationSpec extends Specification {
       pensionsAndExpensesPage must beAnInstanceOf[GSelfEmploymentPensionsAndExpensesPage]
     }
 
-    "should present statutory sick pay page on successful submission" in new WithBrowser with PageObjects {
-      val page = GEmploymentAdditionalInfoPage(context) goToThePage()
+    "should present statutory sick pay page on successful submission" in new WithJsBrowser with PageObjects {
+      val beenEmployed = goToBeenEmployedPage(context)
+      val page = GEmploymentAdditionalInfoPage(beenEmployed.ctx) goToThePage()
       page fillPageWith ClaimScenarioFactory.s7EmploymentAdditionalInfo
-
       val nextPage = page submitPage()
       nextPage must beAnInstanceOf[GStatutorySickPayPage]
     }
@@ -156,12 +156,13 @@ class GEmploymentAdditionalInfoIntegrationSpec extends Specification {
   private def goToBeenEmployedPage(context:PageObjectsContext) = {
     val claim = ClaimScenarioFactory.s7SelfEmployedAndEmployed()
     claim.YourIncomeStatutorySickPay = "true"
+    claim.YourIncomeNone = ""
 
     val claimDatePage = GClaimDatePage(context) goToThePage()
     claimDatePage fillPageWith claim
     claimDatePage submitPage()
 
-    val empPage = GYourIncomePage(context) goToThePage ()
+    val empPage = GYourIncomePage(context) goToThePage()
     empPage fillPageWith claim
     empPage submitPage()
 

@@ -4,7 +4,7 @@ import controllers.ClaimScenarioFactory
 import org.specs2.mutable._
 import utils.pageobjects._
 import utils.pageobjects.s_pay_details.GHowWePayYouPage
-import utils.pageobjects.your_income.{GStatutoryMaternityPaternityAdoptionPayPage, GStatutorySickPayPage}
+import utils.pageobjects.your_income.{GYourIncomePage, GStatutoryMaternityPaternityAdoptionPayPage, GStatutorySickPayPage}
 import utils.{WithBrowser, WithJsBrowser}
 
 class GStatutorySickPayIntegrationSpec extends Specification {
@@ -17,11 +17,13 @@ class GStatutorySickPayIntegrationSpec extends Specification {
   section ("integration", models.domain.StatutorySickPay.id)
   "Statutory Sick Pay" should {
     "be presented" in new WithBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeStatutorySickPay = "true" })
       val page = GStatutorySickPayPage(context)
       page goToThePage ()
     }
 
     "navigate to next page on valid submission" in new WithJsBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeStatutorySickPay = "true"; testData.YourIncomePatMatAdopPay = "true" })
       val page =  GStatutorySickPayPage(context)
       page goToThePage ()
 
@@ -35,12 +37,14 @@ class GStatutorySickPayIntegrationSpec extends Specification {
     }
 
     "present errors if mandatory fields are not populated" in new WithJsBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeStatutorySickPay = "true"; testData.YourIncomePatMatAdopPay = "true" })
 			val page =  GStatutorySickPayPage(context)
       page goToThePage ()
       page.submitPage().listErrors.size mustEqual 4
     }
 
     "navigate to next page on valid submission with other field selected" in new WithJsBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeStatutorySickPay = "true"; testData.YourIncomePatMatAdopPay = "true" })
       val page = GStatutorySickPayPage(context)
       val claim = ClaimScenarioFactory.s9OtherIncomeOther
 
@@ -53,6 +57,7 @@ class GStatutorySickPayIntegrationSpec extends Specification {
     }
 
     "howOften frequency of other with no other text entered" in new WithJsBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeStatutorySickPay = "true"; testData.YourIncomePatMatAdopPay = "true" })
       val page = GStatutorySickPayPage(context)
       val claim = new TestData
       claim.StillBeingPaidThisPay = no
@@ -69,6 +74,7 @@ class GStatutorySickPayIntegrationSpec extends Specification {
     }
 
     "howOften frequency of other with no other text entered then select yes and be able to move to next page" in new WithJsBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeStatutorySickPay = "true"; testData.YourIncomePatMatAdopPay = "true" })
       val page = GStatutorySickPayPage(context)
       val claim = new TestData
       claim.StillBeingPaidThisPay = no
@@ -96,6 +102,7 @@ class GStatutorySickPayIntegrationSpec extends Specification {
     }
 
     "data should be saved in claim and displayed when go back to page" in new WithJsBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeStatutorySickPay = "true"; testData.YourIncomePatMatAdopPay = "true" })
       val page =  GStatutorySickPayPage(context)
       val claim = ClaimScenarioFactory.s9OtherIncomeOther
 

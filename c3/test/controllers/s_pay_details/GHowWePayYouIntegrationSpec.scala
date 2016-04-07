@@ -15,9 +15,9 @@ class GHowWePayYouIntegrationSpec extends Specification {
   section("integration", models.domain.PayDetails.id)
   "Pay details" should {
     "be presented" in new WithBrowser with PageObjects {
-      val page = GStatutorySickPayPage(context)
+      val page = GHowWePayYouPage(context)
       page goToThePage()
-      page must beAnInstanceOf[GStatutorySickPayPage]
+      page must beAnInstanceOf[GHowWePayYouPage]
     }
 
     "be hidden when having state pension" in new WithBrowser with BrowserMatchers {
@@ -31,7 +31,7 @@ class GHowWePayYouIntegrationSpec extends Specification {
     }
 
     "contain errors on invalid submission" in new WithBrowser with PageObjects {
-      val page = GStatutorySickPayPage(context)
+      val page = GHowWePayYouPage(context)
       page goToThePage()
       val samePage = page.submitPage()
       Logger.info(samePage.toString)
@@ -47,20 +47,20 @@ class GHowWePayYouIntegrationSpec extends Specification {
      * This test case has been modified to be in line with the new Page Object pattern.
      * Please modify the other test cases when you address them
      */
-    "navigate back to Statutory Sick Pay" in new WithBrowser with PageObjects {
-      val page = GStatutorySickPayPage(context)
+    "navigate back to How we pay you" in new WithBrowser with PageObjects {
+      val page = GHowWePayYouPage(context)
       val claim = ClaimScenarioFactory.s9OtherIncome
 
       page goToThePage()
       page fillPageWith claim
       page submitPage()
 
-      val otherStatutoryPage = page goToPage new GStatutorySickPayPage(PageObjectsContext(browser))
+      val otherStatutoryPage = page goToPage new GHowWePayYouPage(PageObjectsContext(browser))
       otherStatutoryPage fillPageWith claim
       val nextPage = otherStatutoryPage submitPage()
 
       val previousPage = nextPage goBack()
-      previousPage must beAnInstanceOf[GStatutorySickPayPage]
+      previousPage must beAnInstanceOf[GHowWePayYouPage]
     }
 
     "navigate to 'Consent And Declaration'" in new WithBrowser with PageObjects {

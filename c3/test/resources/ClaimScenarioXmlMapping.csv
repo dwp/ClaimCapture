@@ -78,8 +78,8 @@ Education,Your course details,Name of Main Teacher or Tutor,EducationNameOfMainT
 Education,Your course details,Course contact number,EducationPhoneNumber,FullTimeEducation>LocationDetails>PhoneNumber>Answer
 Education,Your course details,When did you start the course?,EducationWhenDidYouStartTheCourse,FullTimeEducation>CourseDetails>DateStarted>Answer
 Education,Your course details,When do you expect the course to end?,EducationWhenDoYouExpectTheCourseToEnd,FullTimeEducation>CourseDetails>ExpectedEndDate>Answer
-Employment,Employment,Have you been employed at any time since <ddmmyyyy> (this is six months before your claim date:< ddmmyyyy>)?,EmploymentHaveYouBeenEmployedAtAnyTime_0,DWPCAClaim>Employed>Answer
-Employment,Employment,Have you been self-employed at any time since <ddmmyyyy> (this is one week before your claim date:<ddmmyyyy>)?,EmploymentHaveYouBeenSelfEmployedAtAnyTime,DWPCAClaim>SelfEmployed>Answer
+Employment,Employment,Have you been employed at any time since <ddmmyyyy> (this is six months before your claim date:< ddmmyyyy>)?,EmploymentHaveYouBeenEmployedAtAnyTime_0,DWPCAClaim>Incomes>Employed>Answer
+Employment,Employment,Have you been self-employed at any time since <ddmmyyyy> (this is one week before your claim date:<ddmmyyyy>)?,EmploymentHaveYouBeenSelfEmployedAtAnyTime,DWPCAClaim>Incomes>SelfEmployed>Answer
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
 Employment,Your Job,Employers Name,EmploymentEmployerName,Employment>JobDetails>Employer>Name>Answer
 Employment,Your Job,Did you start this job before claim date <ddmmyyyy_1>?,EmploymentDidYouStartThisJobBeforeClaimDate,Employment>JobDetails>Employer>DidJobStartBeforeClaimDate>Answer
@@ -104,8 +104,8 @@ Employment,Pension and expenses,"Give details of what you [[present=need]] [[pas
 Employment,Pension and expenses,"[[past=Did you]] [[present=Do you]] have any care costs because of this work?",EmploymentDoYouPayforAnythingNecessaryToDoYourJob,Employment>JobDetails>PaidForJobExpenses>Answer
 Employment,Pension and expenses,"Tell us what the cost [[past=was]] [[present=is]] for, how much, how often and who to",EmploymentWhatAreNecessaryJobExpenses,Employment>JobDetails>JobExpenses>Expense>Answer
 Employment,About other employment history,"Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?",EmploymentHaveYouHadAnotherJobatAnyTimeSinceClaim6Months,
-Employment,Employment,Do you want to add anything about your work?,EmploymentDoYouWantToAddAnythingAboutYourWork,DWPCAClaim>EmploymentAdditionalInfo>Answer
-Employment,Employment,Do you want to add anything about your work?Other,EmploymentAdditionalInfo,DWPCAClaim>EmploymentAdditionalInfo>Other
+Employment,Employment,Do you want to add anything about your work?,EmploymentDoYouWantToAddAnythingAboutYourWork,DWPCAClaim>Incomes>EmploymentAdditionalInfo>Answer
+Employment,Employment,Do you want to add anything about your work?Other,EmploymentAdditionalInfo,DWPCAClaim>Incomes>EmploymentAdditionalInfo>Other
 Self-Employed,Your job,Are you self-employed now?,SelfEmployedAreYouSelfEmployedNow,SelfEmployment>SelfEmployedNow>Answer
 Self-Employed,Your job,Did you start this work more than a year ago?,SelfEmployedMoreThanYearAgo,SelfEmployment>MoreThanYearAgo>Answer
 Self-Employed,Your job,When did the job finish?,SelfEmployedWhenDidTheJobFinish,SelfEmployment>DateEnded>Answer

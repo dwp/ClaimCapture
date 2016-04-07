@@ -14,6 +14,7 @@ object Incomes extends XMLComponent {
   def xml(claim: Claim) = {
     val claimDate = claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)
     val incomes = claim.questionGroup[YourIncomes].getOrElse(YourIncomes())
+    val empAdditionalInfo = claim.questionGroup[EmploymentAdditionalInfo].getOrElse(EmploymentAdditionalInfo())
     <Incomes>
       {question(<Employed/>, "aboutYou_beenEmployedSince6MonthsBeforeClaim.label", incomes.beenEmployedSince6MonthsBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => DWPCAClaim.displayClaimDate(dmy - 6 months)), claimDate)}
       {question(<SelfEmployed/>, "aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label", incomes.beenSelfEmployedSince1WeekBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 1 week}")(dmy => DWPCAClaim.displayClaimDate(dmy - 1 week)), claimDate)}
@@ -25,6 +26,7 @@ object Incomes extends XMLComponent {
       {question(<NoOtherPayment/>, "yourIncome.none", incomes.yourIncome_none)}
       {Employment.xml(claim)}
       {SelfEmployment.xml(claim)}
+      {if(!empAdditionalInfo.empAdditionalInfo.answer.isEmpty) questionOther(<EmploymentAdditionalInfo/>, "empAdditionalInfo.answer", empAdditionalInfo.empAdditionalInfo.answer, empAdditionalInfo.empAdditionalInfo.text)}
       {sickPayXml(claim)}
       {statPatMatAdoptPayXml(claim)}
       {fosteringAllowanceXml(claim)}

@@ -2,7 +2,7 @@ package controllers.preview
 
 import org.specs2.mutable._
 import utils.WithBrowser
-import utils.pageobjects.your_income.GStatutorySickPayPage
+import utils.pageobjects.your_income.{GYourIncomePage, GStatutorySickPayPage}
 import utils.pageobjects.{PageObjectsContext, PageObjects}
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
@@ -12,18 +12,16 @@ class PreviewPageYourIncomeOtherPaymentsContentSpec extends Specification {
   section("preview")
   "Preview Page" should {
     "display your income other payments data" in new WithBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeStatutorySickPay = "true" })
       fillStatutorySickPaySection(context)
       val page =  PreviewPage(context)
       page goToThePage()
       val source = page.source.toLowerCase
-
-//      source must contain("other payments")
-//      source must contain("Have you received any payments for the person you care for or any other person since your claim date?".toLowerCase)
-//      source must contain("Yes - Details provided".toLowerCase)
-//      source must contain("Have you had any Statutory Sick Pay".toLowerCase)
-//      source must contain("Yes - Details provided".toLowerCase)
-//      source must contain("Have you had any Statutory Maternity Pay, Statutory Paternity Pay or Statutory Adoption Pay".toLowerCase)
-//      source must contain("Yes - Details provided".toLowerCase)
+      source must contain("what other income have you had since")
+      source must contain("statutory sick pay")
+      source must contain("the man")
+      source must contain("12 monthly")
+      source must contain("still in payment")
     }
   }
   section("preview")
