@@ -1,10 +1,14 @@
 package controllers.your_income
 
+import controllers.ClaimScenarioFactory._
 import models.domain._
 import org.specs2.mutable._
-import play.api.test.FakeRequest
-import utils.WithApplication
+import play.api.test.{FakeApplication, FakeRequest}
+import utils.pageobjects.PageObjects
+import utils.{WithBrowser, WithApplication}
 import play.api.test.Helpers._
+import utils.pageobjects.s_claim_date.GClaimDatePage
+import utils.pageobjects.your_income.{GStatutorySickPayPage, GYourIncomePage}
 
 class GStatutorySickPaySpec extends Specification {
   section ("unit", models.domain.StatutorySickPay.id)
@@ -23,12 +27,12 @@ class GStatutorySickPaySpec extends Specification {
       "howOftenPaidThisPayOther" -> ""
     )
 
-    "present 'Statutory Sick Pay '" in new WithApplication with Claiming {
-      val request = FakeRequest()
-
-      val result = GStatutorySickPay.present(request)
-
-      status(result) mustEqual OK
+    "present 'Statutory Sick Pay '" in new WithBrowser with PageObjects {
+      val claimData = s7NotEmployedNorSelfEmployed()
+      val employment = new GYourIncomePage(context) goToThePage()
+      employment.fillPageWith(claimData)
+      val statutorySickPay = employment.submitPage()
+      statutorySickPay must beAnInstanceOf[GStatutorySickPayPage]
     }
 
     "add submitted data to the cached claim" in new WithApplication with Claiming {

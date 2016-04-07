@@ -1,10 +1,13 @@
 package controllers.your_income
 
+import controllers.ClaimScenarioFactory._
 import models.domain._
 import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.WithApplication
+import utils.pageobjects.PageObjects
+import utils.{WithBrowser, WithApplication}
+import utils.pageobjects.your_income.{GFosteringAllowancePage, GYourIncomePage}
 
 class GFosteringAllowanceSpec extends Specification {
   section ("unit", models.domain.FosteringAllowance.id)
@@ -25,12 +28,14 @@ class GFosteringAllowanceSpec extends Specification {
       "howOftenPaidThisPayOther" -> ""
     )
 
-    "present 'Fostering Allowance '" in new WithApplication with Claiming {
-      val request = FakeRequest()
-
-      val result = GFosteringAllowance.present(request)
-
-      status(result) mustEqual OK
+    "present 'Fostering Allowance '" in new WithBrowser with PageObjects {
+      val claimData = s7NotEmployedNorSelfEmployed()
+      claimData.YourIncomeStatutorySickPay = ""
+      claimData.YourIncomeFosteringAllowance = "true"
+      val employment = new GYourIncomePage(context) goToThePage()
+      employment.fillPageWith(claimData)
+      val fosteringAllowance = employment.submitPage()
+      fosteringAllowance must beAnInstanceOf[GFosteringAllowancePage]
     }
 
     "add submitted data to the cached claim" in new WithApplication with Claiming {

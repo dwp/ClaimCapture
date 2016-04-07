@@ -1,12 +1,14 @@
 package controllers.your_income
 
+import controllers.ClaimScenarioFactory._
 import models.domain._
 import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.WithApplication
 import utils.WithBrowser
-import utils.pageobjects.your_income.GOtherPaymentsPage
+import utils.pageobjects.PageObjects
+import utils.pageobjects.your_income.{GYourIncomePage, GOtherPaymentsPage}
 
 class GOtherPaymentsSpec extends Specification {
   section ("unit", models.domain.OtherPayments.id)
@@ -17,12 +19,14 @@ class GOtherPaymentsSpec extends Specification {
       "otherPaymentsInfo" -> otherPayments
     )
 
-    "present 'Other Payments '" in new WithApplication with Claiming {
-      val request = FakeRequest()
-
-      val result = GOtherPayments.present(request)
-
-      status(result) mustEqual OK
+    "present 'Other Payments '" in new WithBrowser with PageObjects {
+      val claimData = s7NotEmployedNorSelfEmployed()
+      claimData.YourIncomeStatutorySickPay = ""
+      claimData.YourIncomeAnyOtherPay = "true"
+      val employment = new GYourIncomePage(context) goToThePage()
+      employment.fillPageWith(claimData)
+      val otherPayments = employment.submitPage()
+      otherPayments must beAnInstanceOf[GOtherPaymentsPage]
     }
 
     "add submitted data to the cached claim" in new WithApplication with Claiming {
@@ -63,8 +67,15 @@ class GOtherPaymentsSpec extends Specification {
       status(result) mustEqual SEE_OTHER
     }
 
-    "have text maxlength set correctly in present()" in new WithBrowser {
-      browser.goTo(GOtherPaymentsPage.url)
+    "have text maxlength set correctly in present()" in new WithBrowser with PageObjects {
+      val claimData = s7NotEmployedNorSelfEmployed()
+      claimData.YourIncomeStatutorySickPay = ""
+      claimData.YourIncomeAnyOtherPay = "true"
+      val employment = new GYourIncomePage(context) goToThePage()
+      employment.fillPageWith(claimData)
+      val otherPayments = employment.submitPage()
+      otherPayments must beAnInstanceOf[GOtherPaymentsPage]
+
       val anythingElse = browser.$("#otherPaymentsInfo")
       val countdown = browser.$("#otherPaymentsInfo + .countdown")
 
