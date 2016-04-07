@@ -15,7 +15,10 @@ object Incomes extends XMLComponent {
     val claimDate = claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)
     val incomes = claim.questionGroup[YourIncomes].getOrElse(YourIncomes())
     val empAdditionalInfo = claim.questionGroup[EmploymentAdditionalInfo].getOrElse(EmploymentAdditionalInfo())
-    val otherPaymentsNone = claim.questionGroup[YourIncomes].getOrElse(YourIncomes()).yourIncome_none.getOrElse("").toLowerCase == "true"
+    val anyOtherPayments = incomes.yourIncome_none match {
+      case Some(_) => "None"
+      case _ => "Some"
+    }
 
     <Incomes>
       {question(<Employed/>, "aboutYou_beenEmployedSince6MonthsBeforeClaim.label", incomes.beenEmployedSince6MonthsBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => DWPCAClaim.displayClaimDate(dmy - 6 months)), claimDate)}
@@ -25,7 +28,8 @@ object Incomes extends XMLComponent {
       {question(<FosteringPayment/>, "yourIncome.fostering", incomes.yourIncome_fostering)}
       {question(<DirectPayment/>, "yourIncome.direct", incomes.yourIncome_directpay)}
       {question(<AnyOtherPayment/>, "yourIncome.anyother", incomes.yourIncome_anyother)}
-      {if(otherPaymentsNone) question(<NoOtherPayment/>, "yourIncome.otherIncome.label", "None", claimDate)}
+      {question(<NoOtherPayment/>, "yourIncome.none", incomes.yourIncome_none)}
+      {question(<OtherPaymentQuestion/>, "yourIncome.otherIncome.label", anyOtherPayments, claimDate)}
       {Employment.xml(claim)}
       {SelfEmployment.xml(claim)}
       {if(!empAdditionalInfo.empAdditionalInfo.answer.isEmpty) questionOther(<EmploymentAdditionalInfo/>, "empAdditionalInfo.answer", empAdditionalInfo.empAdditionalInfo.answer, empAdditionalInfo.empAdditionalInfo.text)}
