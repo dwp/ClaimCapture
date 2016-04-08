@@ -12,9 +12,11 @@ class IncomesSpec extends Specification {
   "Incomes section xml generation" should {
     "Generate correct header xml items for Emp, SelfEmp, SickPay, PatMat, Fost, DP, Other" in new WithApplication {
       var claim = new Claim(CachedClaim.key, uuid = "1234")
+      val claimDate = ClaimDate(DayMonthYear(20, 3, 2016))
+
       // SE, EMP, SICK, PATMATADOP, FOST, DP, OTHER
       val incomeHeader = new YourIncomes("Yes", "Yes", Some("true"), Some("true"), Some("true"), Some("true"), Some("true"))
-      val xml = Incomes.xml(claim + incomeHeader)
+      val xml = Incomes.xml(claim + claimDate + incomeHeader)
       (xml \\ "Incomes" \\ "Employed" \\ "QuestionLabel").text must contain("been employed")
       (xml \\ "Incomes" \\ "Employed" \\ "Answer").text shouldEqual "Yes"
 
@@ -37,8 +39,31 @@ class IncomesSpec extends Specification {
 
       (xml \\ "Incomes" \\ "AnyOtherPayment" \\ "QuestionLabel").text must contain("other income")
       (xml \\ "Incomes" \\ "AnyOtherPayment" \\ "Answer").text shouldEqual "Yes"
+
+      (xml \\ "Incomes" \\ "OtherPaymentQuestion" \\ "QuestionLabel").text shouldEqual "What other income have you had since 20/03/2016?"
+      (xml \\ "Incomes" \\ "OtherPaymentQuestion" \\ "Answer").text shouldEqual "Some"
     }
 
+    "Generate correct header xml items for None Selected" in new WithApplication {
+      var claim = new Claim(CachedClaim.key, uuid = "1234")
+      val claimDate = ClaimDate(DayMonthYear(20, 3, 2016))
+
+      // SE, EMP, SICK, PATMATADOP, FOST, DP, OTHER, NONE
+      val incomeHeader = new YourIncomes("No", "No", None, None, None, None, None, Some("true"))
+      val xml = Incomes.xml(claim + claimDate + incomeHeader)
+
+      (xml \\ "Incomes" \\ "Employed" \\ "QuestionLabel").text must contain("been employed")
+      (xml \\ "Incomes" \\ "Employed" \\ "Answer").text shouldEqual "No"
+
+      (xml \\ "Incomes" \\ "SelfEmployed" \\ "QuestionLabel").text must contain("been self-employed")
+      (xml \\ "Incomes" \\ "SelfEmployed" \\ "Answer").text shouldEqual "No"
+
+      (xml \\ "Incomes" \\ "NoOtherPayment" \\ "QuestionLabel").text shouldEqual "None"
+      (xml \\ "Incomes" \\ "NoOtherPayment" \\ "Answer").text shouldEqual "Yes"
+
+      (xml \\ "Incomes" \\ "OtherPaymentQuestion" \\ "QuestionLabel").text shouldEqual "What other income have you had since 20/03/2016?"
+      (xml \\ "Incomes" \\ "OtherPaymentQuestion" \\ "Answer").text shouldEqual "None"
+    }
 
     "Generate correct xml for Sick Pay Section" in new WithApplication {
       var claim = new Claim(CachedClaim.key, uuid = "1234")
