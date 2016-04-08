@@ -23,6 +23,9 @@ class IncomesSpec extends Specification {
       (xml \\ "Incomes" \\ "SelfEmployed" \\ "QuestionLabel").text must contain("been self-employed")
       (xml \\ "Incomes" \\ "SelfEmployed" \\ "Answer").text shouldEqual "Yes"
 
+      (xml \\ "Incomes" \\ "OtherPaymentQuestion" \\ "QuestionLabel").text shouldEqual "What other income have you had since 20/03/2016?"
+      (xml \\ "Incomes" \\ "OtherPaymentQuestion" \\ "Answer").text shouldEqual "Some"
+
       (xml \\ "Incomes" \\ "SickPayment" \\ "QuestionLabel").text must contain("sick pay")
       (xml \\ "Incomes" \\ "SickPayment" \\ "Answer").text shouldEqual "Yes"
 
@@ -39,9 +42,6 @@ class IncomesSpec extends Specification {
 
       (xml \\ "Incomes" \\ "AnyOtherPayment" \\ "QuestionLabel").text must contain("other income")
       (xml \\ "Incomes" \\ "AnyOtherPayment" \\ "Answer").text shouldEqual "Yes"
-
-      (xml \\ "Incomes" \\ "OtherPaymentQuestion" \\ "QuestionLabel").text shouldEqual "What other income have you had since 20/03/2016?"
-      (xml \\ "Incomes" \\ "OtherPaymentQuestion" \\ "Answer").text shouldEqual "Some"
     }
 
     "Generate correct header xml items for None Selected" in new WithApplication {
@@ -58,11 +58,11 @@ class IncomesSpec extends Specification {
       (xml \\ "Incomes" \\ "SelfEmployed" \\ "QuestionLabel").text must contain("been self-employed")
       (xml \\ "Incomes" \\ "SelfEmployed" \\ "Answer").text shouldEqual "No"
 
-      (xml \\ "Incomes" \\ "NoOtherPayment" \\ "QuestionLabel").text shouldEqual "None"
-      (xml \\ "Incomes" \\ "NoOtherPayment" \\ "Answer").text shouldEqual "Yes"
-
       (xml \\ "Incomes" \\ "OtherPaymentQuestion" \\ "QuestionLabel").text shouldEqual "What other income have you had since 20/03/2016?"
       (xml \\ "Incomes" \\ "OtherPaymentQuestion" \\ "Answer").text shouldEqual "None"
+
+      (xml \\ "Incomes" \\ "NoOtherPayment" \\ "QuestionLabel").text shouldEqual "None"
+      (xml \\ "Incomes" \\ "NoOtherPayment" \\ "Answer").text shouldEqual "Yes"
     }
 
     "Generate correct xml for Sick Pay Section" in new WithApplication {
