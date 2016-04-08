@@ -64,13 +64,12 @@ object DWPCAClaim extends XMLComponent {
     newClaim = Consents.fromXml(xml, newClaim)
     newClaim = Declaration.fromXml(xml, newClaim)
     newClaim = Disclaimer.fromXml(xml, newClaim)
-    newClaim = Employment.fromXml(xml, newClaim)
+    newClaim = Incomes.fromXml(xml, newClaim)
     newClaim = FullTimeEducation.fromXml(xml, newClaim)
     newClaim = OtherBenefits.fromXml(xml, newClaim)
     newClaim = Partner.fromXml(xml, newClaim)
     newClaim = Payment.fromXml(xml, newClaim)
     newClaim = Residency.fromXml(xml, newClaim)
-    newClaim = SelfEmployment.fromXml(xml, newClaim)
     newClaim
   }
 }

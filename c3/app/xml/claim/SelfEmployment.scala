@@ -62,10 +62,7 @@ object SelfEmployment extends XMLComponent {
 
   def fromXml(xml: NodeSeq, claim: Claim): Claim = {
     (xml \\ "SelfEmployment").isEmpty match {
-      case false =>
-        claim
-          .update(createSelfEmploymentPensionsAndExpensesFromXml(xml))
-          .update(createEmploymentFromXml(xml))
+      case false => claim.update(createSelfEmploymentPensionsAndExpensesFromXml(xml))
       case true => claim
     }
   }
@@ -84,27 +81,6 @@ object SelfEmployment extends XMLComponent {
     models.domain.SelfEmploymentPensionsAndExpenses(
       payPensionScheme = YesNoWithText(createYesNoText((xmlNode \ "PaidForPension" \ "Answer").text), createStringOptional((xmlNode \ "PensionExpenses" \ "Expense" \ "Answer").text)),
       haveExpensesForJob = YesNoWithText(createYesNoText((xmlNode \ "PaidForJobExpenses" \ "Answer").text), createStringOptional((xmlNode \ "JobExpenses" \ "Expense" \ "Answer").text))
-    )
-  }
-
-  private def createEmploymentFromXml(xmlNode: NodeSeq) = {
-    val selfEmployment = (xmlNode \\ "SelfEmployment")
-    val jobDetails = (xmlNode \\ "Employment" \ "JobDetails")
-    models.domain.YourIncomes(
-      beenSelfEmployedSince1WeekBeforeClaim = selfEmployment.isEmpty match {
-        case false => Mappings.yes
-        case true => Mappings.no
-      },
-      beenEmployedSince6MonthsBeforeClaim = jobDetails.isEmpty match {
-        case false => Mappings.yes
-        case true => Mappings.no
-      },
-      yourIncome_sickpay = None,
-      yourIncome_patmatadoppay = None,
-      yourIncome_fostering = None,
-      yourIncome_directpay = None,
-      yourIncome_anyother = None,
-      yourIncome_none = None
     )
   }
 }

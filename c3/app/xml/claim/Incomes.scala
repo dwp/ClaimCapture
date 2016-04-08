@@ -1,6 +1,7 @@
 package xml.claim
 
 import app.PaymentTypes
+import controllers.mappings.Mappings
 import models.domain._
 import play.api.Play._
 import play.api.i18n.{MMessages, MessagesApi}
@@ -132,5 +133,54 @@ object Incomes extends XMLComponent {
     else {
       NodeSeq.Empty
     }
+  }
+
+  def fromXml(xml: NodeSeq, claim: Claim): Claim = {
+      SelfEmployment.fromXml(xml, Employment.fromXml(xml, claim)).update(createYourIncomesFromXml(xml))
+  }
+
+  private def createYourIncomesFromXml(xmlNode: NodeSeq) = {
+    val selfEmployment = (xmlNode \\ "SelfEmployment")
+    val jobDetails = (xmlNode \\ "Employment" \ "JobDetails")
+    val statutorySickPay = (xmlNode \\ "SickPayment")
+    val statutoryPay = (xmlNode \\ "PatMatAdopPayment")
+    val fosteringAllowance = (xmlNode \\ "FosteringPayment")
+    val directPayment = (xmlNode \\ "DirectPayment")
+    val otherPayments = (xmlNode \\ "AnyOtherPayment")
+    val noOtherPayments = (xmlNode \\ "NoOtherPayment")
+    models.domain.YourIncomes(
+      beenSelfEmployedSince1WeekBeforeClaim = selfEmployment.isEmpty match {
+        case false => Mappings.yes
+        case true => Mappings.no
+      },
+      beenEmployedSince6MonthsBeforeClaim = jobDetails.isEmpty match {
+        case false => Mappings.yes
+        case true => Mappings.no
+      },
+      yourIncome_sickpay = statutorySickPay.isEmpty match {
+        case false => None
+        case true => None
+      },
+      yourIncome_patmatadoppay = statutoryPay.isEmpty match {
+        case false => None
+        case true => None
+      },
+      yourIncome_fostering = fosteringAllowance.isEmpty match {
+        case false => None
+        case true => None
+      },
+      yourIncome_directpay = directPayment.isEmpty match {
+        case false => None
+        case true => None
+      },
+      yourIncome_anyother = otherPayments.isEmpty match {
+        case false => None
+        case true => None
+      },
+      yourIncome_none = noOtherPayments.isEmpty match {
+        case false => None
+        case true => None
+      }
+    )
   }
 }
