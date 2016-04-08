@@ -174,7 +174,7 @@
         </StatutoryMaternityPaternityAdopt>
         <FosteringAllowance>
           <PaymentType><QuestionLabel>What type of organisation pays you for Fostering Allowance?</QuestionLabel><Answer>FosteringAllowance</Answer></PaymentType>
-          <PaymentTypesForThisPayValue><QuestionLabel>What type of organisation pays you for Fostering Allowance?</QuestionLabel><Answer>Fostering Agency</Answer></PaymentTypesForThisPayValue>
+          <PaymentTypesForThisPay><QuestionLabel>What type of organisation pays you for Fostering Allowance?</QuestionLabel><Answer>Fostering Agency</Answer></PaymentTypesForThisPay>
 
           <StillBeingPaidThisPay><QuestionLabel>Are you still being paid this?</QuestionLabel><Answer>Yes</Answer></StillBeingPaidThisPay>
 

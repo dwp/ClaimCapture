@@ -97,7 +97,7 @@ object Incomes extends XMLComponent {
     if (showXml) {
       <FosteringAllowance>
         {question(<PaymentType/>, "fosteringAllowancePay", data.paymentTypesForThisPay)}
-        {question(<PaymentTypesForThisPayValue/>, "fosteringAllowancePay", paymentType)}
+        {question(<PaymentTypesForThisPay/>, "fosteringAllowancePay", paymentType)}
         {question(<PaymentTypesForThisPayOther/>, "fosteringAllowancePayOther", data.paymentTypesForThisPayOther)}
         {question(<StillBeingPaidThisPay/>, "stillBeingPaidThisPay_fosteringAllowance", data.stillBeingPaidThisPay)}
         {question(<WhenDidYouLastGetPaid/>, "whenDidYouLastGetPaid", data.whenDidYouLastGetPaid)}
