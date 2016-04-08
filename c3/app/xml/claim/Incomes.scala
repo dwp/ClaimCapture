@@ -70,6 +70,7 @@ object Incomes extends XMLComponent {
     }
     if (showXml) {
       <StatutoryMaternityPaternityAdopt>
+        {question(<PaymentType/>, "paymentTypesForThisPay", data.paymentTypesForThisPay)}
         {question(<PaymentTypesForThisPay/>, "paymentTypesForThisPay", paymentType)}
         {question(<StillBeingPaidThisPay/>, "stillBeingPaidThisPay_paternityMaternityAdoption", data.stillBeingPaidThisPay)}
         {question(<WhenDidYouLastGetPaid/>, "whenDidYouLastGetPaid", data.whenDidYouLastGetPaid)}
@@ -95,7 +96,8 @@ object Incomes extends XMLComponent {
     }
     if (showXml) {
       <FosteringAllowance>
-        {question(<PaymentTypesForThisPay/>, "fosteringAllowancePay", paymentType)}
+        {question(<PaymentType/>, "fosteringAllowancePay", data.paymentTypesForThisPay)}
+        {question(<PaymentTypesForThisPayValue/>, "fosteringAllowancePay", paymentType)}
         {question(<PaymentTypesForThisPayOther/>, "fosteringAllowancePayOther", data.paymentTypesForThisPayOther)}
         {question(<StillBeingPaidThisPay/>, "stillBeingPaidThisPay_fosteringAllowance", data.stillBeingPaidThisPay)}
         {question(<WhenDidYouLastGetPaid/>, "whenDidYouLastGetPaid", data.whenDidYouLastGetPaid)}
@@ -141,7 +143,79 @@ object Incomes extends XMLComponent {
   }
 
   def fromXml(xml: NodeSeq, claim: Claim): Claim = {
-      SelfEmployment.fromXml(xml, Employment.fromXml(xml, claim)).update(createYourIncomesFromXml(xml))
+    SelfEmployment.fromXml(xml, Employment.fromXml(xml, claim)).update(createYourIncomesFromXml(xml))
+      .update(createStatutorySickPayFromXml(xml))
+      .update(createStatutoryPayFromXml(xml))
+      .update(createFosteringAllowanceFromXml(xml))
+      .update(createDirectPaymentFromXml(xml))
+      .update(createOtherPaymentsFromXml(xml))
+  }
+
+  private def createStatutorySickPayFromXml(xmlNode: NodeSeq) = {
+    val statutorySickPay = (xmlNode \\ "SickPay")
+    if (!statutorySickPay.isEmpty) {
+      models.domain.StatutorySickPay(
+        stillBeingPaidThisPay = createYesNoText((statutorySickPay \\ "StillBeingPaidThisPay" \ "Answer").text),
+        whenDidYouLastGetPaid = createFormattedDateOptional((statutorySickPay \\ "WhenDidYouLastGetPaid" \ "Answer").text),
+        whoPaidYouThisPay = (statutorySickPay \\ "WhoPaidYouThisPay" \ "Answer").text,
+        amountOfThisPay = (statutorySickPay \\ "AmountOfThisPay" \ "Answer").text,
+        howOftenPaidThisPay = (statutorySickPay \\ "HowOftenPaidThisPay" \ "Answer").text,
+        howOftenPaidThisPayOther = createStringOptional((statutorySickPay \\ "HowOftenPaidThisPayOther" \ "Answer").text)
+      )
+    } else models.domain.StatutorySickPay()
+  }
+
+  private def createStatutoryPayFromXml(xmlNode: NodeSeq) = {
+    val statutoryPay = (xmlNode \\ "StatutoryMaternityPaternityAdopt")
+    if (!statutoryPay.isEmpty) {
+      models.domain.StatutoryMaternityPaternityAdoptionPay(
+        paymentTypesForThisPay = (statutoryPay \\ "PaymentType" \ "Answer").text,
+        stillBeingPaidThisPay = createYesNoText((statutoryPay \\ "StillBeingPaidThisPay" \ "Answer").text),
+        whenDidYouLastGetPaid = createFormattedDateOptional((statutoryPay \\ "WhenDidYouLastGetPaid" \ "Answer").text),
+        whoPaidYouThisPay = (statutoryPay \\ "WhoPaidYouThisPay" \ "Answer").text,
+        amountOfThisPay = (statutoryPay \\ "AmountOfThisPay" \ "Answer").text,
+        howOftenPaidThisPay = (statutoryPay \\ "HowOftenPaidThisPay" \ "Answer").text,
+        howOftenPaidThisPayOther = createStringOptional((statutoryPay \\ "HowOftenPaidThisPayOther" \ "Answer").text)
+      )
+    } else models.domain.StatutoryMaternityPaternityAdoptionPay()
+  }
+
+  private def createFosteringAllowanceFromXml(xmlNode: NodeSeq) = {
+    val fosteringAllowance = (xmlNode \\ "FosteringAllowance")
+    if (!fosteringAllowance.isEmpty) {
+      models.domain.FosteringAllowance(
+        paymentTypesForThisPay = (fosteringAllowance \\ "PaymentType" \ "Answer").text,
+        stillBeingPaidThisPay = createYesNoText((fosteringAllowance \\ "StillBeingPaidThisPay" \ "Answer").text),
+        whenDidYouLastGetPaid = createFormattedDateOptional((fosteringAllowance \\ "WhenDidYouLastGetPaid" \ "Answer").text),
+        whoPaidYouThisPay = (fosteringAllowance \\ "WhoPaidYouThisPay" \ "Answer").text,
+        amountOfThisPay = (fosteringAllowance \\ "AmountOfThisPay" \ "Answer").text,
+        howOftenPaidThisPay = (fosteringAllowance \\ "HowOftenPaidThisPay" \ "Answer").text,
+        howOftenPaidThisPayOther = createStringOptional((fosteringAllowance \\ "HowOftenPaidThisPayOther" \ "Answer").text)
+      )
+    } else models.domain.FosteringAllowance()
+  }
+
+  private def createDirectPaymentFromXml(xmlNode: NodeSeq) = {
+    val directPay = (xmlNode \\ "DirectPay")
+    if (!directPay.isEmpty) {
+      models.domain.DirectPayment(
+        stillBeingPaidThisPay = createYesNoText((directPay \\ "StillBeingPaidThisPay" \ "Answer").text),
+        whenDidYouLastGetPaid = createFormattedDateOptional((directPay \\ "WhenDidYouLastGetPaid" \ "Answer").text),
+        whoPaidYouThisPay = (directPay \\ "WhoPaidYouThisPay" \ "Answer").text,
+        amountOfThisPay = (directPay \\ "AmountOfThisPay" \ "Answer").text,
+        howOftenPaidThisPay = (directPay \\ "HowOftenPaidThisPay" \ "Answer").text,
+        howOftenPaidThisPayOther = createStringOptional((directPay \\ "HowOftenPaidThisPayOther" \ "Answer").text)
+      )
+    } else models.domain.DirectPayment()
+  }
+
+  private def createOtherPaymentsFromXml(xmlNode: NodeSeq) = {
+    val otherPaymentsInfo = (xmlNode \\ "OtherPaymentsInfo")
+    if (!otherPaymentsInfo.isEmpty) {
+      models.domain.OtherPayments(
+        otherPaymentsInfo = (otherPaymentsInfo \ "Answer").text
+      )
+    } else models.domain.OtherPayments()
   }
 
   private def createYourIncomesFromXml(xmlNode: NodeSeq) = {

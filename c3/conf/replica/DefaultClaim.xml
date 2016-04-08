@@ -1,45 +1,45 @@
 <DWPBody xsi:schemaLocation="http://www.govtalk.gov.uk/dwp/carers-allowance file:/future/schema/ca/CarersAllowance_Schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns="http://www.govtalk.gov.uk/dwp/carers-allowance">
   <Version>0.23</Version>
   <Origin>GB</Origin>
-  <DWPCATransaction id="16040000103">
-    <TransactionId>16040000103</TransactionId>
-    <DateTimeGenerated>08-04-2016 12:34</DateTimeGenerated>
+  <DWPCATransaction id="16040000104">
+    <TransactionId>16040000104</TransactionId>
+    <DateTimeGenerated>08-04-2016 14:17</DateTimeGenerated>
     <LanguageUsed>English</LanguageUsed>
     <DWPCAClaim>
       <DateOfClaim><QuestionLabel>Claim date</QuestionLabel><Answer>08-04-2016</Answer></DateOfClaim>
       <QualifyingBenefit><QuestionLabel>What benefit does the person you care for get?</QuestionLabel><Answer>AA</Answer></QualifyingBenefit>
       <Claimant>
-        <Surname><QuestionLabel>Last name</QuestionLabel><Answer>Hgc/Wdi/GZedFNm+Gzn/q53s7jZJmJc02Hu2EFj8S7ogJasy2/+Q8xzkfy/DpCPN</Answer></Surname>
+        <Surname><QuestionLabel>Last name</QuestionLabel><Answer>0xSKmuEvwdANRAuJDv9AXMTBkUiSaUgN1foQt45eS9fsNro4lhvo+1zF1UWSxmm0</Answer></Surname>
         <OtherNames><QuestionLabel>First name</QuestionLabel><Answer>Joe</Answer></OtherNames>
 
         <Title><QuestionLabel>Title</QuestionLabel><Answer>Mr</Answer></Title>
         <DateOfBirth><QuestionLabel>Date of birth</QuestionLabel><Answer>10-10-2014</Answer></DateOfBirth>
-        <NationalInsuranceNumber><QuestionLabel>National Insurance number</QuestionLabel><Answer>m6g2s6ZYMzHPAkFRv2RpGUg0ig0VXrxl8yMoF+ZaPAmG+lMLy86dKEdwyz9Nt3S8</Answer></NationalInsuranceNumber>
+        <NationalInsuranceNumber><QuestionLabel>National Insurance number</QuestionLabel><Answer>p6OqDAdUjc6MUMNuPieMPaxDkxWlkmgE7FvTZmD9Gk4lcp2qIEJE4ykWHnUmEWTk</Answer></NationalInsuranceNumber>
         <Address>
           <QuestionLabel>Address</QuestionLabel>
           <Answer>
-            <Line>123</Line><Line>Street</Line><PostCode>HAmF8L8akVMkFy/5IZalM1XND1oIDC5WIhOEWUvIiItS16UxmKFxGmoLt0a+7chb</PostCode>
+            <Line>123</Line><Line>Street</Line><PostCode>mwgHzUSUGi93shP8ispva8VChxp4PCTWurjCsq22S/55ohczISJzYHNIS0dX1Qk3</PostCode>
           </Answer>
         </Address>
-        <DayTimePhoneNumber><QuestionLabel>Contact number</QuestionLabel><Answer>0000000000</Answer></DayTimePhoneNumber>
+
         <Cared35HoursBefore><QuestionLabel>Were you caring for the person for more than 35 hours a week before this date?</QuestionLabel><Answer>Yes</Answer></Cared35HoursBefore>
         <DateStartCaring><QuestionLabel>When did you begin caring?</QuestionLabel><Answer>08-01-2016</Answer></DateStartCaring>
         <MaritalStatus><QuestionLabel>Your status</QuestionLabel><Answer>Single</Answer></MaritalStatus>
-        <TextPhoneContact><QuestionLabel>This is a textphone for people with hearing difficulties.</QuestionLabel><Answer>No</Answer></TextPhoneContact>
+        <TextPhoneContact><QuestionLabel>This is a textphone for people with hearing difficulties.</QuestionLabel><Answer>Yes</Answer></TextPhoneContact>
         <WantsContactEmail><QuestionLabel>Have you got an email address?</QuestionLabel><Answer>Yes</Answer></WantsContactEmail>
         <Email><QuestionLabel>Email address</QuestionLabel><Answer>CAU.CASA@dwp.gsi.gov.uk</Answer></Email>
       </Claimant>
       <Caree>
-        <Surname><QuestionLabel>Last name</QuestionLabel><Answer>pkHtAd+YyMAsdseZy0WRrLmRN/2WaYESVu70I7IZlHr3sW2GjOTdrYnp8yQ/3zuJ</Answer></Surname>
+        <Surname><QuestionLabel>Last name</QuestionLabel><Answer>E1T7WJYGbPfy3/+WSfwgh86LYAKImumyDHkCi9JdaXa2cOEJJ3rhIZdeO2lo2+p0</Answer></Surname>
         <OtherNames><QuestionLabel>First name</QuestionLabel><Answer>Jane</Answer></OtherNames>
 
         <Title><QuestionLabel>Title</QuestionLabel><Answer>Mrs</Answer></Title>
         <DateOfBirth><QuestionLabel>Date of birth</QuestionLabel><Answer>08-04-2001</Answer></DateOfBirth>
-        <NationalInsuranceNumber><QuestionLabel>National Insurance number</QuestionLabel><Answer>uaRdVNgmJfFjJ9AxP3cPOkO9z3ABoIPexxJTdvstvhJQD79F7o2txVTZT9QRZai/</Answer></NationalInsuranceNumber>
+        <NationalInsuranceNumber><QuestionLabel>National Insurance number</QuestionLabel><Answer>NLTq/FeV7iUSqd5aEohhZgChxnRaK/ZOTwMcJQtGnH4Otn7BJ0QyWvE2MVBNMz7Z</Answer></NationalInsuranceNumber>
         <Address>
           <QuestionLabel>Address</QuestionLabel>
           <Answer>
-            <Line>470 Street</Line><Line>Newtown</Line><PostCode>ugAfqj1YX68/q82LwquGFxvWw+2CDfDHkze9VQtGIYgaIK+dDE2t9k6wn3baeCvV</PostCode>
+            <Line>470 Street</Line><Line>Newtown</Line><PostCode>iNinR98RAYzQERIEBjlltu7UPYO9DX87GTOb1pKErbdZMlv/4rXfj0QCkYRJ2m40</PostCode>
           </Answer>
         </Address>
         <RelationToClaimant><QuestionLabel>What's their relationship to you?</QuestionLabel><Answer>Grandma</Answer></RelationToClaimant>
@@ -163,6 +163,7 @@
 
         </SickPay>
         <StatutoryMaternityPaternityAdopt>
+          <PaymentType><QuestionLabel>Which are you paid?</QuestionLabel><Answer>MaternityOrPaternityPay</Answer></PaymentType>
           <PaymentTypesForThisPay><QuestionLabel>Which are you paid?</QuestionLabel><Answer>Maternity or paternity pay</Answer></PaymentTypesForThisPay>
           <StillBeingPaidThisPay><QuestionLabel>Are you still being paid this?</QuestionLabel><Answer>No</Answer></StillBeingPaidThisPay>
           <WhenDidYouLastGetPaid><QuestionLabel>When were you last paid?</QuestionLabel><Answer>08-01-2016</Answer></WhenDidYouLastGetPaid>
@@ -172,7 +173,8 @@
 
         </StatutoryMaternityPaternityAdopt>
         <FosteringAllowance>
-          <PaymentTypesForThisPay><QuestionLabel>What type of organisation pays you for Fostering Allowance?</QuestionLabel><Answer>Fostering Agency</Answer></PaymentTypesForThisPay>
+          <PaymentType><QuestionLabel>What type of organisation pays you for Fostering Allowance?</QuestionLabel><Answer>FosteringAllowance</Answer></PaymentType>
+          <PaymentTypesForThisPayValue><QuestionLabel>What type of organisation pays you for Fostering Allowance?</QuestionLabel><Answer>Fostering Agency</Answer></PaymentTypesForThisPayValue>
 
           <StillBeingPaidThisPay><QuestionLabel>Are you still being paid this?</QuestionLabel><Answer>Yes</Answer></StillBeingPaidThisPay>
 
@@ -193,13 +195,13 @@
       </Incomes>
       <HavePartner><QuestionLabel>Have you lived with a partner at any time since your claim date?</QuestionLabel><Answer>Yes</Answer></HavePartner>
       <Partner>
-        <Surname><QuestionLabel>Last name</QuestionLabel><Answer>S8/dIfuvVWW7P1Q8m/vUb5+mzoyz89MerB4aqYvFB6wt8AcDeT/J4InGr71Vs/Tq</Answer></Surname>
+        <Surname><QuestionLabel>Last name</QuestionLabel><Answer>LhKygR8XDiz3VP8laMr3AVgMAHWw65hzOXfecaQ/BTpO8JJStsb0SQcLbcZ5ZKYY</Answer></Surname>
         <OtherNames><QuestionLabel>First name</QuestionLabel><Answer>Joan</Answer></OtherNames>
 
 
         <Title><QuestionLabel>Title</QuestionLabel><Answer>Miss</Answer></Title>
         <DateOfBirth><QuestionLabel>Date of birth</QuestionLabel><Answer>08-04-2006</Answer></DateOfBirth>
-        <NationalInsuranceNumber><QuestionLabel>National Insurance number</QuestionLabel><Answer>2i760p7tA26r1e1vaVNZKuxRfvEo2LqTU/Uphm7EM+2K4Wz5dbF5METMBjVRInd2</Answer></NationalInsuranceNumber>
+        <NationalInsuranceNumber><QuestionLabel>National Insurance number</QuestionLabel><Answer>kZm9KsN6sPHB16nzBuxqOw1PzYd/AQ5nM3VkUf8dHEo9Yl+01lj86pcSmOa3QOzu</Answer></NationalInsuranceNumber>
         <NationalityPartner><QuestionLabel>Nationality</QuestionLabel><Answer>British</Answer></NationalityPartner>
         <RelationshipStatus>
           <SeparatedFromPartner><QuestionLabel>Have you separated since your claim date?</QuestionLabel><Answer>No</Answer></SeparatedFromPartner>
@@ -246,7 +248,7 @@
           <Content>Read more about how Carer's Allowance affects other benefits.</Content>
           <Content>You must tell the person you care for before you claim.</Content>
         </DisclaimerStatement>
-
+        <DisclaimerQuestion><QuestionLabel>I agree</QuestionLabel><Answer>No</Answer></DisclaimerQuestion>
       </Disclaimer>
       <EvidenceList>
         <RecipientAddress>
@@ -269,16 +271,16 @@
     <ds:SignedInfo>
       <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
       <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
-      <ds:Reference URI="#16040000103">
+      <ds:Reference URI="#16040000104">
         <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-        <ds:DigestValue>q+D6raN9UaV3yxRp+1sHb+MEzfc=</ds:DigestValue>
+        <ds:DigestValue>EoPLjduGI0zC50i4gebhtSEnEZ0=</ds:DigestValue>
       </ds:Reference>
     </ds:SignedInfo>
     <ds:SignatureValue>
-      JBdUvI6SpxbnvWMWenl3/BIo3SlH2fST6qKXjVzT3UXT1vDgs5WyXvpiDIu8zavGUl5DzlqAWM7h
-      uRwXK7Nyl/YAWg9htyEbYyhU4sKDfqC21nPVaYxJi861HbGfL6vwrsL+ay0QaSrOHkHwSjGEk5B3
-      63O2rFmFYVjbn/2nV/ij20NEavch8LJ52MKZB6V5xfZ7jVhX9obI/OSXWqxw1F9O2DKz9aiJq52j
-      kNco+SYkJ+8sbVNeki5N4y6+KsLi0HdC1ZiGYKybxMrpiCtPZ5DxwJhVPY1/tAt25UBe5+MFeBtl
-      MpJSdrYa3GlzzQJE6lMqL9F2lJUhCCAgDhBJ/A==
+      Zngus+5DqSwd8ZHZuzZwClr0+9VcuNRWq8Tp0GDav0xH0AttBZ/U1f3+xQm4ubfjNdWFyKDGW97F
+      WupwkCk1UtibmmtOlPe/VMMkJSi9vhJcuAWx+8bpmVL6kgWBt9stFesQJ0kWZnnAK8sz8HQ8yTLS
+      6GDiwJkOo5Pzd5UbdyVSs8BBSM+pUUcPhHX5Dup37QEiq8j2FgpKvX4xOZJwnIasn7XQe6f4bZ8O
+      dJFRAnE34uM9QC1mrUMW9MH8gfUdTJIMF1XoZYICrOTyKoXCj8xPpxPiD1NcbzImBCVXsf+TaE/U
+      sDTTJlnC8oQKqQvbOn91YJRrf6YZJm/PdqNZ1Q==
     </ds:SignatureValue>
   </ds:Signature></DWPBody>
