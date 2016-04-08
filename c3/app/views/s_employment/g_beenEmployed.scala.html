@@ -88,7 +88,7 @@
             }
         </fieldset>
 
-        @views.html.common.bottomNavigation(customTrack =Some(views.html.ga.trackSubmit(isOptional=true)),nextLabel = Some("form.next"))
+        @views.html.common.bottomNavigation(customTrack =Some(views.html.ga.trackSubmit(isOptional=true)))
 
     }
 
@@ -103,6 +103,14 @@
                 "@CarersCrypto.encryptAES("beenEmployed_yes")",
                 "@CarersCrypto.encryptAES("beenEmployed_no")",
                 @play.api.Play.isTest(play.api.Play.current));
+            window.updateNextLabel(
+                    "@CarersCrypto.encryptAES("beenEmployed")"
+                    ,"@CarersCrypto.encryptAES("beenEmployed_no")"
+                    ,"@CarersCrypto.encryptAES("beenEmployed_yes")"
+                    ,@claim.navigation.beenInPreview
+                    ,"@messages("form.next")"
+                    ,"@messages("form.returnToSummary")"
+            );
         })
     </script>
 

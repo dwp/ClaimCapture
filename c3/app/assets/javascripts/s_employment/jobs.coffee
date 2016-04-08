@@ -73,3 +73,20 @@ window.displayWarning = (answer_yes, answer_no, testMode) ->
     if( $("#maxEmpWarningWrap").length >0)
       $("#maxEmpWarningWrap").hide()
 
+window.updateNextLabel = (beenEmployed, answer_yes, answer_no, beenInPreview, textNext, textReturn) ->
+  changeText = ->
+    button = $('button[value="next"]')
+    if goToPreview()
+      button.text(textReturn)
+    else
+      button.text(textNext)
+
+  goToPreview = ->
+    console.log("goToPreview")
+    $("input[name=" + beenEmployed+"]:checked").val() == "no" && beenInPreview
+
+  changeText()
+
+  $("#" + answer_no).on "click", changeText
+  $("#" + answer_yes).on "click", changeText
+
