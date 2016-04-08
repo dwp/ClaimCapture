@@ -20,13 +20,9 @@ class GOtherPaymentsSpec extends Specification {
     )
 
     "present 'Other Payments '" in new WithBrowser with PageObjects {
-      val claimData = s7NotEmployedNorSelfEmployed()
-      claimData.YourIncomeStatutorySickPay = ""
-      claimData.YourIncomeAnyOtherPay = "true"
-      val employment = new GYourIncomePage(context) goToThePage()
-      employment.fillPageWith(claimData)
-      val otherPayments = employment.submitPage()
-      otherPayments must beAnInstanceOf[GOtherPaymentsPage]
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeAnyOtherPay = "true" })
+      val page = GOtherPaymentsPage(context)
+      page must beAnInstanceOf[GOtherPaymentsPage]
     }
 
     "add submitted data to the cached claim" in new WithApplication with Claiming {
@@ -68,12 +64,8 @@ class GOtherPaymentsSpec extends Specification {
     }
 
     "have text maxlength set correctly in present()" in new WithBrowser with PageObjects {
-      val claimData = s7NotEmployedNorSelfEmployed()
-      claimData.YourIncomeStatutorySickPay = ""
-      claimData.YourIncomeAnyOtherPay = "true"
-      val employment = new GYourIncomePage(context) goToThePage()
-      employment.fillPageWith(claimData)
-      val otherPayments = employment.submitPage()
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeAnyOtherPay = "true" })
+      val otherPayments = GOtherPaymentsPage(context)
       otherPayments must beAnInstanceOf[GOtherPaymentsPage]
 
       val anythingElse = browser.$("#otherPaymentsInfo")

@@ -20,6 +20,7 @@ class GDirectPaymentIntegrationSpec extends Specification {
       GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeDirectPay = "true" })
       val page = GDirectPaymentPage(context)
       page goToThePage ()
+      page must beAnInstanceOf[GDirectPaymentPage]
     }
 
     "navigate to next page on valid submission" in new WithJsBrowser with PageObjects {

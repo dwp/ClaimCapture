@@ -28,11 +28,9 @@ class GStatutorySickPaySpec extends Specification {
     )
 
     "present 'Statutory Sick Pay '" in new WithBrowser with PageObjects {
-      val claimData = s7NotEmployedNorSelfEmployed()
-      val employment = new GYourIncomePage(context) goToThePage()
-      employment.fillPageWith(claimData)
-      val statutorySickPay = employment.submitPage()
-      statutorySickPay must beAnInstanceOf[GStatutorySickPayPage]
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeStatutorySickPay = "true" })
+      val page = GStatutorySickPayPage(context)
+      page must beAnInstanceOf[GStatutorySickPayPage]
     }
 
     "add submitted data to the cached claim" in new WithApplication with Claiming {

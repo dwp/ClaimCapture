@@ -29,13 +29,9 @@ class GFosteringAllowanceSpec extends Specification {
     )
 
     "present 'Fostering Allowance '" in new WithBrowser with PageObjects {
-      val claimData = s7NotEmployedNorSelfEmployed()
-      claimData.YourIncomeStatutorySickPay = ""
-      claimData.YourIncomeFosteringAllowance = "true"
-      val employment = new GYourIncomePage(context) goToThePage()
-      employment.fillPageWith(claimData)
-      val fosteringAllowance = employment.submitPage()
-      fosteringAllowance must beAnInstanceOf[GFosteringAllowancePage]
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeFosteringAllowance = "true" })
+      val page = GFosteringAllowancePage(context)
+      page must beAnInstanceOf[GFosteringAllowancePage]
     }
 
     "add submitted data to the cached claim" in new WithApplication with Claiming {

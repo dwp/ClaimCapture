@@ -5,7 +5,7 @@ import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.pageobjects.PageObjects
-import utils.pageobjects.your_income.{GYourIncomePage, GStatutoryMaternityPaternityAdoptionPayPage}
+import utils.pageobjects.your_income.{GOtherPaymentsPage, GYourIncomePage, GStatutoryMaternityPaternityAdoptionPayPage}
 import utils.{WithBrowser, WithApplication}
 import controllers.ClaimScenarioFactory._
 
@@ -29,13 +29,9 @@ class GStatutoryMaternityPaternityAdoptionPaySpec extends Specification {
     )
 
     "present 'Statutory Maternity Paternity Adoption Pay '" in new WithBrowser with PageObjects {
-      val claimData = s7NotEmployedNorSelfEmployed()
-      claimData.YourIncomeStatutorySickPay = ""
-      claimData.YourIncomePatMatAdopPay = "true"
-      val employment = new GYourIncomePage(context) goToThePage()
-      employment.fillPageWith(claimData)
-      val statutoryMaternityPaternityAdoptionPay = employment.submitPage()
-      statutoryMaternityPaternityAdoptionPay must beAnInstanceOf[GStatutoryMaternityPaternityAdoptionPayPage]
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomePatMatAdopPay = "true" })
+      val page = GStatutoryMaternityPaternityAdoptionPayPage(context)
+      page must beAnInstanceOf[GStatutoryMaternityPaternityAdoptionPayPage]
     }
 
     "add submitted data to the cached claim" in new WithApplication with Claiming {

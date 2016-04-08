@@ -27,13 +27,9 @@ class GDirectPaymentSpec extends Specification {
     )
 
     "present 'Direct Payment '" in new WithBrowser with PageObjects {
-      val claimData = s7NotEmployedNorSelfEmployed()
-      claimData.YourIncomeStatutorySickPay = ""
-      claimData.YourIncomeDirectPay = "true"
-      val employment = new GYourIncomePage(context) goToThePage()
-      employment.fillPageWith(claimData)
-      val directPayment = employment.submitPage()
-      directPayment must beAnInstanceOf[GDirectPaymentPage]
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeDirectPay = "true" })
+      val page = GDirectPaymentPage(context)
+      page must beAnInstanceOf[GDirectPaymentPage]
     }
 
     "add submitted data to the cached claim" in new WithApplication with Claiming {

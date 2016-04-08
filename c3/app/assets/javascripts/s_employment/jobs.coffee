@@ -82,7 +82,6 @@ window.updateNextLabel = (beenEmployed, answer_yes, answer_no, beenInPreview, te
       button.text(textNext)
 
   goToPreview = ->
-    console.log("goToPreview")
     $("input[name=" + beenEmployed+"]:checked").val() == "no" && beenInPreview
 
   changeText()

@@ -20,6 +20,7 @@ class GFosteringAllowanceIntegrationSpec extends Specification {
       GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeFosteringAllowance = "true" })
       val page = GFosteringAllowancePage(context)
       page goToThePage ()
+      page must beAnInstanceOf[GFosteringAllowancePage]
     }
 
     "navigate to next page on valid submission" in new WithJsBrowser with PageObjects {

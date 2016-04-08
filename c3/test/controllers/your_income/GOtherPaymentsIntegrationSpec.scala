@@ -16,6 +16,7 @@ class GOtherPaymentsIntegrationSpec extends Specification {
       GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeAnyOtherPay = "true" })
       val page = GOtherPaymentsPage(context)
       page goToThePage ()
+      page must beAnInstanceOf[GOtherPaymentsPage]
     }
 
     "navigate to next page on valid submission" in new WithJsBrowser with PageObjects {

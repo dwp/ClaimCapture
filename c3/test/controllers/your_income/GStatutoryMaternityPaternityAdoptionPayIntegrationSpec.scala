@@ -20,6 +20,7 @@ class GStatutoryMaternityPaternityAdoptionPayIntegrationSpec extends Specificati
       GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomePatMatAdopPay = "true" })
       val page = GStatutoryMaternityPaternityAdoptionPayPage(context)
       page goToThePage ()
+      page must beAnInstanceOf[GStatutoryMaternityPaternityAdoptionPayPage]
     }
 
     "navigate to next page on valid submission" in new WithJsBrowser with PageObjects {

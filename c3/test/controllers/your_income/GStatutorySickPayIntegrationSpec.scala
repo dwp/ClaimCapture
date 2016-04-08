@@ -20,6 +20,7 @@ class GStatutorySickPayIntegrationSpec extends Specification {
       GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeStatutorySickPay = "true" })
       val page = GStatutorySickPayPage(context)
       page goToThePage ()
+      page must beAnInstanceOf[GStatutorySickPayPage]
     }
 
     "navigate to next page on valid submission" in new WithJsBrowser with PageObjects {
