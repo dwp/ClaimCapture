@@ -1,163 +1,205 @@
 <DWPBody xsi:schemaLocation="http://www.govtalk.gov.uk/dwp/carers-allowance file:/future/schema/ca/CarersAllowance_Schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns="http://www.govtalk.gov.uk/dwp/carers-allowance">
-    <Version>0.22</Version>
-    <Origin>GB</Origin>
-    <DWPCATransaction id="16010000027">
-      <TransactionId>16010000027</TransactionId>
-      <DateTimeGenerated>15-02-2016 13:09</DateTimeGenerated>
-      <LanguageUsed>English</LanguageUsed>
-      <DWPCAClaim>
-      <DateOfClaim><QuestionLabel>Claim date</QuestionLabel><Answer>15-02-2016</Answer></DateOfClaim>
-      <QualifyingBenefit><QuestionLabel>What benefit does the person you care for get?</QuestionLabel><Answer>CAA</Answer></QualifyingBenefit>
+  <Version>0.23</Version>
+  <Origin>GB</Origin>
+  <DWPCATransaction id="16040000103">
+    <TransactionId>16040000103</TransactionId>
+    <DateTimeGenerated>08-04-2016 12:34</DateTimeGenerated>
+    <LanguageUsed>English</LanguageUsed>
+    <DWPCAClaim>
+      <DateOfClaim><QuestionLabel>Claim date</QuestionLabel><Answer>08-04-2016</Answer></DateOfClaim>
+      <QualifyingBenefit><QuestionLabel>What benefit does the person you care for get?</QuestionLabel><Answer>AA</Answer></QualifyingBenefit>
       <Claimant>
-      <Surname><QuestionLabel>Last name</QuestionLabel><Answer>Jg5PU6AgEeyvi5c6cJTWhrw9qcKPGEnvfvpww9zg3fHl1uBq14HL/LmzbOT15fvB</Answer></Surname>
-      <OtherNames><QuestionLabel>First name</QuestionLabel><Answer>Joe</Answer></OtherNames>
-      
-      <Title><QuestionLabel>Title</QuestionLabel><Answer>Mr</Answer></Title>
-      <DateOfBirth><QuestionLabel>Date of birth</QuestionLabel><Answer>10-10-2014</Answer></DateOfBirth>
-      <NationalInsuranceNumber><QuestionLabel>National Insurance number</QuestionLabel><Answer>LsrOWsZEng1jI54nGmOCbY+q5DYz97RTsK72yQUuHvhqWrQ31Xhu9oZjoYpuLmN4</Answer></NationalInsuranceNumber>
-      <Address>
-      <QuestionLabel>Address</QuestionLabel>
-      <Answer>
-        <Line>123</Line><Line>Street</Line><PostCode>kxNkBCv07nMEN5+ZjRwCnnRyzkiyjPcQPEX4Nw32C872j+eGslr3h4mXVH3ukO3x</PostCode>
-      </Answer>
-    </Address>
-      <DayTimePhoneNumber><QuestionLabel>Contact number</QuestionLabel><Answer>0000000000</Answer></DayTimePhoneNumber>
-      <Cared35HoursBefore><QuestionLabel>Were you caring for the person for more than 35 hours a week before this date?</QuestionLabel><Answer>Yes</Answer></Cared35HoursBefore>
-      <DateStartCaring><QuestionLabel>When did you begin caring?</QuestionLabel><Answer>15-11-2015</Answer></DateStartCaring>
-      <MaritalStatus><QuestionLabel>Your status</QuestionLabel><Answer>Single</Answer></MaritalStatus>
-      <TextPhoneContact><QuestionLabel>This is a textphone for people with hearing difficulties.</QuestionLabel><Answer>No</Answer></TextPhoneContact>
-      <WantsContactEmail><QuestionLabel>Have you got an email address?</QuestionLabel><Answer>Yes</Answer></WantsContactEmail>
-      <Email><QuestionLabel>Email address</QuestionLabel><Answer>CAU.CASA@dwp.gsi.gov.uk</Answer></Email>
-    </Claimant>
+        <Surname><QuestionLabel>Last name</QuestionLabel><Answer>Hgc/Wdi/GZedFNm+Gzn/q53s7jZJmJc02Hu2EFj8S7ogJasy2/+Q8xzkfy/DpCPN</Answer></Surname>
+        <OtherNames><QuestionLabel>First name</QuestionLabel><Answer>Joe</Answer></OtherNames>
+
+        <Title><QuestionLabel>Title</QuestionLabel><Answer>Mr</Answer></Title>
+        <DateOfBirth><QuestionLabel>Date of birth</QuestionLabel><Answer>10-10-2014</Answer></DateOfBirth>
+        <NationalInsuranceNumber><QuestionLabel>National Insurance number</QuestionLabel><Answer>m6g2s6ZYMzHPAkFRv2RpGUg0ig0VXrxl8yMoF+ZaPAmG+lMLy86dKEdwyz9Nt3S8</Answer></NationalInsuranceNumber>
+        <Address>
+          <QuestionLabel>Address</QuestionLabel>
+          <Answer>
+            <Line>123</Line><Line>Street</Line><PostCode>HAmF8L8akVMkFy/5IZalM1XND1oIDC5WIhOEWUvIiItS16UxmKFxGmoLt0a+7chb</PostCode>
+          </Answer>
+        </Address>
+        <DayTimePhoneNumber><QuestionLabel>Contact number</QuestionLabel><Answer>0000000000</Answer></DayTimePhoneNumber>
+        <Cared35HoursBefore><QuestionLabel>Were you caring for the person for more than 35 hours a week before this date?</QuestionLabel><Answer>Yes</Answer></Cared35HoursBefore>
+        <DateStartCaring><QuestionLabel>When did you begin caring?</QuestionLabel><Answer>08-01-2016</Answer></DateStartCaring>
+        <MaritalStatus><QuestionLabel>Your status</QuestionLabel><Answer>Single</Answer></MaritalStatus>
+        <TextPhoneContact><QuestionLabel>This is a textphone for people with hearing difficulties.</QuestionLabel><Answer>No</Answer></TextPhoneContact>
+        <WantsContactEmail><QuestionLabel>Have you got an email address?</QuestionLabel><Answer>Yes</Answer></WantsContactEmail>
+        <Email><QuestionLabel>Email address</QuestionLabel><Answer>CAU.CASA@dwp.gsi.gov.uk</Answer></Email>
+      </Claimant>
       <Caree>
-      <Surname><QuestionLabel>Last name</QuestionLabel><Answer>FPqqZPXgb6OGxN9qVRKFWOhuQs2t9JaWHzwy130QCZoMBDjf7HJrOul2GXPTGmCe</Answer></Surname>
-      <OtherNames><QuestionLabel>First name</QuestionLabel><Answer>Jane</Answer></OtherNames>
-      
-      <Title><QuestionLabel>Title</QuestionLabel><Answer>Mrs</Answer></Title>
-      <DateOfBirth><QuestionLabel>Date of birth</QuestionLabel><Answer>15-02-2001</Answer></DateOfBirth>
-      <NationalInsuranceNumber><QuestionLabel>National Insurance number</QuestionLabel><Answer>odyAS1aABjK79Nd2JoJbaD542t6PWW2cUzINF8s1dgFJdW0lgPSOQGPGyzc9UZzL</Answer></NationalInsuranceNumber>
-      <Address>
-      <QuestionLabel>Address</QuestionLabel>
-      <Answer>
-        <Line>470 Street</Line><Line>Newtown</Line><PostCode>f0cZk5U2jwTik5fJ5SnSJKxYPc6J0oYnPHHoNlr4N/hX4WiZa+NBwYf3YkSy8fxN</PostCode>
-      </Answer>
-    </Address>
-      <RelationToClaimant><QuestionLabel>What's their relationship to you?</QuestionLabel><Answer>Grandma</Answer></RelationToClaimant>
-      <Cared35Hours><QuestionLabel>Do you spend 35 hours or more each week caring for the person you care for?</QuestionLabel><Answer>Yes</Answer></Cared35Hours>
-      <CareBreak>
-        <BreaksSinceClaim><QuestionLabel>Have you had any breaks from caring for this person since 15 November 2015?</QuestionLabel><Answer>Yes</Answer></BreaksSinceClaim>
-        <StartDate><QuestionLabel>When did the break start?</QuestionLabel><Answer>15-10-2015</Answer></StartDate>
-        <EndDateDoNotKnow><QuestionLabel>Has this break ended?</QuestionLabel><Answer>No</Answer></EndDateDoNotKnow>
-        <MedicalCare><QuestionLabel>Did you or the person you care for get any medical treatment or professional care during this time?</QuestionLabel><Answer>No</Answer></MedicalCare>
-        <ReasonClaimant><QuestionLabel>Where were you during the break?</QuestionLabel><Answer>On holiday</Answer></ReasonClaimant>
-        <ReasonCaree><QuestionLabel>Where was the person you care for during the break?</QuestionLabel><Answer>At home</Answer></ReasonCaree>
-      </CareBreak><CareBreak>
-        <BreaksSinceClaim><QuestionLabel>Have you had any more breaks from caring for this person since 15 November 2015?</QuestionLabel><Answer>Yes</Answer></BreaksSinceClaim>
-        <StartDate><QuestionLabel>When did the break start?</QuestionLabel><Answer>15-11-2015</Answer></StartDate>
+        <Surname><QuestionLabel>Last name</QuestionLabel><Answer>pkHtAd+YyMAsdseZy0WRrLmRN/2WaYESVu70I7IZlHr3sW2GjOTdrYnp8yQ/3zuJ</Answer></Surname>
+        <OtherNames><QuestionLabel>First name</QuestionLabel><Answer>Jane</Answer></OtherNames>
+
+        <Title><QuestionLabel>Title</QuestionLabel><Answer>Mrs</Answer></Title>
+        <DateOfBirth><QuestionLabel>Date of birth</QuestionLabel><Answer>08-04-2001</Answer></DateOfBirth>
+        <NationalInsuranceNumber><QuestionLabel>National Insurance number</QuestionLabel><Answer>uaRdVNgmJfFjJ9AxP3cPOkO9z3ABoIPexxJTdvstvhJQD79F7o2txVTZT9QRZai/</Answer></NationalInsuranceNumber>
+        <Address>
+          <QuestionLabel>Address</QuestionLabel>
+          <Answer>
+            <Line>470 Street</Line><Line>Newtown</Line><PostCode>ugAfqj1YX68/q82LwquGFxvWw+2CDfDHkze9VQtGIYgaIK+dDE2t9k6wn3baeCvV</PostCode>
+          </Answer>
+        </Address>
+        <RelationToClaimant><QuestionLabel>What's their relationship to you?</QuestionLabel><Answer>Grandma</Answer></RelationToClaimant>
+        <Cared35Hours><QuestionLabel>Do you spend 35 hours or more each week caring for the person you care for?</QuestionLabel><Answer>Yes</Answer></Cared35Hours>
+        <CareBreak>
+          <BreaksSinceClaim><QuestionLabel>Have you had any breaks from caring for this person since 8 January 2016?</QuestionLabel><Answer>Yes</Answer></BreaksSinceClaim>
+          <StartDate><QuestionLabel>When did the break start?</QuestionLabel><Answer>08-12-2015</Answer></StartDate>
+          <EndDateDoNotKnow><QuestionLabel>Has this break ended?</QuestionLabel><Answer>No</Answer></EndDateDoNotKnow>
+          <MedicalCare><QuestionLabel>Did you or the person you care for get any medical treatment or professional care during this time?</QuestionLabel><Answer>No</Answer></MedicalCare>
+          <ReasonClaimant><QuestionLabel>Where were you during the break?</QuestionLabel><Answer>On holiday</Answer></ReasonClaimant>
+          <ReasonCaree><QuestionLabel>Where was the person you care for during the break?</QuestionLabel><Answer>At home</Answer></ReasonCaree>
+        </CareBreak><CareBreak>
+        <BreaksSinceClaim><QuestionLabel>Have you had any more breaks from caring for this person since 8 January 2016?</QuestionLabel><Answer>Yes</Answer></BreaksSinceClaim>
+        <StartDate><QuestionLabel>When did the break start?</QuestionLabel><Answer>08-01-2016</Answer></StartDate>
         <EndDateDoNotKnow><QuestionLabel>Has this break ended?</QuestionLabel><Answer>No</Answer></EndDateDoNotKnow>
         <MedicalCare><QuestionLabel>Did you or the person you care for get any medical treatment or professional care during this time?</QuestionLabel><Answer>Yes</Answer></MedicalCare>
         <ReasonClaimant><QuestionLabel>Where were you during the break?</QuestionLabel><Answer>In hospital</Answer></ReasonClaimant>
         <ReasonCaree><QuestionLabel>Where was the person you care for during the break?</QuestionLabel><Answer>At home</Answer></ReasonCaree>
       </CareBreak><CareBreak>
-        <BreaksSinceClaim><QuestionLabel>Have you had any more breaks from caring for this person since 15 November 2015?</QuestionLabel><Answer>No</Answer></BreaksSinceClaim>
+        <BreaksSinceClaim><QuestionLabel>Have you had any more breaks from caring for this person since 8 January 2016?</QuestionLabel><Answer>No</Answer></BreaksSinceClaim>
       </CareBreak>
-      <LiveSameAddress><QuestionLabel>Do they live at the same address as you?</QuestionLabel><Answer>No</Answer></LiveSameAddress>
-    </Caree>
+        <LiveSameAddress><QuestionLabel>Do they live at the same address as you?</QuestionLabel><Answer>No</Answer></LiveSameAddress>
+      </Caree>
       <Residency>
-      <Nationality><QuestionLabel>What is your nationality?</QuestionLabel><Answer>British</Answer></Nationality>
+        <Nationality><QuestionLabel>What is your nationality?</QuestionLabel><Answer>British</Answer></Nationality>
 
-      
 
-      <NormallyLiveInGB><QuestionLabel>Do you normally live in England, Scotland or Wales?</QuestionLabel><Answer>Yes</Answer></NormallyLiveInGB>
 
-      
+        <NormallyLiveInGB><QuestionLabel>Do you normally live in England, Scotland or Wales?</QuestionLabel><Answer>Yes</Answer></NormallyLiveInGB>
 
-      <PeriodAbroad>
-        <TimeOutsideGBLast3Years><QuestionLabel>Have you been away from England, Scotland or Wales for more than 52 weeks in the 3 years before your claim date?</QuestionLabel><Answer>No</Answer></TimeOutsideGBLast3Years>
-        
-      </PeriodAbroad>
 
-    </Residency>
+
+        <PeriodAbroad>
+          <TimeOutsideGBLast3Years><QuestionLabel>Have you been away from England, Scotland or Wales for more than 52 weeks in the 3 years before your claim date?</QuestionLabel><Answer>No</Answer></TimeOutsideGBLast3Years>
+
+        </PeriodAbroad>
+
+      </Residency>
       <CourseOfEducation><QuestionLabel>Have you been on a course of education since your claim date?</QuestionLabel><Answer>Yes</Answer></CourseOfEducation>
       <FullTimeEducation>
         <CourseDetails>
-      
-      <Title><QuestionLabel>Course title</QuestionLabel><Answer>Biology</Answer></Title>
-      <DateStarted><QuestionLabel>When did you start the course?</QuestionLabel><Answer>15-01-2016</Answer></DateStarted>
-      
-      <ExpectedEndDate><QuestionLabel>When did the course end or when will you finish?</QuestionLabel><Answer>15-02-2018</Answer></ExpectedEndDate>
-    </CourseDetails>
-        <LocationDetails>
-      <Name><QuestionLabel>Name of school, college or university</QuestionLabel><Answer>A College</Answer></Name>
-      
-      
-      
-      
-      <Tutor><QuestionLabel>Name of main teacher or tutor</QuestionLabel><Answer>A Tutor</Answer></Tutor>
-    </LocationDetails>
-      </FullTimeEducation>
-      <SelfEmployed><QuestionLabel>Have you been self-employed at any time since 8 February 2016?</QuestionLabel><Answer>Yes</Answer></SelfEmployed>
-      <SelfEmployment>
-        <SelfEmployedNow><QuestionLabel>Are you self-employed now?</QuestionLabel><Answer>Yes</Answer></SelfEmployedNow>
-        <CurrentJobDetails>
-          <DateStarted><QuestionLabel>When did you start this self-employed work?</QuestionLabel><Answer>15-12-2015</Answer></DateStarted>
-          <NatureBusiness><QuestionLabel>Type of work or business?</QuestionLabel><Answer>Consultancy</Answer></NatureBusiness>
-          <DoYouKnowYourTradingYear><QuestionLabel>Do you know your trading year?</QuestionLabel><Answer>No</Answer></DoYouKnowYourTradingYear>
-          <TradingYear>
-            
-            
-          </TradingYear>
-          
-          
-        </CurrentJobDetails>
-        <PaidForPension><QuestionLabel>Do you pay into a pension?</QuestionLabel><Answer>No</Answer></PaidForPension>
-        <PaidForJobExpenses><QuestionLabel>Do you have any care costs because of this work?</QuestionLabel><Answer>No</Answer></PaidForJobExpenses>
-      </SelfEmployment>
-      <Employed><QuestionLabel>Have you been employed at any time since 15 August 2015?</QuestionLabel><Answer>Yes</Answer></Employed>
-      <Employment>
 
-        <JobDetails>
-              <Employer>
-      <CurrentlyEmployed><QuestionLabel>Have you finished this job?</QuestionLabel><Answer>No</Answer></CurrentlyEmployed>
-      <DidJobStartBeforeClaimDate><QuestionLabel>Did you start this job before 15 January 2016?</QuestionLabel><Answer>Yes</Answer></DidJobStartBeforeClaimDate>
-      
-      
-      <Name><QuestionLabel>Employer's name</QuestionLabel><Answer>Hiding Consultants</Answer></Name>
-      <Address>
-      <QuestionLabel>Address</QuestionLabel>
-      <Answer>
-        <Line>456 Street</Line><Line>Newtown</Line>
-      </Answer>
-    </Address>
-      <EmployersPhoneNumber><QuestionLabel>Contact number</QuestionLabel><Answer>01111111111</Answer></EmployersPhoneNumber>
-      
-    </Employer>
-              <Pay>
-      
-      <DateLastPaid><QuestionLabel>When were you last paid?</QuestionLabel><Answer>08-02-2016</Answer></DateLastPaid>
-      <GrossPayment><QuestionLabel>What were you paid in your last wage?</QuestionLabel><Answer><Currency>GBP</Currency><Amount>3000</Amount></Answer></GrossPayment>
-      <IncludedInWage><QuestionLabel>What was included in this pay?</QuestionLabel><Answer>Some catnip on the side</Answer></IncludedInWage>
-      <PayFrequency><QuestionLabel>How often are you paid?</QuestionLabel><Answer>Weekly</Answer></PayFrequency>
-      <UsualPayDay><QuestionLabel>When do you get paid?</QuestionLabel><Answer>Fridays</Answer></UsualPayDay>
-      <ConstantEarnings><QuestionLabel>Do you get the same amount each time?</QuestionLabel><Answer>Yes</Answer></ConstantEarnings>
-    </Pay>
-              
-              <PaidForPension><QuestionLabel>Do you pay into a pension?</QuestionLabel><Answer>No</Answer></PaidForPension>
-              <PaidForThingsToDoJob><QuestionLabel>Do you pay for things you need to do your job?</QuestionLabel><Answer>No</Answer></PaidForThingsToDoJob>
-              <PaidForJobExpenses><QuestionLabel>Do you have any care costs because of this work?</QuestionLabel><Answer>No</Answer></PaidForJobExpenses>
-              <OtherEmployment><QuestionLabel>Have you had any other jobs since 15 August 2015?</QuestionLabel><Answer>No</Answer></OtherEmployment>
-            </JobDetails>
-      </Employment>
-      <EmploymentAdditionalInfo><QuestionLabel>Do you want to add anything about your work?</QuestionLabel><Answer>No</Answer></EmploymentAdditionalInfo>
+          <Title><QuestionLabel>Course title</QuestionLabel><Answer>Biology</Answer></Title>
+          <DateStarted><QuestionLabel>When did you start the course?</QuestionLabel><Answer>08-03-2016</Answer></DateStarted>
+
+          <ExpectedEndDate><QuestionLabel>When did the course end or when will you finish?</QuestionLabel><Answer>08-04-2018</Answer></ExpectedEndDate>
+        </CourseDetails>
+        <LocationDetails>
+          <Name><QuestionLabel>Name of school, college or university</QuestionLabel><Answer>A College</Answer></Name>
+
+
+
+
+          <Tutor><QuestionLabel>Name of main teacher or tutor</QuestionLabel><Answer>A Tutor</Answer></Tutor>
+        </LocationDetails>
+      </FullTimeEducation>
+      <Incomes>
+        <Employed><QuestionLabel>Have you been employed at any time since 8 October 2015?</QuestionLabel><Answer>Yes</Answer></Employed>
+        <SelfEmployed><QuestionLabel>Have you been self-employed at any time since 1 April 2016?</QuestionLabel><Answer>Yes</Answer></SelfEmployed>
+        <OtherPaymentQuestion><QuestionLabel>What other income have you had since 08/04/2016?</QuestionLabel><Answer>Some</Answer></OtherPaymentQuestion>
+        <SickPayment><QuestionLabel>Statutory sick pay</QuestionLabel><Answer>Yes</Answer></SickPayment>
+        <PatMatAdopPayment><QuestionLabel>Statutory paternity, maternity or adoption pay</QuestionLabel><Answer>Yes</Answer></PatMatAdopPayment>
+        <FosteringPayment><QuestionLabel>Fostering Allowance</QuestionLabel><Answer>Yes</Answer></FosteringPayment>
+        <DirectPayment><QuestionLabel>Direct payment for caring for someone</QuestionLabel><Answer>Yes</Answer></DirectPayment>
+        <AnyOtherPayment><QuestionLabel>Any other income, eg rental income</QuestionLabel><Answer>Yes</Answer></AnyOtherPayment>
+
+        <Employment>
+
+          <JobDetails>
+            <Employer>
+              <CurrentlyEmployed><QuestionLabel>Have you finished this job?</QuestionLabel><Answer>No</Answer></CurrentlyEmployed>
+              <DidJobStartBeforeClaimDate><QuestionLabel>Did you start this job before 8 March 2016?</QuestionLabel><Answer>Yes</Answer></DidJobStartBeforeClaimDate>
+
+
+              <Name><QuestionLabel>Employer's name</QuestionLabel><Answer>Hiding Consultants</Answer></Name>
+              <Address>
+                <QuestionLabel>Address</QuestionLabel>
+                <Answer>
+                  <Line>456 Street</Line><Line>Newtown</Line>
+                </Answer>
+              </Address>
+              <EmployersPhoneNumber><QuestionLabel>Contact number</QuestionLabel><Answer>01111111111</Answer></EmployersPhoneNumber>
+
+            </Employer>
+            <Pay>
+
+              <DateLastPaid><QuestionLabel>When were you last paid?</QuestionLabel><Answer>01-04-2016</Answer></DateLastPaid>
+              <GrossPayment><QuestionLabel>What were you paid in your last wage?</QuestionLabel><Answer><Currency>GBP</Currency><Amount>3000</Amount></Answer></GrossPayment>
+              <IncludedInWage><QuestionLabel>What was included in this pay?</QuestionLabel><Answer>Some catnip on the side</Answer></IncludedInWage>
+              <PayFrequency><QuestionLabel>How often are you paid?</QuestionLabel><Answer>Weekly</Answer></PayFrequency>
+              <UsualPayDay><QuestionLabel>When do you get paid?</QuestionLabel><Answer>Fridays</Answer></UsualPayDay>
+              <ConstantEarnings><QuestionLabel>Do you get the same amount each time?</QuestionLabel><Answer>Yes</Answer></ConstantEarnings>
+            </Pay>
+
+            <PaidForPension><QuestionLabel>Do you pay into a pension?</QuestionLabel><Answer>No</Answer></PaidForPension>
+            <PaidForThingsToDoJob><QuestionLabel>Do you pay for things you need to do your job?</QuestionLabel><Answer>No</Answer></PaidForThingsToDoJob>
+            <PaidForJobExpenses><QuestionLabel>Do you have any care costs because of this work?</QuestionLabel><Answer>No</Answer></PaidForJobExpenses>
+            <OtherEmployment><QuestionLabel>Have you had any other jobs since 8 October 2015?</QuestionLabel><Answer>No</Answer></OtherEmployment>
+          </JobDetails>
+        </Employment>
+        <SelfEmployment>
+          <SelfEmployedNow><QuestionLabel>Are you still doing this work?</QuestionLabel><Answer>No</Answer></SelfEmployedNow>
+          <MoreThanYearAgo><QuestionLabel>Did you start this work more than a year ago?</QuestionLabel><Answer>No</Answer></MoreThanYearAgo>
+          <DateStarted><QuestionLabel>When did you start this work?</QuestionLabel><Answer>08-10-2015</Answer></DateStarted>
+          <DateEnded><QuestionLabel>When did you finish this work?</QuestionLabel><Answer>08-02-2016</Answer></DateEnded>
+
+
+
+          <PaidMoneyYet><QuestionLabel>Has your self-employed business been paid any money yet?</QuestionLabel><Answer>Yes</Answer></PaidMoneyYet>
+          <PaidMoneyDate><QuestionLabel>Date money first received by the business</QuestionLabel><Answer>08-11-2015</Answer></PaidMoneyDate>
+          <PaidForPension><QuestionLabel>Did you pay into a pension?</QuestionLabel><Answer>No</Answer></PaidForPension>
+          <PaidForJobExpenses><QuestionLabel>Did you have any care costs because of this work?</QuestionLabel><Answer>No</Answer></PaidForJobExpenses>
+        </SelfEmployment>
+        <EmploymentAdditionalInfo><QuestionLabel>Do you want to add anything about your work?</QuestionLabel><Answer>No</Answer></EmploymentAdditionalInfo>
+        <SickPay>
+          <StillBeingPaidThisPay><QuestionLabel>Are you still being paid statutory sick pay?</QuestionLabel><Answer>No</Answer></StillBeingPaidThisPay>
+          <WhenDidYouLastGetPaid><QuestionLabel>When were you last paid?</QuestionLabel><Answer>08-01-2016</Answer></WhenDidYouLastGetPaid>
+          <WhoPaidYouThisPay><QuestionLabel>Who paid you statutory sick pay?</QuestionLabel><Answer>Hiding Consultants</Answer></WhoPaidYouThisPay>
+          <AmountOfThisPay><QuestionLabel>Amount paid</QuestionLabel><Answer>123.56</Answer></AmountOfThisPay>
+          <HowOftenPaidThisPay><QuestionLabel>How often are you paid?</QuestionLabel><Answer>Weekly</Answer></HowOftenPaidThisPay>
+
+        </SickPay>
+        <StatutoryMaternityPaternityAdopt>
+          <PaymentTypesForThisPay><QuestionLabel>Which are you paid?</QuestionLabel><Answer>Maternity or paternity pay</Answer></PaymentTypesForThisPay>
+          <StillBeingPaidThisPay><QuestionLabel>Are you still being paid this?</QuestionLabel><Answer>No</Answer></StillBeingPaidThisPay>
+          <WhenDidYouLastGetPaid><QuestionLabel>When were you last paid?</QuestionLabel><Answer>08-01-2016</Answer></WhenDidYouLastGetPaid>
+          <WhoPaidYouThisPay><QuestionLabel>Who paid you this?</QuestionLabel><Answer>Hiding Consultants</Answer></WhoPaidYouThisPay>
+          <AmountOfThisPay><QuestionLabel>Amount paid</QuestionLabel><Answer>223.56</Answer></AmountOfThisPay>
+          <HowOftenPaidThisPay><QuestionLabel>How often are you paid?</QuestionLabel><Answer>Four-Weekly</Answer></HowOftenPaidThisPay>
+
+        </StatutoryMaternityPaternityAdopt>
+        <FosteringAllowance>
+          <PaymentTypesForThisPay><QuestionLabel>What type of organisation pays you for Fostering Allowance?</QuestionLabel><Answer>Fostering Agency</Answer></PaymentTypesForThisPay>
+
+          <StillBeingPaidThisPay><QuestionLabel>Are you still being paid this?</QuestionLabel><Answer>Yes</Answer></StillBeingPaidThisPay>
+
+          <WhoPaidYouThisPay><QuestionLabel>Who paid you this?</QuestionLabel><Answer>Hiding Consultants</Answer></WhoPaidYouThisPay>
+          <AmountOfThisPay><QuestionLabel>Amount paid</QuestionLabel><Answer>323.56</Answer></AmountOfThisPay>
+          <HowOftenPaidThisPay><QuestionLabel>How often are you paid?</QuestionLabel><Answer>Monthly</Answer></HowOftenPaidThisPay>
+
+        </FosteringAllowance>
+        <DirectPay>
+          <StillBeingPaidThisPay><QuestionLabel>Are you still being paid this?</QuestionLabel><Answer>No</Answer></StillBeingPaidThisPay>
+          <WhenDidYouLastGetPaid><QuestionLabel>When were you last paid?</QuestionLabel><Answer>08-01-2016</Answer></WhenDidYouLastGetPaid>
+          <WhoPaidYouThisPay><QuestionLabel>Who paid you this?</QuestionLabel><Answer>Hiding Consultants</Answer></WhoPaidYouThisPay>
+          <AmountOfThisPay><QuestionLabel>Amount paid</QuestionLabel><Answer>423.56</Answer></AmountOfThisPay>
+          <HowOftenPaidThisPay><QuestionLabel>How often are you paid?</QuestionLabel><Answer>Other</Answer></HowOftenPaidThisPay>
+          <HowOftenPaidThisPayOther><QuestionLabel>How often are you paid?</QuestionLabel><Answer>Twice a day</Answer></HowOftenPaidThisPayOther>
+        </DirectPay>
+        <OtherPaymentsInfo><QuestionLabel>What other income have you had since 08/04/2016?</QuestionLabel><Answer>Testing other payments</Answer></OtherPaymentsInfo>
+      </Incomes>
       <HavePartner><QuestionLabel>Have you lived with a partner at any time since your claim date?</QuestionLabel><Answer>Yes</Answer></HavePartner>
       <Partner>
-        <Surname><QuestionLabel>Last name</QuestionLabel><Answer>9AQHh14fBnXy7mEa9xFRfWDndUgvQdODSxEe17lU7OLhnw/RbHjgRHDjwFDVcFEg</Answer></Surname>
+        <Surname><QuestionLabel>Last name</QuestionLabel><Answer>S8/dIfuvVWW7P1Q8m/vUb5+mzoyz89MerB4aqYvFB6wt8AcDeT/J4InGr71Vs/Tq</Answer></Surname>
         <OtherNames><QuestionLabel>First name</QuestionLabel><Answer>Joan</Answer></OtherNames>
-        
-        
+
+
         <Title><QuestionLabel>Title</QuestionLabel><Answer>Miss</Answer></Title>
-        <DateOfBirth><QuestionLabel>Date of birth</QuestionLabel><Answer>15-02-2006</Answer></DateOfBirth>
-        <NationalInsuranceNumber><QuestionLabel>National Insurance number</QuestionLabel><Answer>SPE7Wyb5zf/N6kWI5H/FXuG7vKwv1NskFzs5xl9D3or63JQ3xJP79Mt9wyhXa3oo</Answer></NationalInsuranceNumber>
+        <DateOfBirth><QuestionLabel>Date of birth</QuestionLabel><Answer>08-04-2006</Answer></DateOfBirth>
+        <NationalInsuranceNumber><QuestionLabel>National Insurance number</QuestionLabel><Answer>2i760p7tA26r1e1vaVNZKuxRfvEo2LqTU/Uphm7EM+2K4Wz5dbF5METMBjVRInd2</Answer></NationalInsuranceNumber>
         <NationalityPartner><QuestionLabel>Nationality</QuestionLabel><Answer>British</Answer></NationalityPartner>
         <RelationshipStatus>
           <SeparatedFromPartner><QuestionLabel>Have you separated since your claim date?</QuestionLabel><Answer>No</Answer></SeparatedFromPartner>
@@ -165,84 +207,78 @@
         <IsCaree><QuestionLabel>Is this the person you care for?</QuestionLabel><Answer>No</Answer></IsCaree>
       </Partner>
       <OtherBenefits>
-      <OtherMoneySSP><QuestionLabel>Have you had any Statutory Sick Pay since your claim date?</QuestionLabel><Answer>No</Answer></OtherMoneySSP>
-      
-      <OtherMoneySP><QuestionLabel>Have you had any Statutory Maternity Pay, Statutory Paternity Pay or Statutory Adoption Pay since your claim date?</QuestionLabel><Answer>No</Answer></OtherMoneySP>
-      
-      <OtherMoneyPayments><QuestionLabel>Have you received any payments for the person you care for or any other person since your claim date?</QuestionLabel><Answer>No</Answer></OtherMoneyPayments>
-      
-      <EEA>
-        <EEAGuardQuestion><QuestionLabel>Have you or any of your close family worked abroad or been paid benefits from outside the United Kingdom since your claim date?</QuestionLabel><Answer>Yes</Answer></EEAGuardQuestion>
-        <EEAReceivePensionsBenefits><QuestionLabel>Have you or your close family claimed or been paid any benefits or pensions from any of these countries since your claim date?</QuestionLabel><Answer>No</Answer></EEAReceivePensionsBenefits>
-        
-        <EEAWorkingInsurance><QuestionLabel>Have you or your close family worked or paid national insurance in any of these countries since your claim date?</QuestionLabel><Answer>No</Answer></EEAWorkingInsurance>
-        
-      </EEA>
-    </OtherBenefits>
+        <EEA>
+          <EEAGuardQuestion><QuestionLabel>Have you or any of your close family worked abroad or been paid benefits from outside the United Kingdom since your claim date?</QuestionLabel><Answer>Yes</Answer></EEAGuardQuestion>
+          <EEAReceivePensionsBenefits><QuestionLabel>Have you or your close family claimed or been paid any benefits or pensions from any of these countries since your claim date?</QuestionLabel><Answer>No</Answer></EEAReceivePensionsBenefits>
+
+          <EEAWorkingInsurance><QuestionLabel>Have you or your close family worked or paid national insurance in any of these countries since your claim date?</QuestionLabel><Answer>No</Answer></EEAWorkingInsurance>
+
+        </EEA>
+      </OtherBenefits>
       <Payment>
-          <PaymentFrequency><QuestionLabel>How often do you want to be paid Carer's Allowance?</QuestionLabel><Answer>Every week</Answer></PaymentFrequency>
-          <InitialAccountQuestion><QuestionLabel>Do you have a bank account?</QuestionLabel><Answer>No</Answer></InitialAccountQuestion>
-          
-        </Payment>
+        <PaymentFrequency><QuestionLabel>How often do you want to be paid Carer's Allowance?</QuestionLabel><Answer>Every week</Answer></PaymentFrequency>
+        <InitialAccountQuestion><QuestionLabel>Do you have a bank account?</QuestionLabel><Answer>No</Answer></InitialAccountQuestion>
+
+      </Payment>
       <OtherInformation>
         <WelshCommunication><QuestionLabel>Do you live in Wales and want to receive future communications in Welsh?</QuestionLabel><Answer>No</Answer></WelshCommunication>
         <AdditionalInformation><QuestionLabel>Do you want to tell us any additional information about your claim?</QuestionLabel><Answer>No</Answer></AdditionalInformation>
-       </OtherInformation>
+      </OtherInformation>
       <Declaration>
-      <DeclarationStatement>
-        <Content>By sending this application you agree that:</Content>
-        <Content>the information you've given is complete and correct as far as you know</Content>
-        <Content>you'll pay back any money you've been overpaid if you're asked to</Content>
-        <Content>you'll report changes of your circumstances or those of the person you care for promptly either online or by contacting the Carer's Allowance Unit</Content>
-        <Content>You could be prosecuted or have to pay a financial penalty if you deliberately give wrong or incomplete information or don't report changes. Your Carer's Allowance may also be stopped or reduced.</Content>
-      </DeclarationStatement>
-      <DeclarationQuestion><QuestionLabel>Are you applying for Carer's Allowance for yourself?</QuestionLabel><Answer>No</Answer></DeclarationQuestion>
-      <DeclarationQuestion><QuestionLabel>I agree</QuestionLabel><Answer>Yes</Answer></DeclarationQuestion>
-      <DeclarationNameOrg><QuestionLabel>Your name and organisation</QuestionLabel><Answer>Jenny Bloggs Preston carers</Answer></DeclarationNameOrg>
-    </Declaration>
+        <DeclarationStatement>
+          <Content>By sending this application you agree that:</Content>
+          <Content>the information you've given is complete and correct as far as you know</Content>
+          <Content>you'll pay back any money you've been overpaid if you're asked to</Content>
+          <Content>you'll report changes of your circumstances or those of the person you care for promptly either online or by contacting the Carer's Allowance Unit</Content>
+          <Content>You could be prosecuted or have to pay a financial penalty if you deliberately give wrong or incomplete information or don't report changes. Your Carer's Allowance may also be stopped or reduced.</Content>
+        </DeclarationStatement>
+        <DeclarationQuestion><QuestionLabel>Are you applying for Carer's Allowance for yourself?</QuestionLabel><Answer>No</Answer></DeclarationQuestion>
+        <DeclarationQuestion><QuestionLabel>I agree</QuestionLabel><Answer>Yes</Answer></DeclarationQuestion>
+        <DeclarationNameOrg><QuestionLabel>Your name and organisation</QuestionLabel><Answer>Jenny Bloggs Preston carers</Answer></DeclarationNameOrg>
+      </Declaration>
       <Disclaimer>
-      <DisclaimerStatement>
-        <Title>This is my claim for Carer's Allowance.</Title>
-        <Content>When you claim Carer's Allowance the person you care for may stop getting:</Content>
-        <Content>a severe disability premium paid with their benefits, if they get one</Content>
-        <Content>an extra amount for severe disability paid with Pension Credit, if they get one</Content>
-        <Content>reduced Council Tax, if their local council offers it</Content>
-        <Content>Read more about how Carer's Allowance affects other benefits.</Content>
-        <Content>You must tell the person you care for before you claim.</Content>
-      </DisclaimerStatement>
-      <DisclaimerQuestion><QuestionLabel>I agree</QuestionLabel><Answer>Yes</Answer></DisclaimerQuestion>
-    </Disclaimer>
+        <DisclaimerStatement>
+          <Title>This is my claim for Carer's Allowance.</Title>
+          <Content>When you claim Carer's Allowance the person you care for may stop getting:</Content>
+          <Content>a severe disability premium paid with their benefits, if they get one</Content>
+          <Content>an extra amount for severe disability paid with Pension Credit, if they get one</Content>
+          <Content>reduced Council Tax, if their local council offers it</Content>
+          <Content>Read more about how Carer's Allowance affects other benefits.</Content>
+          <Content>You must tell the person you care for before you claim.</Content>
+        </DisclaimerStatement>
+
+      </Disclaimer>
       <EvidenceList>
-      <RecipientAddress>
-      <QuestionLabel>Send your documents to:</QuestionLabel>
-      <Answer>
-        <Line>Carer's Allowance Unit</Line><Line>Mail Handling Site A</Line><Line>Wolverhampton</Line><PostCode>WV98 2AB</PostCode>
-      </Answer>
-    </RecipientAddress><Evidence><Title>What happens next</Title></Evidence><Evidence><Title>You'll get an email when your claim has been received.</Title></Evidence><Evidence><Title>You'll usually get a decision on your claim within 4 weeks - it may take longer if you don't send the required documents.</Title></Evidence><Evidence>
-          <Title>Documents required</Title>
-          <Content>You must now send:</Content><Content>last payslip you got before 15-02-2016 (your claim date)</Content><Content>any payslips you have had since your claim date</Content><Content>your most recent finalised accounts you have for your business</Content><Content>You can send original documents or photocopies.</Content><Content>Include your name, address and National Insurance number with anything you send.</Content>
-        </Evidence>
-    </EvidenceList>
+        <RecipientAddress>
+          <QuestionLabel>Send your documents to:</QuestionLabel>
+          <Answer>
+            <Line>Carer's Allowance Unit</Line><Line>Mail Handling Site A</Line><Line>Wolverhampton</Line><PostCode>WV98 2AB</PostCode>
+          </Answer>
+        </RecipientAddress><Evidence><Title>What happens next</Title></Evidence><Evidence><Title>You'll get an email when your claim has been received.</Title></Evidence><Evidence><Title>You'll usually get a decision on your claim within 4 weeks - it may take longer if you don't send the required documents.</Title></Evidence><Evidence>
+        <Title>Documents required</Title>
+        <Content>You must now send:</Content><Content>last payslip you got before 08-04-2016 (your claim date)</Content><Content>any payslips you have had since your claim date</Content><Content>your most recent finalised accounts you have for your business</Content><Content>payslips for Statutory Sick Pay since your claim date</Content><Content>payslips for any statutory payments since your claim date</Content><Content>You can send original documents or photocopies.</Content><Content>Include your name, address and National Insurance number with anything you send.</Content>
+      </Evidence>
+      </EvidenceList>
       <Consents>
-      <Consent><QuestionLabel>Do you agree to the Carer's Allowance Unit contacting anyone mentioned in this form?</QuestionLabel><Answer>Yes</Answer></Consent>
-    </Consents>
-      <AssistedDecisions><AssistedDecision><Reason>None</Reason><RecommendedDecision>None,show table</RecommendedDecision></AssistedDecision></AssistedDecisions>
+        <Consent><QuestionLabel>Do you agree to the Carer's Allowance Unit contacting anyone mentioned in this form?</QuestionLabel><Answer>Yes</Answer></Consent>
+      </Consents>
+      <AssistedDecisions><AssistedDecision><Reason>Send DS790/790B COMB to customer.</Reason><RecommendedDecision>None,show table</RecommendedDecision></AssistedDecision></AssistedDecisions>
     </DWPCAClaim>
-      </DWPCATransaction>
-    <ds:Signature>
-<ds:SignedInfo>
-<ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
-<ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
-<ds:Reference URI="#16010000027">
-<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-<ds:DigestValue>exIbSwGJvyPg2yoXj/Dv40WLhTc=</ds:DigestValue>
-</ds:Reference>
-</ds:SignedInfo>
-<ds:SignatureValue>
-OamJyvlEZJ7d5EtwkEF3TfpgL08iOlPs47HxQrJFrdDRL4MMUWpqkG7dAil4QWubaMWw0MuW27ii
-kuvL/zW9xy8p/K6fGL1SDQMJF2AvPTVviti5FsPCD2/EYmTuAblbJwfbdiDRAsk/oHHdbCb4eqGI
-IdIxx0OkhiVaAG4RpDu7qHmhIGg4p7Ug4kiB/C0bka1RUnWB6W1fw5u691WSPlO9xOt62r5HQ7W3
-xQR+M3Er2JtHN0hGR99+mcsQlEgjrFbtqvqOg83Im5eNMD1IBRQ/AqPPEW7ukpEWE4q4qyK0WL/L
-5Au/+tnhfuJTgEincqLRzeRY2oU/miCuT+y0xA==
-</ds:SignatureValue>
-</ds:Signature></DWPBody>
+  </DWPCATransaction>
+  <ds:Signature>
+    <ds:SignedInfo>
+      <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+      <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+      <ds:Reference URI="#16040000103">
+        <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+        <ds:DigestValue>q+D6raN9UaV3yxRp+1sHb+MEzfc=</ds:DigestValue>
+      </ds:Reference>
+    </ds:SignedInfo>
+    <ds:SignatureValue>
+      JBdUvI6SpxbnvWMWenl3/BIo3SlH2fST6qKXjVzT3UXT1vDgs5WyXvpiDIu8zavGUl5DzlqAWM7h
+      uRwXK7Nyl/YAWg9htyEbYyhU4sKDfqC21nPVaYxJi861HbGfL6vwrsL+ay0QaSrOHkHwSjGEk5B3
+      63O2rFmFYVjbn/2nV/ij20NEavch8LJ52MKZB6V5xfZ7jVhX9obI/OSXWqxw1F9O2DKz9aiJq52j
+      kNco+SYkJ+8sbVNeki5N4y6+KsLi0HdC1ZiGYKybxMrpiCtPZ5DxwJhVPY1/tAt25UBe5+MFeBtl
+      MpJSdrYa3GlzzQJE6lMqL9F2lJUhCCAgDhBJ/A==
+    </ds:SignatureValue>
+  </ds:Signature></DWPBody>

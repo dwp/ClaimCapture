@@ -17,7 +17,7 @@ final class GJobDetailsPage(ctx:PageObjectsContext, iteration: Int) extends Clai
 }
 
 object GJobDetailsPage {
-  val url  = "/employment/job-details"
+  val url  = "/your-income/employment/job-details"
 
   def apply(ctx:PageObjectsContext, iteration:Int=1) = new GJobDetailsPage(ctx, iteration)
 }

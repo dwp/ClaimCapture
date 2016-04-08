@@ -17,7 +17,7 @@ class GStatutoryMaternityPaternityAdoptionPayPage(ctx:PageObjectsContext) extend
 }
 
 object GStatutoryMaternityPaternityAdoptionPayPage {
-  val url  = "/your-income/statutory-mpa-pay"
+  val url  = "/your-income/smp-spa-sap"
 
   def apply(ctx:PageObjectsContext) = new GStatutoryMaternityPaternityAdoptionPayPage(ctx)
 }

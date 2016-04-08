@@ -5,7 +5,7 @@ window.initSummary = (deleteId) ->
 
     $("ul").on "click", "input[id='changeButton']", ->
         li = $(this).closest("li")
-        window.location.href = "/employment/job/" + li.attr("id")
+        window.location.href = "/your-income/employment/job/" + li.attr("id")
 
     $("#backButton").on "click", (event) ->
         if ($("#backButton").attr("disabled") == "disabled")

@@ -13,7 +13,7 @@ final class GPensionAndExpensesPage(ctx:PageObjectsContext, iteration: Int) exte
 }
 
 object GPensionAndExpensesPage {
-  val url  = "/employment/about-expenses"
+  val url  = "/your-income/employment/about-expenses"
 
   def apply(ctx:PageObjectsContext, iteration: Int= 1) = new GPensionAndExpensesPage(ctx,iteration)
 }

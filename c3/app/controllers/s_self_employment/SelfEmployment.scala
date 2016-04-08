@@ -25,7 +25,7 @@ object SelfEmployment extends Controller with CachedClaim with Navigable with I1
     lazy val previousEmp = claim.checkYAnswers.previouslySavedClaim.get.questionGroup[YourIncomes]
     lazy val previousSEValue = previousEmp.get.beenSelfEmployedSince1WeekBeforeClaim
     val SEValue = emp.beenSelfEmployedSince1WeekBeforeClaim
-                                                 //This part of the condition has been removed due to review on user story about enabling changing employment/self-employment on check your answers
+                                                 //This part of the condition has been removed due to review on user story about enabling changing your-income/employment/self-employment on check your answers
     if (models.domain.SelfEmployment.visible ) c //&& (!beenInPreview || beenInPreview && SEValue == yes && previousSEValue == no)) c
     else redirect
   }

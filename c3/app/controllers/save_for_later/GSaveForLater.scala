@@ -39,7 +39,7 @@ object GSaveForLater extends Controller with CachedClaim with Navigable with I18
   def iterationResumePath(parameters: Map[String, Seq[String]]):String={
     (parameters.contains("iterationID"), parameters.contains("hasBreakEnded.date.year"), parameters.contains("employerName")) match{
       case( true, true, false ) => "/breaks/break/"+ parameters.get("iterationID").head(0).toString()
-      case( true, false, true ) => "/employment/job-details/"+ parameters.get("iterationID").head(0).toString()
+      case( true, false, true ) => "/your-income/employment/job-details/"+ parameters.get("iterationID").head(0).toString()
       case(_,_,_) => ""
     }
   }

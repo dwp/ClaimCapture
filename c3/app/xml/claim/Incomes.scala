@@ -163,27 +163,27 @@ object Incomes extends XMLComponent {
         case true => Mappings.no
       },
       yourIncome_sickpay = statutorySickPay.isEmpty match {
-        case false => None
+        case false => Mappings.someTrue
         case true => None
       },
       yourIncome_patmatadoppay = statutoryPay.isEmpty match {
-        case false => None
+        case false => Mappings.someTrue
         case true => None
       },
       yourIncome_fostering = fosteringAllowance.isEmpty match {
-        case false => None
+        case false => Mappings.someTrue
         case true => None
       },
       yourIncome_directpay = directPayment.isEmpty match {
-        case false => None
+        case false => Mappings.someTrue
         case true => None
       },
       yourIncome_anyother = otherPayments.isEmpty match {
-        case false => None
+        case false => Mappings.someTrue
         case true => None
       },
       yourIncome_none = noOtherPayments.isEmpty match {
-        case false => None
+        case false => Mappings.someTrue
         case true => None
       }
     )

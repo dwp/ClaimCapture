@@ -43,8 +43,6 @@ object Replica extends Controller with I18nSupport {
                           pathList.filter(_.matches("/care-you-provide.*")) ,
                           pathList.filter(_.matches("/breaks.*")) ,
                           pathList.filter(_.matches("/education.*")),
-                          pathList.filter(_.matches("/employment.*")) ,
-                          pathList.filter(_.matches("/self-employment.*")),
                           pathList.filter(_.matches("/your-income.*")) ,
                           pathList.filter(_.matches("/pay-details.*")) ,
                           pathList.filter(_.matches("/information.*")) ,
@@ -55,6 +53,7 @@ object Replica extends Controller with I18nSupport {
         ).map(_.filterNot(iteratedPaths.contains(_)))
          .map(_.filterNot(_.matches(".*delete.*")))
          .map(_.filterNot(_.matches(".*error.*")))
+         .map(_.filterNot(_.matches(".*completed.*")))
          .filterNot(_.isEmpty)
 
         val finalList = updatedList.map(_.distinct)

@@ -16,7 +16,7 @@ final class GSelfEmploymentDatesPage(ctx:PageObjectsContext) extends ClaimPage(c
 }
 
 object GSelfEmploymentDatesPage {
-  val url = "/self-employment/self-employment-dates"
+  val url = "/your-income/self-employment/self-employment-dates"
 
   def apply(ctx:PageObjectsContext) = new GSelfEmploymentDatesPage(ctx)
 }

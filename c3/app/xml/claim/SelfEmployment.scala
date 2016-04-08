@@ -1,6 +1,7 @@
 package xml.claim
 
 import controllers.mappings.Mappings
+import models.DayMonthYear
 import models.yesNo.YesNoWithText
 import models.domain._
 import scala.xml.NodeSeq
@@ -62,18 +63,23 @@ object SelfEmployment extends XMLComponent {
 
   def fromXml(xml: NodeSeq, claim: Claim): Claim = {
     (xml \\ "SelfEmployment").isEmpty match {
-      case false => claim.update(createSelfEmploymentPensionsAndExpensesFromXml(xml))
+      case false => claim.update(createAboutSelfEmploymentWithJobDetailsFromXml(xml)).update(createSelfEmploymentPensionsAndExpensesFromXml(xml))
       case true => claim
     }
   }
 
-  private def createAboutSelfEmploymentWithJobDetailsFromXml(selfEmployment: NodeSeq, jobNode: NodeSeq) = {
+  private def createAboutSelfEmploymentWithJobDetailsFromXml(xml: NodeSeq) = {
+    val selfEmployment = (xml \\ "SelfEmployment")
     models.domain.SelfEmploymentDates(
       stillSelfEmployed = createYesNoText((selfEmployment \ "SelfEmployedNow" \ "Answer").text),
-      startThisWork = createFormattedDateOptional((jobNode \ "DateStarted" \ "Answer").text),
-      finishThisWork = createFormattedDateOptional((jobNode \ "DateEnded" \ "Answer").text),
-      knowTradingYear = createYesNoTextOptional((jobNode \ "DoYouKnowYourTradingYear" \ "Answer").text),
-      tradingYearStart = createFormattedDateOptional((jobNode \ "DateFrom" \ "Answer").text)
+      moreThanYearAgo = createYesNoText((selfEmployment \ "MoreThanYearAgo" \ "Answer").text),
+      startThisWork = createFormattedDateOptional((selfEmployment \ "DateStarted" \ "Answer").text),
+      finishThisWork = createFormattedDateOptional((selfEmployment \ "DateEnded" \ "Answer").text),
+      haveAccounts = createYesNoTextOptional((selfEmployment \ "GotAccounts" \ "Answer").text),
+      knowTradingYear = createYesNoTextOptional((selfEmployment \ "KnowTradingYear" \ "Answer").text),
+      tradingYearStart = createFormattedDateOptional((selfEmployment \ "TradingYearStart" \ "Answer").text),
+      paidMoney = createYesNoTextOptional((selfEmployment \ "PaidMoneyYet" \ "Answer").text),
+      paidMoneyDate = createFormattedDateOptional((selfEmployment \ "PaidMoneyDate" \ "Answer").text)
    )
   }
 
