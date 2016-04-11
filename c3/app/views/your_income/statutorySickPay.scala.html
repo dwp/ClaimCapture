@@ -1,3 +1,5 @@
+
+@import models.domain.StatutorySickPay
 @(currentForm: Form[models.domain.StatutorySickPay])(implicit claim: models.domain.Claim,lang: Lang,request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import utils.helpers.CarersCrypto
@@ -38,9 +40,9 @@
                     'id -> "stillBeingPaidThisPayWrap"
                 )
 
-                @carersInputText(currentForm("whoPaidYouThisPay"), 'maxLength -> mappings.Mappings.sixty)
+                @carersInputText(currentForm("whoPaidYouThisPay"), 'maxLength -> StatutorySickPay.whoPaidYouMaxLength)
 
-                @carersCurrency(currentForm("amountOfThisPay"), 'maxLength -> mappings.Mappings.twelve)
+                @carersCurrency(currentForm("amountOfThisPay"), 'maxLength -> StatutorySickPay.amountPaidMaxLength)
 
                 @listRadioGroup(currentForm("howOftenPaidThisPay"),
                     'items -> listOfOptions,
@@ -52,7 +54,7 @@
                     inputDef = Seq(
                         carersInputText(currentForm("howOftenPaidThisPayOther"),
                             '_label -> "howOftenPaidThisPayOther",
-                            'maxLength -> 60)
+                            'maxLength -> StatutorySickPay.howOftenOtherMaxLength)
                     ),
                     'id -> "howOftenPaidThisPayWrap"
                 )
