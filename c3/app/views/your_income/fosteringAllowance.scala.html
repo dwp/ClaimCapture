@@ -11,6 +11,7 @@
 @import app.PaymentTypes._
 @import utils.helpers.OriginTagHelper._
 @import utils.helpers.ReturnToSummaryHelper._
+@import models.domain.YourIncomeFosteringAllowance
 
 @listOfOptions = @{
     Seq(
@@ -47,7 +48,7 @@
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
-                        carersInputText(currentForm("fosteringAllowancePayOther"), 'maxLength -> 60)
+                        carersInputText(currentForm("fosteringAllowancePayOther"), 'maxLength -> YourIncomeFosteringAllowance.whoPaidYouOtherMaxLength)
                     ),
                     'id -> "fosteringAllowancePayWrap"
                 )
@@ -61,9 +62,9 @@
                     'id -> "stillBeingPaidThisPayWrap"
                 )
 
-                @carersInputText(currentForm("whoPaidYouThisPay_fosteringAllowance"), 'maxLength -> mappings.Mappings.sixty)
+                @carersInputText(currentForm("whoPaidYouThisPay_fosteringAllowance"), 'maxLength -> YourIncomeFosteringAllowance.whoPaidYouMaxLength)
 
-                @carersCurrency(currentForm("amountOfThisPay"), 'maxLength -> mappings.Mappings.twelve)
+                @carersCurrency(currentForm("amountOfThisPay"), 'maxLength -> YourIncomeFosteringAllowance.amountPaidMaxLength)
 
                 @listRadioGroup(currentForm("howOftenPaidThisPay"),
                     'items -> listOfOptions,
@@ -75,7 +76,7 @@
                     inputDef = Seq(
                         carersInputText(currentForm("howOftenPaidThisPayOther"),
                             '_label -> "howOftenPaidThisPayOther",
-                            'maxLength -> 60)
+                            'maxLength -> YourIncomeFosteringAllowance.howOftenOtherMaxLength)
                     ),
                     'id -> "howOftenPaidThisPayWrap"
                 )
