@@ -74,7 +74,7 @@
     jobStartDate:["@CarersCrypto.encryptAES("jobStartDate_day")",
                   "@CarersCrypto.encryptAES("jobStartDate_month")",
                   "@CarersCrypto.encryptAES("jobStartDate_year")"],
-    hoursPerWeek:{id:"@CarersCrypto.encryptAES("hoursPerWeek")",present:"@messages("hoursPerWeek.present")",past:"@messages("hoursPerWeek.past")"}
+    hoursPerWeek:{id:"@CarersCrypto.encryptAES("hoursPerWeek")",present:"@Html(messages("hoursPerWeek.present"))",past:"@Html(messages("hoursPerWeek.past"))"}
     });
     });
     </script>
