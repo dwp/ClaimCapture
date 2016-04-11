@@ -5,6 +5,7 @@ import models.domain._
 import org.specs2.mutable._
 import play.api.test.{FakeApplication, FakeRequest}
 import utils.pageobjects.PageObjects
+import utils.pageobjects.s_information.GAdditionalInfoPage
 import utils.{WithBrowser, WithApplication}
 import play.api.test.Helpers._
 import utils.pageobjects.s_claim_date.GClaimDatePage
@@ -87,14 +88,27 @@ class GStatutorySickPaySpec extends Specification {
       status(result) mustEqual BAD_REQUEST
     }
 
-
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
       val request = FakeRequest()
         .withFormUrlEncodedBody(formInput: _*)
 
       val result = GStatutorySickPay.submit(request)
-
       status(result) mustEqual SEE_OTHER
+    }
+
+    "have text maxlength set correctly in present()" in new WithBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeStatutorySickPay = "true" })
+      val page = GStatutorySickPayPage(context)
+      page must beAnInstanceOf[GStatutorySickPayPage]
+
+      val whoPaidYouThisPay = browser.$("#whoPaidYouThisPay")
+      whoPaidYouThisPay.getAttribute("maxlength") mustEqual "60"
+
+      val amountOfThisPay = browser.$("#amountOfThisPay")
+      amountOfThisPay.getAttribute("maxlength") mustEqual "12"
+
+      val howOftenPaidThisPayOther = browser.$("#howOftenPaidThisPayOther")
+      howOftenPaidThisPayOther.getAttribute("maxlength") mustEqual "60"
     }
   }
   section ("unit", models.domain.StatutorySickPay.id)

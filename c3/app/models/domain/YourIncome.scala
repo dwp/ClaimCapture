@@ -4,6 +4,8 @@ import app.{PaymentTypes, StatutoryPaymentFrequency}
 import controllers.mappings.Mappings
 import models.DayMonthYear
 import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
+import utils.CommonValidation
+import utils.helpers.TextLengthHelper
 
 object YourIncome extends Section.Identifier {
   val id = "s16"
@@ -44,6 +46,10 @@ object YourIncomeStatutorySickPay extends Section.Identifier {
 
 object StatutorySickPay extends QuestionGroup.Identifier with OtherIncomes {
   val id = s"${YourIncomeStatutorySickPay.id}.g1"
+
+  def whoPaidYouMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//SickPay//WhoPaidYouThisPay//Answer")
+  def amountPaidMaxLength = CommonValidation.CURRENCY_REGEX_MAX_LENGTH
+  def howOftenOtherMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//SickPay//HowOftenPaidThisPayOther//Answer")
 }
 
 case class StatutorySickPay(
@@ -57,6 +63,10 @@ case class StatutorySickPay(
 
 object YourIncomeStatutoryMaternityPaternityAdoptionPay extends Section.Identifier {
   val id = "s18"
+
+  def whoPaidYouMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//StatutoryMaternityPaternityAdopt//WhoPaidYouThisPay//Answer")
+  def amountPaidMaxLength = CommonValidation.CURRENCY_REGEX_MAX_LENGTH
+  def howOftenOtherMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//StatutoryMaternityPaternityAdopt//HowOftenPaidThisPayOther//Answer")
 }
 
 object StatutoryMaternityPaternityAdoptionPay extends QuestionGroup.Identifier with OtherIncomes {
@@ -75,6 +85,10 @@ case class StatutoryMaternityPaternityAdoptionPay(
 
 object YourIncomeFosteringAllowance extends Section.Identifier {
   val id = "s19"
+
+  def whoPaidYouMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//FosteringAllowance//WhoPaidYouThisPay//Answer")
+  def amountPaidMaxLength = CommonValidation.CURRENCY_REGEX_MAX_LENGTH
+  def howOftenOtherMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//FosteringAllowance//HowOftenPaidThisPayOther//Answer")
 }
 
 object FosteringAllowance extends QuestionGroup.Identifier with OtherIncomes {
@@ -94,6 +108,10 @@ case class FosteringAllowance(
 
 object YourIncomeDirectPayment extends Section.Identifier {
   val id = "s20"
+
+  def whoPaidYouMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//DirectPay//WhoPaidYouThisPay//Answer")
+  def amountPaidMaxLength = CommonValidation.CURRENCY_REGEX_MAX_LENGTH
+  def howOftenOtherMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//DirectPay//HowOftenPaidThisPayOther//Answer")
 }
 
 object DirectPayment extends QuestionGroup.Identifier with OtherIncomes {
