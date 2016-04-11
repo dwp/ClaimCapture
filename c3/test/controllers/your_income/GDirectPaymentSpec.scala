@@ -1,6 +1,5 @@
 package controllers.your_income
 
-import controllers.ClaimScenarioFactory._
 import models.domain._
 import org.specs2.mutable._
 import play.api.test.FakeRequest
@@ -94,6 +93,22 @@ class GDirectPaymentSpec extends Specification {
       val result = GDirectPayment.submit(request)
 
       status(result) mustEqual SEE_OTHER
+    }
+
+
+    "have text maxlength set correctly in present()" in new WithBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeDirectPay = "true" })
+      val page = GDirectPaymentPage(context)
+      page must beAnInstanceOf[GDirectPaymentPage]
+
+      val whoPaidYouThisPay = browser.$("#whoPaidYouThisPay_directPayment")
+      whoPaidYouThisPay.getAttribute("maxlength") mustEqual "60"
+
+      val amountOfThisPay = browser.$("#amountOfThisPay")
+      amountOfThisPay.getAttribute("maxlength") mustEqual "12"
+
+      val howOftenPaidThisPayOther = browser.$("#howOftenPaidThisPayOther")
+      howOftenPaidThisPayOther.getAttribute("maxlength") mustEqual "60"
     }
   }
   section ("unit", models.domain.DirectPayment.id)

@@ -9,6 +9,7 @@
 @import views.html.helper._
 @import views.html.helper.base._
 @import utils.helpers.ReturnToSummaryHelper._
+@import models.domain.YourIncomeDirectPayment
 
 @listOfOptions = @{
     Seq(
@@ -38,9 +39,9 @@
                     'id -> "stillBeingPaidThisPayWrap"
                 )
 
-                @carersInputText(currentForm("whoPaidYouThisPay_directPayment"), 'maxLength -> mappings.Mappings.sixty)
+                @carersInputText(currentForm("whoPaidYouThisPay_directPayment"), 'maxLength -> YourIncomeDirectPayment.whoPaidYouMaxLength)
 
-                @carersCurrency(currentForm("amountOfThisPay"), 'maxLength -> mappings.Mappings.twelve)
+                @carersCurrency(currentForm("amountOfThisPay"), 'maxLength -> YourIncomeDirectPayment.amountPaidMaxLength)
 
                 @listRadioGroup(currentForm("howOftenPaidThisPay"),
                     'items -> listOfOptions,
@@ -52,7 +53,7 @@
                     inputDef = Seq(
                         carersInputText(currentForm("howOftenPaidThisPayOther"),
                             '_label -> "howOftenPaidThisPayOther",
-                            'maxLength -> 60)
+                            'maxLength -> YourIncomeDirectPayment.howOftenOtherMaxLength)
                     ),
                     'id -> "howOftenPaidThisPayWrap"
                 )

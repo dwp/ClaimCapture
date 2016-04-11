@@ -86,6 +86,7 @@ case class StatutoryMaternityPaternityAdoptionPay(
 object YourIncomeFosteringAllowance extends Section.Identifier {
   val id = "s19"
 
+  def whoPaidYouOtherMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//FosteringAllowance//PaymentTypesForThisPayOther//Answer")
   def whoPaidYouMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//FosteringAllowance//WhoPaidYouThisPay//Answer")
   def amountPaidMaxLength = CommonValidation.CURRENCY_REGEX_MAX_LENGTH
   def howOftenOtherMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//FosteringAllowance//HowOftenPaidThisPayOther//Answer")
