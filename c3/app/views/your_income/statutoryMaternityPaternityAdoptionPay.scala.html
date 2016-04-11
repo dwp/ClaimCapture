@@ -10,6 +10,7 @@
 @import views.html.helper.base._
 @import app.PaymentTypes._
 @import utils.helpers.ReturnToSummaryHelper._
+@import models.domain.YourIncomeStatutoryMaternityPaternityAdoptionPay
 
 @listOfOptions = @{
     Seq(
@@ -52,9 +53,9 @@
                     'id -> "stillBeingPaidThisPayWrap"
                 )
 
-                @carersInputText(currentForm("whoPaidYouThisPay_paternityMaternityAdoption"), 'maxLength -> mappings.Mappings.sixty)
+                @carersInputText(currentForm("whoPaidYouThisPay_paternityMaternityAdoption"), 'maxLength -> YourIncomeStatutoryMaternityPaternityAdoptionPay.whoPaidYouMaxLength)
 
-                @carersCurrency(currentForm("amountOfThisPay"), 'maxLength -> mappings.Mappings.twelve)
+                @carersCurrency(currentForm("amountOfThisPay"), 'maxLength -> YourIncomeStatutoryMaternityPaternityAdoptionPay.amountPaidMaxLength)
 
                 @listRadioGroup(currentForm("howOftenPaidThisPay"),
                     'items -> listOfOptions,
@@ -66,7 +67,7 @@
                     inputDef = Seq(
                         carersInputText(currentForm("howOftenPaidThisPayOther"),
                             '_label -> "howOftenPaidThisPayOther",
-                            'maxLength -> 60)
+                            'maxLength -> YourIncomeStatutoryMaternityPaternityAdoptionPay.howOftenOtherMaxLength)
                     ),
                     'id -> "howOftenPaidThisPayWrap"
                 )

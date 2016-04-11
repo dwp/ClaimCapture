@@ -5,9 +5,8 @@ import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.pageobjects.PageObjects
-import utils.pageobjects.your_income.{GOtherPaymentsPage, GYourIncomePage, GStatutoryMaternityPaternityAdoptionPayPage}
+import utils.pageobjects.your_income.{GYourIncomePage, GStatutoryMaternityPaternityAdoptionPayPage}
 import utils.{WithBrowser, WithApplication}
-import controllers.ClaimScenarioFactory._
 
 class GStatutoryMaternityPaternityAdoptionPaySpec extends Specification {
   section ("unit", models.domain.StatutoryMaternityPaternityAdoptionPay.id)
@@ -98,6 +97,21 @@ class GStatutoryMaternityPaternityAdoptionPaySpec extends Specification {
       val result = GStatutoryMaternityPaternityAdoptionPay.submit(request)
 
       status(result) mustEqual SEE_OTHER
+    }
+
+    "have text maxlength set correctly in present()" in new WithBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomePatMatAdopPay = "true" })
+      val page = GStatutoryMaternityPaternityAdoptionPayPage(context)
+      page must beAnInstanceOf[GStatutoryMaternityPaternityAdoptionPayPage]
+
+      val whoPaidYouThisPay = browser.$("#whoPaidYouThisPay_paternityMaternityAdoption")
+      whoPaidYouThisPay.getAttribute("maxlength") mustEqual "60"
+
+      val amountOfThisPay = browser.$("#amountOfThisPay")
+      amountOfThisPay.getAttribute("maxlength") mustEqual "12"
+
+      val howOftenPaidThisPayOther = browser.$("#howOftenPaidThisPayOther")
+      howOftenPaidThisPayOther.getAttribute("maxlength") mustEqual "60"
     }
   }
   section ("unit", models.domain.StatutoryMaternityPaternityAdoptionPay.id)
