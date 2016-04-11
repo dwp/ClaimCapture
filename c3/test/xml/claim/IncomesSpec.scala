@@ -26,12 +26,12 @@ class IncomesSpec extends Specification {
       (xml \\ "Incomes" \\ "OtherPaymentQuestion" \\ "QuestionLabel").text shouldEqual "What other income have you had since 20/03/2016?"
       (xml \\ "Incomes" \\ "OtherPaymentQuestion" \\ "Answer").text shouldEqual "Some"
 
-      (xml \\ "Incomes" \\ "SickPayment" \\ "QuestionLabel").text must contain("sick pay")
+      (xml \\ "Incomes" \\ "SickPayment" \\ "QuestionLabel").text must contain("Sick Pay")
       (xml \\ "Incomes" \\ "SickPayment" \\ "Answer").text shouldEqual "Yes"
 
-      (xml \\ "Incomes" \\ "PatMatAdopPayment" \\ "QuestionLabel").text must contain("paternity")
-      (xml \\ "Incomes" \\ "PatMatAdopPayment" \\ "QuestionLabel").text must contain("maternity")
-      (xml \\ "Incomes" \\ "PatMatAdopPayment" \\ "QuestionLabel").text must contain("adoption")
+      (xml \\ "Incomes" \\ "PatMatAdopPayment" \\ "QuestionLabel").text must contain("Paternity")
+      (xml \\ "Incomes" \\ "PatMatAdopPayment" \\ "QuestionLabel").text must contain("Maternity")
+      (xml \\ "Incomes" \\ "PatMatAdopPayment" \\ "QuestionLabel").text must contain("Adoption")
       (xml \\ "Incomes" \\ "PatMatAdopPayment" \\ "Answer").text shouldEqual "Yes"
 
       (xml \\ "Incomes" \\ "FosteringPayment" \\ "QuestionLabel").text must contain("Fostering")
@@ -73,13 +73,13 @@ class IncomesSpec extends Specification {
       val xml = Incomes.xml(claim + incomeHeader + sickPay)
       (xml \\ "Incomes" \\ "SickPayment" \\ "Answer").text shouldEqual "Yes"
 
-      (xml \\ "Incomes" \\ "SickPay" \\ "StillBeingPaidThisPay" \\ "QuestionLabel").text should contain("still being paid statutory sick pay")
+      (xml \\ "Incomes" \\ "SickPay" \\ "StillBeingPaidThisPay" \\ "QuestionLabel").text should contain("still being paid Statutory Sick Pay")
       (xml \\ "Incomes" \\ "SickPay" \\ "StillBeingPaidThisPay" \\ "Answer").text shouldEqual "No"
       (xml \\ "Incomes" \\ "SickPay" \\ "WhenDidYouLastGetPaid" \\ "QuestionLabel").text should contain("last paid")
       (xml \\ "Incomes" \\ "SickPay" \\ "WhenDidYouLastGetPaid" \\ "Answer").text shouldEqual "31-01-2016"
       (xml \\ "Incomes" \\ "SickPay" \\ "AmountOfThisPay" \\ "QuestionLabel").text should contain("Amount")
       (xml \\ "Incomes" \\ "SickPay" \\ "AmountOfThisPay" \\ "Answer").text shouldEqual "10.00"
-      (xml \\ "Incomes" \\ "SickPay" \\ "WhoPaidYouThisPay" \\ "QuestionLabel").text should contain("Who paid you statutory sick pay")
+      (xml \\ "Incomes" \\ "SickPay" \\ "WhoPaidYouThisPay" \\ "QuestionLabel").text should contain("Who paid you Statutory Sick Pay")
       (xml \\ "Incomes" \\ "SickPay" \\ "WhoPaidYouThisPay" \\ "Answer").text shouldEqual "Asda"
       (xml \\ "Incomes" \\ "SickPay" \\ "HowOftenPaidThisPay" \\ "QuestionLabel").text should contain("How often")
       (xml \\ "Incomes" \\ "SickPay" \\ "HowOftenPaidThisPay" \\ "Answer").text shouldEqual "Weekly"
@@ -93,7 +93,7 @@ class IncomesSpec extends Specification {
       val xml = Incomes.xml(claim + incomeHeader + patMatAdoptPay)
       (xml \\ "Incomes" \\ "PatMatAdopPayment" \\ "Answer").text shouldEqual "Yes"
       (xml \\ "Incomes" \\ "StatutoryMaternityPaternityAdopt" \\ "PaymentTypesForThisPay" \\ "QuestionLabel").text should contain("Which are you paid")
-      (xml \\ "Incomes" \\ "StatutoryMaternityPaternityAdopt" \\ "PaymentTypesForThisPay" \\ "Answer").text should contain("Maternity or paternity pay")
+      (xml \\ "Incomes" \\ "StatutoryMaternityPaternityAdopt" \\ "PaymentTypesForThisPay" \\ "Answer").text should contain("Maternity or Paternity Pay")
 
       (xml \\ "Incomes" \\ "StatutoryMaternityPaternityAdopt" \\ "StillBeingPaidThisPay" \\ "QuestionLabel").text should contain("still being paid this")
       (xml \\ "Incomes" \\ "StatutoryMaternityPaternityAdopt" \\ "StillBeingPaidThisPay" \\ "Answer").text shouldEqual "No"
@@ -115,7 +115,7 @@ class IncomesSpec extends Specification {
       val xml = Incomes.xml(claim + incomeHeader + patMatAdoptPay)
       (xml \\ "Incomes" \\ "PatMatAdopPayment" \\ "Answer").text shouldEqual "Yes"
       (xml \\ "Incomes" \\ "StatutoryMaternityPaternityAdopt" \\ "PaymentTypesForThisPay" \\ "QuestionLabel").text should contain("Which are you paid")
-      (xml \\ "Incomes" \\ "StatutoryMaternityPaternityAdopt" \\ "PaymentTypesForThisPay" \\ "Answer").text should contain("Adoption pay")
+      (xml \\ "Incomes" \\ "StatutoryMaternityPaternityAdopt" \\ "PaymentTypesForThisPay" \\ "Answer").text should contain("Adoption Pay")
     }
 
     "Generate correct xml for Foster Pay Section for Paid By Local Authority" in new WithApplication {
