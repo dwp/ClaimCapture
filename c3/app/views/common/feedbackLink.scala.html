@@ -1,4 +1,4 @@
-@(labelParam:String="", isFooterItem:Boolean=true, isThankYou:Boolean=false)(implicit request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
+@(labelParam:String="", isFooterItem:Boolean=true, isThankYou:Boolean=false, trackingInfo: String = "Feedback")(implicit request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
 @import app.ConfigProperties._
 
@@ -40,7 +40,7 @@
     }
 }
 
-<a @if(feedbackId.length>0){id="@feedbackId"} href="@feedbackUrl" @if(!showInSameTab){rel="external" target="_blank"} @if(isThankYou){class="secondary"} @views.html.ga.trackClickEvent(linkName = "Feedback")>@feedbackLabel</a>
+<a @if(feedbackId.length>0){id="@feedbackId"} href="@feedbackUrl" @if(!showInSameTab){rel="external" target="_blank"} @if(isThankYou){class="secondary"} @views.html.ga.trackClickEvent(linkName = s"${trackingInfo}Feedback")>@feedbackLabel</a>
 
 
 

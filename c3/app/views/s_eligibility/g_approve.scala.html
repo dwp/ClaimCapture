@@ -111,7 +111,7 @@
                     <li>
                         <div id="showAppropriateButtonWrap">
                             <button style="display:none" id="actionButtonId" type="submit" name="action" value="next" class="button" onmousedown="analyticsCallback()">@Html(messages("form.continue.step"))</button>
-                            <div class="finish-button" id="feedbackLinkId" style="display:none">@common.feedbackLink(isFooterItem = false, labelParam = messages("claim.eligibility.feedback.link"))</div>
+                            <div class="finish-button" id="feedbackLinkId" style="display:none">@common.feedbackLink(isFooterItem = false, labelParam = messages("claim.eligibility.feedback.link"), trackingInfo = "Eligibility - Feedback")</div>
                         </div>
                     </li>
                     <li><a id="bottomBackButton" href="@{claim.navigation.previous}">@Html(messages("form.back"))</a></li>
