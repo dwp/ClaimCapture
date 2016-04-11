@@ -1,5 +1,6 @@
 package xml.claim
 
+import controllers.mappings.Mappings
 import models.domain._
 import org.joda.time.DateTime
 import xml.XMLComponent
@@ -8,6 +9,7 @@ import scala.xml.NodeSeq
 
 /**
  * Generate the XML presenting the Assisted decisions.
+ *
  * @author Jorge Migueis/Peter Whitehead
  */
 object AssistedDecision extends XMLComponent {
@@ -65,8 +67,7 @@ object AssistedDecision extends XMLComponent {
   }
 
   private def isHappyPath(claim: Claim): AssistedDecisionDetails = {
-    //val aboutYourMoney = claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney())
-    val employment = claim.questionGroup[YourIncomes].getOrElse(models.domain.YourIncomes())
+    val yourIncomes = claim.questionGroup[YourIncomes].getOrElse(models.domain.YourIncomes())
     val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(nationality = "British"))
       (checkBenefits(claim.questionGroup[Benefits].getOrElse(Benefits()).benefitsAnswer),
         nationalityAndResidency.nationality,
@@ -76,11 +77,9 @@ object AssistedDecision extends XMLComponent {
         isOver35Hours(claim),
         claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare()).hasBreaks,
         claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails()).beenInEducationSinceClaimDate,
-        employment.beenEmployedSince6MonthsBeforeClaim,
-        employment.beenSelfEmployedSince1WeekBeforeClaim,
-//        aboutYourMoney.anyPaymentsSinceClaimDate.answer,
-//        aboutYourMoney.statutorySickPay.answer,
-//        aboutYourMoney.otherStatutoryPay.answer,
+        yourIncomes.beenEmployedSince6MonthsBeforeClaim,
+        yourIncomes.beenSelfEmployedSince1WeekBeforeClaim,
+        yourIncomes.yourIncome_none == Mappings.someTrue,
         claim.questionGroup[HowWePayYou].getOrElse(HowWePayYou()).likeToBePaid,
         claim.questionGroup[AdditionalInfo].getOrElse(AdditionalInfo()).anythingElse.answer
        ) match {
@@ -94,9 +93,7 @@ object AssistedDecision extends XMLComponent {
               "no",  //been in education
               "no",  //employed
               "no",  //self employed
-//              "no",  //any payments
-//              "no",  //SSP
-//              "no",  //other payments
+              true,  //any other payments
               "yes", //bank account
               "no"   //additional info
               ) => decisionModel("Check CIS for benefits.", "Potential award,show table")
