@@ -1,6 +1,5 @@
 package controllers.your_income
 
-import controllers.ClaimScenarioFactory._
 import models.domain._
 import org.specs2.mutable._
 import play.api.test.FakeRequest
@@ -110,6 +109,24 @@ class GFosteringAllowanceSpec extends Specification {
         )
       val result = GFosteringAllowance.submit(request)
       status(result) mustEqual BAD_REQUEST
+    }
+
+    "have text maxlength set correctly in present()" in new WithBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeFosteringAllowance = "true" })
+      val page = GFosteringAllowancePage(context)
+      page must beAnInstanceOf[GFosteringAllowancePage]
+
+      val whoPaidYouOther = browser.$("#fosteringAllowancePayOther")
+      whoPaidYouOther.getAttribute("maxlength") mustEqual "60"
+
+      val whoPaidYouThisPay = browser.$("#whoPaidYouThisPay_fosteringAllowance")
+      whoPaidYouThisPay.getAttribute("maxlength") mustEqual "60"
+
+      val amountOfThisPay = browser.$("#amountOfThisPay")
+      amountOfThisPay.getAttribute("maxlength") mustEqual "12"
+
+      val howOftenPaidThisPayOther = browser.$("#howOftenPaidThisPayOther")
+      howOftenPaidThisPayOther.getAttribute("maxlength") mustEqual "60"
     }
   }
   section ("unit", models.domain.FosteringAllowance.id)
