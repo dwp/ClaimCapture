@@ -15,7 +15,21 @@
         case false => Seq("NI" -> messages("check.origin.ni"), "GB" -> messages("check.origin.gb"), "OTHER" -> messages("check.origin.other"))
     }
 }
-
+@goodCountrySelection=@{
+    (isOriginGB) match {
+        case true => "origin_GB"
+        case false => "origin_NI"
+    }
+}
+@badCountrySelection=@{
+    (isOriginGB) match {
+        case true => "origin_NI"
+        case false => "origin_GB"
+    }
+}
+@otherCountrySelection=@{
+    "origin_OTHER"
+}
     @main(messages("s0.progressbar.name") + " - " + messages("s0.longName"), Some(currentForm),changing = true) {
 
         @form(action = controllers.s_eligibility.routes.GEligibility.submit, 'role -> "form") {
@@ -27,7 +41,6 @@
                     @yesNoRadioGroup(currentForm("hours.answer"), '_label -> messages("s0.g2"), 'allowance -> true, 'helperAbove -> messages("s0.g2.help1"), 'warningMessage -> Seq(messages("s0.g2.help2")) ,'track -> true,'trackLabel -> "hours.answer")
                     @yesNoRadioGroup(currentForm("over16.answer"), '_label -> Messages ("s0.g3"), 'allowance -> true, 'warningMessage -> Seq(messages("s0.g3.help1")), 'track -> true, 'trackLabel -> "over16.answer")
                     @listRadioGroupWithSubGroups(currentForm("origin"),
-                        'track -> true,
                         'items -> countriesList)
                     <div id="originWarning" class="prompt breaks-prompt validation-summary">
                         <p>@messages("origin.warning.message")</p>
@@ -47,7 +60,7 @@
                 window.initEvents("warningover16_answer","@CarersCrypto.encryptAES("over16_answer_yes")", "@CarersCrypto.encryptAES("over16_answer_no")");
                 window.initEvents("warninglivesInGB_answer","@CarersCrypto.encryptAES("livesInGB_answer_yes")", "@CarersCrypto.encryptAES("livesInGB_answer_no")");
                 window.originWarning("origin_GB", "origin_NI", "origin_OTHER", "originWarning");
-
+                window.gaEvents("@goodCountrySelection", "@badCountrySelection", "@otherCountrySelection");
             @if(!Play.isTest(Play.current)){
                 var hoursId = '@CarersCrypto.encryptAES("hours_answer")';
                 var res = $('#'+hoursId).parents('li.form-group')
