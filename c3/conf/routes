@@ -197,8 +197,8 @@ POST        /your-income/fostering-allowance                            controll
 GET         /your-income/direct-payment                                 controllers.your_income.GDirectPayment.present
 POST        /your-income/direct-payment                                 controllers.your_income.GDirectPayment.submit
 
-GET         /your-income/other-payments                                 controllers.your_income.GOtherPayments.present
-POST        /your-income/other-payments                                 controllers.your_income.GOtherPayments.submit
+GET         /your-income/other-income                                 controllers.your_income.GOtherPayments.present
+POST        /your-income/other-income                                 controllers.your_income.GOtherPayments.submit
 
 
 # Pay details

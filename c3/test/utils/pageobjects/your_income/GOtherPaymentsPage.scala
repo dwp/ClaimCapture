@@ -11,7 +11,7 @@ class GOtherPaymentsPage(ctx:PageObjectsContext) extends ClaimPage(ctx, GOtherPa
 }
 
 object GOtherPaymentsPage {
-  val url  = "/your-income/other-payments"
+  val url  = "/your-income/other-income"
 
   def apply(ctx:PageObjectsContext) = new GOtherPaymentsPage(ctx)
 }
