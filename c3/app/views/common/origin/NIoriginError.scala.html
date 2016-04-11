@@ -18,7 +18,8 @@
         <p></p>
         <h2>@Html(messages("ni.origin.error.line1"))</h2>
         <p></p>
-        <button onClick="location.href='@govUrl'" id="gotogov" type="button" class="button">Continue to GOV.UK</button>
+        <button @{views.html.ga.trackClickEvent("External Link", "ServiceRedirect")}
+            onClick="location.href='@govUrl'" id="gotogov" type="button" class="button">Continue to GOV.UK</button>
 
     @views.html.ga.sendTrackEvent("Origin","Error")
 }
