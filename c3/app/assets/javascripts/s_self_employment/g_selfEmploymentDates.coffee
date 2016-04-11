@@ -3,50 +3,67 @@ window.initEvents = (answerY, answerN, noWrap,
                      haveAccountsY, haveAccountsN, haveAccountsYWrap, haveAccountsNWrap,
                      tradingYearY, tradingYearN, tradingYearYWrap,
                       paidMoneyY, paidMoneyN, paidMoneyYWrap) ->
-  if not $("#"+answerN).prop 'checked'
-    hideWrapper(noWrap)
+
+  setVisibility(  answerY, answerN, noWrap, moreThanYearY, moreThanYearN, moreThanYearYWrap, moreThanYearNWrap, haveAccountsY, haveAccountsN, haveAccountsYWrap, haveAccountsNWrap,tradingYearY, tradingYearN, tradingYearYWrap, paidMoneyY, paidMoneyN, paidMoneyYWrap)
+
   $("#" + answerY).on "click", ->
-    hideWrapper(noWrap)
+    setVisibility(  answerY, answerN, noWrap, moreThanYearY, moreThanYearN, moreThanYearYWrap, moreThanYearNWrap, haveAccountsY, haveAccountsN, haveAccountsYWrap, haveAccountsNWrap,tradingYearY, tradingYearN, tradingYearYWrap, paidMoneyY, paidMoneyN, paidMoneyYWrap)
   $("#" + answerN).on "click", ->
-    showWrapper(noWrap)
-
-  if not $("#"+moreThanYearY).prop 'checked'
-    hideWrapper(moreThanYearYWrap)
-  if not $("#"+moreThanYearN).prop 'checked'
-    hideWrapper(moreThanYearNWrap)
-    hideWrapper(paidMoneyYWrap)
+    setVisibility(  answerY, answerN, noWrap, moreThanYearY, moreThanYearN, moreThanYearYWrap, moreThanYearNWrap, haveAccountsY, haveAccountsN, haveAccountsYWrap, haveAccountsNWrap,tradingYearY, tradingYearN, tradingYearYWrap, paidMoneyY, paidMoneyN, paidMoneyYWrap)
   $("#" + moreThanYearY).on "click", ->
-    showWrapper(moreThanYearYWrap)
-    hideWrapper(moreThanYearNWrap)
-    hideWrapper(paidMoneyYWrap)
+    setVisibility(  answerY, answerN, noWrap, moreThanYearY, moreThanYearN, moreThanYearYWrap, moreThanYearNWrap, haveAccountsY, haveAccountsN, haveAccountsYWrap, haveAccountsNWrap,tradingYearY, tradingYearN, tradingYearYWrap, paidMoneyY, paidMoneyN, paidMoneyYWrap)
   $("#" + moreThanYearN).on "click", ->
-    showWrapper(moreThanYearNWrap)
+    setVisibility(  answerY, answerN, noWrap, moreThanYearY, moreThanYearN, moreThanYearYWrap, moreThanYearNWrap, haveAccountsY, haveAccountsN, haveAccountsYWrap, haveAccountsNWrap,tradingYearY, tradingYearN, tradingYearYWrap, paidMoneyY, paidMoneyN, paidMoneyYWrap)
+  $("#" + haveAccountsY).on "click", ->
+    setVisibility(  answerY, answerN, noWrap, moreThanYearY, moreThanYearN, moreThanYearYWrap, moreThanYearNWrap, haveAccountsY, haveAccountsN, haveAccountsYWrap, haveAccountsNWrap,tradingYearY, tradingYearN, tradingYearYWrap, paidMoneyY, paidMoneyN, paidMoneyYWrap)
+  $("#" + haveAccountsN).on "click", ->
+    setVisibility(  answerY, answerN, noWrap, moreThanYearY, moreThanYearN, moreThanYearYWrap, moreThanYearNWrap, haveAccountsY, haveAccountsN, haveAccountsYWrap, haveAccountsNWrap,tradingYearY, tradingYearN, tradingYearYWrap, paidMoneyY, paidMoneyN, paidMoneyYWrap)
+  $("#" + tradingYearY).on "click", ->
+    setVisibility(  answerY, answerN, noWrap, moreThanYearY, moreThanYearN, moreThanYearYWrap, moreThanYearNWrap, haveAccountsY, haveAccountsN, haveAccountsYWrap, haveAccountsNWrap,tradingYearY, tradingYearN, tradingYearYWrap, paidMoneyY, paidMoneyN, paidMoneyYWrap)
+  $("#" + tradingYearN).on "click", ->
+    setVisibility(  answerY, answerN, noWrap, moreThanYearY, moreThanYearN, moreThanYearYWrap, moreThanYearNWrap, haveAccountsY, haveAccountsN, haveAccountsYWrap, haveAccountsNWrap,tradingYearY, tradingYearN, tradingYearYWrap, paidMoneyY, paidMoneyN, paidMoneyYWrap)
+  $("#" + paidMoneyY).on "click", ->
+    setVisibility(  answerY, answerN, noWrap, moreThanYearY, moreThanYearN, moreThanYearYWrap, moreThanYearNWrap, haveAccountsY, haveAccountsN, haveAccountsYWrap, haveAccountsNWrap,tradingYearY, tradingYearN, tradingYearYWrap, paidMoneyY, paidMoneyN, paidMoneyYWrap)
+  $("#" + paidMoneyN).on "click", ->
+    setVisibility(  answerY, answerN, noWrap, moreThanYearY, moreThanYearN, moreThanYearYWrap, moreThanYearNWrap, haveAccountsY, haveAccountsN, haveAccountsYWrap, haveAccountsNWrap,tradingYearY, tradingYearN, tradingYearYWrap, paidMoneyY, paidMoneyN, paidMoneyYWrap)
+
+
+setVisibility = (answerY, answerN, noWrap, moreThanYearY, moreThanYearN, moreThanYearYWrap, moreThanYearNWrap, haveAccountsY, haveAccountsN, haveAccountsYWrap, haveAccountsNWrap,tradingYearY, tradingYearN, tradingYearYWrap, paidMoneyY, paidMoneyN, paidMoneyYWrap)->
+  if $("#"+answerN).prop 'checked'
+    showWrapper(noWrap)
+  else
+    hideWrapper(noWrap)
+
+  if $("#"+moreThanYearY).prop 'checked'
+    showWrapper(moreThanYearYWrap)
+  else
     hideWrapper(moreThanYearYWrap)
 
-  if not $("#"+haveAccountsY).prop 'checked'
-    hideWrapper(haveAccountsYWrap)
-  if not $("#"+haveAccountsN).prop 'checked'
-    hideWrapper(haveAccountsNWrap)
-  $("#" + haveAccountsY).on "click", ->
+  if $("#"+haveAccountsY).prop 'checked'
     showWrapper(haveAccountsYWrap)
-    hideWrapper(haveAccountsNWrap)
-  $("#" + haveAccountsN).on "click", ->
-    showWrapper(haveAccountsNWrap)
+  else
     hideWrapper(haveAccountsYWrap)
 
-  if not $("#"+tradingYearY).prop 'checked'
-    hideWrapper(tradingYearYWrap)
-  $("#" + tradingYearY).on "click", ->
+  if $("#"+haveAccountsN).prop 'checked'
+    showWrapper(haveAccountsNWrap)
+  else
+    hideWrapper(haveAccountsNWrap)
+
+  if $("#"+tradingYearY).prop 'checked'
     showWrapper(tradingYearYWrap)
-  $("#" + tradingYearN).on "click", ->
+  else
     hideWrapper(tradingYearYWrap)
 
-  if not $("#"+paidMoneyY).prop 'checked'
-    hideWrapper(paidMoneyYWrap)
-  $("#" + paidMoneyY).on "click", ->
+  if $("#"+moreThanYearN).prop 'checked'
+    showWrapper(moreThanYearNWrap)
+  else
+    hideWrapper(moreThanYearNWrap)
+
+  if $("#"+paidMoneyY).prop 'checked'
     showWrapper(paidMoneyYWrap)
-  $("#" + paidMoneyN).on "click", ->
+  else
     hideWrapper(paidMoneyYWrap)
+
 
 showWrapper = (wrapper) ->
   $("#" + wrapper).slideDown(0).attr 'aria-hidden', 'false'
