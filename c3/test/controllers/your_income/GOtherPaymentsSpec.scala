@@ -84,6 +84,20 @@ class GOtherPaymentsSpec extends Specification {
       val result = GOtherPayments.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
+
+
+    "have text maxlength set correctly in present()" in new WithBrowser with PageObjects {
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeAnyOtherPay = "true" })
+      val page = GOtherPaymentsPage(context)
+      page must beAnInstanceOf[GOtherPaymentsPage]
+
+      val whoPaidYouOther = browser.$("#otherPaymentsInfo")
+      whoPaidYouOther.getAttribute("maxlength") mustEqual "3000"
+
+      val countdown = browser.$("#otherPaymentsInfo + .countdown")
+      countdown.getText must contain( "3000 char")
+      browser.pageSource must contain("maxChars:3000")
+    }
   }
   section ("unit", models.domain.OtherPayments.id)
 }

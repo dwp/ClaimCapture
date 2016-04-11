@@ -1,3 +1,4 @@
+@import models.domain.YourIncomeOtherPayments
 @(currentForm: Form[models.domain.OtherPayments])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import utils.helpers.CarersCrypto
@@ -20,8 +21,8 @@
                 @carersInputTextArea(currentForm("otherPaymentsInfo"),
                     'helperAbove -> "otherPaymentsInfo_helper",
                     'track -> true,
-                    'textAreaHelper -> Html(messages("3000charsLeft")),
-                    'maxLength -> 3000,
+                    'textAreaHelper -> Html(messages(s"${YourIncomeOtherPayments.otherPaymentsMaxLength}charsLeft")),
+                    'maxLength -> YourIncomeOtherPayments.otherPaymentsMaxLength,
                     'ignoreOptional -> true,
                     '_label -> messages("otherPaymentsInfo", displayPlaybackDatesFormat(lang, claim.dateOfClaim.getOrElse(DayMonthYear.today)))
                 )
@@ -36,7 +37,7 @@
 
     <script type="text/javascript">
         $(function(){
-            window.areaCounter({selector:"@CarersCrypto.encryptAES("otherPaymentsInfo")",maxChars:3000});
+            window.areaCounter({selector:"@CarersCrypto.encryptAES("otherPaymentsInfo")",maxChars:@YourIncomeOtherPayments.otherPaymentsMaxLength});
             window.initOtherPaymentsEvents(
                     "@CarersCrypto.encryptAES("otherPaymentsInfo")"
             );

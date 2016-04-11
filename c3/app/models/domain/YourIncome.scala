@@ -130,6 +130,7 @@ case class DirectPayment(
 
 object YourIncomeOtherPayments extends Section.Identifier {
   val id = "s21"
+  def otherPaymentsMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//OtherPaymentsInfo//Answer")
 }
 
 object OtherPayments extends QuestionGroup.Identifier {
