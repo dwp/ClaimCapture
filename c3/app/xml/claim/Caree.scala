@@ -4,6 +4,7 @@ import controllers.mappings.Mappings
 import models.yesNo.{YesNoWithDate, RadioWithText, YesNoMandWithAddress}
 import models.MultiLineAddress
 import models.domain._
+import play.api.i18n.Lang
 import xml.XMLComponent
 import xml.XMLHelper._
 import scala.language.postfixOps
@@ -35,8 +36,7 @@ object Caree extends XMLComponent {
     def breaksInCareLabel (label:String, answer:Boolean) = {
 
       val claimDateQG = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
-      question(<BreaksSinceClaim/>, label, answer, claimDateQG.dateWeRequireBreakInCareInformationFrom)
-
+      question(<BreaksSinceClaim/>, label, answer, claimDateQG.dateWeRequireBreakInCareInformationFrom(claim.lang.getOrElse(Lang("en"))))
     }
 
     val lastValue = claim.questionGroup[BreaksInCareSummary].getOrElse(BreaksInCareSummary()).answer == Mappings.yes

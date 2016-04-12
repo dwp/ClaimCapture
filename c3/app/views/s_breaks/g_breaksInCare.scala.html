@@ -12,10 +12,8 @@
 @import views.html.s_breaks.main
 
 @dateWeRequireBreakInCareInformationFrom() = @{
-
     val claimDateQG = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
-    claimDateQG.dateWeRequireBreakInCareInformationFrom
-
+    claimDateQG.dateWeRequireBreakInCareInformationFrom(lang)
 }
 
 @nextSection = @{
