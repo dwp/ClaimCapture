@@ -38,7 +38,9 @@ window.hasWorkFinishedYet = (hasWorkFinishedYetY, hasWorkFinishedYetN, dateWhenF
   $("#" + hasWorkFinishedYetN).on "click", ->
     hideHasWorkFinishedYetWrap(dateWhenFinishedDay, dateWhenFinishedMonth, dateWhenFinishedYear)
 
-window.typeOfWork = (typeOfWorkEmployed, typeOfWorkSelfEmployed, employerName, employerNameAndAddress1, employerNameAndAddress2, employerNameAndAddress3, employerPostcode, employerContactNumber, employerPayrollNumber, selfEmployedTypeOfWork, selfEmployedTotalIncomeYes, selfEmployedTotalIncomeNo, selfEmployedTotalIncomeDontKnow, selfEmployedMoreAboutChanges, paidMoneyYes, paidMoneyNo, moreAboutChanges) ->
+window.typeOfWork = (typeOfWorkEmployed, typeOfWorkSelfEmployed,
+                     employerName, employerNameAndAddress1, employerNameAndAddress2, employerNameAndAddress3, employerPostcode, employerContactNumber, employerPayrollNumber,
+                     selfEmployedTypeOfWork, selfEmployedTotalIncomeYes, selfEmployedTotalIncomeNo, selfEmployedTotalIncomeDontKnow, paidMoneyYes, paidMoneyNo, selfEmployedMoreAboutChanges) ->
   if not $("#" + typeOfWorkEmployed).prop("checked")
     hideTypeOfWorkEmployedWrap(employerName, employerNameAndAddress1, employerNameAndAddress2, employerNameAndAddress3,
       employerPostcode, employerContactNumber, employerPayrollNumber)
@@ -117,6 +119,8 @@ hideTypeOfWorkSelfEmployedWrap = (selfEmployedTypeOfWork, selfEmployedTotalIncom
     $("#" + selfEmployedTotalIncomeNo).prop('checked', false)
     $("#" + selfEmployedTotalIncomeDontKnow).prop('checked', false)
     $("#" + selfEmployedMoreAboutChanges).val("")
+    $("#" + selfEmployedMoreAboutChanges).trigger("blur")
+
 
 showTypeOfWorkSelfEmployedWrap = () ->
   $("#typeOfWorkSelfEmployedWrap").slideDown 0
