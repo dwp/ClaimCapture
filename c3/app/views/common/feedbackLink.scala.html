@@ -40,7 +40,7 @@
     }
 }
 
-<a @if(feedbackId.length>0){id="@feedbackId"} href="@feedbackUrl" @if(!showInSameTab){rel="external" target="_blank"} @if(isThankYou){class="secondary"} @views.html.ga.trackClickEvent(linkName = s"${trackingInfo}Feedback")>@feedbackLabel</a>
+<a @if(feedbackId.length>0){id="@feedbackId"} href="@feedbackUrl" @if(!showInSameTab){rel="external" target="_blank"} @if(isThankYou){class="secondary"} @views.html.ga.trackClickEvent(linkName = s"${trackingInfo}")>@feedbackLabel</a>
 
 
 
