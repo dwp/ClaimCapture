@@ -24,7 +24,7 @@ object CircumstancesScenarioFactory {
 
   def reportChangesSelfEmployment = {
     val claim = aboutDetails
-    claim.CircumstancesReportChanges = SelfEmployment.name
+    claim.CircumstancesReportChanges = EmploymentChange.name
     claim
   }
 
@@ -35,10 +35,11 @@ object CircumstancesScenarioFactory {
     claim.CircumstancesEmploymentChangeStillCaring = "no"
     claim.CircumstancesEmploymentChangeFinishedStillCaringDate = "03/04/2014"
     claim.CircumstancesEmploymentChangeHasWorkStartedYet = "no"
-    claim.CircumstancesEmploymentChangeDateWhenWillItStart = "03/04/2014"
+    claim.CircumstancesEmploymentChangeDateWhenWillItStart = "03/04/2099"
     claim.CircumstancesEmploymentChangeTypeOfWork = "self-employed"
     claim.CircumstancesEmploymentChangeSelfEmployedTypeOfWork = "IT Consultant"
     claim.CircumstancesEmploymentChangeSelfEmployedTotalIncome = "no"
+    claim.CircumstancesEmploymentChangeSelfEmployedPaidMoneyYet = "no"
 
     claim.FurtherInfoContact = "0171123455"
     claim.CircumstancesDeclarationWantsEmailContact = "no"
@@ -58,6 +59,7 @@ object CircumstancesScenarioFactory {
     claim.CircumstancesEmploymentChangeTypeOfWork = "self-employed"
     claim.CircumstancesEmploymentChangeSelfEmployedTypeOfWork = "IT Consultant"
     claim.CircumstancesEmploymentChangeSelfEmployedTotalIncome = "yes"
+    claim.CircumstancesEmploymentChangeSelfEmployedPaidMoneyYet = "no"
 
     claim
   }

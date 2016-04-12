@@ -172,11 +172,8 @@ POST        /employment/additional-info                                 controll
 
 # Self-employment
 ###############
-GET         /self-employment/about-self-employment                      controllers.s_self_employment.GAboutSelfEmployment.present
-POST        /self-employment/about-self-employment                      controllers.s_self_employment.GAboutSelfEmployment.submit
-
-GET         /self-employment/your-accounts                              controllers.s_self_employment.GSelfEmploymentYourAccounts.present
-POST        /self-employment/your-accounts                              controllers.s_self_employment.GSelfEmploymentYourAccounts.submit
+GET         /self-employment/self-employment-dates                      controllers.s_self_employment.GSelfEmploymentDates.present
+POST        /self-employment/self-employment-dates                      controllers.s_self_employment.GSelfEmploymentDates.submit
 
 GET         /self-employment/pensions-and-expenses                      controllers.s_self_employment.GSelfEmploymentPensionsAndExpenses.present
 POST        /self-employment/pensions-and-expenses                      controllers.s_self_employment.GSelfEmploymentPensionsAndExpenses.submit
@@ -216,9 +213,6 @@ GET         /circumstances/report-changes/gotofunction                  controll
 
 GET         /circumstances/identification/about-you                     controllers.circs.your_details.GYourDetails.present
 POST        /circumstances/identification/about-you                     controllers.circs.your_details.GYourDetails.submit
-
-GET         /circumstances/report-changes/self-employment               controllers.circs.report_changes.GSelfEmployment.present
-POST        /circumstances/report-changes/self-employment               controllers.circs.report_changes.GSelfEmployment.submit
 
 GET         /circumstances/report-changes/address-change                controllers.circs.report_changes.GAddressChange.present
 POST        /circumstances/report-changes/address-change                controllers.circs.report_changes.GAddressChange.submit

@@ -9,7 +9,7 @@ import utils.pageobjects.circumstances.consent_and_declaration.GCircsDeclaration
 import utils.{LightFakeApplication, WithBrowser}
 import controllers.CircumstancesScenarioFactory
 import utils.pageobjects.circumstances.start_of_process.{GReportChangesPage, GCircsYourDetailsPage}
-import utils.pageobjects.circumstances.report_changes.{GBreaksInCarePage, GPermanentlyStoppedCaringPage, GSelfEmploymentPage, GOtherChangeInfoPage}
+import utils.pageobjects.circumstances.report_changes.{GBreaksInCarePage, GPermanentlyStoppedCaringPage, GOtherChangeInfoPage}
 import utils.pageobjects.{PageObjects, TestData}
 import app.ConfigProperties._
 
@@ -176,16 +176,6 @@ class GReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
 
       val nextPage = page submitPage()
       nextPage must beAnInstanceOf[GOtherChangeInfoPage]
-    }
-
-    "navigate to next page when self-employment selected" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "false"))) with PageObjects {
-      val page = GReportChangesPage(context)
-      val claim = CircumstancesScenarioFactory.reportChangesSelfEmployment
-      page goToThePage()
-      page fillPageWith claim
-
-      val nextPage = page submitPage()
-      nextPage must beAnInstanceOf[GSelfEmploymentPage]
     }
 
     "navigate to next page when stopped caring selected" in new WithBrowser with PageObjects {

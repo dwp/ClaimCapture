@@ -8,7 +8,7 @@
 
 @claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
 @emp = @{claim.questionGroup[Employment].getOrElse(Employment())}
-@aboutSelfEmployment = @{claim.questionGroup[AboutSelfEmployment].getOrElse(AboutSelfEmployment())}
+@aboutSelfEmployment = @{claim.questionGroup[SelfEmploymentDates].getOrElse(SelfEmploymentDates)}
 @additionalInfo = @{claim.questionGroup[EmploymentAdditionalInfo].getOrElse(EmploymentAdditionalInfo())}
 @sixMonthsBeforeDate(date:DayMonthYear) = @{date - 6 months}
 @oneWeekBeforeDate(date:DayMonthYear) = @{date - 1 weeks}
@@ -55,9 +55,6 @@
 	@{/* Jobs do not use the fieldWithLink view. The fieldWithLink view accepts text and this produces HTML (an unordered list) */}
 	@jobsPreview()
     @fieldWithLink("self_employment_been_self_employed", messages("beenSelfEmployed.simple",oneWeekBeforeDate(claimDate.dateOfClaim).`d month yyyy`), seValue,disableLink = disableChangeButton, elementId = Some("beenSelfEmployedSince1WeekBeforeClaim"))
-    @if(emp.beenSelfEmployedSince1WeekBeforeClaim == "yes"){
-		@fieldWithLink("self_employment_nature_of_business", messages("natureOfYourBusiness"), aboutSelfEmployment.natureOfYourBusiness, disableLink = disableChangeButton, elementId = Some("natureOfYourBusiness"))
-	}
 	@if(isSelfEmployed || isEmployed){
 		@fieldWithLink("employment_additional_info", messages("empAdditionalInfo.text"), additionalInfoValue, disableLink = disableChangeButton, elementId = Some("empAdditionalInfo_answer"))
 	}

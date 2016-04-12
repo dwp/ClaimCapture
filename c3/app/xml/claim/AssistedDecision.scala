@@ -46,18 +46,13 @@ object AssistedDecision extends XMLComponent {
   }
 
   private def yesEEAGuardWork(claim: Claim): AssistedDecisionDetails = {
-    val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
-    if (otherEEAStateOrSwitzerland.guardQuestion.answer == "yes" &&
-      (otherEEAStateOrSwitzerland.guardQuestion.field1.get.answer == "yes" ||
-        otherEEAStateOrSwitzerland.guardQuestion.field2.get.answer == "yes"))
+    if (isEEA(claim))
         decisionModel("Assign to Exportability in CAMLite workflow.", "None,show table")
     else emptyAssistedDecisionDetails
   }
 
   private def isInEducation(claim: Claim): AssistedDecisionDetails = {
-    val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
-    if (otherEEAStateOrSwitzerland.guardQuestion.answer == "no" &&
-      claim.questionGroup[YourCourseDetails].getOrElse(new YourCourseDetails()).beenInEducationSinceClaimDate == "yes")
+    if (claim.questionGroup[YourCourseDetails].getOrElse(new YourCourseDetails()).beenInEducationSinceClaimDate == "yes")
       decisionModel("Send DS790/790B COMB to customer.", "None,show table")
     else emptyAssistedDecisionDetails
   }
@@ -77,7 +72,7 @@ object AssistedDecision extends XMLComponent {
         nationalityAndResidency.nationality,
         nationalityAndResidency.resideInUK.answer,
         claim.questionGroup[AbroadForMoreThan52Weeks].getOrElse(AbroadForMoreThan52Weeks()).anyTrips,
-        claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland()).guardQuestion.answer,
+        isEEA(claim),
         isOver35Hours(claim),
         claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare()).hasBreaks,
         claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails()).beenInEducationSinceClaimDate,
@@ -93,7 +88,7 @@ object AssistedDecision extends XMLComponent {
               NationalityAndResidency.british | NationalityAndResidency.britishIrish,
               "yes", //resideInUK
               "no",  //any trips abroad
-              "no",  //EEA
+              false,  //EEA
               true,  //over 35 hours
               false,  //has any breaks in care
               "no",  //been in education
@@ -112,6 +107,15 @@ object AssistedDecision extends XMLComponent {
   private def isOver35Hours(claim: Claim) : Boolean = {
     val hours = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
     hours.spent35HoursCaring.toLowerCase == "yes"
+  }
+
+  private def isEEA(claim: Claim) : Boolean = {
+    val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
+    if (otherEEAStateOrSwitzerland.guardQuestion.answer == "yes" &&
+      (otherEEAStateOrSwitzerland.guardQuestion.field1.get.answer == "yes" ||
+        otherEEAStateOrSwitzerland.guardQuestion.field2.get.answer == "yes"))
+      true
+    else false
   }
 
   private def isOverThreeMonthsOneDay(claim: Claim) : Boolean = {

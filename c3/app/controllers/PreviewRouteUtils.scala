@@ -29,13 +29,13 @@ object PreviewRouteUtils {
   def employmentRoute = {
     val employmentRoute = controllers.s_self_employment.routes.GEmployment.present.toString
     val jobsRoute           = controllers.s_employment.routes.GBeenEmployed.present.toString
-    val aboutSelfEmployment = controllers.s_self_employment.routes.GAboutSelfEmployment.present.toString
+    val selfEmploymentDates = controllers.s_self_employment.routes.GSelfEmploymentDates.present.toString
     val additionalInfoRoute = controllers.s_employment.routes.GEmploymentAdditionalInfo.present.toString
     val routesMap = Map(
       "employment_been_employed_since" -> employmentRoute,
       "employment_jobs" -> jobsRoute,
       "self_employment_been_self_employed" -> employmentRoute,
-      "self_employment_nature_of_business" -> aboutSelfEmployment,
+      "self_employment_nature_of_business" -> selfEmploymentDates,
       "employment_additional_info" -> additionalInfoRoute
     )
     routesMap

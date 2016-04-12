@@ -2,7 +2,7 @@ package controllers.s_self_employment
 
 import org.specs2.mutable._
 import utils.{WithApplication, WithBrowser}
-import utils.pageobjects.s_self_employment.{GAboutSelfEmploymentPage, GSelfEmploymentYourAccountsPage}
+//import utils.pageobjects.s_self_employment.{GAboutSelfEmploymentPage, GSelfEmploymentYourAccountsPage}
 import utils.pageobjects.{PageObjects,TestData}
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s_other_money.GAboutOtherMoneyPage
@@ -10,7 +10,7 @@ import utils.pageobjects.s_employment.GEmploymentPage
 import utils.pageobjects.s_claim_date.GClaimDatePageContext
 
 class GAboutSelfEmploymentIntegrationSpec extends Specification {
-
+/*
   section("integration", models.domain.SelfEmployment.id)
   "About Self Employment" should {
     "be presented" in new WithBrowser with PageObjects{
@@ -88,4 +88,5 @@ class GAboutSelfEmploymentIntegrationSpec extends Specification {
     }
   }
   section("integration", models.domain.SelfEmployment.id)
+  */
 }

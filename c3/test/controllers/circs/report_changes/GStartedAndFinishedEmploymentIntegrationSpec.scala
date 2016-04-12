@@ -8,7 +8,7 @@ import utils.pageobjects.circumstances.report_changes.GStartedAndFinishedEmploym
 class GStartedAndFinishedEmploymentIntegrationSpec extends Specification {
   section("integration", models.domain.CircumstancesIdentification.id)
   "Report an Employment change in your circumstances where the employment is finished - Employment" should {
-    "be presented" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("circs.employment.active" -> "true"))) with PageObjects {
+    "be presented" in new WithBrowser with PageObjects {
       val page = GStartedAndFinishedEmploymentPage(context)
       page goToThePage()
     }

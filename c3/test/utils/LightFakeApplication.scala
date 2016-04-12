@@ -51,7 +51,7 @@ object LightFakeApplication {
   )
 
   // Default switch positions ... so we dont need to set config for every switch position during tests, add default them here and override if required.
-  lazy val defaultSwitchPositions={
+  lazy val defaultSwitchPositions = {
     Map(
       "origin.tag" -> "GB",
       "i18n.messagelisting" -> "messagelisting.properties",
@@ -60,12 +60,8 @@ object LightFakeApplication {
     )
   }
 
-
-  lazy val faCEAFalse = FakeApplication(
-    additionalConfiguration = configurationMap ++ Map("circs.employment.active" -> "false")
-  )
   lazy val faCEATrue = FakeApplication(
-    additionalConfiguration = configurationMap ++ Map("circs.employment.active" -> "true")
+    additionalConfiguration = configurationMap
   )
 
   lazy val SaveForLaterOff = FakeApplication(
@@ -76,13 +72,7 @@ object LightFakeApplication {
     additionalConfiguration = configurationMap ++ Map("xml.schema.version" -> xmlSchemaVersionNumber)
   )
 
-  def apply(additionalConfiguration: Map[String, _ <: Any]) = (additionalConfiguration.get("circs.employment.active"): @unchecked ) match {
-    case Some("true") => faCEATrue
-    case Some("false") => faCEAFalse
-    case None => FakeApplication(
-      additionalConfiguration = configurationMap ++ additionalConfiguration
-    )
-  }
+  def apply(additionalConfiguration: Map[String, _ <: Any]) = FakeApplication(additionalConfiguration = configurationMap ++ additionalConfiguration)
 
   def fa = {
     val app = FakeApplication(additionalConfiguration = configurationMap ++ defaultSwitchPositions)
@@ -97,7 +87,7 @@ object LightFakeApplication {
 @Singleton
 class TestEhCacheModule extends Module {
   override def bindings(environment: Environment, configuration: Configuration): Seq[Binding[_]] = {
-    Seq (
+    Seq(
       bind(classOf[CacheApi]).to(HashMapCacheApiImpl)
     )
   }
@@ -132,6 +122,7 @@ class TestSubmissionModule extends Module {
 
 class AsyncClaimSubmissionComponentDBStubSubmission extends AsyncClaimSubmissionComponent {
   override val claimTransaction = new StubClaimTransaction
+
   override def submission(claim: Claim): Unit = {
     Logger.debug("Stub claim submission")
   }

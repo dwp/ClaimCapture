@@ -16,6 +16,12 @@ class GAdditionalInformationSpec extends Specification {
     "welshCommunication" -> "yes"
   )
 
+  val invalidYesInput = Seq(
+    "anythingElse.answer" -> "yes",
+    "anythingElse.text" -> "  ",
+    "welshCommunication" -> "yes"
+  )
+
   val additionalInfoPath = "OtherInformation//AdditionalInformation//Why//Answer"
 
   section("unit", models.domain.AdditionalInfo.id)
@@ -40,6 +46,14 @@ class GAdditionalInformationSpec extends Specification {
 
       val result = GAdditionalInfo.submit(request)
       redirectLocation(result) must beSome("/preview")
+    }
+
+    """fail when anything else text us empty""" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+        .withFormUrlEncodedBody(invalidYesInput: _*)
+
+      val result = GAdditionalInfo.submit(request)
+      status(result) mustEqual BAD_REQUEST
     }
 
     "handle gracefully when bad schema number passed to SchemaValidation getRestriction" in new WithApplication {

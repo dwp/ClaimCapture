@@ -20,7 +20,7 @@ class ReplicaSpec extends Specification {
       val sections = browser.$(".section")
       val links = browser.$("a")
       sections.size mustEqual (16)
-      links.size mustEqual (29)
+      links.size mustEqual (28)
     }
 
     // We need to ensure that if any changes are made to c3 application with new urls, that the replica is considered.
@@ -62,7 +62,6 @@ class ReplicaSpec extends Specification {
         .filterNot(value => value.contains("/disclaimer"))
         .filterNot(value => value.contains("$id"))
         .filterNot(value => value.contains("$file"))
-        .filterNot(value => value.matches("<.*>"))
         .filterNot(value => value.contains("/save"))
         .filterNot(value => value.contains("/resume"))
         .filterNot(value => value.contains("error"))
