@@ -33,7 +33,8 @@
 
                 @yesNoRadioGroup(currentForm("startJobBeforeClaimDate"),
                     '_label -> messages("startJobBeforeClaimDate", claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang, dmy - 1 months))),
-                    'helperAbove -> messages("startJobBeforeClaimDate.helper")
+                    'helperAbove -> messages("startJobBeforeClaimDate.helper"),
+                    'values -> Seq("yes" -> messages("label.yes3"), "no" -> messages("label.no"))
                 )
 
                 @otherDetailPlaceHolder(
