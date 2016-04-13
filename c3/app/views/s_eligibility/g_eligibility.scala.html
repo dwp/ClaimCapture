@@ -40,8 +40,7 @@
                 <ul>
                     @yesNoRadioGroup(currentForm("hours.answer"), '_label -> messages("s0.g2"), 'allowance -> true, 'helperAbove -> messages("s0.g2.help1"), 'warningMessage -> Seq(messages("s0.g2.help2")) ,'track -> true,'trackLabel -> "hours.answer")
                     @yesNoRadioGroup(currentForm("over16.answer"), '_label -> Messages ("s0.g3"), 'allowance -> true, 'warningMessage -> Seq(messages("s0.g3.help1")), 'track -> true, 'trackLabel -> "over16.answer")
-                    @listRadioGroupWithSubGroups(currentForm("origin"),
-                        'items -> countriesList)
+                    @listRadioGroup(currentForm("origin"), 'items -> countriesList, '_label->messages("origin") )
                     <div id="originWarning" class="prompt breaks-prompt validation-summary">
                         <p>@messages("origin.warning.message")</p>
                     </div>
@@ -49,7 +48,6 @@
             </fieldset>
 
             @views.html.common.bottomNavigation(changing = true)
-
         }
 
         <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_eligibility/answerNoMessage.js")></script>
