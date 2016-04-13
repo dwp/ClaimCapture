@@ -25,8 +25,8 @@
                 <legend class="visuallyhidden">Pay details</legend>
 
                 <ul>
-					
-                    @yesNoRadioGroup(currentForm("likeToPay"), '_label -> messages("likeToPay"),  'track -> true)
+                    @yesNoRadioGroup(currentForm("likeToPay"), '_label -> messages("likeToPay"),  'track -> true,
+                        'values -> Seq("yes" -> messages("label.yes4"), "no" -> messages("label.no")))
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
