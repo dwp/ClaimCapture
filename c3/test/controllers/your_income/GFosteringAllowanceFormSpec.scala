@@ -65,7 +65,7 @@ class GFosteringAllowanceFormSpec extends Specification {
       ).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(1)
-          formWithErrors.errors(0).message must equalTo("paymentTypesForThisPay.required")
+          formWithErrors.errors(0).message must equalTo("paymentTypesForThisPayOther.required")
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
