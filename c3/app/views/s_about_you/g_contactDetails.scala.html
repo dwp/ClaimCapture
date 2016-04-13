@@ -36,7 +36,8 @@
                     @carersCheckBox(contactDetailsForm("contactYouByTextphone"), 'track -> true)
 
                     @if(getProperty("email.frontend",false)) {
-                        @yesNoRadioGroup(contactDetailsForm("wantsEmailContact"), '_label->emailLabel )
+                        @yesNoRadioGroup(contactDetailsForm("wantsEmailContact"), '_label->emailLabel,
+                            'values -> Seq("yes" -> messages("label.yes4"), "no" -> messages("label.no")))
 
                         @otherDetailPlaceHolder(
                             inputDef = Seq(
