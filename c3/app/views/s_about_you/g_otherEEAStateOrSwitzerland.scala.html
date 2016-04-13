@@ -6,7 +6,7 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import play.api.i18n.Messages
 @import views.html.helper.base._
-@import utils.helpers.CarersTemplate._
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
 @import views.html.s_about_you.main
 
 

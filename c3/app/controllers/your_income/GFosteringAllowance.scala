@@ -42,7 +42,7 @@ object GFosteringAllowance extends Controller with CachedClaim with Navigable wi
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("", "paymentTypesForThisPay.required", FormError("paymentTypesForThisPay", errorRequired))
+          .replaceError("", "paymentTypesForThisPayOther.required", FormError("fosteringAllowancePayOther", errorRequired))
           .replaceError("", "howOftenPaidThisPay.required", FormError("howOftenPaidThisPayOther", errorRequired))
           .replaceError("", "whenDidYouLastGetPaid.required", FormError("whenDidYouLastGetPaid", errorRequired))
         BadRequest(views.html.your_income.fosteringAllowance(formWithErrorsUpdate))

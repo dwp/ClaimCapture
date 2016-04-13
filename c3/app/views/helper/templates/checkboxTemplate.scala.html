@@ -1,4 +1,5 @@
-@(elements: helper.FieldElements)
+@(elements: helper.FieldElements)(implicit lang: Lang)
+
 @import utils.helpers.CarersHelpers._
 
 <li class="form-group checkbox-single @if(elements.hasErrors){validation}">

@@ -1,7 +1,7 @@
 @(employmentAdditionalInfoForm: Form[models.domain.EmploymentAdditionalInfo])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import scala.language.postfixOps
-@import utils.helpers.CarersTemplate._
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
 @import views.html.helper._
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto

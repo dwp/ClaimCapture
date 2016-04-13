@@ -8,6 +8,6 @@
     @checkConstraintRequired(field, args:_*)
 
     <ul class="form-group form-group-compound">
-        @carersListCheckbox(field, form, args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items):_*)(utils.helpers.EmptyTemplate.fieldConstructor,lang,request,messages)
+        @carersListCheckbox(field, form, args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items):_*)(utils.helpers.EmptyTemplate.apply(lang).fieldConstructor,lang,request,messages)
     </ul>
 </li>

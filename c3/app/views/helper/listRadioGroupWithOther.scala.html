@@ -1,6 +1,6 @@
 @(field: play.api.data.Field, args: (Symbol, Any)*)(implicit request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
-@import utils.helpers.CarersTemplate._
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
 @import views.html.helper._
 @import views.html.helper.base._
 @import play.api.i18n.Messages
@@ -11,7 +11,7 @@
 
     <fieldset @if(nestedFieldSet) {class="nested-fieldset"} else {class="form-elements"}>
 
-        @radioListPlaceholder(field("answer"), args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items) ++ Seq('class -> "listWithOther"):_*)(request,lang,utils.helpers.EmptyTemplate.fieldConstructor,messages)
+        @radioListPlaceholder(field("answer"), args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items) ++ Seq('class -> "listWithOther"):_*)(request,lang,utils.helpers.EmptyTemplate.apply(lang).fieldConstructor,messages)
 
         @ulDetailPlaceHolder(
             inputDef = Seq(

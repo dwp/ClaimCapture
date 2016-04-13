@@ -2,7 +2,7 @@
 
 @import scala.util.Try
 @import helper.dates._
-@import utils.helpers.CarersTemplate._
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
 @import app.StatutoryPaymentFrequency._
 @import play.api.i18n.Messages
 

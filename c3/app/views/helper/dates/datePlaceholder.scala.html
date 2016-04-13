@@ -1,7 +1,7 @@
 @(field: play.api.data.Field, id: String, args: (Symbol, Any)*)(implicit lang: Lang, messages: play.api.i18n.Messages)
 
 @import helper._
-@import utils.helpers.EmptyTemplate._
+@implicitField = @{ utils.helpers.EmptyTemplate.apply(lang).fieldConstructor }
 @import views.html.helper._
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto

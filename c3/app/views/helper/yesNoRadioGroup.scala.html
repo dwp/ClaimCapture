@@ -8,7 +8,7 @@
     args.find(t => t._1 == 'allowance).getOrElse('allowance -> false)._2.asInstanceOf[Boolean]
 }
 
-@fieldConstructor = @{ if(isAllowance) utils.helpers.EligibilityTemplate.fieldConstructor else utils.helpers.CarersTemplate.fieldConstructor}
+@fieldConstructor = @{ if(isAllowance) utils.helpers.EligibilityTemplate.apply(lang).fieldConstructor else utils.helpers.CarersTemplate.apply(lang).fieldConstructor}
 
 @values = @{args.find(t => t._1 == 'values).getOrElse('values->defaultValues).asInstanceOf[(Symbol,Seq[(String, String)])]._2}
 

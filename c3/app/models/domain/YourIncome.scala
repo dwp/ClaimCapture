@@ -179,7 +179,7 @@ trait OtherIncomes {
       if (income.paymentTypesForThisPay == PaymentTypes.Other) {
         income.paymentTypesForThisPayOther match {
           case Some(howOften) => Valid
-          case _ => Invalid(ValidationError("paymentTypesForThisPay.required"))
+          case _ => Invalid(ValidationError("paymentTypesForThisPayOther.required"))
         }
       }
       else Valid

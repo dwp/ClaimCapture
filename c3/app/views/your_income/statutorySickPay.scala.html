@@ -7,7 +7,7 @@
 @import views.html.helper.dates._
 @import scala.language.postfixOps
 @import app.StatutoryPaymentFrequency._
-@import utils.helpers.CarersTemplate._
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
 @import views.html.helper._
 @import views.html.helper.base._
 @import utils.helpers.ReturnToSummaryHelper._

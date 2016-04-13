@@ -2,7 +2,7 @@
 
 @import helper.base._
 @import utils.helpers.CarersCrypto
-@import utils.helpers.EmptyTemplate._
+@implicitField = @{ utils.helpers.EmptyTemplate.apply(lang).fieldConstructor }
 @import play.api.i18n.Messages
 
 @isEmployed = @{

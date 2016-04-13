@@ -1,6 +1,6 @@
 @(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: Lang, message: play.api.i18n.Messages)
 
-@import utils.helpers.CarersTemplate._
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
 @import views.html.helper._
 @import play.api.i18n.Messages
 

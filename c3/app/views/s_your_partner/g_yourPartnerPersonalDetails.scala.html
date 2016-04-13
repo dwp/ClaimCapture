@@ -2,7 +2,7 @@
 @(currentForm: Form[models.domain.YourPartnerPersonalDetails])(implicit claim: models.domain.Claim,lang: play.api.i18n.Lang,request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import utils.helpers._
-@import utils.helpers.CarersTemplate._
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
 @import utils.helpers.HtmlLabelHelper._
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper._

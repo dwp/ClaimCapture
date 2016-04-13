@@ -5,7 +5,7 @@
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper.base._
-@import utils.helpers.CarersTemplate._
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
 @import views.html.s_consent_and_declaration.main
 
 @main(messages("s11.g4") + " - " + messages("s11.longName"), Some(currentForm)) {
