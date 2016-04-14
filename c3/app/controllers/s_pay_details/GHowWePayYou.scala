@@ -24,7 +24,7 @@ object GHowWePayYou extends Controller with CachedClaim with Navigable with I18n
     "accountHolderName" -> carersNonEmptyText(maxLength = ACCOUNT_HOLDER_NAME_MAX_LENGTH),
     "bankFullName" -> carersNonEmptyText(maxLength = 100),
     "sortCode" -> (sortCode verifying requiredSortCode),
-    "accountNumber" -> (carersNonEmptyText(minLength = CommonValidation.ACCOUNT_NUMBER_MIN_LENGTH, maxLength = CommonValidation.ACCOUNT_NUMBER_MAX_LENGTH) verifying pattern(CommonValidation.ACCOUNT_NUMBER_REGEX.r, "accountNumber", "error.number")),
+    "accountNumber" -> (carersNonEmptyText(minLength = CommonValidation.ACCOUNT_NUMBER_MIN_LENGTH, maxLength = CommonValidation.ACCOUNT_NUMBER_MAX_LENGTH) verifying pattern(CommonValidation.NUMBER_OR_SPACE_REGEX.r, "accountNumber", "error.number")),
     "rollOrReferenceNumber" -> carersText(maxLength = 18)
   )(BankBuildingSocietyDetails.apply)(BankBuildingSocietyDetails.unapply)
 
