@@ -19,7 +19,10 @@
 
 		   <ul class="group">
 
-			   @yesNoRadioGroup(currentForm("tellUsWhyFromAnyoneOnForm.informationFromPerson"))
+			   @yesNoRadioGroup(currentForm("tellUsWhyFromAnyoneOnForm.informationFromPerson")
+                   , 'track -> true
+                   , 'trackLabel -> "Do you agree to the Carers Allowance Unit contacting anyone mentioned in this form?"
+               )
 
 			   @otherDetailPlaceHolder(
 				   inputDef = Seq(carersInputTextArea(currentForm("tellUsWhyFromAnyoneOnForm.whyPerson"), 'placeholder->messages("why_placeholder"),'textAreaHelper -> Html(messages("3000charsLeft")), 'maxLength -> 3000 )),
