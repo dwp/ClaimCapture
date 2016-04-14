@@ -92,7 +92,11 @@ object GYourIncomes extends Controller with CachedClaim with Navigable with I18n
     val deletedEmployment = if(yourIncomes.beenEmployedSince6MonthsBeforeClaim == no) {
       deletedSelfEmployment.delete(BeenEmployed).delete(Jobs)
     } else deletedSelfEmployment
-    deletedEmployment
+
+    val deletedEmploymentAdditionalInfo = if(yourIncomes.beenEmployedSince6MonthsBeforeClaim == no && yourIncomes.beenSelfEmployedSince1WeekBeforeClaim == no) {
+      deletedEmployment.delete(EmploymentAdditionalInfo)
+    } else deletedEmployment
+    deletedEmploymentAdditionalInfo
   }
 
   private def validateOtherAndNonePaymentsSelected(yourIncomes: YourIncomes) = {
