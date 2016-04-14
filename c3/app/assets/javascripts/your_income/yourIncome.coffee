@@ -19,7 +19,7 @@ window.updateNextLabel = (o) ->
     bothAnswersAreNo = !beenEmployed && !beenSelfEmployed
     doesNotHaveJobs = beenEmployed && o.noJobs
     result = if(doesNotHaveJobs) then false else bothAnswersAreNo || bothHaveNotChanged || selfENotChangedAndEmploymentNo || empNotChangedAndSENo
-    if(result == false) then result else hasOtherPaymentsChanged()
+    hasOtherPaymentsChanged() && result
 
   hasOtherPaymentsChanged = ->
     bPreviousStatutorySickPay = if o.previousStatutorySickPay == "true" then true else false
@@ -46,7 +46,7 @@ window.updateNextLabel = (o) ->
   $("#" + o.employment_no).on "click", changeText
   $("#" + o.selfEmployment_yes).on "click", changeText
   $("#" + o.selfEmployment_no).on "click", changeText
-  $("#" + o.statutorySickPay).on "click", changeText
+  $("#" + o.sickPay).on "click", changeText
   $("#" + o.statutoryPay).on "click", changeText
   $("#" + o.fostering).on "click", changeText
   $("#" + o.directPayment).on "click", changeText
