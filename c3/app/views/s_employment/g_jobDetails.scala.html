@@ -11,6 +11,7 @@
 @import scala.language.postfixOps
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 @import utils.CommonValidation
+@import models.domain.JobDetails
 
 @main(messages("s7.g3") + " - " + messages("s7.longName"), Some(currentForm), Some(messages("s7.g3")),ignorePreview = true) {
 
@@ -49,7 +50,7 @@
                         inputDayMonthYear(currentForm("p45LeavingDate"), 'helperAbove -> messages("dateExample.helper", claim.dateOfClaim.fold("")(dmy => (dmy - 1 days).`d M yyyy`)))),
                     'id -> "lastWorkData")
 
-                @carersShortInputTel(currentForm("hoursPerWeek"),'_label -> labelForEmployment(claim ,lang, "hoursPerWeek", IterationID(currentForm)), 'maxLength -> 2)
+                @carersShortInputTel(currentForm("hoursPerWeek"),'_label -> labelForEmployment(claim ,lang, "hoursPerWeek", IterationID(currentForm)), 'maxLength -> JobDetails.maxLengthHoursWorked)
 
 	        </fieldset>
 	

@@ -2,6 +2,7 @@ package models.domain
 
 import controllers.mappings.Mappings
 import models._
+import utils.helpers.TextLengthHelper
 import scala.reflect.ClassTag
 import controllers.mappings.Mappings._
 import models.PaymentFrequency
@@ -125,7 +126,7 @@ object JobDetails extends QuestionGroup.Identifier {
     case `yes` => true
     case `no` => input.jobStartDate.isDefined
   }
-
+  def maxLengthHoursWorked = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//Employment//JobDetails//Pay//WeeklyHoursWorked//Answer")
 }
 
 case class LastWage(iterationID: String = "",

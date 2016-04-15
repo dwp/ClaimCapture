@@ -1,6 +1,7 @@
 package controllers.s_employment
 
 import controllers.mappings.Mappings
+import models.domain.JobDetails
 import org.specs2.mutable._
 import models.DayMonthYear
 import utils.WithApplication
@@ -266,6 +267,76 @@ class GJobDetailsFormSpec extends Specification {
       ).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.addressLines.required"),
         f => "This mapping should not happen." must equalTo("Valid")
+      )
+    }
+
+    "reject when hours worked too large" in new WithApplication {
+      GJobDetails.form.bind(
+        Map(
+          "iterationID" -> iterationID,
+          "employerName" -> employerName,
+          "phoneNumber" -> phoneNumber,
+          "address.lineOne" -> addressLine,
+          "address.lineTwo" -> addressLineTwo,
+          "address.lineThree" -> addressLineThree,
+          "postcode" -> postCode,
+          "startJobBeforeClaimDate" -> no,
+          "jobStartDate.day" -> day,
+          "jobStartDate.month" -> month,
+          "jobStartDate.year" -> year1,
+          "finishedThisJob" -> yes,
+          "lastWorkDate.day" -> day,
+          "lastWorkDate.month" -> month,
+          "lastWorkDate.year" -> year2,
+          "p45LeavingDate.day" -> day,
+          "p45LeavingDate.month" -> month,
+          "p45LeavingDate.year" -> year2,
+          "hoursPerWeek" -> ("1" * (JobDetails.maxLengthHoursWorked + 1))
+        )
+      ).fold(
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.maxLength"),
+        f => "This mapping should not happen." must equalTo("Valid")
+      )
+    }
+
+    "accept decimal place in hours worked" in new WithApplication {
+      GJobDetails.form.bind(
+        Map(
+          "iterationID" -> iterationID,
+          "employerName" -> employerName,
+          "phoneNumber" -> phoneNumber,
+          "address.lineOne" -> addressLine,
+          "address.lineTwo" -> addressLineTwo,
+          "address.lineThree" -> addressLineThree,
+          "postcode" -> postCode,
+          "startJobBeforeClaimDate" -> no,
+          "jobStartDate.day" -> day,
+          "jobStartDate.month" -> month,
+          "jobStartDate.year" -> year1,
+          "finishedThisJob" -> yes,
+          "lastWorkDate.day" -> day,
+          "lastWorkDate.month" -> month,
+          "lastWorkDate.year" -> year2,
+          "p45LeavingDate.day" -> day,
+          "p45LeavingDate.month" -> month,
+          "p45LeavingDate.year" -> year2,
+          "hoursPerWeek" -> "2.5"
+        )
+      ).fold(
+        formWithErrors => "This mapping should not happen." must equalTo("Error"),
+        f => {
+          f.iterationID must equalTo(iterationID)
+          f.employerName must equalTo(employerName)
+          f.phoneNumber must equalTo(phoneNumber)
+          f.address.lineOne must equalTo(Some(addressLine))
+          f.address.lineTwo must equalTo(Some(addressLineTwo))
+          f.address.lineThree must equalTo(Some(addressLineThree))
+          f.postcode must equalTo(Some(postCode))
+          f.jobStartDate must equalTo(Some(DayMonthYear()))
+          f.lastWorkDate must equalTo(Some(DayMonthYear()))
+
+          f.hoursPerWeek must equalTo(Some("2.5"))
+        }
       )
     }
   }

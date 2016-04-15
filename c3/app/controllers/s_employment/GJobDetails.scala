@@ -32,7 +32,7 @@ object GJobDetails extends Controller with CachedClaim with Navigable with I18nS
     "finishedThisJob" -> nonEmptyText.verifying(validYesNo),
     "lastWorkDate" -> optional(dayMonthYear.verifying(validDate)),
     "p45LeavingDate" -> optional(dayMonthYear.verifying(validDateOnly)),
-    "hoursPerWeek" -> optional(carersText(maxLength = 2).verifying(validNumber))
+    "hoursPerWeek" -> optional(carersText(maxLength = JobDetails.maxLengthHoursWorked).verifying(validDecimalNumber))
   )(JobDetails.apply)(JobDetails.unapply)
     .verifying("lastWorkDate.required", JobDetails.validateLastWorkDate _)
     .verifying("jobStartDate.required", JobDetails.validateJobStartDate _)
