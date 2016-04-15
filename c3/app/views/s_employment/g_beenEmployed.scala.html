@@ -42,7 +42,7 @@
                                 </dl>
 
                                 <div class="actions">
-                                    <input type="button" id="changeButton" value="@Html(messages("change"))">
+                                    <input type="button" id="changeButton" value="@Html(messages("change"))" @views.html.ga.trackClickEvent(linkName = "Employment - Change")>
                                     <input type="button" id="deleteButton" value="@Html(messages("delete"))">
                                 </div>
 
@@ -50,7 +50,7 @@
                             <div class="prompt breaks-prompt validation-summary">
                                 <p class="normalMsg">@Html(messages("deleteEmploymentMessage"))</p>
                                 <input type="button" class="button row secondary" id = "noDeleteButton" value="@Html(messages("no.delete"))" aria-label="@Html(messages("no.delete.label"))">
-                                <input type="button" class="button row warning" id = "yesDeleteButton" value="@Html(messages("yes.delete"))" aria-label="@Html(messages("yes.delete.label"))">
+                                <input type="button" class="button row warning" id = "yesDeleteButton" value="@Html(messages("yes.delete"))" aria-label="@Html(messages("yes.delete.label"))" @views.html.ga.trackClickEvent(linkName = "Employment - Delete")>
                             </div>
                         }
                     }
