@@ -15,7 +15,7 @@ object YourClaimDate extends Section.Identifier {
 
 case class ClaimDate(dateOfClaim: DayMonthYear = DayMonthYear(), spent35HoursCaringBeforeClaim:YesNoWithDate = YesNoWithDate("", None)) extends QuestionGroup(ClaimDate) {
 
-  def dateWeRequireBreakInCareInformationFrom: String = {
+  def dateWeRequireBreakInCareInformationFrom(lang: Lang): String = {
 
     def getCorrectDate(dateOfClaim: DayMonthYear, caringStartDate: DayMonthYear, spent35HoursCaringBeforeClaim: Boolean) = {
       if (!spent35HoursCaringBeforeClaim)
@@ -31,7 +31,7 @@ case class ClaimDate(dateOfClaim: DayMonthYear = DayMonthYear(), spent35HoursCar
     val spent35HoursCaring = if (spent35HoursCaringBeforeClaim.answer == Mappings.yes) true else false
     val caringStartDate = spent35HoursCaringBeforeClaim.date.getOrElse(dateOfClaim)
     val date = getCorrectDate(dateOfClaim, caringStartDate, spent35HoursCaring)
-    displayPlaybackDatesFormat(Lang("en"), date)
+    displayPlaybackDatesFormat(lang, date)
   }
 
 }

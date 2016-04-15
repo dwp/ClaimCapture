@@ -5,6 +5,7 @@ import models.domain.{SelfEmploymentPensionsAndExpenses, QuestionGroup, YourInco
 import models.view.CachedClaim
 import models.yesNo.YesNoWithText
 import org.specs2.mutable._
+import play.api.i18n.Lang
 import services.EmailServices
 import utils.WithApplication
 
@@ -30,10 +31,22 @@ class EmailServicesSpec extends Specification {
 
       verifyNotEmployedSubject(YourIncomes(no, no))
     }
+
+    "When added employments and ticked receive future communications in Welsh is selected then subject must be welsh next steps" in new WithApplication {
+      val welsh= Lang("cy")
+      val claim=Claim(CachedClaim.key).update(YourIncomes(no, yes))
+      EmailServices.claimEmailSubject(claim, welsh) mustEqual( "Cais Lwfans Gofalwr: camau nesaf")
+    }
+
+    "When added zero employments and ticked receive future communications in Welsh is selected then subject must be welsh claim received" in new WithApplication {
+      val welsh= Lang("cy")
+      val claim=Claim(CachedClaim.key).update(YourIncomes(no, no))
+      EmailServices.claimEmailSubject(claim, welsh) mustEqual( "Cais Lwfans Gofalwr wedi'i dderbyn")
+    }
   }
   section ("unit")
 
-  def verifyEmployedSubject(qg: QuestionGroup) = "Carer's Allowance application: next steps" must_== EmailServices.claimEmailSubject(Claim(CachedClaim.key).update(qg))
+  def verifyEmployedSubject(qg: QuestionGroup) = "Carer's Allowance application: next steps" must_== EmailServices.claimEmailSubject(Claim(CachedClaim.key).update(qg), Lang("en"))
 
-  def verifyNotEmployedSubject(qg: QuestionGroup) = "Carer's Allowance application received" must_== EmailServices.claimEmailSubject(Claim(CachedClaim.key).update(qg))
+  def verifyNotEmployedSubject(qg: QuestionGroup) = "Carer's Allowance application received" must_== EmailServices.claimEmailSubject(Claim(CachedClaim.key).update(qg), Lang("en"))
 }

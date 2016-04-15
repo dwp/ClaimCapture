@@ -30,7 +30,7 @@ object Payment extends XMLComponent {
     <Account>
       {question(<HolderName/>, "accountHolderName", encrypt(bankBuildingSocietyDetails.accountHolderName))}
       <BuildingSocietyDetails>
-        {question(<AccountNumber/>, "accountNumber", encrypt(bankBuildingSocietyDetails.accountNumber))}
+        {question(<AccountNumber/>, "accountNumber", encrypt(bankBuildingSocietyDetails.accountNumber.replace(" ","")))}
         {question(<RollNumber/>,"rollOrReferenceNumber", bankBuildingSocietyDetails.rollOrReferenceNumber)}
         {question(<SortCode/>,"sortCode", encrypt(bankBuildingSocietyDetails.sortCode))}
         {question(<Name/>, "bankFullName", bankBuildingSocietyDetails.bankFullName)}

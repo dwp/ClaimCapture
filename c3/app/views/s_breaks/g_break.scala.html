@@ -12,12 +12,9 @@
 @import controllers.IterationID
 
 @dateWeRequireBreakInCareInformationFrom() = @{
-
     val claimDateQG = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
-    claimDateQG.dateWeRequireBreakInCareInformationFrom
-
+    claimDateQG.dateWeRequireBreakInCareInformationFrom(lang)
 }
-
 
 
 @main("Break - About the care you provide", Some(breakForm), Some(backCall),true) {
@@ -65,7 +62,7 @@
                 )
 
                 @yesNoRadioGroup(breakForm("hasBreakEnded.answer"),
-                    'values -> Seq("yes" -> messages("label.yes9"), "no" -> messages("label.no")),
+                    'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")),
                     '_label -> messages("hasBreakEnded.answer")
                 )
 

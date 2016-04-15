@@ -5,7 +5,7 @@
 @import helper._
 
 @breaks = @{claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())}
-@breaksFromDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateWeRequireBreakInCareInformationFrom}
+@breaksFromDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateWeRequireBreakInCareInformationFrom(lang)}
 @disableChangeButton = @{
 	!app.ConfigProperties.getProperty("cyaToggleVisible",true)
 }

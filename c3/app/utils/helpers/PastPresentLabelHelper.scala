@@ -37,20 +37,20 @@ object PastPresentLabelHelper {
 
   def labelForEmployment(implicit claim: Claim, lang: Lang, labelKey: String, jobID: String) = {
     messagesApi(isTheJobFinished(claim, jobID) match {
-      case true => labelKey + ".present"
-      case false => labelKey + ".past"
+      case true => labelKey + ".past"
+      case false => labelKey + ".present"
     })
   }
 
   def valuesForEmployment(implicit claim: Claim, lang: Lang, pastYes: String, pastNo: String, presentYes: String, presentNo: String, jobID: String) = {
     isTheJobFinished(claim, jobID) match {
-      case true => 'values -> Seq("yes" -> messagesApi(presentYes), "no" -> messagesApi(presentNo))
-      case false => 'values -> Seq("yes" -> messagesApi(pastYes), "no" -> messagesApi(pastNo))
+      case false => 'values -> Seq("yes" -> messagesApi(presentYes), "no" -> messagesApi(presentNo))
+      case true => 'values -> Seq("yes" -> messagesApi(pastYes), "no" -> messagesApi(pastNo))
     }
   }
 
   private def isTheJobFinished(claim: Claim, jobID: String) = theJobs(claim).questionGroup(jobID, JobDetails) match {
-    case Some(j: JobDetails) => j.finishedThisJob == no
+    case Some(j: JobDetails) => j.finishedThisJob == yes
     case _ => false
   }
 

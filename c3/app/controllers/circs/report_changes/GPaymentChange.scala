@@ -8,6 +8,7 @@ import models.yesNo.YesNoWith2Text
 import play.api.Play._
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.data.validation.Constraints._
 import play.api.mvc.Controller
 import utils.CommonValidation
 import utils.helpers.CarersForm._
@@ -29,7 +30,7 @@ object GPaymentChange extends Controller with CachedChangeOfCircs with Navigable
     "accountHolderName" -> carersNonEmptyText(maxLength = CommonValidation.ACCOUNT_HOLDER_NAME_MAX_LENGTH),
     "bankFullName" -> carersNonEmptyText(maxLength = 100),
     "sortCode" -> (sortCode verifying requiredSortCode),
-    "accountNumber" -> carersNonEmptyText(minLength = 6, maxLength = 10),
+    "accountNumber" -> (carersNonEmptyText(minLength = CommonValidation.ACCOUNT_NUMBER_MIN_LENGTH, maxLength = CommonValidation.ACCOUNT_NUMBER_MAX_LENGTH) verifying pattern(CommonValidation.NUMBER_OR_SPACE_REGEX.r, "accountNumber", "error.number")),
     "rollOrReferenceNumber" -> carersText(maxLength = 18),
     "paymentFrequency" -> carersNonEmptyText(maxLength = 20),
     "moreAboutChanges" -> optional(carersText(maxLength = CircumstancesPaymentChange.textMaxLength))
