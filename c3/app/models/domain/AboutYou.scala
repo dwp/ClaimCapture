@@ -2,7 +2,7 @@ package models.domain
 
 import models.domain.OtherEEAStateOrSwitzerland.GQuestion
 import models.{NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
-import models.yesNo.{YesNoWith2MandatoryFieldsOnYes, YesNoWith1MandatoryFieldOnYes, YesNoWithText}
+import models.yesNo.{YesNo, YesNoWith2MandatoryFieldsOnYes, YesNoWith1MandatoryFieldOnYes, YesNoWithText}
 import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
 import controllers.mappings.Mappings.yes
 import utils.helpers.OriginTagHelper._
@@ -43,9 +43,15 @@ object ContactDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g3"
 }
 
-case class NationalityAndResidency(nationality: String,
-                                   actualnationality: Option[String] = None,
-                                   resideInUK: YesNoWithText = YesNoWithText("", None)) extends QuestionGroup(NationalityAndResidency)
+case class NationalityAndResidency( nationality: String,
+                                    actualnationality: Option[String] = None,
+                                    alwaysLivedInUK: String = "",
+                                    liveInUKNow: Option[String] = None,
+                                    arrivedInUK: Option[String] = None,
+                                    arrivedInUKDate: Option[DayMonthYear] = None,
+                                    trip52weeks: String = "",
+                                    tripDetails: Option[String] = None
+                                    ) extends QuestionGroup(NationalityAndResidency)
 
 object NationalityAndResidency extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g4"
@@ -53,9 +59,10 @@ object NationalityAndResidency extends QuestionGroup.Identifier {
   val british = "British"
   val britishIrish = "British/Irish"
   val anothercountry = "Another nationality"
+  val lessThan3Years = "less"
+  val moreThan3Years = "more"
 
   def validNationality: Constraint[String] = Constraint[String]("constraint.nationality") {
-    // Nationality is a radio list with two possible values, British or British/Irish and Another Country
     case `british` if (isOriginGB) => Valid
     case `britishIrish` if (!isOriginGB) => Valid
     case `anothercountry` => Valid
@@ -63,7 +70,6 @@ object NationalityAndResidency extends QuestionGroup.Identifier {
   }
 
   def actualNationalityRequired: Constraint[NationalityAndResidency] = Constraint[NationalityAndResidency]("constraint.actualnationality") { nationalityAndResidency =>
-    // if the Nationality is Another Country the user must provide their National Residency
     if (nationalityAndResidency.nationality == anothercountry) {
       nationalityAndResidency.actualnationality match {
         case Some(place) => Valid
@@ -72,10 +78,27 @@ object NationalityAndResidency extends QuestionGroup.Identifier {
     }
     else Valid
   }
+
+  def requiredTripDetails: Constraint[NationalityAndResidency] = Constraint[NationalityAndResidency]("constraint.tripdetails") { nationalityAndResidency =>
+    nationalityAndResidency.trip52weeks match {
+      case `yes` if !nationalityAndResidency.tripDetails.isDefined => Invalid(ValidationError("tripdetails.required"))
+      case _ => Valid
+    }
+  }
+
+  def requiredLiveInEnglandNow: Constraint[NationalityAndResidency] = Constraint[NationalityAndResidency]("constraint.tripdetails") { nationalityAndResidency =>
+    nationalityAndResidency.trip52weeks match {
+      case `yes` if !nationalityAndResidency.tripDetails.isDefined => Invalid(ValidationError("tripdetails.required"))
+      case _ => Valid
+    }
+  }
 }
 
 case class AbroadForMoreThan52Weeks(anyTrips: String = "", tripDetails: Option[String] = None) extends QuestionGroup(AbroadForMoreThan52Weeks)
 
+/*
+REDUNDANT DELETE
+ */
 object AbroadForMoreThan52Weeks extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g5"
 

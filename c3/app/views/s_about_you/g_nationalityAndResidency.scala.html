@@ -8,10 +8,28 @@
 @import utils.helpers.OriginTagHelper._
 @import models.domain.NationalityAndResidency
 @import utils.CommonValidation
+@import views.html.helper.dates._
+@import views.html.s_about_you.main
+
+@nationalityList = @{
+    Seq(
+        (isOriginGB) match {
+            case true => NationalityAndResidency.british -> messages("label.british")
+            case false => NationalityAndResidency.britishIrish -> messages("label.british")
+        },
+        NationalityAndResidency.anothercountry -> messages("label.anothercountry")
+    )
+}
+
+@arriveGBList = @{
+    Seq(
+        NationalityAndResidency.lessThan3Years -> messages("arrivedInUK.less"),
+        NationalityAndResidency.moreThan3Years -> messages("arrivedInUK.more")
+    )
+}
 
 @main(messages("s2.g4") + " - " + messages("s2.longName")) {
     @errorsSummary(nationalityAndResidencyForm)
-
 
     @form(action = controllers.s_about_you.routes.GNationalityAndResidency.submit, 'role -> "form") {
             @DwpCSRFFormHelper.formField
@@ -19,57 +37,95 @@
 	        <fieldset class="form-elements">
 
 	            <ul>
-	                @listRadioGroup(nationalityAndResidencyForm("nationality"),
-                        'items -> Seq(isOriginGB() match {
-                            case true => NationalityAndResidency.british -> messages("label.british")
-                            case false => NationalityAndResidency.britishIrish -> messages("label.british")
-                        }, NationalityAndResidency.anothercountry -> messages("label.anothercountry")),
-	                    '_label -> messages("nationality.label"),
+                    @listRadioGroup(nationalityAndResidencyForm("nationality"),
+                        'items -> nationalityList,
+                        '_label -> messages("nationality"),
                         '_nestedFieldSet -> true)
-	
+
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
 	                        carersInputText(nationalityAndResidencyForm("actualnationality"),
 	                            '_label -> messages("actualnationality.text.label"),
 	                            'maxLength -> CommonValidation.NATIONALITY_MAX_LENGTH)
 	                    ),
-	                    'id -> "nationalityWrap"
+	                    'id -> "actualNationalityWrap"
 	                )
 
-                    @yesNoRadioGroup(nationalityAndResidencyForm("resideInUK")("answer"),
-                        '_label -> messages("resideInUK.label"))
+                    @yesNoRadioGroup(nationalityAndResidencyForm("alwaysLivedInUK"),
+                        '_label -> messages("alwaysLivedInUK"),
+                        'ignoreOptional-> true)
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            carersInputText(nationalityAndResidencyForm("resideInUK")("text"),
-                            '_label -> messages("resideInUK.text.label"),
-                            'maxLength -> 35)
+                            yesNoRadioGroup(nationalityAndResidencyForm("liveInUKNow"),
+                                '_label -> messages("liveInUKNow"),
+                                'ignoreOptional-> true),
+
+                            otherDetailPlaceHolder(
+                                inputDef = Seq(
+                                    listRadioGroup(nationalityAndResidencyForm("arrivedInUK"),
+                                        'items -> arriveGBList,
+                                        '_label -> messages("arrivedInUK"),
+                                        'ignoreOptional-> true
+                                    ),
+                                    otherDetailPlaceHolder(
+                                        inputDef = Seq(
+                                            inputDayMonthYear(nationalityAndResidencyForm("arrivedInUKDate"),
+                                                '_label -> messages("arrivedInUKDate"),
+                                                'ignoreOptional-> true)
+                                        ),
+                                        'id -> "arrivedInUKRecentWrap"
+                                    )
+                                ),
+                                'id -> "liveInUKNowNoWrap"
+                            )
                         ),
-                        'id -> "residencyWrap"
+                        'id-> "alwaysLivedInUKNoWrap"
+                    )
+
+                    @yesNoRadioGroup(nationalityAndResidencyForm("trip52weeks"),
+                        '_label -> messages("trip52weeks"),
+                        'helperAbove -> messages("trip52weeks.helper")
+                    )
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(carersInputTextArea(nationalityAndResidencyForm("tripDetails"),
+                            'helperAbove -> messages("tripDetails.helper"),
+                            'textAreaHelper->Html(messages("3000charsLeft")), 'maxLength->3000)
+                        ),
+                        'id -> "trip52weeksYesWrap"
                     )
                 </ul>
-	
 	        </fieldset>
-	
             @views.html.common.bottomNavigation()
-
     }
 
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_about_you/g_nationalityAndResidency.js")></script>
     <script type="text/javascript">
         $(function(){
-            window.initEvents(
-                            "@{
-                                isOriginGB() match {
-                                    case true => CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("British").id)
-                                    case false => CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("British_Irish").id)
-        }
-                            }",
-                            "@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("Another_nationality").id)",
-                            "@CarersCrypto.encryptAES(nationalityAndResidencyForm("actualnationality").id)",
-                            "@CarersCrypto.encryptAES(nationalityAndResidencyForm("resideInUK")("answer")("yes").id)",
-                            "@CarersCrypto.encryptAES(nationalityAndResidencyForm("resideInUK")("answer")("no").id)",
-                            "@CarersCrypto.encryptAES(nationalityAndResidencyForm("resideInUK")("text").id)");
+            window.initNationalityEvents(
+                "@{
+                    isOriginGB() match {
+                        case true => CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("British").id)
+                        case false => CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("British_Irish").id)
+                    }
+                }",
+                "@CarersCrypto.encryptAES(nationalityAndResidencyForm("nationality")("Another_nationality").id)",
+                "@CarersCrypto.encryptAES(nationalityAndResidencyForm("actualnationality").id)",
+                "actualNationalityWrap",
+                "@CarersCrypto.encryptAES(nationalityAndResidencyForm("alwaysLivedInUK_yes").id)",
+                "@CarersCrypto.encryptAES(nationalityAndResidencyForm("alwaysLivedInUK_no").id)",
+                "alwaysLivedInUKNoWrap",
+                "@CarersCrypto.encryptAES(nationalityAndResidencyForm("liveInUKNow_yes").id)",
+                "@CarersCrypto.encryptAES(nationalityAndResidencyForm("liveInUKNow_no").id)",
+                "liveInUKNowNoWrap",
+                "@CarersCrypto.encryptAES(nationalityAndResidencyForm("arrivedInUK_less").id)",
+                "@CarersCrypto.encryptAES(nationalityAndResidencyForm("arrivedInUK_more").id)",
+                "arrivedInUKRecentWrap",
+                "@CarersCrypto.encryptAES(nationalityAndResidencyForm("trip52weeks_yes").id)",
+                "@CarersCrypto.encryptAES(nationalityAndResidencyForm("trip52weeks_no").id)",
+                "trip52weeksYesWrap"
+            );
         });
     </script>
     

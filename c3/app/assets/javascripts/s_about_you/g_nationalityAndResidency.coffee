@@ -1,43 +1,88 @@
-window.initEvents = (nationalityBritish, nationalityAnotherCountry, nationalResidency, resideInUKY, resideInUKN, resideInUKText) ->
-  if not $("#" + nationalityAnotherCountry).prop('checked')
-    hideNationalityWrap(nationalResidency)
-
-  if $("#" + nationalityAnotherCountry).prop('checked')
-    showNationalityWrap()
-
-  $("#" + nationalityAnotherCountry).on "click", ->
-    showNationalityWrap()
+window.initNationalityEvents = (nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap,
+                                alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap,
+                                liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap,
+                                arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap
+                                trip52weeksY, trip52weeksN, trip52weeksYesWrap
+                      ) ->
+  setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
 
   $("#" + nationalityBritish).on "click", ->
-    hideNationalityWrap(nationalResidency)
+    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
+  $("#" + nationalityAnotherCountry).on "click", ->
+    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
 
-  if not $("#" + resideInUKN).prop('checked')
-    hideResidencyWrap(resideInUKText)
+  $("#" + alwaysLivedInUKY).on "click", ->
+    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
+  $("#" + alwaysLivedInUKN).on "click", ->
+    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
 
-  if $("#" + resideInUKN).prop('checked')
-    showResidencyWrap(resideInUKText)
+  $("#" + liveInUKNowY).on "click", ->
+    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
+  $("#" + liveInUKNowN).on "click", ->
+    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
 
-  $("#" + resideInUKN).on "click", ->
-    showResidencyWrap()
+  $("#" + arrivedInUKless).on "click", ->
+    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
+  $("#" + arrivedInUKmore).on "click", ->
+    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
 
-  $("#" + resideInUKY).on "click", ->
-    hideResidencyWrap(resideInUKText)
+  $("#" + trip52weeksY).on "click", ->
+    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
+  $("#" + trip52weeksN).on "click", ->
+    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
 
 
-hideNationalityWrap = (nationalResidency) ->
-  emptyNationalResidency = ->
-    $("#" + nationalResidency).val("")
+# Called whenever anything changes ... we set up all the hidden items and reset / clear any that are hidden
+setVisibility = (nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap,
+                 alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap,
+                 liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap,
+                 arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap,
+                 trip52weeksY, trip52weeksN, trip52weeksYesWrap) ->
+  if $("#" + nationalityAnotherCountry).prop('checked')
+    showWrapper(actualNationalityWrap)
+  else
+    hideWrapper(actualNationalityWrap)
 
-  $("#nationalityWrap").slideUp(0,emptyNationalResidency).attr 'aria-hidden', 'true'
+  if $("#" + alwaysLivedInUKN).prop('checked')
+    showWrapper(alwaysLivedInUKNoWrap)
+  else
+    hideWrapper(alwaysLivedInUKNoWrap)
 
-showNationalityWrap = ->
-  $("#nationalityWrap").slideDown(0).attr 'aria-hidden', 'false'
+  if $("#" + liveInUKNowN).prop('checked')
+    showWrapper(liveInUKNowNoWrap)
+  else
+    hideWrapper(liveInUKNowNoWrap)
 
-hideResidencyWrap = (resideInUKText) ->
-  emptyResideInUKText = ->
-    $("#" + resideInUKText).val("")
+  if $("#" + arrivedInUKless).prop('checked')
+    showWrapper(arrivedInUKRecentWrap)
+  else
+    hideWrapper(arrivedInUKRecentWrap)
 
-  $("#residencyWrap").slideUp(0,emptyResideInUKText).attr 'aria-hidden', 'true'
+  if $("#" + trip52weeksY).prop('checked')
+    showWrapper(trip52weeksYesWrap)
+  else
+    hideWrapper(trip52weeksYesWrap)
 
-showResidencyWrap = ->
-  $("#residencyWrap").slideDown(0).attr 'aria-hidden', 'false'
+
+
+# Copied from SelfEmploymentDates.coffee
+# We should put this somewhere common ?
+showWrapper = (wrapper) ->
+  $("#" + wrapper).slideDown(0).attr 'aria-hidden', 'false'
+
+hideWrapper = (wrapper)->
+  clearDownStreamInputs(wrapper)
+  $("#" + wrapper).slideUp(0).attr 'aria-hidden', 'true'
+
+clearDownStreamInputs = (wrapper)->
+  $("#" + wrapper).find("input").each(clearInput)
+
+# If we want to also clear the validation error when item is hidden ?
+# $("#" + wrapper).find(".validation-error").removeClass("validation-error")
+# $("#" + wrapper).find(".validation-message").remove()
+clearInput = ->
+  if( $(this).attr("type") == "radio" )
+    $(this).prop('checked', false)
+    $(this).parent().removeClass("selected")
+  else
+    $(this).val("")
