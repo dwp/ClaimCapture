@@ -3,7 +3,6 @@
 @import helper.base._
 @import utils.helpers.CarersCrypto
 @implicitField = @{ utils.helpers.EmptyTemplate.apply(lang).fieldConstructor }
-@import play.api.i18n.Messages
 
 @isEmployed = @{
     args.find(t => t._1 == 'employed).getOrElse('employed -> false)._2.asInstanceOf[Boolean]
