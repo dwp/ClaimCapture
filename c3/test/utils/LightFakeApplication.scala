@@ -72,6 +72,10 @@ object LightFakeApplication {
     additionalConfiguration = configurationMap ++ Map("xml.schema.version" -> xmlSchemaVersionNumber)
   )
 
+  def faC3VersionXmlVersion(xmlSchemaVersionNumber: String, c3VersionNumber: String) = FakeApplication(
+    additionalConfiguration = configurationMap ++ Map("xml.schema.version" -> xmlSchemaVersionNumber, "application.version" -> c3VersionNumber)
+  )
+
   def apply(additionalConfiguration: Map[String, _ <: Any]) = FakeApplication(additionalConfiguration = configurationMap ++ additionalConfiguration)
 
   def fa = {

@@ -25,7 +25,8 @@ class EmailTemplateSpec extends Specification {
   "Email template" should {
     val xmlSchemaVersionNumber = "some value"
     val transactionId = "some transaction"
-    "Display XML schema version number" in new WithApplication(app = LightFakeApplication.faXmlVersion(xmlSchemaVersionNumber)){
+    val c3Version = "some version"
+    "Display C3, XML and Transaction version numbers" in new WithApplication(app = LightFakeApplication.faC3VersionXmlVersion(xmlSchemaVersionNumber, c3Version)) {
       implicit val lang = Lang("en")
       val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
       implicit val messages = Messages(lang, messagesApi)
@@ -34,7 +35,7 @@ class EmailTemplateSpec extends Specification {
 
       renderedEmail must contain(xmlSchemaVersionNumber)
       renderedEmail must contain(transactionId)
-      renderedEmail must contain(s"$xmlSchemaVersionNumber $transactionId")
+      renderedEmail must contain(s"$c3Version / $xmlSchemaVersionNumber / $transactionId")
     }
 
     "Display claim email" in new WithApplication {
@@ -170,13 +171,13 @@ class EmailTemplateSpec extends Specification {
       renderedEmail must not contain(escapeMessage("evidence.include.documents"))
     }
 
-    "Display Saved Email should contain XML schema version number" in new WithApplication(app = LightFakeApplication.faXmlVersion(xmlSchemaVersionNumber)){
+    "Display Saved Email should contain C3 and XML version numbers" in new WithApplication(app = LightFakeApplication.faC3VersionXmlVersion(xmlSchemaVersionNumber, c3Version)) {
       implicit val lang = Lang("en")
       val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
       implicit val messages = Messages(lang, messagesApi)
       val claim = Claim(CachedClaim.key)
       val renderedEmail = views.html.savedMail(claim, FakeRequest()).body
-      renderedEmail must contain(xmlSchemaVersionNumber)
+      renderedEmail must contain(s"$c3Version / $xmlSchemaVersionNumber")
     }
   }
   section("unit")

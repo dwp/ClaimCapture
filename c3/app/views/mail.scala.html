@@ -4,6 +4,7 @@
 @import models.domain._
 @import app.ConfigProperties._
 @import utils.helpers.OriginTagHelper._
+@import models.view.ClaimHandling
 
 @claimType = @{if (isClaim)"claim" else "cofc"}
 @claimDate = @{
@@ -32,8 +33,8 @@
     claim.questionGroup[CircumstancesStartedAndFinishedEmployment].exists(_ =>true)
 }
 
-@schemaTransactionVersion = @{
-    s"${getProperty("xml.schema.version", "No schema version found")} ${claim.transactionId.getOrElse("")}"
+@versionSchemaTransactionInfo = @{
+    s"${ClaimHandling.C3VERSION_VALUE} / ${getProperty("xml.schema.version", "No schema version found")} / ${claim.transactionId.getOrElse("")}"
 }
 
 <!DOCTYPE html>
@@ -206,7 +207,7 @@
         <div class="footer">
             <p><b>@Html(messages("mail.donotreply"))</b></p>
             <br />
-            <p style="font-size: 16px; color: #BFC1C3;">@schemaTransactionVersion</p>
+            <p style="font-size: 10px; color: #BFC1C3;">@versionSchemaTransactionInfo</p>
         </div>
 
     </body>

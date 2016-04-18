@@ -23,10 +23,10 @@ import scala.reflect.ClassTag
 object ClaimHandling {
   type ClaimResult = (Claim, Result)
   // Versioning
-  val C3NAME = s"${getProperty("application.name", default="c3")}"
-  val C3VERSION = s"${C3NAME.toUpperCase}Version"
-  val C3VERSION_VALUE = getProperty("application.version", default="x1").takeWhile(_ != '-')
-  val C3VERSION_SECSTOLIVE = getProperty("application.seconds.to.live", default=36000)
+  def C3NAME = s"${getProperty("application.name", default="c3")}"
+  def C3VERSION = s"${C3NAME.toUpperCase}Version"
+  def C3VERSION_VALUE = getProperty("application.version", default="x1").takeWhile(_ != '-')
+  def C3VERSION_SECSTOLIVE = getProperty("application.seconds.to.live", default=36000)
   val applicationFinished = "application-finished"
 
 }

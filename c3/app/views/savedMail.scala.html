@@ -1,8 +1,13 @@
 @(claim: models.domain.Claim, request: Request[AnyContent])(implicit lang:Lang, messages: play.api.i18n.Messages)
 
 @import app.ConfigProperties._
+@import models.view.ClaimHandling
 
 @environmentPath=@{"http" + (if(request.secure)"s" else "") + "://" + request.host}
+
+@versionSchemaInfo = @{
+    s"${ClaimHandling.C3VERSION_VALUE} / ${getProperty("xml.schema.version", "No schema version found")}"
+}
 
 <!DOCTYPE html>
 <!--[if IE 7]>         <html class="ie ie7" lang="en"> <![endif]-->
@@ -82,7 +87,7 @@
         <div class="footer">
             <p><b>@Html(messages("savedMail.doNotReply"))</b></p>
             <br />
-            <p style="font-size: 16px; color: #BFC1C3;">@getProperty("xml.schema.version", "No schema version found")</p>
+            <p style="font-size: 10px; color: #BFC1C3;">@versionSchemaInfo</p>
         </div>
     </body>
 </html>
