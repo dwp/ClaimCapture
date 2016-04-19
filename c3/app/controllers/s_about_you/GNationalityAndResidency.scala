@@ -41,7 +41,7 @@ object GNationalityAndResidency extends Controller with CachedClaim with Navigab
 
   private def validateArrivedInUK(nationalityAndResidency: NationalityAndResidency) = {
     nationalityAndResidency.liveInUKNow match {
-      case Some(`no`) => nationalityAndResidency.arrivedInUK.isDefined
+      case Some(`yes`) => nationalityAndResidency.arrivedInUK.isDefined
       case _ => true
     }
   }

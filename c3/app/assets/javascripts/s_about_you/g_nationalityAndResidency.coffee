@@ -1,41 +1,41 @@
 window.initNationalityEvents = (nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap,
                                 alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap,
-                                liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap,
+                                liveInUKNowY, liveInUKNowN, liveInUKNowYesWrap,
                                 arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap
                                 trip52weeksY, trip52weeksN, trip52weeksYesWrap
                       ) ->
-  setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
+  setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowYesWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
 
   $("#" + nationalityBritish).on "click", ->
-    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
+    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowYesWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
   $("#" + nationalityAnotherCountry).on "click", ->
-    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
+    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowYesWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
 
   $("#" + alwaysLivedInUKY).on "click", ->
-    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
+    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowYesWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
   $("#" + alwaysLivedInUKN).on "click", ->
-    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
+    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowYesWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
 
   $("#" + liveInUKNowY).on "click", ->
-    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
+    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowYesWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
   $("#" + liveInUKNowN).on "click", ->
-    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
+    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowYesWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
 
   $("#" + arrivedInUKless).on "click", ->
-    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
+    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowYesWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
   $("#" + arrivedInUKmore).on "click", ->
-    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
+    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowYesWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
 
   $("#" + trip52weeksY).on "click", ->
-    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
+    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowYesWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
   $("#" + trip52weeksN).on "click", ->
-    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
+    setVisibility(nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap, alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap, liveInUKNowY, liveInUKNowN, liveInUKNowYesWrap, arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap, trip52weeksY, trip52weeksN, trip52weeksYesWrap )
 
 
 # Called whenever anything changes ... we set up all the hidden items and reset / clear any that are hidden
 setVisibility = (nationalityBritish, nationalityAnotherCountry, actualNationality, actualNationalityWrap,
                  alwaysLivedInUKY, alwaysLivedInUKN, alwaysLivedInUKNoWrap,
-                 liveInUKNowY, liveInUKNowN, liveInUKNowNoWrap,
+                 liveInUKNowY, liveInUKNowN, liveInUKNowYesWrap,
                  arrivedInUKless, arrivedInUKmore, arrivedInUKRecentWrap,
                  trip52weeksY, trip52weeksN, trip52weeksYesWrap) ->
   if $("#" + nationalityAnotherCountry).prop('checked')
@@ -48,10 +48,10 @@ setVisibility = (nationalityBritish, nationalityAnotherCountry, actualNationalit
   else
     hideWrapper(alwaysLivedInUKNoWrap)
 
-  if $("#" + liveInUKNowN).prop('checked')
-    showWrapper(liveInUKNowNoWrap)
+  if $("#" + liveInUKNowY).prop('checked')
+    showWrapper(liveInUKNowYesWrap)
   else
-    hideWrapper(liveInUKNowNoWrap)
+    hideWrapper(liveInUKNowYesWrap)
 
   if $("#" + arrivedInUKless).prop('checked')
     showWrapper(arrivedInUKRecentWrap)
