@@ -157,7 +157,7 @@ class AssistedDecisionSpec extends Specification {
 
     "Happy path" in new WithApplication {
       val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
-      val nationality = NationalityAndResidency(nationality = "British", resideInUK = YesNoWithText(Mappings.yes, None))
+      val nationality = NationalityAndResidency("British", None, "Yes", None, None, None, "No", None)
       val abroadForMoreThan52Weeks = AbroadForMoreThan52Weeks(anyTrips = Mappings.no)
       val breaksInCare = BreaksInCare()
       val employment = YourIncomes(beenSelfEmployedSince1WeekBeforeClaim = Mappings.no, beenEmployedSince6MonthsBeforeClaim = Mappings.no, yourIncome_none = Mappings.someTrue)

@@ -2,7 +2,7 @@ package controllers.s_about_you
 
 import org.specs2.mutable._
 import controllers.{ClaimScenarioFactory,PreviewTestUtils}
-import utils.pageobjects.s_about_you.{GAbroadForMoreThan52WeeksPage, GNationalityAndResidencyPage}
+import utils.pageobjects.s_about_you.{GOtherEEAStateOrSwitzerlandPage, GNationalityAndResidencyPage}
 import utils.pageobjects._
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
@@ -27,7 +27,6 @@ class GNationalityAndResidencyIntegrationSpec extends Specification {
 			val page =  GNationalityAndResidencyPage(context)
       page goToThePage()
       val nextPage = page submitPage()
-
       nextPage must beAnInstanceOf[GNationalityAndResidencyPage]
     }
 
@@ -36,10 +35,8 @@ class GNationalityAndResidencyIntegrationSpec extends Specification {
       val claim = ClaimScenarioFactory.yourNationalityAndResidencyResident
       page goToThePage()
       page fillPageWith claim
-
       val nextPage = page submitPage()
-
-      nextPage must beAnInstanceOf[GAbroadForMoreThan52WeeksPage]
+      nextPage must beAnInstanceOf[GOtherEEAStateOrSwitzerlandPage]
     }
 
     "navigate to next page on valid non resident submission" in new WithJsBrowser with PageObjects{
@@ -47,10 +44,9 @@ class GNationalityAndResidencyIntegrationSpec extends Specification {
       val claim = ClaimScenarioFactory.yourNationalityAndResidencyNonResident
       page goToThePage()
       page fillPageWith claim
-
       val nextPage = page submitPage()
-
-      nextPage must beAnInstanceOf[GAbroadForMoreThan52WeeksPage]
+      println(nextPage.source)
+      nextPage must beAnInstanceOf[GOtherEEAStateOrSwitzerlandPage]
     }
 
     "contain errors on invalid non resident submission" in new WithJsBrowser with PageObjects{
@@ -59,21 +55,19 @@ class GNationalityAndResidencyIntegrationSpec extends Specification {
       claim.AboutYouNationalityAndResidencyActualNationality = ""
       page goToThePage()
       page fillPageWith claim
-
       val nextPage = page submitPage()
-
       nextPage must beAnInstanceOf[GNationalityAndResidencyPage]
     }
 
-    "country normally live in visible when clicked back" in new WithJsBrowser with PageObjects{
+    "nationality is visible when clicked back" in new WithJsBrowser with PageObjects{
       val page =  GNationalityAndResidencyPage(context)
       val claim = ClaimScenarioFactory.yourNationalityAndResidencyNonResident
       page goToThePage()
       page fillPageWith claim
-
       val nextPage = page submitPage()
-      nextPage.goBack()
-      browser.find("#resideInUK_text").size() mustEqual 1
+      val backPage=nextPage.goBack()
+      val actualnationality=browser.find("#actualnationality").getValue
+      actualnationality mustEqual("French")
     }
 
     "Modify nationality from preview page" in new WithJsBrowser with PageObjects{
@@ -94,7 +88,8 @@ class GNationalityAndResidencyIntegrationSpec extends Specification {
       previewPageModified must beAnInstanceOf[PreviewPage]
       answerText(previewPageModified) mustEqual "British"
     }
-
+/*
+PREVIEW PAGE STILL TO COMPLETE
     "Modify Do you normally live in England, Scotland or Wales? from preview page" in new WithJsBrowser with PageObjects {
       val previewPage = goToPreviewPage(context)
       val id = "about_you_residence"
@@ -112,6 +107,7 @@ class GNationalityAndResidencyIntegrationSpec extends Specification {
       previewPageModified must beAnInstanceOf[PreviewPage]
       answerText(previewPageModified) mustEqual "Yes"
     }
+    */
   }
   section("integration", models.domain.AboutYou.id)
 
