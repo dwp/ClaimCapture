@@ -47,7 +47,8 @@ object Formulate {
   def nationalityAndResidency(browser: TestBrowser) = {
     browser.goTo("/about-you/nationality-and-residency")
     browser.click("#nationality_British")
-    browser.click("#resideInUK_answer_yes")
+    browser.click("#alwaysLivedInUK_yes")
+    browser.click("#trip52weeks_no")
     browser.submit("button[type='submit']")
   }
 
@@ -305,11 +306,6 @@ object Formulate {
   }
   
   def abroadForMoreThan4Weeks(browser: TestBrowser) = {
-    browser.click("#anyTrips_no")
-    browser.submit("button[value='next']")
-  }
-  
-  def abroadForMoreThan52Weeks(browser: TestBrowser) = {
     browser.click("#anyTrips_no")
     browser.submit("button[value='next']")
   }
