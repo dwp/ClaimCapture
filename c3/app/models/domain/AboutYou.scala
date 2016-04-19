@@ -43,14 +43,14 @@ object ContactDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g3"
 }
 
-case class NationalityAndResidency( nationality: String,
-                                    actualnationality: Option[String] = None,
-                                    alwaysLivedInUK: String = "",
-                                    liveInUKNow: Option[String] = None,
-                                    arrivedInUK: Option[String] = None,
-                                    arrivedInUKDate: Option[DayMonthYear] = None,
-                                    trip52weeks: String = "",
-                                    tripDetails: Option[String] = None
+case class NationalityAndResidency(nationality: String = "",
+                                   actualnationality: Option[String] = None,
+                                   alwaysLivedInUK: String = "",
+                                   liveInUKNow: Option[String] = None,
+                                   arrivedInUK: Option[String] = None,
+                                   arrivedInUKDate: Option[DayMonthYear] = None,
+                                   trip52weeks: String = "",
+                                   tripDetails: Option[String] = None
                                     ) extends QuestionGroup(NationalityAndResidency)
 
 object NationalityAndResidency extends QuestionGroup.Identifier {
@@ -92,29 +92,20 @@ object NationalityAndResidency extends QuestionGroup.Identifier {
       case _ => Valid
     }
   }
-}
 
-case class AbroadForMoreThan52Weeks(anyTrips: String = "", tripDetails: Option[String] = None) extends QuestionGroup(AbroadForMoreThan52Weeks)
-
-/*
-REDUNDANT DELETE
- */
-object AbroadForMoreThan52Weeks extends QuestionGroup.Identifier {
-  val id = s"${AboutYou.id}.g5"
-
-  def requiredTripDetails: Constraint[AbroadForMoreThan52Weeks] = Constraint[AbroadForMoreThan52Weeks]("constraint.tripdetails") { abroadForMoreThan52Weeks =>
-    abroadForMoreThan52Weeks.anyTrips match {
-      case `yes` if !abroadForMoreThan52Weeks.tripDetails.isDefined => Invalid(ValidationError("tripdetails.required"))
-      case _ => Valid
+  def resideInUK(nationalityAndResidency: NationalityAndResidency): Boolean = {
+    (nationalityAndResidency.alwaysLivedInUK, nationalityAndResidency.liveInUKNow, nationalityAndResidency.arrivedInUK) match {
+      case ("yes", _, _) => true
+      case (_, Some("yes"), Some("more")) => true
+      case (_, _, _) => false
     }
   }
-
 }
 
-case class OtherEEAStateOrSwitzerland(guardQuestion:GQuestion = YesNoWith2MandatoryFieldsOnYes()) extends QuestionGroup(OtherEEAStateOrSwitzerland)
+case class OtherEEAStateOrSwitzerland(guardQuestion: GQuestion = YesNoWith2MandatoryFieldsOnYes()) extends QuestionGroup(OtherEEAStateOrSwitzerland)
 
 object OtherEEAStateOrSwitzerland extends QuestionGroup.Identifier {
-  type GQuestion = YesNoWith2MandatoryFieldsOnYes[YesNoWith1MandatoryFieldOnYes[String],YesNoWith1MandatoryFieldOnYes[String]]
+  type GQuestion = YesNoWith2MandatoryFieldsOnYes[YesNoWith1MandatoryFieldOnYes[String], YesNoWith1MandatoryFieldOnYes[String]]
 
   def requiredBenefitsFromEEADetails: Constraint[GQuestion] = Constraint[GQuestion]("constraint.benefitsfromeeadetails") { qg =>
     qg.answer match {

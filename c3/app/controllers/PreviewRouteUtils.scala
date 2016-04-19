@@ -17,8 +17,11 @@ object PreviewRouteUtils {
                         "about_you_marital_status" -> gMaritalStatusRoute,
                         "about_you_claimDate" -> controllers.s_claim_date.routes.GClaimDate.present.toString,
                         "about_you_nationality" -> gNationalityRoute,
-                        "about_you_residence" -> gNationalityRoute,
-                        "about_you_abroad" -> controllers.s_about_you.routes.GAbroadForMoreThan52Weeks.present.toString,
+                        "about_you_alwaysliveinuk" -> gNationalityRoute,
+                        "about_you_liveinuknow" -> gNationalityRoute,
+                        "about_you_arrivedinuk" -> gNationalityRoute,
+                        "about_you_arrivedinukdate" -> gNationalityRoute,
+                        "about_you_trip52weeks" -> gNationalityRoute,
                         "about_you_eeaGuardQuestion" -> gOtherEEARoute,
                         "about_you_benefitsFromEEA" -> gOtherEEARoute,
                         "about_you_workingForEEA" -> gOtherEEARoute)
