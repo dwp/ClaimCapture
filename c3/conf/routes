@@ -114,9 +114,6 @@ POST        /about-you/contact-details                                  controll
 GET         /about-you/nationality-and-residency                        controllers.s_about_you.GNationalityAndResidency.present
 POST        /about-you/nationality-and-residency                        controllers.s_about_you.GNationalityAndResidency.submit
 
-GET         /about-you/abroad-for-more-than-52-weeks                    controllers.s_about_you.GAbroadForMoreThan52Weeks.present
-POST        /about-you/abroad-for-more-than-52-weeks                    controllers.s_about_you.GAbroadForMoreThan52Weeks.submit
-
 GET         /about-you/other-eea-state-or-switzerland                   controllers.s_about_you.GOtherEEAStateOrSwitzerland.present
 POST        /about-you/other-eea-state-or-switzerland                   controllers.s_about_you.GOtherEEAStateOrSwitzerland.submit
 
