@@ -30,7 +30,8 @@
             <legend class="visuallyhidden">@Html(messages("s20.g1"))</legend>
 
             <ul>
-                @yesNoRadioGroup(currentForm("stillBeingPaidThisPay_directPayment"))
+                @yesNoRadioGroup(currentForm("stillBeingPaidThisPay_directPayment"),
+                    'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")))
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
