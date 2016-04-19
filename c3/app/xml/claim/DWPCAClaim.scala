@@ -57,18 +57,28 @@ object DWPCAClaim extends XMLComponent {
   }
 
   def fromXml(xml: NodeSeq, claim: Claim) : Claim = {
-    var newClaim = AssistedDecision.fromXml(xml, claim)
-    newClaim = Caree.fromXml(xml, newClaim)
-    newClaim = Claimant.fromXml(xml, newClaim)
-    newClaim = Consents.fromXml(xml, newClaim)
-    newClaim = Declaration.fromXml(xml, newClaim)
-    newClaim = Disclaimer.fromXml(xml, newClaim)
-    newClaim = Incomes.fromXml(xml, newClaim)
-    newClaim = FullTimeEducation.fromXml(xml, newClaim)
-    newClaim = OtherBenefits.fromXml(xml, newClaim)
-    newClaim = Partner.fromXml(xml, newClaim)
-    newClaim = Payment.fromXml(xml, newClaim)
-    newClaim = Residency.fromXml(xml, newClaim)
-    newClaim
+    Residency.fromXml(xml,
+      Payment.fromXml(xml,
+        Partner.fromXml(xml,
+          OtherBenefits.fromXml(xml,
+            FullTimeEducation.fromXml(xml,
+              Incomes.fromXml(xml,
+                Disclaimer.fromXml(xml,
+                  Declaration.fromXml(xml,
+                    Consents.fromXml(xml,
+                      Claimant.fromXml(xml,
+                        Caree.fromXml(xml,
+                          AssistedDecision.fromXml(xml, claim)
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
   }
 }
