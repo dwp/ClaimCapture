@@ -8,6 +8,7 @@ import java.util.Date
 import gov.dwp.carers.xml.signing.XmlSignatureFactory
 import controllers.submission.xmlValidator
 import models.domain.Claim
+import models.view.ClaimHandling
 import play.api.i18n.Lang
 
 import scala.xml.{Elem, NodeSeq, XML}
@@ -24,6 +25,7 @@ import scala.xml.{Elem, NodeSeq, XML}
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation={xmlValidator(claim).getSchemaLocation}>
     <Version>{getProperty("xml.schema.version", "No schema version found")}</Version>
+    <ClaimVersion>{ClaimHandling.C3VERSION_VALUE}</ClaimVersion>
     <Origin>{getProperty("origin.tag", "No origin tag found")}</Origin>
     <DWPCATransaction id={transactionId}>
       <TransactionId>{transactionId}</TransactionId>
