@@ -56,10 +56,6 @@ object ClaimPageFactory extends PageFactory {
       case GSaveForLaterResumePage.url => GSaveForLaterResumePage(ctx)
     }
     m.orElse[String, Page] {
-      IterableNode(Abroad, ctx)(iteration => {
-        case GAbroadForMoreThan52WeeksPage.url => GAbroadForMoreThan52WeeksPage(ctx, iteration)
-      })
-    }.orElse[String, Page] {
       case GOtherEEAStateOrSwitzerlandPage.url => GOtherEEAStateOrSwitzerlandPage(ctx)
       // S3
       case GYourPartnerPersonalDetailsPage.url => GYourPartnerPersonalDetailsPage(ctx)

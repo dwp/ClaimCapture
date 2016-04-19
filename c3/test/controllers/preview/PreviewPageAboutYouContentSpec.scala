@@ -110,18 +110,6 @@ class PreviewPageAboutYouContentSpec extends Specification {
     val nationalityPage = addressPage submitPage()
     nationalityPage fillPageWith claim
 
-    var timeOutsideUk = nationalityPage submitPage()
-    val timeOutsideData = ClaimScenarioFactory.abroadForMoreThan52WeeksConfirmationYes()
-    timeOutsideUk fillPageWith timeOutsideData
-
-    val periodAbroadPage = timeOutsideUk submitPage()
-    val periodAbroadData = ClaimScenarioFactory.abroadForMoreThan52WeeksTrip1()
-    periodAbroadPage fillPageWith periodAbroadData
-
-    timeOutsideUk = periodAbroadPage submitPage()
-    timeOutsideUk fillPageWith ClaimScenarioFactory.abroadForMoreThan52WeeksConfirmationNo()
-    timeOutsideUk submitPage()
-
     val paymentFromAbroadPage = GOtherEEAStateOrSwitzerlandPage(context)
     paymentFromAbroadPage goToThePage ()
     paymentFromAbroadPage fillPageWith ClaimScenarioFactory.otherEuropeanEconomicArea()
