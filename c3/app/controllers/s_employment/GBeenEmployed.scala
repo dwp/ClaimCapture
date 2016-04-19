@@ -26,8 +26,9 @@ object GBeenEmployed extends Controller with CachedClaim with Navigable with I18
 
   private def presentConditionally(c: => Either[Result,ClaimResult])(implicit claim: Claim, lang:Lang, request: Request[AnyContent]): Either[Result,ClaimResult] = {
     val previousYourIncome = if (claim.navigation.beenInPreview)claim.checkYAnswers.previouslySavedClaim.get.questionGroup[YourIncomes].get else YourIncomes()
+    val returnToSummaryAnchor = if (claim.navigation.beenInPreview)claim.checkYAnswers.returnToSummaryAnchor else ""
     claim.questionGroup[YourIncomes].collect {
-      case e: YourIncomes if e.beenEmployedSince6MonthsBeforeClaim == yes && (previousYourIncome.beenEmployedSince6MonthsBeforeClaim == no || previousYourIncome.beenEmployedSince6MonthsBeforeClaim == "")=> c
+      case e: YourIncomes if (e.beenEmployedSince6MonthsBeforeClaim == yes && (previousYourIncome.beenEmployedSince6MonthsBeforeClaim == no || previousYourIncome.beenEmployedSince6MonthsBeforeClaim == "")) || returnToSummaryAnchor == "employment_jobs" => c
     }.getOrElse(redirect(lang))
   }
 
