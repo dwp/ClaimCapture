@@ -108,6 +108,20 @@ PREVIEW PAGE STILL TO COMPLETE
       answerText(previewPageModified) mustEqual "Yes"
     }
     */
+
+    /* Tests from 52 weeks page which is dropped
+        """remember "no more 52 weeks trips" upon stating "52 weeks trips" and returning""" in new WithJsBrowser with PageObjects {
+    }
+
+    "Trip details must not be visible when time abroad page is displayed" in new WithJsBrowser with PageObjects {
+    }
+
+    "Trip details must be visible when returning back to the time abroad page" in new WithJsBrowser with PageObjects {
+    }
+
+    "Modify time outside from preview page" in new WithJsBrowser with PageObjects {
+    }
+     */
   }
   section("integration", models.domain.AboutYou.id)
 

@@ -42,23 +42,21 @@ object SaveForLaterScenarioFactory {
     claim
   }
 
-  def FrenchLivesInFrance() = {
+  def French() = {
     val claim=WithEmailSet()
     claim.AboutYouNationalityAndResidencyNationality = "Another nationality"
     claim.AboutYouNationalityAndResidencyActualNationality = "French"
-    claim.AboutYouNationalityAndResidencyResideInUK = "No"
-    claim.AboutYouNationalityAndResidencyNormalResidency = "France"
-
+    claim.AboutYouNationalityAndResidencyAlwaysLivedInUK = "Yes"
+    claim.AboutYouNationalityAndResidencyTrip52Weeks = "No"
     claim
   }
 
-  def SpanishLivesInSpain() = {
+  def Spanish() = {
     val claim=WithEmailSet()
     claim.AboutYouNationalityAndResidencyNationality = "Another nationality"
     claim.AboutYouNationalityAndResidencyActualNationality = "Spanish"
-    claim.AboutYouNationalityAndResidencyResideInUK = "No"
-    claim.AboutYouNationalityAndResidencyNormalResidency = "Spain"
-
+    claim.AboutYouNationalityAndResidencyAlwaysLivedInUK = "Yes"
+    claim.AboutYouNationalityAndResidencyTrip52Weeks = "No"
     claim
   }
 

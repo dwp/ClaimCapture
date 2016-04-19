@@ -63,7 +63,7 @@ class GNationalityAndResidencySaveSpec extends Specification {
 
       nationalityPage.source must contain("Save for later")
       nationalityPage.source must contain("id=\"save\"")
-      nationalityPage fillPageWith SaveForLaterScenarioFactory.SpanishLivesInSpain()
+      nationalityPage fillPageWith SaveForLaterScenarioFactory.Spanish()
       val savePage=nationalityPage.clickLinkOrButton("#save")
 
       savePage.url mustEqual GSaveForLaterSavePage.url
@@ -73,7 +73,6 @@ class GNationalityAndResidencySaveSpec extends Specification {
 
       val nationalityPageAgain=savePage.clickLinkOrButton("#continue")
       nationalityPageAgain.url mustEqual GNationalityAndResidencyPage.url
-      nationalityPageAgain.source must contain("Spain")
       nationalityPageAgain.source must contain("Spanish")
     }
   }
