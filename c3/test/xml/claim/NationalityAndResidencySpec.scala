@@ -63,8 +63,8 @@ class NationalityAndResidencySpec extends Specification {
 
       nrFromXml.nationality mustEqual("Another nationality")
       nrFromXml.actualnationality.get mustEqual("French")
-      nrFromXml.alwaysLivedInUK mustEqual("No")
-      nrFromXml.liveInUKNow.get mustEqual("Yes")
+      nrFromXml.alwaysLivedInUK mustEqual("no")
+      nrFromXml.liveInUKNow.get mustEqual("yes")
       nrFromXml.arrivedInUK.get mustEqual("less")
       nrFromXml.arrivedInUKDate.get.`dd-MM-yyyy` mustEqual("10-03-2016")
     }

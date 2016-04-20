@@ -9,7 +9,7 @@
 @import models.domain.NationalityAndResidency
 @import utils.CommonValidation
 @import views.html.helper.dates._
-@import views.html.s_about_you.main
+@import views.html.s_nationality_and_residency.main
 
 @nationalityList = @{
     Seq(
@@ -28,7 +28,7 @@
     )
 }
 
-@main(messages("s2.g4") + " - " + messages("s2.longName")) {
+@main(messages("s2b.g1") + " - " + messages("s2b.longName"), "s2b.g1") {
     @errorsSummary(nationalityAndResidencyForm)
 
     @form(action = controllers.s_about_you.routes.GNationalityAndResidency.submit, 'role -> "form") {

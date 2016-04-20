@@ -46,7 +46,7 @@ object Residency extends XMLComponent{
       actualnationality = createStringOptional((residency \ "ActualNationality" \ "Answer").text),
       alwaysLivedInUK = createYesNoText((residency \ "AlwaysLivedInUK" \ "Answer").text),
       liveInUKNow = createYesNoTextOptional((residency \ "LiveInUKNow" \ "Answer").text),
-      arrivedInUK = createYesNoTextOptional((residency \ "ArrivedInUK" \ "Answer").text),
+      arrivedInUK = createStringOptional((residency \ "ArrivedInUK" \ "Answer").text),
       arrivedInUKDate = createFormattedDateOptional((residency \ "ArrivedInUKDate" \ "Answer").text),
       trip52weeks = createYesNoText((residency \ "TimeOutsideGBLast3Years" \ "Answer").text),
       tripDetails = createStringOptional((residency \ "TripDetails" \ "Answer").text)

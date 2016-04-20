@@ -7,10 +7,10 @@
 @import play.api.i18n.Messages
 @import views.html.helper.base._
 @implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
-@import views.html.s_about_you.main
+@import views.html.s_nationality_and_residency.main
 
 
-    @main(messages("s2.g7") + " - " + messages("s2.longName")) {
+    @main(messages("s2b.g2") + " - " + messages("s2b.longName"), "s2b.g2") {
         @errorsSummary(otherEEAStateOrSwitzerlandForm)
 
         @form(action = controllers.s_about_you.routes.GOtherEEAStateOrSwitzerland.submit, 'role -> "form") {

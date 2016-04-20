@@ -55,7 +55,7 @@ object GNationalityAndResidency extends Controller with CachedClaim with Navigab
 
   def present = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
     track(NationalityAndResidency) { implicit claim =>
-      Ok(views.html.s_about_you.g_nationalityAndResidency(form.fill(NationalityAndResidency)))
+      Ok(views.html.s_nationality_and_residency.g_nationalityAndResidency(form.fill(NationalityAndResidency)))
     }
   }
 
@@ -68,7 +68,7 @@ object GNationalityAndResidency extends Controller with CachedClaim with Navigab
           .replaceError("", "liveInUKNow.required", FormError("liveInUKNow", errorRequired))
           .replaceError("", "arrivedInUK.required", FormError("arrivedInUK", errorRequired))
           .replaceError("", "arrivedInUKDate.required", FormError("arrivedInUKDate", errorRequired))
-        BadRequest(views.html.s_about_you.g_nationalityAndResidency(formWithErrorsUpdate))
+        BadRequest(views.html.s_nationality_and_residency.g_nationalityAndResidency(formWithErrorsUpdate))
       },
       nationalityAndResidency => {
         claim.update(nationalityAndResidency) -> Redirect(routes.GOtherEEAStateOrSwitzerland.present())
