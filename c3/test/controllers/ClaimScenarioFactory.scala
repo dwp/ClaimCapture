@@ -54,7 +54,8 @@ object ClaimScenarioFactory {
     claim.AboutYouSurname = "Appleseed"
     claim.AboutYouDateOfBirth = "03/04/1950"
     claim.AboutYouNationalityAndResidencyNationality = "British"
-    claim.AboutYouNationalityAndResidencyResideInUK = "Yes"
+    claim.AboutYouNationalityAndResidencyAlwaysLivedInUK = "Yes"
+    claim.AboutYouNationalityAndResidencyTrip52Weeks = "No"
     claim.AboutYouNINO = "AB123456C"
     claim.AboutYouAddress = "101 Clifton Street&Blackpool"
     claim.AboutYouPostcode = "FY1 2RW"
@@ -120,12 +121,10 @@ object ClaimScenarioFactory {
     claim.AboutYouPostcode = "SE1 6EH"
     claim.HowWeContactYou = "01253111111"
     claim.AboutYouWantsEmailContact = "No"
-    // Claim date
-    //claim.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
-    // Nationality and Residency
     claim.AboutYouNationalityAndResidencyNationality = "British"
-    // Abroad For More Than 52 Weeks
-    claim.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "no"
+    claim.AboutYouNationalityAndResidencyAlwaysLivedInUK = "yes"
+    claim.AboutYouNationalityAndResidencyTrip52Weeks = "yes"
+    claim.AboutYouNationalityAndResidencyTripDetails = "Lived in France for 18 months"
 
     // Other EEA State or Switzerland
     claim.OtherMoneyOtherEEAGuardQuestion = "yes"
