@@ -2,7 +2,7 @@ package controllers.your_income
 
 import controllers.mappings.Mappings
 import controllers.mappings.Mappings._
-import models.domain.{YourIncomes, Claim, StatutorySickPay}
+import models.domain.{StatutorySickPay, YourIncomes, Claim}
 import models.view.ClaimHandling._
 import models.view.{CachedClaim, Navigable}
 import play.api.Play._
@@ -53,7 +53,7 @@ object GStatutorySickPay extends Controller with CachedClaim with Navigable with
   def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     val previousYourIncome = if (claim.navigation.beenInPreview)claim.checkYAnswers.previouslySavedClaim.get.questionGroup[YourIncomes].get else YourIncomes()
     val yourIncomes = claim.questionGroup[YourIncomes].get
-    if ((previousYourIncome.yourIncome_sickpay != yourIncomes.yourIncome_sickpay && yourIncomes.yourIncome_sickpay.isDefined || !request.flash.isEmpty) && models.domain.YourIncomeStatutorySickPay.visible) c
+    if (((previousYourIncome.yourIncome_sickpay != yourIncomes.yourIncome_sickpay || claim.questionGroup[StatutorySickPay].getOrElse(StatutorySickPay()).whoPaidYouThisPay.isEmpty) && yourIncomes.yourIncome_sickpay.isDefined || !request.flash.isEmpty) && models.domain.YourIncomeStatutorySickPay.visible) c
     else claim -> Redirect(controllers.your_income.routes.GStatutoryMaternityPaternityAdoptionPay.present())
   }
 

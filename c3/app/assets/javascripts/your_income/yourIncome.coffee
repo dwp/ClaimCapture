@@ -32,12 +32,13 @@ window.updateNextLabel = (o) ->
     fosteringAllowance = $("#" + o.fostering).is ":checked"
     directPayment = $("#" + o.directPayment).is ":checked"
     otherPayments = $("#" + o.otherPayments).is ":checked"
-    statutorySickPayChanged = !bPreviousStatutorySickPay && statutorySickPay
-    statutorySickChanged = !bPreviousStatutoryPay && statutoryPay
-    fosteringAllowanceChanged = !bPreviousFosteringAllowance && fosteringAllowance
-    directPaymentChanged = !bPreviousDirectPayment && directPayment
-    otherPaymentsChanged = !bPreviousOtherPayments && otherPayments
-    !(statutorySickPayChanged || statutorySickChanged || fosteringAllowanceChanged || directPaymentChanged || otherPaymentsChanged)
+    statutorySickPayChanged = (!bPreviousStatutorySickPay && statutorySickPay) || (statutorySickPay && o.statutorySickPayData)
+    statutorySickChanged = (!bPreviousStatutoryPay && statutoryPay) || (statutoryPay && o.statutoryPayData)
+    fosteringAllowanceChanged = (!bPreviousFosteringAllowance && fosteringAllowance) || (fosteringAllowance && o.fosteringAllowanceData)
+    directPaymentChanged = (!bPreviousDirectPayment && directPayment) || (directPayment && o.directPaymentData)
+    otherPaymentsChanged = (!bPreviousOtherPayments && otherPayments) || (otherPayments && o.otherPaymentsData)
+    noneSelected = !(statutorySickPay || statutoryPay || fosteringAllowance || directPayment || otherPayments || $("#" + o.noPayments).is ":checked")
+    !(statutorySickPayChanged || statutorySickChanged || fosteringAllowanceChanged || directPaymentChanged || otherPaymentsChanged || noneSelected)
 
   #Definitions end, starts execution
   changeText()

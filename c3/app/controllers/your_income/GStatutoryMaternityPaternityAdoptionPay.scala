@@ -54,7 +54,7 @@ object GStatutoryMaternityPaternityAdoptionPay extends Controller with CachedCla
   def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     val previousYourIncome = if (claim.navigation.beenInPreview)claim.checkYAnswers.previouslySavedClaim.get.questionGroup[YourIncomes].get else YourIncomes()
     val yourIncomes = claim.questionGroup[YourIncomes].get
-    if ((previousYourIncome.yourIncome_patmatadoppay != yourIncomes.yourIncome_patmatadoppay && yourIncomes.yourIncome_patmatadoppay.isDefined || !request.flash.isEmpty) && models.domain.YourIncomeStatutoryMaternityPaternityAdoptionPay.visible) c
+    if (((previousYourIncome.yourIncome_patmatadoppay != yourIncomes.yourIncome_patmatadoppay || claim.questionGroup[StatutoryMaternityPaternityAdoptionPay].getOrElse(StatutoryMaternityPaternityAdoptionPay()).whoPaidYouThisPay.isEmpty) && yourIncomes.yourIncome_patmatadoppay.isDefined || !request.flash.isEmpty) && models.domain.YourIncomeStatutoryMaternityPaternityAdoptionPay.visible) c
     else claim -> Redirect(controllers.your_income.routes.GFosteringAllowance.present())
   }
 

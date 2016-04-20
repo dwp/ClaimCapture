@@ -5,9 +5,7 @@
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
-@import models.domain.YourIncomes
-@import models.domain.Jobs
-@import models.domain.YourIncome
+@import models.domain._
 
 @previousClaimEmployment = @{
     claim.checkYAnswers.previouslySavedClaim.get.questionGroup[YourIncomes].getOrElse(YourIncomes())
@@ -85,6 +83,11 @@
                         ,directPayment: "@CarersCrypto.encryptAES("yourIncome_directpay")"
                         ,otherPayments: "@CarersCrypto.encryptAES("yourIncome_anyother")"
                         ,noPayments: "@CarersCrypto.encryptAES("yourIncome_none")"
+                        ,statutorySickPayData:@{claim.questionGroup[StatutorySickPay].getOrElse(StatutorySickPay()).whoPaidYouThisPay.isEmpty}
+                        ,statutoryPayData:@{claim.questionGroup[StatutoryMaternityPaternityAdoptionPay].getOrElse(StatutoryMaternityPaternityAdoptionPay()).whoPaidYouThisPay.isEmpty}
+                        ,fosteringAllowanceData:@{claim.questionGroup[FosteringAllowance].getOrElse(FosteringAllowance()).whoPaidYouThisPay.isEmpty}
+                        ,directPaymentData:@{claim.questionGroup[DirectPayment].getOrElse(DirectPayment()).whoPaidYouThisPay.isEmpty}
+                        ,otherPaymentsData:@{claim.questionGroup[OtherPayments].getOrElse(OtherPayments()).otherPaymentsInfo.isEmpty}
                     })
             }
         })
