@@ -44,11 +44,11 @@ object Residency extends XMLComponent{
     models.domain.NationalityAndResidency(
       nationality = (residency \ "Nationality" \ "Answer").text,
       actualnationality = createStringOptional((residency \ "ActualNationality" \ "Answer").text),
-      alwaysLivedInUK = (residency \ "AlwaysLivedInUK" \ "Answer").text,
-      liveInUKNow = createStringOptional((residency \ "LiveInUKNow" \ "Answer").text),
-      arrivedInUK = createStringOptional((residency \ "ArrivedInUK" \ "Answer").text),
+      alwaysLivedInUK = createYesNoText((residency \ "AlwaysLivedInUK" \ "Answer").text),
+      liveInUKNow = createYesNoTextOptional((residency \ "LiveInUKNow" \ "Answer").text),
+      arrivedInUK = createYesNoTextOptional((residency \ "ArrivedInUK" \ "Answer").text),
       arrivedInUKDate = createFormattedDateOptional((residency \ "ArrivedInUKDate" \ "Answer").text),
-      trip52weeks = (residency \ "TimeOutsideGBLast3Years" \ "Answer").text,
+      trip52weeks = createYesNoText((residency \ "TimeOutsideGBLast3Years" \ "Answer").text),
       tripDetails = createStringOptional((residency \ "TripDetails" \ "Answer").text)
     )
   }

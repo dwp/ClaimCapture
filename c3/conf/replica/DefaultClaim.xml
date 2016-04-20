@@ -65,20 +65,10 @@
       <LiveSameAddress><QuestionLabel>Do they live at the same address as you?</QuestionLabel><Answer>No</Answer></LiveSameAddress>
     </Caree>
       <Residency>
-      <Nationality><QuestionLabel>What is your nationality?</QuestionLabel><Answer>British</Answer></Nationality>
-
-      
-
-      <NormallyLiveInGB><QuestionLabel>Do you normally live in England, Scotland or Wales?</QuestionLabel><Answer>Yes</Answer></NormallyLiveInGB>
-
-      
-
-      <PeriodAbroad>
-        <TimeOutsideGBLast3Years><QuestionLabel>Have you been away from England, Scotland or Wales for more than 52 weeks in the 3 years before your claim date?</QuestionLabel><Answer>No</Answer></TimeOutsideGBLast3Years>
-        
-      </PeriodAbroad>
-
-    </Residency>
+        <Nationality><QuestionLabel>What is your nationality?</QuestionLabel><Answer>British</Answer></Nationality>
+        <AlwaysLivedInUK><QuestionLabel>Have you always lived in UK?</QuestionLabel><Answer>Yes</Answer></AlwaysLivedInUK>
+        <TimeOutsideGBLast3Years><QuestionLabel>Have you been abroad more than 52 weeks?</QuestionLabel><Answer>No</Answer></TimeOutsideGBLast3Years>
+      </Residency>
       <CourseOfEducation><QuestionLabel>Have you been on a course of education since your claim date?</QuestionLabel><Answer>Yes</Answer></CourseOfEducation>
       <FullTimeEducation>
         <CourseDetails>
