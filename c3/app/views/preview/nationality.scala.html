@@ -1,0 +1,111 @@
+@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
+
+@import models.domain._
+@import models.yesNo._
+@import helper._
+@import controllers.mappings.Mappings._
+
+@yourDetails = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}
+@nationalityAndResidency = @{
+    claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(""))
+}
+@nationality = @{
+    nationalityAndResidency.actualnationality match {
+        case Some(n) => n
+        case _ => nationalityAndResidency.nationality
+    }
+}
+@alwayslivedinuk = @{
+    nationalityAndResidency.alwaysLivedInUK match {
+        case `yes` => messages("label.yes")
+        case _ => messages("label.no")
+    }
+}
+@showliveinuknow = @{
+    nationalityAndResidency.liveInUKNow match {
+        case Some(_) => true
+        case _ => false
+    }
+}
+@liveinuknow = @{
+    nationalityAndResidency.liveInUKNow match {
+        case Some(`yes`) => messages("label.yes")
+        case _ => messages("label.no")
+    }
+}
+@showarrivedinuk = @{
+    nationalityAndResidency.arrivedInUK match {
+        case Some(_) => true
+        case _ => false
+    }
+}
+@arrivedinuk = @{
+    nationalityAndResidency.arrivedInUK match {
+        case Some(NationalityAndResidency.lessThan3Years) => messages("arrivedInUK.less")
+        case _ => messages("arrivedInUK.more")
+    }
+}
+@showarrivedinukdate = @{
+    nationalityAndResidency.arrivedInUKDate match {
+        case Some(_) => true
+        case _ => false
+    }
+}
+@arrivedinukdate = @{
+    nationalityAndResidency.arrivedInUKDate match {
+        case Some(d) => d.`dd month, yyyy`
+        case _ => ""
+    }
+}
+@abroadValue = @{
+    nationalityAndResidency.trip52weeks match {
+        case `yes` => messages("label.yes") + " - " + messages("detailsProvided.simple")
+        case _ => messages("label.no")
+    }
+}
+@otherEEA = @{claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())}
+@showEEA = @{
+    otherEEA.guardQuestion.answer == `yes`
+}
+@eeaGuardQuestionValue = @{
+    otherEEA.guardQuestion.answer match {
+        case `yes` => messages("label.yes")
+        case _ => messages("label.no")
+    }
+}
+@benefitsFromEEAValue = @{
+    otherEEA.guardQuestion.field1 match {
+        case Some(YesNoWith1MandatoryFieldOnYes(`yes`, _)) => messages("label.yes") + " - " + messages("detailsProvided.simple")
+        case _ => messages("label.no")
+    }
+}
+@workingForEEAValue = @{
+    otherEEA.guardQuestion.field2 match {
+        case Some(YesNoWith1MandatoryFieldOnYes(`yes`, _)) => messages("label.yes") + " - " + messages("detailsProvided.simple")
+        case _ => messages("label.no")
+    }
+}
+
+@content = {
+    @{/** Link to nationality does not anchor to question as javascript causes conflict with page height **/}
+    @fieldWithLink("about_you_nationality", "yourNationality", nationality, elementId = Some("nationality"))
+    @fieldWithLink("about_you_alwaysliveinuk", "alwaysLivedInUK", alwayslivedinuk, elementId = Some("alwaysLivedInUK"))
+    @if(showliveinuknow){
+        @fieldWithLink("about_you_liveinuknow", "liveInUKNow", liveinuknow, elementId = Some("liveInUKNow"))
+    }
+    @if(showarrivedinuk){
+        @fieldWithLink("about_you_arrivedinuk", "arrivedInUK", arrivedinuk, elementId = Some("arrivedInUK"))
+    }
+    @if(showarrivedinukdate){
+        @fieldWithLink("about_you_arrivedinukdate", "arrivedInUKDate", arrivedinukdate, elementId = Some("arrivedInUKDate"))
+    }
+    @fieldWithLink("about_you_trip52weeks", "trip52weeks", abroadValue, elementId = Some("trip52weeks"))
+    @fieldWithLink("about_you_eeaGuardQuestion", "eeaGuardQuestion.answer", eeaGuardQuestionValue, elementId = Some("eeaGuardQuestion_answer"))
+    @if(showEEA) {
+        @fieldWithLink("about_you_benefitsFromEEA", "preview.benefitsFromEEA", benefitsFromEEAValue, elementId = Some("eeaGuardQuestion_benefitsFromEEADetails_answer"))
+        @fieldWithLink("about_you_workingForEEA", "preview.workingForEEA", workingForEEAValue, elementId = Some("eeaGuardQuestion_workingForEEADetails_answer"))
+    }
+}
+
+@accordion(label = messages("s2b.longName"), openLabel = "open-nationality", closeLabel = "close-nationality", content = content, 'track -> true)
+
