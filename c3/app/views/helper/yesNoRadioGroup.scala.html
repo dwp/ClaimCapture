@@ -1,7 +1,6 @@
 @(field: play.api.data.Field, args: (Symbol, Any)*)(implicit request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
 @import views.html.helper._
-@import play.api.i18n.Messages
 
 @defaultValues = @{Seq("yes" -> messages("label.yes"), "no" -> messages("label.no"))}
 @isAllowance = @{

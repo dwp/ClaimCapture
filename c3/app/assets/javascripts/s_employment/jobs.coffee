@@ -73,7 +73,7 @@ window.displayWarning = (answer_yes, answer_no, testMode) ->
     if( $("#maxEmpWarningWrap").length >0)
       $("#maxEmpWarningWrap").hide()
 
-window.updateNextLabel = (beenEmployed, answer_yes, answer_no, beenInPreview, textNext, textReturn) ->
+window.updateNextLabel = (beenEmployed, answer_yes, answer_no, beenInPreview, employmentChanged, textNext, textReturn) ->
   changeText = ->
     button = $('button[value="next"]')
     if goToPreview()
@@ -82,7 +82,7 @@ window.updateNextLabel = (beenEmployed, answer_yes, answer_no, beenInPreview, te
       button.text(textNext)
 
   goToPreview = ->
-    $("input[name=" + beenEmployed+"]:checked").val() == "no" && beenInPreview
+    $("input[name=" + beenEmployed+"]:checked").val() == "no" && beenInPreview && !employmentChanged
 
   changeText()
 

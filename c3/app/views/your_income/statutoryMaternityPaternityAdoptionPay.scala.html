@@ -44,7 +44,8 @@
                     'track -> true,
                     'ignoreOptional -> true)
 
-                @yesNoRadioGroup(currentForm("stillBeingPaidThisPay_paternityMaternityAdoption"))
+                @yesNoRadioGroup(currentForm("stillBeingPaidThisPay_paternityMaternityAdoption"),
+                    'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")))
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(

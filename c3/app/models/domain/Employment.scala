@@ -132,7 +132,7 @@ object JobDetails extends QuestionGroup.Identifier {
 case class LastWage(iterationID: String = "",
                     oftenGetPaid: PaymentFrequency = PaymentFrequency(),
                     whenGetPaid: String = "",
-                    lastPaidDate: DayMonthYear,
+                    lastPaidDate: DayMonthYear = DayMonthYear(None,None,None),
                     grossPay: String = "",
                     payInclusions: Option[String] = None,
                     sameAmountEachTime: String = "",

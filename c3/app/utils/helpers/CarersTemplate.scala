@@ -24,7 +24,7 @@ case class CurrencyTemplate(lang: Lang) {
 }
 
 case class EligibilityTemplate(lang: Lang) {
-  implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.carersTemplate.f(_)(lang))
+  implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.eligibilityTemplate.f(_)(lang))
 }
 
 case class CheckboxTemplate(lang: Lang) {
