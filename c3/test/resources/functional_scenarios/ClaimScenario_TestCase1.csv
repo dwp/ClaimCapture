@@ -22,8 +22,8 @@ About You,Your contact details,Please confirm your email,AboutYouMailConfirmatio
 Claim Date,Your claim date,"When do you want your Carer's Allowance claim to start?",ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart,21/07/2013
 Claim Date,Your claim date,Were you caring for the person for more than 35 hours a week before this date?,ClaimDateDidYouCareForThisPersonfor35Hours,Yes
 Claim Date,Your claim date,When did you begin caring?,ClaimDateWhenDidYouStartToCareForThisPerson,21/01/2012
-About You,Nationality and where you live,What is your nationality?,AboutYouNationalityAndResidencyNationality,Another nationality
-About You,Nationality and where you live,Enter your nationality,AboutYouNationalityAndResidencyActualNationality,French
+About You,Nationality and where you live,What is your nationality?,AboutYouNationalityAndResidencyNationality,British
+About You,Nationality and where you live,Enter your nationality,AboutYouNationalityAndResidencyActualNationality,
 About You,Nationality and where you live,Always lived in UK,AboutYouNationalityAndResidencyAlwaysLivedInUK,Yes
 About You,Nationality and where you live,Live in UK now,AboutYouNationalityAndResidencyLiveInUKNow,
 About You,Nationality and where you live,Arrived in UK,AboutYouNationalityAndResidencyArrivedInUK,
