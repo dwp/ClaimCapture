@@ -22,7 +22,7 @@ object ApplicationBuild extends Build {
     "com.typesafe.akka" %% "akka-testkit" % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-agent" % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-remote" % "2.3.9" % "test" withSources() withJavadoc(),
-    "gov.dwp.carers" %% "xmlcommons" % "7.19-SNAPSHOT",
+    "gov.dwp.carers" %% "xmlcommons" % "7.20-SNAPSHOT",
     "gov.dwp.carers" %% "carerscommon" % "7.12-SNAPSHOT",
     "gov.dwp.carers" %% "wscommons" % "3.0",
     "org.postgresql" % "postgresql" % "9.3-1103-jdbc41",
