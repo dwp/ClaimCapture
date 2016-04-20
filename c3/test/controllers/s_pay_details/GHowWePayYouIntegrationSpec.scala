@@ -4,7 +4,7 @@ import org.specs2.mutable._
 import play.api.Logger
 import utils.WithBrowser
 import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
-import utils.pageobjects.s_about_you.{GNationalityAndResidencyPage, GAbroadForMoreThan52WeeksPage, GOtherEEAStateOrSwitzerlandPage}
+import utils.pageobjects.s_about_you.{GNationalityAndResidencyPage, GOtherEEAStateOrSwitzerlandPage}
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_pay_details.GHowWePayYouPage
 import utils.pageobjects.s_information.GAdditionalInfoPage
@@ -131,11 +131,7 @@ class GHowWePayYouIntegrationSpec extends Specification {
       nationalityAndResidencyPage fillPageWith claim
       nationalityAndResidencyPage submitPage()
 
-      val timeOutSideUKPage = nationalityAndResidencyPage goToPage new GAbroadForMoreThan52WeeksPage(context, iteration = 1)
-      timeOutSideUKPage fillPageWith claim
-      timeOutSideUKPage submitPage()
-
-      val eeaPage = timeOutSideUKPage goToPage new GOtherEEAStateOrSwitzerlandPage(context)
+      val eeaPage = nationalityAndResidencyPage goToPage new GOtherEEAStateOrSwitzerlandPage(context)
       eeaPage fillPageWith claim
       eeaPage submitPage()
 

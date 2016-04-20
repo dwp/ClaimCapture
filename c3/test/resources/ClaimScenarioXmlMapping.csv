@@ -22,16 +22,12 @@ Claim Date,Your claim date,Were you caring for the person for more than 35 hours
 Claim Date,Your claim date,When did you begin caring?,ClaimDateWhenDidYouStartToCareForThisPerson,Claimant>DateStartCaring>Answer
 About You,Nationality and where you live,What is your nationality?,AboutYouNationalityAndResidencyNationality,Residency>Nationality>Answer
 About You,Nationality and where you live,Enter your nationality,AboutYouNationalityAndResidencyActualNationality,Residency>ActualNationality>Answer
-About You,Nationality and where you live,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK,Residency>NormallyLiveInGB>Answer
-About You,Nationality and where you live,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency,Residency>CountryNormallyLive>Answer
-About You,When you went abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime,Residency>PeriodAbroad>TimeOutsideGBLast3Years>Answer
-About You,Details of trips abroad for more than 52 weeks,Date you left,DateYouLeftGB,Residency>PeriodAbroad>Period>DateFrom>Answer
-About You,Details of trips abroad for more than 52 weeks,Date you returned,DateYouReturnedToGB,Residency>PeriodAbroad>Period>DateTo>Answer
-About You,Details of trips abroad for more than 52 weeks,Which country did you go to?,WhereDidYouGo,Residency>PeriodAbroad>Country>Answer
-About You,Details of trips abroad for more than 52 weeks,Reason for being there?,WhyDidYou,Residency>PeriodAbroad>Reason>Answer
-About You,Details of trips abroad for more than 52 weeks,Reason for being there?Other,WhyDidYouOther,Residency>PeriodAbroad>Reason>Other
-About You,Details of trips abroad for more than 52 weeks,Was the person you care for with you?,PersonWithYou,Residency>PeriodAbroad>CareePresent>Answer
-About You,Details of trips abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales at any other time in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime,Residency>PeriodAbroad>TimeOutsideGBLast3Years>Answer
+About You,Nationality and where you live,Always lived in UK,AboutYouNationalityAndResidencyAlwaysLivedInUK,Residency>AlwaysLivedInUK>Answer
+About You,Nationality and where you live,Live in UK now,AboutYouNationalityAndResidencyLiveInUKNow,Residency>LiveInUKNow>Answer
+About You,Nationality and where you live,Arrived in UK,AboutYouNationalityAndResidencyArrivedInUK,Residency>ArrivedInUK>Answer
+About You,Nationality and where you live,Arrived in UK Date,AboutYouNationalityAndResidencyArrivedInUKDate,Residency>ArrivedInUKDate>Answer
+About You,Nationality and where you live,Out of UK more than 52 weeks,AboutYouNationalityAndResidencyTrip52Weeks,Residency>TimeOutsideGBLast3Years>Answer
+About You,Nationality and where you live,Out of UK more than 52 weeks trip details,AboutYouNationalityAndResidencyTripDetails,Residency>TripDetails>Answer
 About You,Other European Economic Area (EEA) states or Switzerland,"Have you and your close family claimed or been paid any benefits or pensions from any of these countries since your claim date?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,OtherBenefits>EEA>EEAReceivePensionsBenefits>Answer
 About You,Other European Economic Area (EEA) states or Switzerland,"Have you or your close family worked or paid national insurance in any of these countries since your claim date?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,OtherBenefits>EEA>EEAWorkingInsurance>Answer
 About You,Other European Economic Area (EEA) states or Switzerland,"Give details",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEADetails,OtherBenefits>EEA>EEAReceivePensionsBenefitsDetails>Answer

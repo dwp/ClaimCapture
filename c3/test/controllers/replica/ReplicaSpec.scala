@@ -20,7 +20,7 @@ class ReplicaSpec extends Specification {
       val sections = browser.$(".section")
       val links = browser.$("a")
       sections.size mustEqual (15)
-      links.size mustEqual (32)
+      links.size mustEqual (31)
     }
 
     // We need to ensure that if any changes are made to c3 application with new urls, that the replica is considered.

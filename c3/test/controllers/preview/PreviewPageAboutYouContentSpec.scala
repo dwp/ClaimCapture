@@ -30,7 +30,8 @@ class PreviewPageAboutYouContentSpec extends Specification {
       source must contain("10 October, 2016")
       source must contain("Your nationality")
       source must contain("British")
-      source must contain("Do you normally live in England, Scotland or Wales?")
+      source must contain("Have you always lived in England, Scotland or Wales?")
+      source must contain("Have you been away from England, Scotland or Wales for more than 52 weeks")
       source must contain("Yes - Details provided")
       source must contain("Have you or anyone in your close family claimed or been paid any benefits or pensions from an EEA country since your claim date?")
       source must contain("Yes - Details provided")
@@ -77,8 +78,6 @@ class PreviewPageAboutYouContentSpec extends Specification {
       source must contain("10 October, 2016")
       source must contain("Your nationality")
       source must contain("British")
-      source must contain("Do you normally live in England, Scotland or Wales?")
-      source must contain("Yes - Details provided")
       source must contain("Have you or anyone in your close family claimed or been paid any benefits or pensions from an EEA country since your claim date?")
       source must contain("Yes - Details provided")
       source must contain("Have you or anyone in your close family worked or paid national insurance in an EEA country since your claim date?")
@@ -109,18 +108,6 @@ class PreviewPageAboutYouContentSpec extends Specification {
 
     val nationalityPage = addressPage submitPage()
     nationalityPage fillPageWith claim
-
-    var timeOutsideUk = nationalityPage submitPage()
-    val timeOutsideData = ClaimScenarioFactory.abroadForMoreThan52WeeksConfirmationYes()
-    timeOutsideUk fillPageWith timeOutsideData
-
-    val periodAbroadPage = timeOutsideUk submitPage()
-    val periodAbroadData = ClaimScenarioFactory.abroadForMoreThan52WeeksTrip1()
-    periodAbroadPage fillPageWith periodAbroadData
-
-    timeOutsideUk = periodAbroadPage submitPage()
-    timeOutsideUk fillPageWith ClaimScenarioFactory.abroadForMoreThan52WeeksConfirmationNo()
-    timeOutsideUk submitPage()
 
     val paymentFromAbroadPage = GOtherEEAStateOrSwitzerlandPage(context)
     paymentFromAbroadPage goToThePage ()

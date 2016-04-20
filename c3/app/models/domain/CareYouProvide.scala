@@ -8,7 +8,7 @@ import models.yesNo.{YesNoMandWithAddress, RadioWithText, YesNoWithDate}
 import controllers.Iteration.{Identifier => IterationID}
 
 case object CareYouProvide extends Section.Identifier {
-  val id = "s5"
+  val id = "s6"
 }
 
 case class TheirPersonalDetails(title: String = "",

@@ -9,6 +9,7 @@ object SectionsManager {
     ThirdParty,
     YourClaimDate,
     AboutYou,
+    NationalityAndResidencySection,
     YourPartner,
     CareYouProvide,
     Breaks,

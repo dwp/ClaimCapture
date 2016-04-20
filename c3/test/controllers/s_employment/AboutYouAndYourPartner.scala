@@ -16,11 +16,8 @@ trait AboutYouAndYourPartner {
 
     val nationality = pageClaimDate.submitPage(throwException = true)
     nationality fillPageWith claimDate
-    
-    val abroadForMoreThan52Weeks = nationality.submitPage(throwException = true)
-    abroadForMoreThan52Weeks fillPageWith claimDate
 
-    val otherEAAStateOrSwitzerland = abroadForMoreThan52Weeks.submitPage(throwException = true)
+    val otherEAAStateOrSwitzerland = nationality.submitPage(throwException = true)
     otherEAAStateOrSwitzerland fillPageWith claimDate
 
     val pageMoreAboutYou = otherEAAStateOrSwitzerland.submitPage(throwException = true)

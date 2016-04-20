@@ -14,8 +14,6 @@ object Residency extends XMLComponent{
   def xml(claim: Claim) = {
 
     val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(""))
-    val timeOutsideGBLastThreeYears = claim.questionGroup[AbroadForMoreThan52Weeks].getOrElse(AbroadForMoreThan52Weeks())
-
     val nationality = nationalityAndResidency.nationality match{
       case NationalityAndResidency.anothercountry=> messagesApi("label.anothercountry")
       case _ => messagesApi("label.british")
@@ -23,45 +21,35 @@ object Residency extends XMLComponent{
 
     <Residency>
       {question(<Nationality/>, "nationality", nationality)}
-
       {nationalityAndResidency.nationality match {
         case NationalityAndResidency.anothercountry => question(<ActualNationality/>, "actualnationality.text.label", nationalityAndResidency.actualnationality)
         case _ => NodeSeq.Empty
       }}
 
-      {question(<NormallyLiveInGB/>, "resideInUK.answer", nationalityAndResidency.resideInUK.answer)}
-
-      {nationalityAndResidency.resideInUK.answer match {
-        case Mappings.no => question(<CountryNormallyLive/>, "resideInUK.text.label", nationalityAndResidency.resideInUK.text)
-        case _ => NodeSeq.Empty
-      }}
-
-      <PeriodAbroad>
-        {question(<TimeOutsideGBLast3Years/>, "52Weeks.label", timeOutsideGBLastThreeYears.anyTrips)}
-        {question(<TripsDetails/>, "tripDetails", timeOutsideGBLastThreeYears.tripDetails)}
-      </PeriodAbroad>
-
+      {question(<AlwaysLivedInUK/>, "alwaysLivedInUK", nationalityAndResidency.alwaysLivedInUK)}
+      {question(<LiveInUKNow/>, "liveInUKNow", nationalityAndResidency.liveInUKNow)}
+      {question(<ArrivedInUK/>, "arrivedInUK", nationalityAndResidency.arrivedInUK)}
+      {question(<ArrivedInUKDate/>, "arrivedInUKDate", nationalityAndResidency.arrivedInUKDate)}
+      {question(<TimeOutsideGBLast3Years/>, "trip52weeks", nationalityAndResidency.trip52weeks)}
+      {question(<TripDetails/>, "tripDetails", nationalityAndResidency.tripDetails)}
     </Residency>
   }
 
   def fromXml(xml: NodeSeq, claim: Claim) : Claim = {
-    claim.update(createNationalityFromXml(xml)).update(createPeriodAbroadFromXml(xml))
+    claim.update(createNationalityFromXml(xml))
   }
 
   private def createNationalityFromXml(xml: NodeSeq) = {
-    val nationality = (xml \\ "Residency")
+    val residency = (xml \\ "Residency")
     models.domain.NationalityAndResidency(
-      nationality = (nationality \ "Nationality" \ "Answer").text,
-      actualnationality = createStringOptional((nationality \ "ActualNationality" \ "Answer").text),
-      resideInUK = YesNoWithText(createYesNoText((nationality \ "NormallyLiveInGB" \ "Answer").text), createStringOptional((nationality \ "CountryNormallyLive" \ "Answer").text))
-    )
-  }
-
-  private def createPeriodAbroadFromXml(xml: NodeSeq) = {
-    val period = (xml \\ "PeriodAbroad")
-    models.domain.AbroadForMoreThan52Weeks(
-      anyTrips = createYesNoText((period \ "TimeOutsideGBLast3Years" \ "Answer").text),
-      tripDetails = createStringOptional((period \ "TripsDetails" \ "Answer").text)
+      nationality = (residency \ "Nationality" \ "Answer").text,
+      actualnationality = createStringOptional((residency \ "ActualNationality" \ "Answer").text),
+      alwaysLivedInUK = createYesNoText((residency \ "AlwaysLivedInUK" \ "Answer").text),
+      liveInUKNow = createYesNoTextOptional((residency \ "LiveInUKNow" \ "Answer").text),
+      arrivedInUK = createStringOptional((residency \ "ArrivedInUK" \ "Answer").text),
+      arrivedInUKDate = createFormattedDateOptional((residency \ "ArrivedInUKDate" \ "Answer").text),
+      trip52weeks = createYesNoText((residency \ "TimeOutsideGBLast3Years" \ "Answer").text),
+      tripDetails = createStringOptional((residency \ "TripDetails" \ "Answer").text)
     )
   }
 }
