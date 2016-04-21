@@ -8,7 +8,7 @@ import controllers.mappings.Mappings.yes
 import utils.helpers.OriginTagHelper._
 
 object NationalityAndResidencySection extends Section.Identifier {
-  val id = "s4"
+  val id = "s22"
 }
 case class NationalityAndResidency(nationality: String = "",
                                    actualnationality: Option[String] = None,

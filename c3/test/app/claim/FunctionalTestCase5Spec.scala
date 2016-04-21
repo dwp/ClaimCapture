@@ -31,7 +31,7 @@ class FunctionalTestCase5Spec extends FunctionalTestCommon {
       dateConversion("ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart") +
       addressConversion("AboutYouAddress") + "AboutYouPostcode" +
       "AboutYouNationalityAndResidencyNationality" +
-      "AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1" +
+      "AboutYouNationalityAndResidencyTrip52Weeks" +
       "OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA" +
       "AboutYourPartnerTitle"       + "AboutYourPartnerFirstName" + "AboutYourPartnerFirstName" + "AboutYourPartnerSurname" +
       dateConversion("AboutYourPartnerDateofBirth") +

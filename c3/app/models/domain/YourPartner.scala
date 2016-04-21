@@ -5,7 +5,7 @@ import controllers.mappings.Mappings._
 import models.NationalInsuranceNumber
 
 object YourPartner extends Section.Identifier {
-  val id = "s5"
+  val id = "s4"
 }
 
 case class YourPartnerPersonalDetails(title: Option[String] = None,
