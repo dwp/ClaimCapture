@@ -24,10 +24,12 @@
 						'id-> "selfEmployedNoWrap"
 					)
                     					
-					@yesNoRadioGroup(currentForm("moreThanYearAgo"), 'ignoreOptional-> true)
+					@yesNoRadioGroup(currentForm("moreThanYearAgo"), 'ignoreOptional-> true,
+						'values -> Seq("yes" -> messages("label.yes3"), "no" -> messages("label.no")))
 					@otherDetailPlaceHolder(
 						inputDef = Seq(
-							yesNoRadioGroup(currentForm("haveAccounts"), 'helper-> haveAccountsYesHelperText, 'ignoreOptional-> true),
+							yesNoRadioGroup(currentForm("haveAccounts"), 'helper-> haveAccountsYesHelperText, 'ignoreOptional-> true,
+								'values -> Seq("yes" -> messages("label.yes4"), "no" -> messages("label.no"))),
 							otherDetailPlaceHolder(
 								inputDef = Seq(
 									yesNoRadioGroup(currentForm("knowTradingYear"), 'helperAbove->messages("knowTradingYearHelper"), 'ignoreOptional-> true),
@@ -46,7 +48,8 @@
 					@otherDetailPlaceHolder(
 						inputDef = Seq(
 							inputDayMonthYear(currentForm("startThisWork")),
-							yesNoRadioGroup(currentForm("paidMoney"), 'helperAbove-> messages("paidMoneyHelper"), 'ignoreOptional-> true),
+							yesNoRadioGroup(currentForm("paidMoney"), 'helperAbove-> messages("paidMoneyHelper"), 'ignoreOptional-> true,
+								'values -> Seq("yes" -> messages("label.yes4"), "no" -> messages("label.no"))),
 							otherDetailPlaceHolder(
 								inputDef = Seq(
 									inputDayMonthYear(currentForm("paidMoneyDate"), 'ignoreOptional-> true)
