@@ -99,10 +99,11 @@
 	        </fieldset>
             @views.html.common.bottomNavigation()
     }
-
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_about_you/g_nationalityAndResidency.js")></script>
     <script type="text/javascript">
         $(function(){
+            window.areaCounter({selector:"@CarersCrypto.encryptAES("tripDetails")",maxChars:3000});
             window.initNationalityEvents(
                 "@{
                     isOriginGB() match {
@@ -124,7 +125,8 @@
                 "arrivedInUKRecentWrap",
                 "@CarersCrypto.encryptAES(nationalityAndResidencyForm("trip52weeks_yes").id)",
                 "@CarersCrypto.encryptAES(nationalityAndResidencyForm("trip52weeks_no").id)",
-                "trip52weeksYesWrap"
+                "trip52weeksYesWrap",
+                "@CarersCrypto.encryptAES(nationalityAndResidencyForm("tripDetails").id)"
             );
         });
     </script>
