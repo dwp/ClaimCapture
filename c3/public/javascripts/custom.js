@@ -45,6 +45,11 @@ $(function() {
     $(".js-message").css("display", "none");
     $(".feed-close").css("display", "block");
 
+    //add new window message aria
+      $(document).ready(function() { 
+        $("a[rel='external']").attr("aria-label" , "This link opens in a new window");
+      });            
+      
     // smooth scroll
     $('a[href^="#"]').bind('click.smoothscroll', function (e) {
         e.preventDefault();
