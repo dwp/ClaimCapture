@@ -39,7 +39,7 @@ class PreviewBusinessValidation(testableData:PreviewTestableData) extends XMLBus
       if (default != null){
         val defLower = default.toLowerCase
         val claimData = transform.getOrElse((p:String) => p).apply(defLower)
-println("claimData:" + claimData)
+
         if (!htmlString.contains(claimData)) {
           errors += s"$id with data '$claimData' not found in html"
         }

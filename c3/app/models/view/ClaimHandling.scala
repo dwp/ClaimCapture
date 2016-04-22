@@ -97,7 +97,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
   }
 
   /*
-     Resume Claim. If we succesfully resume the claim, the original claim will be loaded into the cache.
+     Resume Claim. If we successfully resume the claim, the original claim will be loaded into the cache.
      We check response and pickup the new claim and set in session in action()
    */
   def resumeClaim(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
