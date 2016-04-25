@@ -30,13 +30,13 @@ class LanguageIntegrationSpec extends Specification {
     }
 
     "change of circs will be presented in Welsh" in new WithBrowser {
-      browser.goTo("/circumstances/report-changes/change-selection")
+      browser.goTo("/circumstances/report-changes/selection")
       browser.waitUntil(browser.click("#lang-cy"))
       browser.pageSource() must contain("Nesaf")
     }
 
     "change of circs will be presented in English after selecting Welsh and then English" in new WithBrowser {
-      browser.goTo("/circumstances/report-changes/change-selection")
+      browser.goTo("/circumstances/report-changes/selection")
       browser.waitUntil(browser.click("#lang-cy"))
       browser.waitUntil(browser.click("#lang-en"))
       browser.pageSource() must contain("Something else")
