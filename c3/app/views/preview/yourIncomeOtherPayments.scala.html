@@ -23,25 +23,25 @@
 @yourIncomeStatutorySickPay = @{
     displayTitleMessage("preview.yourIncome.ssp") +
             displayMessageDetail(yourIncomeStatutorySickPayQ.whoPaidYouThisPay) +
-            displayPaymentFrequencyMessage(yourIncomeStatutorySickPayQ.amountOfThisPay, yourIncomeStatutorySickPayQ.howOftenPaidThisPay, yourIncomeStatutorySickPayQ.howOftenPaidThisPayOther, "") +
+            displayPaymentFrequencyMessage(yourIncomeStatutorySickPayQ.amountOfThisPay, yourIncomeStatutorySickPayQ.howOftenPaidThisPay, yourIncomeStatutorySickPayQ.howOftenPaidThisPayOther) +
             displayStillInPaymentOrEnded(yourIncomeStatutorySickPayQ.whenDidYouLastGetPaid, "preview.yourIncome.stillBeingPaid", "preview.yourIncome.ended")
 }
 @yourIncomeStatutoryPay = @{
     displayTitleMessage("preview.yourIncome.spmp") +
             displayMessageDetail(yourIncomeStatutoryPayQ.whoPaidYouThisPay) +
-            displayPaymentFrequencyMessage(yourIncomeStatutoryPayQ.amountOfThisPay, yourIncomeStatutoryPayQ.howOftenPaidThisPay, yourIncomeStatutoryPayQ.howOftenPaidThisPayOther, "") +
+            displayPaymentFrequencyMessage(yourIncomeStatutoryPayQ.amountOfThisPay, yourIncomeStatutoryPayQ.howOftenPaidThisPay, yourIncomeStatutoryPayQ.howOftenPaidThisPayOther) +
             displayStillInPaymentOrEnded(yourIncomeStatutoryPayQ.whenDidYouLastGetPaid, "preview.yourIncome.stillBeingPaid", "preview.yourIncome.ended")
 }
 @yourIncomeFosteringAllowance = @{
     displayTitleMessage("preview.yourIncome.fostering") +
             displayFosteringAllowanceValue(yourIncomeFosteringAllowanceQ.paymentTypesForThisPay, yourIncomeFosteringAllowanceQ.paymentTypesForThisPayOther, "preview.yourIncome.paidBy") +
-            displayPaymentFrequencyMessage(yourIncomeFosteringAllowanceQ.amountOfThisPay, yourIncomeFosteringAllowanceQ.howOftenPaidThisPay, yourIncomeFosteringAllowanceQ.howOftenPaidThisPayOther, "") +
+            displayPaymentFrequencyMessage(yourIncomeFosteringAllowanceQ.amountOfThisPay, yourIncomeFosteringAllowanceQ.howOftenPaidThisPay, yourIncomeFosteringAllowanceQ.howOftenPaidThisPayOther) +
             displayStillInPaymentOrEnded(yourIncomeFosteringAllowanceQ.whenDidYouLastGetPaid, "preview.yourIncome.stillBeingPaid", "preview.yourIncome.ended")
 }
 @yourIncomeDirectPayment = @{
     displayTitleMessage("preview.yourIncome.direct") +
             displayMessageDetail(yourIncomeDirectPaymentQ.whoPaidYouThisPay) +
-            displayPaymentFrequencyMessage(yourIncomeDirectPaymentQ.amountOfThisPay, yourIncomeDirectPaymentQ.howOftenPaidThisPay, yourIncomeDirectPaymentQ.howOftenPaidThisPayOther, "") +
+            displayPaymentFrequencyMessage(yourIncomeDirectPaymentQ.amountOfThisPay, yourIncomeDirectPaymentQ.howOftenPaidThisPay, yourIncomeDirectPaymentQ.howOftenPaidThisPayOther) +
             displayStillInPaymentOrEnded(yourIncomeDirectPaymentQ.whenDidYouLastGetPaid, "preview.yourIncome.stillBeingPaid", "preview.yourIncome.ended")
 }
 @yourIncomeOtherPayments = @{
@@ -59,9 +59,17 @@
 @displayMessageDetail(value: String) = @{
     s"$value<br/>"
 }
-@displayPaymentFrequencyMessage(paymentValue: String, frequencyValue: String, frequencyValueOther: Option[String], midText: String) = @{
-    if (midText.isEmpty) s"$paymentValue ${if (!frequencyValueOther.isDefined)frequencyValue else frequencyValueOther.get}<br/>"
-    else s"$paymentValue ${messages(midText)} ${if (!frequencyValueOther.isDefined)frequencyValue else frequencyValueOther.get}<br/>"
+@paymentFrequencyLabel(frequency: String) = @{
+    frequency match{
+        case "Weekly" => messages("incomeWeekly")
+        case "Fortnightly" => messages("incomeFortnightly")
+        case "Four-Weekly" => messages("incomeFourWeekly")
+        case "Monthly" => messages("incomeMonthly")
+        case _ => messages("incomeOther")
+    }
+}
+@displayPaymentFrequencyMessage(paymentValue: String, frequencyValue: String, frequencyValueOther: Option[String]) = @{
+    s"$paymentValue ${if (frequencyValueOther.isDefined) frequencyValueOther.get else paymentFrequencyLabel(frequencyValue) }<br/>"
 }
 @displayTitleMessage(message: String) = @{
     s"<b>${messages(message)}</b><br/>"
