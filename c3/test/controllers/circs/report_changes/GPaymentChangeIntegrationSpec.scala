@@ -1,6 +1,7 @@
 package controllers.circs.report_changes
 
 import utils.WithBrowser
+import utils.pageobjects.circumstances.origin.GOriginPage
 import utils.pageobjects.circumstances.start_of_process.{GCircsYourDetailsPage, GReportChangesPage}
 import utils.pageobjects.circumstances.report_changes._
 import controllers.CircumstancesScenarioFactory
@@ -17,12 +18,12 @@ class GPaymentChangeIntegrationSpec extends Specification {
     }
 
     "navigate to previous page" in new WithBrowser with PageObjects {
-      val page = GReportChangesPage(context)
-      page goToThePage()
+      val page = GOriginPage(context)
+      val newPage = page goToThePage(throwException = false)
 
       val claim = CircumstancesScenarioFactory.paymentChangesChangeInfo
-      page fillPageWith (claim)
-      val completedPage = page submitPage()
+      newPage fillPageWith (claim)
+      val completedPage = newPage submitPage()
 
       val reportChangesPage = completedPage runClaimWith(claim, GPaymentChangePage.url)
 

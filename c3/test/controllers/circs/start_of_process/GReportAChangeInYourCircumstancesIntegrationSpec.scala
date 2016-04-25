@@ -6,6 +6,7 @@ import play.api.i18n.{MMessages, MessagesApi}
 import utils.WithApplication
 import org.specs2.mutable._
 import utils.pageobjects.circumstances.consent_and_declaration.GCircsDeclarationPage
+import utils.pageobjects.circumstances.origin.GOriginPage
 import utils.{LightFakeApplication, WithBrowser}
 import controllers.CircumstancesScenarioFactory
 import utils.pageobjects.circumstances.start_of_process.{GReportChangesPage, GCircsYourDetailsPage}
@@ -32,12 +33,12 @@ class GReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
     }
 
     "navigate to previous page" in new WithBrowser with PageObjects {
-      val page = GReportChangesPage(context)
+      val page = GOriginPage(context)
       val claim = CircumstancesScenarioFactory.reportChangesStoppedCaring
-      page goToThePage()
-      page fillPageWith claim
+      val newPage = page goToThePage(throwException = false)
+      newPage fillPageWith claim
 
-      val reportAChange = page submitPage()
+      val reportAChange = newPage submitPage()
 
       reportAChange must beAnInstanceOf[GPermanentlyStoppedCaringPage]
       reportAChange.goBack() must beAnInstanceOf[GReportChangesPage]

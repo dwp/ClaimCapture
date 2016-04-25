@@ -41,14 +41,13 @@ with ClaimTransactionComponent{
 
   def present = newClaim { implicit circs => implicit request => lang =>
     Logger.info(s"Starting Origin Select")
+    saveInCache(circs)
     app.ConfigProperties.getProperty("origin.tag", "GB") match {
       case "GB-NIR" =>
-        saveInCache(circs)
         track(ReportChangeOrigin) {
           implicit circs => Ok(views.html.circs.origin.origin(form.fill(ReportChangeOrigin)))
         }
       case _ => {
-        Logger.error("Origin Select - Unexpected access to Origin Select on GB site. Redirecting to GB Circs")
         circs -> Redirect(controllers.circs.start_of_process.routes.GReportChangeReason.present())
       }
     }
