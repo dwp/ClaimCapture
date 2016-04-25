@@ -8,7 +8,7 @@ final class GOriginPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, G
 }
 
 object GOriginPage {
-  val url  = "/circumstances/report-changes/origin"
+  val url  = "/circumstances/report-changes/selection"
 
   def apply(ctx:PageObjectsContext) = new GOriginPage(ctx)
 }

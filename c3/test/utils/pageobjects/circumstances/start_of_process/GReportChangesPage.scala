@@ -12,7 +12,7 @@ final class GReportChangesPage(ctx:PageObjectsContext) extends CircumstancesPage
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object GReportChangesPage {
-  val url  = "/circumstances/report-changes/selection"
+  val url  = "/circumstances/report-changes/change-selection"
 
   def apply(ctx:PageObjectsContext) = new GReportChangesPage(ctx)
 }

@@ -34,7 +34,7 @@ $(document).ready(function() {
         if ($("#bottomBackButton").length > 0) {
             //console.log('bottomBackButton');
             $("#bottomBackButton")[0].click();
-        } else if (location.pathname.indexOf("/allowance/benefits") > -1 || location.pathname.indexOf("/circumstances/report-changes/selection") > -1) {
+        } else if (location.pathname.indexOf("/allowance/benefits") > -1 || location.pathname.indexOf("/circumstances/report-changes/change-selection") > -1) {
             //console.log('home goto gov.uk');
             location.href=landingURL
         } else {

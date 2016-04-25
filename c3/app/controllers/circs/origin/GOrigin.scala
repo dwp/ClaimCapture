@@ -39,10 +39,12 @@ with ClaimTransactionComponent{
   )(ReportChangeOrigin.apply)(ReportChangeOrigin.unapply))
 
 
-  def present = optionalClaim { implicit circs => implicit request => lang =>
+  def present = newClaim { implicit circs => implicit request => lang =>
     Logger.info(s"Starting Origin Select")
     app.ConfigProperties.getProperty("origin.tag", "GB") match {
-      case "GB-NIR" => Ok(views.html.circs.origin.origin(form.fill(ReportChangeOrigin)))
+      case "GB-NIR" =>
+        saveInCache(circs)
+        Ok(views.html.circs.origin.origin(form.fill(ReportChangeOrigin)))
       case _ => {
         Logger.error("Origin Select - Unexpected access to Origin Select on GB site. Redirecting to GB Circs")
         circs -> Redirect(controllers.circs.start_of_process.routes.GReportChangeReason.present())
@@ -50,7 +52,7 @@ with ClaimTransactionComponent{
     }
   }
 
-  def submit = optionalClaim { implicit circs => implicit request => implicit request2lang =>
+  def submit = claiming { implicit circs => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         BadRequest(views.html.circs.origin.origin(formWithErrors))

@@ -23,7 +23,7 @@ class GOriginSpec extends Specification {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
       val result = GOrigin.present(request)
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result) must beSome("/circumstances/report-changes/selection")
+      redirectLocation(result) must beSome("/circumstances/report-changes/change-selection")
     }
 
     "block submit for no country selection" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("origin.tag" -> "GB"))) with Claiming {
