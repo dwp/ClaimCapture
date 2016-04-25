@@ -11,9 +11,9 @@ import utils.pageobjects.s_about_you.GOtherEEAStateOrSwitzerlandPage
 class PreviewPageAboutYouContentSpec extends Specification {
   section("preview")
   "Preview Page" should {
-    "display about you - the carer data with nationality as British" in new WithBrowser with PageObjects{
+    "display about you - the carer data with nationality as British" in new WithBrowser with PageObjects {
       fillAboutYouTheCarerSection(context)
-      val page =  PreviewPage(context)
+      val page = PreviewPage(context)
       page goToThePage()
       val source = page.source
       source must contain("Name")
@@ -39,14 +39,14 @@ class PreviewPageAboutYouContentSpec extends Specification {
       source must contain("Yes - Details provided")
     }
 
-    "display about you - the carer data with nationality another country" in new WithBrowser with PageObjects{
+    "display about you - the carer data with nationality another country" in new WithBrowser with PageObjects {
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       claim.AboutYouNationalityAndResidencyNationality = "Another nationality"
       claim.AboutYouNationalityAndResidencyActualNationality = "French"
       claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
 
       fillAboutYouTheCarerSection(context, claim)
-      val page =  PreviewPage(context)
+      val page = PreviewPage(context)
       page goToThePage()
       val source = page.source
       source must not contain "British"
@@ -55,12 +55,12 @@ class PreviewPageAboutYouContentSpec extends Specification {
       source must contain("Single")
     }
 
-    "display about you - the carer data with nationality as British and other title" in new WithBrowser with PageObjects{
+    "display about you - the carer data with nationality as British and other title" in new WithBrowser with PageObjects {
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       claim.AboutYouTitle = "Rev"
       fillAboutYouTheCarerSection(context, claim)
 
-      val page =  PreviewPage(context)
+      val page = PreviewPage(context)
       page goToThePage()
       val source = page.source
 
@@ -83,16 +83,30 @@ class PreviewPageAboutYouContentSpec extends Specification {
       source must contain("Have you or anyone in your close family worked or paid national insurance in an EEA country since your claim date?")
       source must contain("Yes - Details provided")
     }
+
+    "display all nationality page details" in new WithBrowser with PageObjects {
+      val claim = yourDetailsWithAllNationalityFields()
+      fillAboutYouTheCarerSection(context, claim)
+
+      val page = PreviewPage(context)
+      page goToThePage()
+      browser.find("#about_you_nationality_value").getText() must contain("French")
+      browser.find("#about_you_alwaysliveinuk_value").getText() must contain("No")
+      browser.find("#about_you_liveinuknow").getText() must contain("Yes")
+      browser.find("#about_you_arrivedinuk_value").getText() must contain("Less than 3 years ago")
+      browser.find("#about_you_arrivedinukdate_value").getText() must contain("01 March")
+      browser.find("#about_you_trip52weeks_value").getText() must contain("Yes - Details provided")
+    }
   }
   section("preview")
 
-  def fillAboutYouTheCarerSection(context:PageObjectsContext, claim:TestData = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()) = {
+  def fillAboutYouTheCarerSection(context: PageObjectsContext, claim: TestData = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()) = {
     val claimDatePage = GClaimDatePage(context)
     claimDatePage goToThePage()
     val claimDate = ClaimScenarioFactory.s12ClaimDate()
     claimDatePage fillPageWith claimDate
 
-    val aboutYouPage =  claimDatePage submitPage()
+    val aboutYouPage = claimDatePage submitPage()
     claim.AboutYouMiddleName = "middlename"
     aboutYouPage goToThePage()
     aboutYouPage fillPageWith claim
@@ -110,11 +124,40 @@ class PreviewPageAboutYouContentSpec extends Specification {
     nationalityPage fillPageWith claim
 
     val paymentFromAbroadPage = GOtherEEAStateOrSwitzerlandPage(context)
-    paymentFromAbroadPage goToThePage ()
+    paymentFromAbroadPage goToThePage()
     paymentFromAbroadPage fillPageWith ClaimScenarioFactory.otherEuropeanEconomicArea()
 
     paymentFromAbroadPage submitPage()
   }
 
+  def yourDetails() = {
+    val claim = ClaimScenarioFactory.s12ClaimDate()
+    claim.AboutYouTitle = "Mr"
+    claim.AboutYouFirstName = "John"
+    claim.AboutYouSurname = "Appleseed"
+    claim.AboutYouDateOfBirth = "03/04/1950"
+    claim.AboutYouNINO = "AB123456C"
+    claim.AboutYouAddress = "101 Clifton Street&Blackpool"
+    claim.AboutYouPostcode = "FY1 2RW"
+    claim.HowWeContactYou = "01772 888901"
+    claim.AboutYouWantsEmailContact = "No"
+    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
+
+    claim
+  }
+
+  def yourDetailsWithAllNationalityFields() = {
+    val claim = yourDetails()
+    claim.AboutYouNationalityAndResidencyNationality = "Another nationality"
+    claim.AboutYouNationalityAndResidencyActualNationality = "French"
+    claim.AboutYouNationalityAndResidencyAlwaysLivedInUK = "No"
+    claim.AboutYouNationalityAndResidencyLiveInUKNow = "Yes"
+    claim.AboutYouNationalityAndResidencyArrivedInUK = "less"
+    claim.AboutYouNationalityAndResidencyArrivedInUKDate = "01/03/2016"
+    claim.AboutYouNationalityAndResidencyTrip52Weeks = "Yes"
+    claim.AboutYouNationalityAndResidencyTripDetails = "2 years in Spain"
+
+    claim
+  }
 }
 
