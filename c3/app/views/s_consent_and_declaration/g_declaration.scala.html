@@ -7,6 +7,7 @@
 @import views.html.helper.base._
 @implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
 @import views.html.s_consent_and_declaration.main
+@import utils.helpers.OriginTagHelper._
 
 @main(messages("s11.g4") + " - " + messages("s11.longName"), Some(currentForm)) {
 
@@ -33,6 +34,9 @@
 			<p>@messages("declaration.openingParagraph")</p>
 			<ul class="list-bullet">
 				<li>@messages("declaration.correct")</li>
+				@if(isOriginGB){
+					<li>@messages("declaration.maycheck")</li>
+				}
 				<li>@messages("declaration.overpayment")</li>
 				<li>@messages("declaration.reportChanges.1")
 					<a @trackClickEvent("Claim Declaration - Report change online") rel="external" target="_blank" href="@messages("declaration.reportChanges.2.url")">@messages("declaration.reportChanges.2.anchorText")</a>
