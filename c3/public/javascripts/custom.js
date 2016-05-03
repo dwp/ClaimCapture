@@ -45,10 +45,10 @@ $(function() {
     $(".js-message").css("display", "none");
     $(".feed-close").css("display", "block");
 
-    //add new window message aria
-      $(document).ready(function() { 
-        $("a[rel='external']").attr("aria-label" , "This link opens in a new window");
-      });          
+    // //add new window message aria
+    //   $(document).ready(function() { 
+    //     $("a[rel='external']").attr("aria-label" , "This link opens in a new window");
+    //   });          
       
       //add field length contextual for screen readers
       $(function() {
