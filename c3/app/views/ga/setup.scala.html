@@ -11,7 +11,7 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 
 ga('create', '@analyticsTag', {
   @if(play.api.Play.isDev(play.api.Play.current)){ 'cookieDomain': 'none', }
-  'siteSpeedSampleRate': '@getProperty("ga.speedsamplerate",100)'
+  'siteSpeedSampleRate': '@getIntProperty("ga.speedsamplerate")'
 
 });
 ga('send', 'pageview');

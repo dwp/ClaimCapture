@@ -8,14 +8,15 @@
 @import controllers.mappings.Mappings._
 @import models.domain._
 @import views.html.preview._
+@import app.ConfigProperties._
 
 @toggle = @{
-	!app.ConfigProperties.getProperty("cyaToggleVisible",true)
+	!getBooleanProperty("cyaToggleVisible")
 }
 @yourDetails = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}
 @showBankDetails=@{
 	claim.dateOfClaim match {
-		case Some(dmy) => yourDetails.dateOfBirth.yearsDiffWith(dmy) < app.ConfigProperties.getProperty("age.hide.paydetails",60)
+		case Some(dmy) => yourDetails.dateOfBirth.yearsDiffWith(dmy) < getIntProperty("age.hide.paydetails")
 		case _ => false
 	}
 }

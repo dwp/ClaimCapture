@@ -6,7 +6,7 @@
 @environmentPath=@{"http" + (if(request.secure)"s" else "") + "://" + request.host}
 
 @versionSchemaInfo = @{
-    s"${ClaimHandling.C3VERSION_VALUE} / ${getProperty("xml.schema.version", "No schema version found")}"
+    s"${ClaimHandling.C3VERSION_VALUE} / ${getStringProperty("xml.schema.version")}"
 }
 
 <!DOCTYPE html>

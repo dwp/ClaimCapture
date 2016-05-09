@@ -34,7 +34,7 @@
 }
 
 @versionSchemaTransactionInfo = @{
-    s"${ClaimHandling.C3VERSION_VALUE} / ${getProperty("xml.schema.version", "No schema version found")} / ${claim.transactionId.getOrElse("")}"
+    s"${ClaimHandling.C3VERSION_VALUE} / ${getStringProperty("xml.schema.version")} / ${claim.transactionId.getOrElse("")}"
 }
 
 <!DOCTYPE html>

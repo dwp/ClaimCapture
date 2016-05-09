@@ -4,9 +4,10 @@
 @import utils.helpers.PreviewField._
 @import controllers.mappings.Mappings
 @import app.StatutoryPaymentFrequency._
+@import app.ConfigProperties._
 
 @disableChangeButton = @{
-    !app.ConfigProperties.getProperty("cyaToggleVisible",true)
+    !getBooleanProperty("cyaToggleVisible")
 }
 @employmentSummary(job:Iteration) = @{
     val jobDetails = job.questionGroup[JobDetails].get

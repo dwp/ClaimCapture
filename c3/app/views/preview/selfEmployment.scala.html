@@ -5,6 +5,7 @@
 @import controllers.mappings.Mappings._
 @import models.yesNo.YesNoWithText
 @import scala.language.postfixOps
+@import app.ConfigProperties._
 
 @selfEmployment = @{claim.questionGroup[SelfEmploymentDates].getOrElse(SelfEmploymentDates())}
 @selfEmploymentPensionsAndExpenses = @{claim.questionGroup[SelfEmploymentPensionsAndExpenses].getOrElse(SelfEmploymentPensionsAndExpenses())}
@@ -41,7 +42,7 @@
             displayPensionsAndExpenses(selfEmploymentPensionsAndExpenses.haveExpensesForJob, selfEmploymentPensionsAndExpenses.payPensionScheme, "preview.self_employed.hasExpenses")
 }
 @isSelfEmployed = @{yourIncome.beenSelfEmployedSince1WeekBeforeClaim == yes}
-@disableChangeButton = @{!app.ConfigProperties.getProperty("cyaToggleVisible", true)}
+@disableChangeButton = @{!getBooleanProperty("cyaToggleVisible")}
 
 @fieldWithLink("self_employment_been_self_employed", messages("beenSelfEmployed.simple", oneWeekBeforeDate(claimDate.dateOfClaim).`d month yyyy`), messages("label." + yourIncome.beenSelfEmployedSince1WeekBeforeClaim), disableLink = disableChangeButton, elementId = Some("beenSelfEmployedSince1WeekBeforeClaim"))
 @if(isSelfEmployed) {

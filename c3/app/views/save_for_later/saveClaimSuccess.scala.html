@@ -16,7 +16,7 @@
     }
 }
 @isLinkEnabled=@{
-    getProperty("saveForLaterShowResumeLink",default = false)
+    getBooleanProperty("saveForLaterShowResumeLink")
 }
 
     @main(messages("saveForLater.save.legend")) {
