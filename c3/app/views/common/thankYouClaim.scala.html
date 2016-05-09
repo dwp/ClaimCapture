@@ -33,7 +33,7 @@
 }
 
 @isEmail = @{
-    getProperty("email.frontend",false) && claim.questionGroup[ContactDetails].getOrElse(ContactDetails()).wantsContactEmail == Mappings.yes
+    getBooleanProperty("email.frontend") && claim.questionGroup[ContactDetails].getOrElse(ContactDetails()).wantsContactEmail == Mappings.yes
 }
 
 @assistedDecisionReason = @{
@@ -135,7 +135,7 @@
 
         </article>
 
-        @if(getProperty("display.transid", false)) {
+        @if(getBooleanProperty("display.transid")) {
             <input type="hidden" name="transId" id="transId" value="@{ claim.transactionId.getOrElse("NO_TRANS_ID") }"/>
         }
 

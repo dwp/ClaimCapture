@@ -2,6 +2,7 @@
 @import models.domain.YourPartnerPersonalDetails
 @import play.api.i18n.Messages
 @import helper._
+@import app.ConfigProperties._
 
 @yourPartner = @{claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())}
 @middleName = @{yourPartner.middleName.map(_+" ").getOrElse("")}
@@ -9,7 +10,7 @@
     s"${yourPartner.title.get} ${yourPartner.firstName.get} ${middleName}${yourPartner.surname.get}"
 }
 @disableChangeButton = @{
-	!app.ConfigProperties.getProperty("cyaToggleVisible",true)
+	!getBooleanProperty("cyaToggleVisible")
 }
 @content = {
 	@fieldWithLink("partner_hadPartner", "hadPartnerSinceClaimDate", messages("label."+yourPartner.hadPartnerSinceClaimDate),disableLink = disableChangeButton, elementId = Some("hadPartnerSinceClaimDate"))

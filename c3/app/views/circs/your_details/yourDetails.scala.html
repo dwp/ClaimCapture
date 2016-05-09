@@ -57,7 +57,7 @@
                     <ul>
                         @carersInputTel(reportAChangeForm("furtherInfoContact"),'ignoreOptional -> true, 'maxLength -> CommonValidation.PHONE_NUMBER_MAX_LENGTH)
 
-                        @if(getProperty("email.frontend",false)) {
+                        @if(getBooleanProperty("email.frontend")) {
                             @yesNoRadioGroup(reportAChangeForm("wantsEmailContactCircs"))
 
                             @otherDetailPlaceHolder(
@@ -75,21 +75,21 @@
             </div>
         }
 
-        @if(getProperty("email.frontend",false)){
+        @if(getBooleanProperty("email.frontend")){
             <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/email.js")></script>
         }
-        @if(!Play.isTest(Play.current) && getProperty("include.analytics",true)){
+        @if(!Play.isTest(Play.current) && getBooleanProperty("include.analytics")){
             <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/trackInputOnEvent.js")></script>
         }
         <script type="text/javascript">
             $(function() {
-                @if(getProperty("email.frontend",false)){
+                @if(getBooleanProperty("email.frontend")){
                     window.emailInit("@CarersCrypto.encryptAES("wantsEmailContactCircs_yes")",
                                      "@CarersCrypto.encryptAES("wantsEmailContactCircs_no")",
                                      "@CarersCrypto.encryptAES("mail")",
                                      "@CarersCrypto.encryptAES("mailConfirmation")");
                 }
-                @if(!Play.isTest(Play.current) && getProperty("include.analytics",true)){
+                @if(!Play.isTest(Play.current) && getBooleanProperty("include.analytics")){
                     window.trackInputOnEventInit('furtherInfoContact', "@CarersCrypto.encryptAES("furtherInfoContact")", 'button');
                 }
             });

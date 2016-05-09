@@ -2,6 +2,7 @@
 
 @import models.domain._
 @import helper._
+@import app.ConfigProperties._
 
 @yourIncome = @{claim.questionGroup[YourIncomes].getOrElse(YourIncomes())}
 @yourIncomeStatutorySickPayQ = @{claim.questionGroup[StatutorySickPay].getOrElse(StatutorySickPay())}
@@ -82,7 +83,7 @@
     if (otherValue.isDefined) s"${messages(preText)} ${otherValue.get}<br/>"
     else s"${messages(preText)} ${messages(value)}<br/>"
 }
-@disableChangeButton = @{!app.ConfigProperties.getProperty("cyaToggleVisible", true)}
+@disableChangeButton = @{!getBooleanProperty("cyaToggleVisible")}
 
 @fieldWithLink("your_income", messages("yourIncome", claimDate.dateOfClaim.`d month yyyy`), yourIncomeAllOtherPayments, disableLink = disableChangeButton, elementId = Some("yourIncome"))
 @if(hasYourIncomeOtherPayment(yourIncome.yourIncome_sickpay)){ @fieldWithLink("your_income_statutory_sick_pay", "", yourIncomeStatutorySickPay, disableLink = disableChangeButton, elementId = Some("stillBeingPaidThisPay")) }
