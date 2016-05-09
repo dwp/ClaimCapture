@@ -6,7 +6,7 @@
     getBooleanProperty("saveForLaterSaveEnabled")
 }
 @saveHref=@{
-    getBooleanProperty("saveForLaterUrl")
+    getStringProperty("saveForLaterUrl")
 }
 
 @if(isSaveEnabled && claim.navigation.showSaveButton && ( !claim.navigation.beenInPreview || request.path == "/preview" || request.path == "/consent-and-declaration/declaration") ){
