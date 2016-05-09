@@ -11,20 +11,17 @@ import play.api.libs.{Crypto, CryptoConfigParser, Codecs}
 
 object CarersCrypto {
   val cryptoConfigParser = current.injector.instanceOf[CryptoConfigParser]
-  val staticKey: String = "1234567890123456"
   val transformation: String = "AES"
 
-  val encrypt = getProperty("encryptFields", default = true)
+  val encrypt = getBooleanProperty("encryptFields")
 
-  val staticSecret = getProperty("staticSecret", default = false)
-
-  val secretKey = if (staticSecret) staticKey else getKey
+  val secretKey = getKey
 
   def decryptAES(v: String): String = if (encrypt) Crypto.decryptAES(v, secretKey) else v
 
   def encryptAES(v: String): String = if (encrypt) encryptAES(v, secretKey) else v
 
-  def getKey: String = getProperty("play.crypto.secret", staticKey).substring(0, 16)
+  def getKey: String = getStringProperty("play.crypto.secret").substring(0, 16)
 
   /**
    * Encrypt a String with the AES encryption standard and the supplied private key.

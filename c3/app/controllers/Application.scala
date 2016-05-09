@@ -9,7 +9,7 @@ import play.api.i18n._
 object Application extends Controller with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   def index = Action {
-    MovedPermanently(getProperty("gov.uk.start.page", "https://www.gov.uk/apply-carers-allowance"))
+    MovedPermanently(getStringProperty("gov.uk.start.page"))
   }
 
   def backButtonPage = Action { implicit request =>

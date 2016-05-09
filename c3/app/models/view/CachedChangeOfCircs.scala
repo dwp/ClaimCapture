@@ -14,7 +14,7 @@ trait CachedChangeOfCircs extends ClaimHandling {
 
   override lazy val cacheKey = CachedChangeOfCircs.key
 
-  override lazy val startPage: String = getProperty("cofc.start.page", controllers.circs.start_of_process.routes.GReportChangeReason.present().url)
+  override lazy val startPage: String = getStringProperty("cofc.start.page")
   override lazy val timeoutPage = routes.CircsEnding.timeout()
   override lazy val errorPageCookie = routes.CircsEnding.errorCookie()
   override lazy val errorPage = routes.CircsEnding.error()

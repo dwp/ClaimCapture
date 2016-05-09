@@ -5,11 +5,11 @@ import play.api.Play.current
 import monitor.{HealthMonitor, MonitorRegistration}
 
 trait C3MonitorRegistration extends MonitorRegistration {
-  override def getFrequency: Int = getProperty("metrics.frequency", default = 1)
+  override def getFrequency: Int = getIntProperty("metrics.frequency")
 
-  override def isLogMetrics: Boolean = getProperty("metrics.slf4j", default = false)
+  override def isLogMetrics: Boolean = getBooleanProperty("metrics.slf4j")
 
-  override def isLogHealth: Boolean = getProperty("health.logging", default = false)
+  override def isLogHealth: Boolean = getBooleanProperty("health.logging")
 
   def getHealthMonitor: HealthMonitor = {
     current.injector.instanceOf[HealthMonitor]

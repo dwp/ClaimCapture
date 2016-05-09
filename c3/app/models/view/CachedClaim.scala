@@ -24,7 +24,7 @@ trait CachedClaim extends ClaimHandling {
 
   override lazy val cacheKey = CachedClaim.key
 
-  override lazy val startPage: String = getProperty("claim.start.page", "/allowance/benefits")
+  override lazy val startPage: String = getStringProperty("claim.start.page")
   override lazy val timeoutPage = routes.ClaimEnding.timeout()
   override lazy val errorPageCookie = routes.ClaimEnding.errorCookie()
   override lazy val errorPage = routes.ClaimEnding.error()
@@ -32,7 +32,7 @@ trait CachedClaim extends ClaimHandling {
   override lazy val backButtonPage = controllers.routes.Application.backButtonPage()
 
   override protected def newInstance(newuuid: String = randomUUID.toString): Claim = {
-    getProperty("replica.prepopulatedData",false) match {
+    getBooleanProperty("replica.prepopulatedData") match {
       case true => ReplicaData.newInstance(cacheKey,newuuid)
       case _ => new Claim(cacheKey, uuid = newuuid)
     }

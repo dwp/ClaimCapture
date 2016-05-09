@@ -181,7 +181,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito {
 
   def serviceSubmission(service: AsyncClaimSubmissionService with ClaimTransactionComponent, claim: Claim)(implicit app: FakeApplication) {
     DBTests.createId(transactionId)
-    service.claimTransaction.registerId(transactionId, ClaimSubmissionService.SUBMITTED, controllers.submission.claimType(claim), 1, getProperty("origin.tag", "GB"))
+    service.claimTransaction.registerId(transactionId, ClaimSubmissionService.SUBMITTED, controllers.submission.claimType(claim), 1, getStringProperty("origin.tag"))
     service.submission(claim)
   }
 }

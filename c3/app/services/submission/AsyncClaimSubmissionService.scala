@@ -104,7 +104,7 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService {
     claimTransaction.updateStatus(txnID, SUCCESS, claimType(claim))
 
     //We send email after we update status and we verify that the submission has been successful
-    if (getProperty("mailer.enabled",default=false)) {
+    if (getBooleanProperty("mailer.enabled")) {
       Logger.debug("Mailer enabled true, proceeding to send email.")
       EmailServices.sendEmail(claim)
     }
