@@ -18,7 +18,7 @@ case class SaveForLaterEmailWrapper(transactionId:String, email:Email)
 
 object EmailActorsCreators {
 
-  val emailSenderProps = Props(classOf[EmailSenderActor],getProperty("mail.rescheduleTime",3600))
+  val emailSenderProps = Props(classOf[EmailSenderActor],getIntProperty("mail.rescheduleTime"))
 
   lazy val emailManagerProps = Props(classOf[EmailManagerActor],emailSenderProps)
 

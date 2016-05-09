@@ -1,9 +1,10 @@
 package models.view
 
 import java.util.UUID._
+
 import app.ConfigProperties._
 import gov.dwp.exceptions.DwpRuntimeException
-import models.domain.{YourDetails, ClaimDate, Claim, QuestionGroup}
+import models.domain.{Claim, ClaimDate, QuestionGroup, YourDetails}
 import models.view.ClaimHandling.ClaimResult
 import models.view.cache.EncryptedCacheHandling
 import play.api.cache.Cache
@@ -15,18 +16,19 @@ import play.api.mvc.Results._
 import play.api.mvc._
 import play.api.{Logger, Play}
 import play.api.Play.current
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.language.implicitConversions
-
 import scala.reflect.ClassTag
+import scala.util.{Success, Try}
 
 object ClaimHandling {
   type ClaimResult = (Claim, Result)
   // Versioning
-  def C3NAME = s"${getProperty("application.name", default="c3")}"
+  def C3NAME = s"${getStringProperty("application.name")}"
   def C3VERSION = s"${C3NAME.toUpperCase}Version"
-  def C3VERSION_VALUE = getProperty("application.version", default="x1").takeWhile(_ != '-')
-  def C3VERSION_SECSTOLIVE = getProperty("application.seconds.to.live", default=36000)
+  def C3VERSION_VALUE = getStringProperty("application.version").takeWhile(_ != '-')
+  def C3VERSION_SECSTOLIVE = getIntProperty("application.seconds.to.live")
   val applicationFinished = "application-finished"
 
 }
@@ -61,7 +63,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
         Logger.info(s"New ${claim.key} ${claim.uuid}.")
         // Cookies need to be changed BEFORE session, session is within cookies.
         def tofilter(theCookie: Cookie): Boolean = {
-          theCookie.name == ClaimHandling.C3VERSION || theCookie.name == getProperty("session.cookieName", "PLAY_SESSION")
+          theCookie.name == ClaimHandling.C3VERSION || theCookie.name == getStringProperty("play.http.session.cookieName")
         }
 
         // This workaround shit has been put in place in order to clear up the PLAY_LANG cookie at the startup of the app.
@@ -328,7 +330,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
   def getLang(claim: Claim)(implicit request: Request[AnyContent]): Lang = claim.lang.getOrElse(bestLang(request))
 
   private def bestLang(implicit request: Request[AnyContent]) = {
-    val implementedLangs = getProperty("play.i18n.langs", defaultLang)
+    val implementedLangs = getListProperty("play.i18n.langs")
     val listOfPossibleLangs = request.acceptLanguages.flatMap(aL => implementedLangs.split(",").toList.filter(iL => iL == aL.code))
 
     if (listOfPossibleLangs.size > 0)
@@ -336,6 +338,8 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
     else
       Lang(defaultLang)
   }
+  def getListProperty(property:String) = Try(Play.current.configuration.getString(property).getOrElse("lang-error")) match { case Success(s) => s case _ => "lang-error"}
+
 
   def createParamsMap(parameters: Map[String, Seq[String]]) = {
     parameters.map { case (k, v) => k -> v.mkString }

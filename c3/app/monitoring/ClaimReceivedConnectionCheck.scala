@@ -8,6 +8,7 @@ import play.Configuration
 import play.api.http.Status
 import utils.HttpUtils.HttpWrapper
 import scala.language.{implicitConversions, postfixOps}
+import app.ConfigProperties._
 
 /**
  * Try to ping the ClaimReceived service in IL3.
@@ -16,7 +17,7 @@ class ClaimReceivedConnectionCheck extends CADSHealthCheck(ClaimHandling.C3NAME,
 
   override def check(): Result = {
     val url = Configuration.root().getString("submissionServerUrl", "SubmissionServerEndpointNotSet") + "ping"
-    val timeout = ConfigProperties.getProperty("cr.timeout", 60000)
+    val timeout = getIntProperty("cr.timeout")
     val httpWrapper = new HttpWrapper
     val response = httpWrapper.get(url, timeout)
     response.getStatus match {

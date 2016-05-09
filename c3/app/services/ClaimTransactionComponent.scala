@@ -20,7 +20,7 @@ trait ClaimTransactionComponent {
         connection =>
           try {
             val statement = connection.prepareCall("select get_new_transaction_id(?);")
-            statement.setString(1, getProperty("origin.tag", "GB"))
+            statement.setString(1, getStringProperty("origin.tag"))
             statement.execute()
             val result = statement getResultSet()
             result.next

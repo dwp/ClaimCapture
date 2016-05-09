@@ -7,7 +7,7 @@ import org.joda.time.DateTime
 case class Feedback(satisfiedAnswer: String = "", difficultyAndText: OptYesNoWith2Text = OptYesNoWith2Text(None, None, None)) {
   def datetimesecs = DateTime.now.getMillis / 1000
 
-  def origin = getProperty("origin.tag", "GB")
+  def origin = getStringProperty("origin.tag")
 
   def satisfiedScore = {
     satisfiedAnswer match {

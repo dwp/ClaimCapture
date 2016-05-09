@@ -8,7 +8,7 @@ import utils.ClaimEncryption
 trait EncryptedCacheHandling extends CacheHandling {
 
   override def fromCache(request: Request[AnyContent], required: Boolean = true): Option[Claim] = {
-    getProperty("cacheEncryptionEnabled", false) match {
+    getBooleanProperty("cacheEncryptionEnabled") match {
       case true => super.fromCache(request) match {
         case Some(claim) => Some(ClaimEncryption.decrypt(claim))
         case None => None
@@ -18,7 +18,7 @@ trait EncryptedCacheHandling extends CacheHandling {
   }
 
   override def fromCache(request: Request[AnyContent], key: String): Option[Claim] = {
-    getProperty("cacheEncryptionEnabled", false) match {
+    getBooleanProperty("cacheEncryptionEnabled") match {
       case true => super.fromCache(request, key) match {
         case Some(claim) => Some(ClaimEncryption.decrypt(claim))
         case None => None
@@ -28,7 +28,7 @@ trait EncryptedCacheHandling extends CacheHandling {
   }
 
   override def saveInCache(claim: Claim): Unit = {
-    getProperty("cacheEncryptionEnabled", false) match {
+    getBooleanProperty("cacheEncryptionEnabled") match {
       case true => super.saveInCache(ClaimEncryption.encrypt(claim))
       case false => super.saveInCache(claim)
     }

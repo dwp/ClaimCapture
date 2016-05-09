@@ -16,7 +16,7 @@ object EvidenceList {
   val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
 
   def isOriginGB(): Boolean = {
-    getProperty("origin.tag", "GB") match {
+    getStringProperty("origin.tag") match {
       case "GB" => true
       case _ => false
     }

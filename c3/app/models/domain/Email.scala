@@ -23,7 +23,7 @@ object EMail{
   }
 
   def wantsEmailRequired[T <: EMail](emailData:T) = {
-    if(getProperty("email.frontend",false) && emailData.wantsContactEmail.isEmpty) false
+    if(getBooleanProperty("email.frontend") && emailData.wantsContactEmail.isEmpty) false
     else true
   }
 }
