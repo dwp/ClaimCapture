@@ -43,7 +43,7 @@ class GThirdPartySpec extends Specification {
     }
 
     "pull maxlength from xml commons OK" in new WithApplication {
-      val schemaVersion = getProperty("xml.schema.version", "NOT-SET")
+      val schemaVersion = getStringProperty("xml.schema.version")
       //schemaMaxLength(schemaVersion, "Declaration//DeclarationNameOrg//Answer") mustEqual 60
       schemaMaxLength(schemaVersion, "Declaration//DeclarationNameOrg//Answer") mustEqual 120
     }

@@ -48,7 +48,7 @@ object GYourDetails extends Controller with CachedClaim with Navigable with I18n
 
   def showPayDetails(claim:Claim, yourDetails:YourDetails):Boolean = {
     claim.dateOfClaim match {
-      case Some(dmy) => yourDetails.dateOfBirth.yearsDiffWith(dmy) < getProperty("age.hide.paydetails",60)
+      case Some(dmy) => yourDetails.dateOfBirth.yearsDiffWith(dmy) < getIntProperty("age.hide.paydetails")
       case _ => false
     }
   }
