@@ -11,7 +11,7 @@
 @import utils.CommonValidation
 
 @saveForLaterEnabled=@{
-    getProperty("saveForLaterSaveEnabled",false)
+    getBooleanProperty("saveForLaterSaveEnabled")
 }
 @emailLabel=@{
     if(saveForLaterEnabled) messages("wantsEmailContact")
@@ -35,7 +35,7 @@
 
                     @carersCheckBox(contactDetailsForm("contactYouByTextphone"), 'track -> true)
 
-                    @if(getProperty("email.frontend",false)) {
+                    @if(getBooleanProperty("email.frontend")) {
                         @yesNoRadioGroup(contactDetailsForm("wantsEmailContact"), '_label->emailLabel,
                             'values -> Seq("yes" -> messages("label.yes4"), "no" -> messages("label.no")))
 
@@ -59,15 +59,15 @@
 
         }
 
-        @if(getProperty("email.frontend",false)) {
+        @if(getBooleanProperty("email.frontend")) {
             <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/email.js")></script>
         }
-        @if(!Play.isTest(Play.current) && getProperty("include.analytics",true)){
+        @if(!Play.isTest(Play.current) && getBooleanProperty("include.analytics")){
             <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/trackInputOnEvent.js")></script>
         }
         <script type="text/javascript">
             $(function(){
-                @if(getProperty("email.frontend",false)) {
+                @if(getBooleanProperty("email.frontend")) {
                     window.emailInit(
                         "@CarersCrypto.encryptAES("wantsEmailContact_yes")",
                         "@CarersCrypto.encryptAES("wantsEmailContact_no")",
@@ -75,7 +75,7 @@
                         "@CarersCrypto.encryptAES("mailConfirmation")"
                     )
                 }
-                @if(!Play.isTest(Play.current) && getProperty("include.analytics",true)){
+                @if(!Play.isTest(Play.current) && getBooleanProperty("include.analytics")){
                     window.trackInputOnEventInit('howWeContactYou', "@CarersCrypto.encryptAES("howWeContactYou")", 'button');
                 }
             });

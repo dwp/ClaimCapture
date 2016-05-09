@@ -3,11 +3,11 @@
 
 @import play.api.i18n.Messages
 @import helper._
-
+@import app.ConfigProperties._
 
 @yourCourseDetails = @{claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())}
 @disableChangeButton = @{
-	!app.ConfigProperties.getProperty("cyaToggleVisible",true)
+	!getBooleanProperty("cyaToggleVisible")
 }
 
 @content = {

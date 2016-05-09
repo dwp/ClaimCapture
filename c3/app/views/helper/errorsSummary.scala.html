@@ -5,7 +5,7 @@
 @import app.ConfigProperties._
 
 @gaTrack(key: String, errorMessage: String)  = @{
-    if (getProperty("include.analytics", default = true)) {
+    if (getBooleanProperty("include.analytics")) {
         trackEvent(request.path, "Error", Some(s"${trimDate(key)} - $errorMessage"))
     } else {
         ""
