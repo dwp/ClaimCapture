@@ -11,15 +11,14 @@ trait SubmissionCacheService {
   private val TWO_MINUTES = 120
 
   def checkEnabled: Boolean = {
-    val checkLabel: String = "duplicate.submission.check"
-    val check = getProperty(checkLabel, default = true)
+    val check = getBooleanProperty("duplicate.submission.check")
     check
   }
 
   def storeInCache(claim: Claim): Unit = {
     val fingerprint = claim.getFingerprint
     val cache = current.injector.instanceOf[CacheApi]
-    cache.set(fingerprint, fingerprint, Duration(getProperty("submission.cache.expiry", default=TWO_MINUTES), SECONDS))
+    cache.set(fingerprint, fingerprint, Duration(getIntProperty("submission.cache.expiry"), SECONDS))
   }
 
   def getFromCache(claim: Claim): Option[String] = {

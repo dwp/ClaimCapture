@@ -8,7 +8,7 @@ import gov.dwp.carers.xml.schemavalidations.SchemaValidation
   */
 object TextLengthHelper {
   def textMaxLength(path: String): Integer = {
-    val schemaVersion=getProperty("xml.schema.version", "xml.schema.version not found")
+    val schemaVersion=getStringProperty("xml.schema.version")
     Option(new SchemaValidation(schemaVersion).getRestriction(path)) match {
       case Some(restriction) if(restriction.getMaxlength != null) => restriction.getMaxlength
       case _ => -1
