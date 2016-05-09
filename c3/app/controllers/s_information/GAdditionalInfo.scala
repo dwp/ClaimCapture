@@ -44,7 +44,7 @@ object GAdditionalInfo extends Controller with CachedClaim with Navigable with I
   }
 
   private def redirect(claim: Claim) = {
-    if (getProperty("preview.enabled",default = false)) {
+    if (getBooleanProperty("preview.enabled")) {
       Redirect(controllers.preview.routes.Preview.present().url + getReturnToSummaryValue(claim))
     } else {
       Redirect(controllers.s_consent_and_declaration.routes.GDeclaration.present())

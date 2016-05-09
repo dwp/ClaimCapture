@@ -20,14 +20,14 @@ import play.api.Play.current
 object Global extends GlobalSettings with CarersLanguageHelper with C3MonitorRegistration {
 
   override def onStart(app: Application) {
-    MDC.put("httpPort", getProperty("http.port", "Value not set"))
+    MDC.put("httpPort", getStringProperty("http.port", throwError = false))
     MDC.put("hostName", Option(InetAddress.getLocalHost.getHostName).getOrElse("Value not set"))
-    MDC.put("envName", getProperty("env.name", "Value not set"))
-    MDC.put("appName", getProperty("app.name", "Value not set"))
+    MDC.put("envName", getStringProperty("env.name", throwError = false))
+    MDC.put("appName", getStringProperty("app.name", throwError = false))
     super.onStart(app)
 
-    val secret: String = getProperty("play.crypto.secret", "secret")
-    val secretDefault: String = getProperty("secret.default", "don't Match")
+    val secret: String = getStringProperty("play.crypto.secret", throwError = false)
+    val secretDefault: String = getStringProperty("secret.default", throwError = false)
 
     duplicateClaimCheckEnabled()
 
@@ -40,7 +40,7 @@ object Global extends GlobalSettings with CarersLanguageHelper with C3MonitorReg
     registerReporters()
     registerHealthChecks()
 
-    Logger.info(s"c3 property include.analytics is ${getProperty("include.analytics", "Not defined")}") // used for operations, do not remove
+    Logger.info(s"c3 property include.analytics is ${getBooleanProperty("include.analytics", throwError = false)}") // used for operations, do not remove
   }
 
   def actorSystems() {
@@ -49,9 +49,8 @@ object Global extends GlobalSettings with CarersLanguageHelper with C3MonitorReg
   }
 
   def duplicateClaimCheckEnabled() = {
-    val checkLabel: String = "duplicate.submission.check"
-    val check = getProperty(checkLabel, default = true)
-    Logger.info(s"$checkLabel = $check")
+    val check = getBooleanProperty("duplicate.submission.check")
+    Logger.info(s"duplicate.submission.check = $check")
   }
 
   override def onStop(app: Application) {
@@ -68,10 +67,10 @@ object Global extends GlobalSettings with CarersLanguageHelper with C3MonitorReg
   }
 
   override def onError(request: RequestHeader, ex: Throwable) = {
-    val csrfCookieName = getProperty("play.filters.csrf.cookie.name", "csrf")
-    val csrfSecure = getProperty("play.filters.csrf.cookie.secure", getProperty("play.http.session.secure", default = false))
+    val csrfCookieName = getStringProperty("play.filters.csrf.cookie.name")
+    val csrfSecure = getBooleanProperty("play.filters.csrf.cookie.secure")
     val theDomain = Play.current.configuration.getString("session.domain")
-    val domainRoot = getProperty("domainRoot","carersallowance.service.gov.uk")
+    val domainRoot = getStringProperty("domainRoot")
     val C3VERSION = "C3Version"
     val pattern = """.*circumstances.*""".r
     val cookiesAbsent = request.cookies.isEmpty

@@ -41,14 +41,14 @@ object GFeedback extends Controller with CachedClaim with Navigable with I18nSup
   (Feedback.apply)(Feedback.unapply))
 
   def present = optionalClaim { implicit claim => implicit request => implicit request2lang =>
-    getProperty("feedback.cads.enabled", default = false) match {
+    getBooleanProperty("feedback.cads.enabled") match {
       case false => BadRequest(views.html.common.switchedOff("feedback-present", request2lang))
       case true => Ok(views.html.feedback.feedback(form))
     }
   }
 
   def submit(claimOrCircs: String) = optionalClaim { implicit claim => implicit request => implicit request2lang =>
-    getProperty("feedback.cads.enabled", default = false) match {
+    getBooleanProperty("feedback.cads.enabled") match {
       case false => BadRequest(views.html.common.switchedOff("feedback-submit", request2lang))
       case true => {
         form.bindEncrypted.fold(
@@ -97,9 +97,9 @@ object GFeedback extends Controller with CachedClaim with Navigable with I18nSup
   }
 
   def thankyouPageUrl = {
-    app.ConfigProperties.getProperty("origin.tag", "GB") match {
-      case "GB" => getProperty("feedback.gb.thankyou.url", default = "config-error-getting-uk-thankyou")
-      case "GB-NIR" => getProperty("feedback.ni.thankyou.url", default = "config-error-getting-ni-thankyou")
+    app.ConfigProperties.getStringProperty("origin.tag") match {
+      case "GB" => getStringProperty("feedback.gb.thankyou.url")
+      case "GB-NIR" => getStringProperty("feedback.ni.thankyou.url")
       case _ => "config-error-origin-tag"
     }
   }

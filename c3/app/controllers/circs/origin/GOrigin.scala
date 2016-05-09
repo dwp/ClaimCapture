@@ -14,6 +14,7 @@ import play.api.mvc.Controller
 import services.ClaimTransactionComponent
 import services.submission.ClaimSubmissionService
 import utils.helpers.CarersForm._
+import app.ConfigProperties._
 
 import scala.language.{postfixOps, reflectiveCalls}
 
@@ -42,7 +43,7 @@ with ClaimTransactionComponent{
   def present = newClaim { implicit circs => implicit request => lang =>
     Logger.info(s"Starting Origin Select")
     saveInCache(circs)
-    app.ConfigProperties.getProperty("origin.tag", "GB") match {
+    getStringProperty("origin.tag") match {
       case "GB-NIR" =>
         track(ReportChangeOrigin) {
           implicit circs => Ok(views.html.circs.origin.origin(form.fill(ReportChangeOrigin)))
@@ -59,7 +60,7 @@ with ClaimTransactionComponent{
         BadRequest(views.html.circs.origin.origin(formWithErrors))
       },
       f => {
-        (app.ConfigProperties.getProperty("origin.tag", "GB"), f.origin) match {
+        (app.ConfigProperties.getStringProperty("origin.tag"), f.origin) match {
           case ("GB-NIR", "NI") => {
             Logger.info("Origin Select - NISSA site user posted selected originating country of:" + f.origin + ". Redirecting to NI Circs")
             circs -> Redirect(controllers.circs.start_of_process.routes.GReportChangeReason.present())
