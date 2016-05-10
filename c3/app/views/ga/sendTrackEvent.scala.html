@@ -4,7 +4,7 @@
 @import app.ConfigProperties._
 
 @gaTrack(action: String, label: String) = @{
-    if(getBooleanProperty("include.analytics")) {
+    if(getBooleanProperty("analytics.enabled")) {
         trackEvent(request.path, action, Some(label))
     }
     else {

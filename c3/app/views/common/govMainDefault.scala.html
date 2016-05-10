@@ -88,7 +88,7 @@
         <script @nonCachingSrc("javascripts/respond.min.js")></script>
         <![endif]-->
 
-        @if(play.Configuration.root().getBoolean("include.analytics", true)) {
+        @if(play.Configuration.root().getBoolean("analytics.enabled", true)) {
             @views.html.ga.setup()
         }
 

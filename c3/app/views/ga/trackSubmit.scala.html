@@ -11,7 +11,7 @@
         request.path + "/vpv/" + (isClaimSubmit match {case true => "claim" case false => "section"}) + "_completed"
 }
 
-@gaTrack() = @{ if(getBooleanProperty("include.analytics")){
+@gaTrack() = @{ if(getBooleanProperty("analytics.enabled")){
         trackPageView(constructURI)
     }
 }

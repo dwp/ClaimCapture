@@ -5,7 +5,7 @@
 @import utils.helpers.GAHelper._
 @import app.ConfigProperties._
 
-@gaTrack(displayLabel:String) = @{ if(getBooleanProperty("include.analytics")){
+@gaTrack(displayLabel:String) = @{ if(getBooleanProperty("analytics.enabled")){
         trackEvent(request.uri, displayLabel)
     }
 }

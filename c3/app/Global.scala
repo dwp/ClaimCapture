@@ -40,7 +40,7 @@ object Global extends GlobalSettings with CarersLanguageHelper with C3MonitorReg
     registerReporters()
     registerHealthChecks()
 
-    Logger.info(s"c3 property include.analytics is ${getBooleanProperty("include.analytics", throwError = false)}") // used for operations, do not remove
+    Logger.info(s"c3 property analytics.enabled is ${getBooleanProperty("analytics.enabled", throwError = false)}") // used for operations, do not remove
   }
 
   def actorSystems() {

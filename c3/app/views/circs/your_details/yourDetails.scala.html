@@ -78,7 +78,7 @@
         @if(getBooleanProperty("email.frontend")){
             <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/email.js")></script>
         }
-        @if(!Play.isTest(Play.current) && getBooleanProperty("include.analytics")){
+        @if(!Play.isTest(Play.current) && getBooleanProperty("analytics.enabled")){
             <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/trackInputOnEvent.js")></script>
         }
         <script type="text/javascript">
@@ -89,7 +89,7 @@
                                      "@CarersCrypto.encryptAES("mail")",
                                      "@CarersCrypto.encryptAES("mailConfirmation")");
                 }
-                @if(!Play.isTest(Play.current) && getBooleanProperty("include.analytics")){
+                @if(!Play.isTest(Play.current) && getBooleanProperty("analytics.enabled")){
                     window.trackInputOnEventInit('furtherInfoContact', "@CarersCrypto.encryptAES("furtherInfoContact")", 'button');
                 }
             });
