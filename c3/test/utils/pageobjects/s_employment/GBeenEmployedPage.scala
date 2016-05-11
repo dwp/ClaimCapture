@@ -12,7 +12,7 @@ final class GBeenEmployedPage(ctx:PageObjectsContext, iteration:Int) extends Cla
 }
 
 object GBeenEmployedPage {
-  val url  = "/employment/been-employed"
+  val url  = "/your-income/employment/been-employed"
 
   def apply(ctx:PageObjectsContext, iteration:Int=1) = new GBeenEmployedPage(ctx,iteration)
 }

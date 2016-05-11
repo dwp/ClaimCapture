@@ -2,7 +2,7 @@
 
 
 @import views.html.helper.base._
-@import utils.helpers.EmptyTemplate._
+@implicitField = @{ utils.helpers.EmptyTemplate.apply(lang).fieldConstructor }
 @import play.api.i18n.Messages
 
 @views.html.helper.base.carersSelect(field(id), options, args ++ Seq('class -> "selectWithOther"): _*)

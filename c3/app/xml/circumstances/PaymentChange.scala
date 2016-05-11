@@ -4,9 +4,6 @@ import models.domain.{CircumstancesPaymentChange, Claim}
 import scala.xml.NodeSeq
 import xml.XMLHelper._
 
-/**
- * Created by neddakaltcheva on 3/13/14.
- */
 object PaymentChange {
   def xml(circs :Claim): NodeSeq = {
     val circsPaymentChangeOption: Option[CircumstancesPaymentChange] = circs.questionGroup[CircumstancesPaymentChange]
@@ -33,7 +30,7 @@ object PaymentChange {
     <AccountDetails>
       {question(<HolderName/>, "accountHolderName", encrypt(bankBuildingSocietyDetails.accountHolderName))}
       <BuildingSocietyDetails>
-        {question(<AccountNumber/>, "accountNumber", encrypt(bankBuildingSocietyDetails.accountNumber))}
+        {question(<AccountNumber/>, "accountNumber", encrypt(bankBuildingSocietyDetails.accountNumber.replace(" ","")))}
         {question(<RollNumber/>,"rollOrReferenceNumber", bankBuildingSocietyDetails.rollOrReferenceNumber)}
         {question(<SortCode/>,"sortCode", encrypt(bankBuildingSocietyDetails.sortCode))}
         {question(<Name/>, "bankFullName", bankBuildingSocietyDetails.bankFullName)}

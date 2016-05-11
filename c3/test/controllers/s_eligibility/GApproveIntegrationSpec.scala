@@ -36,7 +36,7 @@ class GApproveIntegrationSpec extends Specification {
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
       over16Page fillPageWith claim
       val livingGBPage = over16Page submitPage()
-      claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "Yes"
+      claim.CanYouGetCarersAllowanceWhichCountryLivein = "GB"
       livingGBPage fillPageWith claim
       val approvePage = livingGBPage submitPage()
 
@@ -54,7 +54,7 @@ class GApproveIntegrationSpec extends Specification {
       claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = "DLA"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
-      claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "No"
+      claim.CanYouGetCarersAllowanceWhichCountryLivein = "OTHER"
       page goToThePage()
       val approvePage = page runClaimWith (claim, GApprovePage.url)
 
@@ -72,7 +72,7 @@ class GApproveIntegrationSpec extends Specification {
       claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = "CAA"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
-      claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "Yes"
+      claim.CanYouGetCarersAllowanceWhichCountryLivein = "GB"
       page goToThePage()
       page runClaimWith (claim, GThirdPartyPage.url)
     }
@@ -83,7 +83,7 @@ class GApproveIntegrationSpec extends Specification {
       claim.CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet = "AA"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
-      claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "Yes"
+      claim.CanYouGetCarersAllowanceWhichCountryLivein = "GB"
       page goToThePage()
       page runClaimWith (claim, GApprovePage.url)
       val errorPage = ErrorPage(context)

@@ -1,17 +1,35 @@
 @(currentForm: Form[models.domain.Eligibility])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
-@import helper._
+
 @import views.html.helper._
-@import views.html.helper.base._
-@import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
-@import views.html.helper.dates._
 @import play.api.i18n.Messages
 @import play.api.Play
 @import views.html.s_eligibility.main
+@import utils.helpers.OriginTagHelper._
 
-
+@countriesList = @{
+    (isOriginGB) match {
+        case true => Seq("GB" -> messages("check.origin.gb"), "NI" -> messages("check.origin.ni"), "OTHER" -> messages("check.origin.other"))
+        case false => Seq("NI" -> messages("check.origin.ni"), "GB" -> messages("check.origin.gb"), "OTHER" -> messages("check.origin.other"))
+    }
+}
+@goodCountrySelection=@{
+    (isOriginGB) match {
+        case true => "origin_GB"
+        case false => "origin_NI"
+    }
+}
+@badCountrySelection=@{
+    (isOriginGB) match {
+        case true => "origin_NI"
+        case false => "origin_GB"
+    }
+}
+@otherCountrySelection=@{
+    "origin_OTHER"
+}
     @main(messages("s0.progressbar.name") + " - " + messages("s0.longName"), Some(currentForm),changing = true) {
 
         @form(action = controllers.s_eligibility.routes.GEligibility.submit, 'role -> "form") {
@@ -22,12 +40,14 @@
                 <ul>
                     @yesNoRadioGroup(currentForm("hours.answer"), '_label -> messages("s0.g2"), 'allowance -> true, 'helperAbove -> messages("s0.g2.help1"), 'warningMessage -> Seq(messages("s0.g2.help2")) ,'track -> true,'trackLabel -> "hours.answer")
                     @yesNoRadioGroup(currentForm("over16.answer"), '_label -> Messages ("s0.g3"), 'allowance -> true, 'warningMessage -> Seq(messages("s0.g3.help1")), 'track -> true, 'trackLabel -> "over16.answer")
-                    @yesNoRadioGroup(currentForm("livesInGB.answer"), '_label -> messages("s0.g4"), 'allowance -> true, 'helperAbove -> messages("s0.g4.help1"), 'warningMessage ->Seq(messages("s0.g4.help4"),messages("s0.g4.help5")), 'track -> true, 'trackLabel -> "livesInGB.answer")
+                    @listRadioGroup(currentForm("origin"), 'track -> true, 'trackLabel -> "WhichCountry.answer", 'items -> countriesList, '_label->messages("origin") )
+                    <div id="originWarning" class="prompt breaks-prompt validation-summary">
+                        <p>@messages("origin.warning.message")</p>
+                    </div>
                 </ul>
             </fieldset>
 
             @views.html.common.bottomNavigation(changing = true)
-
         }
 
         <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_eligibility/answerNoMessage.js")></script>
@@ -37,7 +57,8 @@
                 window.initEvents("warninghours_answer","@CarersCrypto.encryptAES("hours_answer_yes")", "@CarersCrypto.encryptAES("hours_answer_no")");
                 window.initEvents("warningover16_answer","@CarersCrypto.encryptAES("over16_answer_yes")", "@CarersCrypto.encryptAES("over16_answer_no")");
                 window.initEvents("warninglivesInGB_answer","@CarersCrypto.encryptAES("livesInGB_answer_yes")", "@CarersCrypto.encryptAES("livesInGB_answer_no")");
-
+                window.originWarning("origin_GB", "origin_NI", "origin_OTHER", "originWarning");
+                window.gaEvents("@goodCountrySelection", "@badCountrySelection", "@otherCountrySelection");
             @if(!Play.isTest(Play.current)){
                 var hoursId = '@CarersCrypto.encryptAES("hours_answer")';
                 var res = $('#'+hoursId).parents('li.form-group')

@@ -158,7 +158,6 @@ object GEmploymentChange extends Controller with CachedChangeOfCircs with Naviga
   }
 
   def validHasWorkFinished(input: CircumstancesEmploymentChange): Boolean = {
-    println("COLING validating workFinished")
     if ((input.hasWorkStartedYet.answer == "yes") && (input.hasWorkFinishedYet.answer == None)) false
     else true
   }

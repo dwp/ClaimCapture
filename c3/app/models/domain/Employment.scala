@@ -2,6 +2,7 @@ package models.domain
 
 import controllers.mappings.Mappings
 import models._
+import utils.helpers.TextLengthHelper
 import scala.reflect.ClassTag
 import controllers.mappings.Mappings._
 import models.PaymentFrequency
@@ -10,10 +11,10 @@ import models.yesNo.YesNoWithText
 import controllers.Iteration.{Identifier => IterationID}
 
 object Employed extends Section.Identifier {
-  val id = "s8"
+  val id = "s9"
 
   def isEmployed(claim: Claim): Boolean = {
-    claim.questionGroup[Employment] match {
+    claim.questionGroup[YourIncomes] match {
       case Some(employment) => employment.beenEmployedSince6MonthsBeforeClaim == Mappings.yes
       case _ => false
     }
@@ -125,13 +126,13 @@ object JobDetails extends QuestionGroup.Identifier {
     case `yes` => true
     case `no` => input.jobStartDate.isDefined
   }
-
+  def maxLengthHoursWorked = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//Employment//JobDetails//Pay//WeeklyHoursWorked//Answer")
 }
 
 case class LastWage(iterationID: String = "",
                     oftenGetPaid: PaymentFrequency = PaymentFrequency(),
                     whenGetPaid: String = "",
-                    lastPaidDate: DayMonthYear,
+                    lastPaidDate: DayMonthYear = DayMonthYear(None,None,None),
                     grossPay: String = "",
                     payInclusions: Option[String] = None,
                     sameAmountEachTime: String = "",

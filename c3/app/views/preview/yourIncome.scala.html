@@ -1,0 +1,34 @@
+@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
+@import models.domain._
+@import scala.language.postfixOps
+@import helper._
+@import controllers.mappings.Mappings._
+@import views.html.preview._
+
+@claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
+@yourIncome = @{claim.questionGroup[YourIncomes].getOrElse(YourIncomes())}
+@aboutSelfEmployment = @{claim.questionGroup[SelfEmploymentDates].getOrElse(SelfEmploymentDates)}
+@additionalInfo = @{claim.questionGroup[EmploymentAdditionalInfo].getOrElse(EmploymentAdditionalInfo())}
+@sixMonthsBeforeDate(date:DayMonthYear) = @{date - 6 months}
+@oneWeekBeforeDate(date:DayMonthYear) = @{date - 1 weeks}
+@isSelfEmployed = @{yourIncome.beenSelfEmployedSince1WeekBeforeClaim == yes}
+@isEmployed = @{yourIncome.beenEmployedSince6MonthsBeforeClaim == yes}
+@additionalInfoValue = @{
+	additionalInfo.empAdditionalInfo.answer match {
+		case `yes` => messages("label.yes") + " - " + messages("detailsProvided.simple")
+		case _ => messages("label.no")
+	}
+}
+@disableChangeButton = @{!app.ConfigProperties.getProperty("cyaToggleVisible", true)}
+
+@content = {
+    @employment()
+    @selfEmployment()
+    @yourIncomeOtherPayments()
+	@if(isSelfEmployed || isEmployed){
+		@fieldWithLink("employment_additional_info", messages("empAdditionalInfo.text"), additionalInfoValue, disableLink = disableChangeButton, elementId = Some("empAdditionalInfo_answer"))
+	}
+}
+
+@accordion(label = messages("yourIncome.title"), openLabel = "open-your-income", closeLabel = "close-your-income", content = content, 'track -> true)
+

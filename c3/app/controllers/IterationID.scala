@@ -9,7 +9,7 @@ object IterationID {
   def apply(form: play.api.data.Form[_])(implicit claim: Claim, request: Request[_]): String = {
     val regex =
       if (request.path.contains("employment"))
-        """^(?:.*?)/employment/(?:.*?)(?:/(.*?))?$""".r
+        """^(?:.*?)/your-income/employment/(?:.*?)(?:/(.*?))?$""".r
       else
         """^(?:.*?)/care-you-provide/breaks(?:/(.*?))?$""".r
 

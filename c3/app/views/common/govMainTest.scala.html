@@ -45,7 +45,7 @@
                     <nav class="footer-nav language">
                         @if(isOriginGB) {
                             @if(getProperty("galluogi.cymraeg", default = true)) {
-                                @if((request.uri.startsWith("/allowance/benefits")) || (request.uri.startsWith("/circumstances/report-changes/selection"))) {
+                                @if((request.uri.startsWith("/allowance/benefits")) || (request.uri.startsWith("/circumstances/report-changes/change-selection"))) {
                                     @if(lang.language == "cy") {
                                         <a id="lang-en" href="/change-language/en" aria-label="@Html(messages("english.helper"))" >@Html(messages("english"))</a>
                                     } else {
@@ -58,6 +58,10 @@
                         <a id="privacy" rel="external" target="privacyLink" href="https://www.gov.uk/government/organisations/department-for-work-pensions/about/personal-information-charter" >@messages("privacyLink")</a>
                         @common.feedbackLink()
                     </nav>
+                    <p>@Html(messages("leftcol.helpline"))</p>
+                    @if(isOriginGB) {
+                        <p>@Html(messages("leftcol.callcharges"))</p>
+                    }
                     <p>@Html(messages("madePreston"))</p>
                     <p class="ogl">@Html(messages("openGovLicensea")) <a rel="external" href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3" target="openGovLink" >@Html(messages("openGovLicenseb"))</a>@Html(messages("openGovLicensec"))</p>
                 </div>

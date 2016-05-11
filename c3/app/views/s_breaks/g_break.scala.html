@@ -7,17 +7,14 @@
 @import views.html.helper.base._
 @import views.html.helper.dates._
 @import scala.language.postfixOps
-@import utils.helpers.CarersTemplate._
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
 @import app.CircsBreaksWhereabouts._
 @import controllers.IterationID
 
 @dateWeRequireBreakInCareInformationFrom() = @{
-
     val claimDateQG = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
-    claimDateQG.dateWeRequireBreakInCareInformationFrom
-
+    claimDateQG.dateWeRequireBreakInCareInformationFrom(lang)
 }
-
 
 
 @main("Break - About the care you provide", Some(breakForm), Some(backCall),true) {
@@ -65,7 +62,7 @@
                 )
 
                 @yesNoRadioGroup(breakForm("hasBreakEnded.answer"),
-                    'values -> Seq("yes" -> messages("label.yes9"), "no" -> messages("label.no")),
+                    'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")),
                     '_label -> messages("hasBreakEnded.answer")
                 )
 

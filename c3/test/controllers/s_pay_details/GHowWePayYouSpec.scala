@@ -53,6 +53,44 @@ class GHowWePayYouSpec extends Specification {
       val result2 = GHowWePayYou.submit(request)
       status(result2) mustEqual SEE_OTHER
     }
+
+    "allow spaces in account number" in new WithApplication with Claiming {
+      val request = FakeRequest()
+        .withFormUrlEncodedBody(
+          "likeToPay" -> "yes",
+          "paymentFrequency" -> "1W",
+          "bankDetails.accountHolderName" -> "some Holder",
+          "bankDetails.bankFullName" -> "some bank",
+          "bankDetails.sortCode.sort1" -> "10",
+          "bankDetails.sortCode.sort2" -> "10",
+          "bankDetails.sortCode.sort3" -> "10",
+          "bankDetails.accountNumber" -> " 1234 5678",
+          "bankDetails.rollOrReferenceNumber" -> "1234567899",
+          "bankDetails.whoseNameIsTheAccountIn" -> "Your name"
+        )
+
+      val result = GHowWePayYou.submit(request)
+      status(result) mustEqual SEE_OTHER
+    }
+
+    "block letters in account number" in new WithApplication with Claiming {
+      val request = FakeRequest()
+        .withFormUrlEncodedBody(
+          "likeToPay" -> "yes",
+          "paymentFrequency" -> "1W",
+          "bankDetails.accountHolderName" -> "some Holder",
+          "bankDetails.bankFullName" -> "some bank",
+          "bankDetails.sortCode.sort1" -> "10",
+          "bankDetails.sortCode.sort2" -> "10",
+          "bankDetails.sortCode.sort3" -> "10",
+          "bankDetails.accountNumber" -> "1234567X",
+          "bankDetails.rollOrReferenceNumber" -> "1234567899",
+          "bankDetails.whoseNameIsTheAccountIn" -> "Your name"
+        )
+
+      val result = GHowWePayYou.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
   }
   section("unit", models.domain.PayDetails.id)
 }

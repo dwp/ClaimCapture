@@ -11,7 +11,7 @@ final class GSelfEmploymentPensionsAndExpensesPage (ctx:PageObjectsContext) exte
 }
 
 object GSelfEmploymentPensionsAndExpensesPage {
-  val url = "/self-employment/pensions-and-expenses"
+  val url = "/your-income/self-employment/pensions-and-expenses"
 
   def apply(ctx:PageObjectsContext) = new GSelfEmploymentPensionsAndExpensesPage(ctx)
 }

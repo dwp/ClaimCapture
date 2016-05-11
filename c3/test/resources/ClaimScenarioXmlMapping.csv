@@ -1,6 +1,6 @@
 Can you get Carers Allowance?,What benefit does the person you care for get?,What benefit does the person you care for get?,CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet,DWPCAClaim>QualifyingBenefit>Answer
 Can you get Carers Allowance?,Do you spend 35 hours or more each week caring for the person you care for?,Do you spend 35 hours or more each week caring for the person you care for?,CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring,
-Can you get Carers Allowance?,Do you normally live in Great Britain?,Do you normally live in Great Britain?,CanYouGetCarersAllowanceDoYouNormallyLiveinGb,
+Can you get Carers Allowance?,Which country do you live in?,Which country do you live in?,CanYouGetCarersAllowanceWhichCountryLivein,
 Can you get Carers Allowance?,Are you aged 16 or over?,Are you aged 16 or over?,CanYouGetCarersAllowanceAreYouAged16OrOver,
 Can you get Carers Allowance?,Do you still want to continue?,Do you still want to continue?,CanYouGetCarersAllowanceApproveAnswer,
 Disclaimer,Disclaimer,I agree,DisclaimerUnderstandAndAgree,DWPCAClaim>Disclaimer
@@ -22,16 +22,12 @@ Claim Date,Your claim date,Were you caring for the person for more than 35 hours
 Claim Date,Your claim date,When did you begin caring?,ClaimDateWhenDidYouStartToCareForThisPerson,Claimant>DateStartCaring>Answer
 About You,Nationality and where you live,What is your nationality?,AboutYouNationalityAndResidencyNationality,Residency>Nationality>Answer
 About You,Nationality and where you live,Enter your nationality,AboutYouNationalityAndResidencyActualNationality,Residency>ActualNationality>Answer
-About You,Nationality and where you live,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK,Residency>NormallyLiveInGB>Answer
-About You,Nationality and where you live,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency,Residency>CountryNormallyLive>Answer
-About You,When you went abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales for more than 52 weeks in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime,Residency>PeriodAbroad>TimeOutsideGBLast3Years>Answer
-About You,Details of trips abroad for more than 52 weeks,Date you left,DateYouLeftGB,Residency>PeriodAbroad>Period>DateFrom>Answer
-About You,Details of trips abroad for more than 52 weeks,Date you returned,DateYouReturnedToGB,Residency>PeriodAbroad>Period>DateTo>Answer
-About You,Details of trips abroad for more than 52 weeks,Which country did you go to?,WhereDidYouGo,Residency>PeriodAbroad>Country>Answer
-About You,Details of trips abroad for more than 52 weeks,Reason for being there?,WhyDidYou,Residency>PeriodAbroad>Reason>Answer
-About You,Details of trips abroad for more than 52 weeks,Reason for being there?Other,WhyDidYouOther,Residency>PeriodAbroad>Reason>Other
-About You,Details of trips abroad for more than 52 weeks,Was the person you care for with you?,PersonWithYou,Residency>PeriodAbroad>CareePresent>Answer
-About You,Details of trips abroad for more than 52 weeks,"Have you been out of England, Scotland or Wales at any other time in the last 3 years before your claim date [[Claim Date _ 156weeks]]?",AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime,Residency>PeriodAbroad>TimeOutsideGBLast3Years>Answer
+About You,Nationality and where you live,Always lived in UK,AboutYouNationalityAndResidencyAlwaysLivedInUK,Residency>AlwaysLivedInUK>Answer
+About You,Nationality and where you live,Live in UK now,AboutYouNationalityAndResidencyLiveInUKNow,Residency>LiveInUKNow>Answer
+About You,Nationality and where you live,Arrived in UK,AboutYouNationalityAndResidencyArrivedInUK,Residency>ArrivedInUK>Answer
+About You,Nationality and where you live,Arrived in UK Date,AboutYouNationalityAndResidencyArrivedInUKDate,Residency>ArrivedInUKDate>Answer
+About You,Nationality and where you live,Out of UK more than 52 weeks,AboutYouNationalityAndResidencyTrip52Weeks,Residency>TimeOutsideGBLast3Years>Answer
+About You,Nationality and where you live,Out of UK more than 52 weeks trip details,AboutYouNationalityAndResidencyTripDetails,Residency>TripDetails>Answer
 About You,Other European Economic Area (EEA) states or Switzerland,"Have you and your close family claimed or been paid any benefits or pensions from any of these countries since your claim date?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,OtherBenefits>EEA>EEAReceivePensionsBenefits>Answer
 About You,Other European Economic Area (EEA) states or Switzerland,"Have you or your close family worked or paid national insurance in any of these countries since your claim date?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,OtherBenefits>EEA>EEAWorkingInsurance>Answer
 About You,Other European Economic Area (EEA) states or Switzerland,"Give details",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEADetails,OtherBenefits>EEA>EEAReceivePensionsBenefitsDetails>Answer
@@ -78,8 +74,8 @@ Education,Your course details,Name of Main Teacher or Tutor,EducationNameOfMainT
 Education,Your course details,Course contact number,EducationPhoneNumber,FullTimeEducation>LocationDetails>PhoneNumber>Answer
 Education,Your course details,When did you start the course?,EducationWhenDidYouStartTheCourse,FullTimeEducation>CourseDetails>DateStarted>Answer
 Education,Your course details,When do you expect the course to end?,EducationWhenDoYouExpectTheCourseToEnd,FullTimeEducation>CourseDetails>ExpectedEndDate>Answer
-Employment,Employment,Have you been employed at any time since <ddmmyyyy> (this is six months before your claim date:< ddmmyyyy>)?,EmploymentHaveYouBeenEmployedAtAnyTime_0,DWPCAClaim>Employed>Answer
-Employment,Employment,Have you been self-employed at any time since <ddmmyyyy> (this is one week before your claim date:<ddmmyyyy>)?,EmploymentHaveYouBeenSelfEmployedAtAnyTime,DWPCAClaim>SelfEmployed>Answer
+Employment,Employment,Have you been employed at any time since <ddmmyyyy> (this is six months before your claim date:< ddmmyyyy>)?,EmploymentHaveYouBeenEmployedAtAnyTime_0,DWPCAClaim>Incomes>Employed>Answer
+Employment,Employment,Have you been self-employed at any time since <ddmmyyyy> (this is one week before your claim date:<ddmmyyyy>)?,EmploymentHaveYouBeenSelfEmployedAtAnyTime,DWPCAClaim>Incomes>SelfEmployed>Answer
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
 Employment,Your Job,Employers Name,EmploymentEmployerName,Employment>JobDetails>Employer>Name>Answer
 Employment,Your Job,Did you start this job before claim date <ddmmyyyy_1>?,EmploymentDidYouStartThisJobBeforeClaimDate,Employment>JobDetails>Employer>DidJobStartBeforeClaimDate>Answer
@@ -104,8 +100,8 @@ Employment,Pension and expenses,"Give details of what you [[present=need]] [[pas
 Employment,Pension and expenses,"[[past=Did you]] [[present=Do you]] have any care costs because of this work?",EmploymentDoYouPayforAnythingNecessaryToDoYourJob,Employment>JobDetails>PaidForJobExpenses>Answer
 Employment,Pension and expenses,"Tell us what the cost [[past=was]] [[present=is]] for, how much, how often and who to",EmploymentWhatAreNecessaryJobExpenses,Employment>JobDetails>JobExpenses>Expense>Answer
 Employment,About other employment history,"Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?",EmploymentHaveYouHadAnotherJobatAnyTimeSinceClaim6Months,
-Employment,Employment,Do you want to add anything about your work?,EmploymentDoYouWantToAddAnythingAboutYourWork,DWPCAClaim>EmploymentAdditionalInfo>Answer
-Employment,Employment,Do you want to add anything about your work?Other,EmploymentAdditionalInfo,DWPCAClaim>EmploymentAdditionalInfo>Other
+Employment,Employment,Do you want to add anything about your work?,EmploymentDoYouWantToAddAnythingAboutYourWork,DWPCAClaim>Incomes>EmploymentAdditionalInfo>Answer
+Employment,Employment,Do you want to add anything about your work?Other,EmploymentAdditionalInfo,DWPCAClaim>Incomes>EmploymentAdditionalInfo>Other
 Self-Employed,Your job,Are you self-employed now?,SelfEmployedAreYouSelfEmployedNow,SelfEmployment>SelfEmployedNow>Answer
 Self-Employed,Your job,Did you start this work more than a year ago?,SelfEmployedMoreThanYearAgo,SelfEmployment>MoreThanYearAgo>Answer
 Self-Employed,Your job,When did the job finish?,SelfEmployedWhenDidTheJobFinish,SelfEmployment>DateEnded>Answer

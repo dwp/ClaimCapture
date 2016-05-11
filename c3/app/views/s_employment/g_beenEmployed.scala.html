@@ -6,10 +6,12 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import utils.helpers.CarersCrypto
 @import models.domain._
-@import play.api.i18n.Messages
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 
-@nextSection = @{ if (SelfEmployment.visible) SelfEmployment.name else OtherMoney.name }
+@nextSection = @{ if (SelfEmployment.visible) SelfEmployment.name else YourIncomeStatutorySickPay.name }
+
+@previousJobs = @{ if (claim.navigation.beenInPreview)claim.checkYAnswers.previouslySavedClaim.get.questionGroup[Jobs] else Jobs()}
+@currentJobs = @{ if (claim.navigation.beenInPreview)claim.questionGroup[Jobs] else Jobs() }
 
 @main("Your employment history - " + messages("s7.longName"), Some(currentForm)) {
 
@@ -43,7 +45,7 @@
                                 </dl>
 
                                 <div class="actions">
-                                    <input type="button" id="changeButton" value="@Html(messages("change"))">
+                                    <input type="button" id="changeButton" value="@Html(messages("change"))" @views.html.ga.trackClickEvent(linkName = "Employment - Change")>
                                     <input type="button" id="deleteButton" value="@Html(messages("delete"))">
                                 </div>
 
@@ -51,7 +53,7 @@
                             <div class="prompt breaks-prompt validation-summary">
                                 <p class="normalMsg">@Html(messages("deleteEmploymentMessage"))</p>
                                 <input type="button" class="button row secondary" id = "noDeleteButton" value="@Html(messages("no.delete"))" aria-label="@Html(messages("no.delete.label"))">
-                                <input type="button" class="button row warning" id = "yesDeleteButton" value="@Html(messages("yes.delete"))" aria-label="@Html(messages("yes.delete.label"))">
+                                <input type="button" class="button row warning" id = "yesDeleteButton" value="@Html(messages("yes.delete"))" aria-label="@Html(messages("yes.delete.label"))" @views.html.ga.trackClickEvent(linkName = "Employment - Delete")>
                             </div>
                         }
                     }
@@ -89,7 +91,7 @@
             }
         </fieldset>
 
-        @views.html.common.bottomNavigation(customTrack =Some(views.html.ga.trackSubmit(isOptional=true)),nextLabel = Some("form.next"))
+        @views.html.common.bottomNavigation(customTrack =Some(views.html.ga.trackSubmit(isOptional=true)))
 
     }
 
@@ -104,6 +106,15 @@
                 "@CarersCrypto.encryptAES("beenEmployed_yes")",
                 "@CarersCrypto.encryptAES("beenEmployed_no")",
                 @play.api.Play.isTest(play.api.Play.current));
+            window.updateNextLabel(
+                    "@CarersCrypto.encryptAES("beenEmployed")"
+                    ,"@CarersCrypto.encryptAES("beenEmployed_no")"
+                    ,"@CarersCrypto.encryptAES("beenEmployed_yes")"
+                    ,@claim.navigation.beenInPreview
+                    ,@(!(previousJobs == currentJobs))
+                    ,"@messages("form.next")"
+                    ,"@messages("form.returnToSummary")"
+            );
         })
     </script>
 

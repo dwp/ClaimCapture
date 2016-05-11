@@ -5,6 +5,7 @@ import controllers.CircumstancesScenarioFactory
 import org.openqa.selenium.By
 import org.specs2.mutable._
 import utils.WithBrowser
+import utils.pageobjects.circumstances.origin.GOriginPage
 import utils.pageobjects.{TestData, PageObjects}
 import utils.pageobjects.circumstances.start_of_process.{GCircsYourDetailsPage, GReportChangesPage}
 import utils.pageobjects.circumstances.report_changes.{GOtherChangeInfoPage, _}
@@ -37,12 +38,12 @@ class GReportChangesIntegrationSpec extends Specification {
     // We go to first page, select Something Else ... Submit ... then come back to first page.
     // The Something Else should be preselected again and therefore Submit will take us back to Something Else page
     "preserve change reason selection when go back to first page" in new WithBrowser with PageObjects {
-      val page = GReportChangesPage(context)
+      val page = GOriginPage(context)
       val claim = CircumstancesScenarioFactory.reportChangesOtherChangeInfo
-      page goToThePage()
-      page fillPageWith claim
+      val newPage = page goToThePage(throwException = false)
+      newPage fillPageWith claim
 
-      val infoPage = page submitPage()
+      val infoPage = newPage submitPage()
       infoPage must beAnInstanceOf[GOtherChangeInfoPage]
 
       val firstPageAgain = infoPage.goBack()
@@ -56,10 +57,10 @@ class GReportChangesIntegrationSpec extends Specification {
       // selects one reason and submits it to the last page so it gets saved
       // then selects a different reason and checks that the data refering to "you" is still saved
       // then it selects the same initial reason and checks that the data input initially was cleared by the second step
-      val reportChangesFirst = GReportChangesPage(context)
-      reportChangesFirst goToThePage()
+      val reportChangesFirst = GOriginPage(context)
+      val newPage = reportChangesFirst goToThePage(throwException = false)
 
-      val otherChangeInfoPageFirst = reportChangesFirst runClaimWith(reportChangesOtherChangeInfo, GOtherChangeInfoPage.url)
+      val otherChangeInfoPageFirst = newPage runClaimWith(reportChangesOtherChangeInfo, GOtherChangeInfoPage.url)
       otherChangeInfoPageFirst must beAnInstanceOf[GOtherChangeInfoPage]
       otherChangeInfoPageFirst.fillInput("#changeInCircs", "bla bla")
 
@@ -95,10 +96,10 @@ class GReportChangesIntegrationSpec extends Specification {
       // selects one reason and submits it to the last page
       // then it selects the same initial reason and checks that the data input initially was not cleared by the second step
 
-      val reportChangesFirst = GReportChangesPage(context)
-      reportChangesFirst goToThePage()
+      val reportChangesFirst = GOriginPage(context)
+      val newPage = reportChangesFirst goToThePage(throwException = false)
 
-      val otherChangeInfoPageFirst = reportChangesFirst runClaimWith(reportChangesOtherChangeInfo, GOtherChangeInfoPage.url)
+      val otherChangeInfoPageFirst = newPage runClaimWith(reportChangesOtherChangeInfo, GOtherChangeInfoPage.url)
       otherChangeInfoPageFirst must beAnInstanceOf[GOtherChangeInfoPage]
       otherChangeInfoPageFirst.fillInput("#changeInCircs", "bla bla")
 

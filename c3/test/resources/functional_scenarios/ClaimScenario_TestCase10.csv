@@ -1,6 +1,6 @@
 Can you get Carers Allowance?,Does the person you care for get one of these benefits?,Does the person you care for get one of these benefits?,CanYouGetCarersAllowanceWhatBenefitDoesThePersonYouCareForGet,PIP
 Can you get Carers Allowance?,Do you spend 35 hours or more each week caring for the person you care for?,Do you spend 35 hours or more each week caring for the person you care for?,CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring,Yes
-Can you get Carers Allowance?,Do you normally live in Great Britain?,Do you normally live in Great Britain?,CanYouGetCarersAllowanceDoYouNormallyLiveinGb,Yes
+Can you get Carers Allowance?,Do you normally live in Great Britain?,Do you normally live in Great Britain?,CanYouGetCarersAllowanceWhichCountryLivein,GB
 Can you get Carers Allowance?,Are you aged 16 or over?,Are you aged 16 or over?,CanYouGetCarersAllowanceAreYouAged16OrOver,Yes
 Disclaimer,Disclaimer,I agree,DisclaimerUnderstandAndAgree,Yes
 Third Party,Third Party,Are you applying for Carer's Allowance for yourself?,ThirdPartyAreYouApplying,yesCarer
@@ -15,10 +15,14 @@ About You,Your contact details,Address,AboutYouAddress,6 Preston Road&Preston&La
 About You,Your contact details,Postcode,AboutYouPostcode,PR1 2TH
 About You,Your contact details,How we contact you,HowWeContactYou,01772 888901
 About You,Your contact details,Wants email contact,AboutYouWantsEmailContact,No
-About You,Nationality and where you live,What is your nationality?,AboutYouNationalityAndResidencyNationality,Another nationality
-About You,Nationality and where you live,Enter your nationality,AboutYouNationalityAndResidencyActualNationality,French
-About You,Nationality and where you live,"Do you normally live in England, Scotland or Wales?",AboutYouNationalityAndResidencyResideInUK,No
-About You,Nationality and where you live,Which country do you normally live in?,AboutYouNationalityAndResidencyNormalResidency,France
+About You,Nationality and where you live,What is your nationality?,AboutYouNationalityAndResidencyNationality,British
+About You,Nationality and where you live,Enter your nationality,AboutYouNationalityAndResidencyActualNationality,
+About You,Nationality and where you live,Always lived in UK,AboutYouNationalityAndResidencyAlwaysLivedInUK,Yes
+About You,Nationality and where you live,Live in UK now,AboutYouNationalityAndResidencyLiveInUKNow,
+About You,Nationality and where you live,Arrived in UK,AboutYouNationalityAndResidencyArrivedInUK,
+About You,Nationality and where you live,Arrived in UK Date,AboutYouNationalityAndResidencyArrivedInUKDate,
+About You,Nationality and where you live,Out of UK more than 52 weeks,AboutYouNationalityAndResidencyTrip52Weeks,No
+About You,Nationality and where you live,Out of UK more than 52 weeks trip details,AboutYouNationalityAndResidencyTripDetails,
 Claim Date,Your claim date,"When do you want your Carer's Allowance claim to start?",ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart,23/07/2013
 Claim Date,Your claim date,Were you caring for the person for more than 35 hours a week before this date?,ClaimDateDidYouCareForThisPersonfor35Hours,No
 Claim Date,Your claim date,When did you begin caring?,ClaimDateWhenDidYouStartToCareForThisPerson,
@@ -64,8 +68,9 @@ Education,Your course details,Name of Main Teacher or Tutor,EducationNameOfMainT
 Education,Your course details,Course contact number,EducationPhoneNumber,
 Education,Your course details,When did you start the course?,EducationWhenDidYouStartTheCourse,
 Education,Your course details,When do you expect the course to end?,EducationWhenDoYouExpectTheCourseToEnd,
-Employment,Employment,Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)?,EmploymentHaveYouBeenEmployedAtAnyTime_0,yes
-Employment,Employment,Have you been self-employed at any time since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyy>)?,EmploymentHaveYouBeenSelfEmployedAtAnyTime,yes
+Your Income,Employment,Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)?,EmploymentHaveYouBeenEmployedAtAnyTime_0,yes
+Your Income,Employment,Have you been self-employed at any time since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyy>)?,EmploymentHaveYouBeenSelfEmployedAtAnyTime,yes
+Your Income,Other Payments,What other income have you had since <ddmmyyyy>?,YourIncomeNone,true
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
 Employment,Your Job,Employers Name,EmploymentEmployerName_1,DWP
 Employment,Your Job,Phone Number,EmploymentEmployerPhoneNumber_1,12345678
@@ -126,19 +131,6 @@ Self-Employed,Pension and expenses,"[[past=Did you]] [[present=Do you]] have any
 Self-Employed,Pension and expenses,"Tell us what the cost [[past=was]] [[present=is]] for, how much, how often and who to",SelfEmploymentWhatAreNecessaryJobExpenses,some job expenses
 Employment,Employment,Do you want to add anything about your work?,EmploymentDoYouWantToAddAnythingAboutYourWork,Yes
 Employment,Employment,Do you want to add anything about your work?,EmploymentAdditionalInfo,I want to tell more about my job
-Other Money,Benefits and payments,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,No
-Other Money,Benefits and payments,Benefits and payments: Who pays you?,OtherMoneyWhoPaysYou,
-Other Money,Benefits and payments,Benefits and payments: How much?,OtherMoneyHowMuch,
-Other Money,Benefits and payments,Benefits and payments: How often?,OtherMoneyHowOften,
-Other Money,Benefits and payments,Benefits and payments: How often other?,OtherMoneyHowOftenOther,
-Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,No
-Other Money,Statutory Sick Pay,"Employer's Name",OtherMoneySSPEmployerName,
-Other Money,Statutory Sick Pay,"Employer's Address",OtherMoneySSPEmployerAddress,
-Other Money,Statutory Sick Pay,"Employer's Postcode",OtherMoneyEmployerPostcode,
-Other Money,Other Statutory Pay,"Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from?",OtherMoneyHaveYouSMPSinceClaim,No
-Other Money,Other Statutory Pay,"Employer's Name",OtherMoneySMPEmployerName,
-Other Money,Other Statutory Pay,"Employer's Address",OtherMoneySMPEmployerAddress,
-Other Money,Other Statutory Pay,"Employer's Postcode",OtherMoneySMPEmployerPostcode,
 How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,yes
 How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,Every week
 How we pay you,Bank/Building society details,Name of account holder,HowWePayYouNameOfAccountHolder,Mr Test Caseseven

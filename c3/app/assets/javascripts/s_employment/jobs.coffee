@@ -5,7 +5,7 @@ window.initSummary = (deleteId) ->
 
     $("ul").on "click", "input[id='changeButton']", ->
         li = $(this).closest("li")
-        window.location.href = "/employment/job/" + li.attr("id")
+        window.location.href = "/your-income/employment/job/" + li.attr("id")
 
     $("#backButton").on "click", (event) ->
         if ($("#backButton").attr("disabled") == "disabled")
@@ -72,4 +72,20 @@ window.displayWarning = (answer_yes, answer_no, testMode) ->
   $("#" + answer_no).on "click", ->
     if( $("#maxEmpWarningWrap").length >0)
       $("#maxEmpWarningWrap").hide()
+
+window.updateNextLabel = (beenEmployed, answer_yes, answer_no, beenInPreview, employmentChanged, textNext, textReturn) ->
+  changeText = ->
+    button = $('button[value="next"]')
+    if goToPreview()
+      button.text(textReturn)
+    else
+      button.text(textNext)
+
+  goToPreview = ->
+    $("input[name=" + beenEmployed+"]:checked").val() == "no" && beenInPreview && !employmentChanged
+
+  changeText()
+
+  $("#" + answer_no).on "click", changeText
+  $("#" + answer_yes).on "click", changeText
 

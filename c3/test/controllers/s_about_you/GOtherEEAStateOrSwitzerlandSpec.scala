@@ -7,7 +7,7 @@ import models.domain.{OtherEEAStateOrSwitzerland, Claiming}
 import utils.WithApplication
 
 class GOtherEEAStateOrSwitzerlandSpec extends Specification {
-  section("unit", models.domain.OtherMoney.id)
+  section("unit", models.domain.OtherEEAStateOrSwitzerland.id)
   "Other EEA State of Switzerland" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest()
@@ -37,5 +37,5 @@ class GOtherEEAStateOrSwitzerlandSpec extends Specification {
       }
     }
   }
-  section("unit", models.domain.OtherMoney.id)
+  section("unit", models.domain.OtherEEAStateOrSwitzerland.id)
 }

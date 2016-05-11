@@ -1,0 +1,97 @@
+@(currentForm: Form[models.domain.YourIncomes])(implicit claim: models.domain.Claim,lang: Lang,request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
+
+@import scala.language.postfixOps
+@import helper._
+@import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
+@import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+@import models.domain._
+
+@previousClaimEmployment = @{
+    claim.checkYAnswers.previouslySavedClaim.get.questionGroup[YourIncomes].getOrElse(YourIncomes())
+}
+
+@yourIncomeOptionsList(implicit lang:Lang) = @{
+    Seq(YourIncome.ssp -> messages("yourIncome.ssp"),
+        YourIncome.spmp -> messages("yourIncome.spmp"),
+        YourIncome.fa -> messages("yourIncome.fostering"),
+        YourIncome.dp -> messages("yourIncome.direct"),
+        YourIncome.ao -> messages("yourIncome.anyother"),
+        YourIncome.n -> messages("yourIncome.none")
+    )
+}
+
+@main(messages("s7.g1"), messages("s7.g1"), Some(currentForm)) {
+
+    @form(action = controllers.your_income.routes.GYourIncomes.submit, 'role -> "form") {
+
+        @DwpCSRFFormHelper.formField
+
+        <fieldset class="form-elements">
+
+            <legend class="visuallyhidden">@Html(messages("s7.g1"))</legend>
+
+            <ul>
+                @yesNoRadioGroup(currentForm("beenEmployedSince6MonthsBeforeClaim"),
+                    '_label -> messages("beenEmployedSince6MonthsBeforeClaim.label", displayPlaybackDatesFormat(lang, claim.dateOfClaim.getOrElse(DayMonthYear.today) - 6 months)))
+
+                @yesNoRadioGroup(currentForm("beenSelfEmployedSince1WeekBeforeClaim"),
+                    '_label -> messages("beenSelfEmployedSince1WeekBeforeClaim.label", displayPlaybackDatesFormat(lang, claim.dateOfClaim.getOrElse(DayMonthYear.today) - 1 week)))
+
+                @standaloneListCheckboxGroup(currentForm("yourIncome"),
+                    currentForm.asInstanceOf[Form[AnyContent]],
+                    'items -> yourIncomeOptionsList,
+                    'helperAbove -> "yourIncome.checkBoxHelp1",
+                    'track -> true,
+                    'ignoreOptional -> true,
+                    '_showId -> true,
+                    '_label -> messages("yourIncome.otherIncome.label", displayPlaybackDatesFormat(lang, claim.dateOfClaim.getOrElse(DayMonthYear.today))))
+            </ul>
+        </fieldset>
+	    
+        @views.html.common.bottomNavigation(customTrack = Some(views.html.ga.trackSubmit(isOptional=true)))
+
+    }
+
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/your_income/yourIncome.js")></script>
+
+    <script type="text/javascript">
+        $(function(){
+            conditionRequired = function(){
+                return $("#"+"@CarersCrypto.encryptAES("beenEmployedSince6MonthsBeforeClaim_no")").is(':checked');
+            };
+            @if(claim.navigation.beenInPreview){
+            window.updateNextLabel(
+                    {
+                        employment_yes: "@CarersCrypto.encryptAES("beenEmployedSince6MonthsBeforeClaim_yes")"
+                        ,employment_no: "@CarersCrypto.encryptAES("beenEmployedSince6MonthsBeforeClaim_no")"
+                        ,selfEmployment_yes: "@CarersCrypto.encryptAES("beenSelfEmployedSince1WeekBeforeClaim_yes")"
+                        ,selfEmployment_no: "@CarersCrypto.encryptAES("beenSelfEmployedSince1WeekBeforeClaim_no")"
+                        ,previousEmployed: "@previousClaimEmployment.beenEmployedSince6MonthsBeforeClaim"
+                        ,previousSelfEmployed: "@previousClaimEmployment.beenSelfEmployedSince1WeekBeforeClaim"
+                        ,noJobs: @claim.questionGroup[Jobs].getOrElse(Jobs()).size == 0
+                        ,textNext: "@messages("form.next")"
+                        ,textReturn: "@messages("form.returnToSummary")"
+                        ,previousStatutorySickPay: "@previousClaimEmployment.yourIncome_sickpay"
+                        ,previousStatutoryPay: "@previousClaimEmployment.yourIncome_patmatadoppay"
+                        ,previousFosteringAllowance: "@previousClaimEmployment.yourIncome_fostering"
+                        ,previousDirectPayment: "@previousClaimEmployment.yourIncome_directpay"
+                        ,previousOtherPayments: "@previousClaimEmployment.yourIncome_anyother"
+                        ,sickPay: "@CarersCrypto.encryptAES("yourIncome_sickpay")"
+                        ,statutoryPay: "@CarersCrypto.encryptAES("yourIncome_patmatadoppay")"
+                        ,fostering: "@CarersCrypto.encryptAES("yourIncome_fostering")"
+                        ,directPayment: "@CarersCrypto.encryptAES("yourIncome_directpay")"
+                        ,otherPayments: "@CarersCrypto.encryptAES("yourIncome_anyother")"
+                        ,noPayments: "@CarersCrypto.encryptAES("yourIncome_none")"
+                        ,statutorySickPayData:@{claim.questionGroup[StatutorySickPay].getOrElse(StatutorySickPay()).whoPaidYouThisPay.isEmpty}
+                        ,statutoryPayData:@{claim.questionGroup[StatutoryMaternityPaternityAdoptionPay].getOrElse(StatutoryMaternityPaternityAdoptionPay()).whoPaidYouThisPay.isEmpty}
+                        ,fosteringAllowanceData:@{claim.questionGroup[FosteringAllowance].getOrElse(FosteringAllowance()).whoPaidYouThisPay.isEmpty}
+                        ,directPaymentData:@{claim.questionGroup[DirectPayment].getOrElse(DirectPayment()).whoPaidYouThisPay.isEmpty}
+                        ,otherPaymentsData:@{claim.questionGroup[OtherPayments].getOrElse(OtherPayments()).otherPaymentsInfo.isEmpty}
+                    })
+            }
+        })
+    </script>
+
+}
+

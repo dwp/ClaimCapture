@@ -1,7 +1,7 @@
 @(currentForm: Form[models.domain.PensionAndExpenses])(implicit claim: models.domain.Claim, lang: Lang, request: play.api.mvc.Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import helper._
-@import utils.helpers.CarersTemplate._
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper._
 @import views.html.helper.base._
@@ -58,7 +58,8 @@
 
                     @yesNoRadioGroup(currentForm("haveExpensesForJob")("answer"),
                         'helperAbove -> Html(labelForEmployment(claim, lang, "haveExpensesForJob.answer.helper", IterationID(currentForm))),
-                        '_label -> labelForEmployment(claim, lang, "haveExpensesForJob.answer", IterationID(currentForm)), valuesForEmployment(claim, lang, "label.yes2", "label.no", "label.yes", "label.no", IterationID(currentForm)))
+                        '_label -> labelForEmployment(claim, lang, "haveExpensesForJob.answer", IterationID(currentForm)),
+                        valuesForEmployment(claim, lang, "label.yes2", "label.no", "label.yes4", "label.no", IterationID(currentForm)))
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(

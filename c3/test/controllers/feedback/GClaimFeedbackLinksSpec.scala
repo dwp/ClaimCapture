@@ -82,7 +82,7 @@ class GClaimFeedbackLinksSpec extends Specification {
     "Approval page when ineligible should contain finish link and footer feedback link in same tab" in new WithJsBrowser with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
       val claim = Claim(CachedClaim.key).update(Benefits(benefitsAnswer = "yes"))
-        .update(Eligibility(hours = "yes", over16 = "no", livesInGB = "yes"))
+        .update(Eligibility(hours = "yes", over16 = "no", origin = "GB"))
       cache.set("default" + claimKey, claim)
 
       val result = s_eligibility.CarersAllowance.approve(request)

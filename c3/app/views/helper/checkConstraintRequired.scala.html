@@ -4,12 +4,13 @@
 @import views.html.helper.base.carersLabelText
 
 @showLabel = @{ args.toMap.get('_showLabel).getOrElse(true) == true }
-
 @showId = @{ args.toMap.get('_showId).getOrElse(false) == true }
+@isAnchorIdRequired = @{ args.toMap.get('_anchorIdRequired).getOrElse(false) == true }
+@anchorId = @{ args.toMap.get('_anchorId).getOrElse("").asInstanceOf[String] }
 
 @if(showLabel) {
     <fieldset>
-        <legend @if(showId) { id="@generateAnchorId(field.id)" } class="form-label-bold"> @carersLabelText(field,args:_*)</legend>
+        <legend @if(showId) { if(isAnchorIdRequired)id="@generateAnchorId(anchorId)" else { id="@generateLabelId(field.id)" } } class="form-label-bold"> @carersLabelText(field,args:_*)</legend>
     </fieldset>
     @if(args.find(_._1=='helperAbove).isDefined){
         <p class="form-hint">@Html(messages(args.find(_._1=='helperAbove).get._2.toString()))</p>

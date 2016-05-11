@@ -31,7 +31,6 @@ class FunctionalTestCase3Spec extends FunctionalTestCommon {
       dateConversion("ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart") +
       addressConversion("AboutYouAddress") + "AboutYouPostcode" +
       "AboutYouNationalityAndResidencyNationality" +
-      "AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1" +
       "OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA" +
       "AboutYourPartnerTitle"       + "AboutYourPartnerFirstName" + "AboutYourPartnerFirstName" + "AboutYourPartnerSurname" +
       dateConversion("AboutYourPartnerDateofBirth") +
@@ -52,9 +51,6 @@ class FunctionalTestCase3Spec extends FunctionalTestCommon {
       "EmploymentHaveYouBeenEmployedAtAnyTime_0" +
       "EmploymentEmployerName_1"  +
       "EmploymentEmployerName_2" +
-      "EmploymentHaveYouBeenSelfEmployedAtAnyTime" +
-      "OtherMoneyAnyPaymentsSinceClaimDate" +
-      "OtherMoneyHaveYouSSPSinceClaim" +
-      "OtherMoneyHaveYouSMPSinceClaim"
+      "EmploymentHaveYouBeenSelfEmployedAtAnyTime"
     }
 }

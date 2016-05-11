@@ -16,7 +16,7 @@ class GApproveSpec extends Specification {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       val claim = Claim(CachedClaim.key).update(Benefits(benefitsAnswer = "yes"))
-        .update(Eligibility(hours = "yes", over16 = "yes", livesInGB = "yes"))
+        .update(Eligibility(hours = "yes", over16 = "yes", origin = "GB"))
 
       cache.set("default"+claimKey, claim)
 
@@ -28,7 +28,7 @@ class GApproveSpec extends Specification {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       val claim = Claim(CachedClaim.key).update(Benefits(benefitsAnswer = "yes"))
-        .update(Eligibility(hours = "yes", over16 = "no", livesInGB = "yes"))
+        .update(Eligibility(hours = "yes", over16 = "no", origin = "GB"))
 
       cache.set("default"+claimKey, claim)
 

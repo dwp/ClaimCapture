@@ -1,9 +1,8 @@
-@import play.api.Play
 @(yesNoForm: Form[models.domain.BreaksInCareSummary], breaksInCare: models.domain.BreaksInCare)(implicit claim: models.domain.Claim, lang: Lang, request: play.api.mvc.Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
 
 @import views.html.helper.base._
 @import views.html.helper._
-@import models.domain.{ClaimDate, Education, Employed, OtherMoney, SelfEmployment}
+@import models.domain.{ClaimDate, Education, Employed, SelfEmployment, YourIncomeStatutorySickPay}
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
 @import language.postfixOps
@@ -13,17 +12,15 @@
 @import views.html.s_breaks.main
 
 @dateWeRequireBreakInCareInformationFrom() = @{
-
     val claimDateQG = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
-    claimDateQG.dateWeRequireBreakInCareInformationFrom
-
+    claimDateQG.dateWeRequireBreakInCareInformationFrom(lang)
 }
 
 @nextSection = @{
 if (Education.visible) Education.name
 else if (Employed.visible) Employed.name
 else if (SelfEmployment.visible) SelfEmployment.name
-else OtherMoney.name
+else YourIncomeStatutorySickPay.name
 }
 
 @displayReason(reasonList:Seq[(String,Html)], answer:String) = @{
@@ -81,7 +78,7 @@ else OtherMoney.name
                       	</dl>
                       	
                     	<div class="actions">
-                    		<input type="button" name="changerow" id="changerow@breakNum" value="@Html(messages("change"))" aria-label="@Html(messages("change.button"))">
+                    		<input type="button" name="changerow" id="changerow@breakNum" value="@Html(messages("change"))" aria-label="@Html(messages("change.button"))" @views.html.ga.trackClickEvent(linkName = "BIC - Change")>
                         	<input type="button" name="deleterow" id="deleterow@breakNum" value="@Html(messages("delete"))" aria-label="@Html(messages("delete.button"))">
                     	</div>
 
@@ -90,7 +87,7 @@ else OtherMoney.name
                     <div class="prompt breaks-prompt validation-summary">
                             <p>@Html(messages("areYouSureYouWantToDeleteThisBreak"))</p>
                             <input id="noDelete" type="button" name="no" class="button secondary" value="@Html(messages("no.delete"))" aria-label="@Html(messages("no.delete.label"))">
-                            <input id="yesDelete" type="button" name="yes" class="button warning" value="@Html(messages("yes.delete"))" aria-label="@Html(messages("yes.delete.label"))">
+                            <input id="yesDelete" type="button" name="yes" class="button warning" value="@Html(messages("yes.delete"))" aria-label="@Html(messages("yes.delete.label"))" @views.html.ga.trackClickEvent(linkName = "BIC - Delete")>
                     </div>
                 	
                 }

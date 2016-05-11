@@ -1,0 +1,101 @@
+@(otherEEAStateOrSwitzerlandForm: Form[models.domain.OtherEEAStateOrSwitzerland])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
+
+@import scala.language.postfixOps
+@import views.html.helper._
+@import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
+@import play.api.i18n.Messages
+@import views.html.helper.base._
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
+@import views.html.s_nationality_and_residency.main
+
+
+    @main(messages("s2b.g2") + " - " + messages("s2b.longName"), "s2b.g2") {
+        @errorsSummary(otherEEAStateOrSwitzerlandForm)
+
+        @form(action = controllers.s_about_you.routes.GOtherEEAStateOrSwitzerland.submit, 'role -> "form") {
+
+            @DwpCSRFFormHelper.formField
+
+            <fieldset class="form-elements">
+
+                <ul>
+                    @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("eeaGuardQuestion.answer"),
+                        'helperAbove -> messages("eeaGuardQuestion.helperAbove"),
+                        'track -> true,
+                        'trackLabel -> "guardQuestionEEA")
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            Html(messages("eeaCountryHelp.label")),
+                            Html("<br>"),
+                            Html(messages("eeaCountryHelp")),
+                            Html("<p></p>"),
+
+                            yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("eeaGuardQuestion.benefitsFromEEADetails.answer"),
+                                'label -> "benefitsFromEEA",
+                                'helperAbove -> messages("benefitsFromEEA.helperAbove"),
+                                'track -> true,
+                                'trackLabel -> "benefitsFromEEA"),
+
+                            otherDetailPlaceHolder(
+                                inputDef = Seq(carersInputTextArea(otherEEAStateOrSwitzerlandForm("eeaGuardQuestion.benefitsFromEEADetails.field"),
+                                    'label -> "benefitsFromEEADetails",
+                                    'helperAbove -> messages("benefitsFromEEADetails.helperAbove"),
+                                    'textAreaHelper -> Html(messages("3000charsLeft")), 'maxLength -> 3000)
+                                ),
+                                'id -> "benefitsFromEEADetailsWrapper"
+                            ),
+
+                            yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("eeaGuardQuestion.workingForEEADetails.answer"),
+                                'helperAbove -> messages("workingForEEA.helper"),
+                                'track -> true,
+                                'trackLabel -> "workingForEEA"),
+
+                            otherDetailPlaceHolder(
+                                inputDef = Seq(carersInputTextArea(otherEEAStateOrSwitzerlandForm("eeaGuardQuestion.workingForEEADetails.field"),
+                                    'helperAbove -> messages("workingForEEADetails.helper"),
+                                    'textAreaHelper -> Html(messages("3000charsLeft")), 'maxLength -> 3000)
+                                ),
+                                'id -> "workingForEEADetailsWrapper"
+                            )
+
+                        ),
+                        'id -> "eeaWrapper"
+                    )
+
+
+                </ul>
+
+            </fieldset>
+
+            @views.html.common.bottomNavigation()
+
+        }
+        <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
+        <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_about_you/benefitsFromEEADetails.js") ></script>
+        <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_about_you/g_workingForEEA.js")></script>
+        <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_about_you/guardQuestion.js") ></script>
+        <script type="text/javascript">
+        $(function () {
+            window.initEventsGuardQuestion("@CarersCrypto.encryptAES("eeaGuardQuestion_answer_yes")",
+                              "@CarersCrypto.encryptAES("eeaGuardQuestion_answer_no")",
+                              "@CarersCrypto.encryptAES("eeaGuardQuestion_benefitsFromEEADetails_field")",
+                              "@CarersCrypto.encryptAES("eeaGuardQuestion_workingForEEADetails_field")");
+
+            window.areaCounter({selector:"@CarersCrypto.encryptAES("eeaGuardQuestion_benefitsFromEEADetails_field")",maxChars:3000});
+            window.areaCounter({selector:"@CarersCrypto.encryptAES("eeaGuardQuestion_workingForEEADetails_field")",maxChars:3000});
+
+            window.initEventsFromEEA("@CarersCrypto.encryptAES("eeaGuardQuestion_benefitsFromEEADetails_answer_yes")",
+                              "@CarersCrypto.encryptAES("eeaGuardQuestion_benefitsFromEEADetails_answer_no")",
+                              "@CarersCrypto.encryptAES("eeaGuardQuestion_benefitsFromEEADetails_field")");
+            window.initEventsForEEA("@CarersCrypto.encryptAES("eeaGuardQuestion_workingForEEADetails_answer_yes")",
+                              "@CarersCrypto.encryptAES("eeaGuardQuestion_workingForEEADetails_answer_no")",
+                              "@CarersCrypto.encryptAES("eeaGuardQuestion_workingForEEADetails_field")");
+        });
+        </script>
+
+    }
+
+
+

@@ -2,7 +2,8 @@ package controllers.s_employment
 
 import utils.pageobjects.PageObjects
 import utils.pageobjects.s_claim_date.GClaimDatePage
-import utils.pageobjects.s_employment.{GEmploymentPage, GLastWagePage, GJobDetailsPage}
+import utils.pageobjects.s_employment.{GLastWagePage, GJobDetailsPage}
+import utils.pageobjects.your_income.GYourIncomePage
 import language.reflectiveCalls
 import org.specs2.mutable._
 import utils.WithBrowser
@@ -42,12 +43,12 @@ class GJobDetailsIntegrationSpec extends Specification {
       claimDate.fillPageWith(s7EmployedNotSelfEmployed())
       claimDate.submitPage()
 
-      val employment = new GEmploymentPage(claimDate.ctx) goToThePage()
+      val employment = new GYourIncomePage(claimDate.ctx) goToThePage()
       employment.fillPageWith(s7EmployedNotSelfEmployed())
       val jobDetails = employment.submitPage()
 
       jobDetails must beAnInstanceOf[GJobDetailsPage]
-      jobDetails.goBack() must beAnInstanceOf[GEmploymentPage]
+      jobDetails.goBack() must beAnInstanceOf[GYourIncomePage]
     }
 
     "hours a week must be visible when clicked back" in new WithBrowser with PageObjects{

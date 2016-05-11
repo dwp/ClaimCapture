@@ -35,7 +35,7 @@ object GOtherEEAStateOrSwitzerland extends Controller with CachedClaim with Navi
   )
 
   def present = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
-    track(OtherEEAStateOrSwitzerland) { implicit claim => Ok(views.html.s_about_you.g_otherEEAStateOrSwitzerland(form.fill(OtherEEAStateOrSwitzerland))) }
+    track(OtherEEAStateOrSwitzerland) { implicit claim => Ok(views.html.s_nationality_and_residency.g_otherEEAStateOrSwitzerland(form.fill(OtherEEAStateOrSwitzerland))) }
   }
 
   def submit = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
@@ -46,7 +46,7 @@ object GOtherEEAStateOrSwitzerland extends Controller with CachedClaim with Navi
           .replaceError("eeaGuardQuestion", "error.workingForEEADetails.required", FormError("eeaGuardQuestion.workingForEEADetails.answer", "error.workingForEEADetails.required"))
           .replaceError("eeaGuardQuestion", "benefitsfromeeadetails.required", FormError("eeaGuardQuestion.benefitsFromEEADetails.field", "error.benefitsFromEEADetails.required"))
           .replaceError("eeaGuardQuestion", "workingForEEADetails.required", FormError("eeaGuardQuestion.workingForEEADetails.field", "error.workingForEEADetails.required"))
-        BadRequest(views.html.s_about_you.g_otherEEAStateOrSwitzerland(formWithErrorsUpdate))
+        BadRequest(views.html.s_nationality_and_residency.g_otherEEAStateOrSwitzerland(formWithErrorsUpdate))
       },
       benefitsFromEEA => claim.update(benefitsFromEEA) -> Redirect(controllers.s_your_partner.routes.GYourPartnerPersonalDetails.present())
     )

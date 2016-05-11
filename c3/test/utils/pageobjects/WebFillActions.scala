@@ -31,6 +31,7 @@ trait WebFillActions {
 
   def fillCheck(elementCssSelector: String, value: String) = if (null != value) {
     if ("yes" == value.toLowerCase) clickElement(elementCssSelector)
+    else if ("true" == value.toLowerCase) clickElement(elementCssSelector)
   }
 
   def fillDate(elementCssSelector: String, value: String) = if (null != value) {

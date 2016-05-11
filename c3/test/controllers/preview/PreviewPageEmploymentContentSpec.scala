@@ -6,7 +6,7 @@ import utils.pageobjects.{PageObjectsContext, PageObjects}
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s_employment.GEmploymentPage
+import utils.pageobjects.your_income.GYourIncomePage
 
 class PreviewPageEmploymentContentSpec extends Specification {
   section("preview")
@@ -17,15 +17,16 @@ class PreviewPageEmploymentContentSpec extends Specification {
       page goToThePage()
       val source = page.source
 
-      source must contain("Employment and Self-Employment")
+      source must contain("Your income")
       source must contain("Have you been employed at any time since 10 April 2016?")
       source must contain("Yes")
-      source must contain("Employment")
+      source must contain("Jobs")
       source must contain("Tesco's")
       source must contain("From 01/01/2013 To 01/07/2013")
       source must contain("£600 every time including expenses")
       source must contain("Have you been self-employed at any time since 3 October 2016?")
-      source must contain("Yes - Details provided including expenses")
+      source must contain("Started 11 September 2001")
+      source must contain("Expenses included")
     }
   }
   section("preview")
@@ -40,17 +41,11 @@ class PreviewPageEmploymentContentSpec extends Specification {
     claimDatePage fillPageWith claimDate
     claimDatePage submitPage()
 
-    val employmentPage = GEmploymentPage(context)
+    val employmentPage = GYourIncomePage(context)
     employmentPage goToThePage ()
     employmentPage fillPageWith employmentData
 
-    val selfEmploymentPage = employmentPage submitPage()
-    selfEmploymentPage fillPageWith selfEmploymentData
-
-    val selfEmployedPensionsPage = selfEmploymentPage submitPage()
-    selfEmployedPensionsPage fillPageWith selfEmploymentData
-
-    val jobDetailsPage = selfEmployedPensionsPage submitPage()
+    val jobDetailsPage = employmentPage submitPage()
     jobDetailsPage fillPageWith employmentData
 
     val lastWagePage = jobDetailsPage submitPage()
@@ -63,6 +58,14 @@ class PreviewPageEmploymentContentSpec extends Specification {
     employmentData.EmploymentHaveYouBeenEmployedAtAnyTime_1 = "No"
     beenEmployedPage fillPageWith employmentData
 
-    beenEmployedPage submitPage()
+    val additionalInfoPage = beenEmployedPage submitPage()
+    additionalInfoPage fillPageWith employmentData
+
+    val selfEmploymentPage = additionalInfoPage submitPage()
+    selfEmploymentPage fillPageWith selfEmploymentData
+
+    val selfEmployedPensionsPage = selfEmploymentPage submitPage()
+    selfEmployedPensionsPage fillPageWith selfEmploymentData
+    selfEmployedPensionsPage.submitPage()
   }
 }

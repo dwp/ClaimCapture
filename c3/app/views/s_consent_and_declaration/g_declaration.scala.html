@@ -5,8 +5,9 @@
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper.base._
-@import utils.helpers.CarersTemplate._
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
 @import views.html.s_consent_and_declaration.main
+@import utils.helpers.OriginTagHelper._
 
 @main(messages("s11.g4") + " - " + messages("s11.longName"), Some(currentForm)) {
 
@@ -19,7 +20,10 @@
 
 		   <ul class="group">
 
-			   @yesNoRadioGroup(currentForm("tellUsWhyFromAnyoneOnForm.informationFromPerson"))
+			   @yesNoRadioGroup(currentForm("tellUsWhyFromAnyoneOnForm.informationFromPerson")
+                   , 'track -> true
+                   , 'trackLabel -> "Do you agree to the Carers Allowance Unit contacting anyone mentioned in this form?"
+               )
 
 			   @otherDetailPlaceHolder(
 				   inputDef = Seq(carersInputTextArea(currentForm("tellUsWhyFromAnyoneOnForm.whyPerson"), 'placeholder->messages("why_placeholder"),'textAreaHelper -> Html(messages("3000charsLeft")), 'maxLength -> 3000 )),
@@ -30,6 +34,9 @@
 			<p>@messages("declaration.openingParagraph")</p>
 			<ul class="list-bullet">
 				<li>@messages("declaration.correct")</li>
+				@if(isOriginGB){
+					<li>@messages("declaration.maycheck")</li>
+				}
 				<li>@messages("declaration.overpayment")</li>
 				<li>@messages("declaration.reportChanges.1")
 					<a @trackClickEvent("Claim Declaration - Report change online") rel="external" target="_blank" href="@messages("declaration.reportChanges.2.url")">@messages("declaration.reportChanges.2.anchorText")</a>

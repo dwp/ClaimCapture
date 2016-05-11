@@ -1,31 +1,33 @@
 package utils.helpers
 
+import play.api.i18n.Lang
 import views.html.helper.FieldConstructor
 
-object CarersTemplate {
-  implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.carersTemplate.f)
+case class CarersTemplate(lang: Lang) {
+  implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.carersTemplate.f(_)(lang))
 }
 
-object CheckTemplate {
-  implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.checkTemplate.f)
+case class CheckTemplate(lang: Lang) {
+  implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.checkTemplate.f(_)(lang))
 }
 
-object EmptyTemplate {
-  implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.emptyTemplate.f)
+case class EmptyTemplate(lang: Lang) {
+  implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.emptyTemplate.f(_)(lang))
 }
 
-object ShortFieldTemplate {
-  implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.shortFieldTemplate.f)
+case class ShortFieldTemplate(lang: Lang) {
+  implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.shortFieldTemplate.f(_)(lang))
 }
 
-object CurrencyTemplate {
-  implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.shortFieldCurrencyTemplate.f)
+case class CurrencyTemplate(lang: Lang) {
+  implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.shortFieldCurrencyTemplate.f(_)(lang))
 }
 
-object EligibilityTemplate {
-  implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.eligibilityTemplate.f)
+case class EligibilityTemplate(lang: Lang) {
+  implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.eligibilityTemplate.f(_)(lang))
 }
 
-object CheckboxTemplate {
-  implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.checkboxTemplate.f)
+case class CheckboxTemplate(lang: Lang) {
+  implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.checkboxTemplate.f(_)(lang))
 }
+

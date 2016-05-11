@@ -5,7 +5,7 @@
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.s_pay_details._
-@import utils.helpers.CarersTemplate._
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
 @import utils.helpers._
 @import utils.CommonValidation
 
@@ -25,8 +25,8 @@
                 <legend class="visuallyhidden">Pay details</legend>
 
                 <ul>
-					
-                    @yesNoRadioGroup(currentForm("likeToPay"), '_label -> messages("likeToPay"),  'track -> true)
+                    @yesNoRadioGroup(currentForm("likeToPay"), '_label -> messages("likeToPay"),  'track -> true,
+                        'values -> Seq("yes" -> messages("label.yes4"), "no" -> messages("label.no")))
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(

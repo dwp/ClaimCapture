@@ -7,7 +7,7 @@
 @import models.domain.YourDetails
 @import controllers.mappings.Mappings._
 @import models.domain._
-
+@import views.html.preview._
 
 @toggle = @{
 	!app.ConfigProperties.getProperty("cyaToggleVisible",true)
@@ -30,13 +30,10 @@
 }
 
      @common.govMain(messages("preview.title")) {
-
         <div class="carers-allowance clearfix">
-
             @common.protoType()
 
             <div class="grid-row main-grid">
-
                 <article class="column-full-width main-content">
                     <h1 class="form-title heading-large">@Html(messages("preview.summary"))</h1>
 
@@ -49,12 +46,12 @@
 
 					<div class="summary">
 	                    @aboutYou()
+						@nationality()
 	                    @yourPartnerDetails()
 	                    @careYouProvide()
                         @breaks()
 	                    @education()
-	                    @employment()
-	                    @otherMoney()
+	                    @yourIncome()
 						@if(showBankDetails){
 							@bankDetails()
 						}
@@ -86,9 +83,7 @@
                     }
                     
                 </article>
-
             </div>
-
         </div>
 
     }

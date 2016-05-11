@@ -1,5 +1,6 @@
 package xml.claim
 
+import app.ConfigProperties._
 import controllers.mappings.Mappings
 import models.domain._
 import models.view.Navigation
@@ -20,6 +21,7 @@ object  Declaration extends XMLComponent {
       <DeclarationStatement>
         <Content>{messagesApi("declaration.openingParagraph")}</Content>
         <Content>{messagesApi("declaration.correct")}</Content>
+        {if(isOriginGB){<Content>{messagesApi("declaration.maycheck")}</Content>}}
         <Content>{messagesApi("declaration.overpayment")}</Content>
         <Content>{messagesApi("declaration.reportChanges.pdf")}</Content>
         <Content>{messagesApi("declaration.warning")}</Content>
@@ -30,6 +32,13 @@ object  Declaration extends XMLComponent {
         {question(<DeclarationNameOrg/>,"thirdParty.nameAndOrganisation", thirdParty.nameAndOrganisation.getOrElse(""))}
       }}
     </Declaration>
+  }
+
+  private def isOriginGB(): Boolean = {
+    getProperty("origin.tag", "GB") match {
+      case "GB" => true
+      case _ => false
+    }
   }
 
   private def yesNoText(thirdParty : ThirdPartyDetails): String = {

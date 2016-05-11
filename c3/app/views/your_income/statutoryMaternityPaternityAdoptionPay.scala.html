@@ -1,0 +1,98 @@
+@(currentForm: Form[models.domain.StatutoryMaternityPaternityAdoptionPay])(implicit claim: models.domain.Claim,lang: Lang,request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
+
+@import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
+@import views.html.helper.dates._
+@import scala.language.postfixOps
+@import app.StatutoryPaymentFrequency._
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
+@import views.html.helper._
+@import views.html.helper.base._
+@import app.PaymentTypes._
+@import utils.helpers.ReturnToSummaryHelper._
+@import models.domain.YourIncomeStatutoryMaternityPaternityAdoptionPay
+
+@listOfOptions = @{
+    Seq(
+        Weekly -> messages("weekly"),
+        Fortnightly -> messages("fortnightly"),
+        FourWeekly -> messages("fourWeekly"),
+        Monthly -> messages("monthly"),
+        ItVaries -> messages("itVaries")
+    )
+}
+
+@listOfPaymentTypes = @{
+    Seq(
+        MaternityPaternity -> messages("maternityPaternity"),
+        Adoption -> messages("adoption")
+    )
+}
+
+@main(messages("s7.g1")+ " " + messages("s18.g1"), messages("s7.g1")+ " - " + messages("s18.g1"), Some(currentForm)) {
+    @form(action = controllers.your_income.routes.GStatutoryMaternityPaternityAdoptionPay.submit, 'role -> "form") {
+
+        @DwpCSRFFormHelper.formField
+
+        <fieldset class="form-elements">
+            <legend class="visuallyhidden">@Html(messages("s18.g1"))</legend>
+
+            <ul>
+                @listRadioGroup(currentForm("paymentTypesForThisPay"),
+                    'items -> listOfPaymentTypes,
+                    '_nestedFieldSet -> true,
+                    'track -> true,
+                    'ignoreOptional -> true)
+
+                @yesNoRadioGroup(currentForm("stillBeingPaidThisPay_paternityMaternityAdoption"),
+                    'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")))
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        inputDayMonthYear(currentForm("whenDidYouLastGetPaid"))
+                    ),
+                    'id -> "stillBeingPaidThisPayWrap"
+                )
+
+                @carersInputText(currentForm("whoPaidYouThisPay_paternityMaternityAdoption"), 'maxLength -> YourIncomeStatutoryMaternityPaternityAdoptionPay.whoPaidYouMaxLength)
+
+                @carersCurrency(currentForm("amountOfThisPay"), 'maxLength -> YourIncomeStatutoryMaternityPaternityAdoptionPay.amountPaidMaxLength)
+
+                @listRadioGroup(currentForm("howOftenPaidThisPay"),
+                    'items -> listOfOptions,
+                    '_nestedFieldSet -> true,
+                    'track -> true,
+                    'ignoreOptional -> true)
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        carersInputText(currentForm("howOftenPaidThisPayOther"),
+                            '_label -> "howOftenPaidThisPayOther",
+                            'maxLength -> YourIncomeStatutoryMaternityPaternityAdoptionPay.howOftenOtherMaxLength)
+                    ),
+                    'id -> "howOftenPaidThisPayWrap"
+                )
+            </ul>
+        </fieldset>
+
+        @views.html.common.bottomNavigation(nextLabel=displayReturnToSummaryFromStatutoryPayInfo(claim),trackSubmit = true)
+
+    }
+
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/your_income/otherIncome.js")></script>
+    <script type="text/javascript">
+        $(function() {
+            window.initEvents(
+                "@CarersCrypto.encryptAES("stillBeingPaidThisPay_paternityMaternityAdoption_yes")",
+                "@CarersCrypto.encryptAES("stillBeingPaidThisPay_paternityMaternityAdoption_no")",
+                "@CarersCrypto.encryptAES("whenDidYouLastGetPaid_day")",
+                "@CarersCrypto.encryptAES("whenDidYouLastGetPaid_month")",
+                "@CarersCrypto.encryptAES("whenDidYouLastGetPaid_year")",
+                "@CarersCrypto.encryptAES("howOftenPaidThisPay_Other")",
+                "@CarersCrypto.encryptAES("howOftenPaidThisPay")",
+                "@ItVaries",
+                "@CarersCrypto.encryptAES("howOftenPaidThisPayOther")"
+            );
+        })
+    </script>
+}

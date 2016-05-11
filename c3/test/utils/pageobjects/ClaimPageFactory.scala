@@ -3,6 +3,7 @@ package utils.pageobjects
 import utils.pageobjects.s_breaks.{GBreaksInCarePage, GBreakPage}
 import utils.pageobjects.save_for_later.{GSaveForLaterResumePage, GSaveForLaterSavePage}
 import utils.pageobjects.third_party.GThirdPartyPage
+import utils.pageobjects.your_income._
 import scala.language.dynamics
 import utils.pageobjects.s_eligibility._
 import utils.pageobjects.s_disclaimer._
@@ -12,7 +13,6 @@ import utils.pageobjects.s_care_you_provide._
 import utils.pageobjects.s_education._
 import utils.pageobjects.s_employment._
 import utils.pageobjects.s_self_employment._
-import utils.pageobjects.s_other_money._
 import utils.pageobjects.s_pay_details._
 import utils.pageobjects.s_information._
 import utils.pageobjects.s_consent_and_declaration._
@@ -24,7 +24,8 @@ import utils.pageobjects.common._
 /**
  * Factory used by Page to create from an html page the right page object.
  * If there is no Page Object mapping to the title then it creates an instance of UnknownPage.
- * @author Jorge Migueis
+  *
+  * @author Jorge Migueis
  *         Date: 10/07/2013
  */
 object ClaimPageFactory extends PageFactory {
@@ -55,10 +56,6 @@ object ClaimPageFactory extends PageFactory {
       case GSaveForLaterResumePage.url => GSaveForLaterResumePage(ctx)
     }
     m.orElse[String, Page] {
-      IterableNode(Abroad, ctx)(iteration => {
-        case GAbroadForMoreThan52WeeksPage.url => GAbroadForMoreThan52WeeksPage(ctx, iteration)
-      })
-    }.orElse[String, Page] {
       case GOtherEEAStateOrSwitzerlandPage.url => GOtherEEAStateOrSwitzerlandPage(ctx)
       // S3
       case GYourPartnerPersonalDetailsPage.url => GYourPartnerPersonalDetailsPage(ctx)
@@ -74,7 +71,7 @@ object ClaimPageFactory extends PageFactory {
       //S6
       case GYourCourseDetailsPage.url => GYourCourseDetailsPage(ctx)
       // S7 - guard question(s)
-      case GEmploymentPage.url => GEmploymentPage(ctx)
+      case GYourIncomePage.url => GYourIncomePage(ctx)
     }.orElse[String, Page] {
       IterableNode(Employment, ctx)(iteration => {
         // S7
@@ -87,7 +84,11 @@ object ClaimPageFactory extends PageFactory {
       // s7 - Used both by self-employment and employment
       case GEmploymentAdditionalInfoPage.url => GEmploymentAdditionalInfoPage(ctx)
       // S8
-      case GAboutOtherMoneyPage.url => GAboutOtherMoneyPage(ctx)
+      case GStatutorySickPayPage.url => GStatutorySickPayPage(ctx)
+      case GStatutoryMaternityPaternityAdoptionPayPage.url => GStatutoryMaternityPaternityAdoptionPayPage(ctx)
+      case GFosteringAllowancePage.url => GFosteringAllowancePage(ctx)
+      case GDirectPaymentPage.url => GDirectPaymentPage(ctx)
+      case GOtherPaymentsPage.url => GOtherPaymentsPage(ctx)
       // S9
       case GHowWePayYouPage.url => GHowWePayYouPage(ctx)
       // S9

@@ -1,6 +1,7 @@
 package xml.claim
 
 import controllers.mappings.Mappings
+import models.DayMonthYear
 import models.yesNo.YesNoWithText
 import models.domain._
 import scala.xml.NodeSeq
@@ -12,7 +13,7 @@ object SelfEmployment extends XMLComponent {
   val datePattern = "dd-MM-yyyy"
 
   def xml(claim: Claim) = {
-    val employment = claim.questionGroup[models.domain.Employment].getOrElse(models.domain.Employment())
+    val employment = claim.questionGroup[models.domain.YourIncomes].getOrElse(models.domain.YourIncomes())
     val selfEmploymentDates = claim.questionGroup[SelfEmploymentDates].getOrElse(SelfEmploymentDates())
 
     if (employment.beenSelfEmployedSince1WeekBeforeClaim.toLowerCase == yes) {
@@ -60,34 +61,25 @@ object SelfEmployment extends XMLComponent {
     }
   }
 
-  def currencyAmount(currency: Option[String]): Option[String] = {
-    val poundSign = "£"
-    currency match {
-      case Some(s) => {
-        if (s.split(poundSign).size > 1) Some(s.split(poundSign)(1))
-        else Some(s)
-      }
-      case _ => None
-    }
-  }
-
   def fromXml(xml: NodeSeq, claim: Claim): Claim = {
     (xml \\ "SelfEmployment").isEmpty match {
-      case false =>
-        claim
-          .update(createSelfEmploymentPensionsAndExpensesFromXml(xml))
-          .update(createEmploymentFromXml(xml))
+      case false => claim.update(createAboutSelfEmploymentWithJobDetailsFromXml(xml)).update(createSelfEmploymentPensionsAndExpensesFromXml(xml))
       case true => claim
     }
   }
 
-  private def createAboutSelfEmploymentWithJobDetailsFromXml(selfEmployment: NodeSeq, jobNode: NodeSeq) = {
+  private def createAboutSelfEmploymentWithJobDetailsFromXml(xml: NodeSeq) = {
+    val selfEmployment = (xml \\ "SelfEmployment")
     models.domain.SelfEmploymentDates(
       stillSelfEmployed = createYesNoText((selfEmployment \ "SelfEmployedNow" \ "Answer").text),
-      startThisWork = createFormattedDateOptional((jobNode \ "DateStarted" \ "Answer").text),
-      finishThisWork = createFormattedDateOptional((jobNode \ "DateEnded" \ "Answer").text),
-      knowTradingYear = createYesNoTextOptional((jobNode \ "DoYouKnowYourTradingYear" \ "Answer").text),
-      tradingYearStart = createFormattedDateOptional((jobNode \ "DateFrom" \ "Answer").text)
+      moreThanYearAgo = createYesNoText((selfEmployment \ "MoreThanYearAgo" \ "Answer").text),
+      startThisWork = createFormattedDateOptional((selfEmployment \ "DateStarted" \ "Answer").text),
+      finishThisWork = createFormattedDateOptional((selfEmployment \ "DateEnded" \ "Answer").text),
+      haveAccounts = createYesNoTextOptional((selfEmployment \ "GotAccounts" \ "Answer").text),
+      knowTradingYear = createYesNoTextOptional((selfEmployment \ "KnowTradingYear" \ "Answer").text),
+      tradingYearStart = createFormattedDateOptional((selfEmployment \ "TradingYearStart" \ "Answer").text),
+      paidMoney = createYesNoTextOptional((selfEmployment \ "PaidMoneyYet" \ "Answer").text),
+      paidMoneyDate = createFormattedDateOptional((selfEmployment \ "PaidMoneyDate" \ "Answer").text)
    )
   }
 
@@ -96,19 +88,5 @@ object SelfEmployment extends XMLComponent {
       payPensionScheme = YesNoWithText(createYesNoText((xmlNode \ "PaidForPension" \ "Answer").text), createStringOptional((xmlNode \ "PensionExpenses" \ "Expense" \ "Answer").text)),
       haveExpensesForJob = YesNoWithText(createYesNoText((xmlNode \ "PaidForJobExpenses" \ "Answer").text), createStringOptional((xmlNode \ "JobExpenses" \ "Expense" \ "Answer").text))
     )
-  }
-
-  private def createEmploymentFromXml(xmlNode: NodeSeq) = {
-    val selfEmployment = (xmlNode \\ "SelfEmployment")
-    val jobDetails = (xmlNode \\ "Employment" \ "JobDetails")
-    models.domain.Employment(
-      beenSelfEmployedSince1WeekBeforeClaim = selfEmployment.isEmpty match {
-        case false => Mappings.yes
-        case true => Mappings.no
-      },
-      beenEmployedSince6MonthsBeforeClaim = jobDetails.isEmpty match {
-        case false => Mappings.yes
-        case true => Mappings.no
-      })
   }
 }

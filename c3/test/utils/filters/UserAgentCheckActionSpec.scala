@@ -35,7 +35,7 @@ class UserAgentCheckActionSpec extends Specification {
 
     "check a page if not start page or end page for POST" in new WithApplication {
       val keyValue = "sdyfiuaslksdfjdyf"
-      exerciseFilterFor(keyValue,"POST",  "/employment/employment", UserAgentCheckAction.defaultCheckIf,expectSuccess=true)
+      exerciseFilterFor(keyValue,"POST",  "/your-income/your-income", UserAgentCheckAction.defaultCheckIf,expectSuccess=true)
     }
 
     "not check error page or a report page or assets" in new WithApplication {

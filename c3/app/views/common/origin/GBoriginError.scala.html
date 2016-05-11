@@ -1,0 +1,27 @@
+@(circs: Boolean, lang: Lang)(implicit claim: models.domain.Claim, request: Request[AnyContent], flash: Flash, messages: play.api.i18n.Messages)
+
+@import views.html.save_for_later.main
+
+@headingLabel=@{
+    circs match{
+        case true => "circs.origin.error.heading"
+        case _ => "claim.origin.error.heading"
+    }
+}
+@govUrl=@{
+    circs match{
+        case true => "https://www.nidirect.gov.uk/services/apply-carers-allowance"
+        case _ => "https://www.nidirect.gov.uk/services/apply-carers-allowance"
+    }
+}
+
+@main(messages(headingLabel)) {
+        <p></p>
+        <h2>@Html(messages("gb.origin.error.line1"))</h2>
+        <p></p>
+        <button @{views.html.ga.trackClickEvent("External Link", "ServiceRedirect")}
+            onClick="location.href='@govUrl'" id="gotogov" type="button" class="button">Continue to Northern Ireland Direct</button>
+
+    @views.html.ga.sendTrackEvent("Origin","Error")
+}
+

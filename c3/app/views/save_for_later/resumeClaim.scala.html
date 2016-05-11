@@ -3,7 +3,7 @@
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dates._
-@import utils.helpers.CarersTemplate._
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.save_for_later._
 @import utils.CommonValidation

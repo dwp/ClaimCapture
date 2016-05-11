@@ -1,19 +1,19 @@
 @(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: Lang, messages: play.api.i18n.Messages)
 
-    @import helper._
-    @import utils.helpers._
-    @import views.html.helper.base._
-    @import play.api.i18n.Messages
+@import helper._
+@import utils.helpers._
+@import views.html.helper.base._
+@import play.api.i18n.Messages
 
-    @implicitField = @{ CurrencyTemplate.fieldConstructor}
+@implicitField = @{ CurrencyTemplate.apply(lang).fieldConstructor}
 
-    @input(field, args ++
-    
-        Seq('autocomplete -> "off") ++
-        (args.find(_._1 == 'maxLength) match{ case Some(_) => Seq() case _ => Seq('maxLength -> mappings.Mappings.seventeen)}):_* ) { (id, name, value, htmlArgs) =>
+@input(field, args ++
 
-        @carersLabel(field,args:_*)
+    Seq('autocomplete -> "off") ++
+    (args.find(_._1 == 'maxLength) match{ case Some(_) => Seq() case _ => Seq('maxLength -> mappings.Mappings.seventeen)}):_* ) { (id, name, value, htmlArgs) =>
 
-        <input type="tel" class="form-control" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" title="@Html(messages("mustBeNumbersOnly"))" value="@value" @toHtmlArgs(htmlArgs)>
+    @carersLabel(field,args:_*)
 
-    }
+    <input type="tel" class="form-control" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" title="@Html(messages("mustBeNumbersOnly"))" value="@value" @toHtmlArgs(htmlArgs)>
+
+}

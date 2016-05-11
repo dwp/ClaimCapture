@@ -13,7 +13,7 @@ class GEligibilitySpec extends Specification {
     val answerOver16 = "no"
     val answerLivesInGB = "no"
 
-    val eligibilityInput = Seq("hours.answer" -> answerHours, "over16.answer" -> answerOver16, "livesInGB.answer" -> answerLivesInGB)
+    val eligibilityInput = Seq("hours.answer" -> answerHours, "over16.answer" -> answerOver16, "origin" -> "OTHER")
 
     "present" in new WithApplication with Claiming {
       val request = FakeRequest()
@@ -55,7 +55,7 @@ class GEligibilitySpec extends Specification {
 
     "add submitted form to the cached claim when answered 'no'" in new WithApplication with Claiming {
       val request = FakeRequest()
-        .withFormUrlEncodedBody("hours.answer" -> "no","over16.answer" -> "no", "livesInGB.answer" -> "no")
+        .withFormUrlEncodedBody("hours.answer" -> "no","over16.answer" -> "no", "origin" -> "OTHER")
 
       val result = controllers.s_eligibility.GEligibility.submit(request)
       val claim = getClaimFromCache(result)

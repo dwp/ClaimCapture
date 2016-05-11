@@ -5,10 +5,10 @@ import models.DayMonthYear
 import models.yesNo.YesNoWithText
 
 case object SelfEmployment extends Section.Identifier {
-  val id = "s9"
+  val id = "s23"
 
   def isSelfEmployed(claim: Claim): Boolean = {
-    claim.questionGroup[Employment] match {
+    claim.questionGroup[YourIncomes] match {
       case Some(employment) => employment.beenSelfEmployedSince1WeekBeforeClaim == Mappings.yes
       case _ => false
     }

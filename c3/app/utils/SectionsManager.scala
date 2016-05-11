@@ -9,13 +9,12 @@ object SectionsManager {
     ThirdParty,
     YourClaimDate,
     AboutYou,
+    NationalityAndResidencySection,
     YourPartner,
     CareYouProvide,
     Breaks,
     Education,
-    SelfEmployment,
-    Employed,
-    OtherMoney,
+    YourIncome,
     PayDetails,
     Information
   )

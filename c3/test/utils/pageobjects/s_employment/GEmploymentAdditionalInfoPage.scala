@@ -10,7 +10,7 @@ final class GEmploymentAdditionalInfoPage (ctx:PageObjectsContext) extends Claim
 }
 
 object GEmploymentAdditionalInfoPage {
-  val url  = "/employment/additional-info"
+  val url  = "/your-income/employment/additional-info"
 
   def apply(ctx:PageObjectsContext) = new GEmploymentAdditionalInfoPage(ctx)
 }

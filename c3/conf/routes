@@ -114,9 +114,6 @@ POST        /about-you/contact-details                                  controll
 GET         /about-you/nationality-and-residency                        controllers.s_about_you.GNationalityAndResidency.present
 POST        /about-you/nationality-and-residency                        controllers.s_about_you.GNationalityAndResidency.submit
 
-GET         /about-you/abroad-for-more-than-52-weeks                    controllers.s_about_you.GAbroadForMoreThan52Weeks.present
-POST        /about-you/abroad-for-more-than-52-weeks                    controllers.s_about_you.GAbroadForMoreThan52Weeks.submit
-
 GET         /about-you/other-eea-state-or-switzerland                   controllers.s_about_you.GOtherEEAStateOrSwitzerland.present
 POST        /about-you/other-eea-state-or-switzerland                   controllers.s_about_you.GOtherEEAStateOrSwitzerland.submit
 
@@ -137,54 +134,69 @@ GET         /breaks/breaks-in-care                                      controll
 POST        /breaks/breaks-in-care                                      controllers.s_breaks.GBreaksInCare.submit
 POST        /breaks/delete-break-in-care                                controllers.s_breaks.GBreaksInCare.delete
 
-GET         /breaks/break/:id                                           controllers.s_breaks.GBreak.present(id: String)
-POST        /breaks/break                                               controllers.s_breaks.GBreak.submit
+GET         /breaks/break/:id                     controllers.s_breaks.GBreak.present(id: String)
+POST        /breaks/break                         controllers.s_breaks.GBreak.submit
 
 
 # Education
 ###############
-GET         /education/your-course-details                              controllers.s_education.GYourCourseDetails.present
-POST        /education/your-course-details                              controllers.s_education.GYourCourseDetails.submit
+GET         /education/your-course-details        controllers.s_education.GYourCourseDetails.present
+POST        /education/your-course-details        controllers.s_education.GYourCourseDetails.submit
 
 # Employment
 ###############
-GET         /employment/employment                                      controllers.s_self_employment.GEmployment.present
-POST        /employment/employment                                      controllers.s_self_employment.GEmployment.submit
+GET         /your-income/your-income                                    controllers.your_income.GYourIncomes.present
+POST        /your-income/your-income                                    controllers.your_income.GYourIncomes.submit
 
-GET         /employment/been-employed                                   controllers.s_employment.GBeenEmployed.present
-POST        /employment/been-employed                                   controllers.s_employment.GBeenEmployed.submit
+GET         /your-income/employment/been-employed                                   controllers.s_employment.GBeenEmployed.present
+POST        /your-income/employment/been-employed                                   controllers.s_employment.GBeenEmployed.submit
 
-POST        /employment/delete-job                                      controllers.s_employment.Employment.delete
+POST        /your-income/employment/delete-job                                      controllers.s_employment.Employment.delete
 
-GET         /employment/job/:id                                         controllers.s_employment.GJobDetails.job(id: String)
+GET         /your-income/employment/job/:id                                         controllers.s_employment.GJobDetails.job(id: String)
 
-GET         /employment/job-details/:id                                 controllers.s_employment.GJobDetails.present(id: String)
-POST        /employment/job-details                                     controllers.s_employment.GJobDetails.submit
+GET         /your-income/employment/job-details/:id                                 controllers.s_employment.GJobDetails.present(id: String)
+POST        /your-income/employment/job-details                                     controllers.s_employment.GJobDetails.submit
 
-GET         /employment/last-wage/:id                                   controllers.s_employment.GLastWage.present(id: String)
-POST        /employment/last-wage                                       controllers.s_employment.GLastWage.submit
+GET         /your-income/employment/last-wage/:id                                   controllers.s_employment.GLastWage.present(id: String)
+POST        /your-income/employment/last-wage                                       controllers.s_employment.GLastWage.submit
 
-GET         /employment/about-expenses/:id                              controllers.s_employment.GPensionAndExpenses.present(id: String)
-POST        /employment/about-expenses                                  controllers.s_employment.GPensionAndExpenses.submit
-
-GET         /employment/additional-info                                 controllers.s_employment.GEmploymentAdditionalInfo.present
-POST        /employment/additional-info                                 controllers.s_employment.GEmploymentAdditionalInfo.submit
+GET         /your-income/employment/about-expenses/:id                              controllers.s_employment.GPensionAndExpenses.present(id: String)
+POST        /your-income/employment/about-expenses                                  controllers.s_employment.GPensionAndExpenses.submit
 
 # Self-employment
 ###############
-GET         /self-employment/self-employment-dates                      controllers.s_self_employment.GSelfEmploymentDates.present
-POST        /self-employment/self-employment-dates                      controllers.s_self_employment.GSelfEmploymentDates.submit
+GET         /your-income/self-employment/self-employment-dates                      controllers.s_self_employment.GSelfEmploymentDates.present
+POST        /your-income/self-employment/self-employment-dates                      controllers.s_self_employment.GSelfEmploymentDates.submit
 
-GET         /self-employment/pensions-and-expenses                      controllers.s_self_employment.GSelfEmploymentPensionsAndExpenses.present
-POST        /self-employment/pensions-and-expenses                      controllers.s_self_employment.GSelfEmploymentPensionsAndExpenses.submit
+GET         /your-income/self-employment/pensions-and-expenses                      controllers.s_self_employment.GSelfEmploymentPensionsAndExpenses.present
+POST        /your-income/self-employment/pensions-and-expenses                      controllers.s_self_employment.GSelfEmploymentPensionsAndExpenses.submit
 
-GET         /self-employment/completed                                  controllers.s_self_employment.SelfEmployment.completed
-POST        /self-employment/completed                                  controllers.s_self_employment.SelfEmployment.completedSubmit
+GET         /your-income/self-employment/completed                                  controllers.s_self_employment.SelfEmployment.completed
+POST        /your-income/self-employment/completed                                  controllers.s_self_employment.SelfEmployment.completedSubmit
 
-# Other money
+#employment additional info
+GET         /your-income/employment/additional-info                                 controllers.s_employment.GEmploymentAdditionalInfo.present
+POST        /your-income/employment/additional-info                                 controllers.s_employment.GEmploymentAdditionalInfo.submit
+
+
+# Other payments
 ###############
-GET         /other-money/about-other-money                              controllers.s_other_money.GAboutOtherMoney.present
-POST        /other-money/about-other-money                              controllers.s_other_money.GAboutOtherMoney.submit
+GET         /your-income/statutory-sick-pay                             controllers.your_income.GStatutorySickPay.present
+POST        /your-income/statutory-sick-pay                             controllers.your_income.GStatutorySickPay.submit
+
+GET         /your-income/smp-spa-sap                              controllers.your_income.GStatutoryMaternityPaternityAdoptionPay.present
+POST        /your-income/smp-spa-sap                              controllers.your_income.GStatutoryMaternityPaternityAdoptionPay.submit
+
+GET         /your-income/fostering-allowance                            controllers.your_income.GFosteringAllowance.present
+POST        /your-income/fostering-allowance                            controllers.your_income.GFosteringAllowance.submit
+
+GET         /your-income/direct-payment                                 controllers.your_income.GDirectPayment.present
+POST        /your-income/direct-payment                                 controllers.your_income.GDirectPayment.submit
+
+GET         /your-income/other-income                                 controllers.your_income.GOtherPayments.present
+POST        /your-income/other-income                                 controllers.your_income.GOtherPayments.submit
+
 
 # Pay details
 ###############
@@ -206,8 +218,11 @@ POST        /consent-and-declaration/declaration                        @control
 GET         /consent-and-declaration/error                              controllers.s_consent_and_declaration.GError.present
 
 # Circumstances
-GET         /circumstances/report-changes/selection                     controllers.circs.start_of_process.GReportChangeReason.present
-POST        /circumstances/report-changes/selection                     controllers.circs.start_of_process.GReportChangeReason.submit
+GET         /circumstances/report-changes/selection                        controllers.circs.origin.GOrigin.present
+POST        /circumstances/report-changes/selection                        controllers.circs.origin.GOrigin.submit
+
+GET         /circumstances/report-changes/change-selection                     controllers.circs.start_of_process.GReportChangeReason.present
+POST        /circumstances/report-changes/change-selection                     controllers.circs.start_of_process.GReportChangeReason.submit
 
 GET         /circumstances/report-changes/gotofunction                  controllers.circs.start_of_process.GGoToCircsFunction.present
 

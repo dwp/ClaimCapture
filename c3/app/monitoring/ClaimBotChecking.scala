@@ -5,8 +5,6 @@ import models.domain._
 import play.api.Logger
 
 trait ClaimBotChecking extends BotChecking {
-
-
   private def verifyAboutExpenses(job: Iteration): Boolean = {
     job.questionGroup[PensionAndExpenses] match {
       case Some(q) =>
@@ -99,28 +97,47 @@ trait ClaimBotChecking extends BotChecking {
       false
     }
 
-    def checkAboutOtherMoney: Boolean = {
-      claim.questionGroup[AboutOtherMoney] match {
-        case Some(q) =>
-          q.anyPaymentsSinceClaimDate.answer == "no" && (q.whoPaysYou.isDefined || q.howMuch.isDefined || q.howOften.isDefined) && q.otherStatutoryPay.answer == "no" && q.otherStatutoryPay.answer == "no"// Bot given fields were not visible.
-        case _ => false
-      }
-    }
-
     def checkStatutorySickPay: Boolean = {
-      claim.questionGroup[AboutOtherMoney] match {
+      val yourIncomes = claim.questionGroup[YourIncomes].getOrElse(new YourIncomes())
+      claim.questionGroup[StatutorySickPay] match {
         case Some(q) =>
-          q.statutorySickPay.answer == "no" && (q.statutorySickPay.howMuch.isDefined || q.statutorySickPay.howOften.isDefined || q.statutorySickPay.employersName.isDefined || q.statutorySickPay.address.isDefined || q.statutorySickPay.postCode.isDefined) // Bot given fields were not visible.
-
+          (q.stillBeingPaidThisPay == "yes" && q.whenDidYouLastGetPaid.isDefined) || (q.howOftenPaidThisPay != "other"  && q.howOftenPaidThisPayOther.isDefined) || (!yourIncomes.yourIncome_sickpay.isDefined && !(q.stillBeingPaidThisPay.isEmpty || q.amountOfThisPay.isEmpty || q.howOftenPaidThisPay.isEmpty || q.whoPaidYouThisPay.isEmpty))  // Bot given fields were not visible.
         case _ => false
       }
     }
 
-    def checkOtherStatutoryPay: Boolean = {
-      claim.questionGroup[AboutOtherMoney] match {
+    def checkStatutoryPay: Boolean = {
+      val yourIncomes = claim.questionGroup[YourIncomes].getOrElse(new YourIncomes())
+      claim.questionGroup[StatutoryMaternityPaternityAdoptionPay] match {
         case Some(q) =>
-          q.otherStatutoryPay.answer == "no" && (q.otherStatutoryPay.howMuch.isDefined || q.otherStatutoryPay.howOften.isDefined || q.otherStatutoryPay.employersName.isDefined || q.otherStatutoryPay.address.isDefined || q.otherStatutoryPay.postCode.isDefined) // Bot given fields were not visible.
+          (q.stillBeingPaidThisPay == "yes" && q.whenDidYouLastGetPaid.isDefined) || (q.howOftenPaidThisPay != "other"  && q.howOftenPaidThisPayOther.isDefined) || (!yourIncomes.yourIncome_sickpay.isDefined && !(q.paymentTypesForThisPay.isEmpty || q.stillBeingPaidThisPay.isEmpty || q.amountOfThisPay.isEmpty || q.howOftenPaidThisPay.isEmpty || q.whoPaidYouThisPay.isEmpty))  // Bot given fields were not visible.
+        case _ => false
+      }
+    }
 
+    def checkFosteringAllowance: Boolean = {
+      val yourIncomes = claim.questionGroup[YourIncomes].getOrElse(new YourIncomes())
+      claim.questionGroup[FosteringAllowance] match {
+        case Some(q) =>
+          (q.stillBeingPaidThisPay == "yes" && q.whenDidYouLastGetPaid.isDefined) || (q.howOftenPaidThisPay != "other"  && q.howOftenPaidThisPayOther.isDefined) || (q.paymentTypesForThisPay != "other"  && q.paymentTypesForThisPayOther.isDefined) || (!yourIncomes.yourIncome_sickpay.isDefined && !(q.paymentTypesForThisPay.isEmpty || q.stillBeingPaidThisPay.isEmpty || q.amountOfThisPay.isEmpty || q.howOftenPaidThisPay.isEmpty || q.whoPaidYouThisPay.isEmpty))  // Bot given fields were not visible.
+        case _ => false
+      }
+    }
+
+    def checkOtherPayments: Boolean = {
+      val yourIncomes = claim.questionGroup[YourIncomes].getOrElse(new YourIncomes())
+      claim.questionGroup[OtherPayments] match {
+        case Some(q) =>
+          (!yourIncomes.yourIncome_anyother.isDefined && !(q.otherPaymentsInfo.isEmpty))  // Bot given fields were not visible.
+        case _ => false
+      }
+    }
+
+    def checkDirectPay: Boolean = {
+      val yourIncomes = claim.questionGroup[YourIncomes].getOrElse(new YourIncomes())
+      claim.questionGroup[DirectPayment] match {
+        case Some(q) =>
+          (q.stillBeingPaidThisPay == "yes" && q.whenDidYouLastGetPaid.isDefined) || (q.howOftenPaidThisPay != "other"  && q.howOftenPaidThisPayOther.isDefined) || (!yourIncomes.yourIncome_sickpay.isDefined && !(q.stillBeingPaidThisPay.isEmpty || q.amountOfThisPay.isEmpty || q.howOftenPaidThisPay.isEmpty || q.whoPaidYouThisPay.isEmpty))  // Bot given fields were not visible.
         case _ => false
       }
     }
@@ -128,23 +145,28 @@ trait ClaimBotChecking extends BotChecking {
     val moreAboutTheCare = checkMoreAboutTheCare
     val aboutExpenses = checkAboutExpenses
     val selfEmploymentAboutExpenses = checkSelfEmploymentAboutExpenses
-    val aboutOtherMoney = checkAboutOtherMoney
     val statutorySickPay = checkStatutorySickPay
-    val otherStatutoryPay = checkOtherStatutoryPay
+    val statutoryPay = checkStatutoryPay
+    val fosteringAllowance = checkFosteringAllowance
+    val directPay = checkDirectPay
+    val otherPayments = checkOtherPayments
 
     if (moreAboutTheCare) Logger.warn("Honeypot triggered : moreAboutTheCare")
     if (aboutExpenses) Logger.warn("Honeypot triggered : employment aboutExpenses")
     if (selfEmploymentAboutExpenses) Logger.warn("Honeypot triggered : selfEmploymentAboutExpenses")
-    if (aboutOtherMoney) Logger.warn("Honeypot triggered : aboutOtherMoney")
     if (statutorySickPay) Logger.warn("Honeypot triggered : statutorySickPay")
-    if (otherStatutoryPay) Logger.warn("Honeypot triggered : otherStatutoryPay")
+    if (statutoryPay) Logger.warn("Honeypot triggered : statutoryPay")
+    if (fosteringAllowance) Logger.warn("Honeypot triggered : fosteringAllowance")
+    if (directPay) Logger.warn("Honeypot triggered : directPay")
+    if (otherPayments) Logger.warn("Honeypot triggered : otherPayments")
 
     moreAboutTheCare ||
-      aboutExpenses ||
-      selfEmploymentAboutExpenses ||
-      aboutOtherMoney ||
-      statutorySickPay ||
-      otherStatutoryPay
+    aboutExpenses ||
+    selfEmploymentAboutExpenses ||
+    statutorySickPay ||
+    statutoryPay ||
+    fosteringAllowance ||
+    directPay ||
+    otherPayments
   }
-
 }

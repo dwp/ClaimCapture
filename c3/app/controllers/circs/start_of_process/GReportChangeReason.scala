@@ -23,7 +23,7 @@ object GReportChangeReason extends Controller with CachedChangeOfCircs with Navi
     "reportChanges" -> carersNonEmptyText(maxLength = 20)
   )(ReportChangeReason.apply)(ReportChangeReason.unapply))
 
-  def present = newClaim{implicit circs => implicit request => lang =>
+  def present = optionalClaim {implicit circs => implicit request => lang =>
     Logger.info(s"Starting new $cacheKey - ${circs.uuid}")
     track(ReportChangeReason) {
       implicit circs => Ok(views.html.circs.start_of_process.reportChangeReason(form.fill(ReportChangeReason)))

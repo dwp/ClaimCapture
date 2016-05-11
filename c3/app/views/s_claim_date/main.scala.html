@@ -1,6 +1,6 @@
 @(title: String, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, flash:Flash, messages: play.api.i18n.Messages)
 
-@import utils.helpers.CarersTemplate.fieldConstructor
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
 @import models.domain._
 @import views.html.common._
 @import helper._
@@ -16,7 +16,7 @@
         
         <div class="grid-row main-grid">
 
-            @common.leftcol()
+
 
             <article class="column-three-quarters main-content">
 

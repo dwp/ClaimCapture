@@ -24,8 +24,9 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
         "Address"           displays (AddressTransformer("AboutYouAddress"),"AboutYouPostcode"),
         "Have you got an email address" displays ("AboutYouWantsEmailContact", "AboutYouMail"),
         "Claim date"   displays DateTransformer("ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart"),
-        "Your nationality"  displays "AboutYouNationalityAndResidencyActualNationality",
-        "Do you normally live in England, Scotland or Wales?" displays "AboutYouNationalityAndResidencyResideInUK",
+        "Your nationality"  displays "AboutYouNationalityAndResidencyNationality",
+        "Have you always lived in England, Scotland or Wales?"  displays "AboutYouNationalityAndResidencyAlwaysLivedInUK",
+        "Have you been away from England, Scotland or Wales for more than 52 weeks in the 3 years before your claim date?"  displays "AboutYouNationalityAndResidencyTrip52Weeks",
         "Status"  displays "AboutYouWhatIsYourMaritalOrCivilPartnershipStatus",
         "Have you been away from England, Scotland or Wales"          displays AnyYesTransformer("AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime"),
         "Have you or any of your close family worked abroad or been paid benefits from outside the United Kingdom since your claim date?"          displays "OtherMoneyOtherEEAGuardQuestion",
@@ -37,9 +38,6 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
         "Have you been on a course of education since your claim date?"   displays "EducationHaveYouBeenOnACourseOfEducation",
         "Have you been employed at any time since 21 January 2013"      displays "EmploymentHaveYouBeenEmployedAtAnyTime_0",
         "Have you been self-employed at any time since" displays "EmploymentHaveYouBeenSelfEmployedAtAnyTime",
-        "Have you received any payments for the person you care for or any other person since your claim date?" displays "OtherMoneyAnyPaymentsSinceClaimDate",
-        "Have you had any Statutory Sick Pay"                    displays "OtherMoneyHaveYouSSPSinceClaim",
-        "Have you had any Statutory Maternity Pay, Statutory Paternity Pay or Statutory Adoption Pay" displays "OtherMoneyHaveYouSMPSinceClaim",
         "Do you want to tell us any additional information about your claim?" displays "ConsentDeclarationTellUsAnythingElseAnswerAboutClaim",
         "Do you live in Wales and want to receive future communications in Welsh?" displays "ConsentDeclarationCommunicationWelsh"
       )

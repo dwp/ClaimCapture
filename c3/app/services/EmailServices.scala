@@ -35,7 +35,7 @@ object CadsEmail {
 object EmailServices extends I18nSupport {
   val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   private def isEmployment(claim: Claim) = {
-    (claim.questionGroup[Employment] match {
+    (claim.questionGroup[YourIncomes] match {
       case Some(employment) => employment.beenEmployedSince6MonthsBeforeClaim == Mappings.yes || employment.beenSelfEmployedSince1WeekBeforeClaim == Mappings.yes
       case _ => false
     }) ||
@@ -49,8 +49,7 @@ object EmailServices extends I18nSupport {
       case (Some(contactDetails), Some(additionalInfo)) if contactDetails.email.isDefined =>
         val isWelsh = additionalInfo.welshCommunication == Mappings.yes
         implicit val lang = if (isWelsh) Lang("cy") else Lang("en")
-
-        CadsEmail.send(claim.transactionId.getOrElse(""), subject = claimEmailSubject(claim), body = views.html.mail(claim, isClaim = true, isEmployment(claim)).body, contactDetails.email.get)
+        CadsEmail.send(claim.transactionId.getOrElse(""), subject = claimEmailSubject(claim, lang), body = views.html.mail(claim, isClaim = true, isEmployment(claim)).body, contactDetails.email.get)
       case (Some(contactDetails), Some(additionalInfo)) if contactDetails.email.isEmpty =>
         Logger.info(s"Not sending claim email because the user didn't input an address for transid: [${claim.transactionId.getOrElse("id not present")}]")
       //We do nothing in this case, they have selected not to send email
@@ -58,10 +57,13 @@ object EmailServices extends I18nSupport {
     }
   }
 
-  def claimEmailSubject(claim: Claim) = (claim.questionGroup[Employment], claim.questionGroup[SelfEmploymentPensionsAndExpenses]) match {
-    case (Some(Employment(XMLValues.yes, _)), _) | (Some(Employment(_, XMLValues.yes)), _) => messagesApi("subject.claim.employed")
-    case (_, Some(SelfEmploymentPensionsAndExpenses(YesNoWithText(XMLValues.yes, _), _))) => messagesApi("subject.claim.employed")
-    case _ => messagesApi("subject.claim.notemployed")
+  def claimEmailSubject(claim: Claim, l: Lang) = {
+    implicit val lang = l
+    (claim.questionGroup[YourIncomes], claim.questionGroup[SelfEmploymentPensionsAndExpenses]) match {
+      case (Some(YourIncomes(XMLValues.yes, _, _, _, _, _, _, _)), _) | (Some(YourIncomes(_, XMLValues.yes, _, _, _, _, _, _)), _) => messagesApi("subject.claim.employed")
+      case (_, Some(SelfEmploymentPensionsAndExpenses(YesNoWithText(XMLValues.yes, _), _))) => messagesApi("subject.claim.employed")
+      case _ => messagesApi("subject.claim.notemployed")
+    }
   }
 
 

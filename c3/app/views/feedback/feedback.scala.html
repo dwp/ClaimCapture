@@ -1,6 +1,6 @@
-@(currentForm: Form[models.domain.Feedback])(implicit claim: models.domain.Claim, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
+@(currentForm: Form[models.domain.Feedback])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
-@import utils.helpers.CarersTemplate._
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper._
 @import utils.helpers.CarersCrypto

@@ -34,7 +34,6 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
       addressConversion("AboutYouAddress") + "AboutYouPostcode" +
       "AboutYouWantsEmailContact" + "AboutYouMail" +
       "AboutYouNationalityAndResidencyActualNationality" +
-      "AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1" +
       "OtherMoneyOtherEEAGuardQuestion" +
       "AboutYourPartnerTitle"       + "AboutYourPartnerFirstName" + "AboutYourPartnerFirstName" + "AboutYourPartnerSurname" +
       dateConversion("AboutYourPartnerDateofBirth") +
@@ -53,9 +52,6 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
       dateConversion("EducationWhenDoYouExpectTheCourseToEnd") +
       "EmploymentHaveYouBeenEmployedAtAnyTime_0" +
       "EmploymentHaveYouBeenSelfEmployedAtAnyTime" +
-      "OtherMoneyAnyPaymentsSinceClaimDate" +
-      "OtherMoneyHaveYouSSPSinceClaim" +
-      "OtherMoneyHaveYouSMPSinceClaim" +
       "ThirdPartyNameAndOrganisation"
   }
 }

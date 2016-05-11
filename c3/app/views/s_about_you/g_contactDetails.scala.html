@@ -1,7 +1,7 @@
 @(contactDetailsForm: Form[models.domain.ContactDetails])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import play.api.Play
-@import utils.helpers.CarersTemplate._
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
 @import utils.csrf.DwpCSRFFormHelper
 @import utils.helpers.CarersCrypto
 @import views.html.helper._
@@ -36,7 +36,8 @@
                     @carersCheckBox(contactDetailsForm("contactYouByTextphone"), 'track -> true)
 
                     @if(getProperty("email.frontend",false)) {
-                        @yesNoRadioGroup(contactDetailsForm("wantsEmailContact"), '_label->emailLabel )
+                        @yesNoRadioGroup(contactDetailsForm("wantsEmailContact"), '_label->emailLabel,
+                            'values -> Seq("yes" -> messages("label.yes4"), "no" -> messages("label.no")))
 
                         @otherDetailPlaceHolder(
                             inputDef = Seq(

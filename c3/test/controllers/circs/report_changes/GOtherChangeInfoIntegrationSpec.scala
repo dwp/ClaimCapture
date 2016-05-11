@@ -1,6 +1,7 @@
 package controllers.circs.report_changes
 
 import utils.WithBrowser
+import utils.pageobjects.circumstances.origin.GOriginPage
 import utils.pageobjects.circumstances.start_of_process.{GCircsYourDetailsPage, GReportChangesPage}
 import controllers.CircumstancesScenarioFactory
 import org.specs2.mutable._
@@ -18,11 +19,11 @@ class GOtherChangeInfoIntegrationSpec extends Specification {
     }
 
     "navigate to previous page" in new WithBrowser with PageObjects{
-			val page =  GReportChangesPage(context)
-      page goToThePage()
+			val page =  GOriginPage(context)
+      val newPage = page goToThePage(throwException = false)
 
       val claim = CircumstancesScenarioFactory.reportChangesOtherChangeInfo
-      val otherChangeInfoPage = page runClaimWith (claim, GOtherChangeInfoPage.url)
+      val otherChangeInfoPage = newPage runClaimWith (claim, GOtherChangeInfoPage.url)
 
       otherChangeInfoPage must beAnInstanceOf[GOtherChangeInfoPage]
 

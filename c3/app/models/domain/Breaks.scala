@@ -5,7 +5,7 @@ import models.yesNo.{RadioWithText, YesNoWithDate}
 import controllers.Iteration.{Identifier => IterationID}
 
 case object Breaks extends Section.Identifier {
-  val id = "s6"
+  val id = "s7"
 }
 
 case class BreaksInCare(breaks: List[Break] = Nil) extends QuestionGroup(BreaksInCare) {

@@ -6,7 +6,7 @@ import utils.pageobjects._
 final class GEligibilityPage(ctx:PageObjectsContext) extends ClaimPage(ctx, GEligibilityPage.url) {
   declareYesNo("#hours_answer", "CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring")
   declareYesNo("#over16_answer", "CanYouGetCarersAllowanceAreYouAged16OrOver")
-  declareYesNo("#livesInGB_answer", "CanYouGetCarersAllowanceDoYouNormallyLiveinGb")
+  declareRadioList("#origin", "CanYouGetCarersAllowanceWhichCountryLivein")
 }
 
 object GEligibilityPage {

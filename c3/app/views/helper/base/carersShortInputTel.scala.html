@@ -2,7 +2,7 @@
 
 @import helper._
 
-@import utils.helpers.ShortFieldTemplate._
+@implicitField = @{ utils.helpers.ShortFieldTemplate.apply(lang).fieldConstructor }
 
 @import play.api.i18n.Messages
 

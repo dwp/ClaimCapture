@@ -23,13 +23,17 @@ trait ClaimSubmissionService {
   private val JS_DISABLED = 0
   def submission(claim: Claim, request: Request[AnyContent], jsEnabled: Boolean = true): ClaimResult = {
 
-    val transId = getTransactionIdAndRegisterGenerated(copyInstance(claim), if (jsEnabled) JS_ENABLED else JS_DISABLED)
+    val transId = claim.transactionId match {
+      case Some(t) => t
+      case _ => getTransactionIdAndRegisterGenerated(copyInstance(claim), if (jsEnabled) JS_ENABLED else JS_DISABLED)
+    }
 
     if (!jsEnabled) {
       Logger.info(s"No JS - Submit ${claim.key} ${claim.uuid}, User-Agent : ${request.headers.get("User-Agent").orNull}, TxnId : [$transId]")
     }
 
     val updatedClaim = copyInstance(claim withTransactionId transId)
+    saveInCache(updatedClaim)
 
     // actor.receive, which calls async service submission
     AsyncActors.asyncManagerActor ! updatedClaim

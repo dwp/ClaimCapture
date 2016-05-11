@@ -47,7 +47,8 @@ object Formulate {
   def nationalityAndResidency(browser: TestBrowser) = {
     browser.goTo("/about-you/nationality-and-residency")
     browser.click("#nationality_British")
-    browser.click("#resideInUK_answer_yes")
+    browser.click("#alwaysLivedInUK_yes")
+    browser.click("#trip52weeks_no")
     browser.submit("button[type='submit']")
   }
 
@@ -94,37 +95,42 @@ object Formulate {
   }
 
   def employment(browser: TestBrowser) = {
-    browser.goTo("/employment/employment")
+    browser.goTo("/your-income/your-income")
     browser.click("#beenEmployedSince6MonthsBeforeClaim_yes")
     browser.click("#beenSelfEmployedSince1WeekBeforeClaim_yes")
+    browser.click("#yourIncome_none")
     browser.submit("button[type='submit']")
   }
 
   def justEmployment(browser: TestBrowser) = {
-    browser.goTo("/employment/employment")
+    browser.goTo("/your-income/your-income")
     browser.click("#beenEmployedSince6MonthsBeforeClaim_yes")
     browser.click("#beenSelfEmployedSince1WeekBeforeClaim_no")
+    browser.click("#yourIncome_none")
     browser.submit("button[type='submit']")
   }
 
   def justSelfEmployment(browser: TestBrowser) = {
-    browser.goTo("/employment/employment")
+    browser.goTo("/your-income/your-income")
     browser.click("#beenEmployedSince6MonthsBeforeClaim_no")
     browser.click("#beenSelfEmployedSince1WeekBeforeClaim_yes")
+    browser.click("#yourIncome_none")
     browser.submit("button[type='submit']")
   }
 
   def selfEmployment(browser: TestBrowser) = {
-    browser.goTo("/employment/employment")
+    browser.goTo("/your-income/your-income")
     browser.click("#beenEmployedSince6MonthsBeforeClaim_no")
     browser.click("#beenSelfEmployedSince1WeekBeforeClaim_yes")
+    browser.click("#yourIncome_none")
     browser.submit("button[type='submit']")
   }
 
   def notInEmployment(browser: TestBrowser) = {
-    browser.goTo("/employment/employment")
+    browser.goTo("/your-income/your-income")
     browser.click("#beenEmployedSince6MonthsBeforeClaim_no")
     browser.click("#beenSelfEmployedSince1WeekBeforeClaim_no")
+    browser.click("#yourIncome_none")
     browser.submit("button[type='submit']")
   }
 
@@ -300,11 +306,6 @@ object Formulate {
   }
   
   def abroadForMoreThan4Weeks(browser: TestBrowser) = {
-    browser.click("#anyTrips_no")
-    browser.submit("button[value='next']")
-  }
-  
-  def abroadForMoreThan52Weeks(browser: TestBrowser) = {
     browser.click("#anyTrips_no")
     browser.submit("button[value='next']")
   }

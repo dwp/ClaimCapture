@@ -25,7 +25,7 @@ class XmlHelperSpec extends Specification {
       }
 
       "when question with question label having two arguments." in new WithApplication {
-        XMLHelper.question(<Test/>,"yourBenefits.answer", <myNode>hello</myNode>,"arg1","arg2").toString shouldEqual "<Test><QuestionLabel>Have you arg1 claimed or received any other benefits since your claim date: arg2?</QuestionLabel><Answer><myNode>hello</myNode></Answer></Test>"
+        XMLHelper.question(<Test/>,"dynamicDate.helper", <myNode>hello</myNode>,"arg1","arg2").toString shouldEqual "<Test><QuestionLabel>For example, 27 arg1 arg2</QuestionLabel><Answer><myNode>hello</myNode></Answer></Test>"
       }
     }
   }

@@ -1,10 +1,9 @@
 @(startedEmploymentAndOngoing: Form[models.domain.CircumstancesStartedEmploymentAndOngoing])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import helper._
-@import utils.helpers.CarersTemplate._
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
 @import utils.csrf.DwpCSRFFormHelper
 @import utils.helpers.CarersCrypto
-@import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dates._

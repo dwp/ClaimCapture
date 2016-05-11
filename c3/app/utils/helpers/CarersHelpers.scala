@@ -2,10 +2,10 @@ package utils.helpers
 
 import views.html.helper.FieldElements
 import scala.language.implicitConversions
-import play.api.i18n.{MMessages, MessagesApi}
+import play.api.i18n.{Lang, MMessages, MessagesApi}
 import play.api.Play.current
 
-class EnhancedFieldElements(f:FieldElements) {
+class EnhancedFieldElements(f:FieldElements)(implicit lang: Lang) {
   val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   def carersErrors(): Seq[String] = {
     (f.args.get('_error) match {
@@ -23,5 +23,5 @@ class EnhancedFieldElements(f:FieldElements) {
 }
 
 object CarersHelpers {
-  implicit def enhanceFieldElements(f:FieldElements):EnhancedFieldElements = new EnhancedFieldElements(f)
+  implicit def enhanceFieldElements(f:FieldElements)(implicit lang: Lang):EnhancedFieldElements = new EnhancedFieldElements(f)
 }

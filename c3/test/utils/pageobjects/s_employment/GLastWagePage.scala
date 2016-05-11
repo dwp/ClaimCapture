@@ -15,7 +15,7 @@ final class GLastWagePage(ctx:PageObjectsContext, iteration:Int) extends ClaimPa
 }
 
 object GLastWagePage {
-  val url  = "/employment/last-wage"
+  val url  = "/your-income/employment/last-wage"
 
   def apply(ctx:PageObjectsContext, iteration:Int=1) = new GLastWagePage(ctx,iteration)
 }

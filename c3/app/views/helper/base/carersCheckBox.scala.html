@@ -1,6 +1,6 @@
 @(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: play.api.i18n.Lang, request: Request[AnyContent], messages: play.api.i18n.Messages)
 
-@import utils.helpers.EmptyTemplate._
+@implicitField = @{ utils.helpers.EmptyTemplate.apply(lang).fieldConstructor }
 @import views.html.helper.base._
 
-    <li class="form-group checkbox-single">@carersDeclareCheck(field,args:_*)</li>
+<li class="form-group checkbox-single">@carersDeclareCheck(field,args:_*)</li>

@@ -1,0 +1,34 @@
+@(title: String, heading: String, backCall:Option[Call] = None)(content: Html)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, flash:Flash, messages: play.api.i18n.Messages)
+
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
+@import models.domain._
+@import views.html.common._
+@import helper._
+@import play.api.i18n.Messages
+
+@common.govMain(title) {
+
+    <div class="carers-allowance clearfix">
+
+        @common.protoType()
+        
+        @common.helperMobile()
+
+        <div class="grid-row main-grid">
+
+
+            <article class="column-three-quarters main-content">
+
+                @views.html.common.upperBackButton(backCall=backCall)
+
+                <h1 class="form-title heading-large">@sectionTitle(NationalityAndResidencySection)@Html(messages(heading))</h1>
+    			
+                @content
+
+            </article>
+
+        </div>       
+        
+    </div>
+
+}

@@ -7,7 +7,7 @@ $(document).ready(function() {
         //console.log('popstate fired! location.pathname=' + location.pathname + ' and location.hash=' + location.hash + ' and state=' + JSON.stringify(history, null, 4) + " event state=" + JSON.stringify(event.state, null, 4));
         //fires on hash change which is coming from and going to preview
         if (location.hash && !event) return;
-        if (!location.hash && $("#ReturnToCheckYourAnswers").length > 0) {
+        if (!location.hash && $("#ReturnToCheckYourAnswers").length > 0 && event && event.state) {
             $("#ReturnToCheckYourAnswers")[0].click();
         } else if (event && event.state) {
             checkButtonSelected(event.state.nexturl);
@@ -34,7 +34,7 @@ $(document).ready(function() {
         if ($("#bottomBackButton").length > 0) {
             //console.log('bottomBackButton');
             $("#bottomBackButton")[0].click();
-        } else if (location.pathname.indexOf("/allowance/benefits") > -1 || location.pathname.indexOf("/circumstances/report-changes/selection") > -1) {
+        } else if (location.pathname.indexOf("/allowance/benefits") > -1 || location.pathname.indexOf("/circumstances/report-changes/change-selection") > -1) {
             //console.log('home goto gov.uk');
             location.href=landingURL
         } else {

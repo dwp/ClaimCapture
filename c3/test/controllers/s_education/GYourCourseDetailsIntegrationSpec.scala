@@ -6,7 +6,7 @@ import controllers.ClaimScenarioFactory
 import utils.pageobjects._
 import utils.pageobjects.s_education.GYourCourseDetailsPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
-import utils.pageobjects.s_employment.GEmploymentPage
+import utils.pageobjects.your_income.GYourIncomePage
 
 class GYourCourseDetailsIntegrationSpec extends Specification {
   section("integration", models.domain.Education.id)
@@ -50,7 +50,7 @@ class GYourCourseDetailsIntegrationSpec extends Specification {
       val claim = ClaimScenarioFactory.s6Education()
       educationPage goToThePage()
       educationPage fillPageWith claim
-      educationPage submitPage() must beAnInstanceOf[GEmploymentPage]
+      educationPage submitPage() must beAnInstanceOf[GYourIncomePage]
      }
 
     "navigate back" in new WithBrowser with PageObjects {

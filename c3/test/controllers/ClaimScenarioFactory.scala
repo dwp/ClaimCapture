@@ -54,7 +54,8 @@ object ClaimScenarioFactory {
     claim.AboutYouSurname = "Appleseed"
     claim.AboutYouDateOfBirth = "03/04/1950"
     claim.AboutYouNationalityAndResidencyNationality = "British"
-    claim.AboutYouNationalityAndResidencyResideInUK = "Yes"
+    claim.AboutYouNationalityAndResidencyAlwaysLivedInUK = "Yes"
+    claim.AboutYouNationalityAndResidencyTrip52Weeks = "No"
     claim.AboutYouNINO = "AB123456C"
     claim.AboutYouAddress = "101 Clifton Street&Blackpool"
     claim.AboutYouPostcode = "FY1 2RW"
@@ -68,7 +69,8 @@ object ClaimScenarioFactory {
   def yourNationalityAndResidencyResident() = {
     val claim = new TestData
     claim.AboutYouNationalityAndResidencyNationality = "British"
-    claim.AboutYouNationalityAndResidencyResideInUK = "Yes"
+    claim.AboutYouNationalityAndResidencyAlwaysLivedInUK = "Yes"
+    claim.AboutYouNationalityAndResidencyTrip52Weeks = "No"
     claim
   }
 
@@ -83,48 +85,8 @@ object ClaimScenarioFactory {
     val claim = new TestData
     claim.AboutYouNationalityAndResidencyNationality = "Another nationality"
     claim.AboutYouNationalityAndResidencyActualNationality = "French"
-    claim.AboutYouNationalityAndResidencyResideInUK = "No"
-    claim.AboutYouNationalityAndResidencyNormalResidency = "France"
-    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
-    claim
-  }
-
-  def abroadForMoreThan52WeeksConfirmationYes() = {
-    val claim = new TestData
-    claim.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "Yes"
-    claim.AboutYouTripDetails_1 = "Trip 1 to London"
-
-    claim
-  }
-
-  def abroadForMoreThan52WeeksConfirmationNo() = {
-    val claim = new TestData
-    claim.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "No"
-
-    claim
-  }
-
-  def abroadForMoreThan52WeeksTrip1() = {
-    val claim = abroadForMoreThan52WeeksConfirmationYes()
-
-    // Trip
-    claim.DateYouLeftGB_1 = "10/04/2013"
-    claim.DateYouReturnedToGB_1 = "20/04/2013"
-    claim.WhereDidYouGo_1 = "France"
-    claim.WhyDidYou_1 = "Holiday"
-    claim.PersonWithYou_1 = "yes"
-    claim
-  }
-
-  def abroadForMoreThan52WeeksTrip2() = {
-    val claim = new TestData
-    claim.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_2 = "Yes"
-    // Trip
-    claim.DateYouLeftGB_2 = "10/05/2013"
-    claim.DateYouReturnedToGB_2 = "20/05/2013"
-    claim.WhereDidYouGo_2 = "Spain"
-    claim.WhyDidYou_2 = "Holiday"
-    claim.PersonWithYou_2 = "no"
+    claim.AboutYouNationalityAndResidencyAlwaysLivedInUK = "Yes"
+    claim.AboutYouNationalityAndResidencyTrip52Weeks = "No"
     claim
   }
 
@@ -159,12 +121,10 @@ object ClaimScenarioFactory {
     claim.AboutYouPostcode = "SE1 6EH"
     claim.HowWeContactYou = "01253111111"
     claim.AboutYouWantsEmailContact = "No"
-    // Claim date
-    //claim.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
-    // Nationality and Residency
     claim.AboutYouNationalityAndResidencyNationality = "British"
-    // Abroad For More Than 52 Weeks
-    claim.AboutYouMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "no"
+    claim.AboutYouNationalityAndResidencyAlwaysLivedInUK = "yes"
+    claim.AboutYouNationalityAndResidencyTrip52Weeks = "yes"
+    claim.AboutYouNationalityAndResidencyTripDetails = "Lived in France for 18 months"
 
     // Other EEA State or Switzerland
     claim.OtherMoneyOtherEEAGuardQuestion = "yes"
@@ -174,6 +134,7 @@ object ClaimScenarioFactory {
     // Employment
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "Yes"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
+    claim.YourIncomeNone = "true"
     claim
   }
 
@@ -523,6 +484,7 @@ object ClaimScenarioFactory {
     // Employment
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "Yes"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
+    claim.YourIncomeNone = "true"
     claim
   }
 
@@ -532,6 +494,7 @@ object ClaimScenarioFactory {
     // Employment
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "Yes"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "No"
+    claim.YourIncomeNone = "true"
     claim
   }
 
@@ -541,6 +504,7 @@ object ClaimScenarioFactory {
     // Employment
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
+    claim.YourIncomeNone = "true"
     claim
   }
 
@@ -550,6 +514,7 @@ object ClaimScenarioFactory {
     // Employment
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "No"
+    claim.YourIncomeStatutorySickPay = "true"
     claim
   }
 
@@ -605,6 +570,7 @@ object ClaimScenarioFactory {
     claim.EducationHaveYouBeenOnACourseOfEducation = "no"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
+    claim.YourIncomeNone = "true"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime = "yes"
     claim.EmploymentDoYouWantToAddAnythingAboutYourWork = "no"
 
@@ -645,6 +611,7 @@ object ClaimScenarioFactory {
     claim.EducationHaveYouBeenOnACourseOfEducation = "no"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
+    claim.YourIncomeNone = "true"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime = "yes"
     claim.EmploymentDoYouWantToAddAnythingAboutYourWork = "no"
 
@@ -894,44 +861,31 @@ object ClaimScenarioFactory {
     claim
   }
 
-  def s9otherMoney = {
+  def s9OtherIncome = {
     val claim = s7Employment()
-    // G1 About other money
-    claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
-    claim.OtherMoneyWhoPaysYou = "The Man"
-    claim.OtherMoneyHowMuch = "12"
-    // G1 Statutory Sick Pay
-    claim.OtherMoneyHaveYouSSPSinceClaim = "yes"
-    claim.OtherMoneySSPHowMuch = "123"
-    claim.OtherMoneySSPEmployerName = "Burger King"
-    // G1 Other Statutory Pay
-    claim.OtherMoneyHaveYouSMPSinceClaim = "yes"
-    claim.OtherMOneySMPHowMuch = "123"
-    claim.OtherMoneySMPEmployerName = "Employers Name"
+    claim.PaymentTypesForThisPay = "MaternityOrPaternityPay"
+    claim.StillBeingPaidThisPay = "yes"
+    claim.WhoPaidYouThisPay = "The Man"
+    claim.AmountOfThisPay = "12"
+    claim.HowOftenPaidThisPay = "Monthly"
 
     claim
   }
 
-  def s9otherMoneyOther = {
+  def s9OtherIncomeOther = {
     val claim = s7Employment()
-    // G1 About other money
-    claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
-    claim.OtherMoneyWhoPaysYou = "The Man"
-    claim.OtherMoneyHowMuch = "12"
-    claim.OtherMoneyHowOften = "Other"
-    claim.OtherMoneyHowOftenOther = "every day and twice on Sundays"
-    // G1 Statutory Sick Pay
-    claim.OtherMoneyHaveYouSSPSinceClaim = "no"
-
-    // G1 Other Statutory Pay
-    claim.OtherMoneyHaveYouSMPSinceClaim = "no"
-
+    claim.PaymentTypesForThisPay = "MaternityOrPaternityPay"
+    claim.StillBeingPaidThisPay = "yes"
+    claim.WhoPaidYouThisPay = "The Man"
+    claim.AmountOfThisPay = "12"
+    claim.HowOftenPaidThisPay = "Other"
+    claim.HowOftenPaidThisPayOther = "every day and twice on Sundays"
 
     claim
   }
 
   def s9SelfEmployment = {
-    val claim = s9otherMoney
+    val claim = s9OtherIncome
     // About self-employment
     claim.SelfEmployedAreYouSelfEmployedNow = "no"
     claim.SelfEmployedMoreThanYearAgo = "no"
@@ -977,6 +931,7 @@ object ClaimScenarioFactory {
   def s7EmploymentAdditionalInfo = {
     val claim = new TestData
     claim.EmploymentDoYouWantToAddAnythingAboutYourWork = "yes"
+    claim.YourIncomeStatutorySickPay = "true"
     claim.EmploymentAdditionalInfo = "I do not have more information"
     claim
   }

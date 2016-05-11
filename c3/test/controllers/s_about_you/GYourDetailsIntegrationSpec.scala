@@ -19,13 +19,6 @@ class GYourDetailsIntegrationSpec extends Specification {
       page goToThePage()
     }
 
-    "give access to help page" in new WithBrowser with PageObjects{
-      val page =  GYourDetailsPage(context)
-      page goToThePage()
-      val helpPage = page.clickLinkOrButton("#helppage")
-      helpPage.isInstanceOf[ClaimHelpPage] must beTrue
-    }
-
     "navigate back to approve page" in new WithBrowser with PageObjects{
 			val page =  GYourDetailsPage(context)
       browser goTo GApprovePage.url

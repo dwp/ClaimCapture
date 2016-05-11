@@ -19,8 +19,8 @@ class ReplicaSpec extends Specification {
 
       val sections = browser.$(".section")
       val links = browser.$("a")
-      sections.size mustEqual (16)
-      links.size mustEqual (28)
+      sections.size mustEqual (15)
+      links.size mustEqual (31)
     }
 
     // We need to ensure that if any changes are made to c3 application with new urls, that the replica is considered.
@@ -59,7 +59,6 @@ class ReplicaSpec extends Specification {
         .filterNot(value => value.contains("/circumstances"))
         .filterNot(value => value.contains("/circs"))
         .filterNot(value => value.contains("/feedback"))
-        .filterNot(value => value.contains("/disclaimer"))
         .filterNot(value => value.contains("$id"))
         .filterNot(value => value.contains("$file"))
         .filterNot(value => value.contains("/save"))
@@ -78,9 +77,10 @@ class ReplicaSpec extends Specification {
         .filterNot(value => value.contains("/back-button"))
         .filterNot(value => value.contains("delete"))
         .filterNot(value => value.contains("/breaks/break"))
-        .filterNot(value => value.contains("/employment/job-details"))
-        .filterNot(value => value.contains("/employment/last-wage"))
-        .filterNot(value => value.contains("/employment/about-expenses"))
+        .filterNot(value => value.contains("/your-income/employment/job-details"))
+        .filterNot(value => value.contains("/your-income/self-employment/completed"))
+        .filterNot(value => value.contains("/your-income/employment/last-wage"))
+        .filterNot(value => value.contains("/your-income/employment/about-expenses"))
         .distinct
     }
     section("unit", "replica")

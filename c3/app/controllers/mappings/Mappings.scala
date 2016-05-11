@@ -1,5 +1,7 @@
 package controllers.mappings
 
+import app.PaymentTypes
+import app.StatutoryPaymentFrequency
 import controllers.CarersForms._
 import models._
 import org.joda.time.DateTime
@@ -23,8 +25,10 @@ object Mappings {
   val twelve = 12
   val twenty = 20
   val threeHundred = 300
+  val threeThousand = 3000
   val yes = "yes"
   val no = "no"
+  val someTrue = Some("true")
   val dontknow = "dontknow"
   val errorRequired = "error.required"
   val required = "required"
@@ -274,4 +278,27 @@ object Mappings {
     })
   }
 
+  def validPaymentType: Constraint[String] = Constraint[String]("constraint.paymentType") {
+    case PaymentTypes.MaternityPaternity => Valid
+    case PaymentTypes.Adoption => Valid
+    case _ => Invalid(ValidationError("paymentType.invalid"))
+  }
+
+  def validFosteringAllowancePaymentType: Constraint[String] = Constraint[String]("constraint.paymentType") {
+    case PaymentTypes.FosteringAllowance => Valid
+    case PaymentTypes.LocalAuthority => Valid
+    case PaymentTypes.Other => Valid
+    case _ => Invalid(ValidationError("paymentType.invalid"))
+  }
+
+  def validPaymentFrequency: Constraint[String] = Constraint[String]("constraint.paymentFrequency") {
+    case StatutoryPaymentFrequency.Weekly => Valid
+    case StatutoryPaymentFrequency.Fortnightly => Valid
+    case StatutoryPaymentFrequency.FourWeekly => Valid
+    case StatutoryPaymentFrequency.DontKnowYet => Valid
+    case StatutoryPaymentFrequency.Monthly => Valid
+    case StatutoryPaymentFrequency.Other => Valid
+    case StatutoryPaymentFrequency.ItVaries => Valid
+    case _ => Invalid(ValidationError("paymentFrequency.invalid"))
+  }
 }

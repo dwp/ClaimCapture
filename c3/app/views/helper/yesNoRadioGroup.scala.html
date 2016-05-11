@@ -1,14 +1,13 @@
 @(field: play.api.data.Field, args: (Symbol, Any)*)(implicit request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
 @import views.html.helper._
-@import play.api.i18n.Messages
 
 @defaultValues = @{Seq("yes" -> messages("label.yes"), "no" -> messages("label.no"))}
 @isAllowance = @{
     args.find(t => t._1 == 'allowance).getOrElse('allowance -> false)._2.asInstanceOf[Boolean]
 }
 
-@fieldConstructor = @{ if(isAllowance) utils.helpers.EligibilityTemplate.fieldConstructor else utils.helpers.CarersTemplate.fieldConstructor}
+@fieldConstructor = @{ if(isAllowance) utils.helpers.EligibilityTemplate.apply(lang).fieldConstructor else utils.helpers.CarersTemplate.apply(lang).fieldConstructor}
 
 @values = @{args.find(t => t._1 == 'values).getOrElse('values->defaultValues).asInstanceOf[(Symbol,Seq[(String, String)])]._2}
 

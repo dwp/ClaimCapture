@@ -1,6 +1,6 @@
 @(stoppedCaringForm: Form[models.domain.CircumstancesStoppedCaring])(implicit claim: models.domain.Claim, lang: Lang, request:play.api.mvc.Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
-@import utils.helpers.CarersTemplate._
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper._

@@ -73,7 +73,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
             formWithErrors.errors(1).message must equalTo(Mappings.maxLengthError)
             formWithErrors.errors(2).message must equalTo(Mappings.maxLengthError)
             formWithErrors.errors(3).message must equalTo(Mappings.maxLengthError)
-            formWithErrors.errors(4).message must equalTo("error.nationality")
+            formWithErrors.errors(4).message must equalTo(Mappings.maxLengthError)
           },
           theirPersonalDetails => "This mapping should not happen." must equalTo("Valid"))
     }
@@ -199,13 +199,13 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "partner.nationality" -> "a123456",
+          "partner.nationality" -> "a$123456",
           "separated.fromPartner" -> separatedFromPartner,
           "isPartnerPersonYouCareFor"->"yes",
           "hadPartnerSinceClaimDate" -> "yes")).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(1)
-            formWithErrors.errors.head.message must equalTo("error.nationality")
+            formWithErrors.errors.head.message must equalTo("error.restricted.characters")
           },
           f => "This mapping should not happen." must equalTo("Valid"))
     }
@@ -227,7 +227,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
           "hadPartnerSinceClaimDate" -> "yes")).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(1)
-            formWithErrors.errors.head.message must equalTo("error.nationality")
+            formWithErrors.errors.head.message must equalTo("error.restricted.characters")
           },
           f => "This mapping should not happen." must equalTo("Valid"))
     }

@@ -1,6 +1,7 @@
 package controllers.circs.report_changes
 
 import org.specs2.mutable._
+import utils.pageobjects.circumstances.origin.GOriginPage
 import utils.{WithBrowser, LightFakeApplication}
 import utils.pageobjects.PageObjects
 import utils.pageobjects.circumstances.start_of_process.{GReportChangesPage, GCircsYourDetailsPage}
@@ -16,12 +17,12 @@ class GEmploymentChangeIntegrationSpec extends Specification {
     }
 
     "navigate to the previous page" in new WithBrowser with PageObjects {
-      val page = GReportChangesPage(context)
-      page goToThePage()
+      val page = GOriginPage(context)
+      val newPage = page goToThePage(throwException = false)
 
       val claim = CircumstancesScenarioFactory.reportChangesEmploymentChangeSelfEmploymentNotStartedYet
-      page fillPageWith(claim)
-      val completedPage = page submitPage()
+      newPage fillPageWith(claim)
+      val completedPage = newPage submitPage()
       val employmentChangePage = completedPage runClaimWith(claim, GEmploymentChangePage.url)
       employmentChangePage must beAnInstanceOf[GEmploymentChangePage]
       val prevPage = employmentChangePage.goBack()

@@ -6,20 +6,19 @@ import xml.claim.AssistedDecision
 
 import language.reflectiveCalls
 import play.api.mvc.{Action, AnyContent, Request, Controller}
-import play.api.data.{Mapping, Form, FormError}
+import play.api.data.{Form, FormError}
 import play.api.data.Forms.{mapping,optional,nonEmptyText,boolean}
 import models.view.CachedClaim
 import utils.helpers.CarersForm.formBinding
 import models.view.Navigable
-import controllers.CarersForms.{carersNonEmptyText, carersText}
+import controllers.CarersForms.carersNonEmptyText
 import controllers.submission.AsyncSubmissionController
 import monitoring.ClaimBotChecking
 import services.submission.ClaimSubmissionService
 import services.ClaimTransactionComponent
-import models.yesNo.{YesNoWithText, OptYesNoWithText}
-import models.domain.{AboutOtherMoney, Employment => Emp, Declaration}
+import models.yesNo.YesNoWithText
+import models.domain.Declaration
 import controllers.mappings.Mappings
-import controllers.mappings.Mappings.yes
 
 class GDeclaration extends Controller with CachedClaim with Navigable with I18nSupport
        with AsyncSubmissionController

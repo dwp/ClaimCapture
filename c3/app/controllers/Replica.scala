@@ -34,6 +34,7 @@ object Replica extends Controller with I18nSupport {
         }.flatMap(e => Seq(e,e+"/$id<[^/]+>"))
 
         val updatedList = Seq(pathList.filter(_.matches("/allowance.*")) ,
+                          pathList.filter(_.matches("/disclaimer.*")) ,
                           pathList.filter(_.matches("/third-party.*")) ,
                           pathList.filter(_.matches("/your-claim-date.*")),
                           pathList.filter(_.matches("/your-claim-date")) ,
@@ -42,9 +43,7 @@ object Replica extends Controller with I18nSupport {
                           pathList.filter(_.matches("/care-you-provide.*")) ,
                           pathList.filter(_.matches("/breaks.*")) ,
                           pathList.filter(_.matches("/education.*")),
-                          pathList.filter(_.matches("/employment.*")) ,
-                          pathList.filter(_.matches("/self-employment.*")) ,
-                          pathList.filter(_.matches("/other-money.*")) ,
+                          pathList.filter(_.matches("/your-income.*")) ,
                           pathList.filter(_.matches("/pay-details.*")) ,
                           pathList.filter(_.matches("/information.*")) ,
                           pathList.filter(_.matches("/preview")) ,
@@ -54,6 +53,7 @@ object Replica extends Controller with I18nSupport {
         ).map(_.filterNot(iteratedPaths.contains(_)))
          .map(_.filterNot(_.matches(".*delete.*")))
          .map(_.filterNot(_.matches(".*error.*")))
+         .map(_.filterNot(_.matches(".*completed.*")))
          .filterNot(_.isEmpty)
 
         val finalList = updatedList.map(_.distinct)
@@ -69,14 +69,13 @@ object ReplicaData {
       case Failure(e) =>
         Logger.error(s"Failed to load replica file, loading default class data: $e", e)
         claim + Benefits(Benefits.aa) +
-          Eligibility(hours = Mappings.yes, over16 = Mappings.yes,livesInGB = Mappings.yes) +
+          Eligibility(hours = Mappings.yes, over16 = Mappings.yes, origin = "GB") +
           ThirdPartyDetails(thirdParty = ThirdPartyDetails.noCarer, nameAndOrganisation  = Some("Jenny Bloggs Preston carers")) +
           ClaimDate(DayMonthYear.today,spent35HoursCaringBeforeClaim = YesNoWithDate(Mappings.yes,date = Some(DayMonthYear.today - 3 months))) +
           YourDetails(title = "Mr",firstName = "Joe",surname = "Bloggs",nationalInsuranceNumber = NationalInsuranceNumber(Some("AB123456D")),dateOfBirth = DayMonthYear(10,10,2014)) +
           MaritalStatus(maritalStatus = app.MaritalStatus.Single) +
           ContactDetails(address = new MultiLineAddress(Some("123"),Some("Street")),postcode = Some("C4T 0AD"),howWeContactYou = Some("0000000000"),wantsContactEmail = Mappings.yes, email = Some("CAU.CASA@dwp.gsi.gov.uk"), emailConfirmation = Some("CAU.CASA@dwp.gsi.gov.uk")) +
-          NationalityAndResidency(nationality = NationalityAndResidency.british,resideInUK = YesNoWithText(Mappings.yes)) +
-          AbroadForMoreThan52Weeks(anyTrips = Mappings.no) +
+          NationalityAndResidency("British", None, Mappings.yes, None, None, None, Mappings.no, None) +
           OtherEEAStateOrSwitzerland(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.yes,field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)))) +
           YourPartnerPersonalDetails(hadPartnerSinceClaimDate = Mappings.yes,title = Some("Miss"),firstName = Some("Joan"),surname = Some("Bloggs"),dateOfBirth = Some(DayMonthYear.today - 10 years),nationality = Some("British"),separatedFromPartner = Some(Mappings.no),isPartnerPersonYouCareFor = Some(Mappings.no)) +
           TheirPersonalDetails(relationship = "Grandma",title = "Mrs",firstName = "Jane",surname = "Bloggs",dateOfBirth = DayMonthYear.today - 15 years,theirAddress = YesNoMandWithAddress(answer = Mappings.no, address = Option(MultiLineAddress(lineOne = Some("470 Street"),lineTwo = Some("Newtown"))), postCode = Some("PR1 1HB"))) +
@@ -88,6 +87,7 @@ object ReplicaData {
           )) +
           YourCourseDetails(beenInEducationSinceClaimDate = Mappings.yes,title = Some("Biology"),nameOfSchoolCollegeOrUniversity = Some("A College"),
           nameOfMainTeacherOrTutor = Some("A Tutor"),startDate = Some(DayMonthYear.today - 1 month),expectedEndDate = Some(DayMonthYear.today + 2 years)) +
+          YourIncomes(beenSelfEmployedSince1WeekBeforeClaim = Mappings.yes, beenEmployedSince6MonthsBeforeClaim = Mappings.yes, yourIncome_sickpay = Mappings.someTrue, yourIncome_patmatadoppay = Mappings.someTrue, yourIncome_fostering = Mappings.someTrue, yourIncome_directpay = Mappings.someTrue, yourIncome_anyother = Mappings.someTrue, yourIncome_none = None) +
           Employment(beenSelfEmployedSince1WeekBeforeClaim = Mappings.yes, beenEmployedSince6MonthsBeforeClaim = Mappings.yes) +
           SelfEmploymentDates(stillSelfEmployed = Mappings.no, finishThisWork=Some(DayMonthYear.today - 2 months), moreThanYearAgo = Mappings.no, startThisWork = Some(DayMonthYear.today - 6 months), paidMoney = Some(Mappings.yes), paidMoneyDate = Some(DayMonthYear.today - 5 months)) +
           SelfEmploymentPensionsAndExpenses(payPensionScheme = YesNoWithText(Mappings.no),haveExpensesForJob = YesNoWithText(Mappings.no)) +
@@ -101,7 +101,11 @@ object ReplicaData {
           )) +
           BeenEmployed(Mappings.no) +
           EmploymentAdditionalInfo(YesNoWithText(Mappings.no)) +
-          AboutOtherMoney(anyPaymentsSinceClaimDate = YesNo(Mappings.no),statutorySickPay = YesNoWithEmployerAndMoney(Mappings.no),otherStatutoryPay = YesNoWithEmployerAndMoney(Mappings.no)) +
+          StatutorySickPay(stillBeingPaidThisPay = Mappings.no, whenDidYouLastGetPaid = Some(DayMonthYear.today - 3 months), whoPaidYouThisPay = "Hiding Consultants", amountOfThisPay = "123.56", howOftenPaidThisPay = app.StatutoryPaymentFrequency.Weekly, howOftenPaidThisPayOther = None) +
+          StatutoryMaternityPaternityAdoptionPay(paymentTypesForThisPay = app.PaymentTypes.MaternityPaternity, stillBeingPaidThisPay = Mappings.no, whenDidYouLastGetPaid = Some(DayMonthYear.today - 3 months), whoPaidYouThisPay = "Hiding Consultants", amountOfThisPay = "223.56", howOftenPaidThisPay = app.StatutoryPaymentFrequency.FourWeekly, howOftenPaidThisPayOther = None) +
+          FosteringAllowance(paymentTypesForThisPay = app.PaymentTypes.FosteringAllowance, stillBeingPaidThisPay = Mappings.yes, whenDidYouLastGetPaid = None, whoPaidYouThisPay = "Hiding Consultants", amountOfThisPay = "323.56", howOftenPaidThisPay = app.StatutoryPaymentFrequency.Monthly, howOftenPaidThisPayOther = None) +
+          DirectPayment(stillBeingPaidThisPay = Mappings.no, whenDidYouLastGetPaid = Some(DayMonthYear.today - 3 months), whoPaidYouThisPay = "Hiding Consultants", amountOfThisPay = "423.56", howOftenPaidThisPay = app.StatutoryPaymentFrequency.ItVaries, howOftenPaidThisPayOther = Some("Twice a day")) +
+          OtherPayments(otherPaymentsInfo = "Testing other payments") +
           HowWePayYou(likeToBePaid = Mappings.no,paymentFrequency = app.PaymentFrequency.EveryWeek) +
           AdditionalInfo(anythingElse = YesNoWithText(Mappings.no),welshCommunication = Mappings.no)
     }

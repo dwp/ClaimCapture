@@ -3,7 +3,7 @@ package models.view
 import java.util.UUID._
 import app.ConfigProperties._
 import gov.dwp.exceptions.DwpRuntimeException
-import models.domain.{Claim, QuestionGroup}
+import models.domain.{YourDetails, ClaimDate, Claim, QuestionGroup}
 import models.view.ClaimHandling.ClaimResult
 import models.view.cache.EncryptedCacheHandling
 import play.api.cache.Cache
@@ -23,10 +23,10 @@ import scala.reflect.ClassTag
 object ClaimHandling {
   type ClaimResult = (Claim, Result)
   // Versioning
-  val C3NAME = s"${getProperty("application.name", default="c3")}"
-  val C3VERSION = s"${C3NAME.toUpperCase}Version"
-  val C3VERSION_VALUE = getProperty("application.version", default="x1").takeWhile(_ != '-')
-  val C3VERSION_SECSTOLIVE = getProperty("application.seconds.to.live", default=36000)
+  def C3NAME = s"${getProperty("application.name", default="c3")}"
+  def C3VERSION = s"${C3NAME.toUpperCase}Version"
+  def C3VERSION_VALUE = getProperty("application.version", default="x1").takeWhile(_ != '-')
+  def C3VERSION_SECSTOLIVE = getProperty("application.seconds.to.live", default=36000)
   val applicationFinished = "application-finished"
 
 }
@@ -97,7 +97,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
   }
 
   /*
-     Resume Claim. If we succesfully resume the claim, the original claim will be loaded into the cache.
+     Resume Claim. If we successfully resume the claim, the original claim will be loaded into the cache.
      We check response and pickup the new claim and set in session in action()
    */
   def resumeClaim(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
@@ -154,6 +154,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
           fromCache(request) match {
             case Some(claim) if isNotValidClaim(claim) && !Play.isTest =>
               Logger.error(s"$cacheKey - cache: ${keyFrom(request)} lost the claim date and claimant details")
+              Logger.info(s"path:${request.path} - claim uuid ${claim.uuid} not valid claim.questionGroup[ClaimDate].isDefined:${claim.questionGroup[ClaimDate].isDefined} claim.questionGroup[YourDetails].isDefined:${claim.questionGroup[YourDetails].isDefined}")
               Redirect(errorPageBrowserBackButton)
 
             case Some(claim) => claimingWithClaim(f, request, claim)
@@ -212,13 +213,14 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
 
       fromCache(request, required = false) match {
         case Some(claim) =>
-          Logger.info(s"ending - ${claim.key} ${claim.uuid} - ${request.method} url ${request.path}")
+          Logger.info(s"ending claim - ${claim.key} ${claim.uuid} - ${request.method} url ${request.path}")
           // reaching end of process - thank you page so we delete claim for security reasons and free memory
           removeFromCache(claim.uuid)
           removeSaveForLaterFromCache(claim.uuid)
           originCheck(f(claim)(request)(getLang(claim))).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain),
             DiscardingCookie(ClaimHandling.C3VERSION),DiscardingCookie("PLAY_LANG")).withNewSession.withCookies(Cookie(ClaimHandling.applicationFinished, "true"))
         case _ =>
+          Logger.info(s"ending no claim - ${request.method} url ${request.path}")
           enforceAlreadyFinishedRedirection(request,
             originCheck(f(Claim(cacheKey))(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain),
               DiscardingCookie(ClaimHandling.C3VERSION),DiscardingCookie("PLAY_LANG")).withNewSession.withCookies(Cookie(ClaimHandling.applicationFinished, "true"))
@@ -240,8 +242,9 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
 
   private def enforceAlreadyFinishedRedirection(request: Request[AnyContent], otherwise: => Result): Result =
     if (request.cookies.exists {
-      case Cookie(applicationFinished, "true", _, _, _, _, _) =>
+      case Cookie(ClaimHandling.applicationFinished, "true", _, _, _, _, _) =>
         Logger.info("User already completed claim. Redirection to back button page.")
+        request.cookies.foreach(c => Logger.info(s"path:${request.path} cookie name:${c.name} cookie value:${c.value}"))
         true
       case _ => false
     }) Redirect(backButtonPage)
