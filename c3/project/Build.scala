@@ -30,7 +30,7 @@ object ApplicationBuild extends Build {
     "com.github.rjeschke" % "txtmark" % "0.11",
     "org.jacoco" % "org.jacoco.core" % "0.7.4.201502262128" % "test",
     "org.jacoco" % "org.jacoco.report" % "0.7.4.201502262128" % "test",
-    "nl.rhinofly" %% "play-mailer" % "3.0.0",
+    "com.typesafe.play" %% "play-mailer" % "3.0.0",
     "gov.dwp.carers" %% "play2-resilient-memcached" % "2.5",
     "gov.dwp" %% "play2-multimessages" % "2.4.3",
     "net.sourceforge.htmlunit" % "htmlunit" % "2.19" % "test",
@@ -48,8 +48,12 @@ object ApplicationBuild extends Build {
 
   var sV: Seq[Def.Setting[_]] = Seq(scalaVersion := "2.10.5")
 
+  var sR1 = if (System.getProperty("artifactory_url") == null) {
+    "http://build.3cbeta.co.uk:8080/artifactory/repo/"
+  } else s"${System.getProperty("artifactory_url")}/artifactory/repo"
+
   var defaultSr: Seq[Def.Setting[_]] = Seq(
-    resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/",
+    resolvers += "Carers repo" at sR1,
     resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
     resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases",
     resolvers += "Rhinofly Internal Release Repository" at "http://maven-repository.rhinofly.net:8081/artifactory/libs-release-local",
@@ -91,13 +95,13 @@ object ApplicationBuild extends Build {
 
   val isSnapshotBuild = appVersion.endsWith("-SNAPSHOT")
   var publ: Seq[Def.Setting[_]] = Seq(
-    publishTo := Some("Artifactory Realm" at "http://build.3cbeta.co.uk:8080/artifactory/repo/"),
+    publishTo := Some("Artifactory Realm" at s"${sR1}/artifactory/repo/"),
     publishTo <<= version {
       (v: String) =>
         if (isSnapshotBuild)
-          Some("snapshots" at "http://build.3cbeta.co.uk:8080/artifactory/libs-snapshot-local")
+          Some("snapshots" at s"${sR1}/artifactory/libs-snapshot-local")
         else
-          Some("releases" at "http://build.3cbeta.co.uk:8080/artifactory/libs-release-local")
+          Some("releases" at s"${sR1}/artifactory/libs-release-local")
     })
 
   var appSettings: Seq[Def.Setting[_]] = sV ++ sO ++ sR ++ gS ++ sTest ++ jO ++ f ++ jcoco ++ keyStoreOptions ++ jacoco.settings ++ sAppN ++ sAppV ++ sOrg ++ vS ++ publ ++ net.virtualvoid.sbt.graph.Plugin.graphSettings
