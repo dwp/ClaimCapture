@@ -16,6 +16,7 @@ case class NationalityAndResidency(nationality: String = "",
                                    liveInUKNow: Option[String] = None,
                                    arrivedInUK: Option[String] = None,
                                    arrivedInUKDate: Option[DayMonthYear] = None,
+                                   arrivedInUKFrom: Option[String] = None,
                                    trip52weeks: String = "",
                                    tripDetails: Option[String] = None
                                     ) extends QuestionGroup(NationalityAndResidency)

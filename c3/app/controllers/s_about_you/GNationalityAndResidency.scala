@@ -22,14 +22,16 @@ object GNationalityAndResidency extends Controller with CachedClaim with Navigab
     "liveInUKNow" -> optional(text.verifying(validYesNo)),
     "arrivedInUK" -> optional(carersNonEmptyText(maxLength = CommonValidation.NATIONALITY_MAX_LENGTH)),
     "arrivedInUKDate" -> optional(dayMonthYear.verifying(validDate)),
+    "arrivedInUKFrom" -> optional(carersNonEmptyText()),
     "trip52weeks" -> nonEmptyText.verifying(validYesNo),
     "tripDetails" -> optional(carersNonEmptyText(maxLength = 3000))
   )(NationalityAndResidency.apply)(NationalityAndResidency.unapply)
     .verifying(NationalityAndResidency.actualNationalityRequired)
-    .verifying(NationalityAndResidency.requiredTripDetails)
     .verifying("liveInUKNow.required", validateLiveInUKnow _)
     .verifying("arrivedInUK.required", validateArrivedInUK _)
     .verifying("arrivedInUKDate.required", validateArrivedInUKDate _)
+    .verifying("arrivedInUKFrom.required", validateArrivedInUKFrom _)
+    .verifying(NationalityAndResidency.requiredTripDetails)
   )
 
   private def validateLiveInUKnow(nationalityAndResidency: NationalityAndResidency) = {
@@ -53,6 +55,13 @@ object GNationalityAndResidency extends Controller with CachedClaim with Navigab
     }
   }
 
+  private def validateArrivedInUKFrom(nationalityAndResidency: NationalityAndResidency) = {
+    nationalityAndResidency.arrivedInUK match {
+      case Some("less") => nationalityAndResidency.arrivedInUKFrom.isDefined
+      case _ => true
+    }
+  }
+
   def present = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
     track(NationalityAndResidency) { implicit claim =>
       Ok(views.html.s_nationality_and_residency.g_nationalityAndResidency(form.fill(NationalityAndResidency)))
@@ -64,10 +73,11 @@ object GNationalityAndResidency extends Controller with CachedClaim with Navigab
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
           .replaceError("", "actualnationality.required", FormError("actualnationality", errorRequired))
-          .replaceError("", "tripdetails.required", FormError("tripDetails", errorRequired))
           .replaceError("", "liveInUKNow.required", FormError("liveInUKNow", errorRequired))
           .replaceError("", "arrivedInUK.required", FormError("arrivedInUK", errorRequired))
           .replaceError("", "arrivedInUKDate.required", FormError("arrivedInUKDate", errorRequired))
+          .replaceError("", "arrivedInUKFrom.required", FormError("arrivedInUKFrom", errorRequired))
+          .replaceError("", "tripdetails.required", FormError("tripDetails", errorRequired))
         BadRequest(views.html.s_nationality_and_residency.g_nationalityAndResidency(formWithErrorsUpdate))
       },
       nationalityAndResidency => {

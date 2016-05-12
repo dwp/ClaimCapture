@@ -10,6 +10,7 @@ final class GNationalityAndResidencyPage(ctx: PageObjectsContext) extends ClaimP
   declareYesNo("#liveInUKNow", "AboutYouNationalityAndResidencyLiveInUKNow")
   declareRadioList("#arrivedInUK", "AboutYouNationalityAndResidencyArrivedInUK")
   declareDate("#arrivedInUKDate", "AboutYouNationalityAndResidencyArrivedInUKDate")
+  declareInput("#arrivedInUKFrom", "AboutYouNationalityAndResidencyArrivedInUKFrom")
   declareYesNo("#trip52weeks", "AboutYouNationalityAndResidencyTrip52Weeks")
   declareInput("#tripDetails", "AboutYouNationalityAndResidencyTripDetails")
 }
