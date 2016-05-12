@@ -1,5 +1,5 @@
 <configuration scan="true" scanPeriod="30 seconds">
-
+ 
     <conversionRule conversionWord="coloredLevel" converterClass="play.api.Logger$ColoredLevel"/>
 
     <appender name="APPLICATION_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
