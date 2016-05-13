@@ -70,6 +70,24 @@ class GNationalityAndResidencyIntegrationSpec extends Specification {
       actualnationality mustEqual("French")
     }
 
+    "lived-in-uk full details are saved correctly thus set when clicked back" in new WithJsBrowser with PageObjects{
+      val page =  GNationalityAndResidencyPage(context)
+      val claim = yourNationalityAllDetails
+      page goToThePage()
+      page fillPageWith claim
+      val nextPage = page submitPage()
+      val backPage=nextPage.goBack()
+      browser.find("#actualnationality").getValue mustEqual("French")
+      browser.find("#alwaysLivedInUK_yes").getAttribute("selected") mustEqual null
+      browser.find("#alwaysLivedInUK_no").getAttribute("selected") mustEqual "true"
+      browser.find("#liveInUKNow_yes").getAttribute("selected") mustEqual "true"
+      browser.find("#arrivedInUK_more").getAttribute("selected") mustEqual null
+      browser.find("#arrivedInUKDate_day").getValue mustEqual "1"
+      browser.find("#arrivedInUKDate_month").getValue mustEqual "5"
+      browser.find("#arrivedInUKDate_year").getValue mustEqual "2016"
+      browser.find("#arrivedInUKFrom").getValue mustEqual("Turkey")
+    }
+
     "Modify nationality from preview page" in new WithJsBrowser with PageObjects{
       val previewPage = goToPreviewPage(context)
       val id = "about_you_nationality"
@@ -88,40 +106,6 @@ class GNationalityAndResidencyIntegrationSpec extends Specification {
       previewPageModified must beAnInstanceOf[PreviewPage]
       answerText(previewPageModified) mustEqual "British"
     }
-/*
-PREVIEW PAGE STILL TO COMPLETE
-    "Modify Do you normally live in England, Scotland or Wales? from preview page" in new WithJsBrowser with PageObjects {
-      val previewPage = goToPreviewPage(context)
-      val id = "about_you_residence"
-      val answerText = PreviewTestUtils.answerText(id, _:Page)
-
-      answerText(previewPage) mustEqual "No - France"
-      val nationalityPage = previewPage.clickLinkOrButton(getLinkId(id))
-      nationalityPage must beAnInstanceOf[GNationalityAndResidencyPage]
-
-      val modifiedData = new TestData
-      modifiedData.AboutYouNationalityAndResidencyResideInUK = "Yes"
-      nationalityPage fillPageWith modifiedData
-      val previewPageModified = nationalityPage submitPage()
-
-      previewPageModified must beAnInstanceOf[PreviewPage]
-      answerText(previewPageModified) mustEqual "Yes"
-    }
-    */
-
-    /* Tests from 52 weeks page which is dropped
-        """remember "no more 52 weeks trips" upon stating "52 weeks trips" and returning""" in new WithJsBrowser with PageObjects {
-    }
-
-    "Trip details must not be visible when time abroad page is displayed" in new WithJsBrowser with PageObjects {
-    }
-
-    "Trip details must be visible when returning back to the time abroad page" in new WithJsBrowser with PageObjects {
-    }
-
-    "Modify time outside from preview page" in new WithJsBrowser with PageObjects {
-    }
-     */
   }
   section("integration", models.domain.AboutYou.id)
 
@@ -140,5 +124,19 @@ PREVIEW PAGE STILL TO COMPLETE
 
     val previewPage = PreviewPage(context)
     previewPage goToThePage()
+  }
+
+  def yourNationalityAllDetails() = {
+    val claim = new TestData
+    claim.AboutYouNationalityAndResidencyNationality = "Another nationality"
+    claim.AboutYouNationalityAndResidencyActualNationality = "French"
+    claim.AboutYouNationalityAndResidencyAlwaysLivedInUK = "No"
+    claim.AboutYouNationalityAndResidencyLiveInUKNow = "Yes"
+    claim.AboutYouNationalityAndResidencyArrivedInUK = "less"
+    claim.AboutYouNationalityAndResidencyArrivedInUKDate = "01/05/2016"
+    claim.AboutYouNationalityAndResidencyArrivedInUKFrom = "Turkey"
+
+    claim.AboutYouNationalityAndResidencyTrip52Weeks = "No"
+    claim
   }
 }

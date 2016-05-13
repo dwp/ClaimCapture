@@ -98,6 +98,7 @@
     }
     @if(showarrivedinukdate){
         @fieldWithLink("about_you_arrivedinukdate", "arrivedInUKDate", arrivedinukdate, elementId = Some("arrivedInUKDate"))
+        @fieldWithLink("about_you_arrivedinukfrom", "arrivedInUKFrom", nationalityAndResidency.arrivedInUKFrom.getOrElse(""), elementId = Some("arrivedInUKFrom"))
     }
     @fieldWithLink("about_you_trip52weeks", "trip52weeks", abroadValue, elementId = Some("trip52weeks"))
     @fieldWithLink("about_you_eeaGuardQuestion", "eeaGuardQuestion.answer", eeaGuardQuestionValue, elementId = Some("eeaGuardQuestion_answer"))
