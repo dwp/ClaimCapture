@@ -43,14 +43,14 @@ class NationalityAndResidencySpec extends Specification {
       (xml \\ "Residency" \\ "ArrivedInUK" \\ "QuestionLabel").text must contain("arrive in England")
       (xml \\ "Residency" \\ "ArrivedInUK" \\ "Answer").text mustEqual ("less")
 
-      (xml \\ "Residency" \\ "ArrivedInUKFrom" \\ "QuestionLabel").text must contain("arrived")
-      (xml \\ "Residency" \\ "ArrivedInUKFrom" \\ "Answer").text mustEqual ("10-03-2016")
+      (xml \\ "Residency" \\ "ArrivedInUKFrom" \\ "QuestionLabel").text must contain("Which country")
+      (xml \\ "Residency" \\ "ArrivedInUKFrom" \\ "Answer").text mustEqual ("Syria")
 
       (xml \\ "Residency" \\ "ArrivedInUKDate" \\ "QuestionLabel").text must contain("arrived")
       (xml \\ "Residency" \\ "ArrivedInUKDate" \\ "Answer").text mustEqual ("10-03-2016")
 
-      (xml \\ "Residency" \\ "TimeOutsideGBLast3Years" \\ "QuestionLabel").text must contain("Which country")
-      (xml \\ "Residency" \\ "TimeOutsideGBLast3Years" \\ "Answer").text mustEqual ("Syria")
+      (xml \\ "Residency" \\ "TimeOutsideGBLast3Years" \\ "QuestionLabel").text must contain("been away from England")
+      (xml \\ "Residency" \\ "TimeOutsideGBLast3Years" \\ "Answer").text mustEqual ("Yes")
 
       (xml \\ "Residency" \\ "TripDetails" \\ "QuestionLabel").text must contain("Tell us about")
       (xml \\ "Residency" \\ "TripDetails" \\ "Answer").text mustEqual ("Worked in spain")
