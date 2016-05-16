@@ -71,26 +71,41 @@ class ThankYouIntegrationSpec extends Specification {
 
     }
 
-    "request statutory pay evidence if they have statutory pay" in new WithJsBrowser {
+    "request statutory sick pay evidence if they have entered details" in new WithJsBrowser {
       implicit val lang = Lang("en")
       val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
       implicit val messages = Messages(lang, messagesApi)
-      val yourIncomes = YourIncomes(yourIncome_sickpay = Some("true"), yourIncome_patmatadoppay = Some("true"))
+      val yourIncomes = YourIncomes(yourIncome_sickpay = Some("true"))
       val statutorySickPay = StatutorySickPay(stillBeingPaidThisPay = "no", whenDidYouLastGetPaid = Some(DayMonthYear.today), whoPaidYouThisPay = "ASDA", amountOfThisPay = "12", howOftenPaidThisPay = "other", howOftenPaidThisPayOther = Some("It varies"))
-      val statutoryPay = StatutoryMaternityPaternityAdoptionPay(paymentTypesForThisPay = "AdoptionPay", stillBeingPaidThisPay = "no", whenDidYouLastGetPaid = Some(DayMonthYear.today), whoPaidYouThisPay = "ASDA", amountOfThisPay = "12", howOftenPaidThisPay = "other", howOftenPaidThisPayOther = Some("It varies"))
-
-      implicit val claim = Claim(CachedClaim.key).update(yourIncomes).update(statutorySickPay).update(statutoryPay)
+      implicit val claim = Claim(CachedClaim.key).update(yourIncomes).update(statutorySickPay)
       implicit val request = FakeRequest()
       implicit val flash = Flash()
 
       val thankYouPage = views.html.common.thankYouClaim(lang).body
 
       thankYouPage must contain(messagesApi("evidence.yourIncome.otherPayments.statutorySickPay"))
+      thankYouPage must not contain(messagesApi("evidence.yourIncome.otherPayments.statutoryPay"))
+      thankYouPage must contain(messagesApi("evidence.include.documents"))
+    }
+
+    "request statutory pay evidence if they have entered details" in new WithJsBrowser {
+      implicit val lang = Lang("en")
+      val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
+      implicit val messages = Messages(lang, messagesApi)
+      val yourIncomes = YourIncomes(yourIncome_patmatadoppay = Some("true"))
+      val statutoryPay = StatutoryMaternityPaternityAdoptionPay(paymentTypesForThisPay = "AdoptionPay", stillBeingPaidThisPay = "no", whenDidYouLastGetPaid = Some(DayMonthYear.today), whoPaidYouThisPay = "ASDA", amountOfThisPay = "12", howOftenPaidThisPay = "other", howOftenPaidThisPayOther = Some("It varies"))
+      implicit val claim = Claim(CachedClaim.key).update(yourIncomes).update(statutoryPay)
+      implicit val request = FakeRequest()
+      implicit val flash = Flash()
+
+      val thankYouPage = views.html.common.thankYouClaim(lang).body
+
+      thankYouPage must not contain(messagesApi("evidence.yourIncome.otherPayments.statutorySickPay"))
       thankYouPage must contain(messagesApi("evidence.yourIncome.otherPayments.statutoryPay"))
       thankYouPage must contain(messagesApi("evidence.include.documents"))
     }
 
-    "not request statutory pay evidence if they don't have statutory pay" in new WithJsBrowser {
+    "not request statutory pay evidence if they don't have any form of statutory pay" in new WithJsBrowser {
       implicit val lang = Lang("en")
       val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
       implicit val messages = Messages(lang, messagesApi)
