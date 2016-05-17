@@ -129,15 +129,15 @@ protected trait CacheHandling {
   }
 
   def createSaveForLaterKey(resumeSaveForLater: ResumeSaveForLater): String = {
-    resumeSaveForLater.firstName.toUpperCase() + resumeSaveForLater.surname.toUpperCase +
-      resumeSaveForLater.nationalInsuranceNumber.nino.getOrElse("").toUpperCase +
+    resumeSaveForLater.firstName.toUpperCase.replace(" ", "") + resumeSaveForLater.surname.toUpperCase.replace(" ", "") +
+      resumeSaveForLater.nationalInsuranceNumber.stringify +
       resumeSaveForLater.dateOfBirth.`yyyy-MM-dd`
   }
 
   def createSaveForLaterKey(claim: Claim): String = {
     val yourDetails = claim.section(AboutYou).questionGroup(YourDetails).get.asInstanceOf[YourDetails]
-    yourDetails.firstName.toUpperCase() + yourDetails.surname.toUpperCase +
-      yourDetails.nationalInsuranceNumber.nino.getOrElse("").toUpperCase +
+    yourDetails.firstName.toUpperCase.replace(" ", "") + yourDetails.surname.toUpperCase.replace(" ", "") +
+      yourDetails.nationalInsuranceNumber.stringify +
       yourDetails.dateOfBirth.`yyyy-MM-dd`
   }
 
