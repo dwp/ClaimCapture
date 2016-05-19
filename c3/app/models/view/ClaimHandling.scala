@@ -174,10 +174,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
 
   private def claimingWithClaim(f: (Claim) => (Request[AnyContent]) => (Lang) => Either[Result, (Claim, Result)], request: Request[AnyContent], claim: Claim): Result = {
     val key = keyFrom(request)
-
-    // We log just to be able to investigate issues with claims/circs and see path taken by customer. Do not need to log all GETs and POSTs in production (INFO).
-    if (request.method == HttpVerbs.GET) Logger.info(s"claimingWithClaim - ${claim.key} ${claim.uuid} - GET url ${request.path}")
-    else Logger.debug(s"claimingWithClaim - ${claim.key} ${claim.uuid} - ${request.method} url ${request.path}")
+    Logger.info(s"claimingWithClaim - ${claim.key} ${claim.uuid} - ${request.method} url ${request.path}")
     implicit val r = request
 
     if (key != claim.uuid) Logger.error(s"claimingWithClaim - Claim uuid ${claim.uuid} does not match cache key $key.")
