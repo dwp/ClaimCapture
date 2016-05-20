@@ -9,7 +9,7 @@ import play.api.Play._
 import play.api.i18n.{MMessages, MessagesApi}
 import utils.pageobjects.s_eligibility.{GEligibilityPage, GBenefitsPage}
 import utils.pageobjects.{PageObjects, PageObjectsContext, TestData}
-import utils.WithJsBrowser
+import utils.{LightFakeApplication, WithBrowser, WithJsBrowser}
 
 class GBenefitsIntegrationSpec extends Specification {
   section("integration", models.domain.CarersAllowance.id)
@@ -89,6 +89,32 @@ class GBenefitsIntegrationSpec extends Specification {
       page goToThePage ()
 
       page.source must contain(getFeedbackLink())
+    }
+
+    "contains english link in footer when welsh lang selected" in new WithJsBrowser with PageObjects {
+      browser.goTo(GBenefitsPage.url+"?lang=cy")
+      (browser.getCookie("PLAY_LANG").getValue == "cy") must beTrue
+      browser.pageSource() must contain("English")
+    }
+
+    "contains welsh link in footer when english lang is default" in new WithJsBrowser with PageObjects {
+      browser.goTo(GBenefitsPage.url)
+      (browser.getCookie("PLAY_LANG").getValue == "") must beTrue
+      browser.pageSource() must contain("Cymraeg")
+    }
+
+    "contains no welsh or english link in footer when GB-NIR is default" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("origin.tag" -> "GB-NIR"))) with PageObjects {
+      browser.goTo(GBenefitsPage.url)
+      (browser.getCookie("PLAY_LANG").getValue == "") must beTrue
+      browser.pageSource() must not contain("Cymraeg")
+      browser.pageSource() must not contain("English")
+    }
+
+    "contains no welsh or english link in footer when GB-NIR when welsh selected" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("origin.tag" -> "GB-NIR"))) with PageObjects {
+      browser.goTo(GBenefitsPage.url+"?lang=cy")
+      (browser.getCookie("PLAY_LANG").getValue == "") must beTrue
+      browser.pageSource() must not contain("Cymraeg")
+      browser.pageSource() must not contain("English")
     }
   }
   section("integration", models.domain.CarersAllowance.id)

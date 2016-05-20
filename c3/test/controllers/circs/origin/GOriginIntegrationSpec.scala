@@ -61,6 +61,32 @@ class GOriginIntegrationSpec extends Specification {
       browser.url() mustEqual GOriginPage.url
       browser.pageSource must contain ("you must use the service for England")
     }
+
+    "contains english link in footer when welsh lang selected" in new WithBrowser with PageObjects {
+      browser.goTo(GOriginPage.url+"?lang=cy")
+      (browser.getCookie("PLAY_LANG").getValue == "cy") must beTrue
+      browser.pageSource() must contain("English")
+    }
+
+    "contains welsh link in footer when english lang is default" in new WithBrowser with PageObjects {
+      browser.goTo(GOriginPage.url)
+      (browser.getCookie("PLAY_LANG").getValue == "") must beTrue
+      browser.pageSource() must contain("Cymraeg")
+    }
+
+    "contains no welsh or english link in footer when GB-NIR is default" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("origin.tag" -> "GB-NIR"))) with PageObjects {
+      browser.goTo(GOriginPage.url)
+      (browser.getCookie("PLAY_LANG").getValue == "") must beTrue
+      browser.pageSource() must not contain("Cymraeg")
+      browser.pageSource() must not contain("English")
+    }
+
+    "contains no welsh or english link in footer when GB-NIR when welsh selected" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("origin.tag" -> "GB-NIR"))) with PageObjects {
+      browser.goTo(GOriginPage.url+"?lang=cy")
+      (browser.getCookie("PLAY_LANG").getValue == "") must beTrue
+      browser.pageSource() must not contain("Cymraeg")
+      browser.pageSource() must not contain("English")
+    }
   }
   section("integration", models.domain.CircumstancesReportChanges.id)
 }
