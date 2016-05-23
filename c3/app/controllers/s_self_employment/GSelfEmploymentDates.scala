@@ -2,15 +2,14 @@ package controllers.s_self_employment
 
 import controllers.CarersForms._
 import controllers.mappings.Mappings._
-import controllers.s_self_employment.SelfEmployment._
-import models.domain.{YourIncomes, SelfEmploymentDates, Claim}
+import models.domain._
 import models.view.ClaimHandling.ClaimResult
 import models.view.{CachedClaim, Navigable}
 import play.api.Play._
 import play.api.data.{Form, FormError}
 import play.api.data.Forms._
 import play.api.i18n._
-import play.api.mvc.{Result, AnyContent, Controller, Request}
+import play.api.mvc.{AnyContent, Controller, Request}
 import utils.helpers.CarersForm._
 
 import scala.language.reflectiveCalls
@@ -91,16 +90,32 @@ object GSelfEmploymentDates extends Controller with CachedClaim with Navigable w
     presentConditionally(aboutSelfEmployment)
   }
 
+  def previousJobs(claim: Claim): Jobs = {
+    if (claim.navigation.beenInPreview) {
+      claim.checkYAnswers.previouslySavedClaim match {
+        case Some(j) => j.questionGroup[Jobs].get
+        case None => Jobs()
+      }
+    } else Jobs()
+  }
+
+  def jobsHasChanged(claim: Claim): Boolean = {
+    val jobs = claim.questionGroup[Jobs].getOrElse(Jobs())
+    if (previousJobs(claim).size != jobs.size) true
+    else if (previousJobs(claim) != jobs) true
+    else false
+  }
+
   def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
-    val previousYourIncome = if (claim.navigation.beenInPreview)claim.checkYAnswers.previouslySavedClaim.get.questionGroup[YourIncomes].get else YourIncomes()
+    val previousYourIncome = if (claim.navigation.beenInPreview) claim.checkYAnswers.previouslySavedClaim.get.questionGroup[YourIncomes].get else YourIncomes()
     val yourIncomes = claim.questionGroup[YourIncomes].get
     if ((previousYourIncome.beenSelfEmployedSince1WeekBeforeClaim != yourIncomes.beenSelfEmployedSince1WeekBeforeClaim && yourIncomes.beenSelfEmployedSince1WeekBeforeClaim == yes || claim.checkYAnswers.returnToSummaryAnchor == "self_employment_dates") && models.domain.SelfEmployment.visible) c
-    else if (previousYourIncome.beenEmployedSince6MonthsBeforeClaim != yourIncomes.beenEmployedSince6MonthsBeforeClaim && yourIncomes.beenEmployedSince6MonthsBeforeClaim == yes) claim -> Redirect(controllers.s_employment.routes.GEmploymentAdditionalInfo.present())
+    else if (jobsHasChanged(claim) && yourIncomes.beenEmployedSince6MonthsBeforeClaim == yes) claim -> Redirect(controllers.s_employment.routes.GEmploymentAdditionalInfo.present())
     else claim -> Redirect(controllers.your_income.routes.GStatutorySickPay.present())
   }
 
   private def aboutSelfEmployment(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
-     track(SelfEmploymentDates) { implicit claim => Ok(views.html.s_self_employment.g_selfEmploymentDates(form.fill(SelfEmploymentDates))) }
+    track(SelfEmploymentDates) { implicit claim => Ok(views.html.s_self_employment.g_selfEmploymentDates(form.fill(SelfEmploymentDates))) }
   }
 
   def submit = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
