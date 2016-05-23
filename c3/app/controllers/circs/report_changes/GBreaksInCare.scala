@@ -63,13 +63,6 @@ object GBreaksInCare  extends Controller with CachedChangeOfCircs with Navigable
     .verifying("expectStartCaring", validateBreakEnded _)
   )
 
-  private def backCall(circs: Claim) = {
-    circs.questionGroup[CircumstancesBreaksInCare].getOrElse(new CircumstancesBreaksInCare()).medicalCareDuringBreak.isEmpty match {
-      case true => controllers.circs.start_of_process.routes.GReportChangeReason.present()
-      case false => controllers.circs.report_changes.routes.GBreaksInCareSummary.present()
-    }
-  }
-
   private def validateBreakEnded(form: CircumstancesBreaksInCare) = {
     form.breakEnded.answer match {
       case `no` => form.expectStartCaring.answer.isDefined
