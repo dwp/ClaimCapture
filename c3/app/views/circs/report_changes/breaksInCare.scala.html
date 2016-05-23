@@ -67,7 +67,8 @@
                         'class -> "textarea-reduced",
                         'otherValue -> SomewhereElse)
 
-                    @yesNoRadioGroup(breaksForm("breakEnded.answer"))
+                    @yesNoRadioGroup(breaksForm("breakEnded.answer"),
+                        'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")))
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
@@ -79,7 +80,7 @@
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(yesNoRadioGroup(breaksForm("expectStartCaring.answer"),
-                            'values -> Seq("yes" -> Html(messages("label.yes7")), "no" -> Html(messages("label.no")), "dontknow" -> Html(messages("label.dontknow"))),
+                            'values -> Seq("yes" -> Html(messages("label.yes")), "no" -> Html(messages("label.no")), "dontknow" -> Html(messages("label.dontknow"))),
                             'ignoreOptional -> true)),
                             'id -> "expectStartCaring"
                     )
