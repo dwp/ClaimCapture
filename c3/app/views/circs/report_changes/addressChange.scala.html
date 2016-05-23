@@ -51,7 +51,8 @@
 	
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
-	                        yesNoRadioGroup(addressForm("sameAddress.answer"), 'ignoreOptional -> true)
+	                        yesNoRadioGroup(addressForm("sameAddress.answer"), 'ignoreOptional -> true,
+							'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")))
 	                    ),
 	                    'id -> "changedAddressSame"
 	                )
