@@ -10,7 +10,21 @@
 @import app.CircsBreaksWhereabouts._
 @import models.domain.CircumstancesBreaksInCare
 
-@main(messages("c2.g7") + " - " + messages("c2.name"), isChanging = true) {
+@backCall = @{
+    claim.questionGroup[CircumstancesBreaksInCare].getOrElse(new CircumstancesBreaksInCare()).medicalCareDuringBreak.isEmpty match {
+        case true => controllers.circs.start_of_process.routes.GReportChangeReason.present()
+        case false => controllers.circs.report_changes.routes.GBreaksInCareSummary.present()
+    }
+}
+
+@newChanging = @{
+    claim.questionGroup[CircumstancesBreaksInCare].getOrElse(new CircumstancesBreaksInCare()).medicalCareDuringBreak.isEmpty match {
+        case true => true
+        case false => false
+    }
+}
+
+@main(messages("c2.g7") + " - " + messages("c2.name"), isChanging = newChanging, backCall = Some(backCall)) {
     @errorsSummary(breaksForm)
 
     @form(action = controllers.circs.report_changes.routes.GBreaksInCare.submit) {
@@ -92,7 +106,7 @@
 
             </fieldset>
 
-            @views.html.common.bottomNavigation(changing = true)
+            @views.html.common.bottomNavigation(changing = newChanging, backCall = Some(backCall))
         </div>
 
     }

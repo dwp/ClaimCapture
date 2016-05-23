@@ -9,7 +9,7 @@ import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import controllers.mappings.Mappings._
 import models.yesNo.{ RadioWithText, YesNoWithDateTimeAndText, YesNoDontKnowWithDates}
-import models.domain.CircumstancesBreaksInCare
+import models.domain.{Claim, CircumstancesBreaksInCare}
 import controllers.CarersForms._
 import controllers.mappings.Mappings
 import play.api.i18n._
@@ -63,6 +63,13 @@ object GBreaksInCare  extends Controller with CachedChangeOfCircs with Navigable
     .verifying("expectStartCaring", validateBreakEnded _)
   )
 
+  private def backCall(circs: Claim) = {
+    circs.questionGroup[CircumstancesBreaksInCare].getOrElse(new CircumstancesBreaksInCare()).medicalCareDuringBreak.isEmpty match {
+      case true => controllers.circs.start_of_process.routes.GReportChangeReason.present()
+      case false => controllers.circs.report_changes.routes.GBreaksInCareSummary.present()
+    }
+  }
+
   private def validateBreakEnded(form: CircumstancesBreaksInCare) = {
     form.breakEnded.answer match {
       case `no` => form.expectStartCaring.answer.isDefined
@@ -88,7 +95,9 @@ object GBreaksInCare  extends Controller with CachedChangeOfCircs with Navigable
   }
 
   def present = claiming {implicit circs => implicit request => implicit request2lang =>
-    Ok(views.html.circs.report_changes.breaksInCare(form.fill(CircumstancesBreaksInCare)))
+    track(CircumstancesBreaksInCare) {
+      implicit circs => Ok(views.html.circs.report_changes.breaksInCare(form.fill(CircumstancesBreaksInCare)))
+    }
   }
 
   def submit = claiming {implicit circs => implicit request => implicit request2lang =>
