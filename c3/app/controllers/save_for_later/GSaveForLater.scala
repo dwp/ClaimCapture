@@ -15,14 +15,14 @@ object GSaveForLater extends Controller with CachedClaim with Navigable with I18
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
 
   def present(resumePath: String) = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
-    getProperty("saveForLaterSaveEnabled", default = false) match {
+    getBooleanProperty("saveForLaterSaveEnabled") match {
       case false => BadRequest(views.html.common.switchedOff("sfl-save", request2lang))
       case true => Ok(views.html.save_for_later.saveClaimSuccess(resumePath, request2lang))
     }
   }
 
   def submit = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
-    getProperty("saveForLaterSaveEnabled", default = false) match {
+    getBooleanProperty("saveForLaterSaveEnabled") match {
       case false => BadRequest(views.html.common.switchedOff("sfl-save", request2lang))
       case true => processSaveForLater(request.body.asFormUrlEncoded.get, claim, request2lang, request)
     }

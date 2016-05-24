@@ -45,16 +45,16 @@ $(function() {
     $(".js-message").css("display", "none");
     $(".feed-close").css("display", "block");
 
-    //add new window message aria
-      $(document).ready(function() { 
-        $("a[rel='external']").attr("aria-label" , "This link opens in a new window");
-      });          
+    // //add new window message aria
+    //   $(document).ready(function() { 
+    //     $("a[rel='external']").attr("aria-label" , "This link opens in a new window");
+    //   });          
       
-      //add field length contextual for screen readers
-      $(function() {
-        var value = $(".form-control").attr("maxlength");        
-        $(".form-control").attr("aria-label" ,"Maximum " + value + " characters'");  
-      })  
+      // //add field length contextual for screen readers
+      // $(function() {
+      //   var value = $(".form-control").attr("maxlength");        
+      //   $(".form-control").attr("aria-label" ,"Maximum " + value + " characters'");  
+      // });  
       
     // smooth scroll
     $('a[href^="#"]').bind('click.smoothscroll', function (e) {

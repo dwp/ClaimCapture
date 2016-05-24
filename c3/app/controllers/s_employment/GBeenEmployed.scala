@@ -17,6 +17,7 @@ import models.view.ClaimHandling.ClaimResult
 import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 import play.api.i18n._
 import play.api.Play.current
+import app.ConfigProperties._
 
 object GBeenEmployed extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
@@ -64,7 +65,7 @@ object GBeenEmployed extends Controller with CachedClaim with Navigable with I18
     import controllers.mappings.Mappings.yes
 
     def next(beenEmployed: BeenEmployed) = beenEmployed.beenEmployed match {
-      case `yes` if jobs.size < app.ConfigProperties.getProperty("maximumJobs", 5) => Redirect(routes.GJobDetails.present(IterationID(form)))
+      case `yes` if jobs.size < getIntProperty("maximumJobs") => Redirect(routes.GJobDetails.present(IterationID(form)))
       case _ => Redirect(controllers.s_self_employment.routes.GSelfEmploymentDates.present())
     }
 

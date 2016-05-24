@@ -7,7 +7,7 @@ import app.ConfigProperties._
  */
 object OriginTagHelper {
   def isOriginGB() : Boolean = {
-    getProperty("origin.tag", "GB") match {
+    getStringProperty("origin.tag") match {
       case "GB" => true
       case _ => false
     }
@@ -15,8 +15,8 @@ object OriginTagHelper {
 
   def analyticsTag() : String = {
     isOriginGB match {
-      case true => getProperty("analytics.accountTag","UA-57523228-1")
-      case false => getProperty("analytics.accountNITag","UA-57523228-28")
+      case true => getStringProperty("analytics.accountTag")
+      case false => getStringProperty("analytics.accountNITag")
     }
   }
 }

@@ -46,7 +46,7 @@ show
 }
 
 @isEmail = @{
-getProperty("email.frontend",false) && circs.questionGroup[CircumstancesYourDetails].getOrElse(CircumstancesYourDetails()).wantsContactEmail == Mappings.yes
+getBooleanProperty("email.frontend") && circs.questionGroup[CircumstancesYourDetails].getOrElse(CircumstancesYourDetails()).wantsContactEmail == Mappings.yes
 }
 
 @common.govMain(messages("circs.thankyou")) {
@@ -136,7 +136,7 @@ getProperty("email.frontend",false) && circs.questionGroup[CircumstancesYourDeta
 
         </article>
 
-        @if(getProperty("display.transid", false)) {
+        @if(getBooleanProperty("display.transid")) {
             <input type="hidden" name="transId" id="transId" value="@{ circs.transactionId.getOrElse("NO_TRANS_ID") }"/>
         }
 

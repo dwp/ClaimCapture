@@ -16,9 +16,9 @@
 }
 
 @main(messages(headingLabel)) {
-        <p></p>
-        <h2>@Html(messages("gb.origin.error.line1"))</h2>
-        <p></p>
+        
+        <p>@Html(messages("gb.origin.error.line1"))</p>
+        
         <button @{views.html.ga.trackClickEvent("External Link", "ServiceRedirect")}
             onClick="location.href='@govUrl'" id="gotogov" type="button" class="button">Continue to Northern Ireland Direct</button>
 

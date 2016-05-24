@@ -8,10 +8,10 @@
 @import submission._
 
 @isSaveEnabled=@{
-    getProperty("saveForLaterSaveEnabled", default = false)
+    getBooleanProperty("saveForLaterSaveEnabled")
 }
 @saveHref=@{
-    getProperty("saveForLaterUrl", default="/save")
+    getStringProperty("saveForLaterUrl")
 }
 @contactDetails = @{
     claim.questionGroup[ContactDetails].getOrElse(ContactDetails())

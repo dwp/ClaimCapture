@@ -4,7 +4,7 @@
 @import utils.helpers.OriginTagHelper._
 
 @isCadsFeedbackEnabled=@{
-    getProperty("feedback.cads.enabled",default = false)
+    getBooleanProperty("feedback.cads.enabled")
 }
 @feedbackUrl=@{
     isCadsFeedbackEnabled match {
@@ -44,7 +44,7 @@
                 <div>
                     <nav class="footer-nav language">
                         @if(isOriginGB) {
-                            @if(getProperty("galluogi.cymraeg", default = true)) {
+                            @if(getBooleanProperty("galluogi.cymraeg")) {
                                 @if((request.uri.startsWith("/allowance/benefits")) || (request.uri.startsWith("/circumstances/report-changes/change-selection"))) {
                                     @if(lang.language == "cy") {
                                         <a id="lang-en" href="/change-language/en" aria-label="@Html(messages("english.helper"))" >@Html(messages("english"))</a>

@@ -336,14 +336,13 @@ object CacheHandling {
   lazy val feedbackCacheNamespace = "FB-"
   lazy val feedbackKeylist = "FB"
 
-  // Expiration values .. default to 1 second so error obvious in the event of bad config
-  def expiration = getProperty("cache.expiry", 1)
+  def expiration = getIntProperty("cache.expiry")
 
-  def saveForLaterCacheExpiry = getProperty("cache.saveForLaterCacheExpirySecs", 1)
+  def saveForLaterCacheExpiry = getIntProperty("cache.saveForLaterCacheExpirySecs")
 
-  def saveForLaterGracePeriod = getProperty("cache.saveForLaterGracePeriodSecs", 1)
+  def saveForLaterGracePeriod = getIntProperty("cache.saveForLaterGracePeriodSecs")
 
-  def saveForLaterAuthenticationAttempts = getProperty("cache.saveForLaterAuthenticationAttempts", 1)
+  def saveForLaterAuthenticationAttempts = getIntProperty("cache.saveForLaterAuthenticationAttempts")
 
-  def feedbackExpirySecs = getProperty("feedback.cache.expirysecs", 1)
+  def feedbackExpirySecs = getIntProperty("feedback.cache.expirysecs")
 }

@@ -8,7 +8,7 @@ import utils.ConfigurationChangeHelper._
 
 object ApplicationBuild extends Build {
   val appName = "c3"
-  val appVersion = "3.9-SNAPSHOT"
+  val appVersion = "3.10-SNAPSHOT"
 
   processConfFiles(Seq("conf/application-info.conf"), Seq("application.version" -> appVersion, "application.name" -> appName))
 
@@ -23,8 +23,7 @@ object ApplicationBuild extends Build {
     "com.typesafe.akka" %% "akka-agent" % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-remote" % "2.3.9" % "test" withSources() withJavadoc(),
     "gov.dwp.carers" %% "xmlcommons" % "7.20-SNAPSHOT",
-    "gov.dwp.carers" %% "carerscommon" % "7.12-SNAPSHOT",
-    "gov.dwp.carers" %% "wscommons" % "3.0",
+    "gov.dwp.carers" %% "carerscommon" % "7.14-SNAPSHOT",
     "org.postgresql" % "postgresql" % "9.3-1103-jdbc41",
     "com.h2database" % "h2" % "1.4.186" % "test",
     "me.moocar" % "logback-gelf" % "0.12",
@@ -49,17 +48,21 @@ object ApplicationBuild extends Build {
 
   var sV: Seq[Def.Setting[_]] = Seq(scalaVersion := "2.10.5")
 
-  var sR: Seq[Def.Setting[_]] = Seq(
+  var defaultSr: Seq[Def.Setting[_]] = Seq(
     resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/",
     resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
     resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases",
     resolvers += "Rhinofly Internal Release Repository" at "http://maven-repository.rhinofly.net:8081/artifactory/libs-release-local",
-    resolvers += "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases")
+    resolvers += "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases"
+  )
+  var sR: Seq[Def.Setting[_]] = Seq()
+  if (System.getProperty("artifactory_url") != null)
+    sR = Seq(resolvers += "Jenkins Artifactory" at System.getProperty("artifactory_url")) ++ defaultSr
+  else
+    sR = defaultSr
 
   var sTest: Seq[Def.Setting[_]] = Seq()
-
   if (System.getProperty("include") != null) {
-
     sTest = Seq(testOptions in Test += Tests.Argument("include", System.getProperty("include")))
   }
 

@@ -19,7 +19,7 @@ object ChannelShiftParams {
       "cid" -> randomUUID().toString(),
       "t" -> "pageview",
       "dp" -> "/cs2015",
-      "dh" -> getProperty("analytics.host","localhost")
+      "dh" -> getStringProperty("analytics.host")
 
     )
   }
@@ -33,7 +33,7 @@ class ChannelShift(params:Map[String,String]) extends Controller{
 
     notifyGA(params)
 
-    Redirect(getProperty("channel.shift.carers.redirection","error"))
+    Redirect(getStringProperty("channel.shift.carers.redirection"))
   }
 
   private def notifyGA(params:Map[String,String]) = {

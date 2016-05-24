@@ -20,7 +20,7 @@ object CadsEmail {
     //As we don't want to send emails with the chevrons, I tried "","email@email.com" but that produces " <email@email.com>", so we have to send null in the first parameter so the email on the output is just what we are sending.
     val recipients = r.map(to => Recipient(RecipientType.TO, EmailAddress(null, to)))
     Logger.info(s"Sending email for transactionId [$transactionID]")
-    EmailActors.manager ! EmailWrapper(transactionID, Email(subject = subject, from = EmailAddress(null, getProperty("mailer.from", "noreply@lab.3cbeta.co.uk")), text = "", htmlText = body, None, recipients))
+    EmailActors.manager ! EmailWrapper(transactionID, Email(subject = subject, from = EmailAddress(null, getStringProperty("mailer.from")), text = "", htmlText = body, None, recipients))
   }
 
   def sendSaveForLater(transactionID: String, subject: String, body: String, r: String*) = {
@@ -28,7 +28,7 @@ object CadsEmail {
     //As we don't want to send emails with the chevrons, I tried "","email@email.com" but that produces " <email@email.com>", so we have to send null in the first parameter so the email on the output is just what we are sending.
     val recipients = r.map(to => Recipient(RecipientType.TO, EmailAddress(null, to)))
     Logger.info(s"Sending email for transactionId [$transactionID]")
-    EmailActors.manager ! SaveForLaterEmailWrapper(transactionID, Email(subject = subject, from = EmailAddress(null, getProperty("mailer.from", "noreply@lab.3cbeta.co.uk")), text = "", htmlText = body, None, recipients))
+    EmailActors.manager ! SaveForLaterEmailWrapper(transactionID, Email(subject = subject, from = EmailAddress(null, getStringProperty("mailer.from")), text = "", htmlText = body, None, recipients))
   }
 }
 

@@ -267,7 +267,7 @@ class GReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
 
   private def getFeedbackLink() = {
     val messages: MessagesApi = current.injector.instanceOf[MMessages]
-    getProperty("feedback.cads.enabled", default = false) match {
+    getBooleanProperty("feedback.cads.enabled") match {
       case true => messages("feedback.circs.link")
       case _ => messages("feedback.old.circs.link")
     }

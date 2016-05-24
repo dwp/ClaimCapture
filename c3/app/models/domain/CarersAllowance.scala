@@ -1,5 +1,7 @@
 package models.domain
 
+import app.ConfigProperties._
+
 case object CarersAllowance extends Section.Identifier {
   val id = "s0"
 }
@@ -28,7 +30,7 @@ case class Eligibility( hours: String = "",
                         origin: String = "") extends QuestionGroup(Eligibility) {
   // livesInGB Yes/No actually reflects whether gbsite-living-in-gb or nisite-living-in-ni.
   val livesInGB: String = {
-    ( app.ConfigProperties.getProperty("origin.tag", "GB"), origin ) match{
+    ( getStringProperty("origin.tag"), origin ) match{
       case ( "GB", "GB" ) => "yes"
       case ( "GB-NIR", "NI" ) => "yes"
       case _ => "no"

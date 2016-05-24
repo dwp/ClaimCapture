@@ -6,31 +6,23 @@ import gov.dwp.carers.CADSHealthCheck.Result
 import models.view.ClaimHandling
 import play.Configuration
 import play.api.http.Status
-import play.api.libs.ws.WSResponse
-import utils.HttpUtils.HttpMethodWrapper
-import scala.concurrent.duration._
+import utils.HttpUtils.HttpWrapper
 import scala.language.{implicitConversions, postfixOps}
+import app.ConfigProperties._
 
 /**
  * Try to ping the ClaimReceived service in IL3.
  */
 class ClaimReceivedConnectionCheck extends CADSHealthCheck(ClaimHandling.C3NAME, ClaimHandling.C3VERSION_VALUE) {
 
-  implicit def stringGetWrapper(s:String):HttpMethodWrapper = new HttpMethodWrapper(s,ConfigProperties.getProperty("cr.timeout",60000).milliseconds)
-
   override def check(): Result = {
-    val submissionServerEndpoint: String =
-      Configuration.root().getString("submissionServerUrl", "SubmissionServerEndpointNotSet") + "ping"
-
-    submissionServerEndpoint get { response: WSResponse =>
-      response.status match {
-        case Status.OK =>
-          Result.healthy
-        case status@_ =>
-          Result.unhealthy(s"Claim Received ping failed: $status.")
-      }
+    val url = Configuration.root().getString("submissionServerUrl", "SubmissionServerEndpointNotSet") + "ping"
+    val timeout = getIntProperty("cr.timeout")
+    val httpWrapper = new HttpWrapper
+    val response = httpWrapper.get(url, timeout)
+    response.getStatus match {
+      case Status.OK => Result.healthy
+      case status@_ => Result.unhealthy(s"Claim Received ping failed: $status from $url with timeout $timeout.")
     }
-
   }
-
 }

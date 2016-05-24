@@ -116,7 +116,7 @@ class GEmploymentNotStartedSpec extends Specification {
     }
 
     "pull maxlength from xml commons OK" in new WithApplication {
-      val schemaVersion = getProperty("xml.schema.version", "NOT-SET")
+      val schemaVersion = getStringProperty("xml.schema.version")
       schemaVersion must not be "NOT-SET"
       schemaMaxLength(schemaVersion, employmentNoStartedPath) mustEqual 3000
     }

@@ -4,6 +4,7 @@
 @import helper._
 @import controllers.mappings.Mappings._
 @import views.html.preview._
+@import app.ConfigProperties._
 
 @claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
 @yourIncome = @{claim.questionGroup[YourIncomes].getOrElse(YourIncomes())}
@@ -19,7 +20,7 @@
 		case _ => messages("label.no")
 	}
 }
-@disableChangeButton = @{!app.ConfigProperties.getProperty("cyaToggleVisible", true)}
+@disableChangeButton = @{!getBooleanProperty("cyaToggleVisible")}
 
 @content = {
     @employment()

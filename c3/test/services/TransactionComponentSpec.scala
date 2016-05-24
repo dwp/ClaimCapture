@@ -24,7 +24,7 @@ class TransactionComponentSpec extends Specification {
     "successfully register an ID" in new WithApplicationAndDB {
       val id = DBTests.newId
 
-      transactionComponent.claimTransaction.registerId(id, "0002", 1, 1, getProperty("origin.tag", "GB"))
+      transactionComponent.claimTransaction.registerId(id, "0002", 1, 1, getStringProperty("origin.tag"))
       transactionComponent.claimTransaction.recordMi(id, thirdParty = false, circsChange = Some(1), Some(Lang("en")))
 
       transactionComponent.claimTransaction.getTransactionStatusById(id) mustEqual Some(TransactionStatus(id, "0002", 1, Some(0), Some(1), Some("en")))
@@ -32,7 +32,7 @@ class TransactionComponentSpec extends Specification {
 
     "update an existing ID" in new WithApplicationAndDB {
       val id = DBTests.newId
-      transactionComponent.claimTransaction.registerId(id, "0002", 1, 1, getProperty("origin.tag", "GB"))
+      transactionComponent.claimTransaction.registerId(id, "0002", 1, 1, getStringProperty("origin.tag"))
       transactionComponent.claimTransaction.recordMi(id, thirdParty = false, None, Some(Lang("en")))
 
       val existingId = transactionComponent.claimTransaction.getTransactionStatusById(id)

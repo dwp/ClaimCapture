@@ -14,6 +14,7 @@ import models.domain.Eligibility
 import controllers.mappings.Mappings._
 import models.view.Navigable
 import play.api.i18n._
+import app.ConfigProperties._
 
 object GEligibility extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
@@ -35,7 +36,7 @@ object GEligibility extends Controller with CachedClaim with Navigable with I18n
         BadRequest(views.html.s_eligibility.g_eligibility(formWithErrors))
       },
       f => {
-        (app.ConfigProperties.getProperty("origin.tag", "GB"), f.origin) match {
+        (getStringProperty("origin.tag"), f.origin) match {
           case ("GB-NIR", "GB") => {
             Logger.info("Claim Origin Select - NISSA site user posted selected originating country of:" + f.origin + ". Displaying NI origin error page")
             Ok(views.html.common.origin.NIoriginError(false, request2lang))

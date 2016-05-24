@@ -1,6 +1,7 @@
-import play.api.i18n.{Messages, Lang}
-import play.api.Play
+import play.api.i18n.{Lang, Messages}
+import play.api.{Logger, Play}
 import play.twirl.api.Html
+
 import scala.util.{Success, Try}
 
 package object app {
@@ -160,10 +161,35 @@ package object app {
   }
 
   object ConfigProperties  {
-    def getProperty(property:String,default:Int) = Try(Play.current.configuration.getInt(property).getOrElse(default)) match { case Success(s) => s case _ => default}
-    def getProperty(property:String,default:String) = Try(Play.current.configuration.getString(property).getOrElse(default)) match { case Success(s) => s case _ => default}
-    def getProperty(property:String,default:Boolean) = Try(Play.current.configuration.getBoolean(property).getOrElse(default)) match { case Success(s) => s case _ => default}
-    def getProperty(property:String,default:Long) = Try(Play.current.configuration.getLong(property).getOrElse(default)) match { case Success(s) => s case _ => default}
+    def getIntProperty(property: String, throwError: Boolean = true): Int = getProperty(property, "Int", throwError).toInt
+
+    def getStringProperty(property: String, throwError: Boolean = true): String = getProperty(property, "String", throwError).toString
+
+    def getBooleanProperty(property: String, throwError: Boolean = true): Boolean = getProperty(property, "Boolean", throwError).toBoolean
+
+    private def getProperty(property: String, propertyType: String, throwError: Boolean): String = {
+      if (!throwError && Play.unsafeApplication == null) {
+        defaultValue(propertyType)
+      }
+      else {
+        (Play.current.configuration.getString(property), throwError) match {
+          case (Some(s), _) => s.toString
+          case (_, false) => defaultValue(propertyType)
+          case (_, _) => {
+            Logger.error("ERROR - getProperty failed to retrieve application property for:" + property)
+            throw new IllegalArgumentException(s"ERROR - getProperty failed to retrieve application property for:$property")
+          }
+        }
+      }
+    }
+
+    private def defaultValue(propertyType: String) = {
+      propertyType match {
+        case "String" => ""
+        case "Int" => "-1"
+        case "Boolean" => "false"
+      }
+    }
   }
 
   object ReportChange {

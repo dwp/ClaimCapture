@@ -13,12 +13,12 @@ trait BotChecking {
   def calculateActualTimeToCompleteAllSections(currentTime: Long, created: Long): Long
 
   def isSpeedBot(claimOrCircs: Claim): Boolean = {
-    val checkForBotSpeed = getProperty("checkForBotSpeed", default = true)
+    val checkForBotSpeed = getBooleanProperty("checkForBotSpeed")
     checkForBotSpeed && checkTimeToCompleteAllSections(claimOrCircs, System.currentTimeMillis())
   }
 
   def isHoneyPotBot(claimOrCircs: Claim): Boolean = {
-    val checkForBotHoneyPot = getProperty("checkForBotHoneyPot", default = true)
+    val checkForBotHoneyPot = getBooleanProperty("checkForBotHoneyPot")
     checkForBotHoneyPot && honeyPot(claimOrCircs)
   }
 

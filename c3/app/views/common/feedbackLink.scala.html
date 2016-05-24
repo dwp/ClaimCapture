@@ -3,7 +3,7 @@
 @import app.ConfigProperties._
 
 @isCadsFeedbackEnabled = @{
-    getProperty("feedback.cads.enabled", default = false)
+    getBooleanProperty("feedback.cads.enabled")
 }
 @isCircsPage = @{
     request.uri.startsWith("/circumstances") || request.uri.contains("/circs") ||request.uri.contains("/change-carers")

@@ -4,6 +4,7 @@
 @import controllers.mappings.Mappings._
 @import helper._
 @import utils.helpers.OriginTagHelper._
+@import app.ConfigProperties._
 
 @additionalInfo = @{claim.questionGroup[AdditionalInfo].getOrElse(AdditionalInfo())}
 @thirdPartyDetails = @{claim.questionGroup[ThirdPartyDetails].getOrElse(ThirdPartyDetails())}
@@ -22,7 +23,7 @@
     }
 }
 @disableChangeButton = @{
-    !app.ConfigProperties.getProperty("cyaToggleVisible",true)
+    !getBooleanProperty("cyaToggleVisible")
 }
 @content = {
     @fieldWithLink("additional_info" , "anythingElse.answer", additionalInfoAnswer, elementId = Some("anythingElse_answer"), disableLink = disableChangeButton)

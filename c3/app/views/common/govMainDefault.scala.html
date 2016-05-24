@@ -77,7 +77,7 @@
         </script>
         <script @nonCachingSrc("javascripts/jquery/jquery-1.9.1.js") type="text/javascript"></script>
         <script @nonCachingSrc("javascripts/date.js") type="text/javascript"></script>
-        @if(getProperty("back-forward-button", default = false)) {
+        @if(getBooleanProperty("back-forward-button")) {
             <script @nonCachingSrc("javascripts/bb.js") type="text/javascript"></script>
         }
         <script @nonCachingSrc("javascripts/stageprompt-2.0.1.js") type="text/javascript"></script>
@@ -88,7 +88,7 @@
         <script @nonCachingSrc("javascripts/respond.min.js")></script>
         <![endif]-->
 
-        @if(play.Configuration.root().getBoolean("include.analytics", true)) {
+        @if(play.Configuration.root().getBoolean("analytics.enabled", true)) {
             @views.html.ga.setup()
         }
 
@@ -128,7 +128,7 @@
                 <div>
                     <nav class="footer-nav language">
                         @if(isOriginGB) {
-                            @if(getProperty("galluogi.cymraeg", default = true)) {
+                            @if(getBooleanProperty("galluogi.cymraeg")) {
                                 @if((request.uri.startsWith("/allowance/benefits")) || (request.uri.startsWith("/circumstances/report-changes/change-selection"))) {
                                     @if(lang.language == "cy") {
                                         <a id="lang-en" href="/change-language/en" aria-label="@Html(messages("english.helper"))" @views.html.ga.trackClickEvent(linkName = "Language Selection English")>@Html(messages("english"))</a>

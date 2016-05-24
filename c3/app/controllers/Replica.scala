@@ -113,13 +113,13 @@ object ReplicaData {
 
   private def loadAndValidateXMLFile() = {
     //try file system if that fails try resources
-    val fileName = getProperty("replica.replicaFileData", default = "/replica/DefaultClaim.xml")
+    val fileName = getStringProperty("replica.replicaFileData")
     val xml = Try(XML.load(new FileReader(fileName))) match {
       case Success(xml) => xml
       case Failure(e) => XML.load(getClass getResourceAsStream(fileName))
     }
-    if (getProperty("replica.validate.xml.data", default = true))validateLoadedXML(xml, fileName)
-    if (getProperty("replica.validate.xml.signature", default = true))validateXMLSignature(xml, fileName)
+    if (getBooleanProperty("replica.validate.xml.data"))validateLoadedXML(xml, fileName)
+    if (getBooleanProperty("replica.validate.xml.signature"))validateXMLSignature(xml, fileName)
     xml
   }
 

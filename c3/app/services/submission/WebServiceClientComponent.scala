@@ -34,17 +34,17 @@ trait WebServiceClientComponent {
       if(xmlErrors.hasFoundErrorOrWarning) {
         Logger.error(s"Validation failed for transactionId [$txnId]")
         xmlErrors.getWarningAndErrors.asScala.foreach(error => Logger.error(s"Validation error: $error"))
-        if(getProperty("submit.fail.on.validation", default = false)){
+        if(getBooleanProperty("submit.fail.on.validation")){
           throw new RuntimeException(s"Validation failed for transactionId [$txnId]")
         }
       }
 
       Logger.debug ("Validated xml")
 
-      val submissionServerEndpoint = ConfigProperties.getProperty ("submissionServerUrl", "SubmissionServerEndpointNotSet") + "submission"
+      val submissionServerEndpoint = getStringProperty ("submissionServerUrl") + "submission"
       Logger.debug (s"Submission Server : $submissionServerEndpoint")
       WS.url (submissionServerEndpoint)
-        .withRequestTimeout (ConfigProperties.getProperty ("cr.timeout", 60000)) // wait 1 minute
+        .withRequestTimeout (getIntProperty ("cr.timeout")) // wait 1 minute
         .withHeaders (("Content-Type", "application/xml"))
         .withHeaders (("CarersClaimLang", claim.lang.getOrElse (new Lang ("en")).language))
         .post (claimSubmission) recover {

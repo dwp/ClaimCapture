@@ -83,7 +83,7 @@
             </ul>
 
             @claim.questionGroup[Jobs].map{ jobs =>
-                @if(jobs.size >= app.ConfigProperties.getProperty("maximumJobs", 5)) {
+                @if(jobs.size >= app.ConfigProperties.getIntProperty("maximumJobs")) {
                     <div id="maxEmpWarningWrap" class="prompt validation-summary" style="display : none ;">
                         <p>@Html(messages("s7.g2.help2"))</p>
                     </div>

@@ -16,7 +16,7 @@ object XmlSubmitter {
     val validator = xmlValidator(claim)
     val fullXml = DWPBody().xml(claim,transactionID)
 
-    if (getProperty("validateXml", default = true)) {
+    if (getBooleanProperty("validateXml")) {
       val xmlErrors = validator.validate(fullXml.mkString)
       xmlErrors.hasFoundErrorOrWarning match {
         case true => claim -> {

@@ -133,7 +133,7 @@ else YourIncomeStatutorySickPay.name
                 }
             </ul>
 
-            @if(breaksInCare.breaks.size >=app.ConfigProperties.getProperty("maximumBreaksInCare", 10)){
+            @if(breaksInCare.breaks.size >=app.ConfigProperties.getIntProperty("maximumBreaksInCare")){
                 <div id="warningMessageWrap" class="prompt validation-summary">
                     <p>@Html(messages("s4.g5.help5"))</p>
                 </div>

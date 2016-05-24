@@ -24,7 +24,7 @@ class StatusRoutingControllerSpec extends Specification {
 
       // create id with status success in db, to mock that a successful submit took place
       DBTests.createId(transId)
-      transactionComponent.claimTransaction.registerId(transId, ClaimSubmissionService.SUCCESS, controllers.submission.FULL_CLAIM, 1, getProperty("origin.tag", "GB"))
+      transactionComponent.claimTransaction.registerId(transId, ClaimSubmissionService.SUCCESS, controllers.submission.FULL_CLAIM, 1, getStringProperty("origin.tag"))
 
 
       // call controller which will check and find success status in db
@@ -43,7 +43,7 @@ class StatusRoutingControllerSpec extends Specification {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       DBTests.createId(transId)
-      transactionComponent.claimTransaction.registerId(transId, ClaimSubmissionService.SERVICE_UNAVAILABLE, controllers.submission.FULL_CLAIM, 1, getProperty("origin.tag", "GB"))
+      transactionComponent.claimTransaction.registerId(transId, ClaimSubmissionService.SERVICE_UNAVAILABLE, controllers.submission.FULL_CLAIM, 1, getStringProperty("origin.tag"))
 
       val result = ClaimStatusRoutingController.submit(request)
 
@@ -56,7 +56,7 @@ class StatusRoutingControllerSpec extends Specification {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       DBTests.createId(transId)
-      transactionComponent.claimTransaction.registerId(transId, AsyncClaimSubmissionService.GENERATED, controllers.submission.FULL_CLAIM, 1, getProperty("origin.tag", "GB"))
+      transactionComponent.claimTransaction.registerId(transId, AsyncClaimSubmissionService.GENERATED, controllers.submission.FULL_CLAIM, 1, getStringProperty("origin.tag"))
 
       val result = ClaimStatusRoutingController.submit(request)
 
@@ -69,7 +69,7 @@ class StatusRoutingControllerSpec extends Specification {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       DBTests.createId(transId)
-      transactionComponent.claimTransaction.registerId(transId, ClaimSubmissionService.BAD_REQUEST_ERROR, controllers.submission.FULL_CLAIM, 1, getProperty("origin.tag", "GB"))
+      transactionComponent.claimTransaction.registerId(transId, ClaimSubmissionService.BAD_REQUEST_ERROR, controllers.submission.FULL_CLAIM, 1, getStringProperty("origin.tag"))
 
       val result = ClaimStatusRoutingController.submit(request)
 

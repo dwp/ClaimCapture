@@ -14,7 +14,7 @@ object AdditionalInfo extends QuestionGroup.Identifier {
   val id = s"${Information.id}.g1"
 
   def textMaxLength:Integer={
-    val schemaVersion=getProperty("xml.schema.version", "xml.schema.version not found")
+    val schemaVersion=getStringProperty("xml.schema.version")
     Option(new SchemaValidation(schemaVersion).getRestriction("OtherInformation//AdditionalInformation//Why//Answer")) match {
       case Some(restriction) => if( restriction.getMaxlength!=null) restriction.getMaxlength else -1
       case _ => -1

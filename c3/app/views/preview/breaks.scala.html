@@ -3,11 +3,12 @@
 @import models.domain.ClaimDate
 @import play.api.i18n.Messages
 @import helper._
+@import app.ConfigProperties._
 
 @breaks = @{claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())}
 @breaksFromDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateWeRequireBreakInCareInformationFrom(lang)}
 @disableChangeButton = @{
-	!app.ConfigProperties.getProperty("cyaToggleVisible",true)
+	!getBooleanProperty("cyaToggleVisible")
 }
 
 @content = {

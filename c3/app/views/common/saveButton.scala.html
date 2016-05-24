@@ -3,10 +3,10 @@
 @import app.ConfigProperties._
 
 @isSaveEnabled=@{
-    getProperty("saveForLaterSaveEnabled",default = false)
+    getBooleanProperty("saveForLaterSaveEnabled")
 }
 @saveHref=@{
-    getProperty("saveForLaterUrl", default="/save")
+    getStringProperty("saveForLaterUrl")
 }
 
 @if(isSaveEnabled && claim.navigation.showSaveButton && ( !claim.navigation.beenInPreview || request.path == "/preview" || request.path == "/consent-and-declaration/declaration") ){

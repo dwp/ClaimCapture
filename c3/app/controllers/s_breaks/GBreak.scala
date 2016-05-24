@@ -12,6 +12,7 @@ import play.api.data.Forms._
 import play.api.i18n.{MMessages, MessagesApi, I18nSupport}
 import play.api.mvc.Controller
 import utils.helpers.CarersForm._
+import app.ConfigProperties._
 
 
 object GBreak extends Controller with CachedClaim with I18nSupport {
@@ -70,7 +71,7 @@ object GBreak extends Controller with CachedClaim with I18nSupport {
       break => {
         val updatedBreaksInCare =
           breaksInCare.update(break).breaks.size match {
-            case noOfBreaks if (noOfBreaks > app.ConfigProperties.getProperty("maximumBreaksInCare", 10)) => breaksInCare
+            case noOfBreaks if (noOfBreaks > getIntProperty("maximumBreaksInCare")) => breaksInCare
             case _ => breaksInCare.update(break)
           }
         // Delete the answer to the question 'Have you had any breaks in care since...'

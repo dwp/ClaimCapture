@@ -301,7 +301,7 @@ class C3EncryptionSpec extends Specification {
       val uuid = "0bcd1234-0000-0000-0000-abcd1234cdef"
       val encrypted = XorEncryption.encryptUuid(uuid)
       encrypted mustNotEqual uuid
-      println("With secretkey of:"+getProperty("saveForLater.uuid.secret.key","")+" created xor pair of:"+uuid+" and:"+encrypted)
+      println("With secretkey of:"+getStringProperty("saveForLater.uuid.secret.key")+" created xor pair of:"+uuid+" and:"+encrypted)
     }
   }
   

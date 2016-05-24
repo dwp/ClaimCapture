@@ -35,7 +35,7 @@ object  Declaration extends XMLComponent {
   }
 
   private def isOriginGB(): Boolean = {
-    getProperty("origin.tag", "GB") match {
+    getStringProperty("origin.tag") match {
       case "GB" => true
       case _ => false
     }

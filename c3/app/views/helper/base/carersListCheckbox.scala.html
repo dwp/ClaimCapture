@@ -12,7 +12,7 @@
 @gaTrack(id: String, checked: String) = @{
     val tracking = args.find(_._1 == 'track).getOrElse('track->false)._2.asInstanceOf[Boolean]
 
-    if(getProperty("include.analytics", true) && tracking) {
+    if(getBooleanProperty("analytics.enabled") && tracking) {
         trackEvent(request.path,args.find(_._1 == 'trackLabel).getOrElse('trackLabel->(id+".tracking"))._2.toString, Some(checked))
     }
 }

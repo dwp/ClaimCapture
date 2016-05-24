@@ -5,12 +5,13 @@
 @import helper._
 @import controllers.mappings.Mappings._
 @import scala.language.postfixOps
+@import app.ConfigProperties._
 
 @claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
 @sixMonthsBeforeDate(date:DayMonthYear) = @{date - 6 months}
 @yourIncome = @{claim.questionGroup[YourIncomes].getOrElse(YourIncomes())}
 @isEmployed = @{yourIncome.beenEmployedSince6MonthsBeforeClaim == yes}
-@disableChangeButton = @{!app.ConfigProperties.getProperty("cyaToggleVisible", true)}
+@disableChangeButton = @{!getBooleanProperty("cyaToggleVisible")}
 
 @fieldWithLink("employment_been_employed_since", messages("beenEmployed.simple", sixMonthsBeforeDate(claimDate.dateOfClaim).`d month yyyy`), messages("label." + yourIncome.beenEmployedSince6MonthsBeforeClaim), disableLink = disableChangeButton, elementId = Some("beenEmployedSince6MonthsBeforeClaim"))
 @if(isEmployed) {

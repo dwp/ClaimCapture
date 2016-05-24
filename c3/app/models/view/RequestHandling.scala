@@ -15,11 +15,11 @@ trait RequestHandling {
   def errorPageBrowserBackButton: Call
 
   // CSRF Cookie management
-  protected val csrfCookieName = getProperty("play.filters.csrf.cookie.name", "csrf")
-  protected val csrfSecure = getProperty("play.filters.csrf.cookie.secure", getProperty("session.secure", default = false))
+  protected val csrfCookieName = getStringProperty("play.filters.csrf.cookie.name")
+  protected val csrfSecure = getBooleanProperty("play.filters.csrf.cookie.secure")
 
   protected val defaultLang = "en"
-  protected lazy val redirectEnforced = getProperty("enforceRedirect", default = true)
+  protected lazy val redirectEnforced = getBooleanProperty("enforceRedirect")
 
   protected def originCheck(action: => Result)(implicit request: Request[AnyContent]) = {
     val (referer, host) = request.headers.get("Referer").getOrElse("No Referer in header") -> request.headers.get("Host").getOrElse("No Host in header")

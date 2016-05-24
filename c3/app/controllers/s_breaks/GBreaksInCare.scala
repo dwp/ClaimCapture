@@ -15,6 +15,7 @@ import utils.helpers.CarersForm._
 import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 import scala.language.postfixOps
 import play.api.i18n._
+import app.ConfigProperties._
 
 object GBreaksInCare extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
@@ -32,7 +33,7 @@ object GBreaksInCare extends Controller with CachedClaim with Navigable with I18
   def submit = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
     import controllers.mappings.Mappings.yes
     def next(hasBreaks:String) = hasBreaks match {
-      case `yes` if breaksInCare.breaks.size < app.ConfigProperties.getProperty("maximumBreaksInCare", 10) => Redirect(controllers.s_breaks.routes.GBreak.present(IterationID(form)))
+      case `yes` if breaksInCare.breaks.size < getIntProperty("maximumBreaksInCare") => Redirect(controllers.s_breaks.routes.GBreak.present(IterationID(form)))
       case _ => redirect(claim, request2lang, messagesApi)
     }
 

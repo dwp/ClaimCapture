@@ -62,8 +62,8 @@ class GAdditionalInformationSpec extends Specification {
     }
 
     "pull maxlength from xml commons OK" in new WithApplication {
-      val schemaVersion = getProperty("xml.schema.version", "NOT-SET")
-      schemaVersion must not be "NOT-SET"
+      val schemaVersion = getStringProperty("xml.schema.version", throwError = false)
+      schemaVersion must not be ""
       schemaMaxLength(schemaVersion, additionalInfoPath) mustEqual 3000
     }
 
