@@ -46,11 +46,18 @@
 	                @inputAddress(addressForm("newAddress"),'addressLabel -> "newAddress")
 	
 	                @carersInputPostcode(addressForm("newPostcode"),'maxLength -> 10, 'class -> "postcode")
-	
-	                @yesNoRadioGroup(addressForm("caredForChangedAddress.answer"), 'ignoreOptional -> true,
-						'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")))
-	
-	                @otherDetailPlaceHolder(
+
+					<br>
+					@otherDetailPlaceHolder(
+						inputDef = Seq(
+							yesNoRadioGroup(addressForm("caredForChangedAddress.answer"),
+								'ignoreOptional -> true,
+								'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")))
+							),
+							'id -> "stillCaringAddress"
+					)
+
+					@otherDetailPlaceHolder(
 	                    inputDef = Seq(
 	                        yesNoRadioGroup(addressForm("sameAddress.answer"), 'ignoreOptional -> true,
 							'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")))
