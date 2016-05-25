@@ -30,7 +30,7 @@ object ClaimHandling {
   def C3VERSION_VALUE = getStringProperty("application.version").takeWhile(_ != '-')
   def C3VERSION_SECSTOLIVE = getIntProperty("application.seconds.to.live")
   val applicationFinished = "application-finished"
-
+  val GA_COOKIE="_ga"
 }
 
 trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
@@ -39,6 +39,12 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
   protected def copyInstance(claim: Claim): Claim
   protected def backButtonPage : Call
 
+  def googleAnalyticsAgentId(request: Request[AnyContent])={
+    request.cookies.get(ClaimHandling.GA_COOKIE) match{
+      case Some(cookie) => cookie.value
+      case _ => "N/A"
+    }
+  }
 
   //============================================================================================================
   //         NEW CLAIM
@@ -60,7 +66,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
         // Start with new claim
         val claim = newInstance()
         renameThread(claim.uuid)
-        Logger.info(s"New ${claim.key} ${claim.uuid}.")
+        Logger.info(s"New ${claim.key} ${claim.uuid} with google-analytics:${googleAnalyticsAgentId(r)}.")
         // Cookies need to be changed BEFORE session, session is within cookies.
         def tofilter(theCookie: Cookie): Boolean = {
           theCookie.name == ClaimHandling.C3VERSION || theCookie.name == getStringProperty("play.http.session.cookieName")
