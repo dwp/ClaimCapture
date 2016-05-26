@@ -93,7 +93,7 @@ object GSelfEmploymentDates extends Controller with CachedClaim with Navigable w
   def previousJobs(claim: Claim): Jobs = {
     if (claim.navigation.beenInPreview) {
       claim.checkYAnswers.previouslySavedClaim match {
-        case Some(j) => j.questionGroup[Jobs].get
+        case Some(j) => j.questionGroup[Jobs].getOrElse(Jobs())
         case None => Jobs()
       }
     } else Jobs()
