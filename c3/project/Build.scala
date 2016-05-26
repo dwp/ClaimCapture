@@ -31,7 +31,7 @@ object ApplicationBuild extends Build {
     "org.jacoco" % "org.jacoco.core" % "0.7.4.201502262128" % "test",
     "org.jacoco" % "org.jacoco.report" % "0.7.4.201502262128" % "test",
     "nl.rhinofly" %% "play-mailer" % "3.0.0",
-    "gov.dwp.carers" %% "play2-resilient-memcached" % "2.5",
+    "gov.dwp.carers" %% "play2-resilient-memcached" % "2.6",
     "gov.dwp" %% "play2-multimessages" % "2.4.3",
     "net.sourceforge.htmlunit" % "htmlunit" % "2.19" % "test",
     "org.seleniumhq.selenium" % "selenium-java" % "2.52.0" % "test",
