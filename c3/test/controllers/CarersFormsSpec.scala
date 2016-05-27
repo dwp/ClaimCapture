@@ -54,7 +54,7 @@ class CarersFormsSpec extends Specification {
 
     // We strip out whitespace from the beginning and end of postcode.
     // Whitespace includes " " \t \r \n \f ( space tab line-break form-feed )
-    "test formatPostCode should only allow single space" in new WithApplication {
+    "test formatPostCode should strip to leave single space" in new WithApplication {
       val pc1=CarersForms.formatPostCode("PR1  2HA")
       pc1 mustEqual("PR1 2HA")
 
@@ -62,8 +62,11 @@ class CarersFormsSpec extends Specification {
         " 2HA")
       pc2 mustEqual("PR1 2HA")
 
-      val pc3=CarersForms.formatPostCode("PR1 ")
+      val pc3=CarersForms.formatPostCode("PR1 \r\n 3HA  ")
       pc3 mustEqual("PR1 3HA")
+
+      val pc4=CarersForms.formatPostCode("PR1\f3HA  ")
+      pc4 mustEqual("PR1 3HA")
     }
   }
   section("unit")
