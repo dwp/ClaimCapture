@@ -1,16 +1,23 @@
-
+import com.typesafe.sbt.packager.universal.{UniversalPlugin, UniversalDeployPlugin}
 import com.typesafe.sbt.web.SbtWeb
+import de.johoop.jacoco4sbt.JacocoPlugin.jacoco
 import sbt._
 import sbt.Keys._
 import play.sbt.PlayImport._
-import de.johoop.jacoco4sbt.JacocoPlugin._
+import sbt.dsl._
 import utils.ConfigurationChangeHelper._
+import com.typesafe.sbt.SbtNativePackager._
+import com.typesafe.sbt.packager.SettingsHelper._
 
 object ApplicationBuild extends Build {
   val appName = "c3"
   val appVersion = "3.11-SNAPSHOT"
 
   processConfFiles(Seq("conf/application-info.conf"), Seq("application.version" -> appVersion, "application.name" -> appName))
+
+  // however this will enabled everything
+  enablePlugins(UniversalPlugin)
+  enablePlugins(UniversalDeployPlugin)
 
   val appDependencies = Seq(
     // Add your project dependencies here,
@@ -103,7 +110,7 @@ object ApplicationBuild extends Build {
           Some("releases" at s"${sR2}/libs-release-local")
     })
 
-  var appSettings: Seq[Def.Setting[_]] = sV ++ sO ++ sR ++ gS ++ sTest ++ jO ++ f ++ jcoco ++ keyStoreOptions ++ jacoco.settings ++ sAppN ++ sAppV ++ sOrg ++ vS ++ publ ++ net.virtualvoid.sbt.graph.Plugin.graphSettings
+  var appSettings: Seq[Def.Setting[_]] = sV ++ sO ++ sR ++ gS ++ sTest ++ jO ++ f ++ jcoco ++ keyStoreOptions ++ jacoco.settings ++ sAppN ++ sAppV ++ sOrg ++ vS ++ publ ++ net.virtualvoid.sbt.graph.Plugin.graphSettings ++ makeDeploymentSettings(Universal, packageBin in Universal, "zip")
 
   val main = Project(appName, file(".")).enablePlugins(play.sbt.PlayScala, SbtWeb).settings(appSettings: _*).settings(unmanagedResourceDirectories in Test <+= baseDirectory( _ / "target/web/public/test" ))
 }

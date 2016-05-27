@@ -18,4 +18,9 @@ addSbtPlugin("com.github.mpeltonen" % "sbt-idea" % "1.6.0")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-play-enhancer" % "1.1.0")
 
+addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.0.6")
+
 libraryDependencies += "gov.dwp.carers" %% "carerscommon" % "7.17-SNAPSHOT"
+
+//if required provide credentials file location
+credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
