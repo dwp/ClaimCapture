@@ -221,7 +221,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
           Logger.info(s"ending claim - ${claim.key} ${claim.uuid} - ${request.method} url ${request.path}")
           // reaching end of process - thank you page so we delete claim for security reasons and free memory
           removeFromCache(claim.uuid)
-          removeSaveForLaterFromCache(claim.uuid)
+          if (getBooleanProperty("saveForLaterSaveEnabled") || getBooleanProperty("saveForLaterResumeEnabled")) removeSaveForLaterFromCache(claim.uuid)
           originCheck(f(claim)(request)(getLang(claim))).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain),
             DiscardingCookie(ClaimHandling.C3VERSION),DiscardingCookie("PLAY_LANG")).withNewSession.withCookies(Cookie(ClaimHandling.applicationFinished, "true"))
         case _ =>
