@@ -12,7 +12,7 @@
                 
                 <p>@messages("cookies.weUseCookies")</p>
                 <p>@messages("cookies.whatCookiesAreUsedFor")</p>
-                
+
                 <ul class="list-bullet">
                     <li>@messages("cookies.whatCookiesAreUsedFor.understand")</li>
                     <li>@messages("cookies.whatCookiesAreUsedFor.remember")</li>
@@ -80,7 +80,7 @@
                 <p><a id="cookies.cookie.table" href="@messages("cookies.cookie.table.link")">@Html(messages("cookies.cookie.table.view"))</a></p>
 
                 <h3 class="heading-small">@messages("cookies.dont.apply.online.heading")</h3>
-                <p>@Html(messages("cookies.dont.apply.online")) <a rel="external" target="blank" href="@messages("cookies.dont.apply.online.url")">@messages("cookies.dont.apply.online.anchorText")</a></p>
+                <p>@Html(messages("cookies.dont.apply.online")) <a rel="external" target="blank" href="@messages("cookies.dont.apply.online.url")" @views.html.ga.trackClickEvent("External Link", "Apply for Carer's Allowance by Post")>@messages("cookies.dont.apply.online.anchorText")</a></p>
             </article>
             
         </div>
