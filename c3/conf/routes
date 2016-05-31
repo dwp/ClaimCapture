@@ -18,6 +18,8 @@ GET         /CS2015                                                     controll
 GET         /cs2015                                                     controllers.ChannelShiftController.redirect
 
 # Cookie
+GET         /cookies/cookies-table                                      controllers.Cookies.cookiesTablePage
+
 GET         /cookies/:languageCode                                      controllers.Cookies.page(languageCode: String)
 
 # claim pack notes accessed externally

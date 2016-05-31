@@ -1,0 +1,95 @@
+@()(implicit lang: Lang, request:play.api.mvc.Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
+
+@common.govMain(messages("cookies.table.title")){
+
+    <div class="carers-allowance clearfix">
+
+        <div class="grid-row main-grid">
+
+            <article class="column-full-width main-content">
+
+                <h1 class="form-title heading-large">@messages("cookies.table.heading")</h1>
+
+                <h3>@messages("cookies.table.service")</h3>
+                <br/>
+
+                <table class="cookiesTable">
+                    <thead id=cookieTableTitle"" class="list-bullet">
+                        <tr>
+                            <th style="width:20%">@messages("cookies.table.name.title")</th>
+                            <th style="width:60%">@messages("cookies.table.purpose.title")</th>
+                            <th style="width:20%">@messages("cookies.table.expires.title")</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr id="c3Version" class="list-bullet">
+                            <td>@messages("cookies.table.c3Version.name")</td>
+                            <td>@messages("cookies.table.c3Version.purpose")</td>
+                            <td>@messages("cookies.table.c3Version.expires")</td>
+                        </tr>
+
+                        <tr id="claimEligibility" class="list-bullet">
+                            <td>@messages("cookies.table.claimEligibility.name")</td>
+                            <td>@messages("cookies.table.claimEligibility.purpose")</td>
+                            <td>@messages("cookies.table.claimEligibility.expires")</td>
+                        </tr>
+
+                        <tr id="claimStart" class="list-bullet">
+                            <td>@messages("cookies.table.claimStart.name")</td>
+                            <td>@messages("cookies.table.claimStart.purpose")</td>
+                            <td>@messages("cookies.table.claimStart.expires")</td>
+                        </tr>
+
+                        <tr id="seenCookieMessage" class="list-bullet">
+                            <td>@messages("cookies.table.seenCookieMessage.name")</td>
+                            <td>@messages("cookies.table.seenCookieMessage.purpose")</td>
+                            <td>@messages("cookies.table.seenCookieMessage.expires")</td>
+                        </tr>
+
+                        <tr id="applicationFinished" class="list-bullet">
+                            <td>@messages("cookies.table.applicationFinished.name")</td>
+                            <td>@messages("cookies.table.applicationFinished.purpose")</td>
+                            <td>@messages("cookies.table.applicationFinished.expires")</td>
+                        </tr>
+
+                        <tr id="uniqueNumber" class="list-bullet">
+                            <td>@messages("cookies.table.uniqueNumber.name")</td>
+                            <td>@messages("cookies.table.uniqueNumber.purpose")</td>
+                            <td>@messages("cookies.table.uniqueNumber.expires")</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p></p>
+                <h3>@messages("cookies.table.ga")</h3>
+                
+                <table class="cookiesTable">
+                    <thead id="gaTitle" class="list-bullet">
+                        <tr>
+                            <th style="width:20%;padding-right: 66px">@messages("cookies.table.name.title")</th>
+                            <th style="width:60%">@messages("cookies.table.purpose.title")</th>
+                            <th style="width:20%">@messages("cookies.table.expires.title")</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr id="ga" class="list-bullet">
+                            <td>@messages("cookies.table.ga.name")</td>
+                            <td>@messages("cookies.table.ga.purpose")</td>
+                            <td>@messages("cookies.table.ga.expires")</td>
+                        </tr>
+
+                        <tr id="gat" class="list-bullet">
+                            <td>@messages("cookies.table.gat.name")</td>
+                            <td>@messages("cookies.table.gat.purpose")</td>
+                            <td>@messages("cookies.table.gat.expires")</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p></p>
+                <p><a href="@messages("cookies.table.back.url")">@Html(messages("cookies.table.back"))</a></p>
+            </article>
+        </div>
+    </div>
+}
