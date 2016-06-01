@@ -79,7 +79,7 @@ object Formulate {
     browser.submit("button[type='submit']")
   }
 
-  def otherEEAStateOrSwitzerland(browser: TestBrowser) = {
+  def paymentsFromAbroad(browser: TestBrowser) = {
     browser.goTo("/nationality/payments-from-abroad")
     browser.click("#eeaGuardQuestion_answer_no")
     browser.submit("button[type='submit']")

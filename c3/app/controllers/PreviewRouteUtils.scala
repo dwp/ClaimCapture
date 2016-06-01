@@ -7,7 +7,7 @@ object PreviewRouteUtils {
     val gMaritalStatusRoute = controllers.s_about_you.routes.GMaritalStatus.present.toString
     val gContactDetailsRoute = controllers.s_about_you.routes.GContactDetails.present.toString
     val gNationalityRoute = controllers.s_about_you.routes.GNationalityAndResidency.present.toString
-    val gOtherEEARoute = controllers.s_about_you.routes.GOtherEEAStateOrSwitzerland.present.toString
+    val gOtherEEARoute = controllers.s_about_you.routes.GPaymentsFromAbraod.present.toString
 
     val routesMap = Map("about_you_full_name" -> gYourDetailsRoute,
                         "about_you_dob" -> gYourDetailsRoute,

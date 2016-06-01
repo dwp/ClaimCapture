@@ -24,7 +24,7 @@ trait EducatedSinceClaimDate extends BrowserMatchers {
 
     Formulate.nationalityAndResidency(browser)
 
-    Formulate.otherEEAStateOrSwitzerland(browser)
+    Formulate.paymentsFromAbroad(browser)
 
     Formulate.yourCourseDetails(browser)
   }
@@ -38,7 +38,7 @@ trait EducatedAndEmployedSinceClaimDate extends BrowserMatchers {
 
     Formulate.nationalityAndResidency(browser)
 
-    Formulate.otherEEAStateOrSwitzerland(browser)
+    Formulate.paymentsFromAbroad(browser)
 
     Formulate.employment(browser)
   }

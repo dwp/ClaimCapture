@@ -4,7 +4,7 @@ import org.specs2.mutable._
 import play.api.Logger
 import utils.WithBrowser
 import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
-import utils.pageobjects.s_about_you.{GNationalityAndResidencyPage, GOtherEEAStateOrSwitzerlandPage}
+import utils.pageobjects.s_about_you.{GNationalityAndResidencyPage, GPaymentsFromAbroadPage}
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_pay_details.GHowWePayYouPage
 import utils.pageobjects.s_information.GAdditionalInfoPage
@@ -24,7 +24,7 @@ class GHowWePayYouIntegrationSpec extends Specification {
       Formulate.claimDate(browser)
       Formulate.yourDetails(browser)
       Formulate.nationalityAndResidency(browser)
-      Formulate.otherEEAStateOrSwitzerland(browser)
+      Formulate.paymentsFromAbroad(browser)
 
       browser.goTo(GHowWePayYouPage.url)
       urlMustEqual(GAdditionalInfoPage.url)
@@ -131,7 +131,7 @@ class GHowWePayYouIntegrationSpec extends Specification {
       nationalityAndResidencyPage fillPageWith claim
       nationalityAndResidencyPage submitPage()
 
-      val eeaPage = nationalityAndResidencyPage goToPage new GOtherEEAStateOrSwitzerlandPage(context)
+      val eeaPage = nationalityAndResidencyPage goToPage new GPaymentsFromAbroadPage(context)
       eeaPage fillPageWith claim
       eeaPage submitPage()
 

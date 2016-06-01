@@ -3,14 +3,14 @@ package controllers.s_about_you
 import org.specs2.mutable._
 import utils.{WithJsBrowser, WithBrowser}
 import controllers.{PreviewTestUtils, ClaimScenarioFactory}
-import utils.pageobjects.s_about_you.GOtherEEAStateOrSwitzerlandPage
+import utils.pageobjects.s_about_you.GPaymentsFromAbroadPage
 import utils.pageobjects._
 import utils.pageobjects.s_your_partner.GYourPartnerPersonalDetailsPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.preview.PreviewPage
 import utils.helpers.PreviewField._
 
-class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification {
+class GPaymentsFromAbroadIntegrationSpec extends Specification {
   sequential
 
   val urlUnderTest = "/nationality/payments-from-abroad"
@@ -20,20 +20,20 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification {
   section("integration", models.domain.AboutYou.id)
   "Other European Economic Area (EEA) states or Switzerland" should {
     "be presented" in new WithBrowser with PageObjects{
-			val page =  GOtherEEAStateOrSwitzerlandPage(context)
+			val page =  GPaymentsFromAbroadPage(context)
       page goToThePage()
     }
 
     "contain errors on invalid submission" in new WithBrowser with PageObjects{
-			val page =  GOtherEEAStateOrSwitzerlandPage(context)
+			val page =  GPaymentsFromAbroadPage(context)
       page goToThePage()
       val nextPage = page submitPage()
 
-      nextPage must beAnInstanceOf[GOtherEEAStateOrSwitzerlandPage]
+      nextPage must beAnInstanceOf[GPaymentsFromAbroadPage]
     }
 
     "navigate to next page on valid resident submission" in new WithBrowser with PageObjects{
-			val page =  GOtherEEAStateOrSwitzerlandPage(context)
+			val page =  GPaymentsFromAbroadPage(context)
       val claim = ClaimScenarioFactory.otherEuropeanEconomicArea
       page goToThePage()
       page fillPageWith claim
@@ -44,7 +44,7 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification {
     }
 
     "navigate to next page on valid non resident submission" in new WithBrowser with PageObjects{
-			val page =  GOtherEEAStateOrSwitzerlandPage(context)
+			val page =  GPaymentsFromAbroadPage(context)
       val claim = ClaimScenarioFactory.otherEuropeanEconomicArea
       page goToThePage()
       page fillPageWith claim
@@ -62,7 +62,7 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification {
       answerText(previewPage) mustEqual "Yes - Details provided"
       val otherBenefitsPage = previewPage.clickLinkOrButton(getLinkId(id))
 
-      otherBenefitsPage must beAnInstanceOf[GOtherEEAStateOrSwitzerlandPage]
+      otherBenefitsPage must beAnInstanceOf[GPaymentsFromAbroadPage]
       val modifiedData = new TestData
       modifiedData.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "No"
 
@@ -81,7 +81,7 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification {
       answerText(previewPage) mustEqual "Yes - Details provided"
       val otherBenefitsPage = previewPage.clickLinkOrButton(getLinkId(id))
 
-      otherBenefitsPage must beAnInstanceOf[GOtherEEAStateOrSwitzerlandPage]
+      otherBenefitsPage must beAnInstanceOf[GPaymentsFromAbroadPage]
       val modifiedData = new TestData
       modifiedData.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "No"
 
@@ -94,7 +94,7 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification {
 
 
     "Working For EEA Details must not be visible when time abroad page is displayed" in new WithJsBrowser  with PageObjects{
-      val page =  GOtherEEAStateOrSwitzerlandPage(context)
+      val page =  GPaymentsFromAbroadPage(context)
       page goToThePage()
       page.ctx.browser.findFirst("#eeaGuardQuestion_benefitsFromEEADetails_answer_yes").isDisplayed should beFalse
       page.ctx.browser.findFirst("#eeaGuardQuestion_benefitsFromEEADetails_answer_no").isDisplayed should beFalse
@@ -102,7 +102,7 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification {
     }
 
     "Benefits from EEA Details must not be visible when time abroad page is displayed" in new WithJsBrowser  with PageObjects{
-      val page =  GOtherEEAStateOrSwitzerlandPage(context)
+      val page =  GPaymentsFromAbroadPage(context)
       page goToThePage()
       page.ctx.browser.findFirst("#eeaGuardQuestion_workingForEEADetails_answer_yes").isDisplayed should beFalse
       page.ctx.browser.findFirst("#eeaGuardQuestion_workingForEEADetails_answer_no").isDisplayed should beFalse
@@ -110,7 +110,7 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification {
     }
 
     "Working For EEA Details must be visible when returning back to the time abroad page" in new WithJsBrowser  with PageObjects{
-      val page =  GOtherEEAStateOrSwitzerlandPage(context)
+      val page =  GPaymentsFromAbroadPage(context)
 
       val claim = ClaimScenarioFactory otherEuropeanEconomicArea()
 
@@ -121,7 +121,7 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification {
       nextPage must beAnInstanceOf[GYourPartnerPersonalDetailsPage]
 
       val backPage = nextPage goBack()
-      backPage must beAnInstanceOf[GOtherEEAStateOrSwitzerlandPage]
+      backPage must beAnInstanceOf[GPaymentsFromAbroadPage]
 
       backPage.ctx.browser.findFirst("#eeaGuardQuestion_benefitsFromEEADetails_answer_yes").isSelected should beTrue
       backPage.ctx.browser.findFirst("#eeaGuardQuestion_benefitsFromEEADetails_answer_no").isSelected should beFalse
@@ -129,7 +129,7 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification {
     }
 
     "Benefits from EEA Details must be visible when returning back to the time abroad page" in new WithJsBrowser  with PageObjects{
-      val page =  GOtherEEAStateOrSwitzerlandPage(context)
+      val page =  GPaymentsFromAbroadPage(context)
 
       val claim = ClaimScenarioFactory otherEuropeanEconomicArea()
 
@@ -140,7 +140,7 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification {
       nextPage must beAnInstanceOf[GYourPartnerPersonalDetailsPage]
 
       val backPage = nextPage goBack()
-      backPage must beAnInstanceOf[GOtherEEAStateOrSwitzerlandPage]
+      backPage must beAnInstanceOf[GPaymentsFromAbroadPage]
 
       backPage.ctx.browser.findFirst("#eeaGuardQuestion_workingForEEADetails_answer_yes").isSelected should beTrue
       backPage.ctx.browser.findFirst("#eeaGuardQuestion_workingForEEADetails_answer_no").isSelected should beFalse
@@ -156,7 +156,7 @@ class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification {
     claimDatePage fillPageWith claimDate
     claimDatePage submitPage()
 
-    val otherBenefitsPage = GOtherEEAStateOrSwitzerlandPage(context)
+    val otherBenefitsPage = GPaymentsFromAbroadPage(context)
     val claim = ClaimScenarioFactory.otherEuropeanEconomicArea
     otherBenefitsPage goToThePage()
     otherBenefitsPage fillPageWith claim

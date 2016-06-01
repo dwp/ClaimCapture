@@ -116,8 +116,8 @@ POST        /about-you/contact-details                                  controll
 GET         /nationality/where-you-live                                 controllers.s_about_you.GNationalityAndResidency.present
 POST        /nationality/where-you-live                                 controllers.s_about_you.GNationalityAndResidency.submit
 
-GET         /nationality/payments-from-abroad                           controllers.s_about_you.GOtherEEAStateOrSwitzerland.present
-POST        /nationality/payments-from-abroad                           controllers.s_about_you.GOtherEEAStateOrSwitzerland.submit
+GET         /nationality/payments-from-abroad                           controllers.s_about_you.GPaymentsFromAbraod.present
+POST        /nationality/payments-from-abroad                           controllers.s_about_you.GPaymentsFromAbraod.submit
 
 # Your partner
 ###############

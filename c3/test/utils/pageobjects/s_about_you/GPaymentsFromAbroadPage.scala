@@ -6,7 +6,7 @@ import utils.pageobjects._
 /**
  * PageObject pattern associated to S7 about you EEA pension and insurance.
  */
-final class GOtherEEAStateOrSwitzerlandPage (ctx:PageObjectsContext) extends ClaimPage(ctx, GOtherEEAStateOrSwitzerlandPage.url) {
+final class GPaymentsFromAbroadPage(ctx:PageObjectsContext) extends ClaimPage(ctx, GPaymentsFromAbroadPage.url) {
   declareYesNo("#eeaGuardQuestion_answer","OtherMoneyOtherEEAGuardQuestion")
   declareYesNo("#eeaGuardQuestion_benefitsFromEEADetails_answer","OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA")
   declareInput("#eeaGuardQuestion_benefitsFromEEADetails_field", "OtherMoneyOtherAreYouReceivingPensionFromAnotherEEADetails")
@@ -14,15 +14,15 @@ final class GOtherEEAStateOrSwitzerlandPage (ctx:PageObjectsContext) extends Cla
   declareInput("#eeaGuardQuestion_workingForEEADetails_field", "OtherMoneyOtherAreYouPayingInsuranceToAnotherEEADetails")
 }
 
-object GOtherEEAStateOrSwitzerlandPage {
+object GPaymentsFromAbroadPage {
   val url = "/nationality/payments-from-abroad"
 
-  def apply(ctx:PageObjectsContext) = new GOtherEEAStateOrSwitzerlandPage(ctx)
+  def apply(ctx:PageObjectsContext) = new GPaymentsFromAbroadPage(ctx)
 
 }
 
-trait GOtherEEAStateOrSwitzerlandPageContext extends PageContext {
+trait GPaymentsFromAbroadPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = GOtherEEAStateOrSwitzerlandPage (PageObjectsContext(browser))
+  val page = GPaymentsFromAbroadPage (PageObjectsContext(browser))
 }

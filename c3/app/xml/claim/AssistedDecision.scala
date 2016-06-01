@@ -107,10 +107,10 @@ object AssistedDecision extends XMLComponent {
   }
 
   private def isEEA(claim: Claim): Boolean = {
-    val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
-    if (otherEEAStateOrSwitzerland.guardQuestion.answer == "yes" &&
-      (otherEEAStateOrSwitzerland.guardQuestion.field1.get.answer == "yes" ||
-        otherEEAStateOrSwitzerland.guardQuestion.field2.get.answer == "yes"))
+    val paymentsFromAbraod = claim.questionGroup[PaymentsFromAbroad].getOrElse(PaymentsFromAbroad())
+    if (paymentsFromAbraod.guardQuestion.answer == "yes" &&
+      (paymentsFromAbraod.guardQuestion.field1.get.answer == "yes" ||
+        paymentsFromAbraod.guardQuestion.field2.get.answer == "yes"))
       true
     else false
   }

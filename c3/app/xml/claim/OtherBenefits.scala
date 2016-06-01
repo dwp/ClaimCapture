@@ -11,7 +11,7 @@ import scala.xml.NodeSeq
 object OtherBenefits extends XMLComponent {
 
   def xml(claim: Claim) = {
-    val otherEEAState = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
+    val otherEEAState = claim.questionGroup[PaymentsFromAbroad].getOrElse(PaymentsFromAbroad())
     <OtherBenefits>
       <EEA>
         {question(<EEAGuardQuestion/>,"eeaGuardQuestion.answer", otherEEAState.guardQuestion.answer)}
@@ -34,7 +34,7 @@ object OtherBenefits extends XMLComponent {
 
   private def createEEAStateFromXml(xml: NodeSeq) = {
     val otherBenefits = (xml \\ "OtherBenefits" \ "EEA")
-    models.domain.OtherEEAStateOrSwitzerland(
+    models.domain.PaymentsFromAbroad(
       guardQuestion = YesNoWith2MandatoryFieldsOnYes(
         answer = createYesNoText((otherBenefits \ "EEAGuardQuestion" \ "Answer").text),
         field1 = createYesNoWith1MandatoryFieldOnYesOptional(otherBenefits, (otherBenefits \ "EEAGuardQuestion" \ "Answer").text, "EEAReceivePensionsBenefits", "EEAReceivePensionsBenefitsDetails"),
