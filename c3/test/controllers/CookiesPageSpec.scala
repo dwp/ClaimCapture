@@ -19,6 +19,12 @@ class CookiesPageSpec extends Specification {
       val result = controllers.Cookies.page("en")(request)
       status(result) mustEqual OK
     }
+
+    "Present cookies table" in new WithApplication {
+      val request = FakeRequest()
+      val result = controllers.Cookies.cookiesTablePage()(request)
+      status(result) mustEqual OK
+    }
   }
   section("unit")
 }
