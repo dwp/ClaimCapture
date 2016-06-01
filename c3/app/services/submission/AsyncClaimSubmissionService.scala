@@ -34,9 +34,9 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService {
     val txnID = claim.transactionId.get
     Logger.info(s"Retrieved transaction Id [$txnID]")
 
-    checkCacheStore(claim)
-
     try {
+      checkCacheStore(claim)
+
       webServiceClient.submitClaim(claim, txnID).map(
         response => processClaimSubmission(claim, response)
       )
@@ -50,7 +50,7 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService {
 
   private def processClaimSubmission(claim: Claim, response: WSResponse) = {
     val txnID = claim.transactionId.get
-    Logger.debug(s"Got response ${response.statusText} from WS for: ${claim.key} transactionId [$txnID].")
+    Logger.info(s"Got response ${response.statusText} from WS for: ${claim.key} transactionId [$txnID].")
     try {
       Logger.info(s"Claim submitted [${SUBMITTED}] - response status ${response.status} for: ${claim.key} transactionId [$txnID].")
       claimTransaction.updateStatus(txnID, SUBMITTED, claimType(claim))
@@ -68,10 +68,9 @@ trait AsyncClaimSubmissionService extends SubmissionCacheService {
       getFromCache(claim) match {
         case Some(x) =>
           Logger.error(s"Status ${INTERNAL_ERROR}. Already in cache, should not be submitting again! Duplicate claim submission. ${claim.key} ${claim.uuid} transactionId [${claim.transactionId.get}]")
-          claimTransaction.updateStatus(claim.transactionId.get, INTERNAL_ERROR, claimType(claim))
 
-        // this gets logged by the actor
-        throw new DuplicateClaimException(s"Duplicate claim submission. transactionId [${claim.transactionId.get}]")
+          // this gets logged by the actor
+          throw new DuplicateClaimException(s"Duplicate claim submission. transactionId [${claim.transactionId.get}]")
         case _ => storeInCache(claim)
       }
     }
