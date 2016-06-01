@@ -39,6 +39,7 @@ object Replica extends Controller with I18nSupport {
                           pathList.filter(_.matches("/your-claim-date.*")),
                           pathList.filter(_.matches("/your-claim-date")) ,
                           pathList.filter(_.matches("/about-you.*")) ,
+                          pathList.filter(_.matches("/nationality.*")) ,
                           pathList.filter(_.matches("/your-partner.*")) ,
                           pathList.filter(_.matches("/care-you-provide.*")) ,
                           pathList.filter(_.matches("/breaks.*")) ,
