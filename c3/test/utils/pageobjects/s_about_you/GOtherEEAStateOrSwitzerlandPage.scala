@@ -15,7 +15,7 @@ final class GOtherEEAStateOrSwitzerlandPage (ctx:PageObjectsContext) extends Cla
 }
 
 object GOtherEEAStateOrSwitzerlandPage {
-  val url = "/about-you/other-eea-state-or-switzerland"
+  val url = "/nationality/payments-from-abroad"
 
   def apply(ctx:PageObjectsContext) = new GOtherEEAStateOrSwitzerlandPage(ctx)
 

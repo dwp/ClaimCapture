@@ -48,13 +48,13 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
       val details = new YourDetails("Mr","John",None, "Green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
       claim=claim+details
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = uuid }
-      encryptedCacheHandling.saveForLaterInCache(claim, "/about-you/nationality-and-residency")
+      encryptedCacheHandling.saveForLaterInCache(claim, "/nationality/where-you-live")
 
       val page = GSaveForLaterResumePage(context)
       page goToThePage()
       page fillPageWith SaveForLaterScenarioFactory.ResumePageData()
       val resumed=page.clickLinkOrButton("#resume")
-      resumed.getUrl mustEqual("/about-you/nationality-and-residency")
+      resumed.getUrl mustEqual("/nationality/where-you-live")
     }
 
     "allow resume if nino, firstname and surname have different spaces and capitalisation" in new WithJsBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterResumeEnabled" -> "true", "saveForLaterShowResumeLink" -> "true", "saveForLaterSaveEnabled" -> "true"))) with PageObjects {
@@ -63,7 +63,7 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
       val details = new YourDetails("Mr","JOHN John",None, "GREEN Smith",NationalInsuranceNumber(Some("ab 123 456D")), DayMonthYear(1, 1, 1970))
       claim=claim+details
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = uuid }
-      encryptedCacheHandling.saveForLaterInCache(claim, "/about-you/nationality-and-residency")
+      encryptedCacheHandling.saveForLaterInCache(claim, "/nationality/where-you-live")
 
       val page = GSaveForLaterResumePage(context)
       page goToThePage()
@@ -73,7 +73,7 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
       resumeinfo.AboutYouSurname = "Greensmith "
       page fillPageWith resumeinfo
       val resumed=page.clickLinkOrButton("#resume")
-      resumed.getUrl mustEqual("/about-you/nationality-and-residency")
+      resumed.getUrl mustEqual("/nationality/where-you-live")
     }
 
     "restore the app version cookie that the app was saved with" in new WithJsBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterResumeEnabled" -> "true", "saveForLaterShowResumeLink" -> "true", "saveForLaterSaveEnabled" -> "true"))) with PageObjects {
@@ -84,16 +84,16 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
       claim=claim+details
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = uuid }
       val key=encryptedCacheHandling.createSaveForLaterKey(claim)
-      val saveForLater=new SaveForLater(SaveForLaterEncryption.encryptClaim(claim,key), "/about-you/nationality-and-residency", 3, "OK", -1, -1, "V1.00"  )
+      val saveForLater=new SaveForLater(SaveForLaterEncryption.encryptClaim(claim,key), "/nationality/where-you-live", 3, "OK", -1, -1, "V1.00"  )
       encryptedCacheHandling.cache.set("SFL-"+uuid, saveForLater, Duration(CacheHandling.saveForLaterCacheExpiry + CacheHandling.saveForLaterGracePeriod, SECONDS))
 
       val page = GSaveForLaterResumePage(context)
       page goToThePage()
       page fillPageWith SaveForLaterScenarioFactory.ResumePageData()
       val resumed=page.clickLinkOrButton("#resume")
-      resumed.getUrl mustEqual("/about-you/nationality-and-residency")
+      resumed.getUrl mustEqual("/nationality/where-you-live")
 
-      browser.goTo("/about-you/nationality-and-residency")
+      browser.goTo("/nationality/where-you-live")
       ( browser.getCookie(ClaimHandling.C3VERSION).getValue == "V1.00" ) must beTrue
 
       // The cookie should expire in 10 hours according to ClaimHandling constants.
@@ -111,7 +111,7 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
       val details = new YourDetails("Mr","John",None, "Green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
       claim=claim+details
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = uuid }
-      encryptedCacheHandling.saveForLaterInCache(claim, "/about-you/nationality-and-residency")
+      encryptedCacheHandling.saveForLaterInCache(claim, "/nationality/where-you-live")
 
       val page = GSaveForLaterResumePage(context)
       page goToThePage()
@@ -128,7 +128,7 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
       val details = new YourDetails("Mr","John",None, "Green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
       claim=claim+details
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = uuid }
-      encryptedCacheHandling.saveForLaterInCache(claim, "/about-you/nationality-and-residency")
+      encryptedCacheHandling.saveForLaterInCache(claim, "/nationality/where-you-live")
 
       val page = GSaveForLaterResumePage(context)
       page goToThePage()
@@ -150,7 +150,7 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
       val details = new YourDetails("Mr","John",None, "Green",NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
       claim=claim+details
       val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = uuid }
-      encryptedCacheHandling.saveForLaterInCache(claim, "/about-you/nationality-and-residency")
+      encryptedCacheHandling.saveForLaterInCache(claim, "/nationality/where-you-live")
 
       val resumepage = GSaveForLaterResumePage(context)
       resumepage goToThePage()

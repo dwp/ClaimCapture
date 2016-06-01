@@ -16,7 +16,7 @@ final class GNationalityAndResidencyPage(ctx: PageObjectsContext) extends ClaimP
 }
 
 object GNationalityAndResidencyPage {
-  val url = "/about-you/nationality-and-residency"
+  val url = "/nationality/where-you-live"
 
   def apply(ctx: PageObjectsContext) = new GNationalityAndResidencyPage(ctx)
 }

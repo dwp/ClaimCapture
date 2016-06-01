@@ -12,7 +12,7 @@ import utils.helpers.PreviewField._
 class GNationalityAndResidencyIntegrationSpec extends Specification {
   sequential
 
-  val urlUnderTest = "/about-you/nationality-and-residency"
+  val urlUnderTest = "/nationality/where-you-live"
   val submitButton = "button[type='submit']"
   val errorDiv = "div[class=validation-summary] ol li"
 

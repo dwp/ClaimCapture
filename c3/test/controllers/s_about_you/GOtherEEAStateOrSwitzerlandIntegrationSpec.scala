@@ -13,7 +13,7 @@ import utils.helpers.PreviewField._
 class GOtherEEAStateOrSwitzerlandIntegrationSpec extends Specification {
   sequential
 
-  val urlUnderTest = "/about-you/other-eea-state-or-switzerland"
+  val urlUnderTest = "/nationality/payments-from-abroad"
   val submitButton = "button[type='submit']"
   val errorDiv = "div[class=validation-summary] ol li"
 
