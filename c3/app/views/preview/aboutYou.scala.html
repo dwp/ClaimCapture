@@ -42,9 +42,9 @@
 
 @content = {
     @fieldWithLink("about_you_claimDate", "dateOfClaim", claimDate.dateOfClaim.`dd month, yyyy`, true)
+    @fieldWithLink("about_you_marital_status", "maritalStatusNQ", maritalStatus, elementId = Some("maritalStatus"))
     @fieldWithLink("about_you_full_name", "name", titleNames, elementId = Some("firstName"))
     @fieldWithLink("about_you_dob", "dateOfBirth", yourDetails.dateOfBirth.`dd month, yyyy`, elementId = Some("dateOfBirth"))
-    @fieldWithLink("about_you_marital_status", "maritalStatusNQ", maritalStatus, elementId = Some("maritalStatus"))
     @fieldWithLink("about_you_address", "address", addressPostcode, elementId = Some("address"), useQuestionLabel = true)
     @fieldWithLink("about_you_contact", "howWeContactYou", contactDetails.howWeContactYou.getOrElse(messages("notgiven")), elementId = Some("howWeContactYou"))
     @fieldWithLink("about_you_email", "wantsEmailContact", email, elementId = Some("wantsEmailContact"))
