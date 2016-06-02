@@ -301,4 +301,11 @@ object Mappings {
     case StatutoryPaymentFrequency.ItVaries => Valid
     case _ => Invalid(ValidationError("paymentFrequency.invalid"))
   }
+
+  def stopOnFirstFail[T](constraints: Constraint[T]*) = Constraint { field: T =>
+    constraints.toList dropWhile (_(field) == Valid) match {
+      case Nil => Valid
+      case constraint :: _ => constraint(field)
+    }
+  }
 }

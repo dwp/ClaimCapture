@@ -28,7 +28,7 @@ object GYourDetails extends Controller with CachedChangeOfCircs with Navigable w
 
   val form = Form(mapping(
     fullName -> carersNonEmptyText(maxLength = CommonValidation.FULL_NAME_MAX_LENGTH),
-    nationalInsuranceNumber -> nino.verifying(filledInNino).verifying(validNino),
+    nationalInsuranceNumber -> nino.verifying(stopOnFirstFail (filledInNino,validNino)),
     dateOfBirth -> dayMonthYear.verifying(validDate),
     theirFullName -> carersNonEmptyText(maxLength = CommonValidation.FULL_NAME_MAX_LENGTH),
     theirRelationshipToYou -> carersNonEmptyText(maxLength = 35),
