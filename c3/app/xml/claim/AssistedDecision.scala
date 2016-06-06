@@ -17,7 +17,7 @@ object AssistedDecision extends XMLComponent {
 
   def createAssistedDecisionDetails(claim: Claim): Claim = {
     val isDecisionMade = (assisted: AssistedDecisionDetails) => assisted.reason != "None"
-    val fnList = Array[(Claim) => AssistedDecisionDetails](dateOfClaim _, caringHours _, isInReceiptOfBenefit _, isAFIP _, yesEEAGuardWork _, isInEducation _, isHappyPath _)
+    val fnList = Array[(Claim) => AssistedDecisionDetails](dateOfClaim _, caringHours _, isInReceiptOfBenefit _, isAFIP _, yesEEAGuardWork _, isInResidency _, isInEducation _, isHappyPath _)
     claim.update(process(isDecisionMade, claim)(fnList))
   }
 
@@ -51,6 +51,14 @@ object AssistedDecision extends XMLComponent {
     if (isEEA(claim))
       decisionModel("Assign to Exportability in CAMLite workflow.", "None,show table")
     else emptyAssistedDecisionDetails
+  }
+
+  private def isInResidency(claim: Claim): AssistedDecisionDetails = {
+    val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(nationality = "British"))
+    (nationalityAndResidency.nationality, nationalityAndResidency.alwaysLivedInUK) match {
+      case (NationalityAndResidency.british | NationalityAndResidency.britishIrish, "no") => decisionModel("Assign to Exportability in CAMLite workflow.", "None,show table")
+      case _ => emptyAssistedDecisionDetails
+    }
   }
 
   private def isInEducation(claim: Claim): AssistedDecisionDetails = {
