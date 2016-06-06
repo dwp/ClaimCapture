@@ -26,7 +26,7 @@ object GYourDetails extends Controller with CachedClaim with Navigable with I18n
     "firstName" -> carersNonEmptyText(maxLength = 17),
     "middleName" -> optional(carersText(maxLength = 17)),
     "surname" -> carersNonEmptyText(maxLength = CommonValidation.NAME_MAX_LENGTH),
-    "nationalInsuranceNumber" -> nino.verifying(filledInNino,validNino),
+    "nationalInsuranceNumber" -> nino.verifying(stopOnFirstFail (filledInNino,validNino)),
     "dateOfBirth" -> dayMonthYear.verifying(validDate)
   )(YourDetails.apply)(YourDetails.unapply))
 
