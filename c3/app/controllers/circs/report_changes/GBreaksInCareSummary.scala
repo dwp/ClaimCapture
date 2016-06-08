@@ -13,9 +13,11 @@ import models.domain.{CircumstancesBreaksInCareSummary, CircumstancesBreaksInCar
 import controllers.CarersForms._
 import play.api.i18n._
 
-
 object GBreaksInCareSummary extends Controller with CachedChangeOfCircs with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
+
+  val backCall = controllers.circs.start_of_process.routes.GReportChangeReason.present()
+
   val additionalBreaksMapping =
     "additionalBreaks" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
@@ -30,7 +32,7 @@ object GBreaksInCareSummary extends Controller with CachedChangeOfCircs with Nav
 
   def present = claiming { implicit circs => implicit request => implicit request2lang =>
     track(CircumstancesBreaksInCareSummary) {
-      implicit circs => Ok(views.html.circs.report_changes.breaksInCareSummary(form.fill(CircumstancesBreaksInCareSummary), circs.questionGroup[CircumstancesBreaksInCare].getOrElse(new CircumstancesBreaksInCare())))
+      implicit circs => Ok(views.html.circs.report_changes.breaksInCareSummary(form.fill(CircumstancesBreaksInCareSummary), circs.questionGroup[CircumstancesBreaksInCare].getOrElse(new CircumstancesBreaksInCare()), backCall))
     }
   }
 
@@ -39,7 +41,7 @@ object GBreaksInCareSummary extends Controller with CachedChangeOfCircs with Nav
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
           .replaceError("additionalBreaks", "additionalBreaks.text.required", FormError("additionalBreaks.text", errorRequired))
-        BadRequest(views.html.circs.report_changes.breaksInCareSummary(formWithErrorsUpdate, circs.questionGroup[CircumstancesBreaksInCare].getOrElse(new CircumstancesBreaksInCare())))
+        BadRequest(views.html.circs.report_changes.breaksInCareSummary(formWithErrorsUpdate, circs.questionGroup[CircumstancesBreaksInCare].getOrElse(new CircumstancesBreaksInCare()), backCall))
       },
       f => circs.update(f) -> Redirect(controllers.circs.your_details.routes.GYourDetails.present())
     )

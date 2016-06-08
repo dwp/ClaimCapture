@@ -30,6 +30,7 @@ object Residency extends XMLComponent{
       {question(<LiveInUKNow/>, "liveInUKNow", nationalityAndResidency.liveInUKNow)}
       {question(<ArrivedInUK/>, "arrivedInUK", nationalityAndResidency.arrivedInUK)}
       {question(<ArrivedInUKDate/>, "arrivedInUKDate", nationalityAndResidency.arrivedInUKDate)}
+      {question(<ArrivedInUKFrom/>, "arrivedInUKFrom", nationalityAndResidency.arrivedInUKFrom)}
       {question(<TimeOutsideGBLast3Years/>, "trip52weeks", nationalityAndResidency.trip52weeks)}
       {question(<TripDetails/>, "tripDetails", nationalityAndResidency.tripDetails)}
     </Residency>
@@ -48,6 +49,7 @@ object Residency extends XMLComponent{
       liveInUKNow = createYesNoTextOptional((residency \ "LiveInUKNow" \ "Answer").text),
       arrivedInUK = createStringOptional((residency \ "ArrivedInUK" \ "Answer").text),
       arrivedInUKDate = createFormattedDateOptional((residency \ "ArrivedInUKDate" \ "Answer").text),
+      arrivedInUKFrom = createStringOptional((residency \ "ArrivedInUKFrom" \ "Answer").text),
       trip52weeks = createYesNoText((residency \ "TimeOutsideGBLast3Years" \ "Answer").text),
       tripDetails = createStringOptional((residency \ "TripDetails" \ "Answer").text)
     )

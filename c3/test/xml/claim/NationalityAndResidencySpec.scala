@@ -12,7 +12,7 @@ class NationalityAndResidencySpec extends Specification {
     "Generate correct xml items from simple case" in new WithApplication {
       var claim = new Claim(CachedClaim.key, uuid = "1234")
       val claimDate = ClaimDate(DayMonthYear(20, 3, 2016))
-      val residency = new NationalityAndResidency("British", None, "Yes", None, None, None, "No", None)
+      val residency = new NationalityAndResidency("British", None, "Yes", None, None, None, None, "No", None)
       val xml = Residency.xml(claim + claimDate + residency)
 
       (xml \\ "Residency" \\ "Nationality" \\ "QuestionLabel").text must contain("your nationality")
@@ -28,7 +28,7 @@ class NationalityAndResidencySpec extends Specification {
     "Generate correct xml items from complex case" in new WithApplication {
       var claim = new Claim(CachedClaim.key, uuid = "1234")
       val claimDate = ClaimDate(DayMonthYear(20, 3, 2016))
-      val residency = new NationalityAndResidency("Another nationality", Some("French"), "No", Some("Yes"), Some("less"), Some(DayMonthYear(10, 3, 2016)), "Yes", Some("Worked in spain"))
+      val residency = new NationalityAndResidency("Another nationality", Some("French"), "No", Some("Yes"), Some("less"), Some(DayMonthYear(10, 3, 2016)), Some("Syria"), "Yes", Some("Worked in spain"))
       val xml = Residency.xml(claim + claimDate + residency)
 
       (xml \\ "Residency" \\ "ActualNationality" \\ "QuestionLabel").text must contain("Your nationality")
@@ -43,6 +43,9 @@ class NationalityAndResidencySpec extends Specification {
       (xml \\ "Residency" \\ "ArrivedInUK" \\ "QuestionLabel").text must contain("arrive in England")
       (xml \\ "Residency" \\ "ArrivedInUK" \\ "Answer").text mustEqual ("less")
 
+      (xml \\ "Residency" \\ "ArrivedInUKFrom" \\ "QuestionLabel").text must contain("Which country")
+      (xml \\ "Residency" \\ "ArrivedInUKFrom" \\ "Answer").text mustEqual ("Syria")
+
       (xml \\ "Residency" \\ "ArrivedInUKDate" \\ "QuestionLabel").text must contain("arrived")
       (xml \\ "Residency" \\ "ArrivedInUKDate" \\ "Answer").text mustEqual ("10-03-2016")
 
@@ -56,7 +59,7 @@ class NationalityAndResidencySpec extends Specification {
     "Reverse engineer claim using fromxml method" in new WithApplication {
       var claim = new Claim(CachedClaim.key, uuid = "1234")
       val claimDate = ClaimDate(DayMonthYear(20, 3, 2016))
-      val nr = new NationalityAndResidency("Another nationality", Some("French"), "No", Some("Yes"), Some("less"), Some(DayMonthYear(10, 3, 2016)), "Yes", Some("Worked in spain"))
+      val nr = new NationalityAndResidency("Another nationality", Some("French"), "No", Some("Yes"), Some("less"), Some(DayMonthYear(10, 3, 2016)), Some("Syria"), "Yes", Some("Worked in spain"))
       val xml = Residency.xml(claim + claimDate + nr)
       val claimFromXml = Residency.fromXml(xml, claim)
       val nrFromXml: NationalityAndResidency=claimFromXml.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency())
@@ -66,6 +69,7 @@ class NationalityAndResidencySpec extends Specification {
       nrFromXml.alwaysLivedInUK mustEqual("no")
       nrFromXml.liveInUKNow.get mustEqual("yes")
       nrFromXml.arrivedInUK.get mustEqual("less")
+      nrFromXml.arrivedInUKFrom.get mustEqual("Syria")
       nrFromXml.arrivedInUKDate.get.`dd-MM-yyyy` mustEqual("10-03-2016")
     }
   }

@@ -72,7 +72,9 @@
                                         inputDef = Seq(
                                             inputDayMonthYear(nationalityAndResidencyForm("arrivedInUKDate"),
                                                 '_label -> messages("arrivedInUKDate"),
-                                                'ignoreOptional-> true)
+                                                'ignoreOptional-> true),
+                                            carersInputText(nationalityAndResidencyForm("arrivedInUKFrom"),
+                                                    '_label -> messages("arrivedInUKFrom"))
                                         ),
                                         'id -> "arrivedInUKRecentWrap"
                                     )

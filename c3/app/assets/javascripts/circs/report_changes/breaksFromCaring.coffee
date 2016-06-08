@@ -82,6 +82,7 @@ dateOnChange = (id,f) ->
     f(id)
 
 hideTime = (id) ->
+  $("#"+id).val("")
   $("#"+id).parent("li").slideUp(0).attr 'aria-hidden', 'true'
 
 showTime = (id) ->

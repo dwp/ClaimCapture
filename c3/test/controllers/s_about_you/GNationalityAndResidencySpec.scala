@@ -88,9 +88,9 @@ class GNationalityAndResidencySpec extends Specification {
       contentAsString(result) must contain("You must complete this section")
     }
 
-    """allow for live UK now yes for less than 3 years and good since date""" in new WithApplication with Claiming {
+    """allow for live UK now yes for less than 3 years and good since date and country from""" in new WithApplication with Claiming {
       val arrivedInUKDate = Seq("arrivedInUKDate.day" -> "20", "arrivedInUKDate.month" -> "10", "arrivedInUKDate.year" -> "2015")
-      val input = arrivedInUKDate ++ Seq("nationality" -> "British", "alwaysLivedInUK" -> "no", "liveInUKNow" -> "yes", "arrivedInUK" -> "less", "arrivedInUKDate" -> "less", "trip52weeks" -> "no")
+      val input = arrivedInUKDate ++ Seq("nationality" -> "British", "alwaysLivedInUK" -> "no", "liveInUKNow" -> "yes", "arrivedInUK" -> "less", "arrivedInUKDate" -> "less", "arrivedInUKFrom" -> "Syria", "trip52weeks" -> "no")
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(input: _*)
       val result = GNationalityAndResidency.submit(request)
       println("source..." + contentAsString(result))
@@ -104,6 +104,15 @@ class GNationalityAndResidencySpec extends Specification {
       val result = GNationalityAndResidency.submit(request)
       status(result) mustEqual BAD_REQUEST
       contentAsString(result) must contain("Invalid value")
+    }
+
+    """block for no country from""" in new WithApplication with Claiming {
+      val arrivedInUKDate = Seq("arrivedInUKDate.day" -> "20", "arrivedInUKDate.month" -> "10", "arrivedInUKDate.year" -> "2015")
+      val input = arrivedInUKDate ++ Seq("nationality" -> "British", "alwaysLivedInUK" -> "no", "liveInUKNow" -> "yes", "arrivedInUK" -> "less", "arrivedInUKDate" -> "less", "trip52weeks" -> "no")
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(input: _*)
+      val result = GNationalityAndResidency.submit(request)
+      status(result) mustEqual BAD_REQUEST
+      contentAsString(result) must contain("You must complete this section")
     }
 
     """block for trips yes but no info""" in new WithApplication with Claiming {

@@ -36,7 +36,7 @@ object YourIncomes extends QuestionGroup.Identifier {
   }
 
   def receivesStatutoryPay(claim: Claim) = {
-    claim.questionGroup[YourIncomes].getOrElse(YourIncomes()).yourIncome_sickpay.getOrElse("false") == "true"
+    claim.questionGroup[YourIncomes].getOrElse(YourIncomes()).yourIncome_patmatadoppay.getOrElse("false") == "true"
   }
 }
 

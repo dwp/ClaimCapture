@@ -8,7 +8,7 @@ import utils.ConfigurationChangeHelper._
 
 object ApplicationBuild extends Build {
   val appName = "c3"
-  val appVersion = "3.10-SNAPSHOT"
+  val appVersion = "3.11-SNAPSHOT"
 
   processConfFiles(Seq("conf/application-info.conf"), Seq("application.version" -> appVersion, "application.name" -> appName))
 
@@ -22,8 +22,8 @@ object ApplicationBuild extends Build {
     "com.typesafe.akka" %% "akka-testkit" % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-agent" % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-remote" % "2.3.9" % "test" withSources() withJavadoc(),
-    "gov.dwp.carers" %% "xmlcommons" % "7.20-SNAPSHOT",
-    "gov.dwp.carers" %% "carerscommon" % "7.14-SNAPSHOT",
+    "gov.dwp.carers" % "xmlcommons" % "8.02-SNAPSHOT",
+    "gov.dwp.carers" %% "carerscommon" % "7.17-SNAPSHOT",
     "org.postgresql" % "postgresql" % "9.3-1103-jdbc41",
     "com.h2database" % "h2" % "1.4.186" % "test",
     "me.moocar" % "logback-gelf" % "0.12",
@@ -48,18 +48,17 @@ object ApplicationBuild extends Build {
 
   var sV: Seq[Def.Setting[_]] = Seq(scalaVersion := "2.10.5")
 
-  var defaultSr: Seq[Def.Setting[_]] = Seq(
-    resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/",
+  var sR1 = if (System.getProperty("artifactory_url") == null) {
+    "http://build.3cbeta.co.uk:8080/artifactory/repo/"
+  } else s"${System.getProperty("artifactory_url")}/repo"
+
+  var sR: Seq[Def.Setting[_]] = Seq(
+    resolvers += "Carers repo" at sR1,
     resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
     resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases",
-    resolvers += "Rhinofly Internal Release Repository" at "http://maven-repository.rhinofly.net:8081/artifactory/libs-release-local",
+    resolvers += "Kaliber Repo for Play mailer" at "http://jars.kaliber.io/artifactory/repo/",
     resolvers += "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases"
   )
-  var sR: Seq[Def.Setting[_]] = Seq()
-  if (System.getProperty("artifactory_url") != null)
-    sR = Seq(resolvers += "Jenkins Artifactory" at System.getProperty("artifactory_url")) ++ defaultSr
-  else
-    sR = defaultSr
 
   var sTest: Seq[Def.Setting[_]] = Seq()
   if (System.getProperty("include") != null) {
@@ -89,15 +88,19 @@ object ApplicationBuild extends Build {
   var sAppV: Seq[Def.Setting[_]] = Seq(version := appVersion)
   var sOrg: Seq[Def.Setting[_]] = Seq(organization := "gov.dwp.carers")
 
+  var sR2 = if (System.getProperty("artifactory_url") == null) {
+    "http://build.3cbeta.co.uk:8080/artifactory"
+  } else s"${System.getProperty("artifactory_url")}"
+
   val isSnapshotBuild = appVersion.endsWith("-SNAPSHOT")
   var publ: Seq[Def.Setting[_]] = Seq(
-    publishTo := Some("Artifactory Realm" at "http://build.3cbeta.co.uk:8080/artifactory/repo/"),
+    publishTo := Some("Artifactory Realm" at sR1),
     publishTo <<= version {
       (v: String) =>
         if (isSnapshotBuild)
-          Some("snapshots" at "http://build.3cbeta.co.uk:8080/artifactory/libs-snapshot-local")
+          Some("snapshots" at s"${sR2}/libs-snapshot-local")
         else
-          Some("releases" at "http://build.3cbeta.co.uk:8080/artifactory/libs-release-local")
+          Some("releases" at s"${sR2}/libs-release-local")
     })
 
   var appSettings: Seq[Def.Setting[_]] = sV ++ sO ++ sR ++ gS ++ sTest ++ jO ++ f ++ jcoco ++ keyStoreOptions ++ jacoco.settings ++ sAppN ++ sAppV ++ sOrg ++ vS ++ publ ++ net.virtualvoid.sbt.graph.Plugin.graphSettings

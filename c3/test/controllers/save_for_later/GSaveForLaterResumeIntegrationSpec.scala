@@ -57,6 +57,25 @@ class GSaveForLaterResumeIntegrationSpec extends Specification {
       resumed.getUrl mustEqual("/about-you/nationality-and-residency")
     }
 
+    "allow resume if nino, firstname and surname have different spaces and capitalisation" in new WithJsBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterResumeEnabled" -> "true", "saveForLaterShowResumeLink" -> "true", "saveForLaterSaveEnabled" -> "true"))) with PageObjects {
+      // Inject the saved claim directly to cache
+      var claim = new Claim(CachedClaim.key, uuid=uuid)
+      val details = new YourDetails("Mr","JOHN John",None, "GREEN Smith",NationalInsuranceNumber(Some("ab 123 456D")), DayMonthYear(1, 1, 1970))
+      claim=claim+details
+      val encryptedCacheHandling = new EncryptedCacheHandling() { val cacheKey = uuid }
+      encryptedCacheHandling.saveForLaterInCache(claim, "/about-you/nationality-and-residency")
+
+      val page = GSaveForLaterResumePage(context)
+      page goToThePage()
+      val resumeinfo=SaveForLaterScenarioFactory.ResumePageData()
+      resumeinfo.AboutYouNINO = "A B 1 2 3456 d"
+      resumeinfo.AboutYouFirstName = "johnjohn "
+      resumeinfo.AboutYouSurname = "Greensmith "
+      page fillPageWith resumeinfo
+      val resumed=page.clickLinkOrButton("#resume")
+      resumed.getUrl mustEqual("/about-you/nationality-and-residency")
+    }
+
     "restore the app version cookie that the app was saved with" in new WithJsBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterResumeEnabled" -> "true", "saveForLaterShowResumeLink" -> "true", "saveForLaterSaveEnabled" -> "true"))) with PageObjects {
 
       // Inject the saved claim directly to cache so we can set the appversion

@@ -17,7 +17,6 @@ object DWPCAClaim extends XMLComponent {
   def xml(claim: Claim) = {
 
     val courseDetails = claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails(beenInEducationSinceClaimDate = no))
-    val additionalInfo = claim.questionGroup[models.domain.AdditionalInfo].getOrElse(models.domain.AdditionalInfo())
     val claimDate = claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)
     val yourPartnerPersonalDetails = claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
     val havePartner = yourPartnerPersonalDetails.hadPartnerSinceClaimDate
@@ -38,11 +37,7 @@ object DWPCAClaim extends XMLComponent {
       {Partner.xml(claim)}
       {OtherBenefits.xml(claim)}
       {Payment.xml(claim)}
-      {<OtherInformation>
-        {question(<WelshCommunication/>,"welshCommunication",additionalInfo.welshCommunication)}
-        {questionWhy(<AdditionalInformation/>,"anythingElse.answer", additionalInfo.anythingElse.answer, additionalInfo.anythingElse.text,"anythingElse.text")}
-       </OtherInformation>
-      }
+      {OtherInformation.xml(claim)}
       {Declaration.xml(claim)}
       {Disclaimer.xml(claim)}
       {EvidenceList.buildXml(claim)}

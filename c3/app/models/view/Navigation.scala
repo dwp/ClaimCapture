@@ -56,7 +56,7 @@ case class Navigation(routes: List[Route[_]] = List(), beenInPreview: Boolean = 
   def resetPreviewState(): Navigation = copy(beenInPreview = false)
 
   def track[T](t: T, beenInPreviewParam: Boolean = false)(route: String)(implicit classTag: ClassTag[T]): Navigation = {
-    val newRoute = route.replace("?changing=true", "")
+    val newRoute = route.replace("?changing=true", "").replace("?lang=cy", "")
     val routeObj = Route[T](newRoute)
 
     //Tracking after CYA is a special case, and since it's takeWhile(_.uri != route), using the normal tracking will delete any later routes.

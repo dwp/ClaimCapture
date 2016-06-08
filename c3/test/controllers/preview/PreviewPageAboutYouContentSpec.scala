@@ -95,6 +95,7 @@ class PreviewPageAboutYouContentSpec extends Specification {
       browser.find("#about_you_liveinuknow").getText() must contain("Yes")
       browser.find("#about_you_arrivedinuk_value").getText() must contain("Less than 3 years ago")
       browser.find("#about_you_arrivedinukdate_value").getText() must contain("01 March")
+      browser.find("#about_you_arrivedinukfrom_value").getText() must contain("Mongolia")
       browser.find("#about_you_trip52weeks_value").getText() must contain("Yes - Details provided")
     }
   }
@@ -154,6 +155,7 @@ class PreviewPageAboutYouContentSpec extends Specification {
     claim.AboutYouNationalityAndResidencyLiveInUKNow = "Yes"
     claim.AboutYouNationalityAndResidencyArrivedInUK = "less"
     claim.AboutYouNationalityAndResidencyArrivedInUKDate = "01/03/2016"
+    claim.AboutYouNationalityAndResidencyArrivedInUKFrom = "Mongolia"
     claim.AboutYouNationalityAndResidencyTrip52Weeks = "Yes"
     claim.AboutYouNationalityAndResidencyTripDetails = "2 years in Spain"
 

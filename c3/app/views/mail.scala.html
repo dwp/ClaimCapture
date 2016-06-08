@@ -11,16 +11,11 @@
     claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateOfClaim.`dd month yyyy`
 }
 
-@receivesStatutorySickPay = @{
+@hasStatutorySickPay = @{
     YourIncomes.receivesStatutorySickPay(claim)
 }
-
-@receivesStatutoryMaternityPaternityAdoptionPay = @{
+@hasStatutoryPay = @{
     YourIncomes.receivesStatutoryPay(claim)
-}
-
-@receivesStatutoryPay = @{
-    receivesStatutorySickPay || receivesStatutoryMaternityPaternityAdoptionPay
 }
 
 @isCofcSelfEmployment = @{
@@ -113,7 +108,7 @@
 
                     <h2>@Html(messages("mail.next.title"))</h2>
 
-                    @if((isEmployment && !isCofcSelfEmployment) || receivesStatutoryPay) {
+                    @if((isEmployment && !isCofcSelfEmployment) || hasStatutorySickPay || hasStatutoryPay) {
 
                         <p>@Html(messages("mail.next.send1"))</p>
 
@@ -128,8 +123,8 @@
                                 }
                                 @if(ClaimUtils.pensionStatementsRequired(claim)) {<li>@Html(messages("evidence.pensionStatements"))</li>}
 
-                                @if(receivesStatutorySickPay) {<li>@Html(messages("evidence.yourIncome.otherPayments.statutorySickPay"))</li>}
-                                @if(receivesStatutoryPay) {<li>@Html(messages("evidence.yourIncome.otherPayments.statutoryPay"))</li>}
+                                @if(hasStatutorySickPay) {<li>@Html(messages("evidence.yourIncome.otherPayments.statutorySickPay"))</li>}
+                                @if(hasStatutoryPay) {<li>@Html(messages("evidence.yourIncome.otherPayments.statutoryPay"))</li>}
 
                             }else{
                                 @if(!isCofcSelfEmployment){

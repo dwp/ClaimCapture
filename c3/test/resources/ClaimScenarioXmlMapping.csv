@@ -26,6 +26,7 @@ About You,Nationality and where you live,Always lived in UK,AboutYouNationalityA
 About You,Nationality and where you live,Live in UK now,AboutYouNationalityAndResidencyLiveInUKNow,Residency>LiveInUKNow>Answer
 About You,Nationality and where you live,Arrived in UK,AboutYouNationalityAndResidencyArrivedInUK,Residency>ArrivedInUK>Answer
 About You,Nationality and where you live,Arrived in UK Date,AboutYouNationalityAndResidencyArrivedInUKDate,Residency>ArrivedInUKDate>Answer
+About You,Nationality and where you live,Arrived in UK From,AboutYouNationalityAndResidencyArrivedInUKFrom,Residency>ArrivedInUKFrom>Answer
 About You,Nationality and where you live,Out of UK more than 52 weeks,AboutYouNationalityAndResidencyTrip52Weeks,Residency>TimeOutsideGBLast3Years>Answer
 About You,Nationality and where you live,Out of UK more than 52 weeks trip details,AboutYouNationalityAndResidencyTripDetails,Residency>TripDetails>Answer
 About You,Other European Economic Area (EEA) states or Switzerland,"Have you and your close family claimed or been paid any benefits or pensions from any of these countries since your claim date?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,OtherBenefits>EEA>EEAReceivePensionsBenefits>Answer

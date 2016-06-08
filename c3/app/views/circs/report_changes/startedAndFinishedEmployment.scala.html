@@ -110,7 +110,7 @@
                 <ul>
                     @yesNoRadioGroup(didYouPayIntoPension("answer"),
                         '_label -> "didYouPayIntoPension",
-                        'values -> Seq("yes" -> messages("label.yes3"), "no" -> messages("label.no"))
+                        'values -> Seq("yes" -> messages("label.yes6"), "no" -> messages("label.no"))
                     )
 
 
@@ -127,7 +127,8 @@
 
                     @yesNoRadioGroup(didYouPayForThings("answer"),
                         '_label -> "didYouPayForThings",
-                        'helperAbove -> Html(messages("payForThings.answer.helper.past"))
+                        'helperAbove -> Html(messages("payForThings.answer.helper.past")),
+                            'values -> Seq("yes" -> messages("label.yes6"), "no" -> messages("label.no"))
                     )
 
                     @otherDetailPlaceHolder(

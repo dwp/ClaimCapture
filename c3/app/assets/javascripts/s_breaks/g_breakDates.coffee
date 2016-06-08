@@ -46,6 +46,7 @@ getDate = (id) ->
     undefined
 
 hideTime = (id) ->
+  $("#"+id).val("")
   $("#"+id).parent("li").slideUp(0).attr 'aria-hidden', 'true'
 
 showTime = (id) ->

@@ -86,7 +86,8 @@
 
                     @yesNoRadioGroup(willYouPayForThings("answer"),
                         '_label -> "willYouPayForThings",
-                        'helperAbove -> Html(messages("payForThings.answer.helper.future"))
+                        'helperAbove -> Html(messages("payForThings.answer.helper.future")),
+                        'values -> Seq("yes" -> messages("label.yes8"), "no" -> messages("label.no"))
                     )
 
                     @otherDetailPlaceHolder(

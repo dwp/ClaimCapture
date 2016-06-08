@@ -43,12 +43,18 @@ object LightFakeApplicationWithMemcache {
     "feedback.cads.enabled" -> "true"
   )
 
-  lazy val faCEATrue = FakeApplication(
-    additionalConfiguration = configurationMap
+  lazy val memcache1only = Map(
+    "memcached.1.host" -> memcachedHost1,
+    "memcached.2.host" -> ""
   )
 
-  lazy val SaveForLaterOff = FakeApplication(
-    additionalConfiguration = configurationMap ++ Map("saveForLaterSaveEnabled" -> "false", "saveForLaterResumeEnabled" -> "false")
+  lazy val memcache2only = Map(
+    "memcached.1.host" -> "",
+    "memcached.2.host" -> memcachedHost2
+  )
+
+  lazy val faCEATrue = FakeApplication(
+    additionalConfiguration = configurationMap
   )
 
   def faXmlVersion(xmlSchemaVersionNumber: String) = FakeApplication(
@@ -59,6 +65,16 @@ object LightFakeApplicationWithMemcache {
 
   def fa = {
     val app = FakeApplication(additionalConfiguration = configurationMap ++ defaultSwitchPositions)
+    app
+  }
+
+  def fa1only = {
+    val app = FakeApplication(additionalConfiguration = configurationMap ++ memcache1only)
+    app
+  }
+
+  def fa2only = {
+    val app = FakeApplication(additionalConfiguration = configurationMap ++ memcache2only)
     app
   }
 

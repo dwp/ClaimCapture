@@ -21,6 +21,7 @@ object PreviewRouteUtils {
                         "about_you_liveinuknow" -> gNationalityRoute,
                         "about_you_arrivedinuk" -> gNationalityRoute,
                         "about_you_arrivedinukdate" -> gNationalityRoute,
+                        "about_you_arrivedinukfrom" -> gNationalityRoute,
                         "about_you_trip52weeks" -> gNationalityRoute,
                         "about_you_eeaGuardQuestion" -> gOtherEEARoute,
                         "about_you_benefitsFromEEA" -> gOtherEEARoute,

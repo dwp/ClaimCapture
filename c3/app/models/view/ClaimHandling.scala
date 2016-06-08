@@ -9,13 +9,13 @@ import models.view.ClaimHandling.ClaimResult
 import models.view.cache.EncryptedCacheHandling
 import play.api.cache.Cache
 import play.api.data.Form
-import play.api.http.HttpVerbs
 import play.api.i18n.Lang
 import play.api.http.HeaderNames._
 import play.api.mvc.Results._
 import play.api.mvc._
 import play.api.{Logger, Play}
 import play.api.Play.current
+import utils.helpers.OriginTagHelper
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.language.implicitConversions
@@ -30,7 +30,7 @@ object ClaimHandling {
   def C3VERSION_VALUE = getStringProperty("application.version").takeWhile(_ != '-')
   def C3VERSION_SECSTOLIVE = getIntProperty("application.seconds.to.live")
   val applicationFinished = "application-finished"
-
+  val GA_COOKIE="_ga"
 }
 
 trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
@@ -39,6 +39,12 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
   protected def copyInstance(claim: Claim): Claim
   protected def backButtonPage : Call
 
+  def googleAnalyticsAgentId(request: Request[AnyContent])={
+    request.cookies.get(ClaimHandling.GA_COOKIE) match{
+      case Some(cookie) => cookie.value
+      case _ => "N/A"
+    }
+  }
 
   //============================================================================================================
   //         NEW CLAIM
@@ -60,7 +66,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
         // Start with new claim
         val claim = newInstance()
         renameThread(claim.uuid)
-        Logger.info(s"New ${claim.key} ${claim.uuid}.")
+        Logger.info(s"New ${claim.key} ${claim.uuid} with google-analytics:${googleAnalyticsAgentId(r)}.")
         // Cookies need to be changed BEFORE session, session is within cookies.
         def tofilter(theCookie: Cookie): Boolean = {
           theCookie.name == ClaimHandling.C3VERSION || theCookie.name == getStringProperty("play.http.session.cookieName")
@@ -70,10 +76,10 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
         // It's this ugly because the play framework has deemed us outcasts on the cookie managing for requests.
         // Since the discarding only takes place after the rendering of the first page, that wasn't of much use for that page
         // So we have to rely on dark arts in order to modify the cookies before render time so the framework doesn't read the lingering language from here
-
+        val lang = if (OriginTagHelper.isOriginGB())request.getQueryString("lang").getOrElse("") else "";
         val newHeaders = request.headers.get(COOKIE) match {
-          case Some(cookieHeader) => request.headers.remove(COOKIE).add(COOKIE->Cookies.mergeCookieHeader(cookieHeader,Seq(Cookie("PLAY_LANG",""))))
-          case _ => request.headers
+          case Some(cookieHeader) => request.headers.remove(COOKIE).add(COOKIE->Cookies.mergeCookieHeader(cookieHeader,Seq(Cookie("PLAY_LANG",lang))))
+          case _ => request.headers.remove(COOKIE).add(COOKIE->Cookies.mergeCookieHeader("", Seq(Cookie("PLAY_LANG",lang))))
         }
 
         implicit val newRequest = Request(request.copy(headers=newHeaders),request.body)
@@ -83,7 +89,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
         withHeaders(action(claim, newRequest, bestLang)(f))
           .withCookies(newRequest.cookies.toSeq.filterNot(tofilter) :+ Cookie(ClaimHandling.C3VERSION, ClaimHandling.C3VERSION_VALUE, Some(ClaimHandling.C3VERSION_SECSTOLIVE)): _*)
           .withSession(claim.key -> claim.uuid)
-          .discardingCookies(DiscardingCookie(ClaimHandling.applicationFinished),DiscardingCookie("PLAY_LANG"))
+          .discardingCookies(DiscardingCookie(ClaimHandling.applicationFinished))
       } else {
 
         implicit val r = request
@@ -174,10 +180,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
 
   private def claimingWithClaim(f: (Claim) => (Request[AnyContent]) => (Lang) => Either[Result, (Claim, Result)], request: Request[AnyContent], claim: Claim): Result = {
     val key = keyFrom(request)
-
-    // We log just to be able to investigate issues with claims/circs and see path taken by customer. Do not need to log all GETs and POSTs in production (INFO).
-    if (request.method == HttpVerbs.GET) Logger.info(s"claimingWithClaim - ${claim.key} ${claim.uuid} - GET url ${request.path}")
-    else Logger.debug(s"claimingWithClaim - ${claim.key} ${claim.uuid} - ${request.method} url ${request.path}")
+    Logger.info(s"claimingWithClaim - ${claim.key} ${claim.uuid} - ${request.method} url ${request.path}")
     implicit val r = request
 
     if (key != claim.uuid) Logger.error(s"claimingWithClaim - Claim uuid ${claim.uuid} does not match cache key $key.")

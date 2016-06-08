@@ -59,14 +59,23 @@ object Employment extends Controller with CachedClaim with Navigable with I18nSu
   }
 
   def delete = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
-
     deleteForm.bindEncrypted.fold(
       errors => BadRequest(views.html.s_employment.g_beenEmployed(fillForm)),
       deleteForm => {
         val updatedJobs = jobs.delete(deleteForm.id)
         if (updatedJobs.jobs == jobs.jobs) BadRequest(views.html.s_employment.g_beenEmployed(fillForm))
-        else claim.update(updatedJobs) -> (if (updatedJobs.jobs.size == 0) Redirect(controllers.your_income.routes.GYourIncomes.present())
-        else Redirect(controllers.s_employment.routes.GBeenEmployed.present()))
+        else {
+          val updatedClaim = claim.update(updatedJobs)
+          (updatedJobs.jobs.size, claim.navigation.beenInPreview) match {
+            case (0, true) => {
+              // Reset the hasEmployment flag if we delete the last employment and going back to preview
+              val claimNoEmp=updatedClaim.update(updatedClaim.questionGroup[YourIncomes].get.copy(beenEmployedSince6MonthsBeforeClaim = "no"))
+              claimNoEmp->Redirect(controllers.preview.routes.Preview.present().url + "#" + "employment_been_employed_since")
+            }
+            case (0, false) => updatedClaim -> Redirect(controllers.your_income.routes.GYourIncomes.present())
+            case (_, _) => updatedClaim -> Redirect(controllers.s_employment.routes.GBeenEmployed.present())
+          }
+        }
       }
     )
   }

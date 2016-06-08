@@ -1,4 +1,4 @@
-@(title: String, currentForm: Option[Form[_]] = None, isChanging: Boolean = false)(content: Html)(implicit claim: models.domain.Claim, request:play.api.mvc.Request[AnyContent], lang:Lang, flash:Flash, messages: play.api.i18n.Messages)
+@(title: String, currentForm: Option[Form[_]] = None, isChanging: Boolean = false, backCall: Option[Call] = None)(content: Html)(implicit claim: models.domain.Claim, request:play.api.mvc.Request[AnyContent], lang:Lang, flash:Flash, messages: play.api.i18n.Messages)
 
 @import helper._
 
@@ -11,7 +11,7 @@
     <div class="grid-row main-grid">
 
         <article class="column-three-quarters main-content">
-            @views.html.common.upperBackButton(changing = isChanging)
+            @views.html.common.upperBackButton(changing = isChanging, backCall = backCall)
             <h1 class="form-title heading-large">@Html(messages("c2c.longName"))</h1>
             @if(currentForm.isDefined) {
                 @errorsSummary(currentForm.get)

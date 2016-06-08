@@ -16,7 +16,7 @@
             <fieldset class="form-elements" data-journey="carers-allowance:page:consent-and-declaration">
 
                 <ul>
-                    @yesNoRadioGroup(currentForm("anythingElse.answer"), 'helperAbove -> messages("mustTellUs"))
+                    @yesNoRadioGroup(currentForm("anythingElse.answer"), 'helperAbove -> messages("mustTellUs"), 'track -> true)
     
                     @otherDetailPlaceHolder(
                         inputDef = Seq(carersInputTextArea(currentForm("anythingElse")("text"),
