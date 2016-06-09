@@ -38,7 +38,7 @@ object CarersForms  {
   def formatPostCode(postCode : String) : String = {
     val newPostcode=postCode.trim.split("\\s+").map(_.trim).mkString(" ").toUpperCase()
     if( postCode != newPostcode )
-      Logger.info("Masked postcode whitespace stripped from:\""+postCode.replaceAll("[A-Z]", "*")+"\" to:\""+newPostcode.replaceAll("[A-Z]", "*")+"\"")
+      Logger.info("Masked postcode whitespace stripped from:\""+postCode.replaceAll("[a-zA-Z]", "*")+"\" to:\""+newPostcode.replaceAll("[a-zA-Z]", "*")+"\"")
     newPostcode
   }
 }
