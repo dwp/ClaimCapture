@@ -4,7 +4,7 @@ import gov.dwp.carers.CADSHealthCheck
 import play.api.Play._
 import play.api.mvc.{Controller, Action}
 import play.api.libs.json._
-import monitor.HealthMonitor
+import utils.monitor.HealthMonitor
 import utils.helpers.CarersLanguageHelper
 
 

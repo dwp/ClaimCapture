@@ -6,7 +6,7 @@ import gov.dwp.carers.CADSHealthCheck.Result
 import models.view.ClaimHandling
 import play.Configuration
 import play.api.http.Status
-import utils.HttpUtils.HttpWrapper
+import utils.HttpWrapper
 import scala.language.{implicitConversions, postfixOps}
 import app.ConfigProperties._
 

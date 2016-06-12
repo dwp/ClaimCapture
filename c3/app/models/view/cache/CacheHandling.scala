@@ -27,7 +27,9 @@ protected trait CacheHandling {
   def cacheKey: String
 
   def renameThread(uuid : String): Unit = RenameThread.renameThreadFromUuid(uuid)
-  def renameThread(request : Request[AnyContent]): Unit = RenameThread.renameThreadFromRequest(request, cacheKey)
+  def renameThread(request : Request[AnyContent]): Unit = {
+    RenameThread.renameThreadFromUuid(request.session.get(cacheKey).getOrElse(""))
+  }
 
   def keyFrom(request: Request[AnyContent]): String = { renameThread(request); request.session.get(cacheKey).getOrElse("") }
 

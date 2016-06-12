@@ -4,7 +4,7 @@ import org.specs2.mutable._
 import utils.{LightFakeApplication, WithBrowser}
 import utils.pageobjects.PageObjects
 import utils.pageobjects.s_eligibility.GBenefitsPage
-import monitor.HealthMonitor
+import utils.monitor.HealthMonitor
 
 class HealthC3MonitorSpec extends Specification {
   section("unit")
