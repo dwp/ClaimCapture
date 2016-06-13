@@ -155,9 +155,9 @@ class AssistedDecisionSpec extends Specification {
       (xml \\ "AssistedDecision") (0) mustEqual emptyAssistedDecisionNode
     }
 
-    "Create an assisted decision section for british but not always lived in UK" in new WithApplication {
+    "Create an exportability assisted decision section for british never lived in UK" in new WithApplication {
       val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
-      val nationality = NationalityAndResidency("British", None, "no", None, None, None, None, "no", None)
+      val nationality = NationalityAndResidency("British", None, alwaysLivedInUK = "no", liveInUKNow = Some("no"), None, None, None, "no", None)
       val breaksInCare = BreaksInCare()
       val employment = YourIncomes(beenSelfEmployedSince1WeekBeforeClaim = Mappings.no, beenEmployedSince6MonthsBeforeClaim = Mappings.no, yourIncome_none = Mappings.someTrue)
       val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.no, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no))))
@@ -168,7 +168,39 @@ class AssistedDecisionSpec extends Specification {
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(nationality).update(breaksInCare).update(employment).update(paymentsFromAbroad).update(howWePayYou).update(benefits).update(additionalInfo).update(yourCourseDetails))
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must contain("Assign to Exportability in CAMLite workflow.")
-      (xml \\ "RecommendedDecision").text must contain ("None")
+      (xml \\ "RecommendedDecision").text must contain("None")
+    }
+
+    "Create an exportability assisted decision section for british lived in UK less than 3 years" in new WithApplication {
+      val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
+      val nationality = NationalityAndResidency("British", None, alwaysLivedInUK = "no", liveInUKNow = Some("yes"), arrivedInUK = Some("less"), None, None, "no", None)
+      val breaksInCare = BreaksInCare()
+      val employment = YourIncomes(beenSelfEmployedSince1WeekBeforeClaim = Mappings.no, beenEmployedSince6MonthsBeforeClaim = Mappings.no, yourIncome_none = Mappings.someTrue)
+      val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.no, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no))))
+      val howWePayYou = HowWePayYou(likeToBePaid = Mappings.yes)
+      val benefits = Benefits(benefitsAnswer = Benefits.aa)
+      val additionalInfo = AdditionalInfo(anythingElse = YesNoWithText(Mappings.no))
+      val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
+      val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(nationality).update(breaksInCare).update(employment).update(paymentsFromAbroad).update(howWePayYou).update(benefits).update(additionalInfo).update(yourCourseDetails))
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "Reason").text must contain("Assign to Exportability in CAMLite workflow.")
+      (xml \\ "RecommendedDecision").text must contain("None")
+    }
+
+    "Create a CIS assisted decision section for british lived in UK more than 3 years" in new WithApplication {
+      val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
+      val nationality = NationalityAndResidency("British", None, alwaysLivedInUK = "no", liveInUKNow = Some("yes"), arrivedInUK = Some("more"), None, None, "no", None)
+      val breaksInCare = BreaksInCare()
+      val employment = YourIncomes(beenSelfEmployedSince1WeekBeforeClaim = Mappings.no, beenEmployedSince6MonthsBeforeClaim = Mappings.no, yourIncome_none = Mappings.someTrue)
+      val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.no, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no))))
+      val howWePayYou = HowWePayYou(likeToBePaid = Mappings.yes)
+      val benefits = Benefits(benefitsAnswer = Benefits.aa)
+      val additionalInfo = AdditionalInfo(anythingElse = YesNoWithText(Mappings.no))
+      val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
+      val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(nationality).update(breaksInCare).update(employment).update(paymentsFromAbroad).update(howWePayYou).update(benefits).update(additionalInfo).update(yourCourseDetails))
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "Reason").text must contain("Check CIS for benefits")
+      (xml \\ "RecommendedDecision").text must contain("Potential award")
     }
 
     "Happy path" in new WithApplication {
@@ -176,7 +208,7 @@ class AssistedDecisionSpec extends Specification {
       val nationality = NationalityAndResidency("British", None, "yes", None, None, None, None, "no", None)
       val breaksInCare = BreaksInCare()
       val employment = YourIncomes(beenSelfEmployedSince1WeekBeforeClaim = Mappings.no, beenEmployedSince6MonthsBeforeClaim = Mappings.no, yourIncome_none = Mappings.someTrue)
-      val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.no, field1=Some(YesNoWith1MandatoryFieldOnYes(answer=Mappings.no)), field2=Some(YesNoWith1MandatoryFieldOnYes(answer=Mappings.no))))
+      val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.no, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no))))
       val howWePayYou = HowWePayYou(likeToBePaid = Mappings.yes)
       val benefits = Benefits(benefitsAnswer = Benefits.aa)
       val additionalInfo = AdditionalInfo(anythingElse = YesNoWithText(Mappings.no))
@@ -191,10 +223,10 @@ class AssistedDecisionSpec extends Specification {
         .update(benefits)
         .update(additionalInfo)
         .update(yourCourseDetails)
-        )
+      )
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must contain("Check CIS for benefits")
-      (xml \\ "RecommendedDecision").text must contain ("Potential award,show table")
+      (xml \\ "RecommendedDecision").text must contain("Potential award,show table")
     }
   }
   section("unit")
