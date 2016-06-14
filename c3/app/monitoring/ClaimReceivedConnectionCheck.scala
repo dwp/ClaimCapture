@@ -17,7 +17,7 @@ class ClaimReceivedConnectionCheck extends CADSHealthCheck(ClaimHandling.C3NAME,
 
   override def check(): Result = {
     val url = Configuration.root().getString("submissionServerUrl", "SubmissionServerEndpointNotSet") + "ping"
-    val timeout = getIntProperty("cr.timeout")
+    val timeout = getIntProperty("cr.health.timeout")
     val httpWrapper = new HttpWrapper
     val response = httpWrapper.get(url, timeout)
     response.getStatus match {
