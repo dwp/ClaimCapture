@@ -31,6 +31,7 @@ object GReportChangeReason extends Controller with CachedChangeOfCircs with Navi
   }
 
   def submit = claiming {implicit circs => implicit request => implicit request2lang =>
+    Logger.info(s"Circs change reason page with google-analytics:${googleAnalyticsAgentId(request)}.")
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.circs.start_of_process.reportChangeReason(formWithErrors)),
       f => checkForChangeInSelection(circs, f) -> getReportChangesRedirect(checkForChangeInSelection(circs, f))
