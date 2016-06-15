@@ -10,17 +10,14 @@
 @import views.html.s_eligibility.main
 
 @benefitsList(implicit lang:Lang) = @{
-    val benefitsSeq = Seq(
+    Seq(
+        Benefits.pip -> messages("s0.g1.help2"),
         Benefits.dla -> messages("s0.g1.help4"),
         Benefits.aa -> messages("s0.g1.help6"),
         Benefits.caa -> messages("s0.g1.help7"),
         Benefits.afip -> messages("s0.g1.help10"),
-        Benefits.noneOfTheBenefits -> messages("s0.g1.help12"))
-
-    isOriginGB match {
-        case true => Seq(Benefits.pip -> messages("s0.g1.help2")) ++ benefitsSeq
-        case false => benefitsSeq
-    }
+        Benefits.noneOfTheBenefits -> messages("s0.g1.help12")
+    )
 }
 
 
