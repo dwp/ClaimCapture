@@ -47,7 +47,7 @@ class GReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
     "present errors if mandatory fields are not populated" in new WithBrowser with PageObjects {
       val page = GCircsYourDetailsPage(context)
       page goToThePage()
-      page.submitPage().listErrors.size mustEqual 7
+      page.submitPage().listErrors.size mustEqual 6
     }
 
     "Accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects {
@@ -92,7 +92,7 @@ class GReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
       page fillPageWith claim
 
       val errors = page.submitPage().listErrors
-      errors.size mustEqual 2
+      errors.size mustEqual 1
       errors(0) must contain("National Insurance number - You must complete this section")
     }
 

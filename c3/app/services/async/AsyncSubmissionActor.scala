@@ -16,7 +16,7 @@ class AsyncSubmissionActor extends Actor {
 
   override def receive: Actor.Receive = {
     case claim:Claim =>
-      Logger.debug(s"Processing ${claim.key} ${claim.uuid} with transactionId [${claim.transactionId.get}]")
+      Logger.info(s"Processing ${claim.key} ${claim.uuid} with transactionId [${claim.transactionId.get}]")
       asyncSubmissionService.submission(claim)
   }
 }
@@ -34,7 +34,7 @@ class AsyncSubmissionManagerActor(childActorProps:Props) extends Actor {
 
   override def receive: Actor.Receive = {
     case claim:Claim =>
-      Logger.debug(s"Received ${claim.key} ${claim.uuid} with transactionId [${claim.transactionId.get}]")
+      Logger.info(s"Received ${claim.key} ${claim.uuid} with transactionId [${claim.transactionId.get}]")
       context.actorOf(childActorProps) ! claim
   }
 }

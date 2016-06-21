@@ -173,14 +173,13 @@ class GYourDetailsFormSpec extends Specification {
         f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "have 5 mandatory fields (plus invalid Nino)" in new WithApplication {
+    "have 6 mandatory fields (plus invalid Nino)" in new WithApplication {
       GYourDetails.form.bind(
         Map("fullName" -> "")).fold(
         formWithErrors => {
-          formWithErrors.errors.length must equalTo(7)
+          formWithErrors.errors.length must equalTo(6)
           formWithErrors.errors(0).message must equalTo(Mappings.errorRequired)
           formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
-          formWithErrors.errors(2).message must equalTo("error.nationalInsuranceNumber")
           formWithErrors.errors(3).message must equalTo(Mappings.errorRequired)
           formWithErrors.errors(4).message must equalTo(Mappings.errorRequired)
           formWithErrors.errors(5).message must equalTo(Mappings.errorRequired)

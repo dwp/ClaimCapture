@@ -2,7 +2,7 @@ package controllers.s_about_you
 
 import org.specs2.mutable._
 import controllers.{ClaimScenarioFactory,PreviewTestUtils}
-import utils.pageobjects.s_about_you.{GOtherEEAStateOrSwitzerlandPage, GNationalityAndResidencyPage}
+import utils.pageobjects.s_about_you.{GPaymentsFromAbroadPage, GNationalityAndResidencyPage}
 import utils.pageobjects._
 import utils.pageobjects.preview.PreviewPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
@@ -12,7 +12,7 @@ import utils.helpers.PreviewField._
 class GNationalityAndResidencyIntegrationSpec extends Specification {
   sequential
 
-  val urlUnderTest = "/about-you/nationality-and-residency"
+  val urlUnderTest = "/nationality/where-you-live"
   val submitButton = "button[type='submit']"
   val errorDiv = "div[class=validation-summary] ol li"
 
@@ -36,7 +36,7 @@ class GNationalityAndResidencyIntegrationSpec extends Specification {
       page goToThePage()
       page fillPageWith claim
       val nextPage = page submitPage()
-      nextPage must beAnInstanceOf[GOtherEEAStateOrSwitzerlandPage]
+      nextPage must beAnInstanceOf[GPaymentsFromAbroadPage]
     }
 
     "navigate to next page on valid non resident submission" in new WithJsBrowser with PageObjects{
@@ -46,7 +46,7 @@ class GNationalityAndResidencyIntegrationSpec extends Specification {
       page fillPageWith claim
       val nextPage = page submitPage()
       println(nextPage.source)
-      nextPage must beAnInstanceOf[GOtherEEAStateOrSwitzerlandPage]
+      nextPage must beAnInstanceOf[GPaymentsFromAbroadPage]
     }
 
     "contain errors on invalid non resident submission" in new WithJsBrowser with PageObjects{

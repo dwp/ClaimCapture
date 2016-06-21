@@ -10,4 +10,8 @@ object Cookies extends Controller with I18nSupport {
     implicit val isCookiePage = true
     Ok(views.html.cookies.cookies())
   }
+
+  def cookiesTablePage = Action { implicit request =>
+    Ok(views.html.cookies.cookiesTable())
+  }
 }

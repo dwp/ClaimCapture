@@ -1,7 +1,7 @@
 package controllers.s_about_you
 
 import controllers.CarersForms._
-import models.domain.OtherEEAStateOrSwitzerland
+import models.domain.PaymentsFromAbroad
 import models.view.{CachedClaim, Navigable}
 import models.yesNo.{YesNoWith1MandatoryFieldOnYes, YesNoWith2MandatoryFieldsOnYes}
 import play.api.Play._
@@ -13,7 +13,7 @@ import utils.helpers.YesNoHelpers
 import play.api.i18n._
 import scala.language.reflectiveCalls
 
-object GOtherEEAStateOrSwitzerland extends Controller with CachedClaim with Navigable with I18nSupport {
+object GPaymentsFromAbraod extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   def yesNo1Field = mapping(
     "answer" -> nonEmptyText(),
@@ -28,14 +28,14 @@ object GOtherEEAStateOrSwitzerland extends Controller with CachedClaim with Navi
     )(YesNoWith2MandatoryFieldsOnYes.apply)(YesNoWith2MandatoryFieldsOnYes.unapply)
       .verifying(error = "error.benefitsFromEEADetails.required", constraint = YesNoWith2MandatoryFieldsOnYes.validateField1OnYes[YesNoWith1MandatoryFieldOnYes[String]] _)
       .verifying(error = "error.workingForEEADetails.required", constraint = YesNoWith2MandatoryFieldsOnYes.validateField2OnYes[YesNoWith1MandatoryFieldOnYes[String]] _)
-      .verifying(OtherEEAStateOrSwitzerland.requiredBenefitsFromEEADetails)
-      .verifying(OtherEEAStateOrSwitzerland.requiredWorkingForEEADetails)
+      .verifying(PaymentsFromAbroad.requiredBenefitsFromEEADetails)
+      .verifying(PaymentsFromAbroad.requiredWorkingForEEADetails)
 
-  )(OtherEEAStateOrSwitzerland.apply)(OtherEEAStateOrSwitzerland.unapply)
+  )(PaymentsFromAbroad.apply)(PaymentsFromAbroad.unapply)
   )
 
   def present = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
-    track(OtherEEAStateOrSwitzerland) { implicit claim => Ok(views.html.s_nationality_and_residency.g_otherEEAStateOrSwitzerland(form.fill(OtherEEAStateOrSwitzerland))) }
+    track(PaymentsFromAbroad) { implicit claim => Ok(views.html.s_nationality_and_residency.g_paymentsFromAbroad(form.fill(PaymentsFromAbroad))) }
   }
 
   def submit = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
@@ -46,7 +46,7 @@ object GOtherEEAStateOrSwitzerland extends Controller with CachedClaim with Navi
           .replaceError("eeaGuardQuestion", "error.workingForEEADetails.required", FormError("eeaGuardQuestion.workingForEEADetails.answer", "error.workingForEEADetails.required"))
           .replaceError("eeaGuardQuestion", "benefitsfromeeadetails.required", FormError("eeaGuardQuestion.benefitsFromEEADetails.field", "error.benefitsFromEEADetails.required"))
           .replaceError("eeaGuardQuestion", "workingForEEADetails.required", FormError("eeaGuardQuestion.workingForEEADetails.field", "error.workingForEEADetails.required"))
-        BadRequest(views.html.s_nationality_and_residency.g_otherEEAStateOrSwitzerland(formWithErrorsUpdate))
+        BadRequest(views.html.s_nationality_and_residency.g_paymentsFromAbroad(formWithErrorsUpdate))
       },
       benefitsFromEEA => claim.update(benefitsFromEEA) -> Redirect(controllers.s_your_partner.routes.GYourPartnerPersonalDetails.present())
     )

@@ -45,7 +45,7 @@ object Formulate {
   }
 
   def nationalityAndResidency(browser: TestBrowser) = {
-    browser.goTo("/about-you/nationality-and-residency")
+    browser.goTo("/nationality/where-you-live")
     browser.click("#nationality_British")
     browser.click("#alwaysLivedInUK_yes")
     browser.click("#trip52weeks_no")
@@ -53,7 +53,7 @@ object Formulate {
   }
 
   def nationalityAndResidencyNotBritishMarried(browser: TestBrowser) = {
-    browser.goTo("/about-you/nationality-and-residency")
+    browser.goTo("/nationality/where-you-live")
     browser.click("#nationality_Another_Nationality")
     browser.fill("#actualnationality") `with` "French"
     browser.click("#maritalStatus_Married_or_civil_partner")
@@ -62,7 +62,7 @@ object Formulate {
   }
 
   def nationalityAndResidencyNotBritishSingle(browser: TestBrowser) = {
-    browser.goTo("/about-you/nationality-and-residency")
+    browser.goTo("/nationality/where-you-live")
     browser.click("#nationality_Another_Nationality")
     browser.fill("#actualnationality") `with` "French"
     browser.click("#maritalStatus_Single")
@@ -71,7 +71,7 @@ object Formulate {
   }
 
   def nationalityAndResidencyNotBritishWithPartner(browser: TestBrowser) = {
-    browser.goTo("/about-you/nationality-and-residency")
+    browser.goTo("/nationality/where-you-live")
     browser.click("#nationality_Another_Nationality")
     browser.fill("#actualnationality") `with` "French"
     browser.click("#maritalStatus_Living_with_partner")
@@ -79,8 +79,8 @@ object Formulate {
     browser.submit("button[type='submit']")
   }
 
-  def otherEEAStateOrSwitzerland(browser: TestBrowser) = {
-    browser.goTo("/about-you/other-eea-state-or-switzerland")
+  def paymentsFromAbroad(browser: TestBrowser) = {
+    browser.goTo("/nationality/payments-from-abroad")
     browser.click("#eeaGuardQuestion_answer_no")
     browser.submit("button[type='submit']")
   }

@@ -6,7 +6,7 @@ import controllers.ClaimScenarioFactory
 import utils.pageobjects.s_care_you_provide.GTheirPersonalDetailsPage
 import utils.pageobjects._
 import utils.pageobjects.s_your_partner.GYourPartnerPersonalDetailsPage
-import utils.pageobjects.s_about_you.{GMaritalStatusPage, GOtherEEAStateOrSwitzerlandPage, GNationalityAndResidencyPage}
+import utils.pageobjects.s_about_you.{GMaritalStatusPage, GPaymentsFromAbroadPage, GNationalityAndResidencyPage}
 import app.MaritalStatus
 
 class GYourPartnerPersonalDetailsIntegrationSpec extends Specification {
@@ -83,14 +83,14 @@ class GYourPartnerPersonalDetailsIntegrationSpec extends Specification {
     }
 
     "navigate back to 'Payments from abroad and working abroad' page " in new WithBrowser with PageObjects {
-      val paymentsAbroadPage = GOtherEEAStateOrSwitzerlandPage(context)
+      val paymentsAbroadPage = GPaymentsFromAbroadPage(context)
       paymentsAbroadPage goToThePage()
       paymentsAbroadPage fillPageWith ClaimScenarioFactory.otherEuropeanEconomicArea
       val partnerDetailsPage = paymentsAbroadPage submitPage()
 
       partnerDetailsPage must beAnInstanceOf[GYourPartnerPersonalDetailsPage]
 
-      partnerDetailsPage goBack() must beAnInstanceOf[GOtherEEAStateOrSwitzerlandPage]
+      partnerDetailsPage goBack() must beAnInstanceOf[GPaymentsFromAbroadPage]
     }
 
     "navigate back to About your partner/spouse - Partner/Spouse details" in new WithBrowser with PageObjects {

@@ -63,7 +63,7 @@
         case _ => messages("label.no")
     }
 }
-@otherEEA = @{claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())}
+@otherEEA = @{claim.questionGroup[PaymentsFromAbroad].getOrElse(PaymentsFromAbroad())}
 @showEEA = @{
     otherEEA.guardQuestion.answer == `yes`
 }

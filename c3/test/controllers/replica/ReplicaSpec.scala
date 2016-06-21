@@ -19,7 +19,7 @@ class ReplicaSpec extends Specification {
 
       val sections = browser.$(".section")
       val links = browser.$("a")
-      sections.size mustEqual (15)
+      sections.size mustEqual (16)
       links.size mustEqual (31)
     }
 

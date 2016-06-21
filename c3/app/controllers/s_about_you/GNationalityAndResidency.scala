@@ -81,7 +81,7 @@ object GNationalityAndResidency extends Controller with CachedClaim with Navigab
         BadRequest(views.html.s_nationality_and_residency.g_nationalityAndResidency(formWithErrorsUpdate))
       },
       nationalityAndResidency => {
-        claim.update(nationalityAndResidency) -> Redirect(routes.GOtherEEAStateOrSwitzerland.present())
+        claim.update(nationalityAndResidency) -> Redirect(routes.GPaymentsFromAbraod.present())
       })
   } withPreview()
 }

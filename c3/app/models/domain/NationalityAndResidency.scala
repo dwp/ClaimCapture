@@ -1,6 +1,6 @@
 package models.domain
 
-import models.domain.OtherEEAStateOrSwitzerland.GQuestion
+import models.domain.PaymentsFromAbroad.GQuestion
 import models.{DayMonthYear}
 import models.yesNo.{YesNoWith2MandatoryFieldsOnYes, YesNoWith1MandatoryFieldOnYes, YesNoWithText}
 import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
@@ -70,9 +70,9 @@ object NationalityAndResidency extends QuestionGroup.Identifier {
   }
 }
 
-case class OtherEEAStateOrSwitzerland(guardQuestion: GQuestion = YesNoWith2MandatoryFieldsOnYes()) extends QuestionGroup(OtherEEAStateOrSwitzerland)
+case class PaymentsFromAbroad(guardQuestion: GQuestion = YesNoWith2MandatoryFieldsOnYes()) extends QuestionGroup(PaymentsFromAbroad)
 
-object OtherEEAStateOrSwitzerland extends QuestionGroup.Identifier {
+object PaymentsFromAbroad extends QuestionGroup.Identifier {
   val id = s"${NationalityAndResidencySection.id}.g2"
 
   type GQuestion = YesNoWith2MandatoryFieldsOnYes[YesNoWith1MandatoryFieldOnYes[String], YesNoWith1MandatoryFieldOnYes[String]]

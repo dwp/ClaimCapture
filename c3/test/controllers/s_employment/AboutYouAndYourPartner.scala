@@ -17,10 +17,10 @@ trait AboutYouAndYourPartner {
     val nationality = pageClaimDate.submitPage(throwException = true)
     nationality fillPageWith claimDate
 
-    val otherEAAStateOrSwitzerland = nationality.submitPage(throwException = true)
-    otherEAAStateOrSwitzerland fillPageWith claimDate
+    val paymentsFromAbroad = nationality.submitPage(throwException = true)
+    paymentsFromAbroad fillPageWith claimDate
 
-    val pageMoreAboutYou = otherEAAStateOrSwitzerland.submitPage(throwException = true)
+    val pageMoreAboutYou = paymentsFromAbroad.submitPage(throwException = true)
     pageMoreAboutYou fillPageWith claimDate
     pageMoreAboutYou.submitPage(throwException = true)
 

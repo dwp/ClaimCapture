@@ -10,7 +10,7 @@ import org.specs2.mutable._
 import play.api.{Logger, http}
 import play.api.libs.ws.WSResponse
 import play.api.test.FakeApplication
-import services.{TransactionStatus, _}
+import services._
 import scala.concurrent.Future
 
 class AsyncClaimSubmissionServiceSpec extends Specification with Mockito {
@@ -39,6 +39,8 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito {
 
       webServiceClient.submitClaim(any[Claim],any[String]) returns Future(response)
       val claimTransaction = new ClaimTransaction
+      val submissionCacheService = mock[SubmissionCacheService]
+      submissionCacheService.getFromCache(any[Claim]) returns Some("test")
   }
 
   def getClaim(surname: String): Claim = {
@@ -113,29 +115,25 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito {
     "do not submit a duplicate claim" in new WithApplicationAndDB(Map("mailer.enabled"->"false")) {
       val service = asyncService(http.Status.OK,transactionId)
       val claim = getClaim("test")
+      service.storeInCache(claim)
 
       serviceSubmission(service, claim)
-      Thread.sleep(100)
-      service.submission(claim) must throwA(DuplicateClaimException(s"Duplicate claim submission. transactionId [${claim.transactionId.get}]"))
-
       Thread.sleep(1500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
-      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.INTERNAL_ERROR,1,Some(0),None,Some("en")))
+      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.INTERNAL_ERROR,1,None,None,None))
     }
 
     "do not submit a duplicate change of circs" in new WithApplicationAndDB(Map("mailer.enabled"->"false")) {
       val service = asyncService(http.Status.OK,transactionId)
       val claim = getCofc("test")
+      service.storeInCache(claim)
 
       serviceSubmission(service, claim)
-      Thread.sleep(100)
-      service.submission(claim) must throwA(DuplicateClaimException(s"Duplicate claim submission. transactionId [${claim.transactionId.get}]"))
-
       Thread.sleep(1500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
 
-      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.INTERNAL_ERROR,2,Some(0),None,Some("en")))
+      transactionStatus mustEqual Some(TransactionStatus(transactionId,ClaimSubmissionService.INTERNAL_ERROR,2,None,None,None))
     }
 
     "record SERVICE_UNAVAILABLE" in new WithApplicationAndDB {

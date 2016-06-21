@@ -1,4 +1,4 @@
-@(otherEEAStateOrSwitzerlandForm: Form[models.domain.OtherEEAStateOrSwitzerland])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
+@(paymentsFromAbroadForm: Form[models.domain.PaymentsFromAbroad])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import scala.language.postfixOps
 @import views.html.helper._
@@ -11,16 +11,16 @@
 
 
     @main(messages("s2b.g2") + " - " + messages("s2b.longName"), "s2b.g2") {
-        @errorsSummary(otherEEAStateOrSwitzerlandForm)
+        @errorsSummary(paymentsFromAbroadForm)
 
-        @form(action = controllers.s_about_you.routes.GOtherEEAStateOrSwitzerland.submit, 'role -> "form") {
+        @form(action = controllers.s_about_you.routes.GPaymentsFromAbraod.submit, 'role -> "form") {
 
             @DwpCSRFFormHelper.formField
 
             <fieldset class="form-elements">
 
                 <ul>
-                    @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("eeaGuardQuestion.answer"),
+                    @yesNoRadioGroup(paymentsFromAbroadForm("eeaGuardQuestion.answer"),
                         'helperAbove -> messages("eeaGuardQuestion.helperAbove"),
                         'track -> true,
                         'trackLabel -> "guardQuestionEEA")
@@ -32,14 +32,14 @@
                             Html(messages("eeaCountryHelp")),
                             Html("<p></p>"),
 
-                            yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("eeaGuardQuestion.benefitsFromEEADetails.answer"),
+                            yesNoRadioGroup(paymentsFromAbroadForm("eeaGuardQuestion.benefitsFromEEADetails.answer"),
                                 'label -> "benefitsFromEEA",
                                 'helperAbove -> messages("benefitsFromEEA.helperAbove"),
                                 'track -> true,
                                 'trackLabel -> "benefitsFromEEA"),
 
                             otherDetailPlaceHolder(
-                                inputDef = Seq(carersInputTextArea(otherEEAStateOrSwitzerlandForm("eeaGuardQuestion.benefitsFromEEADetails.field"),
+                                inputDef = Seq(carersInputTextArea(paymentsFromAbroadForm("eeaGuardQuestion.benefitsFromEEADetails.field"),
                                     'label -> "benefitsFromEEADetails",
                                     'helperAbove -> messages("benefitsFromEEADetails.helperAbove"),
                                     'textAreaHelper -> Html(messages("3000charsLeft")), 'maxLength -> 3000)
@@ -47,13 +47,13 @@
                                 'id -> "benefitsFromEEADetailsWrapper"
                             ),
 
-                            yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("eeaGuardQuestion.workingForEEADetails.answer"),
+                            yesNoRadioGroup(paymentsFromAbroadForm("eeaGuardQuestion.workingForEEADetails.answer"),
                                 'helperAbove -> messages("workingForEEA.helper"),
                                 'track -> true,
                                 'trackLabel -> "workingForEEA"),
 
                             otherDetailPlaceHolder(
-                                inputDef = Seq(carersInputTextArea(otherEEAStateOrSwitzerlandForm("eeaGuardQuestion.workingForEEADetails.field"),
+                                inputDef = Seq(carersInputTextArea(paymentsFromAbroadForm("eeaGuardQuestion.workingForEEADetails.field"),
                                     'helperAbove -> messages("workingForEEADetails.helper"),
                                     'textAreaHelper -> Html(messages("3000charsLeft")), 'maxLength -> 3000)
                                 ),

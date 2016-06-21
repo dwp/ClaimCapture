@@ -87,7 +87,8 @@
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             carersInputText(typeOfWork("selfEmployedTypeOfWork"), 'maxLength -> 35, 'ignoreOptional -> true),
-                            yesNoRadioGroup(paidMoneyYet("answer"), 'helperAbove -> messages("paidMoneyYet.helper"), 'track -> true, 'trackLabel -> messages("paidMoneyYet.answer")),
+                            yesNoRadioGroup(paidMoneyYet("answer"), 'helperAbove -> messages("paidMoneyYet.helper"),
+                                'track -> true, 'trackLabel -> messages("paidMoneyYet.answer"), 'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no"))),
                             otherDetailPlaceHolder(inputDef = Seq(inputDayMonthYear(paidMoneyYet("date"))), 'id -> "paidMoneyYetWrap"),
                             yesNoRadioGroup(typeOfWork("selfEmployedTotalIncome"), 'ignoreOptional -> true, 'track -> true, 'trackLabel -> messages("typeOfWork.selfEmployedTotalIncome"),
                                 'values -> Seq("yes" -> messages("label.yes7"), "no" -> messages("label.no"), "dontknow" -> messages("label.dontknow"))),

@@ -17,7 +17,7 @@ object AssistedDecision extends XMLComponent {
 
   def createAssistedDecisionDetails(claim: Claim): Claim = {
     val isDecisionMade = (assisted: AssistedDecisionDetails) => assisted.reason != "None"
-    val fnList = Array[(Claim) => AssistedDecisionDetails](dateOfClaim _, caringHours _, isInReceiptOfBenefit _, isAFIP _, yesEEAGuardWork _, isInEducation _, isHappyPath _)
+    val fnList = Array[(Claim) => AssistedDecisionDetails](dateOfClaim _, caringHours _, isInReceiptOfBenefit _, isAFIP _, yesEEAGuardWork _, isInResidency _, isInEducation _, isHappyPath _)
     claim.update(process(isDecisionMade, claim)(fnList))
   }
 
@@ -51,6 +51,15 @@ object AssistedDecision extends XMLComponent {
     if (isEEA(claim))
       decisionModel("Assign to Exportability in CAMLite workflow.", "None,show table")
     else emptyAssistedDecisionDetails
+  }
+
+  private def isInResidency(claim: Claim): AssistedDecisionDetails = {
+    val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(nationality = "British"))
+    (nationalityAndResidency.nationality, nationalityAndResidency.alwaysLivedInUK, nationalityAndResidency.arrivedInUK ) match {
+      case (NationalityAndResidency.british | NationalityAndResidency.britishIrish, "no", Some("more")) => decisionModel("Check CIS for benefits.", "Potential award,show table")
+      case (NationalityAndResidency.british | NationalityAndResidency.britishIrish, "no", _) => decisionModel("Assign to Exportability in CAMLite workflow.", "None,show table")
+      case _ => emptyAssistedDecisionDetails
+    }
   }
 
   private def isInEducation(claim: Claim): AssistedDecisionDetails = {
@@ -107,10 +116,10 @@ object AssistedDecision extends XMLComponent {
   }
 
   private def isEEA(claim: Claim): Boolean = {
-    val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
-    if (otherEEAStateOrSwitzerland.guardQuestion.answer == "yes" &&
-      (otherEEAStateOrSwitzerland.guardQuestion.field1.get.answer == "yes" ||
-        otherEEAStateOrSwitzerland.guardQuestion.field2.get.answer == "yes"))
+    val paymentsFromAbraod = claim.questionGroup[PaymentsFromAbroad].getOrElse(PaymentsFromAbroad())
+    if (paymentsFromAbraod.guardQuestion.answer == "yes" &&
+      (paymentsFromAbraod.guardQuestion.field1.get.answer == "yes" ||
+        paymentsFromAbraod.guardQuestion.field2.get.answer == "yes"))
       true
     else false
   }

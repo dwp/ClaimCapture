@@ -56,7 +56,7 @@ object ClaimPageFactory extends PageFactory {
       case GSaveForLaterResumePage.url => GSaveForLaterResumePage(ctx)
     }
     m.orElse[String, Page] {
-      case GOtherEEAStateOrSwitzerlandPage.url => GOtherEEAStateOrSwitzerlandPage(ctx)
+      case GPaymentsFromAbroadPage.url => GPaymentsFromAbroadPage(ctx)
       // S3
       case GYourPartnerPersonalDetailsPage.url => GYourPartnerPersonalDetailsPage(ctx)
       // S4

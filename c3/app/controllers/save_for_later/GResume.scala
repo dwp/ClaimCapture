@@ -22,7 +22,7 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
   val form = Form(mapping(
     "firstName" -> carersNonEmptyText(maxLength = 17),
     "surname" -> carersNonEmptyText(maxLength = CommonValidation.NAME_MAX_LENGTH),
-    "nationalInsuranceNumber" -> nino.verifying(filledInNino, validNino),
+    "nationalInsuranceNumber" -> nino.verifying(stopOnFirstFail (filledInNino,validNino)),
     "dateOfBirth" -> dayMonthYear.verifying(validDate),
     "uuid" -> text
   )(ResumeSaveForLater.apply)(ResumeSaveForLater.unapply))
