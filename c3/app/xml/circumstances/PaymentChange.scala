@@ -30,7 +30,7 @@ object PaymentChange {
     <AccountDetails>
       {question(<HolderName/>, "accountHolderName", encrypt(bankBuildingSocietyDetails.accountHolderName))}
       <BuildingSocietyDetails>
-        {question(<AccountNumber/>, "accountNumber", encrypt(bankBuildingSocietyDetails.accountNumber.replace(" ","")))}
+        {question(<AccountNumber/>, "accountNumber", encrypt(bankBuildingSocietyDetails.accountNumber.replaceAll(" ","")))}
         {question(<RollNumber/>,"rollOrReferenceNumber", bankBuildingSocietyDetails.rollOrReferenceNumber)}
         {question(<SortCode/>,"sortCode", encrypt(bankBuildingSocietyDetails.sortCode))}
         {question(<Name/>, "bankFullName", bankBuildingSocietyDetails.bankFullName)}

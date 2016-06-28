@@ -22,7 +22,7 @@ class GPaymentChangeSpec extends Specification {
   val sortCode1 = "11"
   val sortCode2 = "22"
   val sortCode3 = "33"
-  val sortCode = SortCode(sortCode1,sortCode2,sortCode3)
+  val sortCode = SortCode(sortCode1, sortCode2, sortCode3)
   val accountNumber = "12345678"
   val rollOrReferenceNumber = "My Ref: 123"
   val paymentFrequency = "everyWeek"
@@ -59,6 +59,74 @@ class GPaymentChangeSpec extends Specification {
     "sortCode.sort2" -> sortCode2,
     "sortCode.sort3" -> sortCode3,
     "accountNumber" -> accountNumber,
+    "rollOrReferenceNumber" -> "",
+    "paymentFrequency" -> paymentFrequency,
+    "moreAboutChanges" -> ""
+  )
+
+  val blankAccount = Seq(
+    "currentlyPaidIntoBank.answer" -> no,
+    "currentlyPaidIntoBank.text1" -> "",
+    "currentlyPaidIntoBank.text2" -> currentPaymentMethod,
+    "currentPaymentMethod" -> currentPaymentMethod,
+    "accountHolderName" -> accountHolderName,
+    "whoseNameIsTheAccountIn" -> whoseNameIsTheAccountIn,
+    "bankFullName" -> bankFullName,
+    "sortCode.sort1" -> sortCode1,
+    "sortCode.sort2" -> sortCode2,
+    "sortCode.sort3" -> sortCode3,
+    "accountNumber" -> "",
+    "rollOrReferenceNumber" -> "",
+    "paymentFrequency" -> paymentFrequency,
+    "moreAboutChanges" -> ""
+  )
+
+  val alphaAccount = Seq(
+    "currentlyPaidIntoBank.answer" -> no,
+    "currentlyPaidIntoBank.text1" -> "",
+    "currentlyPaidIntoBank.text2" -> currentPaymentMethod,
+    "currentPaymentMethod" -> currentPaymentMethod,
+    "accountHolderName" -> accountHolderName,
+    "whoseNameIsTheAccountIn" -> whoseNameIsTheAccountIn,
+    "bankFullName" -> bankFullName,
+    "sortCode.sort1" -> sortCode1,
+    "sortCode.sort2" -> sortCode2,
+    "sortCode.sort3" -> sortCode3,
+    "accountNumber" -> "12345A",
+    "rollOrReferenceNumber" -> "",
+    "paymentFrequency" -> paymentFrequency,
+    "moreAboutChanges" -> ""
+  )
+
+  val shortAccount = Seq(
+    "currentlyPaidIntoBank.answer" -> no,
+    "currentlyPaidIntoBank.text1" -> "",
+    "currentlyPaidIntoBank.text2" -> currentPaymentMethod,
+    "currentPaymentMethod" -> currentPaymentMethod,
+    "accountHolderName" -> accountHolderName,
+    "whoseNameIsTheAccountIn" -> whoseNameIsTheAccountIn,
+    "bankFullName" -> bankFullName,
+    "sortCode.sort1" -> sortCode1,
+    "sortCode.sort2" -> sortCode2,
+    "sortCode.sort3" -> sortCode3,
+    "accountNumber" -> "12345",
+    "rollOrReferenceNumber" -> "",
+    "paymentFrequency" -> paymentFrequency,
+    "moreAboutChanges" -> ""
+  )
+
+  val spacedAccount = Seq(
+    "currentlyPaidIntoBank.answer" -> no,
+    "currentlyPaidIntoBank.text1" -> "",
+    "currentlyPaidIntoBank.text2" -> currentPaymentMethod,
+    "currentPaymentMethod" -> currentPaymentMethod,
+    "accountHolderName" -> accountHolderName,
+    "whoseNameIsTheAccountIn" -> whoseNameIsTheAccountIn,
+    "bankFullName" -> bankFullName,
+    "sortCode.sort1" -> sortCode1,
+    "sortCode.sort2" -> sortCode2,
+    "sortCode.sort3" -> sortCode3,
+    "accountNumber" -> " 12   12 ",
     "rollOrReferenceNumber" -> "",
     "paymentFrequency" -> paymentFrequency,
     "moreAboutChanges" -> ""
@@ -106,8 +174,52 @@ class GPaymentChangeSpec extends Specification {
       val countdown = browser.$("#moreAboutChanges + .countdown")
 
       anythingElse.getAttribute("maxlength") mustEqual "3000"
-      countdown.getText must contain( "3000 char")
+      countdown.getText must contain("3000 char")
       browser.pageSource must contain("maxChars:3000")
+    }
+
+    "block with correct error when nothing entered in account number field" in new WithApplication with MockForm {
+      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
+        .withFormUrlEncodedBody(blankAccount: _*)
+
+      val result = GPaymentChange.submit(request)
+      val source = contentAsString(result)
+      println("Source:" + source)
+      status(result) mustEqual BAD_REQUEST
+      source must contain("Account number - Enter your bank account number")
+    }
+
+    "block with correct error when chars entered in account number field" in new WithApplication with MockForm {
+      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
+        .withFormUrlEncodedBody(alphaAccount: _*)
+
+      val result = GPaymentChange.submit(request)
+      val source = contentAsString(result)
+      println("Source:" + source)
+      status(result) mustEqual BAD_REQUEST
+      source must contain("Account number - You must only enter numbers")
+    }
+
+    "block with correct error when short number entered in account number field" in new WithApplication with MockForm {
+      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
+        .withFormUrlEncodedBody(shortAccount: _*)
+
+      val result = GPaymentChange.submit(request)
+      val source = contentAsString(result)
+      println("Source:" + source)
+      status(result) mustEqual BAD_REQUEST
+      source must contain("Account number - Minimum length is 6")
+    }
+
+    "block with correct error when lots of spaces entered" in new WithApplication with MockForm {
+      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
+        .withFormUrlEncodedBody(spacedAccount: _*)
+
+      val result = GPaymentChange.submit(request)
+      val source = contentAsString(result)
+      println("Source:" + source)
+      status(result) mustEqual BAD_REQUEST
+      source must contain("Account number - Minimum length is 6")
     }
   }
   section("unit", models.domain.CircumstancesReportChanges.id)

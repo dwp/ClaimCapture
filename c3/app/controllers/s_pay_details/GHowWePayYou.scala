@@ -1,10 +1,7 @@
 package controllers.s_pay_details
 
 import controllers.CarersForms._
-import controllers.mappings.Mappings._
 import play.api.Play._
-import play.api.data.validation._
-import utils.CommonValidation
 import utils.CommonValidation._
 
 import language.reflectiveCalls
@@ -15,8 +12,9 @@ import models.view.{Navigable, CachedClaim}
 import models.domain.{BankBuildingSocietyDetails, HowWePayYou}
 import utils.helpers.CarersForm._
 import PayDetails._
-import Constraints._
 import play.api.i18n._
+import controllers.mappings.Mappings._
+import controllers.mappings.AccountNumberMappings._
 
 object GHowWePayYou extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
@@ -24,7 +22,7 @@ object GHowWePayYou extends Controller with CachedClaim with Navigable with I18n
     "accountHolderName" -> carersNonEmptyText(maxLength = ACCOUNT_HOLDER_NAME_MAX_LENGTH),
     "bankFullName" -> carersNonEmptyText(maxLength = 100),
     "sortCode" -> (sortCode verifying requiredSortCode),
-    "accountNumber" -> (carersNonEmptyText(minLength = CommonValidation.ACCOUNT_NUMBER_MIN_LENGTH, maxLength = CommonValidation.ACCOUNT_NUMBER_MAX_LENGTH) verifying pattern(CommonValidation.NUMBER_OR_SPACE_REGEX.r, "accountNumber", "error.number")),
+    "accountNumber" -> (text verifying stopOnFirstFail(accountNumberFilledIn, accountNumberDigits, accountNumberLength)),
     "rollOrReferenceNumber" -> carersText(maxLength = 18)
   )(BankBuildingSocietyDetails.apply)(BankBuildingSocietyDetails.unapply)
 
