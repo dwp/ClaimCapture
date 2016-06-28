@@ -43,7 +43,7 @@ class GFeedbackSpec extends Specification {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(inputNoneBad: _*)
       val result = GFeedback.submit("Claim")(request)
       val bodyText: String = contentAsString(result)
-      bodyText must contain("Check the form")
+      bodyText must contain("There's a problem")
       status(result) mustEqual BAD_REQUEST
     }
 
