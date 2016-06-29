@@ -18,16 +18,16 @@
 
 @arePartnerDetailsSame = @{
     if(getBooleanProperty("analytics.enabled")) {
-        if(yourDetails.nationalInsuranceNumber.nino.get == partnerDetails.nationalInsuranceNumber.getOrElse(NationalInsuranceNumber(Some(""))).nino.getOrElse("")) trackEvent("/preview", "Customer and Partner match - NINO")
-        else if(yourDetails.dateOfBirth == partnerDetails.dateOfBirth.getOrElse(DayMonthYear)) trackEvent("/preview", "Customer and Partner match - no NINO")
+        if(yourDetails.nationalInsuranceNumber.nino.getOrElse("") == partnerDetails.nationalInsuranceNumber.getOrElse(NationalInsuranceNumber(Some(""))).nino.get) trackEvent("/preview", "Customer and Partner match - NINO")
+        else if(yourDetails.dateOfBirth.equals(partnerDetails.dateOfBirth.getOrElse(DayMonthYear))) trackEvent("/preview", "Customer and Partner match - no NINO")
         else ""
     } else ""
 }
 
 @areTheirDetailsSame = @{
     if(getBooleanProperty("analytics.enabled")) {
-        if(yourDetails.nationalInsuranceNumber.nino.get == theirDetails.nationalInsuranceNumber.get.nino.getOrElse("")) trackEvent("/preview", "Customer and DP match - NINO")
-        else if(yourDetails.dateOfBirth == theirDetails.dateOfBirth) trackEvent("/preview", "Customer and DP match – no NINO")
+        if(yourDetails.nationalInsuranceNumber.nino.getOrElse("") == theirDetails.nationalInsuranceNumber.getOrElse(NationalInsuranceNumber(Some(""))).nino.get) trackEvent("/preview", "Customer and DP match - NINO")
+        else if(yourDetails.dateOfBirth.equals(theirDetails.dateOfBirth)) trackEvent("/preview", "Customer and DP match – no NINO")
         else ""
     } else ""
 }
