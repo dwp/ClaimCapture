@@ -1,7 +1,7 @@
 #!/bin/bash
 # Create database zipfile using application version info and push to artifactory
 # We expect to run in jenkins workspace with c3 folder directly underneath
-# And have execute permissions set on this script i.e. chmod +x DoDatabase.sh
+# And have execute permissions set on this script i.e. chmod +x DoDatabase.sh which should carry through to jenkins workspace.
 #
 # WARNING .. Temporary script for sbt builds therefore simplistic and likely duplicated amongst any projects with database
 #
