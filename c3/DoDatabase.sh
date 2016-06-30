@@ -34,7 +34,9 @@ fi
 # application.version=3.13-SNAPSHOT
 # application.name=c3
 #####
-appconffile="c3/conf/application-info.conf"
+# we get called from parent directory so need it find the conf file
+parentdir=`dirname $0`
+appconffile="$parentdir/conf/application-info.conf"
 if [ ! -f $appconffile ]
 then
 	echo "========================================================================="
