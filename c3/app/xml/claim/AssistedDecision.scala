@@ -1,8 +1,11 @@
 package xml.claim
 
+import app.ConfigProperties._
 import controllers.mappings.Mappings
+import models.DayMonthYear
 import models.domain._
-import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
+import org.joda.time.{Months, DateTime}
 import xml.XMLComponent
 
 import scala.xml.NodeSeq
@@ -13,11 +16,12 @@ import scala.xml.NodeSeq
  * @author Jorge Migueis/Peter Whitehead
  */
 object AssistedDecision extends XMLComponent {
+  val FIFTEENYEARS9MONTHS = 15 * 12 + 9
   val emptyAssistedDecisionDetails: AssistedDecisionDetails = new AssistedDecisionDetails
 
   def createAssistedDecisionDetails(claim: Claim): Claim = {
     val isDecisionMade = (assisted: AssistedDecisionDetails) => assisted.reason != "None"
-    val fnList = Array[(Claim) => AssistedDecisionDetails](dateOfClaim _, caringHours _, isInReceiptOfBenefit _, isAFIP _, yesEEAGuardWork _, isInResidency _, isInEducation _, isHappyPath _)
+    val fnList = Array[(Claim) => AssistedDecisionDetails](isTooYoung _, dateOfClaim _, caringHours _, isInReceiptOfBenefit _, isAFIP _, yesEEAGuardWork _, isInResidency _, isInEducation _, isTooOld _, isHappyPath _)
     claim.update(process(isDecisionMade, claim)(fnList))
   }
 
@@ -47,6 +51,36 @@ object AssistedDecision extends XMLComponent {
     else emptyAssistedDecisionDetails
   }
 
+  private def isTooYoung(claim: Claim): AssistedDecisionDetails = {
+    val submitDate = DateTime.now
+    val yourDetails = claim.questionGroup[YourDetails].getOrElse(YourDetails())
+    yourDetails.dateOfBirth match {
+      case DayMonthYear(None,None,None,None,None) => emptyAssistedDecisionDetails
+      case _ => {
+        val dateOfBirthDate = DateTime.parse(yourDetails.dateOfBirth.`dd-MM-yyyy`, DateTimeFormat.forPattern("dd-MM-yyyy"))
+        val monthsOld = Months.monthsBetween(dateOfBirthDate.withTimeAtStartOfDay(), submitDate.withTimeAtStartOfDay())
+        if (monthsOld.getMonths < FIFTEENYEARS9MONTHS)
+          decisionModel("Customer does not turn 16 in next 3 months. Send Proforma 491 to customer.", "Disallowance decision,no table")
+        else
+          emptyAssistedDecisionDetails
+      }
+    }
+  }
+
+  // If no date of claim then its test with missing data so default to happy
+  private def lessThan65YearsOld(claim: Claim) = {
+    val yourDetails = claim.questionGroup[YourDetails].getOrElse(YourDetails())
+    claim.dateOfClaim match {
+      case Some(dmy) => yourDetails.dateOfBirth.yearsDiffWith(dmy) < getIntProperty("age.hide.paydetails")
+      case _ => true
+    }
+  }
+
+  private def isTooOld(claim: Claim): AssistedDecisionDetails = {
+    if (lessThan65YearsOld(claim)) emptyAssistedDecisionDetails
+    else decisionModel("Check CIS for benefits.", "Potential underlying entitlement,show table")
+  }
+
   private def yesEEAGuardWork(claim: Claim): AssistedDecisionDetails = {
     if (isEEA(claim))
       decisionModel("Assign to Exportability in CAMLite workflow.", "None,show table")
@@ -55,7 +89,7 @@ object AssistedDecision extends XMLComponent {
 
   private def isInResidency(claim: Claim): AssistedDecisionDetails = {
     val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(nationality = "British"))
-    (nationalityAndResidency.nationality, nationalityAndResidency.alwaysLivedInUK, nationalityAndResidency.arrivedInUK ) match {
+    (nationalityAndResidency.nationality, nationalityAndResidency.alwaysLivedInUK, nationalityAndResidency.arrivedInUK) match {
       case (NationalityAndResidency.british | NationalityAndResidency.britishIrish, "no", Some("more")) => decisionModel("Check CIS for benefits.", "Potential award,show table")
       case (NationalityAndResidency.british | NationalityAndResidency.britishIrish, "no", _) => decisionModel("Assign to Exportability in CAMLite workflow.", "None,show table")
       case _ => emptyAssistedDecisionDetails
