@@ -60,7 +60,7 @@ object AssistedDecision extends XMLComponent {
         val dateOfBirthDate = DateTime.parse(yourDetails.dateOfBirth.`dd-MM-yyyy`, DateTimeFormat.forPattern("dd-MM-yyyy"))
         val monthsOld = Months.monthsBetween(dateOfBirthDate.withTimeAtStartOfDay(), submitDate.withTimeAtStartOfDay())
         if (monthsOld.getMonths < FIFTEENYEARS9MONTHS)
-          decisionModel("Customer does not turn 16 in next 3 months. Send Proforma 491 to customer.", "Disallowance decision,no table")
+          decisionModel("Customer does not turn 16 in next 3 months. Send Proforma 491 to customer.", "Potential disallowance decision,no table")
         else
           emptyAssistedDecisionDetails
       }

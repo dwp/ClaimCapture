@@ -39,7 +39,7 @@ class AssistedDecisionAgeChecksSpec extends Specification with Mockito {
       val claim = AssistedDecision.createAssistedDecisionDetails(happyClaim.update(claimDateDetails).update(yourDetails));
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must contain("Customer does not turn 16 in next 3 months. Send Proforma 491 to customer.")
-      (xml \\ "RecommendedDecision").text must contain("Disallowance decision")
+      (xml \\ "RecommendedDecision").text must contain("Potential disallowance decision")
     }
 
     "NO AD if customer OLDER THAN 15 and 9 year old today i.e. i.e. born 1 day earlier" in new WithApplication {
