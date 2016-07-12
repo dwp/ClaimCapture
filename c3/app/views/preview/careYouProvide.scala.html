@@ -3,7 +3,6 @@
 @import models.domain.MoreAboutTheCare
 @import controllers.mappings.Mappings._
 @import models.domain.TheirPersonalDetails
-@import play.api.i18n.Messages
 @import helper._
 @import app.ConfigProperties._
 
@@ -38,6 +37,10 @@
 	!getBooleanProperty("cyaToggleVisible")
 }
 
+@dpname=@{
+	theirPersonalDetails.firstName+" "+theirPersonalDetails.surname
+}
+
 @content = {
 	@if(showHidePartnerDetails){
 		@fieldWithLink("care_you_provide_name", "name", partnerTitleName,disableLink = disableChangeButton, elementId = Some("firstName"))
@@ -46,7 +49,7 @@
 	}
 	@fieldWithLink("care_you_provide_relationship", "relationship", theirPersonalDetails.relationship,disableLink = disableChangeButton, elementId = Some("relationship"))
 	@fieldWithLink("care_you_provide_address", "theirAddress.answer", address,disableLink = disableChangeButton, elementId = Some("theirAddress_answer"))
-	@fieldWithLink("care_you_provide_spent35HoursCaring", "spent35HoursCaring", s"${Html(messages("label."+abouTheCare.spent35HoursCaring))}",disableLink = disableChangeButton, elementId = Some("spent35HoursCaring"))
+	@fieldWithLink("care_you_provide_spent35HoursCaring", messages("spent35HoursCaring",dpname), s"${Html(messages("label."+abouTheCare.spent35HoursCaring))}",disableLink = disableChangeButton, elementId = Some("spent35HoursCaring"))
 }
 
 @accordion(label = messages("s4.longName"), openLabel = "open-care-you-provide", closeLabel = "close-care-you-provide", content = content, 'track -> true)

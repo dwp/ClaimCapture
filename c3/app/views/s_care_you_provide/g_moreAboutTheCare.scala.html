@@ -1,31 +1,26 @@
 @(currentForm: Form[models.domain.MoreAboutTheCare])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import views.html.helper._
-@import views.html.helper.dates._
 @implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
-@import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
-@import models.domain.MoreAboutTheCare
-@import play.api.i18n.Messages
 @import scala.language.postfixOps
+@import models.domain.TheirPersonalDetails
 
-    @main(messages("s4.g4") + " - " + messages("s4.longName"), Some(currentForm)) {
+@theirPersonalDetails = @{claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())}
+@dpname=@{
+    theirPersonalDetails.firstName+" "+theirPersonalDetails.surname
+}
 
-        @form(action = controllers.s_care_you_provide.routes.GMoreAboutTheCare.submit, 'role -> "form") {
-
-            @DwpCSRFFormHelper.formField
-
-            <fieldset class="form-elements">
-
-                <ul>
-                    @yesNoRadioGroup(currentForm("spent35HoursCaring"), 'track -> true)
-                </ul>
-
-            </fieldset>
-
-            @views.html.common.bottomNavigation()
-
-        }
-
+@main(messages("s4.g4") + " - " + messages("s4.longName"), Some(currentForm)) {
+    @form(action = controllers.s_care_you_provide.routes.GMoreAboutTheCare.submit, 'role -> "form") {
+        @DwpCSRFFormHelper.formField
+        <fieldset class="form-elements">
+            <ul>
+                @yesNoRadioGroup(currentForm("spent35HoursCaring"), '_label-> messages("spent35HoursCaring", dpname),
+                    'helperAbove-> messages("spent35HoursHelper"), 'track -> true)
+            </ul>
+        </fieldset>
+        @views.html.common.bottomNavigation()
     }
+}
 
