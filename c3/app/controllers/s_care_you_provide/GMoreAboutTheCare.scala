@@ -9,7 +9,7 @@ import play.api.mvc.Controller
 import controllers.mappings.Mappings._
 import utils.helpers.CarersForm._
 import models.view.{Navigable, CachedClaim}
-import models.domain.MoreAboutTheCare
+import models.domain.{TheirPersonalDetails, MoreAboutTheCare}
 import models.yesNo.YesNoWithDate
 import play.api.i18n._
 
@@ -26,7 +26,10 @@ object GMoreAboutTheCare extends Controller with CachedClaim with Navigable with
   def submit = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        BadRequest(views.html.s_care_you_provide.g_moreAboutTheCare(formWithErrors))
+        val theirPersonalDetails = claim.questionGroup(TheirPersonalDetails).getOrElse(TheirPersonalDetails()).asInstanceOf[TheirPersonalDetails]
+        val formWithErrorsUpdate = formWithErrors
+          .replaceError("spent35HoursCaring", errorRequired, FormError("spent35HoursCaring", errorRequired, Seq(theirPersonalDetails.firstName+" "+theirPersonalDetails.surname)))
+        BadRequest(views.html.s_care_you_provide.g_moreAboutTheCare(formWithErrorsUpdate))
       },
       moreAboutTheCare => claim.update(moreAboutTheCare) -> Redirect(controllers.s_breaks.routes.GBreaksInCare.present())
     )
