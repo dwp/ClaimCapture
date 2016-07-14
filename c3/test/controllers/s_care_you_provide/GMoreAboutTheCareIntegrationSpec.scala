@@ -4,7 +4,6 @@ import org.specs2.mutable._
 import utils.WithBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects._
-import utils.pageobjects.s_about_you.GNationalityAndResidencyPage
 import utils.pageobjects.s_breaks.GBreaksInCarePage
 import utils.pageobjects.s_care_you_provide.{GTheirPersonalDetailsPage, GMoreAboutTheCarePage}
 
@@ -16,6 +15,18 @@ class GMoreAboutTheCareIntegrationSpec extends Specification {
     "be presented" in new WithBrowser with PageObjects {
       val page = GMoreAboutTheCarePage(context)
       page goToThePage()
+    }
+
+    "contain dp name in 35 hour and uc questions"  in new WithBrowser with PageObjects {
+      val claim = ClaimScenarioFactory.s4CareYouProvide(hours35 = false)
+      val theirPersonalDetailsPage = GTheirPersonalDetailsPage(context)
+      theirPersonalDetailsPage goToThePage()
+      theirPersonalDetailsPage fillPageWith claim
+      val moreAboutCarePage = theirPersonalDetailsPage submitPage()
+      moreAboutCarePage must beAnInstanceOf[GMoreAboutTheCarePage]
+      moreAboutCarePage.source must contain("Do you spend 35 hours or more each week providing care for Tom Wilson?")
+      moreAboutCarePage.source must contain("Does anyone else spend 35 hours or more each week providing care for Tom Wilson?")
+      moreAboutCarePage.source must contain("Are they getting the carer element of Universal Credit for Tom Wilson?")
     }
 
     "contain 2 errors on invalid submission" in new WithBrowser with PageObjects {
