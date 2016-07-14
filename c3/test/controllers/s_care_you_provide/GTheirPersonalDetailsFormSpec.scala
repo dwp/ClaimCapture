@@ -85,7 +85,7 @@ class GTheirPersonalDetailsFormSpec extends Specification {
     "reject an invalid address with empty second line" in new WithApplication {
       GTheirPersonalDetails.form.bind(personalData++
         Map("theirAddress.address.lineOne" -> "lineOne", "theirAddress.address.lineTwo" -> "", "theirAddress.address.lineThree" -> "", "theirAddress.postCode" -> "")).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.addressLines.required"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.address.lines.required"),
         theirContactDetails => "This mapping should not happen." must equalTo("Valid"))
     }
 

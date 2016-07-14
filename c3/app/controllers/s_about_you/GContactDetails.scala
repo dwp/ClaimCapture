@@ -22,7 +22,7 @@ import play.api.i18n._
 object GContactDetails extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val form = Form(mapping(
-    "address" -> address.verifying(requiredAddress),
+    "address" -> address,
     "postcode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode)),
     "howWeContactYou" -> optional(carersNonEmptyText.verifying(validPhoneNumberRequired)),
     "contactYouByTextphone" -> optional(text(maxLength = 4)),

@@ -27,7 +27,7 @@ class GContactDetailsIntegrationSpec extends Specification {
 
       val errors = page.submitPage().listErrors
       errors.size mustEqual 1
-      errors(0) must contain("Address")
+      errors(0) must contain("Enter your address. You must complete the first two lines")
 
     }
 
