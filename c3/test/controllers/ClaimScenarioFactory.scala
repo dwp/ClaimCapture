@@ -312,9 +312,15 @@ object ClaimScenarioFactory {
 
   def s4CareYouProvideWithNoBreaksInCare() = {
     val claim = s4CareYouProvide(true)
-
     claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "no"
+    claim
+  }
 
+  def s4CareYouProvideWithOtherCarerUcDetails() = {
+    val claim = s4CareYouProvide(true)
+    claim.AboutTheCareYouProvideOtherCarer = "Yes"
+    claim.AboutTheCareYouProvideOtherCarerUc = "Yes"
+    claim.AboutTheCareYouProvideOtherCarerUcDetails = "My sister gets uc here ninum is NR121212A"
     claim
   }
 

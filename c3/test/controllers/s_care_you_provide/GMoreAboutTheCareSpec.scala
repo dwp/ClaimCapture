@@ -32,6 +32,20 @@ class GMoreAboutTheCareSpec extends Specification {
       val result = GMoreAboutTheCare.submit(request)
       status(result) mustEqual SEE_OTHER
     }
+
+    "error if not enter select other-carer" in new WithApplication with Claiming {
+      val input = Seq("spent35HoursCaring" -> "no")
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(input: _*)
+      val result = GMoreAboutTheCare.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+
+    "error if other-carer and not select other-carer-gets-uc" in new WithApplication with Claiming {
+      val input = Seq("spent35HoursCaring" -> "no", "otherCarer" -> "yes")
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(input: _*)
+      val result = GMoreAboutTheCare.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
   }
   section("unit", models.domain.CareYouProvide.id)
 }
