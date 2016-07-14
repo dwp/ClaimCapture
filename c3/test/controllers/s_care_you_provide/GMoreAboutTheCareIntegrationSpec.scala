@@ -16,11 +16,11 @@ class GMoreAboutTheCareIntegrationSpec extends Specification {
       page goToThePage()
     }
 
-    "contain errors on invalid submission" in new WithBrowser with PageObjects {
+    "contain 2 errors on invalid submission" in new WithBrowser with PageObjects {
       val page = GMoreAboutTheCarePage(context)
       page goToThePage()
       page submitPage()
-      page.listErrors.size mustEqual 1
+      page.listErrors.size mustEqual 2
     }
 
     "navigate back" in new WithBrowser with PageObjects {

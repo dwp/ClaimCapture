@@ -8,7 +8,7 @@ import models.view.CachedClaim
 import utils.WithApplication
 
 class GMoreAboutTheCareSpec extends Specification {
-  val moreAboutTheCareInput = Seq("spent35HoursCaring" -> "no", "beforeClaimCaring.answer" -> "no", "hasSomeonePaidYou" -> "no")
+  val moreAboutTheCareInput = Seq("spent35HoursCaring" -> "no", "otherCarer" -> "no")
 
   section("unit", models.domain.CareYouProvide.id)
   "More about the care" should {
