@@ -19,7 +19,7 @@ object GMoreAboutTheCare extends Controller with CachedClaim with Navigable with
     "spent35HoursCaring" -> nonEmptyText.verifying(validYesNo),
     "otherCarer" -> nonEmptyText.verifying(validYesNo),
     "otherCarerUc" -> optional(text.verifying(validYesNo)),
-    "otherCarerUcDetails" -> optional(carersText(maxLength = 300))
+    "otherCarerUcDetails" -> optional(carersText(maxLength = MoreAboutTheCare.textMaxLength))
   )(MoreAboutTheCare.apply)(MoreAboutTheCare.unapply)
     .verifying("otherCarerUc.required", validateCarerUc _)
   )

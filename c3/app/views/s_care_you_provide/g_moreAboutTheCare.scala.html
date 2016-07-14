@@ -7,6 +7,7 @@
 @import models.domain.TheirPersonalDetails
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
+@import models.domain.MoreAboutTheCare
 
 @theirPersonalDetails = @{claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())}
 @dpname=@{
@@ -30,7 +31,8 @@
                         otherDetailPlaceHolder(
                             inputDef = Seq(
                                 carersInputTextArea(currentForm("otherCarerUcDetails"),
-                                    'textAreaHelper->Html(messages("300charsLeft")), 'maxlength->300)
+                                    'textAreaHelper->Html(messages(s"${MoreAboutTheCare.textMaxLength}charsLeft")),
+                                    'maxLength->MoreAboutTheCare.textMaxLength, 'ignoreOptional -> true )
                             ),
                             'id -> "otherCarerUcDetailsWrap"
                         )
@@ -45,7 +47,7 @@
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_care_you_provide/g_moreAboutTheCarer.js")></script>
     <script type="text/javascript">
         $(function(){
-            window.areaCounter({selector:"@CarersCrypto.encryptAES("otherCarerUcDetails")",maxChars:300});
+            window.areaCounter({selector:"@CarersCrypto.encryptAES("otherCarerUcDetails")",maxChars:@MoreAboutTheCare.textMaxLength});
             window.init(
                 "@CarersCrypto.encryptAES(currentForm("otherCarer_yes").id)",
                 "@CarersCrypto.encryptAES(currentForm("otherCarer_no").id)",
