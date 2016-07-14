@@ -5,6 +5,8 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import scala.language.postfixOps
 @import models.domain.TheirPersonalDetails
+@import views.html.helper.base._
+@import utils.helpers.CarersCrypto
 
 @theirPersonalDetails = @{claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())}
 @dpname=@{
@@ -18,9 +20,42 @@
             <ul>
                 @yesNoRadioGroup(currentForm("spent35HoursCaring"), '_label-> messages("spent35HoursCaring", dpname),
                     'helperAbove-> messages("spent35HoursHelper"), 'track -> true)
+
+                @yesNoRadioGroup(currentForm("otherCarer"), '_label-> messages("otherCarer", dpname), 'track -> true)
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        yesNoRadioGroup(currentForm("otherCarerUc"), '_label-> messages("otherCarerUc", dpname), 'track -> true,
+                            'ignoreOptional-> true),
+                        otherDetailPlaceHolder(
+                            inputDef = Seq(
+                                carersInputTextArea(currentForm("otherCarerUcDetails"),
+                                    'textAreaHelper->Html(messages("300charsLeft")), 'maxlength->300)
+                            ),
+                            'id -> "otherCarerUcDetailsWrap"
+                        )
+                    ), 'id -> "otherCarerUcWrap"
+                )
             </ul>
         </fieldset>
         @views.html.common.bottomNavigation()
     }
+
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_care_you_provide/g_moreAboutTheCarer.js")></script>
+    <script type="text/javascript">
+        $(function(){
+            window.areaCounter({selector:"@CarersCrypto.encryptAES("otherCarerUcDetails")",maxChars:300});
+            window.init(
+                "@CarersCrypto.encryptAES(currentForm("otherCarer_yes").id)",
+                "@CarersCrypto.encryptAES(currentForm("otherCarer_no").id)",
+                "otherCarerUcWrap",
+                "@CarersCrypto.encryptAES(currentForm("otherCarerUc_yes").id)",
+                "@CarersCrypto.encryptAES(currentForm("otherCarerUc_no").id)",
+                "otherCarerUcDetailsWrap",
+                "@CarersCrypto.encryptAES(currentForm("otherCarerUcDetails").id)"
+            );
+        });
+    </script>
 }
 
