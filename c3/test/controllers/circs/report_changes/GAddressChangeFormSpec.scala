@@ -60,9 +60,10 @@ class GAddressChangeFormSpec extends Specification {
         Map("moreAboutChanges" -> moreAboutChanges, "newPostcode" -> postCode, "previousPostcode" -> postCode)
       ).fold(
           formWithErrors => {
-            formWithErrors.errors(0).message must equalTo(Mappings.errorRequired)
+            formWithErrors.errors.length must equalTo(3)
+            formWithErrors.errors(0).message must equalTo("error.address.lines.required")
             formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
-            formWithErrors.errors(2).message must equalTo(Mappings.errorRequired)
+            formWithErrors.errors(2).message must equalTo("error.address.lines.required")
           },
           f => "This mapping should not happen." must equalTo("Valid")
         )
@@ -78,9 +79,10 @@ class GAddressChangeFormSpec extends Specification {
         )
       ).fold(
           formWithErrors => {
-            formWithErrors.errors(0).message must equalTo(Mappings.errorRequired)
+            formWithErrors.errors.length must equalTo(3)
+            formWithErrors.errors(0).message must equalTo("error.address.lines.required")
             formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
-            formWithErrors.errors(2).message must equalTo(Mappings.errorRequired)
+            formWithErrors.errors(2).message must equalTo("error.address.lines.required")
           },
           f => "This mapping should not happen." must equalTo("Valid")
         )
@@ -96,9 +98,10 @@ class GAddressChangeFormSpec extends Specification {
         )
       ).fold(
           formWithErrors => {
-            formWithErrors.errors(0).message must equalTo(Mappings.errorRequired)
+            formWithErrors.errors.length must equalTo(3)
+            formWithErrors.errors(0).message must equalTo("error.address.lines.required")
             formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
-            formWithErrors.errors(2).message must equalTo(Mappings.errorRequired)
+            formWithErrors.errors(2).message must equalTo("error.address.lines.required")
           },
           f => "This mapping should not happen." must equalTo("Valid")
         )
@@ -182,7 +185,7 @@ class GAddressChangeFormSpec extends Specification {
       ).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(1)
-          formWithErrors.errors(0).message must equalTo("error.addressLines.required")
+          formWithErrors.errors(0).message must equalTo("error.address.lines.required")
         },
         f => "This mapping should not happen." must equalTo("Valid")
       )
@@ -210,7 +213,7 @@ class GAddressChangeFormSpec extends Specification {
       ).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(1)
-          formWithErrors.errors(0).message must equalTo("error.addressLines.required")
+          formWithErrors.errors(0).message must equalTo("error.address.lines.required")
         },
         f => "This mapping should not happen." must equalTo("Valid")
       )

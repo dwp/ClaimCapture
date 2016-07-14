@@ -25,7 +25,7 @@ object GJobDetails extends Controller with CachedClaim with Navigable with I18nS
     "iterationID" -> carersNonEmptyText,
     "employerName"-> carersNonEmptyText(maxLength = 60),
     "phoneNumber" -> nonEmptyText.verifying(validPhoneNumberRequired),
-    "address" -> address.verifying(requiredAddress),
+    "address" -> address,
     "postcode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode)),
     "startJobBeforeClaimDate" -> nonEmptyText.verifying(validYesNo),
     "jobStartDate" -> optional(dayMonthYear.verifying(validDate)),

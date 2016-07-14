@@ -34,15 +34,15 @@ object GAddressChange extends Controller with CachedChangeOfCircs with Navigable
   val sameAddressMapping =
     "sameAddress" -> mapping(
       "answer" -> optional(carersText()),
-      "theirNewAddress" -> optional(address.verifying(requiredAddress)),
+      "theirNewAddress" -> optional(address),
       "theirNewPostcode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode))
     )(YesNoWithAddress.apply)(YesNoWithAddress.unapply)
 
   val form = Form(mapping(
-    "previousAddress" -> address.verifying(requiredAddress),
+    "previousAddress" -> address,
     "previousPostcode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode)),
     stillCaringMapping,
-    "newAddress" -> address.verifying(requiredAddress),
+    "newAddress" -> address,
     "newPostcode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode)),
     changedAddressMapping,
     sameAddressMapping,
