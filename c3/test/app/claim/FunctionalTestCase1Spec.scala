@@ -42,6 +42,7 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
       dateConversion("AboutTheCareYouProvideDateofBirthPersonYouCareFor") +
       addressConversion("AboutTheCareYouProvideAddressPersonCareFor") + "AboutTheCareYouProvidePostcodePersonCareFor" +
       "AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek" +
+      "AboutTheCareYouProvideOtherCarer" +
       "AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1" +
       "EducationHaveYouBeenOnACourseOfEducation" +
       "EducationCourseTitle" +
