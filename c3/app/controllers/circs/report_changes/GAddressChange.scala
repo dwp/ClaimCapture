@@ -88,7 +88,7 @@ object GAddressChange extends Controller with CachedChangeOfCircs with Navigable
         val updatedFormWithErrors = formWithErrors
           .replaceError("stillCaring","dateRequired", FormError("stillCaring.date", errorRequired))
           .replaceError("","sameAddress.answer", FormError("sameAddress.answer", errorRequired))
-          .replaceError("","sameAddress.theirNewAddress", FormError("sameAddress.theirNewAddress", errorRequired))
+          .replaceError("","sameAddress.theirNewAddress", FormError("sameAddress.theirNewAddress", "error.address.lines.required"))
           .replaceError("","caredForChangedAddress.answer", FormError("caredForChangedAddress.answer", errorRequired))
         BadRequest(views.html.circs.report_changes.addressChange(updatedFormWithErrors))
       },
