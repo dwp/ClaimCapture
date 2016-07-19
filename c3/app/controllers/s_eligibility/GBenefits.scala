@@ -25,6 +25,7 @@ object GBenefits extends Controller with CachedClaim with Navigable with I18nSup
   }
 
   def submit = claiming ({implicit claim => implicit request => implicit request2lang =>
+    Logger.info(s"Claim Benefits page submitted with google-analytics:${googleAnalyticsAgentId(request)}.")
     form.bindEncrypted.fold(
       formWithErrors => {
         BadRequest(views.html.s_eligibility.g_benefits(formWithErrors))

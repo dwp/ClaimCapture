@@ -2,7 +2,7 @@ package monitoring
 
 import app.ConfigProperties._
 import play.api.Play.current
-import monitor.{HealthMonitor, MonitorRegistration}
+import utils.monitor.{HealthMonitor, MonitorRegistration}
 
 trait C3MonitorRegistration extends MonitorRegistration {
   override def getFrequency: Int = getIntProperty("metrics.frequency")
@@ -15,7 +15,7 @@ trait C3MonitorRegistration extends MonitorRegistration {
     current.injector.instanceOf[HealthMonitor]
   }
 
-  override def registerHealthChecks() {
+  override def registerHealthChecks(): Unit = {
     val healthMonitor = getHealthMonitor
     healthMonitor.register("c3-transaction-db", current.injector.instanceOf[ClaimTransactionCheck])
     healthMonitor.register("c3-cache", new CacheCheck)

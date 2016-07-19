@@ -7,7 +7,7 @@ import com.google.common.primitives.Primitives
 import controllers.circs.consent_and_declaration.GCircsDeclaration
 import controllers.s_consent_and_declaration.GDeclaration
 import models.domain.Claim
-import monitor.HealthMonitor
+import utils.monitor.HealthMonitor
 import monitoring.{ProdHealthMonitor, ClaimTransactionCheck}
 import play.api.{Logger, Configuration, Environment, GlobalSettings}
 import play.api.cache.CacheApi

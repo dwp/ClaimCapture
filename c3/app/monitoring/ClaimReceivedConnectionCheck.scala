@@ -6,7 +6,7 @@ import gov.dwp.carers.CADSHealthCheck.Result
 import models.view.ClaimHandling
 import play.Configuration
 import play.api.http.Status
-import utils.HttpUtils.HttpWrapper
+import utils.HttpWrapper
 import scala.language.{implicitConversions, postfixOps}
 import app.ConfigProperties._
 
@@ -17,7 +17,7 @@ class ClaimReceivedConnectionCheck extends CADSHealthCheck(ClaimHandling.C3NAME,
 
   override def check(): Result = {
     val url = Configuration.root().getString("submissionServerUrl", "SubmissionServerEndpointNotSet") + "ping"
-    val timeout = getIntProperty("cr.timeout")
+    val timeout = getIntProperty("cr.health.timeout")
     val httpWrapper = new HttpWrapper
     val response = httpWrapper.get(url, timeout)
     response.getStatus match {

@@ -6,7 +6,7 @@ import controllers.s_consent_and_declaration.GDeclaration
 import controllers.submission.XmlSubmitter
 import models.domain.Claim
 import models.view.ClaimHandling._
-import monitor.HealthMonitor
+import utils.monitor.HealthMonitor
 import monitoring.{ProdHealthMonitor, ClaimTransactionCheck}
 import play.api.libs.ws.WSResponse
 import play.api.libs.ws.ning.NingWSResponse

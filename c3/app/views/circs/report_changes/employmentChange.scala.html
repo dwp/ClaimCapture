@@ -166,7 +166,12 @@
             "@CarersCrypto.encryptAES(typeOfWork("selfEmployedTotalIncome")("dontknow").id)",
             "@CarersCrypto.encryptAES(employmentChange("paidMoneyYet")("answer")("yes").id)",
             "@CarersCrypto.encryptAES(employmentChange("paidMoneyYet")("answer")("no").id)",
-            "@CarersCrypto.encryptAES(typeOfWork("selfEmployedMoreAboutChanges").id)");
+            "@CarersCrypto.encryptAES(typeOfWork("selfEmployedMoreAboutChanges").id)",
+            "@CarersCrypto.encryptAES(employmentChange("paidMoneyYet")("date")("day").id)",
+            "@CarersCrypto.encryptAES(employmentChange("paidMoneyYet")("date")("month").id)",
+            "@CarersCrypto.encryptAES(employmentChange("paidMoneyYet")("date")("year").id)",
+            "paidMoneyYetWrap"
+            );
         });
 
         $(function(){

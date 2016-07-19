@@ -11,7 +11,7 @@ import com.typesafe.sbt.packager.SettingsHelper._
 
 object ApplicationBuild extends Build {
   val appName = "c3"
-  val appVersion = "3.12-SNAPSHOT"
+  val appVersion = "3.13-SNAPSHOT"
 
   processConfFiles(Seq("conf/application-info.conf"), Seq("application.version" -> appVersion, "application.name" -> appName))
 
@@ -29,8 +29,8 @@ object ApplicationBuild extends Build {
     "com.typesafe.akka" %% "akka-testkit" % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-agent" % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-remote" % "2.3.9" % "test" withSources() withJavadoc(),
-    "gov.dwp.carers" % "xmlcommons" % "8.02-SNAPSHOT",
-    "gov.dwp.carers" %% "carerscommon" % "7.17-SNAPSHOT",
+    "gov.dwp.carers" % "xmlcommons" % "8.10-SNAPSHOT",
+    "gov.dwp.carers" % "carerscommon" % "8.01-SNAPSHOT",
     "org.postgresql" % "postgresql" % "9.3-1103-jdbc41",
     "com.h2database" % "h2" % "1.4.186" % "test",
     "me.moocar" % "logback-gelf" % "0.12",
@@ -64,7 +64,8 @@ object ApplicationBuild extends Build {
     resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
     resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases",
     resolvers += "Kaliber Repo for Play mailer" at "http://jars.kaliber.io/artifactory/repo/",
-    resolvers += "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases"
+    resolvers += "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases",
+    resolvers += "Local Maven" at "file://"+Path.userHome.absolutePath+"/.m2/repository"
   )
 
   var sTest: Seq[Def.Setting[_]] = Seq()
