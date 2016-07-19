@@ -8,12 +8,13 @@
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
 @import models.domain.MoreAboutTheCare
+@import play.api.Play
+@import play.api.Play.current
 
 @theirPersonalDetails = @{claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())}
 @dpname=@{
     theirPersonalDetails.firstName+" "+theirPersonalDetails.surname
 }
-
 @main(messages("s4.g4") + " - " + messages("s4.longName"), Some(currentForm)) {
     @form(action = controllers.s_care_you_provide.routes.GMoreAboutTheCare.submit, 'role -> "form") {
         @DwpCSRFFormHelper.formField
@@ -40,8 +41,9 @@
                 )
             </ul>
         </fieldset>
-        @views.html.common.bottomNavigation()
+        @views.html.common.bottomNavigation(customTrack = Some(Html("onclick=analyticsCallback()")))
     }
+
 
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_care_you_provide/g_moreAboutTheCarer.js")></script>
@@ -58,6 +60,17 @@
                 "@CarersCrypto.encryptAES(currentForm("otherCarerUcDetails").id)"
             );
         });
+        function analyticsCallback() {
+                var textelement="#@CarersCrypto.encryptAES(currentForm("otherCarerUcDetails").id)"
+				if(!@Play.isTest && $(textelement).is(":visible")){
+				    var l=$(textelement).val().length
+                    window.trackEvent(
+                            "@{request.path}",
+                            "otherCarerUcDetails.tracking",
+                            l
+                    )
+				}
+			}
     </script>
 }
 
