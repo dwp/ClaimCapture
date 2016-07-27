@@ -1,6 +1,7 @@
 $ ->
     $("select[class=selectWithOther] option:selected").each ->
       otherTextArea = $(this).parent().next()
+      $(otherTextArea).find("textarea").trigger("blur")
 
       if $(this).val().toLowerCase() == "other"
         otherTextArea.slideDown(0)

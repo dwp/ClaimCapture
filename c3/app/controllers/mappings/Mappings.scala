@@ -210,12 +210,6 @@ object Mappings {
     case _ => Invalid(ValidationError(invalidYesNo))
   }
 
-//  private def paymentFrequencyValidation(pf: PaymentFrequency): ValidationResult = Try(new PaymentFrequency(pf.frequency, pf.other)) match {
-//    case Success(p: PaymentFrequency) if p.frequency == app.PensionPaymentFrequency.Other && p.other.isEmpty => Invalid(ValidationError("error.paymentFrequency"))
-//    case Success(p: PaymentFrequency) => Valid
-//    case Failure(_) => Invalid(ValidationError(errorInvalid))
-//  }
-
   def validPaymentFrequencyOnly: Constraint[PaymentFrequency] = Constraint[PaymentFrequency]("constraint.validatePaymentFrequency") { pf =>
     Try(new PaymentFrequency(pf.frequency, pf.other)) match {
       case Success(p: PaymentFrequency) if p.frequency == app.PensionPaymentFrequency.Other && p.other.isEmpty => Invalid(ValidationError("error.paymentFrequency"))

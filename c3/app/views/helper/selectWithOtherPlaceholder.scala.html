@@ -1,17 +1,34 @@
-@(field: play.api.data.Field,id:String, options: Seq[(String, String)], args: (Symbol, Any)*)(implicit lang: Lang, messages: play.api.i18n.Messages)
+@(field: play.api.data.Field,id:String, myoptions: Seq[(String, String)], args: (Symbol, Any)*)(implicit lang: Lang, messages: play.api.i18n.Messages)
 
 
 @import views.html.helper.base._
 @implicitField = @{ utils.helpers.EmptyTemplate.apply(lang).fieldConstructor }
 @import play.api.i18n.Messages
+@import views.html.helper._
 
-@views.html.helper.base.carersSelect(field(id), options, args ++ Seq('class -> "selectWithOther"): _*)
+@views.html.helper.base.carersSelect(field(id), myoptions, args ++ Seq('class -> "selectWithOther"): _*)
 
+@otherLabel=@{
+    args.find(_._1 == '_otherLabel).getOrElse('_otherLabel->"")._2.toString
+}
+@textHelperValue=@{
+    if(args.exists(_._1 == 'textAreaHelper)) {
+        "<p class=\"form-hint countdown\">"+args.find(_._1 == 'textAreaHelper).get._2.toString +"</p>"
+    }
+    else {
+        ""
+    }
+}
 <ul @{Html(args.toMap.get('id).map(p => s"""id="${p}_wrap" """).getOrElse(""))}>
     <li class="form-group@{if(field.hasErrors)" validation" else ""}" >
-        @carersInputTextArea(field(id)("other"), Seq('placeholder -> messages("ifOtherPleaseSpecify"), 'ignoreLabel -> false) ++ args.filterNot(p => p._1 == 'textAreaHelper || p._1 == 'id):_*)
-        @if(args.exists(_._1 == 'textAreaHelper)) {
-            <p class="form-hint countdown">@Html(args.find(_._1 == 'textAreaHelper).get._2.toString)</p>
-        }
+        @otherDetailPlaceHolder(
+            inputDef = Seq(
+                carersInputTextArea(field(id)("other"), Seq('placeholder -> messages("ifOtherPleaseSpecify"),
+                    'ignoreLabel -> false, '_label->otherLabel, 'ignoreOptional->true) ++ args.filterNot(p => p._1 == 'textAreaHelper || p._1 == 'id):_*),
+                Html(textHelperValue)
+            ),
+            'class-> "extra-padding-top"
+        )
     </li>
 </ul>
+

@@ -1,6 +1,14 @@
 @(inputDef: Seq[Html], args: (Symbol, Any)*)
 
-<li id="@{args.toMap.get('id).map(_.toString).getOrElse("no-id")}" class="form-group">
+@getClass=@{
+    if(args.exists(_._1 == 'class)) {
+        "form-group "+args.find(_._1 == 'class).get._2.toString
+    }
+    else{
+        "form-group"
+    }
+}
+<li id="@{args.toMap.get('id).map(_.toString).getOrElse("no-id")}" class="@getClass">
     <ul class="extra-group">
        @for(html <- inputDef) {
             @html
