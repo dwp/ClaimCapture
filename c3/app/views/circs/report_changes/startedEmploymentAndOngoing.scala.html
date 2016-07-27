@@ -82,6 +82,7 @@
                                     '_label -> {
                                         if(beenPaidYet.value == Some("yes"))"circs.howOften" else "circs.howOften.expect"
                                     },
+                                    '_otherLabel -> messages("oftenGetPaid.otherHelper"),
                                     'textAreaHelper -> Html(messages("60charsLeft")), 'maxLength -> 60, 'class -> "textarea-reduced"
                                 )
                             ),
