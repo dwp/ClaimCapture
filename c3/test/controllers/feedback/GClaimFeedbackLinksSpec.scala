@@ -103,7 +103,7 @@ class GClaimFeedbackLinksSpec extends Specification {
       browser.goTo("/error")
 
       val mainfeedback = browser.$("#feedback")
-      mainfeedback.getText() mustEqual ("Leave feedback for this service")
+      mainfeedback.getText() mustEqual ("What did you think of this service?")
       mainfeedback.getAttribute("href") must contain(ClaimsFeedbackUrl)
       mainfeedback.getAttribute("rel") mustEqual null
       mainfeedback.getAttribute("target") mustEqual null
@@ -119,7 +119,7 @@ class GClaimFeedbackLinksSpec extends Specification {
       browser.goTo("/claim-error-cookie-retry")
 
       val mainfeedback = browser.$("#feedback")
-      mainfeedback.getText() mustEqual ("Leave feedback for this service")
+      mainfeedback.getText() mustEqual ("What did you think of this service?")
       mainfeedback.getAttribute("href") must contain(ClaimsFeedbackUrl)
       mainfeedback.getAttribute("rel") mustEqual null
       mainfeedback.getAttribute("target") mustEqual null
@@ -135,7 +135,7 @@ class GClaimFeedbackLinksSpec extends Specification {
       browser.goTo("/claim-error-browser-backbutton")
 
       val mainfeedback = browser.$("#feedback")
-      mainfeedback.getText() mustEqual ("Leave feedback for this service")
+      mainfeedback.getText() mustEqual ("What did you think of this service?")
       mainfeedback.getAttribute("href") must contain(ClaimsFeedbackUrl)
       mainfeedback.getAttribute("rel") mustEqual null
       mainfeedback.getAttribute("target") mustEqual null
