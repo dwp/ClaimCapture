@@ -79,24 +79,25 @@
                     )
 
                     @otherDetailPlaceHolder(
-                        inputDef = Seq(yesNoRadioGroup(breaksForm("expectStartCaring.answer"),
-                            'values -> Seq("yes" -> Html(messages("label.yes")), "no" -> Html(messages("label.no")), "dontknow" -> Html(messages("label.dontknow"))),
-                            'ignoreOptional -> true)),
-                            'id -> "expectStartCaring"
-                    )
-
-                    @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            dateTimePickerWithDynamicLabel(breaksForm("expectStartCaring.expectStartCaringDate"), 'dynamicDateDays-> -7)
+                            yesNoRadioGroup(breaksForm("expectStartCaring.answer"),
+                                'values -> Seq("yes" -> Html(messages("label.yes")), "no" -> Html(messages("label.no")), "dontknow" -> Html(messages("label.dontknow"))),
+                                'ignoreOptional -> true
+                            ),
+                            otherDetailPlaceHolder(
+                                inputDef = Seq(
+                                    dateTimePickerWithDynamicLabel(breaksForm("expectStartCaring.expectStartCaringDate"), 'dynamicDateDays-> -7)
+                                ),
+                                'id -> "expectStartCaringDate"
+                            ),
+                            otherDetailPlaceHolder(
+                                inputDef = Seq(
+                                    dateTimePickerWithDynamicLabel(breaksForm("expectStartCaring.permanentBreakDate"), 'ignoreOptional -> true, 'dynamicDateDays-> 27)
+                                ),
+                                'id -> "permanentBreakDate"
+                            )
                         ),
-                        'id -> "expectStartCaringDate"
-                    )
-
-                    @otherDetailPlaceHolder(
-                        inputDef = Seq(
-                            dateTimePickerWithDynamicLabel(breaksForm("expectStartCaring.permanentBreakDate"), 'ignoreOptional -> true, 'dynamicDateDays-> 27)
-                        ),
-                        'id -> "permanentBreakDate"
+                        'id -> "expectStartCaring"
                     )
 
                     @yesNoRadioGroup(breaksForm("medicalCareDuringBreak"),'values -> Seq("yes" -> Html(messages("label.yes3")), "no" -> Html(messages("label.no"))))
