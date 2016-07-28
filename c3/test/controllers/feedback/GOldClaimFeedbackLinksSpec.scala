@@ -42,7 +42,7 @@ class GOldClaimFeedbackLinksSpec extends Specification {
 
       // No id on old style main body feedback link need to find 1st matching href
       val mainfeedback = browser.$("a[href=\"" + ClaimsFeedbackUrl + "\"]").first()
-      mainfeedback.getText() mustEqual ("Leave feedback for this service")
+      mainfeedback.getText() mustEqual ("What did you think of this service?")
       mainfeedback.getAttribute("href") must contain(ClaimsFeedbackUrl)
       mainfeedback.getAttribute("rel") mustEqual ("external")
       mainfeedback.getAttribute("target") mustEqual ("_blank")
@@ -70,7 +70,7 @@ class GOldClaimFeedbackLinksSpec extends Specification {
 
       // No id on old style main body feedback link need to find 1st matching href
       val mainfeedback = browser.$("a[href=\"" + ClaimsFeedbackUrl + "\"]").first()
-      mainfeedback.getText() mustEqual ("Leave feedback for this service")
+      mainfeedback.getText() mustEqual ("What did you think of this service?")
       mainfeedback.getAttribute("href") mustEqual (ClaimsFeedbackUrl)
       mainfeedback.getAttribute("rel") mustEqual ("external")
       mainfeedback.getAttribute("target") mustEqual ("_blank")
@@ -87,7 +87,7 @@ class GOldClaimFeedbackLinksSpec extends Specification {
 
       // No id on old style main body feedback link need to find 1st matching href
       val mainfeedback = browser.$("a[href=\"" + ClaimsFeedbackUrl + "\"]").first()
-      mainfeedback.getText() mustEqual ("Leave feedback for this service")
+      mainfeedback.getText() mustEqual ("What did you think of this service?")
       mainfeedback.getAttribute("href") mustEqual (ClaimsFeedbackUrl)
       mainfeedback.getAttribute("rel") mustEqual ("external")
       mainfeedback.getAttribute("target") mustEqual ("_blank")
