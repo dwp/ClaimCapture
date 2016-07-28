@@ -47,6 +47,12 @@
                             dateTimePickerWithDynamicLabel(hasWorkStartedYet("dateWhenStarted"), 'dynamicDateDays-> 31),
                             yesNoRadioGroup(hasWorkFinishedYet("answer"),
                                 'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no"))
+                            ),
+                            otherDetailPlaceHolder(
+                                inputDef = Seq(
+                                    dateTimePickerWithDynamicLabel(hasWorkFinishedYet("dateWhenFinished"), 'dynamicDateDays-> 7)
+                                ),
+                                'id -> "hasWorkFinishedYetWrap"
                             )
                         ),
                         'id -> "hasWorkStartedYetWrap"
@@ -57,13 +63,6 @@
                             dateTimePickerWithDynamicLabel(hasWorkStartedYet("dateWhenWillItStart"), 'dynamicDateDays-> -7)
                         ),
                         'id -> "workNotStartedYetWrap"
-                    )
-
-                    @otherDetailPlaceHolder(
-                        inputDef = Seq(
-                            dateTimePickerWithDynamicLabel(hasWorkFinishedYet("dateWhenFinished"), 'dynamicDateDays-> 7)
-                        ),
-                        'id -> "hasWorkFinishedYetWrap"
                     )
 
                     @yesNoRadioGroup(typeOfWork("answer"),
