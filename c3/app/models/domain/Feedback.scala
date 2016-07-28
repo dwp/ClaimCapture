@@ -4,7 +4,10 @@ import app.ConfigProperties._
 import models.yesNo.{OptYesNoWith2Text}
 import org.joda.time.DateTime
 
-case class Feedback(satisfiedAnswer: String = "", difficultyAndText: OptYesNoWith2Text = OptYesNoWith2Text(None, None, None)) {
+case class Feedback(satisfiedAnswer: String = "",
+                    difficulty: Option[String]=None,
+                    feedback_text1: Option[String] = None,
+                    feedback_text2: Option[String] = None ){
   def datetimesecs = DateTime.now.getMillis / 1000
 
   def origin = getStringProperty("origin.tag")
