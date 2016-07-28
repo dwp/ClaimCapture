@@ -2,10 +2,9 @@ package controllers.feedback
 
 import controllers.CarersForms._
 import controllers.mappings.Mappings._
-import models.yesNo.{OptYesNoWith2Text}
 import play.api.i18n.{MMessages, MessagesApi, I18nSupport}
 import language.reflectiveCalls
-import play.api.data.{FormError, Form}
+import play.api.data.{Form}
 import play.api.data.Forms._
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
