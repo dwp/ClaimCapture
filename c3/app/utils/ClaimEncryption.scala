@@ -157,7 +157,9 @@ object ClaimEncryption {
     claim.questionGroup[CircumstancesPaymentChange] match {
       case Some(circumstancesPaymentChange) =>
         claim.update(circumstancesPaymentChange.copy(
-          encryptYesNoWith2Text(circumstancesPaymentChange.currentlyPaidIntoBank),
+          encryptString(circumstancesPaymentChange.currentlyPaidIntoBankAnswer),
+          encryptOptionalString(circumstancesPaymentChange.currentlyPaidIntoBankText1),
+          encryptOptionalString(circumstancesPaymentChange.currentlyPaidIntoBankText2),
           encryptString(circumstancesPaymentChange.accountHolderName),
           encryptString(circumstancesPaymentChange.bankFullName),
           encryptSortCode(circumstancesPaymentChange.sortCode),
@@ -298,7 +300,9 @@ object ClaimEncryption {
     claim.questionGroup[CircumstancesPaymentChange] match {
       case Some(circumstancesPaymentChange) =>
         claim.update(circumstancesPaymentChange.copy(
-          decryptYesNoWith2Text(circumstancesPaymentChange.currentlyPaidIntoBank),
+          decryptString(circumstancesPaymentChange.currentlyPaidIntoBankAnswer),
+          decryptOptionalString(circumstancesPaymentChange.currentlyPaidIntoBankText1),
+          decryptOptionalString(circumstancesPaymentChange.currentlyPaidIntoBankText2),
           decryptString(circumstancesPaymentChange.accountHolderName),
           decryptString(circumstancesPaymentChange.bankFullName),
           decryptSortCode(circumstancesPaymentChange.sortCode),
