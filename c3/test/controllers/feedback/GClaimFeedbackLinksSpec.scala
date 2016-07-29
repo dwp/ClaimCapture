@@ -30,6 +30,10 @@ class GClaimFeedbackLinksSpec extends Specification {
 
       val mainfeedback = browser.$("#feedback")
       mainfeedback.getText() mustEqual ("What did you think of this service?")
+
+      val linktext=browser.$(".finish-button").first().getText()
+      linktext mustEqual("What did you think of this service? (Takes 30 seconds.)")
+
       mainfeedback.getAttribute("href") must contain(ClaimsFeedbackUrl)
       mainfeedback.getAttribute("rel") mustEqual null
       mainfeedback.getAttribute("target") mustEqual null
@@ -44,9 +48,12 @@ class GClaimFeedbackLinksSpec extends Specification {
 
     "Back button page should contain main link and footer feedback link in same tab" in new WithBrowser {
       browser.goTo("/back-button-page")
-
       val mainfeedback = browser.$("#feedback")
       mainfeedback.getText() mustEqual ("What did you think of this service?")
+
+      val linktext=browser.$(".feedback-en").first().getText()
+      linktext mustEqual("What did you think of this service? (Takes 30 seconds.)")
+
       mainfeedback.getAttribute("href") must contain(ClaimsFeedbackUrl)
       mainfeedback.getAttribute("rel") mustEqual null
       mainfeedback.getAttribute("target") mustEqual null
@@ -60,9 +67,15 @@ class GClaimFeedbackLinksSpec extends Specification {
 
     "Back button page should contain both english and welsh feedback links" in new WithBrowser {
       browser.goTo("/back-button-page")
-
       val englishfeedback = browser.$("a[id=\"feedback\"]").get(0)
       englishfeedback.getText() mustEqual ("What did you think of this service?")
+
+      val linktext=browser.$(".feedback-en").first().getText()
+      linktext mustEqual("What did you think of this service? (Takes 30 seconds.)")
+
+      val welshlinktext=browser.$(".feedback-cy").first().getText()
+      welshlinktext mustEqual("Beth oeddech chi'n ei feddwl o'r gwasanaeth hwn? (Mae'n cymryd 30 eiliad)")
+
       englishfeedback.getAttribute("href") must contain(ClaimsFeedbackUrl)
       englishfeedback.getAttribute("rel") mustEqual null
       englishfeedback.getAttribute("target") mustEqual null
@@ -104,6 +117,10 @@ class GClaimFeedbackLinksSpec extends Specification {
 
       val mainfeedback = browser.$("#feedback")
       mainfeedback.getText() mustEqual ("What did you think of this service?")
+
+      val linktext=browser.$(".form-steps").first().getText()
+      linktext mustEqual("What did you think of this service? (Takes 30 seconds.)")
+
       mainfeedback.getAttribute("href") must contain(ClaimsFeedbackUrl)
       mainfeedback.getAttribute("rel") mustEqual null
       mainfeedback.getAttribute("target") mustEqual null
@@ -136,6 +153,10 @@ class GClaimFeedbackLinksSpec extends Specification {
 
       val mainfeedback = browser.$("#feedback")
       mainfeedback.getText() mustEqual ("What did you think of this service?")
+
+      val linktext=browser.$(".form-steps").first().getText()
+      linktext mustEqual("Start againWhat did you think of this service? (Takes 30 seconds.)")
+
       mainfeedback.getAttribute("href") must contain(ClaimsFeedbackUrl)
       mainfeedback.getAttribute("rel") mustEqual null
       mainfeedback.getAttribute("target") mustEqual null
