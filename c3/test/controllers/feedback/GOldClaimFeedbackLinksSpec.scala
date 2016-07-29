@@ -100,8 +100,8 @@ class GOldClaimFeedbackLinksSpec extends Specification {
       val mainfeedback = browser.$("a[href=\"" + ClaimsFeedbackUrl + "\"]").first()
       mainfeedback.getText() mustEqual ("What did you think of this service?")
 
-      val linktext = browser.$(".finish-button").first().getText()
-      linktext mustEqual ("What did you think of this service? (Takes 30 seconds.)")
+      val linktext = browser.$(".form-steps").first().getText()
+      linktext mustEqual ("Start againWhat did you think of this service? (Takes 30 seconds.)")
 
       mainfeedback.getAttribute("href") mustEqual (ClaimsFeedbackUrl)
       mainfeedback.getAttribute("rel") mustEqual ("external")
@@ -121,7 +121,7 @@ class GOldClaimFeedbackLinksSpec extends Specification {
       val mainfeedback = browser.$("a[href=\"" + ClaimsFeedbackUrl + "\"]").first()
       mainfeedback.getText() mustEqual ("What did you think of this service?")
 
-      val linktext = browser.$(".finish-button").first().getText()
+      val linktext = browser.$(".feedback-en").first().getText()
       linktext mustEqual ("What did you think of this service? (Takes 30 seconds.)")
 
       mainfeedback.getAttribute("href") mustEqual (ClaimsFeedbackUrl)
