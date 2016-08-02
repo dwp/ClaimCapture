@@ -115,7 +115,6 @@ object AssistedDecision extends XMLComponent {
   private def isCheckCIS(claim: Claim): AssistedDecisionDetails = {
     val yourIncomes = claim.questionGroup[YourIncomes].getOrElse(models.domain.YourIncomes())
     val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(nationality = "British"))
-    println("COLING YourIncome None : "+yourIncomes.yourIncome_none)
     if( nationalityAndResidency.trip52weeks == "yes") {
       Logger.info(s"AssistedDecision trip52weeks means emptyDecision")
       emptyAssistedDecisionDetails
