@@ -6,6 +6,7 @@ import models.DayMonthYear
 import models.domain._
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.{Months, DateTime}
+import play.api.Logger
 import xml.XMLComponent
 
 import scala.xml.NodeSeq
@@ -21,7 +22,7 @@ object AssistedDecision extends XMLComponent {
 
   def createAssistedDecisionDetails(claim: Claim): Claim = {
     val isDecisionMade = (assisted: AssistedDecisionDetails) => assisted.reason != "None"
-    val fnList = Array[(Claim) => AssistedDecisionDetails](isTooYoung _, dateOfClaim _, caringHours _, isInReceiptOfBenefit _, isAFIP _, yesEEAGuardWork _, isInResidency _, isInEducation _, isTooOld _, isHappyPath _)
+    val fnList = Array[(Claim) => AssistedDecisionDetails](isTooYoung _, dateOfClaim _, caringHours _, isInReceiptOfBenefit _, isAFIP _, yesEEAGuardWork _, isInResidency _, isInEducation _, isTooOld _, isCheckCIS _)
     claim.update(process(isDecisionMade, claim)(fnList))
   }
 
@@ -30,27 +31,6 @@ object AssistedDecision extends XMLComponent {
   }
 
   // ============ Decision functions ====================
-
-  private def caringHours(claim: Claim): AssistedDecisionDetails = {
-    if (!isOver35Hours(claim)) decisionModel("Not caring 35 hours a week.", "Potential disallowance decision,no table")
-    else emptyAssistedDecisionDetails
-  }
-
-  private def isAFIP(claim: Claim): AssistedDecisionDetails = {
-    if (claim.questionGroup[Benefits].getOrElse(new Benefits()).benefitsAnswer == Benefits.afip) decisionModel("Assign to AFIP officer on CAMLite workflow.", "None,show table")
-    else emptyAssistedDecisionDetails
-  }
-
-  private def isInReceiptOfBenefit(claim: Claim): AssistedDecisionDetails = {
-    if (claim.questionGroup[Benefits].getOrElse(new Benefits()).benefitsAnswer == Benefits.noneOfTheBenefits) decisionModel("DP on No QB. Check CIS.", "Potential disallowance decision,show table")
-    else emptyAssistedDecisionDetails
-  }
-
-  private def dateOfClaim(claim: Claim): AssistedDecisionDetails = {
-    if (isOverThreeMonthsOneDay(claim)) decisionModel("Claim date over 3 months into future.", "Potential disallowance decision,no table")
-    else emptyAssistedDecisionDetails
-  }
-
   private def isTooYoung(claim: Claim): AssistedDecisionDetails = {
     val submitDate = DateTime.now
     val yourDetails = claim.questionGroup[YourDetails].getOrElse(YourDetails())
@@ -67,22 +47,38 @@ object AssistedDecision extends XMLComponent {
     }
   }
 
-  // If no date of claim then its test with missing data so default to happy
-  private def lessThan65YearsOld(claim: Claim) = {
-    val yourDetails = claim.questionGroup[YourDetails].getOrElse(YourDetails())
-    claim.dateOfClaim match {
-      case Some(dmy) => yourDetails.dateOfBirth.yearsDiffWith(dmy) < getIntProperty("age.hide.paydetails")
-      case _ => true
+  private def dateOfClaim(claim: Claim): AssistedDecisionDetails = {
+    if (isOverThreeMonthsOneDay(claim)) decisionModel("Claim date over 3 months into future.", "Potential disallowance decision,no table")
+    else emptyAssistedDecisionDetails
+  }
+
+  private def caringHours(claim: Claim): AssistedDecisionDetails = {
+    if (!isOver35Hours(claim)) decisionModel("Not caring 35 hours a week.", "Potential disallowance decision,no table")
+    else emptyAssistedDecisionDetails
+  }
+
+  def checkBenefits(benefitsAnswer: String) = {
+    benefitsAnswer match {
+      case Benefits.aa | Benefits.pip | Benefits.dla | Benefits.caa => true
+      case _ => false
     }
   }
 
-  private def isTooOld(claim: Claim): AssistedDecisionDetails = {
-    if (lessThan65YearsOld(claim)) emptyAssistedDecisionDetails
-    else decisionModel("Check CIS for benefits.", "Potential underlying entitlement,show table")
+  private def isInReceiptOfBenefit(claim: Claim): AssistedDecisionDetails = {
+    if (claim.questionGroup[Benefits].getOrElse(new Benefits()).benefitsAnswer == Benefits.noneOfTheBenefits) decisionModel("DP on No QB. Check CIS.", "Potential disallowance decision,show table")
+    else emptyAssistedDecisionDetails
+  }
+
+  private def isAFIP(claim: Claim): AssistedDecisionDetails = {
+    if (claim.questionGroup[Benefits].getOrElse(new Benefits()).benefitsAnswer == Benefits.afip) decisionModel("Assign to AFIP officer on CAMLite workflow.", "None,show table")
+    else emptyAssistedDecisionDetails
   }
 
   private def yesEEAGuardWork(claim: Claim): AssistedDecisionDetails = {
-    if (isEEA(claim))
+    val paymentsFromAbroad = claim.questionGroup[PaymentsFromAbroad].getOrElse(PaymentsFromAbroad())
+    if (paymentsFromAbroad.guardQuestion.answer == "yes" && paymentsFromAbroad.guardQuestion.field1.get.answer == "yes" )
+      decisionModel("Assign to Exportability in CAMLite workflow.", "None,show table")
+    else if(paymentsFromAbroad.guardQuestion.answer == "yes" && paymentsFromAbroad.guardQuestion.field2.get.answer == "yes")
       decisionModel("Assign to Exportability in CAMLite workflow.", "None,show table")
     else emptyAssistedDecisionDetails
   }
@@ -102,45 +98,62 @@ object AssistedDecision extends XMLComponent {
     else emptyAssistedDecisionDetails
   }
 
-  def checkBenefits(benefitsAnswer: String) = {
-    benefitsAnswer match {
-      case Benefits.aa | Benefits.pip | Benefits.dla | Benefits.caa => true
-      case _ => false
+  // If no date of claim then its test with missing data so default to happy
+  private def lessThan65YearsOld(claim: Claim) = {
+    val yourDetails = claim.questionGroup[YourDetails].getOrElse(YourDetails())
+    claim.dateOfClaim match {
+      case Some(dmy) => yourDetails.dateOfBirth.yearsDiffWith(dmy) < getIntProperty("age.hide.paydetails")
+      case _ => true
     }
   }
 
-  private def isHappyPath(claim: Claim): AssistedDecisionDetails = {
+  private def isTooOld(claim: Claim): AssistedDecisionDetails = {
+    if (lessThan65YearsOld(claim)) emptyAssistedDecisionDetails
+    else decisionModel("Check CIS for benefits.", "Potential underlying entitlement,show table")
+  }
+
+  private def isCheckCIS(claim: Claim): AssistedDecisionDetails = {
     val yourIncomes = claim.questionGroup[YourIncomes].getOrElse(models.domain.YourIncomes())
     val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(nationality = "British"))
-    (checkBenefits(claim.questionGroup[Benefits].getOrElse(Benefits()).benefitsAnswer),
-      nationalityAndResidency.nationality,
-      NationalityAndResidency.resideInUK(nationalityAndResidency),
-      nationalityAndResidency.trip52weeks,
-      isEEA(claim),
-      isOver35Hours(claim),
-      claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare()).hasBreaks,
-      claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails()).beenInEducationSinceClaimDate,
-      yourIncomes.beenEmployedSince6MonthsBeforeClaim,
-      yourIncomes.beenSelfEmployedSince1WeekBeforeClaim,
-      yourIncomes.yourIncome_none == Mappings.someTrue,
-      claim.questionGroup[HowWePayYou].getOrElse(HowWePayYou()).likeToBePaid,
-      claim.questionGroup[AdditionalInfo].getOrElse(AdditionalInfo()).anythingElse.answer
-      ) match {
-      case (true,
-      NationalityAndResidency.british | NationalityAndResidency.britishIrish,
-      true, //resideInUK
-      "no", //any trips abroad
-      false, //EEA
-      true, //over 35 hours
-      false, //has any breaks in care
-      "no", //been in education
-      "no", //employed
-      "no", //self employed
-      true, //any other payments
-      "yes", //bank account
-      "no" //additional info
-        ) => decisionModel("Check CIS for benefits.", "Potential award,show table")
-      case _ => emptyAssistedDecisionDetails
+    println("COLING YourIncome None : "+yourIncomes.yourIncome_none)
+    if( nationalityAndResidency.trip52weeks == "yes") {
+      Logger.info(s"AssistedDecision trip52weeks means emptyDecision")
+      emptyAssistedDecisionDetails
+    }
+    else if(claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare()).hasBreaks){
+      Logger.info(s"AssistedDecision breaksInCare means emptyDecision")
+      emptyAssistedDecisionDetails
+    }
+    else if(claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails()).beenInEducationSinceClaimDate == "yes"){
+      Logger.info(s"AssistedDecision Education means emptyDecision")
+      emptyAssistedDecisionDetails
+    }
+    else if(yourIncomes.beenEmployedSince6MonthsBeforeClaim == "yes"){
+      Logger.info(s"AssistedDecision Employed means emptyDecision")
+      emptyAssistedDecisionDetails
+    }
+    else if(yourIncomes.beenSelfEmployedSince1WeekBeforeClaim == "yes"){
+      Logger.info(s"AssistedDecision SelfEmployed means emptyDecision")
+      emptyAssistedDecisionDetails
+    }
+    else if(yourIncomes.yourIncome_patmatadoppay == Mappings.someTrue
+        || yourIncomes.yourIncome_fostering == Mappings.someTrue
+        || yourIncomes.yourIncome_directpay == Mappings.someTrue
+        || yourIncomes.yourIncome_anyother == Mappings.someTrue){
+      Logger.info(s"AssistedDecision Income means emptyDecision")
+      emptyAssistedDecisionDetails
+    }
+    else if(claim.questionGroup[HowWePayYou].getOrElse(HowWePayYou()).likeToBePaid == "no"){
+      Logger.info(s"AssistedDecision no LikeToBePaid means emptyDecision")
+      emptyAssistedDecisionDetails
+    }
+    else if(claim.questionGroup[AdditionalInfo].getOrElse(AdditionalInfo()).anythingElse.answer == "yes"){
+      Logger.info(s"AssistedDecision AdditionalInfo means emptyDecision")
+      emptyAssistedDecisionDetails
+    }
+    else{
+      Logger.info(s"AssistedDecision happy path means check CIS")
+      decisionModel("Check CIS for benefits.", "Potential award,show table")
     }
   }
 
