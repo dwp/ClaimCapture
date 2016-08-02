@@ -88,10 +88,10 @@ object AssistedDecision extends XMLComponent {
   }
 
   private def isInResidency(claim: Claim): AssistedDecisionDetails = {
-    val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(nationality = "British"))
-    (nationalityAndResidency.nationality, nationalityAndResidency.alwaysLivedInUK, nationalityAndResidency.arrivedInUK) match {
-      case (NationalityAndResidency.british | NationalityAndResidency.britishIrish, "no", Some("more")) => decisionModel("Check CIS for benefits.", "Potential award,show table")
-      case (NationalityAndResidency.british | NationalityAndResidency.britishIrish, "no", _) => decisionModel("Assign to Exportability in CAMLite workflow.", "None,show table")
+    val residency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(nationality = "British"))
+    (residency.nationality, residency.alwaysLivedInUK, residency.liveInUKNow, residency.arrivedInUK) match {
+      case (NationalityAndResidency.british | NationalityAndResidency.britishIrish, "no", Some("no"), _) => decisionModel("Assign to Exportability in CAMLite workflow.", "None,show table")
+      case (NationalityAndResidency.british | NationalityAndResidency.britishIrish, "no", _, Some("less")) => decisionModel("Assign to Exportability in CAMLite workflow.", "None,show table")
       case _ => emptyAssistedDecisionDetails
     }
   }
