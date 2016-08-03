@@ -28,7 +28,7 @@
       <MaritalStatus><QuestionLabel>Your status</QuestionLabel><Answer>Single</Answer></MaritalStatus>
       <TextPhoneContact><QuestionLabel>This is a textphone for people with hearing difficulties.</QuestionLabel><Answer>Yes</Answer></TextPhoneContact>
       <WantsContactEmail><QuestionLabel>Have you got an email address?</QuestionLabel><Answer>Yes</Answer></WantsContactEmail>
-      <Email><QuestionLabel>Email address</QuestionLabel><Answer>CAU.CASA@dwp.gsi.gov.uk</Answer></Email>
+      <Email><QuestionLabel>Email address</QuestionLabel><Answer>cads.dwp@gmail.com</Answer></Email>
     </Claimant>
       <Caree>
       <Surname><QuestionLabel>Last name</QuestionLabel><Answer>MM/vDjAoupWbjuffHzoZl+G6gm6NeIiQWyuu1FRhRLJClJNMLI5Fbtrc9cK52y27</Answer></Surname>
