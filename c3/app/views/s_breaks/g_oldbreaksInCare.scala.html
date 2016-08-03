@@ -8,7 +8,8 @@
 @import language.postfixOps
 @import scala.language.postfixOps
 @import app.CircsBreaksWhereabouts._
-@@import views.html.s_breaks.main
+@import controllers.s_breaks.GOldBreaksInCare
+@import views.html.s_breaks.main
 
 @dateWeRequireBreakInCareInformationFrom() = @{
     val claimDateQG = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
