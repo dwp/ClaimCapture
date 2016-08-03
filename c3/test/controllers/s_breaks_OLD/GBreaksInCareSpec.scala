@@ -1,6 +1,7 @@
-package controllers.s_breaks
+package controllers.s_breaks_OLD
 
-import models.domain.{BreaksInCareSummary, BreaksInCare, Claim, Claiming}
+import controllers.s_breaks.{GOldBreak, GOldBreaksInCare}
+import models.domain.{OldBreaksInCareSummary, OldBreaksInCare, Claim, Claiming}
 import models.view.CachedClaim
 import org.specs2.mutable._
 import play.api.test.FakeRequest
@@ -13,40 +14,40 @@ class GBreaksInCareSpec extends Specification {
     """present "Have you had any breaks in caring for this person".""" in new WithApplication with Claiming {
       val request = FakeRequest()
 
-      val result = GBreaksInCare.present(request)
+      val result = GOldBreaksInCare.present(request)
       status(result) shouldEqual OK
     }
 
     """enforce answer to "Have you had any breaks in caring for this person".""" in new WithApplication with Claiming {
       val request = FakeRequest()
 
-      val result = GBreaksInCare.submit(request)
+      val result = GOldBreaksInCare.submit(request)
       status(result) shouldEqual BAD_REQUEST
     }
 
     """accept "yes" to "Have you had any breaks in caring for this person".""" in new WithApplication with Claiming {
       val request = FakeRequest().withFormUrlEncodedBody("answer" -> "yes")
 
-      val result = GBreaksInCare.submit(request)
+      val result = GOldBreaksInCare.submit(request)
       redirectLocation(result).get must contain("/breaks/break/")
     }
 
     """accept "no" to "Have you had any breaks in caring for this person".""" in new WithApplication with Claiming {
       val request = FakeRequest().withFormUrlEncodedBody("answer" -> "no")
 
-      val result = GBreaksInCare.submit(request)
+      val result = GOldBreaksInCare.submit(request)
       redirectLocation(result) should beSome("/education/your-course-details")
     }
 
     "complete upon indicating that there are no more breaks having provided zero break details" in new WithApplication with Claiming {
       val request = FakeRequest().withFormUrlEncodedBody("answer" -> "no")
 
-      val result = GBreaksInCare.submit(request)
+      val result = GOldBreaksInCare.submit(request)
       redirectLocation(result) should beSome("/education/your-course-details")
 
       val claim = cache.get[Claim]("default"+extractCacheKey(result)).get
 
-      val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
+      val breaksInCare = claim.questionGroup[OldBreaksInCare].getOrElse(OldBreaksInCare())
       breaksInCare.breaks must beEmpty
     }
 
@@ -62,17 +63,17 @@ class GBreaksInCareSpec extends Specification {
         "medicalDuringBreak" -> "no",
         "hasBreakEnded.answer" -> "no")
 
-      val result1 = GBreak.submit(request1)
+      val result1 = GOldBreak.submit(request1)
       redirectLocation(result1) should beSome("/breaks/breaks-in-care")
 
       val request2 = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1)).withFormUrlEncodedBody("answer" -> "no")
 
-      val result2 = GBreaksInCare.submit(request2)
+      val result2 = GOldBreaksInCare.submit(request2)
       redirectLocation(result2) should beSome("/education/your-course-details")
 
       val claim = getClaimFromCache(result1)
 
-      claim.questionGroup(BreaksInCare) should beLike { case Some(b: BreaksInCare) => b.breaks.size shouldEqual 1 }
+      claim.questionGroup(OldBreaksInCare) should beLike { case Some(b: OldBreaksInCare) => b.breaks.size shouldEqual 1 }
     }
 
     "allow no more than 10 breaks" in new WithApplication with Claiming {
@@ -86,7 +87,7 @@ class GBreaksInCareSpec extends Specification {
           "wherePerson.answer" -> "Holiday",
           "medicalDuringBreak" -> "no",
           "hasBreakEnded.answer" -> "no")
-      val result1 = GBreak.submit(request1)
+      val result1 = GOldBreak.submit(request1)
       redirectLocation(result1) should beSome("/breaks/breaks-in-care")
 
       for (i <- 2 to 10) {
@@ -101,12 +102,12 @@ class GBreaksInCareSpec extends Specification {
           "medicalDuringBreak" -> "no",
           "hasBreakEnded.answer" -> "no")
 
-        val result = GBreak.submit(request)
+        val result = GOldBreak.submit(request)
         redirectLocation(result) should beSome("/breaks/breaks-in-care")
       }
 
-      getClaimFromCache(result1).questionGroup(BreaksInCare) should beLike {
-        case Some(b: BreaksInCare) => b.breaks.size shouldEqual 10
+      getClaimFromCache(result1).questionGroup(OldBreaksInCare) should beLike {
+        case Some(b: OldBreaksInCare) => b.breaks.size shouldEqual 10
       }
 
       val request2 = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1))
@@ -120,11 +121,11 @@ class GBreaksInCareSpec extends Specification {
         "medicalDuringBreak" -> "no",
         "hasBreakEnded.answer" -> "no")
 
-      val result2 = GBreak.submit(request2)
+      val result2 = GOldBreak.submit(request2)
       redirectLocation(result2) should beSome("/breaks/breaks-in-care")
 
-      getClaimFromCache(result2).questionGroup(BreaksInCare) should beLike {
-        case Some(b: BreaksInCare) => b.breaks.size shouldEqual 10
+      getClaimFromCache(result2).questionGroup(OldBreaksInCare) should beLike {
+        case Some(b: OldBreaksInCare) => b.breaks.size shouldEqual 10
       }
     }
 
@@ -142,17 +143,17 @@ class GBreaksInCareSpec extends Specification {
         "medicalDuringBreak" -> "no",
         "hasBreakEnded.answer" -> "no")
 
-      val result = GBreak.submit(request)
+      val result = GOldBreak.submit(request)
 
-      GBreaksInCare.delete(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result)).withFormUrlEncodedBody("deleteId"->instanceID))
+      GOldBreaksInCare.delete(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result)).withFormUrlEncodedBody("deleteId"->instanceID))
 
-      getClaimFromCache(result).questionGroup(BreaksInCare) should beLike {
-        case Some(b: BreaksInCare) => b.breaks.size shouldEqual 0
+      getClaimFromCache(result).questionGroup(OldBreaksInCare) should beLike {
+        case Some(b: OldBreaksInCare) => b.breaks.size shouldEqual 0
       }
     }
 
     "issue an 'error' when deleting a non-existing break when there are no existing breaks" in new WithApplication with Claiming {
-      val result = GBreaksInCare.delete(FakeRequest().withFormUrlEncodedBody("deleteId"->"nonExistingBreakID"))
+      val result = GOldBreaksInCare.delete(FakeRequest().withFormUrlEncodedBody("deleteId"->"nonExistingBreakID"))
       status(result) shouldEqual BAD_REQUEST
     }
 
@@ -167,9 +168,9 @@ class GBreaksInCareSpec extends Specification {
         "wherePerson.answer" -> "Holiday",
         "medicalDuringBreak" -> "no")
 
-      val result1 = GBreak.submit(request)
+      val result1 = GOldBreak.submit(request)
 
-      val result = GBreaksInCare.delete(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1)).withFormUrlEncodedBody("deleteId"->"nonExistingBreakID"))
+      val result = GOldBreaksInCare.delete(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1)).withFormUrlEncodedBody("deleteId"->"nonExistingBreakID"))
       status(result) shouldEqual BAD_REQUEST
     }
 
@@ -185,7 +186,7 @@ class GBreaksInCareSpec extends Specification {
           "wherePerson.answer" -> "Holiday",
           "medicalDuringBreak" -> "no",
           "hasBreakEnded.answer" -> "no")
-      val result1 = GBreak.submit(request1)
+      val result1 = GOldBreak.submit(request1)
       redirectLocation(result1) should beSome("/breaks/breaks-in-care")
 
       val request = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1))
@@ -199,22 +200,22 @@ class GBreaksInCareSpec extends Specification {
           "medicalDuringBreak" -> "no",
           "hasBreakEnded.answer" -> "no")
 
-      val result = GBreak.submit(request)
+      val result = GOldBreak.submit(request)
       redirectLocation(result) should beSome("/breaks/breaks-in-care")
 
       val request3 = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1)).withFormUrlEncodedBody("answer" -> "no")
 
-      val result3 = GBreaksInCare.submit(request3)
+      val result3 = GOldBreaksInCare.submit(request3)
       redirectLocation(result3) should beSome("/education/your-course-details")
 
       val claim = getClaimFromCache(result1)
-      claim.questionGroup(BreaksInCare) should beLike { case Some(b: BreaksInCare) => b.breaks.size shouldEqual 2 }
-      claim.questionGroup(BreaksInCareSummary) should beLike { case Some(b: BreaksInCareSummary) => b.answer shouldEqual "no" }
+      claim.questionGroup(OldBreaksInCare) should beLike { case Some(b: OldBreaksInCare) => b.breaks.size shouldEqual 2 }
+      claim.questionGroup(OldBreaksInCareSummary) should beLike { case Some(b: OldBreaksInCareSummary) => b.answer shouldEqual "no" }
 
-      GBreaksInCare.delete(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result)).withFormUrlEncodedBody("deleteId"->instanceID))
+      GOldBreaksInCare.delete(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result)).withFormUrlEncodedBody("deleteId"->instanceID))
       val claim1 = getClaimFromCache(result1)
-      claim1.questionGroup(BreaksInCare) should beLike { case Some(b: BreaksInCare) => b.breaks.size shouldEqual 1 }
-      claim1.questionGroup(BreaksInCareSummary) should beEmpty 
+      claim1.questionGroup(OldBreaksInCare) should beLike { case Some(b: OldBreaksInCare) => b.breaks.size shouldEqual 1 }
+      claim1.questionGroup(OldBreaksInCareSummary) should beEmpty 
     }
   }
   section("unit", models.domain.CareYouProvide.id)

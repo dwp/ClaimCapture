@@ -81,10 +81,10 @@ object ReplicaData {
           YourPartnerPersonalDetails(hadPartnerSinceClaimDate = Mappings.yes,title = Some("Miss"),firstName = Some("Joan"),surname = Some("Bloggs"),dateOfBirth = Some(DayMonthYear.today - 10 years),nationality = Some("British"),separatedFromPartner = Some(Mappings.no),isPartnerPersonYouCareFor = Some(Mappings.no)) +
           TheirPersonalDetails(relationship = "Grandma",title = "Mrs",firstName = "Jane",surname = "Bloggs",dateOfBirth = DayMonthYear.today - 15 years,theirAddress = YesNoMandWithAddress(answer = Mappings.no, address = Option(MultiLineAddress(lineOne = Some("470 Street"),lineTwo = Some("Newtown"))), postCode = Some("PR1 1HB"))) +
           MoreAboutTheCare(spent35HoursCaring = Mappings.yes, otherCarer= Mappings.no) +
-          BreaksInCareSummary(Mappings.no) +
-          BreaksInCare(List(
-            Break("1",DayMonthYear.today - 4 months,hasBreakEnded = YesNoWithDate(answer = Mappings.no,None),whereYou = RadioWithText(app.CircsBreaksWhereabouts.Holiday),wherePerson = RadioWithText(app.CircsBreaksWhereabouts.Home),medicalDuringBreak = Mappings.no),
-            Break("2",DayMonthYear.today - 3 months,hasBreakEnded = YesNoWithDate(answer = Mappings.no,None),whereYou = RadioWithText(app.CircsBreaksWhereabouts.Hospital),wherePerson = RadioWithText(app.CircsBreaksWhereabouts.Home),medicalDuringBreak = Mappings.yes)
+          OldBreaksInCareSummary(Mappings.no) +
+          OldBreaksInCare(List(
+            OldBreak("1",DayMonthYear.today - 4 months,hasBreakEnded = YesNoWithDate(answer = Mappings.no,None),whereYou = RadioWithText(app.CircsBreaksWhereabouts.Holiday),wherePerson = RadioWithText(app.CircsBreaksWhereabouts.Home),medicalDuringBreak = Mappings.no),
+            OldBreak("2",DayMonthYear.today - 3 months,hasBreakEnded = YesNoWithDate(answer = Mappings.no,None),whereYou = RadioWithText(app.CircsBreaksWhereabouts.Hospital),wherePerson = RadioWithText(app.CircsBreaksWhereabouts.Home),medicalDuringBreak = Mappings.yes)
           )) +
           YourCourseDetails(beenInEducationSinceClaimDate = Mappings.yes,title = Some("Biology"),nameOfSchoolCollegeOrUniversity = Some("A College"),
           nameOfMainTeacherOrTutor = Some("A Tutor"),startDate = Some(DayMonthYear.today - 1 month),expectedEndDate = Some(DayMonthYear.today + 2 years)) +

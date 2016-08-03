@@ -1,5 +1,6 @@
-package controllers.s_breaks
+package controllers.s_breaks_OLD
 
+import controllers.s_breaks.GOldBreak
 import org.specs2.mutable._
 import utils.WithApplication
 
@@ -19,7 +20,7 @@ class BreakFormSpec extends Specification {
   section("unit", models.domain.CareYouProvide.id)
   "Break Form" should {
     "contain start date" in new WithApplication {
-      GBreak.form.bind(data)("start")("date").value should beSome("01/01/2001")
+      GOldBreak.form.bind(data)("start")("date").value should beSome("01/01/2001")
     }
   }
   section("unit", models.domain.CareYouProvide.id)

@@ -1,11 +1,11 @@
 @()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
-@import models.domain.BreaksInCare
+@import models.domain.OldBreaksInCare
 @import models.domain.ClaimDate
 @import play.api.i18n.Messages
 @import helper._
 @import app.ConfigProperties._
 
-@breaks = @{claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())}
+@breaks = @{claim.questionGroup[OldBreaksInCare].getOrElse(OldBreaksInCare())}
 @breaksFromDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateWeRequireBreakInCareInformationFrom(lang)}
 @disableChangeButton = @{
 	!getBooleanProperty("cyaToggleVisible")

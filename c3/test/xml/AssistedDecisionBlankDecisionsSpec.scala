@@ -1,11 +1,9 @@
 package xml
 
 import controllers.mappings.Mappings
-import models.DayMonthYear
 import models.domain._
 import models.view.CachedClaim
 import models.yesNo._
-import org.joda.time.DateTime
 import org.specs2.mutable._
 import utils.WithApplication
 import xml.claim.AssistedDecision
@@ -34,8 +32,8 @@ class AssistedDecisionBlankDecisionsSpec extends Specification {
 
     "Blank decision when got breaks" in new WithApplication {
       val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
-      val break=Break()
-      val breaksInCare = BreaksInCare().update(break)
+      val break=OldBreak()
+      val breaksInCare = OldBreaksInCare().update(break)
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(breaksInCare))
       val xml = AssistedDecision.xml(claim)
       (xml \\ "AssistedDecision") (0) mustEqual emptyAssistedDecisionNode

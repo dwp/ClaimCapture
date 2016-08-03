@@ -1,4 +1,4 @@
-@(yesNoForm: Form[models.domain.BreaksInCareSummary], breaksInCare: models.domain.BreaksInCare)(implicit claim: models.domain.Claim, lang: Lang, request: play.api.mvc.Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
+@(yesNoForm: Form[models.domain.OldBreaksInCareSummary], breaksInCare: models.domain.OldBreaksInCare)(implicit claim: models.domain.Claim, lang: Lang, request: play.api.mvc.Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
 
 @import views.html.helper.base._
 @import views.html.helper._
@@ -8,8 +8,7 @@
 @import language.postfixOps
 @import scala.language.postfixOps
 @import app.CircsBreaksWhereabouts._
-@import controllers.s_breaks.GBreaksInCare
-@import views.html.s_breaks.main
+@@import views.html.s_breaks.main
 
 @dateWeRequireBreakInCareInformationFrom() = @{
     val claimDateQG = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
@@ -98,12 +97,12 @@ else YourIncomeStatutorySickPay.name
         </div>
 
     </fieldset>
-    @form(action = controllers.s_breaks.routes.GBreaksInCare.delete, 'role -> "form", 'id -> "deleteForm"){
+    @form(action = controllers.s_breaks.routes.GOldBreaksInCare.delete, 'role -> "form", 'id -> "deleteForm"){
         @DwpCSRFFormHelper.formField
-        @carersInputHidden(GBreaksInCare.deleteForm("deleteId"))
+        @carersInputHidden(GOldBreaksInCare.deleteForm("deleteId"))
     }
 
-    @form(action = controllers.s_breaks.routes.GBreaksInCare.submit, 'role -> "form") {
+    @form(action = controllers.s_breaks.routes.GOldBreaksInCare.submit, 'role -> "form") {
         @DwpCSRFFormHelper.formField
 
         <input type="hidden" id="js" name="jsEnabled" value="false">
@@ -146,7 +145,7 @@ else YourIncomeStatutorySickPay.name
 
     }
     
-    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_breaks/g_breaksInCare.js")></script>
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_breaks/g_oldbreaksInCare.js")></script>
 
     <script type="text/javascript">
         $(function () {

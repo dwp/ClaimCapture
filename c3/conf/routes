@@ -132,12 +132,12 @@ POST        /care-you-provide/their-personal-details                    controll
 GET         /care-you-provide/more-about-the-care                       controllers.s_care_you_provide.GMoreAboutTheCare.present
 POST        /care-you-provide/more-about-the-care                       controllers.s_care_you_provide.GMoreAboutTheCare.submit
 
-GET         /breaks/breaks-in-care                                      controllers.s_breaks.GBreaksInCare.present
-POST        /breaks/breaks-in-care                                      controllers.s_breaks.GBreaksInCare.submit
-POST        /breaks/delete-break-in-care                                controllers.s_breaks.GBreaksInCare.delete
+GET         /breaks/breaks-in-care                                      controllers.s_breaks.GOldBreaksInCare.present
+POST        /breaks/breaks-in-care                                      controllers.s_breaks.GOldBreaksInCare.submit
+POST        /breaks/delete-break-in-care                                controllers.s_breaks.GOldBreaksInCare.delete
 
-GET         /breaks/break/:id                                           controllers.s_breaks.GBreak.present(id: String)
-POST        /breaks/break                                               controllers.s_breaks.GBreak.submit
+GET         /breaks/break/:id                                           controllers.s_breaks.GOldBreak.present(id: String)
+POST        /breaks/break                                               controllers.s_breaks.GOldBreak.submit
 
 
 # Education

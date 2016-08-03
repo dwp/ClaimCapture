@@ -12,7 +12,7 @@ object SectionsManager {
     NationalityAndResidencySection,
     YourPartner,
     CareYouProvide,
-    Breaks,
+    OldBreaks,
     Education,
     YourIncome,
     PayDetails,

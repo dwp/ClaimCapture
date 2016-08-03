@@ -161,7 +161,7 @@ class AssistedDecisionSpec extends Specification {
     "Create an exportability assisted decision section for british never lived in UK" in new WithApplication {
       val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
       val nationality = NationalityAndResidency("British", None, alwaysLivedInUK = "no", liveInUKNow = Some("no"), None, None, None, "no", None)
-      val breaksInCare = BreaksInCare()
+      val breaksInCare = OldBreaksInCare()
       val employment = YourIncomes(beenSelfEmployedSince1WeekBeforeClaim = Mappings.no, beenEmployedSince6MonthsBeforeClaim = Mappings.no, yourIncome_none = Mappings.someTrue)
       val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.no, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no))))
       val howWePayYou = HowWePayYou(likeToBePaid = Mappings.yes)
@@ -177,7 +177,7 @@ class AssistedDecisionSpec extends Specification {
     "Create an exportability assisted decision section for british lived in UK less than 3 years" in new WithApplication {
       val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
       val nationality = NationalityAndResidency("British", None, alwaysLivedInUK = "no", liveInUKNow = Some("yes"), arrivedInUK = Some("less"), None, None, "no", None)
-      val breaksInCare = BreaksInCare()
+      val breaksInCare = OldBreaksInCare()
       val employment = YourIncomes(beenSelfEmployedSince1WeekBeforeClaim = Mappings.no, beenEmployedSince6MonthsBeforeClaim = Mappings.no, yourIncome_none = Mappings.someTrue)
       val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.no, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no))))
       val howWePayYou = HowWePayYou(likeToBePaid = Mappings.yes)
@@ -202,7 +202,7 @@ class AssistedDecisionSpec extends Specification {
     "Simplest claim (happy path no income breaks addinfo etc.) creates CIS decision" in new WithApplication {
       val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
       val nationality = NationalityAndResidency("British", None, "yes", None, None, None, None, "no", None)
-      val breaksInCare = BreaksInCare()
+      val breaksInCare = OldBreaksInCare()
       val employment = YourIncomes(beenSelfEmployedSince1WeekBeforeClaim = Mappings.no, beenEmployedSince6MonthsBeforeClaim = Mappings.no, yourIncome_none = Mappings.someTrue)
       val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.no, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no))))
       val howWePayYou = HowWePayYou(likeToBePaid = Mappings.yes)

@@ -1,8 +1,9 @@
-package controllers.s_breaks
+package controllers.s_breaks_OLD
 
 import app.CircsBreaksWhereabouts._
+import controllers.s_breaks.GOldBreak
 import models.DayMonthYear
-import models.domain.{BreaksInCare, Claiming}
+import models.domain.{OldBreaksInCare, Claiming}
 import models.view.CachedClaim
 import org.specs2.mutable._
 import play.api.test.FakeRequest
@@ -19,7 +20,7 @@ class GBreakSpec extends Specification {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest()
 
-      val result = GBreak.present("")(request)
+      val result = GOldBreak.present("")(request)
       status(result) mustEqual OK
     }
 
@@ -65,7 +66,7 @@ class GBreakSpec extends Specification {
     "reject when submitted with missing mandatory data" in new WithApplication with Claiming {
       val request = FakeRequest()
 
-      val result = GBreak.submit(request)
+      val result = GOldBreak.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -81,7 +82,7 @@ class GBreakSpec extends Specification {
         "medicalDuringBreak" -> "no",
         "hasBreakEnded.answer" -> "no")
 
-      val result = GBreak.submit(request)
+      val result = GOldBreak.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
@@ -98,7 +99,7 @@ class GBreakSpec extends Specification {
         "wherePerson.text" -> "",
         "medicalDuringBreak" -> "no")
 
-      val result = GBreak.submit(request)
+      val result = GOldBreak.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -116,7 +117,7 @@ class GBreakSpec extends Specification {
         "medicalDuringBreak" -> "no",
         "hasBreakEnded.answer" -> "no")
 
-      val result = GBreak.submit(request)
+      val result = GOldBreak.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
@@ -132,7 +133,7 @@ class GBreakSpec extends Specification {
         "medicalDuringBreak" -> "no",
         "hasBreakEnded.answer" -> "no")
 
-      val result = GBreak.submit(request1)
+      val result = GOldBreak.submit(request1)
 
       val request2 = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result))
         .withFormUrlEncodedBody(
@@ -145,11 +146,11 @@ class GBreakSpec extends Specification {
         "medicalDuringBreak" -> "no",
         "hasBreakEnded.answer" -> "no")
 
-      GBreak.submit(request2)
+      GOldBreak.submit(request2)
 
       val claim = getClaimFromCache(result)
 
-      claim.questionGroup(BreaksInCare) must beLike { case Some(b: BreaksInCare) => b.breaks.size mustEqual 2 }
+      claim.questionGroup(OldBreaksInCare) must beLike { case Some(b: OldBreaksInCare) => b.breaks.size mustEqual 2 }
     }
 
     "update existing break" in new WithApplication with Claiming {
@@ -164,7 +165,7 @@ class GBreakSpec extends Specification {
         "medicalDuringBreak" -> "no",
         "hasBreakEnded.answer" -> "no")
 
-      val result = GBreak.submit(requestNew)
+      val result = GOldBreak.submit(requestNew)
 
       val yearUpdate = 2005
 
@@ -179,10 +180,10 @@ class GBreakSpec extends Specification {
         "medicalDuringBreak" -> "no",
         "hasBreakEnded.answer" -> "no")
 
-      GBreak.submit(requestUpdate)
+      GOldBreak.submit(requestUpdate)
 
-      getClaimFromCache(result).questionGroup(BreaksInCare) must beLike {
-        case Some(b: BreaksInCare) =>
+      getClaimFromCache(result).questionGroup(OldBreaksInCare) must beLike {
+        case Some(b: OldBreaksInCare) =>
           b.breaks.head.start.year.get shouldEqual yearUpdate
       }
     }

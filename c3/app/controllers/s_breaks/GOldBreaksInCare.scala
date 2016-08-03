@@ -17,33 +17,33 @@ import scala.language.postfixOps
 import play.api.i18n._
 import app.ConfigProperties._
 
-object GBreaksInCare extends Controller with CachedClaim with Navigable with I18nSupport {
+object GOldBreaksInCare extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val form = Form(mapping(
     "answer" -> nonEmptyText.verifying(validYesNo)
-  )(BreaksInCareSummary.apply)(BreaksInCareSummary.unapply))
+  )(OldBreaksInCareSummary.apply)(OldBreaksInCareSummary.unapply))
 
 
   def present = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
-    track(BreaksInCare) { implicit claim => Ok(views.html.s_breaks.g_breaksInCare(form.fill(BreaksInCareSummary), breaksInCare)) }
+    track(OldBreaksInCare) { implicit claim => Ok(views.html.s_breaks.g_oldbreaksInCare(form.fill(OldBreaksInCareSummary), breaksInCare)) }
   }
 
-  def breaksInCare(implicit claim: Claim) = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
+  def breaksInCare(implicit claim: Claim) = claim.questionGroup[OldBreaksInCare].getOrElse(OldBreaksInCare())
 
   def submit = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
     import controllers.mappings.Mappings.yes
     def next(hasBreaks:String) = hasBreaks match {
-      case `yes` if breaksInCare.breaks.size < getIntProperty("maximumBreaksInCare") => Redirect(controllers.s_breaks.routes.GBreak.present(IterationID(form)))
+      case `yes` if breaksInCare.breaks.size < getIntProperty("maximumBreaksInCare") => Redirect(controllers.s_breaks.routes.GOldBreak.present(IterationID(form)))
       case _ => redirect(claim, request2lang, messagesApi)
     }
 
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors.replaceError("answer", Mappings.errorRequired, errorMessage)
-        BadRequest(views.html.s_breaks.g_breaksInCare(formWithErrorsUpdate, breaksInCare))
+        BadRequest(views.html.s_breaks.g_oldbreaksInCare(formWithErrorsUpdate, breaksInCare))
       },
       hasBreaks => claim.update(hasBreaks) -> next(hasBreaks.answer))
-  }.withPreviewConditionally[BreaksInCareSummary]((breaksInCareSummary,claims) => breaksInCareSummary._2.answer == Mappings.no)
+  }.withPreviewConditionally[OldBreaksInCareSummary]((breaksInCareSummary,claims) => breaksInCareSummary._2.answer == Mappings.no)
 
   private def errorMessage (implicit claim: Claim, lang: Lang, messages: Messages) = {
     val sixMonth = claim.questionGroup(ClaimDate) match {
@@ -73,11 +73,11 @@ object GBreaksInCare extends Controller with CachedClaim with Navigable with I18
   def delete = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
 
     deleteForm.bindEncrypted.fold(
-      errors    =>  BadRequest(views.html.s_breaks.g_breaksInCare(form, breaksInCare)),
+      errors    =>  BadRequest(views.html.s_breaks.g_oldbreaksInCare(form, breaksInCare)),
       deleteForm=>  {
         val updatedBreaks = breaksInCare.delete(deleteForm.id)
-        if (updatedBreaks.breaks == breaksInCare.breaks) BadRequest(views.html.s_breaks.g_breaksInCare(form, breaksInCare))
-        else claim.update(updatedBreaks).delete(BreaksInCareSummary) -> Redirect(routes.GBreaksInCare.present)
+        if (updatedBreaks.breaks == breaksInCare.breaks) BadRequest(views.html.s_breaks.g_oldbreaksInCare(form, breaksInCare))
+        else claim.update(updatedBreaks).delete(OldBreaksInCareSummary) -> Redirect(routes.GOldBreaksInCare.present)
       }
     )
   }

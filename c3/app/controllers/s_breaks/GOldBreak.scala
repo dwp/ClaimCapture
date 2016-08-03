@@ -2,8 +2,7 @@ package controllers.s_breaks
 
 import controllers.CarersForms._
 import controllers.mappings.Mappings._
-import controllers.s_breaks.GBreaksInCare.breaksInCare
-import models.domain.{Break, BreaksInCare, BreaksInCareSummary}
+import models.domain.{OldBreak, OldBreaksInCare, OldBreaksInCareSummary}
 import models.view.CachedClaim
 import models.yesNo.{RadioWithText, YesNoWithDate}
 import play.api.Play._
@@ -15,7 +14,7 @@ import utils.helpers.CarersForm._
 import app.ConfigProperties._
 
 
-object GBreak extends Controller with CachedClaim with I18nSupport {
+object GOldBreak extends Controller with CachedClaim with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
 
   val whereWasPersonMapping =
@@ -48,9 +47,9 @@ object GBreak extends Controller with CachedClaim with I18nSupport {
     hasBreakEndedMapping,
     "endTime" -> optional(carersText),
     "medicalDuringBreak" -> carersNonEmptyText
-  )(Break.apply)(Break.unapply))
+  )(OldBreak.apply)(OldBreak.unapply))
 
-  val backCall = routes.GBreaksInCare.present()
+  val backCall = routes.GOldBreaksInCare.present()
 
   def submit = claimingWithCheck {implicit claim =>  implicit request =>  lang =>
     form.bindEncrypted.fold(
@@ -66,7 +65,7 @@ object GBreak extends Controller with CachedClaim with I18nSupport {
           .replaceError("hasBreakEnded.answer", errorRequired, FormError("hasBreakEnded.answer", errorRequired, Seq("This field is required")))
           .replaceError("hasBreakEnded", "hasBreakEnded.date.required", FormError("hasBreakEnded.date", errorRequired, Seq("This field is required")))
           .replaceError("medicalDuringBreak", "error.required", FormError("medicalDuringBreak", errorRequired))
-        BadRequest(views.html.s_breaks.g_break(fwe,backCall))
+        BadRequest(views.html.s_breaks.g_oldbreak(fwe,backCall))
       },
       break => {
         val updatedBreaksInCare =
@@ -76,19 +75,19 @@ object GBreak extends Controller with CachedClaim with I18nSupport {
           }
         // Delete the answer to the question 'Have you had any breaks in care since...'
         // Otherwise, it will prepopulate the answer when asked 'Have you had any more breaks in care since...'
-        claim.update(updatedBreaksInCare).delete(BreaksInCareSummary) -> Redirect(routes.GBreaksInCare.present())
+        claim.update(updatedBreaksInCare).delete(OldBreaksInCareSummary) -> Redirect(routes.GOldBreaksInCare.present())
       })
   }
 
   def present(iterationID: String) = claimingWithCheck{ implicit claim =>  implicit request =>  lang =>
     claim.saveForLaterCurrentPageData.isEmpty match{
       case true =>{
-        val break = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare(List())).breaks.find(_.iterationID == iterationID).getOrElse(Break())
-        Ok(views.html.s_breaks.g_break(form.fill(break),backCall))
+        val break = claim.questionGroup[OldBreaksInCare].getOrElse(OldBreaksInCare(List())).breaks.find(_.iterationID == iterationID).getOrElse(OldBreak())
+        Ok(views.html.s_breaks.g_oldbreak(form.fill(break),backCall))
       }
       case false =>{
-        val filled=form.copy[Break](data=claim.saveForLaterCurrentPageData)
-        Ok(views.html.s_breaks.g_break(filled,backCall))
+        val filled=form.copy[OldBreak](data=claim.saveForLaterCurrentPageData)
+        Ok(views.html.s_breaks.g_oldbreak(filled,backCall))
       }
     }
   }

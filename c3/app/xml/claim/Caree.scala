@@ -34,7 +34,7 @@ object Caree extends XMLComponent {
   }
 
   private def careBreak(claim: Claim) = {
-    val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
+    val breaksInCare = claim.questionGroup[OldBreaksInCare].getOrElse(OldBreaksInCare())
 
     def breaksInCareLabel (label:String, answer:Boolean) = {
 
@@ -42,7 +42,7 @@ object Caree extends XMLComponent {
       question(<BreaksSinceClaim/>, label, answer, claimDateQG.dateWeRequireBreakInCareInformationFrom(claim.lang.getOrElse(Lang("en"))))
     }
 
-    val lastValue = claim.questionGroup[BreaksInCareSummary].getOrElse(BreaksInCareSummary()).answer == Mappings.yes
+    val lastValue = claim.questionGroup[OldBreaksInCareSummary].getOrElse(OldBreaksInCareSummary()).answer == Mappings.yes
     val xmlNoBreaks = {
       <CareBreak>
         {if (breaksInCare.breaks.size > 0){
@@ -92,24 +92,24 @@ object Caree extends XMLComponent {
 
   def fromXml(xml: NodeSeq, claim: Claim) : Claim = {
     val breaksInCareTuple = createBreaksInCare(xml)
-    val breaksInCareSummary = BreaksInCareSummary(answer = createYesNoText(breaksInCareTuple._2))
+    val breaksInCareSummary = OldBreaksInCareSummary(answer = createYesNoText(breaksInCareTuple._2))
     val newClaim = claim.update(createYourDetailsFromXml(xml)).update(createMoreAboutCareFromXml(xml)).update(breaksInCareSummary)
     breaksInCareTuple._1.hasBreaks match {
       case true => newClaim.update(breaksInCareTuple._1)
-      case false => newClaim.update(BreaksInCare())
+      case false => newClaim.update(OldBreaksInCare())
     }
   }
 
   private def createBreaksInCare(xml: NodeSeq) = {
     val breaksInCareXml = (xml \\ "Caree" \ "CareBreak")
-    var breaks = List[Break]()
+    var breaks = List[OldBreak]()
     var breaksSinceClaim = Mappings.yes
     breaksInCareXml.zip (Stream from 1).foreach(node =>
       {
         breaksSinceClaim = (node._1 \ "BreaksSinceClaim" \ "Answer").text
         breaksSinceClaim.toLowerCase match {
           case Mappings.yes =>
-            breaks = breaks :+ Break(
+            breaks = breaks :+ OldBreak(
               iterationID = s"${node._2}",
               start = createFormattedDate((node._1 \ "StartDate" \ "Answer").text),
               startTime = createStringOptional((node._1 \ "StartTime" \ "Answer").text),
@@ -122,7 +122,7 @@ object Caree extends XMLComponent {
           case _ =>
         }
       })
-    (BreaksInCare(breaks), breaksSinceClaim)
+    (OldBreaksInCare(breaks), breaksSinceClaim)
   }
 
   private def createYourDetailsFromXml(xml: NodeSeq) = {
