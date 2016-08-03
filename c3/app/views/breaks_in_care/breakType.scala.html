@@ -1,0 +1,48 @@
+@(currentForm: Form[models.domain.OldBreaksInCareSummary], breaksInCare: models.domain.OldBreaksInCare)(implicit claim: models.domain.Claim, lang: Lang, request: play.api.mvc.Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
+
+@import views.html.helper._
+@import utils.csrf.DwpCSRFFormHelper
+@import language.postfixOps
+@import scala.language.postfixOps
+@import views.html.s_breaks.main
+@import models.domain.TheirPersonalDetails
+@import models.domain.Breaks
+@import models.domain.ClaimDate
+
+@optionsList(implicit lang:Lang) = @{
+    Seq(Breaks.hospital -> messages("breaks.hospital"),
+        Breaks.carehome -> messages("breaks.carehome"),
+        Breaks.none -> messages("breaks.none")
+    )
+}
+@dateWeRequireBreakInCareInformationFrom() = @{
+    val claimDateQG = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
+    claimDateQG.dateWeRequireBreakInCareInformationFrom(lang)
+}
+@theirPersonalDetails = @{claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())}
+@dpname=@{
+    theirPersonalDetails.firstName+" "+theirPersonalDetails.surname
+}
+
+@main(messages("breaks.title"), Some(currentForm)) {
+    @form(action = controllers.s_breaks.routes.GOldBreaksInCare.submit, 'role -> "form") {
+        @DwpCSRFFormHelper.formField
+        <input type="hidden" id="js" name="jsEnabled" value="false">
+        <fieldset class="form-elements">
+            <ul>
+                @standaloneListCheckboxGroup(currentForm("yourIncome"),
+                    currentForm.asInstanceOf[Form[AnyContent]],
+                    'items -> optionsList,
+                    'helperAbove -> "breaks.breaktype.checkBoxHelp1",
+                    'track -> true,
+                    'ignoreOptional -> true,
+                    '_showId -> true,
+                    '_label -> messages("breaks.breaktype.label", "01/01/2000", dpname))
+
+                @yesNoRadioGroup(currentForm("answer"), '_label -> messages("breaks.breaktype.other.label", dpname), 'helperAbove->messages("breaks.breaktype.other.helper"))
+            </ul>
+        </fieldset>
+        @views.html.common.bottomNavigation(trackSubmit = true)
+    }
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_breaks/g_oldbreaksInCare.js")></script>
+}

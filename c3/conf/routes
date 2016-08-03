@@ -132,6 +132,12 @@ POST        /care-you-provide/their-personal-details                    controll
 GET         /care-you-provide/more-about-the-care                       controllers.s_care_you_provide.GMoreAboutTheCare.present
 POST        /care-you-provide/more-about-the-care                       controllers.s_care_you_provide.GMoreAboutTheCare.submit
 
+# Breaks
+###############
+GET         /breaks/new-breaks-in-care                                  controllers.breaks_in_care.GBreaksInCare.present
+POST        /breaks/new-breaks-in-care                                  controllers.breaks_in_care.GBreaksInCare.submit
+POST        /breaks/new-delete-break-in-care                            controllers.breaks_in_care.GBreaksInCare.delete
+
 GET         /breaks/breaks-in-care                                      controllers.s_breaks.GOldBreaksInCare.present
 POST        /breaks/breaks-in-care                                      controllers.s_breaks.GOldBreaksInCare.submit
 POST        /breaks/delete-break-in-care                                controllers.s_breaks.GOldBreaksInCare.delete
