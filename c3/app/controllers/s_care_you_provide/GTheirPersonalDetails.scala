@@ -22,7 +22,7 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val addressMapping = "theirAddress"->mapping(
     "answer" -> nonEmptyText.verifying(validYesNo),
-    "address" -> optional(address.verifying(requiredAddress)),
+    "address" -> optional(address),
     "postCode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode))
       )(YesNoMandWithAddress.apply)(YesNoMandWithAddress.unapply)
 

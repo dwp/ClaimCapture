@@ -48,6 +48,7 @@ About the care you provide,Details of the person you care for,National Insurance
 About the care you provide,Details of the person you care for,Date of birth,AboutTheCareYouProvideDateofBirthPersonYouCareFor,
 About the care you provide,Details of the person you care for,Do they live at the same address as you?,AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou,Yes
 About the care you provide,More about the care you provide,Do you spend 35 hours or more each week caring for this person?,AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek,No
+About the care you provide,More about the care you provide,Does anyone else spend 35 hours or more each week providing care for dp?,AboutTheCareYouProvideOtherCarer,No
 About the care you provide,Breaks from Care,"Have you had any breaks from caring for this person since, [[Claim Date]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1,Yes
 About the care you provide,Breaks from Care,"Have you had any breaks from caring for this person since, [[Claim Date _ 6 months]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare6Months,
 About the care you provide,About the breaks from care,Break start date?,AboutTheCareYouProvideBreakStartDate_1,11/01/2010

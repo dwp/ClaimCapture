@@ -22,7 +22,9 @@
 
             <ul>
                 @yesNoRadioGroup(currentForm("payPensionScheme")("answer"),
-                    '_label -> labelForSelfEmployment(claim, lang,  "payPensionScheme.answer"), valuesForSelfEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no"))
+                    '_label -> labelForSelfEmployment(claim, lang,  "payPensionScheme.answer"),
+                    valuesForSelfEmployment(claim, lang, "label.yes6", "label.no", "label.yes", "label.no"),
+                    'track -> true, 'trackLabel -> labelForSelfEmployment(claim, lang,  "payPensionScheme.answer"))
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
@@ -39,7 +41,8 @@
                 @yesNoRadioGroup(currentForm("haveExpensesForJob")("answer"),
                     '_label -> labelForSelfEmployment(claim, lang, "haveExpensesForJob.answer"),
                     'helperAbove -> labelForSelfEmployment(claim, lang, "haveExpensesForJob.answer.helper"),
-                    valuesForSelfEmployment(claim, lang, "label.yes4", "label.no", "label.yes", "label.no"))
+                    valuesForSelfEmployment(claim, lang, "label.yes4", "label.no", "label.yes", "label.no"),
+                    'track -> true, 'trackLabel -> labelForSelfEmployment(claim, lang, "haveExpensesForJob.answer"))
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(

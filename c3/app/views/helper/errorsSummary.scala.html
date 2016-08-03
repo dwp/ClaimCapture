@@ -12,6 +12,14 @@
     }
 }
 
+@gaTrackError(errorMessage: String)  = @{
+    if (getBooleanProperty("analytics.enabled")) {
+        trackEvent(request.path, "Error", Some(s"$errorMessage"))
+    } else {
+        ""
+    }
+}
+
 @trimDate(key: String) = @{
     val result = ".*\\b(before \\d+|after \\d+|since \\d+|ers \\d+|cyn \\d+)\\b".r.findFirstMatchIn(key)
     if (result.isDefined) {
@@ -27,7 +35,11 @@
         @for(error <- form.errors) {
             <li>
                 <a href="#@CarersCrypto.encryptAES(form(error.key).id)">
-                    @Html(messages(error.key, error.args: _*)) - @Html(messages(error.message, error.args: _*))
+                    @if(messages(error.key + ".error") != error.key + ".error") {
+                        @Html(messages(error.message, error.args: _*))
+                    } else {
+                        @Html(messages(error.key, error.args: _*)) - @Html(messages(error.message, error.args: _*))
+                    }
                 </a>
             </li>
         }
@@ -37,8 +49,12 @@
     <script type="text/javascript">
     $(function() {
             @for(error <- form.errors) {
-            @Html(gaTrack(messages(error.key, error.args: _*), messages(error.message, error.args: _*)))
-        }
+                @if(messages(error.key + ".error") != error.key + ".error") {
+                    @Html(gaTrackError(messages(error.message, error.args: _*)))
+                } else {
+                    @Html(gaTrack(messages(error.key, error.args: _*), messages(error.message, error.args: _*)))
+                }
+            }
     });
 </script>
 

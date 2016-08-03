@@ -5,10 +5,7 @@
 @import utils.helpers.OriginTagHelper._
 
 @whatLink = @{
-    isOriginGB match {
-        case true => "https://www.gov.uk/carers-allowance/what-youll-get"
-        case false => "http://www.nidirect.gov.uk/index/information-and-services/caring-for-someone/money-matters/carersallowance/carers-allowance-effect-on-other-benefits-and-entitlements.htm"
-    }
+    messages("disclaimer.5.url")
 }
 
     @main(messages("s1.g1") + " - " + messages("s1.longName"), Some(currentForm)) {

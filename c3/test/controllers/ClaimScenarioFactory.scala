@@ -268,9 +268,8 @@ object ClaimScenarioFactory {
     } else {
       claim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek = "No"
     }
+    claim.AboutTheCareYouProvideOtherCarer = "No"
 
-
-    claim.AboutTheCareYouProvideHasSomeonePaidYoutoCare = "Yes"
     // One Who Pays Personal Details
     claim.AboutTheCareYouProvideOrganisationPaysYou = "Valtech"
     claim.AboutTheCareYouProvideTitlePersonPaysYou = "Mr"
@@ -298,7 +297,7 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideHasAnyoneelseClaimedCarerAllowance = "Yes"
     // More About The Care
     claim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek = "Yes"
-    claim.AboutTheCareYouProvideHasSomeonePaidYoutoCare = "Yes"
+    claim.AboutTheCareYouProvideOtherCarer = "No"
 
     // Breaks in care
     claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "yes"
@@ -313,9 +312,15 @@ object ClaimScenarioFactory {
 
   def s4CareYouProvideWithNoBreaksInCare() = {
     val claim = s4CareYouProvide(true)
-
     claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "no"
+    claim
+  }
 
+  def s4CareYouProvideWithOtherCarerUcDetails() = {
+    val claim = s4CareYouProvide(true)
+    claim.AboutTheCareYouProvideOtherCarer = "Yes"
+    claim.AboutTheCareYouProvideOtherCarerUc = "Yes"
+    claim.AboutTheCareYouProvideOtherCarerUcDetails = "My sister gets uc here ninum is NR121212A"
     claim
   }
 

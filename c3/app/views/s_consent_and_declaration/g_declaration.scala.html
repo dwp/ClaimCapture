@@ -8,6 +8,30 @@
 @implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
 @import views.html.s_consent_and_declaration.main
 @import utils.helpers.OriginTagHelper._
+@import models.domain.{YourDetails, TheirPersonalDetails, YourPartnerPersonalDetails}
+@import app.ConfigProperties._
+@import utils.helpers.GAHelper._
+
+@yourDetails = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}
+@theirDetails = @{claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())}
+@partnerDetails = @{claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())}
+
+
+@arePartnerDetailsSame = @{
+    if(getBooleanProperty("analytics.enabled")) {
+        if(yourDetails.nationalInsuranceNumber.nino.getOrElse("") == partnerDetails.nationalInsuranceNumber.getOrElse(NationalInsuranceNumber(Some(""))).nino.getOrElse("")) trackEvent("/preview", "Customer and Partner match - NINO")
+        else if(yourDetails.dateOfBirth.equals(partnerDetails.dateOfBirth.getOrElse(DayMonthYear))) trackEvent("/preview", "Customer and Partner match - no NINO")
+        else ""
+    } else ""
+}
+
+@areTheirDetailsSame = @{
+    if(getBooleanProperty("analytics.enabled")) {
+        if(yourDetails.nationalInsuranceNumber.nino.getOrElse("") == theirDetails.nationalInsuranceNumber.getOrElse(NationalInsuranceNumber(Some(""))).nino.getOrElse("")) trackEvent("/preview", "Customer and DP match - NINO")
+        else if(yourDetails.dateOfBirth.equals(theirDetails.dateOfBirth)) trackEvent("/preview", "Customer and DP match – no NINO")
+        else ""
+    } else ""
+}
 
 @main(messages("s11.g4") + " - " + messages("s11.longName"), Some(currentForm)) {
 
@@ -69,6 +93,10 @@
 				whyPersonWrapper:"whyPersonWrapper"
 			});
 		});
+        $(function() {
+            @Html(arePartnerDetailsSame)
+            @Html(areTheirDetailsSame)
+        })
 
 	</script>
 

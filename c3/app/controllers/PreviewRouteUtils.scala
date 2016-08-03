@@ -88,7 +88,8 @@ object PreviewRouteUtils {
 
     val personalDetailsList = Seq("care_you_provide_name", "care_you_provide_dob", "care_you_provide_relationship")
     val contactDetailsList = Seq("care_you_provide_address")
-    val moreAboutTheCareList = Seq("care_you_provide_spent35HoursCaring")
+    val moreAboutTheCareList = Seq("care_you_provide_spent35HoursCaring", "care_you_provide_otherCarer",
+      "care_you_provide_otherCarerUc", "care_you_provide_otherCarerUcDetails")
 
     val routesMap = Map(personalDetailsList map {id => (id, gTheirPersonalDetailsRoute)} : _*) ++
                     Map(contactDetailsList map{id => (id, gTheirPersonalDetailsRoute)} : _*) ++

@@ -1,6 +1,7 @@
 package controllers.circs.report_changes
 
 import controllers.CarersForms._
+import controllers.mappings.AccountNumberMappings._
 import controllers.mappings.Mappings._
 import models.domain.CircumstancesPaymentChange
 import models.view.{CachedChangeOfCircs, Navigable}
@@ -30,7 +31,7 @@ object GPaymentChange extends Controller with CachedChangeOfCircs with Navigable
     "accountHolderName" -> carersNonEmptyText(maxLength = CommonValidation.ACCOUNT_HOLDER_NAME_MAX_LENGTH),
     "bankFullName" -> carersNonEmptyText(maxLength = 100),
     "sortCode" -> (sortCode verifying requiredSortCode),
-    "accountNumber" -> (carersNonEmptyText(minLength = CommonValidation.ACCOUNT_NUMBER_MIN_LENGTH, maxLength = CommonValidation.ACCOUNT_NUMBER_MAX_LENGTH) verifying pattern(CommonValidation.NUMBER_OR_SPACE_REGEX.r, "accountNumber", "error.number")),
+    "accountNumber" -> (text verifying stopOnFirstFail(accountNumberFilledIn, accountNumberDigits, accountNumberLength)),
     "rollOrReferenceNumber" -> carersText(maxLength = 18),
     "paymentFrequency" -> carersNonEmptyText(maxLength = 20),
     "moreAboutChanges" -> optional(carersText(maxLength = CircumstancesPaymentChange.textMaxLength))

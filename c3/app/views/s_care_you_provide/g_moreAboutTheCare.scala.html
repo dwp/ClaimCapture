@@ -1,31 +1,76 @@
 @(currentForm: Form[models.domain.MoreAboutTheCare])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import views.html.helper._
-@import views.html.helper.dates._
 @implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
-@import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
-@import models.domain.MoreAboutTheCare
-@import play.api.i18n.Messages
 @import scala.language.postfixOps
+@import models.domain.TheirPersonalDetails
+@import views.html.helper.base._
+@import utils.helpers.CarersCrypto
+@import models.domain.MoreAboutTheCare
+@import play.api.Play
+@import play.api.Play.current
 
-    @main(messages("s4.g4") + " - " + messages("s4.longName"), Some(currentForm)) {
+@theirPersonalDetails = @{claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())}
+@dpname=@{
+    theirPersonalDetails.firstName+" "+theirPersonalDetails.surname
+}
+@main(messages("s4.g4") + " - " + messages("s4.longName"), Some(currentForm)) {
+    @form(action = controllers.s_care_you_provide.routes.GMoreAboutTheCare.submit, 'role -> "form") {
+        @DwpCSRFFormHelper.formField
+        <fieldset class="form-elements">
+            <ul>
+                @yesNoRadioGroup(currentForm("spent35HoursCaring"), '_label-> messages("spent35HoursCaring", dpname),
+                    'helperAbove-> messages("spent35HoursHelper"), 'track -> true)
 
-        @form(action = controllers.s_care_you_provide.routes.GMoreAboutTheCare.submit, 'role -> "form") {
+                @yesNoRadioGroup(currentForm("otherCarer"), '_label-> messages("otherCarer", dpname), 'track -> true)
 
-            @DwpCSRFFormHelper.formField
-
-            <fieldset class="form-elements">
-
-                <ul>
-                    @yesNoRadioGroup(currentForm("spent35HoursCaring"), 'track -> true)
-                </ul>
-
-            </fieldset>
-
-            @views.html.common.bottomNavigation()
-
-        }
-
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        yesNoRadioGroup(currentForm("otherCarerUc"), '_label-> messages("otherCarerUc", dpname), 'track -> true,
+                            'ignoreOptional-> true),
+                        otherDetailPlaceHolder(
+                            inputDef = Seq(
+                                carersInputTextArea(currentForm("otherCarerUcDetails"),
+                                    'textAreaHelper->Html(messages(s"${MoreAboutTheCare.textMaxLength}charsLeft")),
+                                    'maxLength->MoreAboutTheCare.textMaxLength, 'ignoreOptional -> true )
+                            ),
+                            'id -> "otherCarerUcDetailsWrap"
+                        )
+                    ), 'id -> "otherCarerUcWrap"
+                )
+            </ul>
+        </fieldset>
+        @views.html.common.bottomNavigation(customTrack = Some(Html("onclick=analyticsCallback()")))
     }
+
+
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_care_you_provide/g_moreAboutTheCarer.js")></script>
+    <script type="text/javascript">
+        $(function(){
+            window.areaCounter({selector:"@CarersCrypto.encryptAES("otherCarerUcDetails")",maxChars:@MoreAboutTheCare.textMaxLength});
+            window.init(
+                "@CarersCrypto.encryptAES(currentForm("otherCarer_yes").id)",
+                "@CarersCrypto.encryptAES(currentForm("otherCarer_no").id)",
+                "otherCarerUcWrap",
+                "@CarersCrypto.encryptAES(currentForm("otherCarerUc_yes").id)",
+                "@CarersCrypto.encryptAES(currentForm("otherCarerUc_no").id)",
+                "otherCarerUcDetailsWrap",
+                "@CarersCrypto.encryptAES(currentForm("otherCarerUcDetails").id)"
+            );
+        });
+        function analyticsCallback() {
+                var textelement="#@CarersCrypto.encryptAES(currentForm("otherCarerUcDetails").id)"
+				if(!@Play.isTest && $(textelement).is(":visible")){
+				    var l=$(textelement).val().length
+                    window.trackEvent(
+                            "@{request.path}",
+                            "otherCarerUcDetails.tracking",
+                            l
+                    )
+				}
+			}
+    </script>
+}
 

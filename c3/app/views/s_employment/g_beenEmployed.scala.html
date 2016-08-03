@@ -15,7 +15,7 @@
 
 @main("Your employment history - " + messages("s7.longName"), Some(currentForm)) {
 
-    <fieldset id="jobs" class="form-elements results-detail" data-journey="carers-allowance:page:employment">
+    <fieldset id="jobs" class="form-elements results-detail" data-journey="carers-allowance:page:employment" style="min-width: auto;">
 
         <legend class="heading-medium form-label-bold">@Html(messages("tableTitle"))</legend>
 
@@ -29,7 +29,7 @@
 
                             <li id="@job.iterationID" class="@job.iterationID">
 
-                                <h3 class="heading-small">@job.employerName</h3>
+                                <h3 class="heading-small" style="word-wrap: break-word;">@job.employerName</h3>
 
                                 <dl>
                                     <dt>@Html(messages("startDateTable")):</dt>

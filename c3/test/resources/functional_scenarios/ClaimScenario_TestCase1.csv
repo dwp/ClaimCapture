@@ -43,6 +43,7 @@ About the care you provide,Details of the person you care for,Date of birth,Abou
 About the care you provide,Details of the person you care for,Do they live at the same address as you?,AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou,Yes
 About the care you provide,Relationship and other claims,"What's their relationship to you?",AboutTheCareYouProvideWhatTheirRelationshipToYou,Partner
 About the care you provide,More about the care you provide,Do you spend 35 hours or more each week caring for this person?,AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek,Yes
+About the care you provide,More about the care you provide,Does anyone else spend 35 hours or more each week providing care for dp?,AboutTheCareYouProvideOtherCarer,No
 About the care you provide,Breaks from Care,"Have you had any breaks from caring for this person since, [[Claim Date]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1,No
 Education,Your course details,Have you been on a course of education since your claim date:<ddmmyyyy>? ,EducationHaveYouBeenOnACourseOfEducation,No
 Your Income,Employment,Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)?,EmploymentHaveYouBeenEmployedAtAnyTime_0,no

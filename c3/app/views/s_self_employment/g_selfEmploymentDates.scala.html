@@ -7,6 +7,8 @@
 @import scala.language.postfixOps
 @import views.html.s_self_employment.main
 @import utils.helpers.CarersCrypto
+@import play.api.Play
+@import play.api.Play.current
 
 @haveAccountsYesHelperText=@{
 		"<p class=\"form-hint\" id=\"haveAccountsYesWrap\">"+messages("haveAccountsHelper")+"</p>"
@@ -16,7 +18,7 @@
         @DwpCSRFFormHelper.formField
 	        <fieldset class="form-elements" data-journey="carers-allowance:page:self-employment">
 	            <ul>
-	                @yesNoRadioGroup(currentForm("stillSelfEmployed"))
+	                @yesNoRadioGroup(currentForm("stillSelfEmployed"), 'track -> true, 'trackLabel -> messages("stillSelfEmployed"))
 					@otherDetailPlaceHolder(
 						inputDef = Seq(
 							inputDayMonthYear(currentForm("finishThisWork"), 'ignoreOptional-> true)
@@ -25,14 +27,14 @@
 					)
                     					
 					@yesNoRadioGroup(currentForm("moreThanYearAgo"), 'ignoreOptional-> true,
-						'values -> Seq("yes" -> messages("label.yes3"), "no" -> messages("label.no")))
+						'values -> Seq("yes" -> messages("label.yes3"), "no" -> messages("label.no")), 'track -> true, 'trackLabel -> messages("moreThanYearAgo"))
 					@otherDetailPlaceHolder(
 						inputDef = Seq(
 							yesNoRadioGroup(currentForm("haveAccounts"), 'helper-> haveAccountsYesHelperText, 'ignoreOptional-> true,
-								'values -> Seq("yes" -> messages("label.yes4"), "no" -> messages("label.no"))),
+								'values -> Seq("yes" -> messages("label.yes4"), "no" -> messages("label.no")), 'track -> true, 'trackLabel -> messages("haveAccounts")),
 							otherDetailPlaceHolder(
 								inputDef = Seq(
-									yesNoRadioGroup(currentForm("knowTradingYear"), 'helperAbove->messages("knowTradingYearHelper"), 'ignoreOptional-> true),
+									yesNoRadioGroup(currentForm("knowTradingYear"), 'helperAbove->messages("knowTradingYearHelper"), 'ignoreOptional-> true, 'track -> true, 'trackLabel -> messages("knowTradingYear")),
 									otherDetailPlaceHolder(
 										inputDef = Seq(
 											inputDayMonthYear(currentForm("tradingYearStart"), 'ignoreOptional-> true)
@@ -49,7 +51,7 @@
 						inputDef = Seq(
 							inputDayMonthYear(currentForm("startThisWork")),
 							yesNoRadioGroup(currentForm("paidMoney"), 'helperAbove-> messages("paidMoneyHelper"), 'ignoreOptional-> true,
-								'values -> Seq("yes" -> messages("label.yes4"), "no" -> messages("label.no"))),
+								'values -> Seq("yes" -> messages("label.yes4"), "no" -> messages("label.no")), 'track -> true, 'trackLabel -> messages("paidMoney")),
 							otherDetailPlaceHolder(
 								inputDef = Seq(
 									inputDayMonthYear(currentForm("paidMoneyDate"), 'ignoreOptional-> true)
@@ -61,7 +63,7 @@
 					)
 	            </ul>
 	        </fieldset>
-		@views.html.common.bottomNavigation(nextLabel = Some("form.next"))
+		@views.html.common.bottomNavigation(nextLabel = Some("form.next"), customTrack = Some(Html("onclick=analyticsCallback()")))
 	}
 
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_self_employment/g_selfEmploymentDates.js")></script>
@@ -89,6 +91,17 @@
             @ga.stagePrompt()
         });
     </script>
+	<script type="text/javascript">
+			function analyticsCallback() {
+				@if(!Play.isTest){
+                    window.trackTradingYearStart(
+                            "@CarersCrypto.encryptAES("tradingYearStart_month")",
+                            "@{request.path}",
+                            "@messages("tradingYearStart")"
+                    )
+				}
+			}
+	</script>
 
 }
 

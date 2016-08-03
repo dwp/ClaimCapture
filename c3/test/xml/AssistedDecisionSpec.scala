@@ -11,7 +11,11 @@ import models.yesNo._
 import xml.claim.AssistedDecision
 
 class AssistedDecisionSpec extends Specification {
+  // Do not reformat this xml it breaks the tests ... !!!
   val emptyAssistedDecisionNode = <AssistedDecision><Reason>None</Reason><RecommendedDecision>None,show table</RecommendedDecision></AssistedDecision>
+
+  lazy val now = DateTime.now()
+  lazy val yourDetails30yo = YourDetails(dateOfBirth = now.minusYears(30))
 
   section("unit")
   "Assisted section" should {
@@ -38,9 +42,8 @@ class AssistedDecisionSpec extends Specification {
       val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.no, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no))))
       val benefits = Benefits(benefitsAnswer = Benefits.pip)
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
-      val now = DateTime.now()
       val details = ClaimDate(DayMonthYear(now.plusMonths(3).plusDays(2)))
-      val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(details).update(moreAboutTheCare).update(paymentsFromAbroad).update(benefits).update(yourCourseDetails))
+      val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(details).update(yourDetails30yo).update(moreAboutTheCare).update(paymentsFromAbroad).update(benefits).update(yourCourseDetails))
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must contain("Claim date over 3 months into future.")
       (xml \\ "RecommendedDecision").text must contain("Potential disallowance decision")
@@ -51,9 +54,8 @@ class AssistedDecisionSpec extends Specification {
       val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.no, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no))))
       val benefits = Benefits(benefitsAnswer = Benefits.pip)
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
-      val now = DateTime.now()
       val details = ClaimDate(DayMonthYear(now.plusMonths(3)))
-      val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(details).update(moreAboutTheCare).update(paymentsFromAbroad).update(benefits).update(yourCourseDetails))
+      val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(details).update(yourDetails30yo).update(moreAboutTheCare).update(paymentsFromAbroad).update(benefits).update(yourCourseDetails))
       val xml = AssistedDecision.xml(claim)
       (xml \\ "AssistedDecision") (0) mustEqual emptyAssistedDecisionNode
     }

@@ -84,3 +84,11 @@ clearInput = ->
     $(this).parent().removeClass("selected")
   else
     $(this).val("")
+
+window.trackTradingYearStart = (tradingYearStart_month, path, message) ->
+  if ($("#" + tradingYearStart_month) and $("#" + tradingYearStart_month).val() != "")
+    if (parseInt($("#" + tradingYearStart_month).val(),10) == 4)
+      trackEvent(path, message, "April")
+    else
+      trackEvent(path, message, "Other Month")
+

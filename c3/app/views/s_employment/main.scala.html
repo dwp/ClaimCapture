@@ -22,7 +22,7 @@
                 @views.html.common.upperBackButton()
 
                 @if(employerName.isDefined && !employerName.isEmpty) {
-                    <h1 class="form-title heading-large">@sectionTitle(YourIncome)@employerName </h1>
+                    <h1 class="form-title heading-large" style="word-wrap: break-word;">@sectionTitle(YourIncome)@employerName </h1>
                 }
                 @if(!employerName.isDefined || employerName.isEmpty){
                     <h1 class="form-title heading-large">@sectionTitle(YourIncome)@Html(messages("s7.main.help1"))</h1>
