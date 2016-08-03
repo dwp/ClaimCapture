@@ -28,8 +28,12 @@ case object BreaksInCare extends QuestionGroup.Identifier {
 
 case class Break(iterationID: String = "") extends IterationID
 
-case class BreaksInCareSummary(answer: String = "") extends QuestionGroup(BreaksInCareSummary)
+case class BreaksInCareType(hospital: Option[String] = None,
+                            carehome: Option[String] = None,
+                            none: Option[String] = None,
+                            other: Option[String] = None
+                             ) extends QuestionGroup(BreaksInCareType)
 
-case object BreaksInCareSummary extends QuestionGroup.Identifier {
-  val id = s"${OldBreaks.id}.g6"
+case object BreaksInCareType extends QuestionGroup.Identifier {
+  val id = s"${Breaks.id}.g6"
 }
