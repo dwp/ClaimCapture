@@ -220,6 +220,20 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def defaultDpDetails() = {
+    val claim = new TestData
+
+    claim.AboutTheCareYouProvideTitlePersonCareFor = "Mr"
+    claim.AboutTheCareYouProvideFirstNamePersonCareFor = "Albert"
+    claim.AboutTheCareYouProvideMiddleNamePersonCareFor = "H"
+    claim.AboutTheCareYouProvideSurnamePersonCareFor = "Johnson"
+    claim.AboutTheCareYouProvideNINOPersonCareFor = "AB123456A"
+    claim.AboutTheCareYouProvideDateofBirthPersonYouCareFor = "01/02/1900"
+    claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "yes"
+    claim.AboutTheCareYouProvideWhatTheirRelationshipToYou = "Father"
+    claim
+  }
+
   def s4CareYouProvide(hours35: Boolean, liveSameAddress: Boolean = false) = {
     val claim = s2ands3WithTimeOUtsideUKAndProperty()
     // Their Personal Details
