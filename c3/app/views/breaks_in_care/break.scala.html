@@ -10,6 +10,7 @@
 @implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
 @import app.CircsBreaksWhereabouts._
 @import controllers.IterationID
+@import views.html.breaks_in_care.main
 
 @dateWeRequireBreakInCareInformationFrom() = @{
     val claimDateQG = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
@@ -17,7 +18,7 @@
 }
 
 
-@main("Break - About the care you provide", Some(breakForm), Some(backCall),true) {
+@main("Break - About the care you provide", messages("s4.g11.help1"), Some(breakForm), Some(backCall),true) {
 
 @form(action = controllers.s_breaks.routes.GOldBreak.submit, 'role -> "form") {
 

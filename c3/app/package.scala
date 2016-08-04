@@ -82,6 +82,11 @@ package object app {
     val Other = "Other" // TODO [SKW] the xsd is inconsistent and needs changing as there is no value for other, so I just made up a value and Jorge will change the schema and can replace this with a sensible value.
   }
 
+  object BreaksInCareGatherOptions {
+    val You = "You"
+    val DP = "DP"
+  }
+
   object StatutoryPaymentFrequency {
     val Weekly = "Weekly"
     val Fortnightly = "Fortnightly"

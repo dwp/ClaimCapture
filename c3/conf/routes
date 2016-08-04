@@ -145,6 +145,11 @@ GET         /breaks/break/:id                                           controll
 POST        /breaks/break                                               controllers.s_breaks.GOldBreak.submit
 
 
+# Breaks in care
+###############
+GET         /breaks/hospital:id                                         controllers.breaks_in_care.GBreaksInCareHospital.present(id: String)
+POST        /breaks/hospital                                            controllers.breaks_in_care.GBreaksInCareHospital.submit
+
 # Education
 ###############
 GET         /education/your-course-details                              controllers.s_education.GYourCourseDetails.present

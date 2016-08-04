@@ -9,7 +9,7 @@
 @import scala.language.postfixOps
 @import app.CircsBreaksWhereabouts._
 @import controllers.s_breaks.GOldBreaksInCare
-@import views.html.s_breaks.main
+@import views.html.breaks_in_care.main
 
 @dateWeRequireBreakInCareInformationFrom() = @{
     val claimDateQG = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
@@ -27,7 +27,7 @@ else YourIncomeStatutorySickPay.name
     reasonList.find(p => p._1 == answer).getOrElse(("../../../public", Html("../../../public")))._2
 }
 
-@main(messages("s4.g5") + " - " + messages("s4.longName"), Some(yesNoForm)) {
+@main(messages("s4.g5") + " - " + messages("s4.longName"), messages("s4.g5"), Some(yesNoForm)) {
 
     <fieldset id="breaks" class="form-elements results-detail">
 

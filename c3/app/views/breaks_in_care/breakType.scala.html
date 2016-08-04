@@ -4,7 +4,7 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import language.postfixOps
 @import scala.language.postfixOps
-@import views.html.s_breaks.main
+@import views.html.breaks_in_care.main
 @import models.domain.TheirPersonalDetails
 @import models.domain.Breaks
 @import models.domain.ClaimDate
@@ -24,7 +24,7 @@
     theirPersonalDetails.firstName+" "+theirPersonalDetails.surname
 }
 
-@main(messages("breaks.title"), Some(currentForm)) {
+@main(messages("breaks.title"), messages("breaks.title"), Some(currentForm)) {
     @form(action = controllers.breaks_in_care.routes.GBreakTypes.submit, 'role -> "form") {
         @DwpCSRFFormHelper.formField
         <input type="hidden" id="js" name="jsEnabled" value="false">

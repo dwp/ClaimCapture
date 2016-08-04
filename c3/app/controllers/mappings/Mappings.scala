@@ -1,7 +1,6 @@
 package controllers.mappings
 
-import app.PaymentTypes
-import app.StatutoryPaymentFrequency
+import app.{BreaksInCareGatherOptions, PaymentTypes, StatutoryPaymentFrequency}
 import controllers.CarersForms._
 import models._
 import org.joda.time.DateTime
@@ -294,6 +293,12 @@ object Mappings {
     case StatutoryPaymentFrequency.Other => Valid
     case StatutoryPaymentFrequency.ItVaries => Valid
     case _ => Invalid(ValidationError("paymentFrequency.invalid"))
+  }
+
+  def validWhoWasAwayType: Constraint[String] = Constraint[String]("constraint.whoWasAway") {
+    case BreaksInCareGatherOptions.You => Valid
+    case BreaksInCareGatherOptions.DP => Valid
+    case _ => Invalid(ValidationError("whoWasAway.invalid"))
   }
 
   def stopOnFirstFail[T](constraints: Constraint[T]*) = Constraint[T]("constraint.required") { field: T =>
