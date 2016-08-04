@@ -10,10 +10,10 @@ window.initEvents = (you, dp, youEnded_yes, youEnded_no, dpEnded_yes, dpEnded_no
   if not isChecked(dp)
     hideWrapper(dpAdmittedWrap)
 
-  if not isChecked(youEnded_no)
+  if not isChecked(youEnded_yes)
     hideWrapper(youEndedWrap)
 
-  if not isChecked(dpEnded_no)
+  if not isChecked(dpEnded_yes)
     hideWrapper(dpEndedWrap)
 
   if isChecked(you)
@@ -47,7 +47,6 @@ window.initEvents = (you, dp, youEnded_yes, youEnded_no, dpEnded_yes, dpEnded_no
 
   S(dpEnded_no).on "click", ->
     hideWrapper(dpEndedWrap)
-
 
 showWrapper = (wrapper) ->
   $("#" + wrapper).slideDown(0).attr 'aria-hidden', 'false'
