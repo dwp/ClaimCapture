@@ -41,7 +41,8 @@
 
                 @yesNoRadioGroup(currentForm("breaktype_other"),
                     '_label -> messages("breaktype_other", dpname),
-                    'helperAbove->messages("breaks.breaktype.other.helper"))
+                    'helperAbove->messages("breaks.breaktype.other.helper"),
+                    'ignoreOptional->true)
             </ul>
         </fieldset>
         @views.html.common.bottomNavigation(trackSubmit = true)

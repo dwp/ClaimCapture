@@ -15,6 +15,18 @@ class GBreakTypeIntegrationSpec extends Specification {
     "be presented" in new WithBrowser with PageObjects {
       val page = GBreaksTypesPage(context)
       page goToThePage()
+      page must beAnInstanceOf[GBreaksTypesPage]
+    }
+
+    "be presented with correct dynamic question labels" in new WithBrowser with PageObjects with WithBrowserHelper {
+      GClaimDatePage.fillClaimDate(context, testData => {
+        testData.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "01/10/2016"
+      })
+      GTheirPersonalDetailsPage.fillDpDetails(context, testData => {})
+      val page = GBreaksTypesPage(context)
+      page goToThePage()
+      $("#breaktype_questionLabel").getText() mustEqual("Since 1 October 2016 have you or Albert Johnson been in any of the following for at least a week?")
+      $("#breaktype_other_questionLabel").getText() mustEqual("Have there been any other weeks you've not provided care for Albert Johnson for 35 hours a week?")
     }
 
     "present 2 errors with correct wording if no fields are populated" in new WithJsBrowser with PageObjects {
