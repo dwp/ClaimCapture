@@ -13,7 +13,7 @@ import play.api.i18n._
 
 import scala.language.postfixOps
 
-object GBreaksInCare extends Controller with CachedClaim with Navigable with I18nSupport {
+object GBreakTypes extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val form = Form(mapping(
     "breaktype_hospital" -> optional(nonEmptyText),
@@ -44,7 +44,7 @@ object GBreaksInCare extends Controller with CachedClaim with Navigable with I18
         BadRequest(views.html.breaks_in_care.breakType(errors))
       },
       breaksInCareType => {
-        claim.update(breaksInCareType) -> Redirect(routes.GBreaksInCare.present())
+        claim.update(breaksInCareType) -> Redirect(routes.GBreakTypes.present())
       })
   }
 
