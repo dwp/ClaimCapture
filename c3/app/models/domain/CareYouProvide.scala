@@ -27,7 +27,7 @@ case object TheirPersonalDetails extends QuestionGroup.Identifier {
 }
 
 case class MoreAboutTheCare(spent35HoursCaring: String = "",
-                            otherCarer: String = "",
+                            otherCarer: Option[String] = None,
                             otherCarerUc: Option[String] = None,
                             otherCarerUcDetails: Option[String] = None
                              ) extends QuestionGroup(MoreAboutTheCare)

@@ -10,6 +10,7 @@
 @import models.domain.MoreAboutTheCare
 @import play.api.Play
 @import play.api.Play.current
+@import utils.helpers.OriginTagHelper._
 
 @theirPersonalDetails = @{claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())}
 @dpname=@{
@@ -23,22 +24,23 @@
                 @yesNoRadioGroup(currentForm("spent35HoursCaring"), '_label-> messages("spent35HoursCaring", dpname),
                     'helperAbove-> messages("spent35HoursHelper"), 'track -> true)
 
-                @yesNoRadioGroup(currentForm("otherCarer"), '_label-> messages("otherCarer", dpname), 'track -> true)
-
-                @otherDetailPlaceHolder(
-                    inputDef = Seq(
-                        yesNoRadioGroup(currentForm("otherCarerUc"), '_label-> messages("otherCarerUc", dpname), 'track -> true,
-                            'ignoreOptional-> true),
-                        otherDetailPlaceHolder(
-                            inputDef = Seq(
-                                carersInputTextArea(currentForm("otherCarerUcDetails"),
-                                    'textAreaHelper->Html(messages(s"${MoreAboutTheCare.textMaxLength}charsLeft")),
-                                    'maxLength->MoreAboutTheCare.textMaxLength, 'ignoreOptional -> true )
-                            ),
-                            'id -> "otherCarerUcDetailsWrap"
-                        )
-                    ), 'id -> "otherCarerUcWrap"
-                )
+                @if(isOriginGB) {
+                    @yesNoRadioGroup(currentForm("otherCarer"), '_label-> messages("otherCarer", dpname), 'track -> true, 'ignoreOptional -> true)
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            yesNoRadioGroup(currentForm("otherCarerUc"), '_label-> messages("otherCarerUc", dpname), 'track -> true,
+                                'ignoreOptional-> true),
+                            otherDetailPlaceHolder(
+                                inputDef = Seq(
+                                    carersInputTextArea(currentForm("otherCarerUcDetails"),
+                                        'textAreaHelper->Html(messages(s"${MoreAboutTheCare.textMaxLength}charsLeft")),
+                                        'maxLength->MoreAboutTheCare.textMaxLength, 'ignoreOptional -> true )
+                                ),
+                                'id -> "otherCarerUcDetailsWrap"
+                            )
+                        ), 'id -> "otherCarerUcWrap"
+                    )
+                }
             </ul>
         </fieldset>
         @views.html.common.bottomNavigation(customTrack = Some(Html("onclick=analyticsCallback()")))
