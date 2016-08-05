@@ -80,7 +80,7 @@ object ReplicaData {
           PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.yes,field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)))) +
           YourPartnerPersonalDetails(hadPartnerSinceClaimDate = Mappings.yes,title = Some("Miss"),firstName = Some("Joan"),surname = Some("Bloggs"),dateOfBirth = Some(DayMonthYear.today - 10 years),nationality = Some("British"),separatedFromPartner = Some(Mappings.no),isPartnerPersonYouCareFor = Some(Mappings.no)) +
           TheirPersonalDetails(relationship = "Grandma",title = "Mrs",firstName = "Jane",surname = "Bloggs",dateOfBirth = DayMonthYear.today - 15 years,theirAddress = YesNoMandWithAddress(answer = Mappings.no, address = Option(MultiLineAddress(lineOne = Some("470 Street"),lineTwo = Some("Newtown"))), postCode = Some("PR1 1HB"))) +
-          MoreAboutTheCare(spent35HoursCaring = Mappings.yes, otherCarer= Some(Mappings.no)) +
+          MoreAboutTheCare(spent35HoursCaring = Some(Mappings.yes), otherCarer= Some(Mappings.no)) +
           BreaksInCareSummary(Mappings.no) +
           BreaksInCare(List(
             Break("1",DayMonthYear.today - 4 months,hasBreakEnded = YesNoWithDate(answer = Mappings.no,None),whereYou = RadioWithText(app.CircsBreaksWhereabouts.Holiday),wherePerson = RadioWithText(app.CircsBreaksWhereabouts.Home),medicalDuringBreak = Mappings.no),

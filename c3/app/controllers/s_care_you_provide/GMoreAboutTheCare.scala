@@ -17,20 +17,21 @@ import controllers.CarersForms._
 object GMoreAboutTheCare extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val form = Form(mapping(
-    "spent35HoursCaring" -> nonEmptyText.verifying(validYesNo),
+    "spent35HoursCaring" -> optional(text.verifying(validYesNo)),
     "otherCarer" -> optional(text.verifying(validYesNo)),
     "otherCarerUc" -> optional(text.verifying(validYesNo)),
     "otherCarerUcDetails" -> optional(carersText(maxLength = MoreAboutTheCare.textMaxLength))
   )(MoreAboutTheCare.apply)(MoreAboutTheCare.unapply)
+    .verifying("spent35HoursCaring.required", validateSpent35 _)
     .verifying("otherCarer.required", validateCarer _)
     .verifying("otherCarerUc.required", validateCarerUc _)
   )
 
-  private def validateCarer(moreAboutTheCare: MoreAboutTheCare) = {
-    isOriginGB match {
-      case true => moreAboutTheCare.otherCarer.isDefined
-      case _ => true
-    }
+  private def validateSpent35(moreAboutTheCare: MoreAboutTheCare) = moreAboutTheCare.otherCarer.isDefined
+
+  private def validateCarer(moreAboutTheCare: MoreAboutTheCare) = isOriginGB match {
+    case true => moreAboutTheCare.otherCarer.isDefined
+    case _ => true
   }
 
   private def validateCarerUc(moreAboutTheCare: MoreAboutTheCare) = {
@@ -49,7 +50,7 @@ object GMoreAboutTheCare extends Controller with CachedClaim with Navigable with
       formWithErrors => {
         val theirPersonalDetails = claim.questionGroup(TheirPersonalDetails).getOrElse(TheirPersonalDetails()).asInstanceOf[TheirPersonalDetails]
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("spent35HoursCaring", errorRequired, FormError("spent35HoursCaring", errorRequired, Seq(theirPersonalDetails.firstName+" "+theirPersonalDetails.surname)))
+          .replaceError("", "spent35HoursCaring.required", FormError("spent35HoursCaring", errorRequired, Seq(theirPersonalDetails.firstName+" "+theirPersonalDetails.surname)))
           .replaceError("", "otherCarer.required", FormError("otherCarer", errorRequired, Seq(theirPersonalDetails.firstName+" "+theirPersonalDetails.surname)))
           .replaceError("otherCarerUc", errorRequired, FormError("otherCarerUc", errorRequired, Seq(theirPersonalDetails.firstName+" "+theirPersonalDetails.surname)))
           .replaceError("", "otherCarerUc.required", FormError("otherCarerUc", errorRequired, Seq(theirPersonalDetails.firstName+" "+theirPersonalDetails.surname)))

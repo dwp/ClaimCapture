@@ -158,7 +158,7 @@ object AssistedDecision extends XMLComponent {
 
   private def isOver35Hours(claim: Claim): Boolean = {
     val hours = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
-    hours.spent35HoursCaring.toLowerCase == "yes"
+    hours.spent35HoursCaring.getOrElse("").toLowerCase == "yes"
   }
 
   private def isEEA(claim: Claim): Boolean = {
