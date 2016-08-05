@@ -3,7 +3,7 @@ val = (selector, text) -> if text? then $("##{selector}").val(text) else $("##{s
 S = (selector) -> $("##{selector}")
 
 window.initEvents = (you, dp, youEnded_yes, youEnded_no, dpEnded_yes, dpEnded_no,
-  youEndedWrap, youAdmittedWrap, dpEndedWrap, dpAdmittedWrap) ->
+  youEndedWrap, youAdmittedWrap, dpEndedWrap, dpAdmittedWrap, medicalProfession, present, past) ->
   if not isChecked(you)
     hideWrapper(youAdmittedWrap)
 
@@ -37,12 +37,14 @@ window.initEvents = (you, dp, youEnded_yes, youEnded_no, dpEnded_yes, dpEnded_no
     showWrapper(dpAdmittedWrap)
 
   S(youEnded_yes).on "click", ->
+    updateYourProfessionLabel(youEnded_yes, youEnded_no, medicalProfession, present, past)
     showWrapper(youEndedWrap)
 
   S(dpEnded_yes).on "click", ->
     showWrapper(dpEndedWrap)
 
   S(youEnded_no).on "click", ->
+    updateYourProfessionLabel(youEnded_yes, youEnded_no, medicalProfession, present, past)
     hideWrapper(youEndedWrap)
 
   S(dpEnded_no).on "click", ->
@@ -67,3 +69,12 @@ clearInput = ->
     $(this).parent().removeClass("selected")
   else
     $(this).val("")
+
+updateYourProfessionLabel = (youEnded_yes, youEnded_no, medicalProfession, present, past) ->
+  label = S(medicalProfession).prev()
+  if isChecked(youEnded_yes)
+    if label
+      label.text(past).append(label.children())
+  else
+    if label
+      label.text(present).append(label.children())

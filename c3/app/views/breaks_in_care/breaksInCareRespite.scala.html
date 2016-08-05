@@ -40,18 +40,23 @@
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
                         dateTimePickerWithDynamicLabel(currentForm("whenWereYouAdmitted"),
-                            'dynamicDateDays -> 34, 'ignoreOptional -> true),
+                            'dynamicDateDays -> 34, 'ignoreOptional -> true, 'track -> true),
                         yesNoRadioGroup(currentForm("yourRespiteStayEnded.answer"),
                             '_label -> messages("yourRespiteStayEnded.answer"),
                             'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")),
-                            'ignoreOptional-> true
+                            'ignoreOptional-> true, 'track -> true
                         ),
                         otherDetailPlaceHolder(
                             inputDef = Seq(
                                 dateTimePickerWithDynamicLabel(currentForm("yourRespiteStayEnded.date"),
-                                    'dynamicDateDays -> 34, 'ignoreOptional -> true)
+                                    'dynamicDateDays -> 34, 'ignoreOptional -> true, 'track -> true)
                             ),
                             'id -> "yourRespiteStayEndedWrap"
+                        ),
+                        yesNoRadioGroup(currentForm("breaksInCareYourMedicalProfession"),
+                            'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")),
+                            '_label -> messages("breaksInCareYourMedicalProfession", dpDetails), 'ignoreOptional -> true,
+                            'track -> true
                         )
                     ),
                     'id -> "whenWereYouAdmittedWrap"
@@ -60,24 +65,29 @@
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
                         dateTimePickerWithDynamicLabel(currentForm("whenWasDpAdmitted"),
-                            'dynamicDateDays -> 34, 'ignoreOptional -> true,
+                            'dynamicDateDays -> 34, 'ignoreOptional -> true, 'track -> true,
                             '_label -> messages("whenWasDpAdmitted", dpDetails)),
                         yesNoRadioGroup(currentForm("dpRespiteStayEnded.answer"),
                             'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")),
-                            'ignoreOptional-> true
+                            'track -> true, 'ignoreOptional-> true
                         ),
                         otherDetailPlaceHolder(
                             inputDef = Seq(
                                 dateTimePickerWithDynamicLabel(currentForm("dpRespiteStayEnded.date"),
-                                    'dynamicDateDays -> 34, 'ignoreOptional -> true,
+                                    'dynamicDateDays -> 34, 'ignoreOptional -> true, 'track -> true,
                                     '_label -> messages("dpStayEnded.date", dpDetails))
                             ),
                             'id -> "dpRespiteStayEndedWrap"
                         ),
+                        yesNoRadioGroup(currentForm("breaksInCareDpMedicalProfession"),
+                            'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")),
+                            '_label -> messages("breaksInCareDpMedicalProfession", dpDetails), 'ignoreOptional -> true,
+                            'track -> true
+                        ),
                         yesNoRadioGroup(currentForm("breaksInCareRespiteStillCaring"),
                             'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")),
-                            '_label -> messages("breaksInCareRespiteStillCaring", dpDetails), 'ignoreOptional -> true,
-                            'helperAbove -> messages("breaksInCareRespiteStillCaring.helper")
+                            '_label -> messages("breaksInCareRespiteStillCaring.present", dpDetails), 'ignoreOptional -> true,
+                            'track -> true, 'helperAbove -> messages("breaksInCareRespiteStillCaring.helper")
                         )
                     ),
                     'id -> "whenWasDpAdmittedWrap"
@@ -104,7 +114,10 @@
             "yourRespiteStayEndedWrap",
             "whenWereYouAdmittedWrap",
             "dpRespiteStayEndedWrap",
-            "whenWasDpAdmittedWrap");
+            "whenWasDpAdmittedWrap",
+            "@CarersCrypto.encryptAES("breaksInCareYourMedicalProfession")",
+            "@Html(messages("breaksInCareYourMedicalProfession"))",
+            "@Html(messages("breaksInCareYourMedicalProfession.past"))");
         });
     </script>
 

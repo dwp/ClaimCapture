@@ -29,12 +29,15 @@ case object BreaksInCare extends QuestionGroup.Identifier {
 }
 
 case class Break(iterationID: String = "",
-                 whoWasInHospital: String = "",
+                 typeOfCare: String = "hospital",
+                 whoWasAway: String = "",
                  whenWereYouAdmitted: Option[DayMonthYear] = None,
                  yourStayEnded: Option[YesNoWithDate] = None,
                  whenWasDpAdmitted: Option[DayMonthYear] = None,
                  dpStayEnded: Option[YesNoWithDate] = None,
-                 breaksInCareStillCaring: Option[String] = None
+                 breaksInCareStillCaring: Option[String] = None,
+                 yourMedicalProfessional: Option[String] = None,
+                 dpMedicalProfessional: Option[String] = None
                 ) extends IterationID
 
 case class BreaksInCareType(hospital: Option[String] = None,

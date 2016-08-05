@@ -40,12 +40,15 @@ object GBreaksInCareRespite extends Controller with CachedClaim with I18nSupport
 
   val form = Form(mapping(
     "iterationID" -> carersNonEmptyText,
+    "typeOfCare" -> default(carersNonEmptyText, "respite"),
     "whoWasInRespite" -> carersNonEmptyText.verifying(validWhoWasAwayType),
     "whenWereYouAdmitted" -> optional(dayMonthYear),
     yourStayEndedMapping,
     "whenWasDpAdmitted" -> optional(dayMonthYear),
     dpStayEndedMapping,
-    "breaksInCareStillCaring" -> optional(nonEmptyText)
+    "breaksInCareStillCaring" -> optional(nonEmptyText),
+    "yourMedicalProfessional" -> optional(nonEmptyText),
+    "dpMedicalProfessional" -> optional(nonEmptyText)
   )(Break.apply)(Break.unapply)
     .verifying(requiredWhenWereYouAdmitted)
     .verifying(requiredYourStayEndedAnswer)
@@ -106,7 +109,7 @@ object GBreaksInCareRespite extends Controller with CachedClaim with I18nSupport
   }
 
   private def requiredWhenWereYouAdmitted: Constraint[Break] = Constraint[Break]("constraint.breakWhenWereYouAdmitted") { break =>
-    break.whoWasInHospital match {
+    break.whoWasAway match {
       case BreaksInCareGatherOptions.DP => Valid
       case _ if (!break.whenWereYouAdmitted.isDefined) => Invalid(ValidationError("whenWereYouAdmitted"))
       case _ => validateDate(break.whenWereYouAdmitted.get, "whenWereYouAdmitted.invalid")
@@ -114,7 +117,7 @@ object GBreaksInCareRespite extends Controller with CachedClaim with I18nSupport
   }
 
   private def requiredYourStayEndedAnswer: Constraint[Break] = Constraint[Break]("constraint.breakYourStayEndedAnswer") { break =>
-    break.whoWasInHospital match {
+    break.whoWasAway match {
       case BreaksInCareGatherOptions.DP => Valid
       case _ if (!break.yourStayEnded.isDefined) => Invalid(ValidationError("yourStayEnded.answer"))
       case _ => Valid
@@ -122,7 +125,7 @@ object GBreaksInCareRespite extends Controller with CachedClaim with I18nSupport
   }
 
   private def requiredYourStayEndedDate: Constraint[Break] = Constraint[Break]("constraint.breakYourStayEndedDate") { break =>
-    break.whoWasInHospital match {
+    break.whoWasAway match {
       case BreaksInCareGatherOptions.DP => Valid
       case _ if (break.yourStayEnded.isDefined && !YesNoWithDate.validate(break.yourStayEnded.get)) => Invalid(ValidationError("yourStayEnded.date"))
       case _ if (break.yourStayEnded.isDefined && break.yourStayEnded.get.answer == Mappings.yes) => validateDate(break.yourStayEnded.get.date.get, "yourStayEnded.date.invalid")
@@ -131,7 +134,7 @@ object GBreaksInCareRespite extends Controller with CachedClaim with I18nSupport
   }
 
   private def requiredWhenWasDpAdmitted: Constraint[Break] = Constraint[Break]("constraint.breakWhenWasDpAdmitted") { break =>
-    break.whoWasInHospital match {
+    break.whoWasAway match {
       case BreaksInCareGatherOptions.You => Valid
       case _ if (!break.whenWasDpAdmitted.isDefined) => Invalid(ValidationError("whenWasDpAdmitted"))
       case _ => validateDate(break.whenWasDpAdmitted.get, "whenWasDpAdmitted.invalid")
@@ -139,7 +142,7 @@ object GBreaksInCareRespite extends Controller with CachedClaim with I18nSupport
   }
 
   private def requiredDpStayEndedAnswer: Constraint[Break] = Constraint[Break]("constraint.breakDpStayEndedAnswer") { break =>
-    break.whoWasInHospital match {
+    break.whoWasAway match {
       case BreaksInCareGatherOptions.You => Valid
       case _ if (!break.dpStayEnded.isDefined) => Invalid(ValidationError("dpStayEnded.answer"))
       case _ => Valid
@@ -147,7 +150,7 @@ object GBreaksInCareRespite extends Controller with CachedClaim with I18nSupport
   }
 
   private def requiredDpStayEndedDate: Constraint[Break] = Constraint[Break]("constraint.breakDpStayEndedDate") { break =>
-    break.whoWasInHospital match {
+    break.whoWasAway match {
       case BreaksInCareGatherOptions.You => Valid
       case _ if (break.dpStayEnded.isDefined && !YesNoWithDate.validate(break.dpStayEnded.get)) => Invalid(ValidationError("dpStayEnded.date"))
       case _ if (break.dpStayEnded.isDefined && break.dpStayEnded.get.answer == Mappings.yes) => validateDate(break.dpStayEnded.get.date.get, "dpStayEnded.date.invalid")
@@ -156,7 +159,7 @@ object GBreaksInCareRespite extends Controller with CachedClaim with I18nSupport
   }
 
   private def requiredBreaksInCareStillCaring: Constraint[Break] = Constraint[Break]("constraint.breaksInCareStillCaring") { break =>
-    break.whoWasInHospital match {
+    break.whoWasAway match {
       case BreaksInCareGatherOptions.You => Valid
       case _ if (!break.breaksInCareStillCaring.isDefined) => Invalid(ValidationError("breaksInCareStillCaring"))
       case _ => break.breaksInCareStillCaring.get match {
