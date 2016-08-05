@@ -1,9 +1,10 @@
 package controllers.breaks_in_care
 
+import controllers.IterationID
 import controllers.mappings.Mappings
 import models.view.{CachedClaim, Navigable}
 import play.api.Play._
-import play.api.mvc.Controller
+import play.api.mvc.{Request, Controller}
 import play.api.data.Forms._
 import controllers.mappings.Mappings._
 import play.api.data.{FormError, Form}
@@ -44,8 +45,14 @@ object GBreakTypes extends Controller with CachedClaim with Navigable with I18nS
         BadRequest(views.html.breaks_in_care.breakType(errors))
       },
       breaksInCareType => {
-        claim.update(breaksInCareType) -> Redirect(routes.GBreakTypes.present())
+        claim.update(breaksInCareType) -> Redirect(nextPage(breaksInCareType))
       })
+  }
+
+  private def nextPage(breaksInCareType: BreaksInCareType)(implicit claim: Claim, request: Request[_]) = {
+    if (breaksInCareType.hospital.isDefined) routes.GBreaksInCareHospital.present(IterationID(form))
+    else if (breaksInCareType.carehome.isDefined) routes.GBreaksInCareRespite.present(IterationID(form))
+    else routes.GBreakTypes.present()
   }
 
   def delete = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>

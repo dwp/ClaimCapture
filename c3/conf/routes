@@ -134,11 +134,6 @@ POST        /care-you-provide/more-about-the-care                       controll
 
 # Breaks
 ###############
-GET         /breaks/new-breaks-in-care                                  controllers.breaks_in_care.GBreakTypes.present
-POST        /breaks/new-breaks-in-care                                  controllers.breaks_in_care.GBreakTypes.submit
-
-GET         /breaks/summary                                             controllers.breaks_in_care.GBreaksInCareSummary.present
-POST        /breaks/summary                                             controllers.breaks_in_care.GBreaksInCareSummary.submit
 
 GET         /breaks/breaks-in-care                                      controllers.s_breaks.GOldBreaksInCare.present
 POST        /breaks/breaks-in-care                                      controllers.s_breaks.GOldBreaksInCare.submit
@@ -150,8 +145,18 @@ POST        /breaks/break                                               controll
 
 # Breaks in care
 ###############
+GET         /breaks/new-breaks-in-care                                  controllers.breaks_in_care.GBreakTypes.present
+POST        /breaks/new-breaks-in-care                                  controllers.breaks_in_care.GBreakTypes.submit
+
 GET         /breaks/hospital:id                                         controllers.breaks_in_care.GBreaksInCareHospital.present(id: String)
 POST        /breaks/hospital                                            controllers.breaks_in_care.GBreaksInCareHospital.submit
+
+GET         /breaks/respite-care-home:id                                controllers.breaks_in_care.GBreaksInCareRespite.present(id: String)
+POST        /breaks/respite-care-home                                   controllers.breaks_in_care.GBreaksInCareRespite.submit
+
+GET         /breaks/summary                                             controllers.breaks_in_care.GBreaksInCareSummary.present
+POST        /breaks/summary                                             controllers.breaks_in_care.GBreaksInCareSummary.submit
+
 
 # Education
 ###############

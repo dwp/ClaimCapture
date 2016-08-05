@@ -2,6 +2,7 @@ package controllers.breaks_in_care
 
 import app.BreaksInCareGatherOptions
 import app.ConfigProperties._
+import controllers.CarersForms._
 import controllers.mappings.Mappings
 import controllers.mappings.Mappings._
 import models.DayMonthYear
@@ -10,20 +11,19 @@ import models.view.CachedClaim
 import models.yesNo.YesNoWithDate
 import org.joda.time.DateTime
 import play.api.Play._
-import play.api.data.validation.{Invalid, ValidationError, Valid, Constraint}
-import play.api.data.{FormError, Form}
 import play.api.data.Forms._
-import play.api.i18n.{MMessages, MessagesApi, I18nSupport}
+import play.api.data.validation.{Constraint, Invalid, Valid, ValidationError}
+import play.api.data.{Form, FormError}
+import play.api.i18n.{I18nSupport, MMessages, MessagesApi}
 import play.api.mvc.Controller
 import utils.helpers.CarersForm._
-import controllers.CarersForms._
 
-import scala.util.{Try, Failure, Success}
+import scala.util.{Failure, Success, Try}
 
 /**
   * Created by peterwhitehead on 03/08/2016.
   */
-object GBreaksInCareHospital extends Controller with CachedClaim with I18nSupport {
+object GBreaksInCareRespite extends Controller with CachedClaim with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
 
   val yourStayEndedMapping =
@@ -40,7 +40,7 @@ object GBreaksInCareHospital extends Controller with CachedClaim with I18nSuppor
 
   val form = Form(mapping(
     "iterationID" -> carersNonEmptyText,
-    "whoWasInHospital" -> carersNonEmptyText.verifying(validWhoWasAwayType),
+    "whoWasInRespite" -> carersNonEmptyText.verifying(validWhoWasAwayType),
     "whenWereYouAdmitted" -> optional(dayMonthYear),
     yourStayEndedMapping,
     "whenWasDpAdmitted" -> optional(dayMonthYear),
@@ -61,7 +61,7 @@ object GBreaksInCareHospital extends Controller with CachedClaim with I18nSuppor
   def present(iterationID: String) = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     //track(BreaksInCare) { implicit claim =>
       val break = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare(List())).breaks.find(_.iterationID == iterationID).getOrElse(Break())
-      Ok(views.html.breaks_in_care.breaksInCareHospital(form.fill(break), backCall))
+      Ok(views.html.breaks_in_care.breaksInCareRespite(form.fill(break), backCall))
     //}
   }
 
@@ -82,7 +82,7 @@ object GBreaksInCareHospital extends Controller with CachedClaim with I18nSuppor
           .replaceError("", "dpStayEnded.date.invalid", FormError("dpStayEnded.date", errorInvalid, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
           .replaceError("", "breaksInCareStillCaring", FormError("breaksInCareStillCaring", errorRequired, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
           .replaceError("", "breaksInCareStillCaring.invalidYesNo", FormError("breaksInCareStillCaring", invalidYesNo, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
-        BadRequest(views.html.breaks_in_care.breaksInCareHospital(formWithErrorsUpdate, backCall))
+        BadRequest(views.html.breaks_in_care.breaksInCareRespite(formWithErrorsUpdate, backCall))
       },
       break => {
         val updatedBreaksInCare =
