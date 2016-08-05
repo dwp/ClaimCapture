@@ -1,7 +1,8 @@
 package controllers
 
 import utils.pageobjects.TestData
-import app.{PensionPaymentFrequency, WhoseNameAccount, PaymentFrequency, AccountStatus}
+import app._
+import controllers.mappings.Mappings._
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -1048,6 +1049,28 @@ object ClaimScenarioFactory {
   def feedbackSatisfiedVS() = {
     val claim = new TestData
     claim.FeedbackSatisfied = "VS"
+    claim
+  }
+
+  def careYouProvideWithBreaksInCareYou(hours35: Boolean) = {
+    val claim = if (hours35) s4CareYouProvide(true) else s4CareYouProvide(false)
+    claim.BreaktypeHospitalCheckbox = someTrue.get
+    claim.AboutTheCareYouProvideBreakWhoWasInHospital_1 = BreaksInCareGatherOptions.You
+    claim.AboutTheCareYouProvideBreakWhenWereYouAdmitted_1 = "10/01/1999"
+    claim.AboutTheCareYouProvideYourStayEnded_1 = "yes"
+    claim.AboutTheCareYouProvideYourStayEndedDate_1 = "10/01/1999"
+    claim
+  }
+
+  def careYouProvideWithBreaksInCareDp(hours35: Boolean) = {
+    val claim = if (hours35) s4CareYouProvide(true) else s4CareYouProvide(false)
+
+    claim.BreaktypeHospitalCheckbox = someTrue.get
+    claim.AboutTheCareYouProvideBreakWhoWasInHospital_1 = BreaksInCareGatherOptions.DP
+    claim.AboutTheCareYouProvideBreakWhenWasDpAdmitted_1 = "10/01/1999"
+    claim.AboutTheCareYouProvideDpStayEnded_1 = "yes"
+    claim.AboutTheCareYouProvideDpStayEndedDate_1 = "10/01/1999"
+    claim.AboutTheCareYouProvideBreaksInCareStillCaring_1 = "yes"
     claim
   }
 }

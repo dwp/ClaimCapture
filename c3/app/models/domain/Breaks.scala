@@ -16,7 +16,6 @@ case object Breaks extends Section.Identifier {
 case class BreaksInCare(breaks: List[Break] = Nil) extends QuestionGroup(BreaksInCare) {
   def update(break: Break) = {
     val updated = breaks map { b => if (b.iterationID == break.iterationID) break else b }
-
     if (updated.contains(break)) BreaksInCare(updated) else BreaksInCare(breaks :+ break)
   }
 
@@ -26,7 +25,7 @@ case class BreaksInCare(breaks: List[Break] = Nil) extends QuestionGroup(BreaksI
 }
 
 case object BreaksInCare extends QuestionGroup.Identifier {
-  val id = s"${Breaks.id}.g5"
+  val id = s"${Breaks.id}.g1"
 }
 
 case class Break(iterationID: String = "",
@@ -44,13 +43,13 @@ case class BreaksInCareType(hospital: Option[String] = None,
                             other: Option[String] = None
                              ) extends QuestionGroup(BreaksInCareType)
 case object BreaksInCareType extends QuestionGroup.Identifier {
-  val id = s"${Breaks.id}.g6"
+  val id = s"${Breaks.id}.g2"
 }
 
 case class BreaksInCareSummary(breaksummary_other: Option[String] = None,
                                breaksummary_answer: Option[String] = None
                                 ) extends QuestionGroup(BreaksInCareSummary)
 case object BreaksInCareSummary extends QuestionGroup.Identifier {
-  val id = s"${Breaks.id}.g6"
+  val id = s"${Breaks.id}.g3"
 }
 
