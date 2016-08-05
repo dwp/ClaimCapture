@@ -15,7 +15,7 @@ import play.api.data.Forms._
 import play.api.data.validation.{Constraint, Invalid, Valid, ValidationError}
 import play.api.data.{Form, FormError}
 import play.api.i18n.{I18nSupport, MMessages, MessagesApi}
-import play.api.mvc.Controller
+import play.api.mvc.{Request, Controller}
 import utils.helpers.CarersForm._
 
 import scala.util.{Failure, Success, Try}
@@ -27,13 +27,13 @@ object GBreaksInCareRespite extends Controller with CachedClaim with I18nSupport
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
 
   val yourStayEndedMapping =
-    "yourStayEnded" -> optional(mapping(
+    "yourRespiteStayEnded" -> optional(mapping(
       "answer" -> nonEmptyText,
       "date" -> optional(dayMonthYear)
     )(YesNoWithDate.apply)(YesNoWithDate.unapply))
 
   val dpStayEndedMapping =
-    "dpStayEnded" -> optional(mapping(
+    "dpRespiteStayEnded" -> optional(mapping(
       "answer" -> nonEmptyText,
       "date" -> optional(dayMonthYear)
     )(YesNoWithDate.apply)(YesNoWithDate.unapply))
@@ -46,7 +46,7 @@ object GBreaksInCareRespite extends Controller with CachedClaim with I18nSupport
     yourStayEndedMapping,
     "whenWasDpAdmitted" -> optional(dayMonthYear),
     dpStayEndedMapping,
-    "breaksInCareStillCaring" -> optional(nonEmptyText),
+    "breaksInCareRespiteStillCaring" -> optional(nonEmptyText),
     "yourMedicalProfessional" -> optional(nonEmptyText),
     "dpMedicalProfessional" -> optional(nonEmptyText)
   )(Break.apply)(Break.unapply)
@@ -75,14 +75,14 @@ object GBreaksInCareRespite extends Controller with CachedClaim with I18nSupport
         val formWithErrorsUpdate = formWithErrors
           .replaceError("", "whenWereYouAdmitted", FormError("whenWereYouAdmitted", errorRequired))
           .replaceError("", "whenWereYouAdmitted.invalid", FormError("whenWereYouAdmitted", errorInvalid))
-          .replaceError("", "yourStayEnded.answer", FormError("yourStayEnded.answer", errorRequired))
-          .replaceError("", "yourStayEnded.date", FormError("yourStayEnded.date", errorRequired))
+          .replaceError("", "yourStayEnded.answer", FormError("yourRespiteStayEnded.answer", errorRequired))
+          .replaceError("", "yourStayEnded.date", FormError("yourRespiteStayEnded.date", errorRequired))
           .replaceError("", "yourStayEnded.date.invalid", FormError("yourStayEnded.date", errorInvalid))
           .replaceError("", "whenWasDpAdmitted", FormError("whenWasDpAdmitted", errorRequired, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
           .replaceError("", "whenWasDpAdmitted.invalid", FormError("whenWasDpAdmitted", errorInvalid, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
-          .replaceError("", "dpStayEnded.answer", FormError("dpStayEnded.answer", errorRequired))
-          .replaceError("", "dpStayEnded.date", FormError("dpStayEnded.date", errorRequired, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
-          .replaceError("", "dpStayEnded.date.invalid", FormError("dpStayEnded.date", errorInvalid, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
+          .replaceError("", "dpStayEnded.answer", FormError("dpRespiteStayEnded.answer", errorRequired))
+          .replaceError("", "dpStayEnded.date", FormError("dprespiteStayEnded.date", errorRequired, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
+          .replaceError("", "dpStayEnded.date.invalid", FormError("dpRespiteStayEnded.date", errorInvalid, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
           .replaceError("", "breaksInCareStillCaring", FormError("breaksInCareStillCaring", errorRequired, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
           .replaceError("", "breaksInCareStillCaring.invalidYesNo", FormError("breaksInCareStillCaring", invalidYesNo, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
         BadRequest(views.html.breaks_in_care.breaksInCareRespite(formWithErrorsUpdate, backCall))
@@ -95,11 +95,12 @@ object GBreaksInCareRespite extends Controller with CachedClaim with I18nSupport
           }
         // Delete the answer to the question 'Have you had any breaks in care since...'
         // Otherwise, it will prepopulate the answer when asked 'Have you had any more breaks in care since...'
-        Redirect(nextPage(claim.update(updatedBreaksInCare).delete(BreaksInCareSummary)))
+        val updatedClaim = claim.update(updatedBreaksInCare).delete(BreaksInCareSummary)
+        updatedClaim -> Redirect(nextPage)
       })
   }
 
-  private def nextPage(claim: Claim) = {
+  private def nextPage(implicit claim: Claim, request: Request[_]) = {
     val breaksInCareType = claim.questionGroup(BreaksInCareType).getOrElse(BreaksInCareType()).asInstanceOf[BreaksInCareType]
     breaksInCareType.carehome.isDefined match {
       case true => routes.GBreakTypes.present() //Should goto Respite page

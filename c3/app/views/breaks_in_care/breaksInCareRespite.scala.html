@@ -53,9 +53,9 @@
                             ),
                             'id -> "yourRespiteStayEndedWrap"
                         ),
-                        yesNoRadioGroup(currentForm("breaksInCareYourMedicalProfession"),
+                        yesNoRadioGroup(currentForm("yourMedicalProfessional"),
                             'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")),
-                            '_label -> messages("breaksInCareYourMedicalProfession", dpDetails), 'ignoreOptional -> true,
+                            '_label -> messages("yourMedicalProfessional", dpDetails), 'ignoreOptional -> true,
                             'track -> true
                         )
                     ),
@@ -79,9 +79,9 @@
                             ),
                             'id -> "dpRespiteStayEndedWrap"
                         ),
-                        yesNoRadioGroup(currentForm("breaksInCareDpMedicalProfession"),
+                        yesNoRadioGroup(currentForm("dpMedicalProfessional"),
                             'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")),
-                            '_label -> messages("breaksInCareDpMedicalProfession", dpDetails), 'ignoreOptional -> true,
+                            '_label -> messages("dpMedicalProfessional", dpDetails), 'ignoreOptional -> true,
                             'track -> true
                         ),
                         yesNoRadioGroup(currentForm("breaksInCareRespiteStillCaring"),
@@ -115,9 +115,9 @@
             "whenWereYouAdmittedWrap",
             "dpRespiteStayEndedWrap",
             "whenWasDpAdmittedWrap",
-            "@CarersCrypto.encryptAES("breaksInCareYourMedicalProfession")",
-            "@Html(messages("breaksInCareYourMedicalProfession"))",
-            "@Html(messages("breaksInCareYourMedicalProfession.past"))");
+            "@CarersCrypto.encryptAES("yourMedicalProfessional")",
+            "@Html(messages("yourMedicalProfessional"))",
+            "@Html(messages("yourMedicalProfessional.past"))");
         });
     </script>
 

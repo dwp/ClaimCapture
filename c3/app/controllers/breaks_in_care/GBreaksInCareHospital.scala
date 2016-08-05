@@ -95,8 +95,9 @@ object GBreaksInCareHospital extends Controller with CachedClaim with I18nSuppor
             case _ => breaksInCare.update(break)
           }
         // Delete the answer to the question 'Have you had any breaks in care since...'
-        // Otherwise, it will prepopulate the answer when asked 'Have you had any more breaks in care since...'
-        claim.update(updatedBreaksInCare).delete(BreaksInCareSummary) -> Redirect(nextPage)
+        // Otherwise, it will prepopulate the answer when asked 'Have you had an  y more breaks in care since...'
+        val updatedClaim = claim.update(updatedBreaksInCare).delete(BreaksInCareSummary)
+        updatedClaim -> Redirect(nextPage)
       })
   }
 
