@@ -10,6 +10,7 @@ case object Breaks extends Section.Identifier {
   val hospital="hospital"
   val carehome="carehome"
   val none="none"
+  val another="another"
 }
 
 case class BreaksInCare(breaks: List[Break] = Nil) extends QuestionGroup(BreaksInCare) {
@@ -42,13 +43,14 @@ case class BreaksInCareType(hospital: Option[String] = None,
                             none: Option[String] = None,
                             other: Option[String] = None
                              ) extends QuestionGroup(BreaksInCareType)
-
 case object BreaksInCareType extends QuestionGroup.Identifier {
   val id = s"${Breaks.id}.g6"
 }
 
-case class BreaksInCareSummary(answer: String = "") extends QuestionGroup(BreaksInCareSummary)
-
+case class BreaksInCareSummary(breaksummary_other: Option[String] = None,
+                               breaksummary_answer: Option[String] = None
+                                ) extends QuestionGroup(BreaksInCareSummary)
 case object BreaksInCareSummary extends QuestionGroup.Identifier {
   val id = s"${Breaks.id}.g6"
 }
+

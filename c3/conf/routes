@@ -137,6 +137,9 @@ POST        /care-you-provide/more-about-the-care                       controll
 GET         /breaks/new-breaks-in-care                                  controllers.breaks_in_care.GBreakTypes.present
 POST        /breaks/new-breaks-in-care                                  controllers.breaks_in_care.GBreakTypes.submit
 
+GET         /breaks/summary                                             controllers.breaks_in_care.GBreaksInCareSummary.present
+POST        /breaks/summary                                             controllers.breaks_in_care.GBreaksInCareSummary.submit
+
 GET         /breaks/breaks-in-care                                      controllers.s_breaks.GOldBreaksInCare.present
 POST        /breaks/breaks-in-care                                      controllers.s_breaks.GOldBreaksInCare.submit
 POST        /breaks/delete-break-in-care                                controllers.s_breaks.GOldBreaksInCare.delete
