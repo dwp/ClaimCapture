@@ -11,6 +11,8 @@
 @import models.domain.ClaimDate
 @import utils.helpers.CarersCrypto
 @import app.BreaksInCareGatherOptions._
+@import views.html.helper.base._
+@import controllers.breaks_in_care.GBreaksInCareSummary
 
 @optionsList(implicit lang:Lang) = @{
     Seq(Breaks.hospital -> messages("breaksummary_hospital"),
@@ -36,18 +38,22 @@
     break.typeOfCare match {
         case Breaks.hospital => messages("breaks.hospital")
         case Breaks.carehome => messages("breaks.carehome")
+        case "respite" => messages("breaks.carehome")
+        case _ => "ERROR In caretypeLabel"
     }
 }
 @careTypeFrom(break: Break) = @{
     break.whoWasAway match {
-        case You => break.whenWereYouAdmitted
-        case DP => break.whenWasDpAdmitted
+        case You => break.whenWereYouAdmitted.get.`dd/MM/yyyy`
+        case DP => break.whenWasDpAdmitted.get.`dd/MM/yyyy`
+        case _ => "ERROR In caretypeFrom"
     }
 }
 @careTypeTo(break: Break) = @{
-    break.whoWasAway match {
-        case You => break.dpStayEnded.getOrElse("Not ended")
-        case DP => break.whenWasDpAdmitted.getOrElse("Not ended")
+    ( break.whoWasAway, break.yourStayEnded, break.dpStayEnded ) match {
+        case ( You, Some(you), _ ) if(you.answer == "yes")=> you.date.get.`dd/MM/yyyy`
+        case ( DP, _, Some(dp) ) if(dp.answer == "yes")=> dp.date.get.`dd/MM/yyyy`
+        case _ => "Not ended"
     }
 }
 @main(messages("breaks.title"), messages("breaks.title"), Some(currentForm)) {
@@ -63,22 +69,37 @@
                         <th>Where</th>
                         <th>From</th>
                         <th>To</th>
+                        <th></th>
+                        <th></th>
                     </tr>
-                    @for(break <- breaks.breaks){
-                        <tr>
+                    @for((break, breakNum) <- breaks.breaks.zipWithIndex){
+                        <tr iterationid="@break.iterationID">
                             <td>@break.whoWasAway</td>
                             <td>@careTypeLabel(break)</td>
                             <td>@careTypeFrom(break)</td>
                             <td>@careTypeTo(break)</td>
+                            <td>
+                                <input type="button" class="changerow" id="changerow@breakNum" value="@Html(messages("change"))" aria-label="@Html(messages("change.button"))" @views.html.ga.trackClickEvent(linkName = "BIC - Change")>
+                            </td>
+                            <td>
+                                <input type="button" class="deleterow" id="deleterow@breakNum" value="@Html(messages("delete"))" aria-label="@Html(messages("delete.button"))">
+                            </td>
+                        </tr>
+                        <tr iterationid="@break.iterationID" colspan="6" class="delete-confirm" id="delete-confirm@breakNum">
+                            <td colspan="6">
+                                <div class="prompt breaks-prompt validation-summary">
+                                    <p>@Html(messages("areYouSureYouWantToDeleteThisBreak"))</p>
+                                    <input class="noDelete" type="button" name="no" class="button secondary" value="@Html(messages("no.delete"))" aria-label="@Html(messages("no.delete.label"))">
+                                    <input class="yesDelete" type="button" name="yes" class="button warning" value="@Html(messages("yes.delete"))" aria-label="@Html(messages("yes.delete.label"))" @views.html.ga.trackClickEvent(linkName = "BIC - Delete")>
+                                </div>
+                            </td>
                         </tr>
                     }
                 </table>
                 <br>
                 <br>
             }
-            @if(!breaks.hasBreaks){
-                <h2 class="heading-medium" id="heading1">@Html("No breaks added yet")</h2>
-            }
+
 
             <ul>
                 @yesNoRadioGroup(currentForm("breaksummary_other"),
@@ -99,6 +120,11 @@
             </ul>
         </fieldset>
         @views.html.common.bottomNavigation(trackSubmit = true)
+    }
+    @form(action = controllers.breaks_in_care.routes.GBreaksInCareSummary.delete,
+        'role -> "form", 'id -> "delete-break-form"){
+        @DwpCSRFFormHelper.formField
+        @carersInputHidden(GBreaksInCareSummary.deleteForm("deleteId"))
     }
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/breaks_in_care/breaksInCareSummary.js")></script>
     <script type="text/javascript">

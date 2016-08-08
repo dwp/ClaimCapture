@@ -1,13 +1,15 @@
 package controllers.breaks_in_care
 
+import controllers.IterationID
 import controllers.mappings.Mappings
 import controllers.mappings.Mappings._
 import models.domain._
 import models.view.CachedClaim
+import models.yesNo.DeleteId
 import play.api.Play._
 import play.api.data.Forms._
 import play.api.i18n.{Lang, I18nSupport, MMessages, MessagesApi}
-import play.api.mvc.Controller
+import play.api.mvc.{Request, Controller}
 import play.api.data.{FormError, Form}
 import utils.helpers.CarersForm._
 
@@ -37,8 +39,25 @@ object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport
         BadRequest(views.html.breaks_in_care.breaksInCareSummary(errors, breaks))
       },
       breaksInCareSummary => {
-        claim.update(breaksInCareSummary) -> Redirect(routes.GBreaksInCareSummary.present())
+        val b = populateBreaksInCareType(breaksInCareSummary)
+        claim.update(b) -> Redirect(nextPage(b))
       })
+  }
+
+  private def populateBreaksInCareType(breaksInCareSummary: BreaksInCareSummary)(implicit claim: Claim, request: Request[_]) = {
+    breaksInCareSummary.breaksummary_answer match {
+      case Some(Breaks.hospital) => BreaksInCareType(hospital = Some(Mappings.yes))
+      case Some(Breaks.carehome) => BreaksInCareType(carehome = Some(Mappings.yes))
+      // THINK WE HAVE ANOTHER TYPE OTHER ??
+      case _ => BreaksInCareType()
+    }
+  }
+
+  private def nextPage(breaksInCareType: BreaksInCareType)(implicit claim: Claim, request: Request[_]) = {
+    if (breaksInCareType.hospital.isDefined) routes.GBreaksInCareHospital.present(IterationID(form))
+    else if (breaksInCareType.carehome.isDefined) routes.GBreaksInCareRespite.present(IterationID(form))
+    // THINK WE HAVE ANOTHER TYPE OTHER ??
+    else controllers.s_education.routes.GYourCourseDetails.present
   }
 
   private def dpname(claim: Claim) = {
@@ -62,5 +81,20 @@ object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport
       case BreaksInCareSummary(Some(Mappings.yes), None) => false
       case _ => true
     }
+  }
+
+  val deleteForm = Form(mapping(
+    "deleteId" -> nonEmptyText
+  )(DeleteId.apply)(DeleteId.unapply))
+
+  def delete = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
+    deleteForm.bindEncrypted.fold(
+      errors => BadRequest(views.html.breaks_in_care.breaksInCareSummary(form.fill(BreaksInCareSummary), breaks)),
+      deleteForm => {
+        val updatedBreaks = breaks.delete(deleteForm.id)
+        if (updatedBreaks.breaks == breaks.breaks) BadRequest(views.html.breaks_in_care.breaksInCareSummary(form.fill(BreaksInCareSummary), breaks))
+        else claim.update(updatedBreaks).delete(BreaksInCareSummary) -> Redirect(routes.GBreaksInCareSummary.present)
+      }
+    )
   }
 }

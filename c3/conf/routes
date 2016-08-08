@@ -156,6 +156,7 @@ POST        /breaks/respite-care-home                                   controll
 
 GET         /breaks/summary                                             controllers.breaks_in_care.GBreaksInCareSummary.present
 POST        /breaks/summary                                             controllers.breaks_in_care.GBreaksInCareSummary.submit
+POST        /breaks/summary-delete                                      controllers.breaks_in_care.GBreaksInCareSummary.delete
 
 
 # Education
