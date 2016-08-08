@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.BreaksInCareSummary])(implicit claim: models.domain.Claim, lang: Lang, request: play.api.mvc.Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
+@(currentForm: Form[models.domain.BreaksInCareSummary], breaks: models.domain.BreaksInCare)(implicit claim: models.domain.Claim, lang: Lang, request: play.api.mvc.Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
 
 @import views.html.helper._
 @import utils.csrf.DwpCSRFFormHelper
@@ -7,8 +7,10 @@
 @import views.html.breaks_in_care.main
 @import models.domain.TheirPersonalDetails
 @import models.domain.Breaks
+@import models.domain.Break
 @import models.domain.ClaimDate
 @import utils.helpers.CarersCrypto
+@import app.BreaksInCareGatherOptions._
 
 @optionsList(implicit lang:Lang) = @{
     Seq(Breaks.hospital -> messages("breaksummary_hospital"),
@@ -24,22 +26,63 @@
 @dpname=@{
     theirPersonalDetails.firstName+" "+theirPersonalDetails.surname
 }
+@otherlabel=@{
+    breaks.hasBreaks match {
+        case true => "breaksummary_other_another"
+        case false => "breaksummary_other_first"
+    }
+}
+@careTypeLabel(break: Break)=@{
+    break.typeOfCare match {
+        case Breaks.hospital => messages("breaks.hospital")
+        case Breaks.carehome => messages("breaks.carehome")
+    }
+}
+@careTypeFrom(break: Break) = @{
+    break.whoWasAway match {
+        case You => break.whenWereYouAdmitted
+        case DP => break.whenWasDpAdmitted
+    }
+}
+@careTypeTo(break: Break) = @{
+    break.whoWasAway match {
+        case You => break.dpStayEnded.getOrElse("Not ended")
+        case DP => break.whenWasDpAdmitted.getOrElse("Not ended")
+    }
+}
 @main(messages("breaks.title"), messages("breaks.title"), Some(currentForm)) {
     @form(action = controllers.breaks_in_care.routes.GBreaksInCareSummary.submit, 'role -> "form") {
         @DwpCSRFFormHelper.formField
         <input type="hidden" id="js" name="jsEnabled" value="false">
         <fieldset class="form-elements">
-            <h2 class="heading-medium" id="heading1">@Html(messages("breaksummary_title"))</h2>
-            <table>
-                <tr><th>Who</th><th>Where</th></tr>
-                <tr><td>You</td><td>Respite or chare home</td></tr>
-            </table>
-            <br>
-            <br>
+            @if(breaks.hasBreaks){
+                <h2 class="heading-medium" id="heading1"></h2>
+                <table>
+                    <tr>
+                        <th>Who</th>
+                        <th>Where</th>
+                        <th>From</th>
+                        <th>To</th>
+                    </tr>
+                    @for(break <- breaks.breaks){
+                        <tr>
+                            <td>@break.whoWasAway</td>
+                            <td>@careTypeLabel(break)</td>
+                            <td>@careTypeFrom(break)</td>
+                            <td>@careTypeTo(break)</td>
+                        </tr>
+                    }
+                </table>
+                <br>
+                <br>
+            }
+            @if(!breaks.hasBreaks){
+                <h2 class="heading-medium" id="heading1">@Html("No breaks added yet")</h2>
+            }
 
             <ul>
                 @yesNoRadioGroup(currentForm("breaksummary_other"),
-                    '_label -> messages("breaksummary_other", dateWeRequireBreakInCareInformationFrom, dpname),
+                    '_label -> messages(otherlabel, dateWeRequireBreakInCareInformationFrom, dpname),
                     'ignoreOptional->true)
 
                 @otherDetailPlaceHolder(

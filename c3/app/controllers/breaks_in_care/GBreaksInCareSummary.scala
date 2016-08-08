@@ -22,8 +22,10 @@ object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport
     .verifying("mustselectone", validateOneSelected _)
   )
 
+  def breaks(implicit claim: Claim) = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
+
   def present = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
-    Ok(views.html.breaks_in_care.breaksInCareSummary(form.fill(BreaksInCareSummary)))
+    Ok(views.html.breaks_in_care.breaksInCareSummary(form.fill(BreaksInCareSummary), breaks))
   }
 
   def submit = claiming { implicit claim => implicit request => implicit request2lang =>
@@ -32,7 +34,7 @@ object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport
         val errors = formWithErrors
           .replaceError("", "mustselectone", FormError("breaksummary_answer", errorRequired, Seq(dateForBreaks(claim, request2lang), dpname(claim))))
           .replaceError("", "mustselectother", FormError("breaksummary_other", errorRequired, Seq(dateForBreaks(claim, request2lang), dpname(claim))))
-        BadRequest(views.html.breaks_in_care.breaksInCareSummary(errors))
+        BadRequest(views.html.breaks_in_care.breaksInCareSummary(errors, breaks))
       },
       breaksInCareSummary => {
         claim.update(breaksInCareSummary) -> Redirect(routes.GBreaksInCareSummary.present())
