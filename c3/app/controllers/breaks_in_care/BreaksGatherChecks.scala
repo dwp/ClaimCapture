@@ -87,8 +87,8 @@ trait BreaksGatherChecks {
 
   def requiredStartDateNotAfterEndDate(): Constraint[Break] = Constraint[Break]("constraint.breaksInCareDateRange") { break =>
     break.whoWasAway match {
-      case BreaksInCareGatherOptions.You if (break.whenWereYouAdmitted.isDefined && break.yourStayEnded.isDefined && break.yourStayEnded.get.answer == Mappings.yes) => checkDatesAfter(break.whenWereYouAdmitted, break.yourStayEnded.get.date, "whenWereYouAdmitted.invalidDateRange")
-      case BreaksInCareGatherOptions.DP if (break.whenWasDpAdmitted.isDefined && break.dpStayEnded.isDefined && break.dpStayEnded.get.answer == Mappings.yes) => checkDatesAfter(break.whenWasDpAdmitted, break.dpStayEnded.get.date, "whenWasDpAdmitted.invalidDateRange")
+      case BreaksInCareGatherOptions.You if (break.whenWereYouAdmitted.isDefined && break.yourStayEnded.isDefined && break.yourStayEnded.get.answer == Mappings.yes) => checkDatesAfter(break.whenWereYouAdmitted, break.yourStayEnded.get.date, "yourStayEnded.invalidDateRange")
+      case BreaksInCareGatherOptions.DP if (break.whenWasDpAdmitted.isDefined && break.dpStayEnded.isDefined && break.dpStayEnded.get.answer == Mappings.yes) => checkDatesAfter(break.whenWasDpAdmitted, break.dpStayEnded.get.date, "dpStayEnded.invalidDateRange")
       case _ => Valid
     }
   }
