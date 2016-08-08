@@ -22,7 +22,7 @@
         <fieldset class="form-elements">
             <ul>
                 @yesNoRadioGroup(currentForm("spent35HoursCaring"), '_label-> messages("spent35HoursCaring", dpname),
-                    'helperAbove-> messages("spent35HoursHelper"), 'track -> true)
+                    'helperAbove-> messages("spent35HoursHelper"), 'track -> true, 'ignoreOptional->true)
 
                 @if(isOriginGB) {
                     @yesNoRadioGroup(currentForm("otherCarer"), '_label-> messages("otherCarer", dpname), 'track -> true, 'ignoreOptional -> true)
