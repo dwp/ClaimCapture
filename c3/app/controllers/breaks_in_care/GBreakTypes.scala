@@ -52,7 +52,7 @@ object GBreakTypes extends Controller with CachedClaim with Navigable with I18nS
   private def nextPage(breaksInCareType: BreaksInCareType)(implicit claim: Claim, request: Request[_]) = {
     if (breaksInCareType.hospital.isDefined) routes.GBreaksInCareHospital.present(IterationID(form))
     else if (breaksInCareType.carehome.isDefined) routes.GBreaksInCareRespite.present(IterationID(form))
-    else routes.GBreakTypes.present()
+    else controllers.s_education.routes.GYourCourseDetails.present
   }
 
   def delete = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>

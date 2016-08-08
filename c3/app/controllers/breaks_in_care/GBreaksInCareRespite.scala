@@ -2,6 +2,7 @@ package controllers.breaks_in_care
 
 import app.ConfigProperties._
 import controllers.CarersForms._
+import controllers.IterationID
 import controllers.mappings.Mappings._
 import models.domain._
 import models.view.CachedClaim
@@ -14,8 +15,8 @@ import play.api.mvc.{Request, Controller}
 import utils.helpers.CarersForm._
 
 /**
-  * Created by peterwhitehead on 03/08/2016.
-  */
+ * Created by peterwhitehead on 03/08/2016.
+ */
 object GBreaksInCareRespite extends Controller with CachedClaim with I18nSupport with BreaksGatherChecks {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
 
@@ -57,8 +58,8 @@ object GBreaksInCareRespite extends Controller with CachedClaim with I18nSupport
   val backCall = routes.GBreakTypes.present()
 
   def present(iterationID: String) = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
-      val break = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare(List())).breaks.find(_.iterationID == iterationID).getOrElse(Break())
-      Ok(views.html.breaks_in_care.breaksInCareRespite(form.fill(break), backCall))
+    val break = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare(List())).breaks.find(_.iterationID == iterationID).getOrElse(Break())
+    Ok(views.html.breaks_in_care.breaksInCareRespite(form.fill(break), backCall))
   }
 
   def submit = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
@@ -101,10 +102,13 @@ object GBreaksInCareRespite extends Controller with CachedClaim with I18nSupport
 
   private def nextPage(implicit claim: Claim, request: Request[_]) = {
     val breaksInCareType = claim.questionGroup(BreaksInCareType).getOrElse(BreaksInCareType()).asInstanceOf[BreaksInCareType]
-    breaksInCareType.carehome.isDefined match {
-      case true => routes.GBreakTypes.present() //Should goto Respite page
-      case false if (breaksInCareType.other.isDefined) => routes.GBreakTypes.present() //should go to other page
-      case false => routes.GBreakTypes.present() //to summary
+    (breaksInCareType.hospital.isDefined, breaksInCareType.other.isDefined) match {
+      case (true, _) => routes.GBreaksInCareHospital.present(IterationID(form))
+      case (_, true) => {
+        println("NEED TO ADD Other Caring Page ...defaulting to Summary")
+        routes.GBreaksInCareSummary.present()
+      }
+      case (_, _) => routes.GBreaksInCareSummary.present() //to summary
     }
   }
 
