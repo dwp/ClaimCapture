@@ -34,6 +34,13 @@
         case false => "breaksummary_other_first"
     }
 }
+@whoWasAway(break: Break)=@{
+    break.whoWasAway match {
+        case You => You
+        case DP => dpname
+        case _ => "ERROR in whoAway"
+    }
+}
 @careTypeLabel(break: Break)=@{
     break.typeOfCare match {
         case Breaks.hospital => messages("breaks.hospital")
@@ -56,13 +63,20 @@
         case _ => "Not ended"
     }
 }
+@changeHref(break: Break) = @{
+    break.typeOfCare match {
+        case Breaks.hospital => "/breaks/hospital/"+break.iterationID
+        case Breaks.carehome => "/breaks/respite-care-home/"+break.iterationID
+        case "respite" => "/breaks/respite-care-home/"+break.iterationID
+    }
+}
 @main(messages("breaks.title"), messages("breaks.title"), Some(currentForm)) {
     @form(action = controllers.breaks_in_care.routes.GBreaksInCareSummary.submit, 'role -> "form") {
         @DwpCSRFFormHelper.formField
         <input type="hidden" id="js" name="jsEnabled" value="false">
         <fieldset class="form-elements">
             @if(breaks.hasBreaks){
-                <h2 class="heading-medium" id="heading1"></h2>
+                <h2 class="heading-medium" id="heading1">@messages("breaksummary_title")</h2>
                 <table>
                     <tr>
                         <th>Who</th>
@@ -73,15 +87,15 @@
                         <th></th>
                     </tr>
                     @for((break, breakNum) <- breaks.breaks.zipWithIndex){
-                        <tr iterationid="@break.iterationID">
-                            <td>@break.whoWasAway</td>
+                        <tr iterationid="@break.iterationID" class="data-table">
+                            <td>@whoWasAway(break)</td>
                             <td>@careTypeLabel(break)</td>
                             <td>@careTypeFrom(break)</td>
                             <td>@careTypeTo(break)</td>
-                            <td>
-                                <input type="button" class="changerow" id="changerow@breakNum" value="@Html(messages("change"))" aria-label="@Html(messages("change.button"))" @views.html.ga.trackClickEvent(linkName = "BIC - Change")>
+                            <td class="actions">
+                                <input type="button" class="changerow" id="changerow@breakNum" value="@Html(messages("change"))" href="@changeHref(break)" aria-label="@Html(messages("change.button"))" @views.html.ga.trackClickEvent(linkName = "BIC - Change")>
                             </td>
-                            <td>
+                            <td class="actions">
                                 <input type="button" class="deleterow" id="deleterow@breakNum" value="@Html(messages("delete"))" aria-label="@Html(messages("delete.button"))">
                             </td>
                         </tr>
@@ -99,7 +113,6 @@
                 <br>
                 <br>
             }
-
 
             <ul>
                 @yesNoRadioGroup(currentForm("breaksummary_other"),

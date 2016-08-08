@@ -15,7 +15,6 @@ setVisibility = (other_yes, other_no, answerWrap) ->
   else
     hideWrapper(answerWrap)
 
-
   # hide / bind delete prompts
   $(".delete-confirm").slideUp(0).attr 'aria-hidden', 'true'
   $(".deleterow").on "click", ->
@@ -29,6 +28,10 @@ setVisibility = (other_yes, other_no, answerWrap) ->
     iterationid=$(this).closest("tr").attr("iterationid")
     $("#deleteId").val(iterationid)
     $("#delete-break-form").submit()
+
+  $(".changerow").on "click", ->
+    href=$(this).attr("href")
+    window.location.href = href
 
 showWrapper = (wrapper) ->
   $("#" + wrapper).slideDown(0).attr 'aria-hidden', 'false'
