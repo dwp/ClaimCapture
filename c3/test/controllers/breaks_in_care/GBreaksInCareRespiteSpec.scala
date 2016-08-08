@@ -9,10 +9,10 @@ import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.pageobjects.breaks_in_care.GBreaksTypesPage
-import utils.pageobjects.{TestData, PageObjects}
-import utils.{WithJsBrowser, WithApplication}
+import utils.pageobjects.{PageObjects, TestData}
+import utils.{WithApplication, WithJsBrowser}
 
-class GBreaksInCareHospitalSpec extends Specification {
+class GBreaksInCareRespiteSpec extends Specification {
   section("unit", models.domain.Breaks.id)
   "Break" should {
     val breakId1 = "1"
@@ -20,25 +20,25 @@ class GBreaksInCareHospitalSpec extends Specification {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest()
 
-      val result = GBreaksInCareHospital.present("")(request)
+      val result = GBreaksInCareRespite.present("")(request)
       status(result) mustEqual OK
     }
 
     "Break in care yourStayEnded date by default should not be displayed" in new WithJsBrowser with PageObjects {
       val breaksInCare = GBreaksTypesPage(context) goToThePage(throwException = false)
       val data = new TestData
-      data.BreaktypeHospitalCheckbox = someTrue.get
+      data.BreaktypeCarehomeCheckbox = someTrue.get
       data.BreaktypeOtherYesNo = "no"
 
       val next = breaksInCare fillPageWith data submitPage()
-      next.ctx.browser.click("#whoWasInHospital_You")
-      next.ctx.browser.findFirst("#yourStayEnded_date_day").isDisplayed should beFalse
+      next.ctx.browser.click("#whoWasInRespite_You")
+      next.ctx.browser.findFirst("#yourRespiteStayEnded_date_day").isDisplayed should beFalse
     }
 
     "Break in care discharged date by default should not be displayed" in new WithJsBrowser with PageObjects {
       val breaksInCare = GBreaksTypesPage(context) goToThePage()
       val data = new TestData
-      data.BreaktypeHospitalCheckbox = someTrue.get
+      data.BreaktypeCarehomeCheckbox = someTrue.get
       data.BreaktypeOtherYesNo = "no"
       val next = breaksInCare fillPageWith data submitPage()
       next.ctx.browser.findFirst("#whenWereYouAdmitted_day").isDisplayed should beFalse
@@ -49,28 +49,28 @@ class GBreaksInCareHospitalSpec extends Specification {
     "Break in care fill data" in new WithJsBrowser with PageObjects {
       val breaksInCare = GBreaksTypesPage(context) goToThePage()
       val data = new TestData
-      data.BreaktypeHospitalCheckbox = someTrue.get
+      data.BreaktypeCarehomeCheckbox = someTrue.get
       data.BreaktypeOtherYesNo = "no"
       val next = breaksInCare fillPageWith data submitPage()
 
       val sunday = DayMonthYear(7, 6, 2015)
 
-      next.ctx.browser.click("#whoWasInHospital_You")
+      next.ctx.browser.click("#whoWasInRespite_You")
       next.ctx.browser.fill("#whenWereYouAdmitted_day") `with` sunday.day.get.toString
       next.ctx.browser.fill("#whenWereYouAdmitted_month") `with` sunday.month.get.toString
       next.ctx.browser.fill("#whenWereYouAdmitted_year") `with` sunday.year.get.toString
 
-      next.ctx.browser.click("#yourStayEnded_answer_yes")
-      next.ctx.browser.fill("#yourStayEnded_date_day") `with` sunday.day.get.toString
-      next.ctx.browser.fill("#yourStayEnded_date_month") `with` sunday.month.get.toString
-      next.ctx.browser.fill("#yourStayEnded_date_year") `with` sunday.year.get.toString
+      next.ctx.browser.click("#yourRespiteStayEnded_answer_yes")
+      next.ctx.browser.fill("#yourRespiteStayEnded_date_day") `with` sunday.day.get.toString
+      next.ctx.browser.fill("#yourRespiteStayEnded_date_month") `with` sunday.month.get.toString
+      next.ctx.browser.fill("#yourRespiteStayEnded_date_year") `with` sunday.year.get.toString
 
     }
 
     "reject when submitted with missing mandatory data" in new WithApplication with Claiming {
       val request = FakeRequest()
 
-      val result = GBreaksInCareHospital.submit(request)
+      val result = GBreaksInCareRespite.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -78,16 +78,20 @@ class GBreaksInCareHospitalSpec extends Specification {
       val request = FakeRequest()
         .withFormUrlEncodedBody(
           "iterationID" -> breakId1,
-          "whoWasInHospital" -> BreaksInCareGatherOptions.You,
+          "whoWasInRespite" -> BreaksInCareGatherOptions.You,
           "whenWereYouAdmitted.day" -> "1",
           "whenWereYouAdmitted.month" -> "1",
           "whenWereYouAdmitted.year" -> "2001",
-          "yourStayEnded.answer" -> "yes",
-          "yourStayEnded.date.day" -> "1",
-          "yourStayEnded.date.month" -> "1",
-          "yourStayEnded.date.year" -> "2001")
+          "yourRespiteStayEnded.answer" -> "yes",
+          "yourRespiteStayEnded.date.day" -> "1",
+          "yourRespiteStayEnded.date.month" -> "1",
+          "yourRespiteStayEnded.date.year" -> "2001",
+          "yourMedicalProfessional" -> "yes",
+          "dpMedicalProfessional" -> "",
+          "breaksInCareRespiteStillCaring" -> "yes")
 
-      val result = GBreaksInCareHospital.submit(request)
+      val result = GBreaksInCareRespite.submit(request)
+
       status(result) mustEqual SEE_OTHER
     }
 
@@ -95,16 +99,19 @@ class GBreaksInCareHospitalSpec extends Specification {
       val request = FakeRequest()
         .withFormUrlEncodedBody(
           "iterationID" -> breakId1,
-          "whoWasInHospital" -> BreaksInCareGatherOptions.You,
+          "whoWasInRespite" -> BreaksInCareGatherOptions.You,
           "whenWereYouAdmitted.day" -> "1",
           "whenWereYouAdmitted.month" -> "1",
           "whenWereYouAdmitted.year" -> "2001",
-          "yourStayEnded.answer" -> "yes",
-          "yourStayEnded.date.day" -> "1",
-          "yourStayEnded.date.month" -> "1",
-          "yourStayEnded.date.year" -> "")
+          "yourRespiteStayEnded.answer" -> "yes",
+          "yourRespiteStayEnded.date.day" -> "1",
+          "yourRespiteStayEnded.date.month" -> "1",
+          "yourRespiteStayEnded.date.year" -> "",
+          "yourMedicalProfessional" -> "yes",
+          "dpMedicalProfessional" -> "",
+          "breaksInCareRespiteStillCaring" -> "yes")
 
-      val result = GBreaksInCareHospital.submit(request)
+      val result = GBreaksInCareRespite.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -112,37 +119,41 @@ class GBreaksInCareHospitalSpec extends Specification {
       val request = FakeRequest()
         .withFormUrlEncodedBody(
           "iterationID" -> breakId1,
-          "whoWasInHospital" -> BreaksInCareGatherOptions.DP,
+          "whoWasInRespite" -> BreaksInCareGatherOptions.DP,
           "whenWasDpAdmitted.day" -> "1",
           "whenWasDpAdmitted.month" -> "1",
           "whenWasDpAdmitted.year" -> "2001",
-          "dpStayEnded.answer" -> "yes",
-          "dpStayEnded.date.day" -> "1",
-          "dpStayEnded.date.month" -> "1",
-          "dpStayEnded.date.year" -> "2001",
-          "breaksInCareStillCaring" -> "yes"
+          "dpRespiteStayEnded.answer" -> "yes",
+          "dpRespiteStayEnded.date.day" -> "1",
+          "dpRespiteStayEnded.date.month" -> "1",
+          "dpRespiteStayEnded.date.year" -> "2001",
+          "yourMedicalProfessional" -> "",
+          "dpMedicalProfessional" -> "yes",
+          "breaksInCareRespiteStillCaring" -> "yes"
         )
 
-      val result = GBreaksInCareHospital.submit(request)
+      val result = GBreaksInCareRespite.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
-    "reject when submitted with breaksInCareStillCaring missing data" in new WithApplication with Claiming {
+    "reject when submitted with breaksInCareRespiteStillCaring missing data" in new WithApplication with Claiming {
       val request = FakeRequest()
         .withFormUrlEncodedBody(
           "iterationID" -> breakId1,
-          "whoWasInHospital" -> BreaksInCareGatherOptions.DP,
+          "whoWasInRespite" -> BreaksInCareGatherOptions.DP,
           "whenWasDpAdmitted.day" -> "1",
           "whenWasDpAdmitted.month" -> "1",
           "whenWasDpAdmitted.year" -> "2001",
-          "dpStayEnded.answer" -> "yes",
-          "dpStayEnded.date.day" -> "1",
-          "dpStayEnded.date.month" -> "1",
-          "dpStayEnded.date.year" -> "2001",
-          "breaksInCareStillCaring" -> ""
+          "dpRespiteStayEnded.answer" -> "yes",
+          "dpRespiteStayEnded.date.day" -> "1",
+          "dpRespiteStayEnded.date.month" -> "1",
+          "dpRespiteStayEnded.date.year" -> "2001",
+          "yourMedicalProfessional" -> "",
+          "dpMedicalProfessional" -> "yes",
+          "breaksInCareRespiteStillCaring" -> ""
         )
 
-      val result = GBreaksInCareHospital.submit(request)
+      val result = GBreaksInCareRespite.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -150,32 +161,36 @@ class GBreaksInCareHospitalSpec extends Specification {
       val request1 = FakeRequest()
         .withFormUrlEncodedBody(
           "iterationID" -> breakId1,
-          "whoWasInHospital" -> BreaksInCareGatherOptions.DP,
+          "whoWasInRespite" -> BreaksInCareGatherOptions.DP,
           "whenWasDpAdmitted.day" -> "1",
           "whenWasDpAdmitted.month" -> "1",
           "whenWasDpAdmitted.year" -> "2001",
-          "dpStayEnded.answer" -> "yes",
-          "dpStayEnded.date.day" -> "1",
-          "dpStayEnded.date.month" -> "1",
-          "dpStayEnded.date.year" -> "2001",
-          "breaksInCareStillCaring" -> "yes")
+          "dpRespiteStayEnded.answer" -> "yes",
+          "dpRespiteStayEnded.date.day" -> "1",
+          "dpRespiteStayEnded.date.month" -> "1",
+          "dpRespiteStayEnded.date.year" -> "2001",
+          "yourMedicalProfessional" -> "",
+          "dpMedicalProfessional" -> "yes",
+          "breaksInCareRespiteStillCaring" -> "yes")
 
-      val result = GBreaksInCareHospital.submit(request1)
-      println(contentAsString(result))
+      val result = GBreaksInCareRespite.submit(request1)
+
       val request2 = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result))
         .withFormUrlEncodedBody(
           "iterationID" -> "2",
-          "whoWasInHospital" -> BreaksInCareGatherOptions.DP,
+          "whoWasInRespite" -> BreaksInCareGatherOptions.DP,
           "whenWasDpAdmitted.day" -> "1",
           "whenWasDpAdmitted.month" -> "1",
           "whenWasDpAdmitted.year" -> "2001",
-          "dpStayEnded.answer" -> "yes",
-          "dpStayEnded.date.day" -> "1",
-          "dpStayEnded.date.month" -> "1",
-          "dpStayEnded.date.year" -> "2001",
-          "breaksInCareStillCaring" -> "no")
+          "dpRespiteStayEnded.answer" -> "yes",
+          "dpRespiteStayEnded.date.day" -> "1",
+          "dpRespiteStayEnded.date.month" -> "1",
+          "dpRespiteStayEnded.date.year" -> "2001",
+          "yourMedicalProfessional" -> "",
+          "dpMedicalProfessional" -> "yes",
+          "breaksInCareRespiteStillCaring" -> "no")
 
-      GBreaksInCareHospital.submit(request2)
+      GBreaksInCareRespite.submit(request2)
 
       val claim = getClaimFromCache(result)
 
@@ -186,34 +201,38 @@ class GBreaksInCareHospitalSpec extends Specification {
       val requestNew = FakeRequest()
         .withFormUrlEncodedBody(
           "iterationID" -> breakId1,
-          "whoWasInHospital" -> BreaksInCareGatherOptions.DP,
+          "whoWasInRespite" -> BreaksInCareGatherOptions.DP,
           "whenWasDpAdmitted.day" -> "1",
           "whenWasDpAdmitted.month" -> "1",
           "whenWasDpAdmitted.year" -> "2001",
-          "dpStayEnded.answer" -> "yes",
-          "dpStayEnded.date.day" -> "1",
-          "dpStayEnded.date.month" -> "1",
-          "dpStayEnded.date.year" -> "2001",
-          "breaksInCareStillCaring" -> "yes")
+          "dpRespiteStayEnded.answer" -> "yes",
+          "dpRespiteStayEnded.date.day" -> "1",
+          "dpRespiteStayEnded.date.month" -> "1",
+          "dpRespiteStayEnded.date.year" -> "2001",
+          "yourMedicalProfessional" -> "",
+          "dpMedicalProfessional" -> "yes",
+          "breaksInCareRespiteStillCaring" -> "yes")
 
-      val result = GBreaksInCareHospital.submit(requestNew)
+      val result = GBreaksInCareRespite.submit(requestNew)
 
       val yearUpdate = 2005
 
       val requestUpdate = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result))
         .withFormUrlEncodedBody(
           "iterationID" -> breakId1,
-          "whoWasInHospital" -> BreaksInCareGatherOptions.DP,
+          "whoWasInRespite" -> BreaksInCareGatherOptions.DP,
           "whenWasDpAdmitted.day" -> "1",
           "whenWasDpAdmitted.month" -> "1",
           "whenWasDpAdmitted.year" -> "2001",
-          "dpStayEnded.answer" -> "yes",
-          "dpStayEnded.date.day" -> "1",
-          "dpStayEnded.date.month" -> "1",
-          "dpStayEnded.date.year" -> yearUpdate.toString,
-          "breaksInCareStillCaring" -> "yes")
+          "dpRespiteStayEnded.answer" -> "yes",
+          "dpRespiteStayEnded.date.day" -> "1",
+          "dpRespiteStayEnded.date.month" -> "1",
+          "dpRespiteStayEnded.date.year" -> yearUpdate.toString,
+          "yourMedicalProfessional" -> "",
+          "dpMedicalProfessional" -> "yes",
+          "breaksInCareRespiteStillCaring" -> "yes")
 
-      GBreaksInCareHospital.submit(requestUpdate)
+      GBreaksInCareRespite.submit(requestUpdate)
 
       getClaimFromCache(result).questionGroup(BreaksInCare) must beLike {
         case Some(b: BreaksInCare) => b.breaks.head.dpStayEnded.get.date.get.year.get shouldEqual yearUpdate

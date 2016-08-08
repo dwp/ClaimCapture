@@ -1055,6 +1055,7 @@ object ClaimScenarioFactory {
   def careYouProvideWithBreaksInCareYou(hours35: Boolean) = {
     val claim = if (hours35) s4CareYouProvide(true) else s4CareYouProvide(false)
     claim.BreaktypeHospitalCheckbox = someTrue.get
+    claim.BreaktypeOtherYesNo = "no"
     claim.AboutTheCareYouProvideBreakWhoWasInHospital_1 = BreaksInCareGatherOptions.You
     claim.AboutTheCareYouProvideBreakWhenWereYouAdmitted_1 = "10/01/1999"
     claim.AboutTheCareYouProvideYourStayEnded_1 = "yes"
@@ -1062,15 +1063,11 @@ object ClaimScenarioFactory {
     claim
   }
 
-  def careYouProvideWithBreaksInCareDp(hours35: Boolean) = {
+  def careYouProvideWithBreaksInCareRespite(hours35: Boolean) = {
     val claim = if (hours35) s4CareYouProvide(true) else s4CareYouProvide(false)
 
-    claim.BreaktypeHospitalCheckbox = someTrue.get
-    claim.AboutTheCareYouProvideBreakWhoWasInHospital_1 = BreaksInCareGatherOptions.DP
-    claim.AboutTheCareYouProvideBreakWhenWasDpAdmitted_1 = "10/01/1999"
-    claim.AboutTheCareYouProvideDpStayEnded_1 = "yes"
-    claim.AboutTheCareYouProvideDpStayEndedDate_1 = "10/01/1999"
-    claim.AboutTheCareYouProvideBreaksInCareStillCaring_1 = "yes"
+    claim.BreaktypeCarehomeCheckbox = someTrue.get
+    claim.BreaktypeOtherYesNo = "no"
     claim
   }
 }

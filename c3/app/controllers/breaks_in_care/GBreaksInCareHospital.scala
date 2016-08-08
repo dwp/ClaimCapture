@@ -1,17 +1,12 @@
 package controllers.breaks_in_care
 
-import app.BreaksInCareGatherOptions
 import app.ConfigProperties._
 import controllers.IterationID
-import controllers.mappings.Mappings
 import controllers.mappings.Mappings._
-import models.DayMonthYear
 import models.domain._
 import models.view.CachedClaim
 import models.yesNo.YesNoWithDate
-import org.joda.time.DateTime
 import play.api.Play._
-import play.api.data.validation.{Invalid, ValidationError, Valid, Constraint}
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import play.api.i18n.{MMessages, MessagesApi, I18nSupport}
@@ -19,12 +14,10 @@ import play.api.mvc.{Request, Controller}
 import utils.helpers.CarersForm._
 import controllers.CarersForms._
 
-import scala.util.{Try, Failure, Success}
-
 /**
   * Created by peterwhitehead on 03/08/2016.
   */
-object GBreaksInCareHospital extends Controller with CachedClaim with I18nSupport {
+object GBreaksInCareHospital extends Controller with CachedClaim with I18nSupport with BreaksGatherChecks {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
 
   val yourStayEndedMapping =
@@ -58,15 +51,14 @@ object GBreaksInCareHospital extends Controller with CachedClaim with I18nSuppor
     .verifying(requiredDpStayEndedAnswer)
     .verifying(requiredDpStayEndedDate)
     .verifying(requiredBreaksInCareStillCaring)
+    .verifying(requiredStartDateNotAfterEndDate)
   )
 
   val backCall = routes.GBreakTypes.present()
 
   def present(iterationID: String) = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
-    //track(BreaksInCare) { implicit claim =>
       val break = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare(List())).breaks.find(_.iterationID == iterationID).getOrElse(Break())
       Ok(views.html.breaks_in_care.breaksInCareHospital(form.fill(break), backCall))
-    //}
   }
 
   def submit = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
@@ -79,11 +71,13 @@ object GBreaksInCareHospital extends Controller with CachedClaim with I18nSuppor
           .replaceError("", "yourStayEnded.answer", FormError("yourStayEnded.answer", errorRequired))
           .replaceError("", "yourStayEnded.date", FormError("yourStayEnded.date", errorRequired))
           .replaceError("", "yourStayEnded.date.invalid", FormError("yourStayEnded.date", errorInvalid))
+          .replaceError("", "whenWereYouAdmitted.invalidDateRange", FormError("whenWereYouAdmitted.invalidDateRange", errorInvalidDateRange))
           .replaceError("", "whenWasDpAdmitted", FormError("whenWasDpAdmitted", errorRequired, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
           .replaceError("", "whenWasDpAdmitted.invalid", FormError("whenWasDpAdmitted", errorInvalid, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
           .replaceError("", "dpStayEnded.answer", FormError("dpStayEnded.answer", errorRequired))
           .replaceError("", "dpStayEnded.date", FormError("dpStayEnded.date", errorRequired, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
           .replaceError("", "dpStayEnded.date.invalid", FormError("dpStayEnded.date", errorInvalid, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
+          .replaceError("", "whenWasDpAdmitted.invalidDateRange", FormError("whenWasDpAdmitted.invalidDateRange", errorInvalidDateRange, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
           .replaceError("", "breaksInCareStillCaring", FormError("breaksInCareStillCaring", errorRequired, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
           .replaceError("", "breaksInCareStillCaring.invalidYesNo", FormError("breaksInCareStillCaring", invalidYesNo, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
         BadRequest(views.html.breaks_in_care.breaksInCareHospital(formWithErrorsUpdate, backCall))
@@ -108,75 +102,6 @@ object GBreaksInCareHospital extends Controller with CachedClaim with I18nSuppor
       case false if (breaksInCareType.other.isDefined) => routes.GBreakTypes.present() //should go to other page
       case false => routes.GBreakTypes.present() //to summary
     }
-  }
-
-  private def requiredWhenWereYouAdmitted: Constraint[Break] = Constraint[Break]("constraint.breakWhenWereYouAdmitted") { break =>
-    break.whoWasAway match {
-      case BreaksInCareGatherOptions.DP => Valid
-      case _ if (!break.whenWereYouAdmitted.isDefined) => Invalid(ValidationError("whenWereYouAdmitted"))
-      case _ => validateDate(break.whenWereYouAdmitted.get, "whenWereYouAdmitted.invalid")
-    }
-  }
-
-  private def requiredYourStayEndedAnswer: Constraint[Break] = Constraint[Break]("constraint.breakYourStayEndedAnswer") { break =>
-    break.whoWasAway match {
-      case BreaksInCareGatherOptions.DP => Valid
-      case _ if (!break.yourStayEnded.isDefined) => Invalid(ValidationError("yourStayEnded.answer"))
-      case _ => Valid
-    }
-  }
-
-  private def requiredYourStayEndedDate: Constraint[Break] = Constraint[Break]("constraint.breakYourStayEndedDate") { break =>
-    break.whoWasAway match {
-      case BreaksInCareGatherOptions.DP => Valid
-      case _ if (break.yourStayEnded.isDefined && !YesNoWithDate.validate(break.yourStayEnded.get)) => Invalid(ValidationError("yourStayEnded.date"))
-      case _ if (break.yourStayEnded.isDefined && break.yourStayEnded.get.answer == Mappings.yes) => validateDate(break.yourStayEnded.get.date.get, "yourStayEnded.date.invalid")
-      case _ => Valid
-    }
-  }
-
-  private def requiredWhenWasDpAdmitted: Constraint[Break] = Constraint[Break]("constraint.breakWhenWasDpAdmitted") { break =>
-    break.whoWasAway match {
-      case BreaksInCareGatherOptions.You => Valid
-      case _ if (!break.whenWasDpAdmitted.isDefined) => Invalid(ValidationError("whenWasDpAdmitted"))
-      case _ => validateDate(break.whenWasDpAdmitted.get, "whenWasDpAdmitted.invalid")
-    }
-  }
-
-  private def requiredDpStayEndedAnswer: Constraint[Break] = Constraint[Break]("constraint.breakDpStayEndedAnswer") { break =>
-    break.whoWasAway match {
-      case BreaksInCareGatherOptions.You => Valid
-      case _ if (!break.dpStayEnded.isDefined) => Invalid(ValidationError("dpStayEnded.answer"))
-      case _ => Valid
-    }
-  }
-
-  private def requiredDpStayEndedDate: Constraint[Break] = Constraint[Break]("constraint.breakDpStayEndedDate") { break =>
-    break.whoWasAway match {
-      case BreaksInCareGatherOptions.You => Valid
-      case _ if (break.dpStayEnded.isDefined && !YesNoWithDate.validate(break.dpStayEnded.get)) => Invalid(ValidationError("dpStayEnded.date"))
-      case _ if (break.dpStayEnded.isDefined && break.dpStayEnded.get.answer == Mappings.yes) => validateDate(break.dpStayEnded.get.date.get, "dpStayEnded.date.invalid")
-      case _ => Valid
-    }
-  }
-
-  private def requiredBreaksInCareStillCaring: Constraint[Break] = Constraint[Break]("constraint.breaksInCareStillCaring") { break =>
-    break.whoWasAway match {
-      case BreaksInCareGatherOptions.You => Valid
-      case _ if (!break.breaksInCareStillCaring.isDefined) => Invalid(ValidationError("breaksInCareStillCaring"))
-      case _ => break.breaksInCareStillCaring.get match {
-        case `yes` => Valid
-        case `no` => Valid
-        case _ => Invalid(ValidationError("breaksInCareStillCaring.invalidYesNo"))
-      }
-    }
-  }
-
-  private def validateDate(dmy: DayMonthYear, field: String) = Try(new DateTime(dmy.year.get, dmy.month.get, dmy.day.get, 0, 0)) match {
-    case Success(dt: DateTime) if dt.getYear > 9999 || dt.getYear < 999 => Invalid(ValidationError(field))
-    case Success(dt: DateTime) if dt.getYear > 9999 || dt.getYear < 999 => Invalid(ValidationError(field))
-    case Success(dt: DateTime) => Valid
-    case Failure(_) => Invalid(ValidationError(field))
   }
 
   def breaksInCare(implicit claim: Claim) = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
