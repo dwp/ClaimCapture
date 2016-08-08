@@ -27,7 +27,7 @@ object GMoreAboutTheCare extends Controller with CachedClaim with Navigable with
     .verifying("otherCarerUc.required", validateCarerUc _)
   )
 
-  private def validateSpent35(moreAboutTheCare: MoreAboutTheCare) = moreAboutTheCare.otherCarer.isDefined
+  private def validateSpent35(moreAboutTheCare: MoreAboutTheCare) = moreAboutTheCare.spent35HoursCaring.isDefined
 
   private def validateCarer(moreAboutTheCare: MoreAboutTheCare) = isOriginGB match {
     case true => moreAboutTheCare.otherCarer.isDefined
