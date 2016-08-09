@@ -7,7 +7,7 @@ import models.DayMonthYear
 import org.specs2.mutable._
 import play.api.Logger
 import utils.pageobjects._
-import utils.pageobjects.breaks_in_care.{GBreaksTypesPage, GBreaksInCareHospitalPage}
+import utils.pageobjects.breaks_in_care.{GBreaksInCareTypePage, GBreaksInCareHospitalPage}
 import utils.pageobjects.s_care_you_provide.GTheirPersonalDetailsPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.s_education.GYourCourseDetailsPage
@@ -39,7 +39,7 @@ class GBreaksInCareHospitalIntegrationSpec extends Specification {
       urlMustEqual(GBreaksInCareHospitalPage.url)
       break()
       next
-      urlMustEqual(GBreaksTypesPage.url) //will need to go to summary
+      urlMustEqual(GBreaksInCareTypePage.url) //will need to go to summary
 
       goTo(GBreaksInCareHospitalPage.url + "/2")
       urlMustEqual(GBreaksInCareHospitalPage.url)
@@ -54,7 +54,7 @@ class GBreaksInCareHospitalIntegrationSpec extends Specification {
       urlMustEqual(GBreaksInCareHospitalPage.url)
       break()
       next
-      urlMustEqual(GBreaksTypesPage.url) //will need to go to summary
+      urlMustEqual(GBreaksInCareTypePage.url) //will need to go to summary
 
       goTo(GBreaksInCareHospitalPage.url + "/2")
       urlMustEqual(GBreaksInCareHospitalPage.url)
@@ -68,7 +68,7 @@ class GBreaksInCareHospitalIntegrationSpec extends Specification {
 //
 //      fill("#yourStayEnded_date_year") `with` "1999"
 //      next
-      urlMustEqual(GBreaksTypesPage.url) //will need to go to summary
+      urlMustEqual(GBreaksInCareTypePage.url) //will need to go to summary
 
       //$("ul.break-data li").size() mustEqual 2
       //$("ul.break-data").findFirst("li").findFirst("h3").getText shouldEqual "01/01/1999 to 01/01/2001"
@@ -79,7 +79,7 @@ class GBreaksInCareHospitalIntegrationSpec extends Specification {
       urlMustEqual(GBreaksInCareHospitalPage.url)
       break()
       next
-      urlMustEqual(GBreaksTypesPage.url) //will need to go to summary
+      urlMustEqual(GBreaksInCareTypePage.url) //will need to go to summary
 
       goTo(GBreaksInCareHospitalPage.url + "/2")
       urlMustEqual(GBreaksInCareHospitalPage.url)
@@ -93,7 +93,7 @@ class GBreaksInCareHospitalIntegrationSpec extends Specification {
 //
 //      fill("#dpStayEnded_date_year") `with` "1999"
 //      next
-      urlMustEqual(GBreaksTypesPage.url) //will need to go to summary
+      urlMustEqual(GBreaksInCareTypePage.url) //will need to go to summary
 
       //$("ul.break-data li").size() mustEqual 2
       //$("ul.break-data").findFirst("li").findFirst("h3").getText shouldEqual "01/01/1999 to 01/01/2001"

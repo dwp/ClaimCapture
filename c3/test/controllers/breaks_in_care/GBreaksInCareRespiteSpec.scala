@@ -8,7 +8,7 @@ import models.view.CachedClaim
 import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.pageobjects.breaks_in_care.GBreaksTypesPage
+import utils.pageobjects.breaks_in_care.GBreaksInCareTypePage
 import utils.pageobjects.{PageObjects, TestData}
 import utils.{WithApplication, WithJsBrowser}
 
@@ -25,7 +25,7 @@ class GBreaksInCareRespiteSpec extends Specification {
     }
 
     "Break in care yourStayEnded date by default should not be displayed" in new WithJsBrowser with PageObjects {
-      val breaksInCare = GBreaksTypesPage(context) goToThePage(throwException = false)
+      val breaksInCare = GBreaksInCareTypePage(context) goToThePage(throwException = false)
       val data = new TestData
       data.BreaktypeCarehomeCheckbox = someTrue.get
       data.BreaktypeOtherYesNo = "no"
@@ -36,7 +36,7 @@ class GBreaksInCareRespiteSpec extends Specification {
     }
 
     "Break in care discharged date by default should not be displayed" in new WithJsBrowser with PageObjects {
-      val breaksInCare = GBreaksTypesPage(context) goToThePage()
+      val breaksInCare = GBreaksInCareTypePage(context) goToThePage()
       val data = new TestData
       data.BreaktypeCarehomeCheckbox = someTrue.get
       data.BreaktypeOtherYesNo = "no"
@@ -47,7 +47,7 @@ class GBreaksInCareRespiteSpec extends Specification {
     }
 
     "Break in care fill data" in new WithJsBrowser with PageObjects {
-      val breaksInCare = GBreaksTypesPage(context) goToThePage()
+      val breaksInCare = GBreaksInCareTypePage(context) goToThePage()
       val data = new TestData
       data.BreaktypeCarehomeCheckbox = someTrue.get
       data.BreaktypeOtherYesNo = "no"

@@ -3,7 +3,7 @@ package utils.pageobjects.breaks_in_care
 import utils.WithBrowser
 import utils.pageobjects.{PageContext, ClaimPage, PageObjectsContext}
 
-class GBreaksInCareSummaryPage(ctx:PageObjectsContext) extends ClaimPage(ctx, GBreaksTypesPage.url) {
+class GBreaksInCareSummaryPage(ctx:PageObjectsContext) extends ClaimPage(ctx, GBreaksInCareSummaryPage.url) {
   declareYesNo("#breaksummary_other", "BreakSummaryOtherYesNo")
   declareRadioList("#breaksummary_answer", "BreakSummaryAnswer")
 }

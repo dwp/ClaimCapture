@@ -3,7 +3,7 @@ package controllers.breaks_in_care
 import controllers.{WithBrowserHelper, ClaimScenarioFactory}
 import org.specs2.mutable._
 import utils.pageobjects._
-import utils.pageobjects.breaks_in_care.GBreaksTypesPage
+import utils.pageobjects.breaks_in_care.GBreaksInCareTypePage
 import utils.pageobjects.s_care_you_provide.GTheirPersonalDetailsPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.your_income.{GStatutorySickPayPage, GYourIncomePage}
@@ -13,9 +13,9 @@ class GBreaksInCareTypeIntegrationSpec extends Specification {
   section("integration", models.domain.YourIncomes.id)
   "Breaks in care type selection / guard question page" should {
     "be presented" in new WithBrowser with PageObjects {
-      val page = GBreaksTypesPage(context)
+      val page = GBreaksInCareTypePage(context)
       page goToThePage()
-      page must beAnInstanceOf[GBreaksTypesPage]
+      page must beAnInstanceOf[GBreaksInCareTypePage]
     }
 
     "be presented with correct dynamic question labels" in new WithBrowser with PageObjects with WithBrowserHelper {
@@ -23,7 +23,7 @@ class GBreaksInCareTypeIntegrationSpec extends Specification {
         testData.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "01/10/2016"
       })
       GTheirPersonalDetailsPage.fillDpDetails(context, testData => {})
-      val page = GBreaksTypesPage(context)
+      val page = GBreaksInCareTypePage(context)
       page goToThePage()
       $("#breaktype_questionLabel").getText() mustEqual("Since 1 October 2016 have you or Albert Johnson been in any of the following for at least a week?")
       $("#breaktype_other_questionLabel").getText() mustEqual("Have there been any other weeks you've not provided care for Albert Johnson for 35 hours a week?")
@@ -35,7 +35,7 @@ class GBreaksInCareTypeIntegrationSpec extends Specification {
       })
       GTheirPersonalDetailsPage.fillDpDetails(context, testData => {})
 
-      val page = GBreaksTypesPage(context)
+      val page = GBreaksInCareTypePage(context)
       page goToThePage()
       val errors = page.submitPage().listErrors
       errors.size mustEqual 2
@@ -49,7 +49,7 @@ class GBreaksInCareTypeIntegrationSpec extends Specification {
       })
       GTheirPersonalDetailsPage.fillDpDetails(context, testData => {})
 
-      val page = GBreaksTypesPage(context)
+      val page = GBreaksInCareTypePage(context)
       page goToThePage()
       val claim = new TestData
       claim.BreaktypeHospitalCheckbox = "true"
@@ -64,7 +64,7 @@ class GBreaksInCareTypeIntegrationSpec extends Specification {
       })
       GTheirPersonalDetailsPage.fillDpDetails(context, testData => {})
 
-      val page = GBreaksTypesPage(context)
+      val page = GBreaksInCareTypePage(context)
       page goToThePage()
       val claim = new TestData
       claim.BreaktypeOtherYesNo = "yes"
@@ -74,7 +74,7 @@ class GBreaksInCareTypeIntegrationSpec extends Specification {
     }
 
     "navigate to next page on valid submission" in new WithJsBrowser with PageObjects {
-      val page = GBreaksTypesPage(context)
+      val page = GBreaksInCareTypePage(context)
       page goToThePage()
 
       val claim = new TestData
@@ -93,7 +93,7 @@ class GBreaksInCareTypeIntegrationSpec extends Specification {
     }
 
     "data should be saved in claim and displayed when go back to page" in new WithJsBrowser with PageObjects with WithBrowserHelper {
-      val page = GBreaksTypesPage(context)
+      val page = GBreaksInCareTypePage(context)
       val claim = new TestData
       claim.BreaktypeHospitalCheckbox = "true"
       claim.BreaktypeOtherYesNo = "yes"
