@@ -4,7 +4,7 @@ import app.BreaksInCareGatherOptions
 import controllers.mappings.Mappings
 import controllers.mappings.Mappings._
 import models.DayMonthYear
-import models.domain.Break
+import models.domain.{TheirPersonalDetails, Claim, Break}
 import models.yesNo.YesNoWithDate
 import org.joda.time.DateTime
 import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
@@ -118,5 +118,10 @@ trait BreaksGatherChecks {
         case _ => Invalid(ValidationError(fieldYesNo))
       }
     }
+  }
+
+  def dpDetails(claim: Claim) : String = {
+    val theirPersonalDetails = claim.questionGroup(TheirPersonalDetails).getOrElse(TheirPersonalDetails()).asInstanceOf[TheirPersonalDetails]
+    theirPersonalDetails.firstName + " " + theirPersonalDetails.surname
   }
 }
