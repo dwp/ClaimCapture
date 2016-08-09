@@ -8,61 +8,61 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.{WithApplication}
 
-class GBreakTypeSpec extends Specification {
+class GBreaksInCareTypeSpec extends Specification {
   section("unit", models.domain.Breaks.id)
 
   "GBreakType screen" should {
     "present correctly" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
-      val result = GBreakTypes.present(request)
+      val result = GBreaksInCareType.present(request)
       status(result) mustEqual OK
     }
 
     "fail submit for no questions answered" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
-      val result = GBreakTypes.submit(request)
+      val result = GBreaksInCareType.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     "fail submit for other weeks not answered" in new WithApplication with Claiming {
       val input = Seq("breaktype_none" -> "true")
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(input: _*)
 
-      val result = GBreakTypes.submit(request)
+      val result = GBreaksInCareType.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     "fail submit for hospital/carehome/none not answered" in new WithApplication with Claiming {
       val input = Seq("breaktype_other" -> "yes")
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(input: _*)
 
-      val result = GBreakTypes.submit(request)
+      val result = GBreaksInCareType.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     "fail submit for hospital and none answered" in new WithApplication with Claiming {
       val input = Seq("breaktype_hospital" -> "true", "breaktype_none" -> "true", "breaktype_other" -> "yes")
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(input: _*)
 
-      val result = GBreakTypes.submit(request)
+      val result = GBreaksInCareType.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     "fail submit for carehome and none answered" in new WithApplication with Claiming {
       val input = Seq("breaktype_carehome" -> "true", "breaktype_none" -> "true", "breaktype_other" -> "yes")
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(input: _*)
 
-      val result = GBreakTypes.submit(request)
+      val result = GBreaksInCareType.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     "fail submit for carehome and hospital and none answered" in new WithApplication with Claiming {
       val input = Seq("breaktype_hospital" -> "true", "breaktype_carehome" -> "true", "breaktype_none" -> "true", "breaktype_other" -> "yes")
-      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(input: _*)
 
-      val result = GBreakTypes.submit(request)
+      val result = GBreaksInCareType.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -70,7 +70,7 @@ class GBreakTypeSpec extends Specification {
       val input = Seq("breaktype_hospital" -> "true", "breaktype_other" -> "yes")
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(input: _*)
 
-      val result = GBreakTypes.submit(request)
+      val result = GBreaksInCareType.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
@@ -78,7 +78,7 @@ class GBreakTypeSpec extends Specification {
       val input = Seq("breaktype_carehome" -> "true", "breaktype_other" -> "yes")
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(input: _*)
 
-      val result = GBreakTypes.submit(request)
+      val result = GBreaksInCareType.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
@@ -86,7 +86,7 @@ class GBreakTypeSpec extends Specification {
       val input = Seq("breaktype_hospital" -> "true", "breaktype_carehome" -> "true", "breaktype_other" -> "yes")
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(input: _*)
 
-      val result = GBreakTypes.submit(request)
+      val result = GBreaksInCareType.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
@@ -94,7 +94,7 @@ class GBreakTypeSpec extends Specification {
       val input = Seq("breaktype_none" -> "true", "breaktype_other" -> "yes")
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(input: _*)
 
-      val result = GBreakTypes.submit(request)
+      val result = GBreaksInCareType.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
@@ -102,7 +102,7 @@ class GBreakTypeSpec extends Specification {
       val input = Seq("breaktype_none" -> "true", "breaktype_other" -> Mappings.yes)
       val request = FakeRequest().withFormUrlEncodedBody(input: _*)
 
-      val result = GBreakTypes.submit(request)
+      val result = GBreaksInCareType.submit(request)
       val claim = getClaimFromCache(result)
       claim.questionGroup(BreaksInCareType) must beLike {
         case Some(f: BreaksInCareType) => {

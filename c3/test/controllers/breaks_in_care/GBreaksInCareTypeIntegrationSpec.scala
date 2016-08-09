@@ -9,7 +9,7 @@ import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.pageobjects.your_income.{GStatutorySickPayPage, GYourIncomePage}
 import utils.{WithBrowser, WithJsBrowser}
 
-class GBreakTypeIntegrationSpec extends Specification {
+class GBreaksInCareTypeIntegrationSpec extends Specification {
   section("integration", models.domain.YourIncomes.id)
   "Breaks in care type selection / guard question page" should {
     "be presented" in new WithBrowser with PageObjects {

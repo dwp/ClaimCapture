@@ -14,7 +14,7 @@ import play.api.i18n._
 
 import scala.language.postfixOps
 
-object GBreakTypes extends Controller with CachedClaim with Navigable with I18nSupport {
+object GBreaksInCareType extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val form = Form(mapping(
     "breaktype_hospital" -> optional(nonEmptyText),
@@ -29,7 +29,7 @@ object GBreakTypes extends Controller with CachedClaim with Navigable with I18nS
 
   def present = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     track(BreaksInCare) { implicit claim =>
-      Ok(views.html.breaks_in_care.breakType(form.fill(BreaksInCareType)))
+      Ok(views.html.breaks_in_care.breaksInCareType(form.fill(BreaksInCareType)))
     }
   }
 
@@ -42,7 +42,7 @@ object GBreakTypes extends Controller with CachedClaim with Navigable with I18nS
           .replaceError("", "deselectnone", FormError("breaktype", "breaks.breaktype.deselectnone", Seq(dateForBreaks(claim, request2lang), dpname(claim))))
           .replaceError("", "selectone", FormError("breaktype", "breaks.breaktype.selectone", Seq(dateForBreaks(claim, request2lang), dpname(claim))))
           .replaceError("", "selectother", FormError("breaktype_other", errorRequired, Seq(dpname(claim))))
-        BadRequest(views.html.breaks_in_care.breakType(errors))
+        BadRequest(views.html.breaks_in_care.breaksInCareType(errors))
       },
       breaksInCareType => {
         claim.update(breaksInCareType) -> Redirect(nextPage(breaksInCareType))
@@ -56,7 +56,7 @@ object GBreakTypes extends Controller with CachedClaim with Navigable with I18nS
   }
 
   def delete = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
-    Ok(views.html.breaks_in_care.breakType(form.fill(BreaksInCareType)))
+    Ok(views.html.breaks_in_care.breaksInCareType(form.fill(BreaksInCareType)))
   }
 
   private def dpname(claim: Claim) = {

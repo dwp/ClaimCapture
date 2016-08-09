@@ -145,8 +145,8 @@ POST        /breaks/break                                               controll
 
 # Breaks in care
 ###############
-GET         /breaks/new-breaks-in-care                                  controllers.breaks_in_care.GBreakTypes.present
-POST        /breaks/new-breaks-in-care                                  controllers.breaks_in_care.GBreakTypes.submit
+GET         /breaks/new-breaks-in-care                                  controllers.breaks_in_care.GBreaksInCareType.present
+POST        /breaks/new-breaks-in-care                                  controllers.breaks_in_care.GBreaksInCareType.submit
 
 GET         /breaks/hospital/:id                                        controllers.breaks_in_care.GBreaksInCareHospital.present(id: String)
 POST        /breaks/hospital                                            controllers.breaks_in_care.GBreaksInCareHospital.submit
