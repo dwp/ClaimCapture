@@ -48,7 +48,7 @@ object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport
     breaksInCareSummary.breaksummary_answer match {
       case Some(Breaks.hospital) => BreaksInCareType(hospital = Some(Mappings.yes))
       case Some(Breaks.carehome) => BreaksInCareType(carehome = Some(Mappings.yes))
-      // THINK WE HAVE ANOTHER TYPE OTHER ??
+      case Some(Breaks.another) => BreaksInCareType(other = Some(Mappings.yes))
       case _ => BreaksInCareType()
     }
   }

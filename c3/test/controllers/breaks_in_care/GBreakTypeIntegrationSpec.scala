@@ -11,7 +11,7 @@ import utils.{WithBrowser, WithJsBrowser}
 
 class GBreakTypeIntegrationSpec extends Specification {
   section("integration", models.domain.YourIncomes.id)
-  "Your Incomes" should {
+  "Breaks in care type selection / guard question page" should {
     "be presented" in new WithBrowser with PageObjects {
       val page = GBreaksTypesPage(context)
       page goToThePage()

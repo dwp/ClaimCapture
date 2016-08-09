@@ -76,8 +76,8 @@
         <input type="hidden" id="js" name="jsEnabled" value="false">
         <fieldset class="form-elements">
             @if(breaks.hasBreaks){
-                <h2 class="heading-medium" id="heading1">@messages("breaksummary_title")</h2>
-                <table>
+                <h2 class="heading-medium" id="summary-heading">@messages("breaksummary_title")</h2>
+                <table id="summary-table">
                     <tr>
                         <th>Who</th>
                         <th>Where</th>
