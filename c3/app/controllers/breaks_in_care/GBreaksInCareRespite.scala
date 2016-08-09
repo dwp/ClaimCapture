@@ -103,7 +103,7 @@ object GBreaksInCareRespite extends Controller with CachedClaim with I18nSupport
   private def nextPage(implicit claim: Claim, request: Request[_]) = {
     val breaksInCareType = claim.questionGroup(BreaksInCareType).getOrElse(BreaksInCareType()).asInstanceOf[BreaksInCareType]
     breaksInCareType.other.isDefined match {
-      case true => routes.GBreaksInCareOther.present()
+      case true => routes.GBreaksInCareOther.present(IterationID(form))
       case _ => routes.GBreaksInCareSummary.present()
     }
   }

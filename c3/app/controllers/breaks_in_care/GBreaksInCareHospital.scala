@@ -99,7 +99,7 @@ object GBreaksInCareHospital extends Controller with CachedClaim with I18nSuppor
     val breaksInCareType = claim.questionGroup(BreaksInCareType).getOrElse(BreaksInCareType()).asInstanceOf[BreaksInCareType]
     (breaksInCareType.carehome.isDefined, breaksInCareType.other.isDefined) match {
       case (true, _) => routes.GBreaksInCareRespite.present(IterationID(form))
-      case (_, true) => routes.GBreaksInCareOther.present()
+      case (_, true) => routes.GBreaksInCareOther.present(IterationID(form))
       case (_, _) => routes.GBreaksInCareSummary.present()
     }
   }
