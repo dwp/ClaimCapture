@@ -3,6 +3,7 @@ package controllers.breaks_in_care
 import app.ConfigProperties._
 import controllers.CarersForms._
 import controllers.IterationID
+import controllers.mappings.Mappings
 import controllers.mappings.Mappings._
 import models.domain._
 import models.view.CachedClaim
@@ -103,7 +104,7 @@ object GBreaksInCareRespite extends Controller with CachedClaim with I18nSupport
   private def nextPage(implicit claim: Claim, request: Request[_]) = {
     val breaksInCareType = claim.questionGroup(BreaksInCareType).getOrElse(BreaksInCareType()).asInstanceOf[BreaksInCareType]
     breaksInCareType.other.isDefined match {
-      case true => routes.GBreaksInCareOther.present(IterationID(form))
+      case true if (breaksInCareType.other.get == Mappings.yes) => routes.GBreaksInCareOther.present(IterationID(form))
       case _ => routes.GBreaksInCareSummary.present()
     }
   }
