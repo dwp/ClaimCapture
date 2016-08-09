@@ -15,55 +15,34 @@ import play.api.mvc.{Controller, Request}
 import utils.helpers.CarersForm._
 
 /**
- * Created by peterwhitehead on 03/08/2016.
- */
+  * Created by peterwhitehead on 03/08/2016.
+  */
 object GBreaksInCareOther extends Controller with CachedClaim with I18nSupport with BreaksGatherChecks {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
 
-  val whereWasDpMapping =
-    "whereWasDp" -> mapping(
-      "answer" -> carersNonEmptyText,
-      "text" -> optional(carersText(maxLength = sixty))
-    )(RadioWithText.apply)(RadioWithText.unapply)
+  val whereWasDpMapping = "whereWasDp" -> optional(radioWithText)
 
-  val whereWereYouMapping =
-    "whereWereYou" -> mapping(
-      "answer" -> carersNonEmptyText,
-      "text" -> optional(carersText(maxLength = sixty))
-    )(RadioWithText.apply)(RadioWithText.unapply)
+  val whereWereYouMapping = "whereWereYou" -> optional(radioWithText)
 
-  val yourStayEndedMapping =
-    "yourStayEnded" -> optional(mapping(
-      "answer" -> nonEmptyText,
-      "date" -> optional(dayMonthYear)
-    )(YesNoWithDate.apply)(YesNoWithDate.unapply))
-
-  val dpStayEndedMapping =
-    "dpStayEnded" -> optional(mapping(
-      "answer" -> nonEmptyText,
-      "date" -> optional(dayMonthYear)
-    )(YesNoWithDate.apply)(YesNoWithDate.unapply))
+  val yourStayEndedMapping = "startedCaring" -> optional(yesNoWithDate)
 
   val form = Form(mapping(
     "iterationID" -> carersNonEmptyText,
-    "typeOfCare" -> default(carersNonEmptyText, "other"),
-    "whoWasInHospital" -> carersNonEmptyText.verifying(validWhoWasAwayType),
-    "whenWereYouAdmitted" -> optional(dayMonthYear),
+    "typeOfCare" -> default(carersNonEmptyText, Breaks.another),
+    "whoWasInHospital" -> default(carersNonEmptyText, ""),
+    "dpOtherEnded.date" -> optional(dayMonthYear),
     yourStayEndedMapping,
-    "whenWasDpAdmitted" -> optional(dayMonthYear),
-    dpStayEndedMapping,
+    "whenWasDpAdmitted" -> default(optional(dayMonthYear), None),
+    "dpStayEnded" -> default(optional(yesNoWithDate), None),
     "breaksInCareStillCaring" -> default(optional(nonEmptyText), None),
     "yourMedicalProfessional" -> default(optional(nonEmptyText), None),
-    "dpMedicalProfessional" -> default(optional(nonEmptyText), None)
+    "dpMedicalProfessional" -> default(optional(nonEmptyText), None),
+    whereWasDpMapping,
+    whereWereYouMapping,
+    "startedCaring.time" -> optional(carersNonEmptyText),
+    "dpOtherEnded.time" -> optional(carersNonEmptyText)
   )(Break.apply)(Break.unapply)
-    .verifying(requiredWhenWereYouAdmitted)
-    .verifying(requiredYourStayEndedAnswer)
-    .verifying(requiredYourStayEndedDate)
-    .verifying(requiredWhenWasDpAdmitted)
-    .verifying(requiredDpStayEndedAnswer)
-    .verifying(requiredDpStayEndedDate)
-    .verifying(requiredBreaksInCareStillCaring)
-    .verifying(requiredStartDateNotAfterEndDate)
+
   )
 
   val backCall = routes.GBreaksInCareType.present()

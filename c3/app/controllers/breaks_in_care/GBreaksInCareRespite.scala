@@ -7,7 +7,6 @@ import controllers.mappings.Mappings
 import controllers.mappings.Mappings._
 import models.domain._
 import models.view.CachedClaim
-import models.yesNo.YesNoWithDate
 import play.api.Play._
 import play.api.data.Forms._
 import play.api.data.{Form, FormError}
@@ -16,26 +15,18 @@ import play.api.mvc.{Request, Controller}
 import utils.helpers.CarersForm._
 
 /**
- * Created by peterwhitehead on 03/08/2016.
- */
+  * Created by peterwhitehead on 03/08/2016.
+  */
 object GBreaksInCareRespite extends Controller with CachedClaim with I18nSupport with BreaksGatherChecks {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
 
-  val yourStayEndedMapping =
-    "yourRespiteStayEnded" -> optional(mapping(
-      "answer" -> nonEmptyText,
-      "date" -> optional(dayMonthYear)
-    )(YesNoWithDate.apply)(YesNoWithDate.unapply))
+  val yourStayEndedMapping = "yourRespiteStayEnded" -> optional(yesNoWithDate)
 
-  val dpStayEndedMapping =
-    "dpRespiteStayEnded" -> optional(mapping(
-      "answer" -> nonEmptyText,
-      "date" -> optional(dayMonthYear)
-    )(YesNoWithDate.apply)(YesNoWithDate.unapply))
+  val dpStayEndedMapping = "dpRespiteStayEnded" -> optional(yesNoWithDate)
 
   val form = Form(mapping(
     "iterationID" -> carersNonEmptyText,
-    "typeOfCare" -> default(carersNonEmptyText, "respite"),
+    "typeOfCare" -> default(carersNonEmptyText, Breaks.carehome),
     "whoWasInRespite" -> carersNonEmptyText.verifying(validWhoWasAwayType),
     "whenWereYouAdmitted" -> optional(dayMonthYear),
     yourStayEndedMapping,
@@ -43,7 +34,11 @@ object GBreaksInCareRespite extends Controller with CachedClaim with I18nSupport
     dpStayEndedMapping,
     "breaksInCareRespiteStillCaring" -> optional(nonEmptyText),
     "yourMedicalProfessional" -> optional(nonEmptyText),
-    "dpMedicalProfessional" -> optional(nonEmptyText)
+    "dpMedicalProfessional" -> optional(nonEmptyText),
+    "whereWasDp" -> default(optional(radioWithText), None),
+    "whereWereYou" -> default(optional(radioWithText), None),
+    "whenWereYouAdmitted.time" -> default(optional(carersNonEmptyText), None),
+    "dpOtherEnded.time" -> default(optional(carersNonEmptyText), None)
   )(Break.apply)(Break.unapply)
     .verifying(requiredWhenWereYouAdmitted)
     .verifying(requiredYourStayEndedAnswer)
@@ -56,6 +51,7 @@ object GBreaksInCareRespite extends Controller with CachedClaim with I18nSupport
     .verifying(requiredMedicalProfessional)
   )
 
+  //need to go back to summary if any breaks exist
   val backCall = routes.GBreaksInCareType.present()
 
   def present(iterationID: String) = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
@@ -101,6 +97,7 @@ object GBreaksInCareRespite extends Controller with CachedClaim with I18nSupport
       })
   }
 
+  //either other or if come from summary back to there
   private def nextPage(implicit claim: Claim, request: Request[_]) = {
     val breaksInCareType = claim.questionGroup(BreaksInCareType).getOrElse(BreaksInCareType()).asInstanceOf[BreaksInCareType]
     breaksInCareType.other.isDefined match {

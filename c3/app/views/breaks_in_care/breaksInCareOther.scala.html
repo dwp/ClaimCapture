@@ -4,11 +4,12 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import models.domain.TheirPersonalDetails
 @import views.html.helper._
+@import views.html.helper.base._
 @import views.html.helper.dates._
 @import scala.language.postfixOps
 @implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
 @import controllers.IterationID
-@import app.BreaksInCareGatherOptions._
+@import app.BreaksInCareOtherOptions._
 @import views.html.breaks_in_care.main
 
 @dpDetails() = @{
@@ -16,72 +17,69 @@
     theirPersonalDetails.firstName + " " + theirPersonalDetails.surname
 }
 
-@listOfOptions = @{
+@whereList = @{
     Seq(
-        You -> messages("breaksInCareHospitalYou"),
-        DP -> dpDetails
+        Holiday -> messages("breaksInCareOtherHoliday"),
+        Home -> messages("breaksInCareOtherHome"),
+        SomewhereElse -> messages("breaksInCareOtherSomewhereElse")
     )
 }
 
-@main(messages("breaksInCareHospitalTitle"), messages("breaksInCareHospitalSectionHeading"), Some(currentForm), Some(backCall), true) {
+@main(messages("breaksInCareOtherTitle"), messages("breaksInCareOtherSectionHeading"), Some(currentForm), Some(backCall), true) {
 
-@form(action = controllers.breaks_in_care.routes.GBreaksInCareHospital.submit, 'role -> "form") {
-    <input type="hidden" name="iterationID" value="@IterationID(currentForm)">
-    @DwpCSRFFormHelper.formField
+    @form(action = controllers.breaks_in_care.routes.GBreaksInCareOther.submit, 'role -> "form") {
+        <input type="hidden" name="iterationID" value="@IterationID(currentForm)">
+        @DwpCSRFFormHelper.formField
         <fieldset class="form-elements">
-            <legend class="heading-medium form-label-bold">@Html(messages("breaksInCareHospitalDeclaration", dpDetails))</legend>
+            <legend class="heading-medium form-label-bold">@Html(messages("breaksInCareOtherDeclaration", dpDetails))</legend>
             <ul>
-                @listRadioGroup(currentForm("whoWasInHospital"),
-                    'items -> listOfOptions,
-                    '_nestedFieldSet -> true,
-                    'track -> true,
-                    'ignoreOptional -> true)
+                @dateTimePickerWithDynamicLabel(currentForm("dpOtherEnded.date"), '_label -> messages("dpOtherEnded.date", dpDetails),
+                    'dynamicDateDays -> 34, 'ignoreOptional -> true, 'track -> true)
 
-                @otherDetailPlaceHolder(
-                    inputDef = Seq(
-                        dateTimePickerWithDynamicLabel(currentForm("whenWereYouAdmitted"),
-                            'dynamicDateDays -> 34, 'ignoreOptional -> true),
-                        yesNoRadioGroup(currentForm("yourStayEnded.answer"),
-                            '_label -> messages("yourStayEnded.answer"),
-                            'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")),
-                            'ignoreOptional-> true
-                        ),
-                        otherDetailPlaceHolder(
-                            inputDef = Seq(
-                                dateTimePickerWithDynamicLabel(currentForm("yourStayEnded.date"),
-                                    'dynamicDateDays -> 34, 'ignoreOptional -> true)
-                            ),
-                            'id -> "yourStayEndedWrap"
-                        )
-                    ),
-                    'id -> "whenWereYouAdmittedWrap"
+                @carersInputText(currentForm("dpOtherEnded.time"), 'maxLength -> 60, 'track -> true, 'ignoreOptional -> false)
+
+                @yesNoRadioGroup(currentForm("startedCaring.answer"),
+                    '_label -> messages("startedCaring.answer"),
+                    'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")),
+                    'ignoreOptional-> true, 'track -> true
                 )
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
-                        dateTimePickerWithDynamicLabel(currentForm("whenWasDpAdmitted"),
-                            'dynamicDateDays -> 34, 'ignoreOptional -> true,
-                            '_label -> messages("whenWasDpAdmitted", dpDetails)),
-                        yesNoRadioGroup(currentForm("dpStayEnded.answer"),
-                            'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")),
-                            'ignoreOptional-> true
+                        dateTimePickerWithDynamicLabel(currentForm("startedCaring.date"),
+                            'dynamicDateDays -> 34, 'ignoreOptional -> true, 'track -> true),
+                        carersInputText(currentForm("startedCaring.time"), 'maxLength -> 60, 'track -> true, 'ignoreOptional -> false),
+                        listRadioGroupWithOther(currentForm("whereWasDp"),
+                            'items -> whereList,
+                            '_label -> messages("whereWasDp.answer", dpDetails),
+                            'wrapperName -> "wherePersonBreaksInCareWrap",
+                            '_nestedFieldSet -> true,
+                            'maxLength -> 60,
+                            'class -> "textarea-reduced",
+                            'otherValue -> SomewhereElse,
+                            '_anchorIdRequired -> true,
+                            '_anchorId -> "whereWasDp",
+                            'ignoreOptional -> true,
+                            '_otherLabel -> messages("somewhereElse"),
+                            'track -> true
                         ),
-                        otherDetailPlaceHolder(
-                            inputDef = Seq(
-                                dateTimePickerWithDynamicLabel(currentForm("dpStayEnded.date"),
-                                    'dynamicDateDays -> 34, 'ignoreOptional -> true,
-                                    '_label -> messages("dpStayEnded.date", dpDetails))
-                            ),
-                            'id -> "dpStayEndedWrap"
-                        ),
-                        yesNoRadioGroup(currentForm("breaksInCareStillCaring"),
-                            'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")),
-                            '_label -> messages("breaksInCareStillCaring", dpDetails), 'ignoreOptional -> true,
-                            'helperAbove -> messages("breaksInCareStillCaring.helper")
+                        listRadioGroupWithOther(currentForm("whereWereYou"),
+                            'items -> whereList,
+                            'wrapperName -> "whereYouBreaksInCareWrap",
+                            '_nestedFieldSet -> true,
+                            'maxLength -> 60,
+                            'class -> "textarea-reduced",
+                            'otherValue -> SomewhereElse,
+                            '_anchorIdRequired -> true,
+                            '_anchorId -> "whereWereYou",
+                            '_otherLabel -> messages("somewhereElse"),
+                            'ignoreOptional -> true,
+                            'track -> true
                         )
                     ),
-                    'id -> "whenWasDpAdmittedWrap"
+                    'id -> "startedCaringWrap"
                 )
+
             </ul>
 
         </fieldset>
@@ -90,21 +88,24 @@
 
     }
 
-    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/breaks_in_care/breakDatesHospital.js")></script>
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/listWithOther.js")></script>
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/breaks_in_care/breaksInCareOtherGather.js")></script>
 
     <script type="text/javascript">
         $(function(){
+            window.areaCounter({selector: "@CarersCrypto.encryptAES("whereWasDp_text")", maxChars: 60});
+            window.areaCounter({selector: "@CarersCrypto.encryptAES("whereWereYou_text")", maxChars: 60});
+
             window.initEvents(
-            "@CarersCrypto.encryptAES("whoWasInHospital_You")",
-            "@CarersCrypto.encryptAES("whoWasInHospital_DP")",
-            "@CarersCrypto.encryptAES("yourStayEnded_answer_yes")",
-            "@CarersCrypto.encryptAES("yourStayEnded_answer_no")",
-            "@CarersCrypto.encryptAES("dpStayEnded_answer_yes")",
-            "@CarersCrypto.encryptAES("dpStayEnded_answer_no")",
-            "yourStayEndedWrap",
-            "whenWereYouAdmittedWrap",
-            "dpStayEndedWrap",
-            "whenWasDpAdmittedWrap", "", "", "");
+                    "@CarersCrypto.encryptAES("startedCaring_answer_yes")",
+                    "@CarersCrypto.encryptAES("startedCaring_answer_no")",
+                    "startedCaringWrap",
+                    "@CarersCrypto.encryptAES("startedCaring_date")",
+                    "@CarersCrypto.encryptAES("dpOtherEnded_date")",
+                    "@CarersCrypto.encryptAES("startedCaring_time")",
+                    "@CarersCrypto.encryptAES("dpOtherEnded_time")"
+            );
         });
     </script>
 

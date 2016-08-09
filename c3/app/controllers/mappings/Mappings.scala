@@ -3,6 +3,7 @@ package controllers.mappings
 import app.{BreaksInCareGatherOptions, PaymentTypes, StatutoryPaymentFrequency}
 import controllers.CarersForms._
 import models._
+import models.yesNo.{RadioWithText, YesNoWithDate}
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.Logger
@@ -44,6 +45,13 @@ object Mappings {
   private val newErrorSortCode = FormError("sortCode", errorRestrictedCharacters)
   private val constraintRequired: String = "constraint.required"
 
+  def yesNoWithDate: Mapping[YesNoWithDate] = mapping(
+    "answer" -> nonEmptyText,
+    "date" -> optional(dayMonthYear))(YesNoWithDate.apply)(YesNoWithDate.unapply)
+
+  def radioWithText: Mapping[RadioWithText] = mapping(
+    "answer" -> carersNonEmptyText,
+    "text" -> optional(carersText(maxLength = sixty)))(RadioWithText.apply)(RadioWithText.unapply)
 
   val dayMonthYear: Mapping[DayMonthYear] = mapping(
     "day" -> optional(text),
@@ -83,7 +91,7 @@ object Mappings {
     case (Some(h1), Some(m1)) => dmy.withTime(h1, m1)
     case _ => dmy
   }
-    )((dmy: DayMonthYear) => Some((dmy, dmy.hour, dmy.minutes)))
+  )((dmy: DayMonthYear) => Some((dmy, dmy.hour, dmy.minutes)))
 
   private def validDayMonthYear(datePatterns: String*) = (date: String) => Try(stringToDayMonthYear(datePatterns: _*)(date)).isSuccess
 
@@ -123,8 +131,8 @@ object Mappings {
   }
 
   def validDate: Constraint[DayMonthYear] = Constraint[DayMonthYear](constraintRequired) {
-      case DayMonthYear(None, None, None, _, _) => Invalid(ValidationError(errorRequired))
-      case dmy@DayMonthYear(_, _, _, _, _) => dateValidation(dmy)
+    case DayMonthYear(None, None, None, _, _) => Invalid(ValidationError(errorRequired))
+    case dmy@DayMonthYear(_, _, _, _, _) => dateValidation(dmy)
   }
 
   def validDateOnly: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.validateDate") { dmy =>
@@ -146,9 +154,9 @@ object Mappings {
   }
 
   /**
-   * Use this method to validate phone number when it is not empty. This was created for fields which are mandatory and have to validate for
-   * a valid phone number because the mandatory fields have their validation for empty fields.
-   */
+    * Use this method to validate phone number when it is not empty. This was created for fields which are mandatory and have to validate for
+    * a valid phone number because the mandatory fields have their validation for empty fields.
+    */
   def validPhoneNumberRequired: Constraint[String] = Constraint[String]("constraint.phoneNumber") { phoneNumber =>
     if (null != phoneNumber && !phoneNumber.isEmpty) validPhoneNumberPattern(phoneNumber)
     else Valid
@@ -247,8 +255,8 @@ object Mappings {
   }
 
   /**
-   * Use this method to manage error codes for sort code for special characters and call this from the controller
-   */
+    * Use this method to manage error codes for sort code for special characters and call this from the controller
+    */
   def manageErrorsSortCode[T](formWithErrors:Form[T], prefix: String = "")(implicit request: Request[_]):Form[T] = {
     val updatedFormErrors = formWithErrors.errors.flatMap { fe =>
       if (fe.key.startsWith(s"${prefix}${newErrorSortCode.key}" )) {
@@ -261,9 +269,9 @@ object Mappings {
   }
 
   /**
-   * Use this method to display only one error message for the sort code for special characters and also to ignore
-   * group by functionality for the keys as provided by the utils.helpers.CarersForm.replaceError method
-   */
+    * Use this method to display only one error message for the sort code for special characters and also to ignore
+    * group by functionality for the keys as provided by the utils.helpers.CarersForm.replaceError method
+    */
   def ignoreGroupByForSortCode[T](formWithErrors:Form[T], prefix: String = "")(implicit request: Request[_]):Form[T] = {
     formWithErrors.copy(errors = formWithErrors.errors.foldLeft(Seq[FormError]()) { (z: Seq[FormError], fe: FormError) =>
       if (fe.key == s"${prefix}${newErrorSortCode.key}") {

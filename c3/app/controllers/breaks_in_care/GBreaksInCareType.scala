@@ -52,6 +52,7 @@ object GBreaksInCareType extends Controller with CachedClaim with Navigable with
   private def nextPage(breaksInCareType: BreaksInCareType)(implicit claim: Claim, request: Request[_]) = {
     if (breaksInCareType.hospital.isDefined) routes.GBreaksInCareHospital.present(IterationID(form))
     else if (breaksInCareType.carehome.isDefined) routes.GBreaksInCareRespite.present(IterationID(form))
+    else if (breaksInCareType.other.isDefined && breaksInCareType.other.get == Mappings.yes) routes.GBreaksInCareOther.present(IterationID(form))
     else controllers.s_education.routes.GYourCourseDetails.present
   }
 

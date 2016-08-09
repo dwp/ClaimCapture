@@ -6,7 +6,6 @@ import controllers.mappings.Mappings
 import controllers.mappings.Mappings._
 import models.domain._
 import models.view.CachedClaim
-import models.yesNo.YesNoWithDate
 import play.api.Play._
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
@@ -16,26 +15,18 @@ import utils.helpers.CarersForm._
 import controllers.CarersForms._
 
 /**
- * Created by peterwhitehead on 03/08/2016.
- */
+  * Created by peterwhitehead on 03/08/2016.
+  */
 object GBreaksInCareHospital extends Controller with CachedClaim with I18nSupport with BreaksGatherChecks {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
 
-  val yourStayEndedMapping =
-    "yourStayEnded" -> optional(mapping(
-      "answer" -> nonEmptyText,
-      "date" -> optional(dayMonthYear)
-    )(YesNoWithDate.apply)(YesNoWithDate.unapply))
+  val yourStayEndedMapping = "yourStayEnded" -> optional(yesNoWithDate)
 
-  val dpStayEndedMapping =
-    "dpStayEnded" -> optional(mapping(
-      "answer" -> nonEmptyText,
-      "date" -> optional(dayMonthYear)
-    )(YesNoWithDate.apply)(YesNoWithDate.unapply))
+  val dpStayEndedMapping = "dpStayEnded" -> optional(yesNoWithDate)
 
   val form = Form(mapping(
     "iterationID" -> carersNonEmptyText,
-    "typeOfCare" -> default(carersNonEmptyText, "hospital"),
+    "typeOfCare" -> default(carersNonEmptyText, Breaks.hospital),
     "whoWasInHospital" -> carersNonEmptyText.verifying(validWhoWasAwayType),
     "whenWereYouAdmitted" -> optional(dayMonthYear),
     yourStayEndedMapping,
@@ -43,7 +34,11 @@ object GBreaksInCareHospital extends Controller with CachedClaim with I18nSuppor
     dpStayEndedMapping,
     "breaksInCareStillCaring" -> optional(nonEmptyText),
     "yourMedicalProfessional" -> default(optional(nonEmptyText), None),
-    "dpMedicalProfessional" -> default(optional(nonEmptyText), None)
+    "dpMedicalProfessional" -> default(optional(nonEmptyText), None),
+    "whereWasDp" -> default(optional(radioWithText), None),
+    "whereWereYou" -> default(optional(radioWithText), None),
+    "whenWereYouAdmitted.time" -> default(optional(carersNonEmptyText), None),
+    "dpOtherEnded.time" -> default(optional(carersNonEmptyText), None)
   )(Break.apply)(Break.unapply)
     .verifying(requiredWhenWereYouAdmitted)
     .verifying(requiredYourStayEndedAnswer)

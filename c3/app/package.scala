@@ -21,8 +21,8 @@ package object app {
   }
 
   /**
-   * @deprecated This Whereabouts objects shouldn't be used anymore since all whereabouts are "Circs based" so either refactor that to be common
-   *            for the entire application, or re-refactor to enable this one. (If you use this object for data input, nothing will work :D)
+    * @deprecated This Whereabouts objects shouldn't be used anymore since all whereabouts are "Circs based" so either refactor that to be common
+    *            for the entire application, or re-refactor to enable this one. (If you use this object for data input, nothing will work :D)
     */
   object Whereabouts {
     val Home = "Home"
@@ -85,6 +85,12 @@ package object app {
   object BreaksInCareGatherOptions {
     val You = "You"
     val DP = "DP"
+  }
+
+  object BreaksInCareOtherOptions {
+    val Holiday = "On holiday"
+    val Home = "At home"
+    val SomewhereElse = "Somewhere else"
   }
 
   object StatutoryPaymentFrequency {
