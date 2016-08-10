@@ -2,9 +2,12 @@ isChecked = (selector)  -> $("##{selector}").prop('checked')
 val = (selector, text) -> if text? then $("##{selector}").val(text) else $("##{selector}").val()
 S = (selector) -> $("##{selector}")
 
-window.initEvents = (otherStarted_yes, otherStarted_no, otherStartedWrap, otherStartDate, otherEndedDate, otherStartTime, otherEndedTime) ->
+window.initEvents = (otherStarted_yes, otherStarted_no, otherStartedWrap, otherStartDate,
+  otherEndedDate, otherStartTime, otherEndedTime, someWhereElseDpWrap, someWhereElseYouWrap) ->
 
   if not isChecked(otherStarted_yes)
+    hideWrapper(someWhereElseYouWrap)
+    hideWrapper(someWhereElseDpWrap)
     hideWrapper(otherStartedWrap)
 
   if isChecked(otherStarted_yes)
@@ -14,6 +17,8 @@ window.initEvents = (otherStarted_yes, otherStarted_no, otherStartedWrap, otherS
     showWrapper(otherStartedWrap)
 
   S(otherStarted_no).on "click", ->
+    hideWrapper(someWhereElseYouWrap)
+    hideWrapper(someWhereElseDpWrap)
     hideWrapper(otherStartedWrap)
 
   if isNotMondayOrFriday(otherStartDate)
@@ -43,6 +48,7 @@ hideWrapper = (wrapper)->
 
 clearDownStreamInputs = (wrapper)->
   $("#" + wrapper).find("input").each(clearInput)
+  $("#" + wrapper).find("textarea").each(clearInput)
 
 # If we want to also clear the validation error when item is hidden ?
 # $("#" + wrapper).find(".validation-error").removeClass("validation-error")

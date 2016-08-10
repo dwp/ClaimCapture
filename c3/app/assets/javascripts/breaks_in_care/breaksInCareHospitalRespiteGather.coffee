@@ -59,6 +59,7 @@ hideWrapper = (wrapper)->
 
 clearDownStreamInputs = (wrapper)->
   $("#" + wrapper).find("input").each(clearInput)
+  $("#" + wrapper).find("textarea").each(clearInput)
 
 # If we want to also clear the validation error when item is hidden ?
 # $("#" + wrapper).find(".validation-error").removeClass("validation-error")

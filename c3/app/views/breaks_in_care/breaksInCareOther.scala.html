@@ -60,7 +60,7 @@
                             '_anchorIdRequired -> true,
                             '_anchorId -> "whereWasDp",
                             'ignoreOptional -> true,
-                            '_otherLabel -> messages("somewhereElse"),
+                            '_otherLabel -> messages("whereWasDp.text"),
                             'track -> true
                         ),
                         listRadioGroupWithOther(currentForm("whereWereYou"),
@@ -72,7 +72,7 @@
                             'otherValue -> SomewhereElse,
                             '_anchorIdRequired -> true,
                             '_anchorId -> "whereWereYou",
-                            '_otherLabel -> messages("somewhereElse"),
+                            '_otherLabel -> messages("whereWereYou.text"),
                             'ignoreOptional -> true,
                             'track -> true
                         )
@@ -104,7 +104,9 @@
                     "@CarersCrypto.encryptAES("startedCaring_date")",
                     "@CarersCrypto.encryptAES("dpOtherEnded_date")",
                     "@CarersCrypto.encryptAES("startedCaring_time")",
-                    "@CarersCrypto.encryptAES("dpOtherEnded_time")"
+                    "@CarersCrypto.encryptAES("dpOtherEnded_time")",
+                    "wherePersonBreaksInCareWrap",
+                    "whereYouBreaksInCareWrap"
             );
         });
     </script>
