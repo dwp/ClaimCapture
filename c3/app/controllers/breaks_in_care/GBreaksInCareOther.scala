@@ -125,7 +125,7 @@ object GBreaksInCareOther extends Controller with CachedClaim with I18nSupport w
   private def requiredWhereWhereYouRadioWithText: Constraint[Break] = Constraint[Break]("constraint.radioWithText") { break =>
     break.whereWhereYou.isDefined match {
       case true if (!RadioWithText.validateOnOther(break.whereWhereYou.get)) => Invalid(ValidationError("whereWereYou.text"))
-      case _ if(break.yourStayEnded.isDefined && break.yourStayEnded.get.answer == Mappings.yes) => Invalid(ValidationError("whereWereYou"))
+      case false if(break.yourStayEnded.isDefined && break.yourStayEnded.get.answer == Mappings.yes) => Invalid(ValidationError("whereWereYou"))
       case _ => Valid
     }
   }
@@ -133,7 +133,7 @@ object GBreaksInCareOther extends Controller with CachedClaim with I18nSupport w
   private def requiredWhereWasDpRadioWithText: Constraint[Break] = Constraint[Break]("constraint.radioWithText") { break =>
     break.whereWasDp.isDefined match {
       case true if (!RadioWithText.validateOnOther(break.whereWasDp.get)) => Invalid(ValidationError("whereWasDp.text"))
-      case _ if(break.yourStayEnded.isDefined && break.yourStayEnded.get.answer == Mappings.yes) => Invalid(ValidationError("whereWasDp"))
+      case false if(break.yourStayEnded.isDefined && break.yourStayEnded.get.answer == Mappings.yes) => Invalid(ValidationError("whereWasDp"))
       case _ => Valid
     }
   }
