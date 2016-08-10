@@ -1,6 +1,5 @@
 package controllers.breaks_in_care
 
-import app.CircsBreaksWhereabouts._
 import controllers.mappings.Mappings
 import controllers.{ClaimScenarioFactory, Formulate, BrowserMatchers, WithBrowserHelper}
 import models.DayMonthYear
@@ -8,9 +7,8 @@ import org.specs2.mutable._
 import play.api.Logger
 import utils.pageobjects._
 import utils.pageobjects.breaks_in_care.{GBreaksInCareTypePage, GBreaksInCareHospitalPage}
-import utils.pageobjects.s_care_you_provide.GTheirPersonalDetailsPage
+import utils.pageobjects.circumstances.report_changes.GBreaksInCareSummaryPage
 import utils.pageobjects.s_claim_date.GClaimDatePage
-import utils.pageobjects.s_education.GYourCourseDetailsPage
 import utils.{WithBrowsers, WithBrowser, WithJsBrowser}
 
 class GBreaksInCareHospitalIntegrationSpec extends Specification {
@@ -39,7 +37,7 @@ class GBreaksInCareHospitalIntegrationSpec extends Specification {
       urlMustEqual(GBreaksInCareHospitalPage.url)
       break()
       next
-      urlMustEqual(GBreaksInCareTypePage.url) //will need to go to summary
+      urlMustEqual(GBreaksInCareSummaryPage.url)
 
       goTo(GBreaksInCareHospitalPage.url + "/2")
       urlMustEqual(GBreaksInCareHospitalPage.url)
@@ -54,7 +52,7 @@ class GBreaksInCareHospitalIntegrationSpec extends Specification {
       urlMustEqual(GBreaksInCareHospitalPage.url)
       break()
       next
-      urlMustEqual(GBreaksInCareTypePage.url) //will need to go to summary
+      urlMustEqual(GBreaksInCareSummaryPage.url)
 
       goTo(GBreaksInCareHospitalPage.url + "/2")
       urlMustEqual(GBreaksInCareHospitalPage.url)
@@ -79,7 +77,7 @@ class GBreaksInCareHospitalIntegrationSpec extends Specification {
       urlMustEqual(GBreaksInCareHospitalPage.url)
       break()
       next
-      urlMustEqual(GBreaksInCareTypePage.url) //will need to go to summary
+      urlMustEqual(GBreaksInCareSummaryPage.url)
 
       goTo(GBreaksInCareHospitalPage.url + "/2")
       urlMustEqual(GBreaksInCareHospitalPage.url)

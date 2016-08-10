@@ -35,7 +35,7 @@ object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport
       formWithErrors => {
         val errors = formWithErrors
           .replaceError("", "mustselectone", FormError("breaksummary_answer", errorRequired, Seq(dateForBreaks(claim, request2lang), dpname(claim))))
-          .replaceError("", "mustselectother", FormError("breaksummary_other", errorRequired, Seq(dateForBreaks(claim, request2lang), dpname(claim))))
+          .replaceError("", "mustselectother", FormError(otherError, errorRequired, Seq(dateForBreaks(claim, request2lang), dpname(claim))))
         BadRequest(views.html.breaks_in_care.breaksInCareSummary(errors, breaks))
       },
       breaksInCareSummary => {
@@ -68,6 +68,13 @@ object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport
   private def dateForBreaks(claim: Claim, lang: Lang) = {
     val claimDateQG = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
     claimDateQG.dateWeRequireBreakInCareInformationFrom(lang)
+  }
+
+  private def otherError(implicit claim: Claim)={
+    breaks.hasBreaks match {
+      case true => "breaksummary_other_another"
+      case false => "breaksummary_other_first"
+    }
   }
 
   private def validateOther(breaksInCareSummary: BreaksInCareSummary) = breaksInCareSummary.breaksummary_other match {
