@@ -9,7 +9,6 @@ window.initSummaryEvents = (other_yes, other_no, answerWrap) ->
 
 # Called whenever anything changes ... we set up all the hidden items and reset / clear any that are hidden
 setVisibility = (other_yes, other_no, answerWrap) ->
-  console.log("set vis called")
   if $("#" + other_yes).prop('checked')
     showWrapper(answerWrap)
   else

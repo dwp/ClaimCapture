@@ -1,10 +1,11 @@
 package utils.pageobjects.breaks_in_care
 
+import app.BreaksInCareGatherOptions
+import controllers.mappings.Mappings
 import utils.WithBrowser
-import utils.pageobjects.IterationManager._
-import utils.pageobjects.{IterationManager, PageContext, ClaimPage, PageObjectsContext}
+import utils.pageobjects._
 
-class GBreaksInCareHospitalPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, GBreaksInCareHospitalPage.url) {
+class GBreaksInCareHospitalPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, GBreaksInCareHospitalPage.url+"/"+iteration) {
   declareRadioList("#whoWasInHospital", "AboutTheCareYouProvideBreakWhoWasInHospital_" + iteration)
 
   declareDate("#whenWereYouAdmitted", "AboutTheCareYouProvideBreakWhenWereYouAdmitted_" + iteration)
@@ -27,6 +28,22 @@ object GBreaksInCareHospitalPage {
   val url  = "/breaks/hospital"
 
   def apply(ctx:PageObjectsContext, iteration:Int=1) = new GBreaksInCareHospitalPage(ctx,iteration)
+
+  def fillDetails(context: PageObjectsContext, f: => TestData => Unit) = {
+    val claimData = defaultHospitalDetails()
+    f(claimData)
+    val page = new GBreaksInCareHospitalPage(context, 1) goToThePage()
+    page.fillPageWith(claimData)
+    page.submitPage()
+  }
+
+  def defaultHospitalDetails() = {
+    val claim = new TestData
+    claim.AboutTheCareYouProvideBreakWhoWasInHospital_1 = BreaksInCareGatherOptions.You
+    claim.AboutTheCareYouProvideBreakWhenWereYouAdmitted_1 = "01/01/2016"
+    claim.AboutTheCareYouProvideYourStayEnded_1 = Mappings.no
+    claim
+  }
 }
 
 trait GBreaksInCareHospitalPageContext extends PageContext {
