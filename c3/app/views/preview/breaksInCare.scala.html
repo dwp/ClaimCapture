@@ -1,18 +1,38 @@
 @()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
-@import models.domain.OldBreaksInCare
+@import models.domain.BreaksInCare
+@import models.domain.Breaks
 @import models.domain.ClaimDate
-@import play.api.i18n.Messages
 @import helper._
 @import app.ConfigProperties._
+@import models.domain.TheirPersonalDetails
 
-@breaks = @{claim.questionGroup[OldBreaksInCare].getOrElse(OldBreaksInCare())}
+@breaks = @{claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())}
 @breaksFromDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateWeRequireBreakInCareInformationFrom(lang)}
-@disableChangeButton = @{
-	!getBooleanProperty("cyaToggleVisible")
+@theirPersonalDetails = @{claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())}
+@dpname=@{theirPersonalDetails.firstName+" "+theirPersonalDetails.surname}
+@disableChangeButton = @{!getBooleanProperty("cyaToggleVisible")}
+
+@hasBreaksMessage(breakType:String = "Any")=@{
+	val found= breakType match {
+		case "Any" => breaks.hasBreaks
+		case _ => breaks.hasBreaksForType(breakType)
+	}
+
+	found match {
+		case true => messages("label.yes")
+		case false => messages("label.no")
+	}
 }
 
 @content = {
-	@fieldWithLink("care_you_provide_anyBreaks", messages("answer.label", breaksFromDate), Html(messages("label."+(if (breaks.breaks.length > 0) "yes" else "no"))) + (if (breaks.breaks.length > 0) " " + messages("breaks.details",breaks.breaks.length) else ""), disableLink = disableChangeButton, elementId = Some("answer"))
+	@fieldWithLink("breaks_breaktype", messages("breaktype_first",breaksFromDate, dpname), hasBreaksMessage(), disableLink = disableChangeButton)
+	@if(breaks.hasBreaksForType(Breaks.hospital)) {
+		@fieldWithLink("breaks_breaktype", "breaks.hospital", hasBreaksMessage(Breaks.hospital), disableLink = disableChangeButton)
+	}
+	@if(breaks.hasBreaksForType(Breaks.carehome)) {
+		@fieldWithLink("breaks_breaktype", "breaks.carehome", hasBreaksMessage(Breaks.carehome), disableLink = disableChangeButton)
+	}
+	@fieldWithLink("breaks_breaktype", messages("breaktype_other_first", dpname), hasBreaksMessage(Breaks.another), disableLink = disableChangeButton)
 }
 
 @accordion(label = messages("s4.5.longName"), openLabel = "open-breaks-in-care", closeLabel = "close-breaks-in-care", content = content, 'track -> true)

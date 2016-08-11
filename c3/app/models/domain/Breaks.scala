@@ -22,6 +22,16 @@ case class BreaksInCare(breaks: List[Break] = Nil) extends QuestionGroup(BreaksI
   def delete(iterationID: String) = BreaksInCare(breaks.filterNot(_.iterationID == iterationID))
 
   def hasBreaks = breaks.nonEmpty
+
+  def hasBreaksForType(breakTypeOfCare:String)={
+    var found=false
+    for((break) <- breaks if !found) {
+      if(break.typeOfCare == breakTypeOfCare){
+        found=true
+      }
+    }
+    found
+  }
 }
 
 case object BreaksInCare extends QuestionGroup.Identifier {
