@@ -56,7 +56,7 @@ object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport
   private def nextPage(breaksInCareType: BreaksInCareType)(implicit claim: Claim, request: Request[_]) = {
     if (breaksInCareType.hospital.isDefined) routes.GBreaksInCareHospital.present(IterationID(form))
     else if (breaksInCareType.carehome.isDefined) routes.GBreaksInCareRespite.present(IterationID(form))
-    // THINK WE HAVE ANOTHER TYPE OTHER ??
+    else if (breaksInCareType.other.isDefined) routes.GBreaksInCareOther.present(IterationID(form))
     else controllers.s_education.routes.GYourCourseDetails.present
   }
 

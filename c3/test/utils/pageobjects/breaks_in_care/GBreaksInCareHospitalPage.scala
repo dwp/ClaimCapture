@@ -5,7 +5,7 @@ import controllers.mappings.Mappings
 import utils.WithBrowser
 import utils.pageobjects._
 
-class GBreaksInCareHospitalPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, GBreaksInCareHospitalPage.url, iteration) {
+class GBreaksInCareHospitalPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, GBreaksInCareHospitalPage.url+"/"+iteration, iteration) {
   declareRadioList("#whoWasInHospital", "AboutTheCareYouProvideBreakWhoWasInHospital_" + iteration)
 
   declareDate("#whenWereYouAdmitted", "AboutTheCareYouProvideBreakWhenWereYouAdmitted_" + iteration)
@@ -37,7 +37,7 @@ object GBreaksInCareHospitalPage {
     page.submitPage()
   }
 
-  def defaultHospitalDetails() = {
+  private def defaultHospitalDetails() = {
     val claim = new TestData
     claim.AboutTheCareYouProvideBreakWhoWasInHospital_1 = BreaksInCareGatherOptions.You
     claim.AboutTheCareYouProvideBreakWhenWereYouAdmitted_1 = "01/01/2016"
