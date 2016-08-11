@@ -53,17 +53,17 @@ object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport
     case true => "breaktype_another"
   }
 
-
   private def otherbreakLabel(implicit claim: Claim) = breaks.hasBreaks match {
     case false => "breaktype_other_first"
     case true => "breaktype_other_another"
   }
 
-  private def nextPage(breaksInCareType: BreaksInCareType)(implicit claim: Claim, request: Request[_]) = {
-    if (breaksInCareType.hospital.isDefined) routes.GBreaksInCareHospital.present(IterationID(form))
-    else if (breaksInCareType.carehome.isDefined) routes.GBreaksInCareRespite.present(IterationID(form))
-    else if (breaksInCareType.other.equals(Some(Mappings.yes))) routes.GBreaksInCareOther.present(IterationID(form))
-    else controllers.s_education.routes.GYourCourseDetails.present
+  private def nextPage(breaksInCareType: BreaksInCareType)(implicit claim: Claim, request: Request[_]) :String = {
+    if (breaksInCareType.hospital.isDefined) routes.GBreaksInCareHospital.present(IterationID(form)).url
+    else if (breaksInCareType.carehome.isDefined) routes.GBreaksInCareRespite.present(IterationID(form)).url
+    else if (breaksInCareType.other.equals(Some(Mappings.yes))) routes.GBreaksInCareOther.present(IterationID(form)).url
+    else if (claim.navigation.beenInPreview) ( controllers.preview.routes.Preview.present().url + getReturnToSummaryValue(claim))
+    else controllers.s_education.routes.GYourCourseDetails.present.url
   }
 
   private def dpname(claim: Claim) = {
@@ -75,7 +75,6 @@ object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport
     val claimDateQG = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
     claimDateQG.dateWeRequireBreakInCareInformationFrom(lang)
   }
-
 
   private def validateAnySelected(breaksInCareType: BreaksInCareType) = breaksInCareType match {
     case BreaksInCareType(None, None, None, _) => false

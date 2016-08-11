@@ -12,6 +12,7 @@
 @import app.BreaksInCareGatherOptions._
 @import views.html.helper.base._
 @import controllers.breaks_in_care.GBreaksInCareSummary
+@import utils.helpers.CarersCrypto
 
 @optionsList(implicit lang:Lang) = @{
     Seq(Breaks.hospital -> messages("breaks.hospital"),
@@ -149,7 +150,15 @@
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/breaks_in_care/breaksInCareSummary.js")></script>
     <script type="text/javascript">
         $(function(){
-            window.initSummaryEvents();
+            window.initSummaryEvents({
+                previewEnabled: "@claim.navigation.beenInPreview",
+                textNext: "@messages("form.next")",
+                textPreview: "@messages("form.returnToSummary")",
+                breakHospital: "@CarersCrypto.encryptAES("breaktype_hospital")",
+                breakCareHome: "@CarersCrypto.encryptAES("breaktype_carehome")",
+                breakOtherYes: "@CarersCrypto.encryptAES("breaktype_other_yes")",
+                breakOtherNo: "@CarersCrypto.encryptAES("breaktype_other_no")"
+            });
         });
     </script>
 }
