@@ -1,6 +1,6 @@
 package utils.pageobjects
 
-import utils.pageobjects.breaks_in_care.{GBreaksInCareTypePage, GBreaksInCareHospitalPage, GBreaksInCareRespitePage}
+import utils.pageobjects.breaks_in_care.{GBreaksInCareOtherPage, GBreaksInCareTypePage, GBreaksInCareHospitalPage, GBreaksInCareRespitePage}
 import utils.pageobjects.save_for_later.{GSaveForLaterResumePage, GSaveForLaterSavePage}
 import utils.pageobjects.third_party.GThirdPartyPage
 import utils.pageobjects.your_income._
@@ -67,6 +67,7 @@ object ClaimPageFactory extends PageFactory {
       IterableNode(Breaks, ctx)(iteration => {
         case GBreaksInCareHospitalPage.url => GBreaksInCareHospitalPage(ctx, iteration)
         case GBreaksInCareRespitePage.url => GBreaksInCareRespitePage(ctx, iteration)
+        case GBreaksInCareOtherPage.url => GBreaksInCareOtherPage(ctx, iteration)
       })
     }.orElse[String, Page] {
       //S6

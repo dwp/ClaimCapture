@@ -4,7 +4,7 @@ import utils.WithBrowser
 import utils.pageobjects.IterationManager._
 import utils.pageobjects.{IterationManager, PageContext, ClaimPage, PageObjectsContext}
 
-class GBreaksInCareRespitePage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, GBreaksInCareRespitePage.url) {
+class GBreaksInCareRespitePage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, GBreaksInCareRespitePage.url, iteration) {
   declareRadioList("#whoWasInRespite", "AboutTheCareYouProvideBreakWhoWasInRespite_" + iteration)
 
   declareDate("#whenWereYouAdmitted", "AboutTheCareYouProvideBreakWhenWereYouAdmitted_" + iteration)

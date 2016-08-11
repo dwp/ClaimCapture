@@ -44,6 +44,7 @@
     break.whoWasAway match {
         case You => You
         case DP => dpname
+        case _ if (break.typeOfCare == Breaks.another) => ""
         case _ => "ERROR in whoAway"
     }
 }
@@ -51,7 +52,7 @@
     break.typeOfCare match {
         case Breaks.hospital => messages("breaks.hospital")
         case Breaks.carehome => messages("breaks.carehome")
-        case "respite" => messages("breaks.carehome")
+        case Breaks.another => messages("breaks.other")
         case _ => "ERROR In caretypeLabel"
     }
 }
@@ -59,6 +60,7 @@
     break.whoWasAway match {
         case You => break.whenWereYouAdmitted.get.`dd/MM/yyyy`
         case DP => break.whenWasDpAdmitted.get.`dd/MM/yyyy`
+        case _ if (break.typeOfCare == Breaks.another) => ""
         case _ => "ERROR In caretypeFrom"
     }
 }
@@ -73,7 +75,7 @@
     break.typeOfCare match {
         case Breaks.hospital => "/breaks/hospital/"+break.iterationID
         case Breaks.carehome => "/breaks/respite-care-home/"+break.iterationID
-        case "respite" => "/breaks/respite-care-home/"+break.iterationID
+        case Breaks.another => "/breaks/other-breaks/"+break.iterationID
     }
 }
 @main(messages("breaks.title"), messages("breaks.title"), Some(currentForm)) {

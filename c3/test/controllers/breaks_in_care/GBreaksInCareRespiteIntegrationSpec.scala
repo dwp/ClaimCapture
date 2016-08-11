@@ -1,16 +1,12 @@
 package controllers.breaks_in_care
 
-import app.CircsBreaksWhereabouts._
 import controllers.mappings.Mappings
-import controllers.{ClaimScenarioFactory, Formulate, BrowserMatchers, WithBrowserHelper}
+import controllers.{ClaimScenarioFactory, BrowserMatchers, WithBrowserHelper}
 import models.DayMonthYear
 import org.specs2.mutable._
-import play.api.Logger
 import utils.pageobjects._
-import utils.pageobjects.breaks_in_care.{GBreaksInCareTypePage, GBreaksInCareRespitePage}
-import utils.pageobjects.s_care_you_provide.GTheirPersonalDetailsPage
+import utils.pageobjects.breaks_in_care.{GBreaksInCareSummaryPage, GBreaksInCareRespitePage}
 import utils.pageobjects.s_claim_date.GClaimDatePage
-import utils.pageobjects.s_education.GYourCourseDetailsPage
 import utils.{WithBrowsers, WithBrowser, WithJsBrowser}
 
 class GBreaksInCareRespiteIntegrationSpec extends Specification {
@@ -39,14 +35,14 @@ class GBreaksInCareRespiteIntegrationSpec extends Specification {
       urlMustEqual(GBreaksInCareRespitePage.url)
       break()
       next
-      urlMustEqual(GBreaksInCareTypePage.url) //will need to go to summary
+      urlMustEqual(GBreaksInCareSummaryPage.url) //will need to go to summary
 
       goTo(GBreaksInCareRespitePage.url + "/2")
       urlMustEqual(GBreaksInCareRespitePage.url)
       break()
       next
 
-      //$("#breaks .data-table ul li").size() shouldEqual 2 //check for number of breaks in summary
+      $("#summary-table .data-table").size() shouldEqual 2 //check for number of breaks in summary
     }
 
     "add two breaks and edit the second's start year" in new WithJsBrowser with BreakFillerRespite with WithBrowserHelper with BrowserMatchers {
@@ -54,24 +50,25 @@ class GBreaksInCareRespiteIntegrationSpec extends Specification {
       urlMustEqual(GBreaksInCareRespitePage.url)
       break()
       next
-      urlMustEqual(GBreaksInCareTypePage.url) //will need to go to summary
+      urlMustEqual(GBreaksInCareSummaryPage.url) //will need to go to summary
 
       goTo(GBreaksInCareRespitePage.url + "/2")
       urlMustEqual(GBreaksInCareRespitePage.url)
       break()
       next
 
-//      findFirst("input[value='Change']").click()
-//
-//      urlMustEqual(GBreaksInCareRespitePage.url)
-//      $("#yourStayEnded_date_year").getValue mustEqual 2001.toString
-//
-//      fill("#yourStayEnded_date_year") `with` "1999"
-//      next
-      urlMustEqual(GBreaksInCareTypePage.url) //will need to go to summary
+      findFirst("input[value='Change']").click()
 
-      //$("ul.break-data li").size() mustEqual 2
-      //$("ul.break-data").findFirst("li").findFirst("h3").getText shouldEqual "01/01/1999 to 01/01/2001"
+      urlMustEqual(GBreaksInCareRespitePage.url)
+      $("#yourRespiteStayEnded_date_year").getValue mustEqual 2001.toString
+
+      fill("#yourRespiteStayEnded_date_year") `with` "2002"
+      next
+
+      urlMustEqual(GBreaksInCareSummaryPage.url) //will need to go to summary
+
+      $("#summary-table tr.data-table").size() shouldEqual 2
+      $("#summary-table tr.data-table").getText shouldEqual "YouRespite or care home01/01/200101/01/2002"
     }
 
     "add two breaks and edit the second's start year which will be DP" in new WithJsBrowser with BreakFillerRespite with WithBrowserHelper with BrowserMatchers {
@@ -79,24 +76,24 @@ class GBreaksInCareRespiteIntegrationSpec extends Specification {
       urlMustEqual(GBreaksInCareRespitePage.url)
       break()
       next
-      urlMustEqual(GBreaksInCareTypePage.url) //will need to go to summary
+      urlMustEqual(GBreaksInCareSummaryPage.url) //will need to go to summary
 
       goTo(GBreaksInCareRespitePage.url + "/2")
       urlMustEqual(GBreaksInCareRespitePage.url)
       break(whoWasInRespite = "DP")
       next
 
-//      findFirst("input[value='Change']").click()
-//
-//      urlMustEqual(GBreaksInCareRespitePage.url)
-//      $("#dpStayEnded_date_year").getValue mustEqual 2001.toString
-//
-//      fill("#dpStayEnded_date_year") `with` "1999"
-//      next
-      urlMustEqual(GBreaksInCareTypePage.url) //will need to go to summary
+      findAll("input[value='Change']").get(1).click()
 
-      //$("ul.break-data li").size() mustEqual 2
-      //$("ul.break-data").findFirst("li").findFirst("h3").getText shouldEqual "01/01/1999 to 01/01/2001"
+      urlMustEqual(GBreaksInCareRespitePage.url)
+      $("#dpRespiteStayEnded_date_year").getValue mustEqual 2001.toString
+
+      fill("#dpRespiteStayEnded_date_year") `with` "2002"
+      next
+      urlMustEqual(GBreaksInCareSummaryPage.url) //will need to go to summary
+
+      $("#summary-table tr.data-table").size() shouldEqual 2
+      findAll("#summary-table tr.data-table").get(1).getText shouldEqual "Respite or care home01/01/200101/01/2002"
     }
   }
   section("integration", models.domain.Breaks.id)

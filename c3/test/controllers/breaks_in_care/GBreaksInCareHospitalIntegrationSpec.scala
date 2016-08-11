@@ -1,13 +1,11 @@
 package controllers.breaks_in_care
 
 import controllers.mappings.Mappings
-import controllers.{ClaimScenarioFactory, Formulate, BrowserMatchers, WithBrowserHelper}
+import controllers.{ClaimScenarioFactory, BrowserMatchers, WithBrowserHelper}
 import models.DayMonthYear
 import org.specs2.mutable._
-import play.api.Logger
 import utils.pageobjects._
-import utils.pageobjects.breaks_in_care.{GBreaksInCareTypePage, GBreaksInCareHospitalPage}
-import utils.pageobjects.circumstances.report_changes.GBreaksInCareSummaryPage
+import utils.pageobjects.breaks_in_care.{GBreaksInCareSummaryPage, GBreaksInCareHospitalPage}
 import utils.pageobjects.s_claim_date.GClaimDatePage
 import utils.{WithBrowsers, WithBrowser, WithJsBrowser}
 
@@ -15,7 +13,7 @@ class GBreaksInCareHospitalIntegrationSpec extends Specification {
   section("integration", models.domain.Breaks.id)
   "Break" should {
     "be presented" in new WithJsBrowser with BreakFillerHospital with WithBrowserHelper with BrowserMatchers {
-      goTo(GBreaksInCareHospitalPage.url + "/1")
+      goTo(GBreaksInCareHospitalPage.url )
       urlMustEqual(GBreaksInCareHospitalPage.url)
     }
 
@@ -29,73 +27,75 @@ class GBreaksInCareHospitalIntegrationSpec extends Specification {
       goTo(GBreaksInCareHospitalPage.url + "/1")
       next
       urlMustEqual(GBreaksInCareHospitalPage.url)
+
       findAll("div[class=validation-summary] ol li").size shouldEqual 1
     }
 
     """show 2 breaks in "break table" upon providing 2 breaks""" in new WithJsBrowser with BreakFillerHospital with WithBrowserHelper with BrowserMatchers {
-      goTo(GBreaksInCareHospitalPage.url + "/1")
-      urlMustEqual(GBreaksInCareHospitalPage.url)
-      break()
-      next
-      urlMustEqual(GBreaksInCareSummaryPage.url)
+        goTo(GBreaksInCareHospitalPage.url + "/1")
+        urlMustEqual(GBreaksInCareHospitalPage.url)
+        break()
+        next
+        urlMustEqual(GBreaksInCareSummaryPage.url) //will need to go to summary
 
-      goTo(GBreaksInCareHospitalPage.url + "/2")
-      urlMustEqual(GBreaksInCareHospitalPage.url)
-      break()
-      next
+        goTo(GBreaksInCareHospitalPage.url + "/2")
+        urlMustEqual(GBreaksInCareHospitalPage.url)
+        break()
+        next
 
-      //$("#breaks .data-table ul li").size() shouldEqual 2 //check for number of breaks in summary
-    }
+        $("#summary-table .data-table").size() shouldEqual 2 //check for number of breaks in summary
+      }
 
-    "add two breaks and edit the second's start year" in new WithJsBrowser with BreakFillerHospital with WithBrowserHelper with BrowserMatchers {
-      goTo(GBreaksInCareHospitalPage.url + "/1")
-      urlMustEqual(GBreaksInCareHospitalPage.url)
-      break()
-      next
-      urlMustEqual(GBreaksInCareSummaryPage.url)
+      "add two breaks and edit the second's start year" in new WithJsBrowser with BreakFillerHospital with WithBrowserHelper with BrowserMatchers {
+        goTo(GBreaksInCareHospitalPage.url + "/1")
+        urlMustEqual(GBreaksInCareHospitalPage.url)
+        break()
+        next
+        urlMustEqual(GBreaksInCareSummaryPage.url) //will need to go to summary
 
-      goTo(GBreaksInCareHospitalPage.url + "/2")
-      urlMustEqual(GBreaksInCareHospitalPage.url)
-      break()
-      next
+        goTo(GBreaksInCareHospitalPage.url + "/2")
+        urlMustEqual(GBreaksInCareHospitalPage.url)
+        break()
+        next
 
-//      findFirst("input[value='Change']").click()
-//
-//      urlMustEqual(GBreaksInCareHospitalPage.url)
-//      $("#yourStayEnded_date_year").getValue mustEqual 2001.toString
-//
-//      fill("#yourStayEnded_date_year") `with` "1999"
-//      next
-      urlMustEqual(GBreaksInCareTypePage.url) //will need to go to summary
+        findFirst("input[value='Change']").click()
 
-      //$("ul.break-data li").size() mustEqual 2
-      //$("ul.break-data").findFirst("li").findFirst("h3").getText shouldEqual "01/01/1999 to 01/01/2001"
-    }
+        urlMustEqual(GBreaksInCareHospitalPage.url)
+        $("#yourStayEnded_date_year").getValue mustEqual 2001.toString
 
-    "add two breaks and edit the second's start year which will be DP" in new WithJsBrowser with BreakFillerHospital with WithBrowserHelper with BrowserMatchers {
-      goTo(GBreaksInCareHospitalPage.url + "/1")
-      urlMustEqual(GBreaksInCareHospitalPage.url)
-      break()
-      next
-      urlMustEqual(GBreaksInCareSummaryPage.url)
+        fill("#yourStayEnded_date_year") `with` "2002"
+        next
 
-      goTo(GBreaksInCareHospitalPage.url + "/2")
-      urlMustEqual(GBreaksInCareHospitalPage.url)
-      break(whoWasInHospital = "DP")
-      next
+        urlMustEqual(GBreaksInCareSummaryPage.url) //will need to go to summary
 
-//      findFirst("input[value='Change']").click()
-//
-//      urlMustEqual(GBreaksInCareHospitalPage.url)
-//      $("#dpStayEnded_date_year").getValue mustEqual 2001.toString
-//
-//      fill("#dpStayEnded_date_year") `with` "1999"
-//      next
-      urlMustEqual(GBreaksInCareTypePage.url) //will need to go to summary
+        $("#summary-table tr.data-table").size() shouldEqual 2
+        $("#summary-table tr.data-table").getText shouldEqual "YouHospital01/01/200101/01/2002"
+      }
 
-      //$("ul.break-data li").size() mustEqual 2
-      //$("ul.break-data").findFirst("li").findFirst("h3").getText shouldEqual "01/01/1999 to 01/01/2001"
-    }
+      "add two breaks and edit the second's start year which will be DP" in new WithJsBrowser with BreakFillerHospital with WithBrowserHelper with BrowserMatchers {
+        goTo(GBreaksInCareHospitalPage.url + "/1")
+        urlMustEqual(GBreaksInCareHospitalPage.url)
+        break()
+        next
+        urlMustEqual(GBreaksInCareSummaryPage.url) //will need to go to summary
+
+        goTo(GBreaksInCareHospitalPage.url + "/2")
+        urlMustEqual(GBreaksInCareHospitalPage.url)
+        break(whoWasInHospital = "DP")
+        next
+
+        findAll("input[value='Change']").get(1).click()
+
+        urlMustEqual(GBreaksInCareHospitalPage.url)
+        $("#dpStayEnded_date_year").getValue mustEqual 2001.toString
+
+        fill("#dpStayEnded_date_year") `with` "2002"
+        next
+        urlMustEqual(GBreaksInCareSummaryPage.url) //will need to go to summary
+
+        $("#summary-table tr.data-table").size() shouldEqual 2
+        findAll("#summary-table tr.data-table").get(1).getText shouldEqual "Hospital01/01/200101/01/2002"
+      }
   }
   section("integration", models.domain.Breaks.id)
 }
