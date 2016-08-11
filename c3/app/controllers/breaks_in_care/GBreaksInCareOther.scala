@@ -107,7 +107,7 @@ object GBreaksInCareOther extends Controller with CachedClaim with I18nSupport w
 
   private def requiredOtherStartDateNotAfterEndDate(): Constraint[Break] = Constraint[Break]("constraint.breaksInCareDateRange") { break =>
     break.caringEnded.isDefined match {
-      case true if (break.caringStarted.isDefined && break.caringStarted.get.answer == Mappings.yes) => checkDatesAfter(break.caringStarted.get.date, break.caringEnded, "caringEnded.invalidDateRange")
+      case true if (break.caringStarted.isDefined && break.caringStarted.get.answer == Mappings.yes) => checkDatesIncrease(break.caringEnded, break.caringStarted.get.date, "caringEnded.invalidDateRange")
       case _ => Valid
     }
   }
