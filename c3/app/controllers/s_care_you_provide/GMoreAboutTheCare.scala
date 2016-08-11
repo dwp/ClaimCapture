@@ -46,7 +46,7 @@ object GMoreAboutTheCare extends Controller with CachedClaim with Navigable with
           .replaceError("", "otherCarerUc.required", FormError("otherCarerUc", errorRequired, Seq(theirPersonalDetails.firstName+" "+theirPersonalDetails.surname)))
         BadRequest(views.html.s_care_you_provide.g_moreAboutTheCare(formWithErrorsUpdate))
       },
-      moreAboutTheCare => claim.update(moreAboutTheCare) -> Redirect(controllers.breaks_in_care.routes.GBreaksInCareType.present())
+      moreAboutTheCare => claim.update(moreAboutTheCare) -> Redirect(controllers.breaks_in_care.routes.GBreaksInCareSummary.present())
     )
   } withPreview()
 }

@@ -3,8 +3,8 @@ package controllers.breaks_in_care
 import controllers.IterationID
 import controllers.mappings.Mappings
 import controllers.mappings.Mappings._
+import controllers.s_care_you_provide.GMoreAboutTheCare._
 import models.domain._
-import models.view.CachedClaim
 import models.yesNo.DeleteId
 import play.api.Play._
 import play.api.data.Forms._
@@ -12,6 +12,7 @@ import play.api.i18n.{Lang, I18nSupport, MMessages, MessagesApi}
 import play.api.mvc.{Request, Controller}
 import play.api.data.{FormError, Form}
 import utils.helpers.CarersForm._
+import models.view.{CachedClaim}
 
 object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
@@ -27,7 +28,7 @@ object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport
   def breaks(implicit claim: Claim) = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
   def present = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
-    Ok(views.html.breaks_in_care.breaksInCareSummary(form.fill(BreaksInCareSummary), breaks))
+    track(BreaksInCareSummary) { implicit claim => Ok(views.html.breaks_in_care.breaksInCareSummary(form.fill(BreaksInCareSummary), breaks)) }
   }
 
   def submit = claiming { implicit claim => implicit request => implicit request2lang =>
@@ -70,7 +71,7 @@ object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport
     claimDateQG.dateWeRequireBreakInCareInformationFrom(lang)
   }
 
-  private def otherError(implicit claim: Claim)={
+  private def otherError(implicit claim: Claim) = {
     breaks.hasBreaks match {
       case true => "breaksummary_other_another"
       case false => "breaksummary_other_first"
