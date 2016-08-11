@@ -38,14 +38,25 @@ object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport
     form.bindEncrypted.fold(
       formWithErrors => {
         val errors = formWithErrors
-          .replaceError("", "deselectnone", FormError("breaktype", "breaks.breaktype.deselectnone", Seq(dateForBreaks(claim, request2lang), dpname(claim))))
-          .replaceError("", "selectone", FormError("breaktype", "breaks.breaktype.selectone", Seq(dateForBreaks(claim, request2lang), dpname(claim))))
-          .replaceError("", "selectother", FormError("breaktype_other", errorRequired, Seq(dpname(claim))))
+          .replaceError("", "deselectnone", FormError(breaktypeLabel, "breaks.breaktype.deselectnone", Seq(dateForBreaks(claim, request2lang), dpname(claim))))
+          .replaceError("", "selectone", FormError(breaktypeLabel, "breaks.breaktype.selectone", Seq(dateForBreaks(claim, request2lang), dpname(claim))))
+          .replaceError("", "selectother", FormError(otherbreakLabel, errorRequired, Seq(dpname(claim))))
         BadRequest(views.html.breaks_in_care.breaksInCareSummary(errors, breaks))
       },
       breaksInCareSummary => {
         claim.update(breaksInCareSummary) -> Redirect(nextPage(breaksInCareSummary))
       })
+  }
+
+  private def breaktypeLabel(implicit claim: Claim) = breaks.hasBreaks match {
+    case false => "breaktype_first"
+    case true => "breaktype_another"
+  }
+
+
+  private def otherbreakLabel(implicit claim: Claim) = breaks.hasBreaks match {
+    case false => "breaktype_other_first"
+    case true => "breaktype_other_another"
   }
 
   private def nextPage(breaksInCareType: BreaksInCareType)(implicit claim: Claim, request: Request[_]) = {
@@ -76,7 +87,7 @@ object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport
     case _ => true
   }
 
-  private def validateOther(breaksInCareType: BreaksInCareType) = breaksInCareType.other match{
+  private def validateOther(breaksInCareType: BreaksInCareType) = breaksInCareType.other match {
     case Some(Mappings.yes) => true
     case Some(Mappings.no) => true
     case _ => false
@@ -86,14 +97,15 @@ object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport
     "deleteId" -> nonEmptyText
   )(DeleteId.apply)(DeleteId.unapply))
 
-  def delete = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
-    deleteForm.bindEncrypted.fold(
-      errors => BadRequest(views.html.breaks_in_care.breaksInCareSummary(form.fill(BreaksInCareType), breaks)),
-      deleteForm => {
-        val updatedBreaks = breaks.delete(deleteForm.id)
-        if (updatedBreaks.breaks == breaks.breaks) BadRequest(views.html.breaks_in_care.breaksInCareSummary(form.fill(BreaksInCareSummary), breaks))
-        else claim.update(updatedBreaks).delete(BreaksInCareSummary) -> Redirect(routes.GBreaksInCareSummary.present)
-      }
-    )
+  def delete = claimingWithCheck {
+    implicit claim => implicit request => implicit request2lang =>
+      deleteForm.bindEncrypted.fold(
+        errors => BadRequest(views.html.breaks_in_care.breaksInCareSummary(form.fill(BreaksInCareType), breaks)),
+        deleteForm => {
+          val updatedBreaks = breaks.delete(deleteForm.id)
+          if (updatedBreaks.breaks == breaks.breaks) BadRequest(views.html.breaks_in_care.breaksInCareSummary(form.fill(BreaksInCareSummary), breaks))
+          else claim.update(updatedBreaks).delete(BreaksInCareSummary) -> Redirect(routes.GBreaksInCareSummary.present)
+        }
+      )
   }
 }

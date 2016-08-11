@@ -27,10 +27,16 @@
 @dpname=@{
     theirPersonalDetails.firstName+" "+theirPersonalDetails.surname
 }
-@otherlabel=@{
+@breaktypeLabel=@{
     breaks.hasBreaks match {
-        case true => "breaksummary_other_another"
-        case false => "breaksummary_other_first"
+        case true => "breaktype_another"
+        case false => "breaktype_first"
+    }
+}
+@otherbreakLabel=@{
+    breaks.hasBreaks match {
+        case true => "breaktype_other_another"
+        case false => "breaktype_other_first"
     }
 }
 @whoWasAway(break: Break)=@{
@@ -123,10 +129,10 @@
                     'track -> true,
                     'ignoreOptional -> true,
                     '_showId -> true,
-                    '_label -> messages("breaktype", dateWeRequireBreakInCareInformationFrom, dpname))
+                    '_label -> messages(breaktypeLabel, dateWeRequireBreakInCareInformationFrom, dpname))
 
                 @yesNoRadioGroup(currentForm("breaktype_other"),
-                    '_label -> messages("breaktype_other", dpname),
+                    '_label -> messages(otherbreakLabel, dpname),
                     'helperAbove->messages("breaks.breaktype.other.helper"),
                     'ignoreOptional->true)
             </ul>
