@@ -18,8 +18,8 @@ import utils.CommonValidation._
 import utils.helpers.CarersForm._
 
 /**
-  * Created by peterwhitehead on 03/08/2016.
-  */
+ * Created by peterwhitehead on 03/08/2016.
+ */
 object GBreaksInCareOther extends Controller with CachedClaim with I18nSupport with BreaksGatherChecks {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
 
@@ -86,16 +86,22 @@ object GBreaksInCareOther extends Controller with CachedClaim with I18nSupport w
         BadRequest(views.html.breaks_in_care.breaksInCareOther(formWithErrorsUpdate, backCall))
       },
       break => {
-        val updatedBreaksInCare =
-          breaksInCare.update(break).breaks.size match {
-            case noOfBreaks if (noOfBreaks > getIntProperty("maximumBreaksInCare")) => breaksInCare
-            case _ => breaksInCare.update(break)
-          }
-        // Delete the answer to the question 'Have you had any breaks in care since...'
-        // Otherwise, it will prepopulate the answer when asked 'Have you had an  y more breaks in care since...'
-        val updatedClaim = claim.update(updatedBreaksInCare).delete(BreaksInCareSummary)
+        val updatedBreaksInCare = breaksInCare.update(break).breaks.size match {
+          case noOfBreaks if (noOfBreaks > getIntProperty("maximumBreaksInCare")) => breaksInCare
+          case _ => breaksInCare.update(break)
+        }
+        val updatedClaim = updateClaim(updatedBreaksInCare)
         updatedClaim -> Redirect(routes.GBreaksInCareSummary.present())
       })
+  }
+
+  private def updateClaim(newbreaks: BreaksInCare)(implicit claim: Claim) = {
+    // Delete the other-care answer from claim. Otherwise, it will prepopulate the answer when return to Summary page
+    // And also update with the new break
+    def breaksTypes(implicit claim: Claim) = claim.questionGroup[BreaksInCareType].getOrElse(BreaksInCareType())
+    val updatedBreaks = breaksTypes.copy(other = None)
+    val updatedClaim = claim.update(updatedBreaks).update(newbreaks)
+    updatedClaim
   }
 
   private def requiredOtherCaringEnded: Constraint[Break] = Constraint[Break]("constraint.breakCaringEnded") { break =>
