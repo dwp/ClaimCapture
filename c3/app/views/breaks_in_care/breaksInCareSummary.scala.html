@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.BreaksInCareSummary], breaks: models.domain.BreaksInCare)(implicit claim: models.domain.Claim, lang: Lang, request: play.api.mvc.Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
+@(currentForm: Form[models.domain.BreaksInCareType], breaks: models.domain.BreaksInCare)(implicit claim: models.domain.Claim, lang: Lang, request: play.api.mvc.Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
 
 @import views.html.helper._
 @import utils.csrf.DwpCSRFFormHelper
@@ -9,21 +9,14 @@
 @import models.domain.Breaks
 @import models.domain.Break
 @import models.domain.ClaimDate
-@import utils.helpers.CarersCrypto
 @import app.BreaksInCareGatherOptions._
 @import views.html.helper.base._
 @import controllers.breaks_in_care.GBreaksInCareSummary
 
-@breaksummaryAnotherlabel=@{
-    breaks.hasBreaks match {
-        case true => "breaksummary_another_another"
-        case false => "breaksummary_another_first"
-    }
-}
 @optionsList(implicit lang:Lang) = @{
-    Seq(Breaks.hospital -> messages("breaksummary_hospital"),
-        Breaks.carehome -> messages("breaksummary_carehome"),
-        Breaks.another -> messages(breaksummaryAnotherlabel)
+    Seq(Breaks.hospital -> messages("breaks.hospital"),
+        Breaks.carehome -> messages("breaks.carehome"),
+        Breaks.none -> messages("breaks.none")
     )
 }
 @dateWeRequireBreakInCareInformationFrom() = @{
@@ -122,23 +115,20 @@
                 <br>
                 <br>
             }
-
             <ul>
-                @yesNoRadioGroup(currentForm("breaksummary_other"),
-                    '_label -> messages(otherlabel, dateWeRequireBreakInCareInformationFrom, dpname),
-                    'ignoreOptional->true)
+                @standaloneListCheckboxGroup(currentForm("breaktype"),
+                    currentForm.asInstanceOf[Form[AnyContent]],
+                    'items -> optionsList,
+                    'helperAbove -> "breaks.breaktype.checkBoxHelp1",
+                    'track -> true,
+                    'ignoreOptional -> true,
+                    '_showId -> true,
+                    '_label -> messages("breaktype", dateWeRequireBreakInCareInformationFrom, dpname))
 
-                @otherDetailPlaceHolder(
-                    inputDef = Seq(
-                        Html("<legend class=\"form-label-bold\">"+messages("breaksummary_answer")+"</legend>"),
-                        standaloneListRadioGroup(currentForm("breaksummary_answer"),
-                            'items -> optionsList,
-                            'ignoreOptional -> true,
-                            'track -> true
-                        )
-                    ),
-                    'id -> "answerWrap"
-                )
+                @yesNoRadioGroup(currentForm("breaktype_other"),
+                    '_label -> messages("breaktype_other", dpname),
+                    'helperAbove->messages("breaks.breaktype.other.helper"),
+                    'ignoreOptional->true)
             </ul>
         </fieldset>
         @views.html.common.bottomNavigation(trackSubmit = true)
@@ -153,10 +143,7 @@
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/breaks_in_care/breaksInCareSummary.js")></script>
     <script type="text/javascript">
         $(function(){
-            window.initSummaryEvents(
-            "@CarersCrypto.encryptAES("breaksummary_other_yes")",
-            "@CarersCrypto.encryptAES("breaksummary_other_no")",
-            "answerWrap");
+            window.initSummaryEvents();
         });
     </script>
 }

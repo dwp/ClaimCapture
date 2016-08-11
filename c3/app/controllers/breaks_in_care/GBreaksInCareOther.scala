@@ -57,7 +57,7 @@ object GBreaksInCareOther extends Controller with CachedClaim with I18nSupport w
     .verifying(requiredWhereWasDpRadioWithText)
   )
 
-  val backCall = routes.GBreaksInCareType.present()
+  val backCall = routes.GBreaksInCareSummary.present()
 
   def present(iterationID: String) = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     val break = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare(List())).breaks.find(_.iterationID == iterationID).getOrElse(Break())

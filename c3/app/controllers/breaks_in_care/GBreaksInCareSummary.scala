@@ -10,7 +10,7 @@ import play.api.Play._
 import play.api.data.Forms._
 import play.api.i18n.{Lang, I18nSupport, MMessages, MessagesApi}
 import play.api.mvc.{Request, Controller}
-import play.api.data.{FormError, Form}
+import play.api.data.{Form, FormError}
 import utils.helpers.CarersForm._
 import models.view.{CachedClaim}
 
@@ -18,40 +18,34 @@ object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
 
   val form = Form(mapping(
-    "breaksummary_other" -> optional(text.verifying(validYesNo)),
-    "breaksummary_answer" -> optional(nonEmptyText)
-  )(BreaksInCareSummary.apply)(BreaksInCareSummary.unapply)
-    .verifying("mustselectother", validateOther _)
-    .verifying("mustselectone", validateOneSelected _)
+    "breaktype_hospital" -> optional(nonEmptyText),
+    "breaktype_carehome" -> optional(nonEmptyText),
+    "breaktype_none" -> optional(nonEmptyText),
+    "breaktype_other" -> optional(text.verifying(validYesNo))
+  )(BreaksInCareType.apply)(BreaksInCareType.unapply)
+    .verifying("selectother", validateOther _)
+    .verifying("selectone", validateAnySelected _)
+    .verifying("deselectnone", validateNoneNotallowed _)
   )
 
   def breaks(implicit claim: Claim) = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
   def present = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
-    track(BreaksInCareSummary) { implicit claim => Ok(views.html.breaks_in_care.breaksInCareSummary(form.fill(BreaksInCareSummary), breaks)) }
+    track(BreaksInCareType) { implicit claim => Ok(views.html.breaks_in_care.breaksInCareSummary(form.fill(BreaksInCareType), breaks)) }
   }
 
   def submit = claiming { implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val errors = formWithErrors
-          .replaceError("", "mustselectone", FormError("breaksummary_answer", errorRequired, Seq(dateForBreaks(claim, request2lang), dpname(claim))))
-          .replaceError("", "mustselectother", FormError(otherError, errorRequired, Seq(dateForBreaks(claim, request2lang), dpname(claim))))
+          .replaceError("", "deselectnone", FormError("breaktype", "breaks.breaktype.deselectnone", Seq(dateForBreaks(claim, request2lang), dpname(claim))))
+          .replaceError("", "selectone", FormError("breaktype", "breaks.breaktype.selectone", Seq(dateForBreaks(claim, request2lang), dpname(claim))))
+          .replaceError("", "selectother", FormError("breaktype_other", errorRequired, Seq(dpname(claim))))
         BadRequest(views.html.breaks_in_care.breaksInCareSummary(errors, breaks))
       },
       breaksInCareSummary => {
-        val b = populateBreaksInCareType(breaksInCareSummary)
-        claim.update(b) -> Redirect(nextPage(b))
+        claim.update(breaksInCareSummary) -> Redirect(nextPage(breaksInCareSummary))
       })
-  }
-
-  private def populateBreaksInCareType(breaksInCareSummary: BreaksInCareSummary)(implicit claim: Claim, request: Request[_]) = {
-    breaksInCareSummary.breaksummary_answer match {
-      case Some(Breaks.hospital) => BreaksInCareType(hospital = Some(Mappings.yes))
-      case Some(Breaks.carehome) => BreaksInCareType(carehome = Some(Mappings.yes))
-      case Some(Breaks.another) => BreaksInCareType(other = Some(Mappings.yes))
-      case _ => BreaksInCareType()
-    }
   }
 
   private def nextPage(breaksInCareType: BreaksInCareType)(implicit claim: Claim, request: Request[_]) = {
@@ -71,24 +65,21 @@ object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport
     claimDateQG.dateWeRequireBreakInCareInformationFrom(lang)
   }
 
-  private def otherError(implicit claim: Claim) = {
-    breaks.hasBreaks match {
-      case true => "breaksummary_other_another"
-      case false => "breaksummary_other_first"
-    }
+
+  private def validateAnySelected(breaksInCareType: BreaksInCareType) = breaksInCareType match {
+    case BreaksInCareType(None, None, None, _) => false
+    case _ => true
   }
 
-  private def validateOther(breaksInCareSummary: BreaksInCareSummary) = breaksInCareSummary.breaksummary_other match {
+  private def validateNoneNotallowed(breaksInCareType: BreaksInCareType) = someTrue match {
+    case (breaksInCareType.hospital | breaksInCareType.carehome) if (breaksInCareType.none == someTrue) => false
+    case _ => true
+  }
+
+  private def validateOther(breaksInCareType: BreaksInCareType) = breaksInCareType.other match{
     case Some(Mappings.yes) => true
     case Some(Mappings.no) => true
     case _ => false
-  }
-
-  private def validateOneSelected(breaksInCareSummary: BreaksInCareSummary) = {
-    breaksInCareSummary match {
-      case BreaksInCareSummary(Some(Mappings.yes), None) => false
-      case _ => true
-    }
   }
 
   val deleteForm = Form(mapping(
@@ -97,7 +88,7 @@ object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport
 
   def delete = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     deleteForm.bindEncrypted.fold(
-      errors => BadRequest(views.html.breaks_in_care.breaksInCareSummary(form.fill(BreaksInCareSummary), breaks)),
+      errors => BadRequest(views.html.breaks_in_care.breaksInCareSummary(form.fill(BreaksInCareType), breaks)),
       deleteForm => {
         val updatedBreaks = breaks.delete(deleteForm.id)
         if (updatedBreaks.breaks == breaks.breaks) BadRequest(views.html.breaks_in_care.breaksInCareSummary(form.fill(BreaksInCareSummary), breaks))

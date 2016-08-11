@@ -1,19 +1,10 @@
 
-window.initSummaryEvents = (other_yes, other_no, answerWrap) ->
-  setVisibility(other_yes, other_no, answerWrap)
-  $("#" + other_yes).on "click", ->
-    setVisibility(other_yes, other_no, answerWrap)
-  $("#" + other_no).on "click", ->
-    setVisibility(other_yes, other_no, answerWrap)
+window.initSummaryEvents = () ->
+  setVisibility()
 
 
 # Called whenever anything changes ... we set up all the hidden items and reset / clear any that are hidden
-setVisibility = (other_yes, other_no, answerWrap) ->
-  if $("#" + other_yes).prop('checked')
-    showWrapper(answerWrap)
-  else
-    hideWrapper(answerWrap)
-
+setVisibility = () ->
   # hide / bind delete prompts
   $(".delete-confirm").slideUp(0).attr 'aria-hidden', 'true'
   $(".deleterow").on "click", ->
@@ -31,23 +22,3 @@ setVisibility = (other_yes, other_no, answerWrap) ->
   $(".changerow").on "click", ->
     href=$(this).attr("href")
     window.location.href = href
-
-showWrapper = (wrapper) ->
-  $("#" + wrapper).slideDown(0).attr 'aria-hidden', 'false'
-
-hideWrapper = (wrapper)->
-  clearDownStreamInputs(wrapper)
-  $("#" + wrapper).slideUp(0).attr 'aria-hidden', 'true'
-
-clearDownStreamInputs = (wrapper)->
-  $("#" + wrapper).find("input").each(clearInput)
-
-# If we want to also clear the validation error when item is hidden ?
-# $("#" + wrapper).find(".validation-error").removeClass("validation-error")
-# $("#" + wrapper).find(".validation-message").remove()
-clearInput = ->
-  if( $(this).attr("type") == "radio" )
-    $(this).prop('checked', false)
-    $(this).parent().removeClass("selected")
-  else
-    $(this).val("")

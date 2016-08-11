@@ -9,7 +9,7 @@ import models.view.CachedClaim
 import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.pageobjects.breaks_in_care.GBreaksInCareTypePage
+import utils.pageobjects.breaks_in_care.GBreaksInCareSummaryPage
 import utils.pageobjects.{TestData, PageObjects}
 import utils.{WithJsBrowser, WithApplication}
 
@@ -26,7 +26,7 @@ class GBreaksInCareOtherSpec extends Specification {
     }
 
     "Break in care start date by default should not be displayed" in new WithJsBrowser with PageObjects {
-      val breaksInCare = GBreaksInCareTypePage(context) goToThePage(throwException = false)
+      val breaksInCare = GBreaksInCareSummaryPage(context) goToThePage(throwException = false)
       val data = new TestData
       data.BreaktypeNoneCheckbox = someTrue.get
       data.BreaktypeOtherYesNo = "yes"
@@ -36,7 +36,7 @@ class GBreaksInCareOtherSpec extends Specification {
     }
 
     "Break in care fill data" in new WithJsBrowser with PageObjects {
-      val breaksInCare = GBreaksInCareTypePage(context) goToThePage()
+      val breaksInCare = GBreaksInCareSummaryPage(context) goToThePage()
       val data = new TestData
       data.BreaktypeNoneCheckbox = someTrue.get
       data.BreaktypeOtherYesNo = "yes"
