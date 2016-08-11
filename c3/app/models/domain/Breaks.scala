@@ -38,10 +38,12 @@ case class Break(iterationID: String = "",
                  breaksInCareStillCaring: Option[String] = None,
                  yourMedicalProfessional: Option[String] = None,
                  dpMedicalProfessional: Option[String] = None,
+                 caringEnded: Option[DayMonthYear] = None,
+                 caringStarted: Option[YesNoWithDate] = None,
                  whereWhereYou: Option[RadioWithText] = None,
                  whereWasDp: Option[RadioWithText] = None,
-                 whenWereYouAdmittedTime: Option[String] = None,
-                 dpStayEndedTime: Option[String] = None
+                 caringEndedTime: Option[String] = None,
+                 caringStartedTime: Option[String] = None
                 )
 
 case class BreaksInCareType(hospital: Option[String] = None,

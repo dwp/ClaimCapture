@@ -18,7 +18,7 @@ class GBreaksInCareHospitalIntegrationSpec extends Specification {
     }
 
     "display hospital text" in new WithBrowser with PageObjects {
-      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.careYouProvideWithBreaksInCareYou(false), GBreaksInCareHospitalPage.url)
+      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.careYouProvideWithBreaksInCareYou(false), GBreaksInCareHospitalPage.url + "/1")
 
       breaksInCare.source contains "You told us that you or Tom Wilson have been in hospital. You could still be paid Carer's Allowance for this time" should beTrue
     }

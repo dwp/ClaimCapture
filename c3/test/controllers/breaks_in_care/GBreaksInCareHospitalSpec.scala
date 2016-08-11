@@ -161,7 +161,6 @@ class GBreaksInCareHospitalSpec extends Specification {
           "breaksInCareStillCaring" -> "yes")
 
       val result = GBreaksInCareHospital.submit(request1)
-      println(contentAsString(result))
       val request2 = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result))
         .withFormUrlEncodedBody(
           "iterationID" -> "2",

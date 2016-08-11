@@ -19,7 +19,7 @@ class GBreaksInCareOtherIntegrationSpec extends Specification {
     }
 
     "display hospital text" in new WithBrowser with PageObjects {
-      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.careYouProvideWithBreaksInCareOther(false), GBreaksInCareOtherPage.url)
+      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.careYouProvideWithBreaksInCareOther(false), GBreaksInCareOtherPage.url + "/1")
 
       breaksInCare.source contains "You told us that there was a time you weren't able to care for Tom Wilson 35 hours a week. We need these details." should beTrue
     }
@@ -37,7 +37,7 @@ class GBreaksInCareOtherIntegrationSpec extends Specification {
         urlMustEqual(GBreaksInCareOtherPage.url)
         break()
         next
-      println(browser.pageSource())
+
         urlMustEqual(GBreaksInCareSummaryPage.url) //will need to go to summary
 
         goTo(GBreaksInCareOtherPage.url + "/2")
@@ -48,7 +48,7 @@ class GBreaksInCareOtherIntegrationSpec extends Specification {
         $("#summary-table .data-table").size() shouldEqual 2 //check for number of breaks in summary
       }
 
-      "add two breaks and edit the second's start year" in new WithJsBrowser with BreakFillerOther with WithBrowserHelper with BrowserMatchers {
+      "add two breaks and edit the firsts start year" in new WithJsBrowser with BreakFillerOther with WithBrowserHelper with BrowserMatchers {
         goTo(GBreaksInCareOtherPage.url + "/1")
         urlMustEqual(GBreaksInCareOtherPage.url)
         break()
@@ -63,18 +63,17 @@ class GBreaksInCareOtherIntegrationSpec extends Specification {
         findFirst("input[value='Change']").click()
 
         urlMustEqual(GBreaksInCareOtherPage.url)
-        $("#startedCaring_date_year").getValue mustEqual 2016.toString
+        $("#caringStarted_date_year").getValue mustEqual 2016.toString
 
-        fill("#startedCaring_date_year") `with` "2017"
+        fill("#caringStarted_date_year") `with` "2015"
         next
-
         urlMustEqual(GBreaksInCareSummaryPage.url) //will need to go to summary
 
         $("#summary-table tr.data-table").size() shouldEqual 2
-        $("#summary-table tr.data-table").getText shouldEqual "Other04/01/201604/01/2017"
+        $("#summary-table tr.data-table").getText shouldEqual "Other04/01/201504/01/2016"
       }
 
-      "add two breaks and edit the second's start year which will be DP" in new WithJsBrowser with BreakFillerOther with WithBrowserHelper with BrowserMatchers {
+      "add two breaks and edit the second's start year" in new WithJsBrowser with BreakFillerOther with WithBrowserHelper with BrowserMatchers {
         goTo(GBreaksInCareOtherPage.url + "/1")
         urlMustEqual(GBreaksInCareOtherPage.url)
         break()
@@ -89,14 +88,14 @@ class GBreaksInCareOtherIntegrationSpec extends Specification {
         findAll("input[value='Change']").get(1).click()
 
         urlMustEqual(GBreaksInCareOtherPage.url)
-        $("#dpOtherEnded_date_year").getValue mustEqual 2016.toString
+        $("#caringStarted_date_year").getValue mustEqual 2016.toString
 
-        fill("#dpOtherEnded_date_year") `with` "2017"
+        fill("#caringStarted_date_year") `with` "2015"
         next
         urlMustEqual(GBreaksInCareSummaryPage.url) //will need to go to summary
 
         $("#summary-table tr.data-table").size() shouldEqual 2
-        findAll("#summary-table tr.data-table").get(1).getText shouldEqual "Other04/01/201604/01/2017"
+        findAll("#summary-table tr.data-table").get(1).getText shouldEqual "Other04/01/201504/01/2016"
       }
   }
   section("integration", models.domain.Breaks.id)
@@ -108,15 +107,15 @@ trait BreakFillerOther {
   def break(start: DayMonthYear = DayMonthYear(4, 1, 2016),
             end: DayMonthYear = DayMonthYear(4, 1, 2016)) = {
 
-    browser.fill("#dpOtherEnded_date_day") `with` end.day.get.toString
-    browser.fill("#dpOtherEnded_date_month") `with` end.month.get.toString
-    browser.fill("#dpOtherEnded_date_year") `with` end.year.get.toString
-    browser.fill("#dpOtherEnded_time") `with` "10"
-    browser.click("#startedCaring_answer_yes")
-    browser.fill("#startedCaring_date_day") `with` start.day.get.toString
-    browser.fill("#startedCaring_date_month") `with` start.month.get.toString
-    browser.fill("#startedCaring_date_year") `with` start.year.get.toString
-    browser.fill("#startedCaring_time") `with` "12"
+    browser.fill("#caringEnded_date_day") `with` end.day.get.toString
+    browser.fill("#caringEnded_date_month") `with` end.month.get.toString
+    browser.fill("#caringEnded_date_year") `with` end.year.get.toString
+    browser.fill("#caringEnded_time") `with` "10"
+    browser.click("#caringStarted_answer_yes")
+    browser.fill("#caringStarted_date_day") `with` start.day.get.toString
+    browser.fill("#caringStarted_date_month") `with` start.month.get.toString
+    browser.fill("#caringStarted_date_year") `with` start.year.get.toString
+    browser.fill("#caringStarted_time") `with` "12"
     browser.click("#whereWasDp_answer_On_holiday")
     browser.click("#whereWereYou_answer_Somewhere_else")
     browser.fill("#whereWereYou_text") `with` "test"

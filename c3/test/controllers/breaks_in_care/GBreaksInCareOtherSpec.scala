@@ -32,7 +32,7 @@ class GBreaksInCareOtherSpec extends Specification {
       data.BreaktypeOtherYesNo = "yes"
 
       val next = breaksInCare fillPageWith data submitPage()
-      next.ctx.browser.findFirst("#startedCaring_date_day").isDisplayed should beFalse
+      next.ctx.browser.findFirst("#caringStarted_date_day").isDisplayed should beFalse
     }
 
     "Break in care fill data" in new WithJsBrowser with PageObjects {
@@ -43,14 +43,14 @@ class GBreaksInCareOtherSpec extends Specification {
       val next = breaksInCare fillPageWith data submitPage()
       val sunday = DayMonthYear(7, 6, 2015)
 
-      next.ctx.browser.fill("#dpOtherEnded_date_day") `with` sunday.day.get.toString
-      next.ctx.browser.fill("#dpOtherEnded_date_month") `with` sunday.month.get.toString
-      next.ctx.browser.fill("#dpOtherEnded_date_year") `with` sunday.year.get.toString
+      next.ctx.browser.fill("#caringEnded_date_day") `with` sunday.day.get.toString
+      next.ctx.browser.fill("#caringEnded_date_month") `with` sunday.month.get.toString
+      next.ctx.browser.fill("#caringEnded_date_year") `with` sunday.year.get.toString
 
-      next.ctx.browser.click("#startedCaring_answer_yes")
-      next.ctx.browser.fill("#startedCaring_date_day") `with` sunday.day.get.toString
-      next.ctx.browser.fill("#startedCaring_date_month") `with` sunday.month.get.toString
-      next.ctx.browser.fill("#startedCaring_date_year") `with` sunday.year.get.toString
+      next.ctx.browser.click("#caringStarted_answer_yes")
+      next.ctx.browser.fill("#caringStarted_date_day") `with` sunday.day.get.toString
+      next.ctx.browser.fill("#caringStarted_date_month") `with` sunday.month.get.toString
+      next.ctx.browser.fill("#caringStarted_date_year") `with` sunday.year.get.toString
     }
 
     "reject when submitted with missing mandatory data" in new WithApplication with Claiming {
@@ -64,15 +64,15 @@ class GBreaksInCareOtherSpec extends Specification {
       val request = FakeRequest()
         .withFormUrlEncodedBody(
           "iterationID" -> breakId1,
-          "dpOtherEnded.date.day" -> "1",
-          "dpOtherEnded.date.month" -> "1",
-          "dpOtherEnded.date.year" -> "2001",
-          "dpOtherEnded.time" -> "10",
-          "startedCaring.answer" -> Mappings.yes,
-          "startedCaring.date.day" -> "2",
-          "startedCaring.date.month" -> "1",
-          "startedCaring.date.year" -> "2001",
-          "startedCaring.time" -> "12",
+          "caringEnded.date.day" -> "1",
+          "caringEnded.date.month" -> "1",
+          "caringEnded.date.year" -> "2001",
+          "caringEnded.time" -> "10",
+          "caringStarted.answer" -> Mappings.yes,
+          "caringStarted.date.day" -> "1",
+          "caringStarted.date.month" -> "1",
+          "caringStarted.date.year" -> "2001",
+          "caringStarted.time" -> "12",
           "whereWasDp.answer" -> BreaksInCareOtherOptions.Home,
           "whereWasDp.text" -> "",
           "whereWereYou.answer" -> BreaksInCareOtherOptions.Holiday,
@@ -87,15 +87,15 @@ class GBreaksInCareOtherSpec extends Specification {
       val request = FakeRequest()
         .withFormUrlEncodedBody(
           "iterationID" -> breakId1,
-          "dpOtherEnded.date.day" -> "1",
-          "dpOtherEnded.date.month" -> "1",
-          "dpOtherEnded.date.year" -> "",
-          "dpOtherEnded.time" -> "10",
-          "startedCaring.answer" -> Mappings.yes,
-          "startedCaring.date.day" -> "2",
-          "startedCaring.date.month" -> "1",
-          "startedCaring.date.year" -> "2001",
-          "startedCaring.time" -> "12",
+          "caringEnded.date.day" -> "1",
+          "caringEnded.date.month" -> "1",
+          "caringEnded.date.year" -> "",
+          "caringEnded.time" -> "10",
+          "caringStarted.answer" -> Mappings.yes,
+          "caringStarted.date.day" -> "1",
+          "caringStarted.date.month" -> "1",
+          "caringStarted.date.year" -> "2001",
+          "caringStarted.time" -> "12",
           "whereWasDp.answer" -> BreaksInCareOtherOptions.SomewhereElse,
           "whereWasDp.text" -> "test1",
           "whereWereYou.answer" -> BreaksInCareOtherOptions.SomewhereElse,
@@ -109,15 +109,15 @@ class GBreaksInCareOtherSpec extends Specification {
       val request = FakeRequest()
         .withFormUrlEncodedBody(
           "iterationID" -> breakId1,
-          "dpOtherEnded.date.day" -> "1",
-          "dpOtherEnded.date.month" -> "1",
-          "dpOtherEnded.date.year" -> "2001",
-          "dpOtherEnded.time" -> "10",
-          "startedCaring.answer" -> Mappings.yes,
-          "startedCaring.date.day" -> "2",
-          "startedCaring.date.month" -> "1",
-          "startedCaring.date.year" -> "2001",
-          "startedCaring.time" -> "12",
+          "caringEnded.date.day" -> "1",
+          "caringEnded.date.month" -> "1",
+          "caringEnded.date.year" -> "2001",
+          "caringEnded.time" -> "10",
+          "caringStarted.answer" -> Mappings.yes,
+          "caringStarted.date.day" -> "1",
+          "caringStarted.date.month" -> "1",
+          "caringStarted.date.year" -> "2001",
+          "caringStarted.time" -> "12",
           "whereWasDp.answer" -> BreaksInCareOtherOptions.SomewhereElse,
           "whereWasDp.text" -> "test1",
           "whereWereYou.answer" -> BreaksInCareOtherOptions.SomewhereElse,
@@ -132,15 +132,15 @@ class GBreaksInCareOtherSpec extends Specification {
       val request1 = FakeRequest()
         .withFormUrlEncodedBody(
           "iterationID" -> breakId1,
-          "dpOtherEnded.date.day" -> "1",
-          "dpOtherEnded.date.month" -> "1",
-          "dpOtherEnded.date.year" -> "2001",
-          "dpOtherEnded.time" -> "10",
-          "startedCaring.answer" -> Mappings.yes,
-          "startedCaring.date.day" -> "2",
-          "startedCaring.date.month" -> "1",
-          "startedCaring.date.year" -> "2001",
-          "startedCaring.time" -> "12",
+          "caringEnded.date.day" -> "1",
+          "caringEnded.date.month" -> "1",
+          "caringEnded.date.year" -> "2001",
+          "caringEnded.time" -> "10",
+          "caringStarted.answer" -> Mappings.yes,
+          "caringStarted.date.day" -> "1",
+          "caringStarted.date.month" -> "1",
+          "caringStarted.date.year" -> "2001",
+          "caringStarted.time" -> "12",
           "whereWasDp.answer" -> BreaksInCareOtherOptions.SomewhereElse,
           "whereWasDp.text" -> "test1",
           "whereWereYou.answer" -> BreaksInCareOtherOptions.SomewhereElse,
@@ -151,15 +151,15 @@ class GBreaksInCareOtherSpec extends Specification {
       val request2 = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result))
         .withFormUrlEncodedBody(
           "iterationID" -> "2",
-          "dpOtherEnded.date.day" -> "1",
-          "dpOtherEnded.date.month" -> "1",
-          "dpOtherEnded.date.year" -> "2001",
-          "dpOtherEnded.time" -> "10",
-          "startedCaring.answer" -> Mappings.yes,
-          "startedCaring.date.day" -> "2",
-          "startedCaring.date.month" -> "1",
-          "startedCaring.date.year" -> "2001",
-          "startedCaring.time" -> "12",
+          "caringEnded.date.day" -> "1",
+          "caringEnded.date.month" -> "1",
+          "caringEnded.date.year" -> "2001",
+          "caringEnded.time" -> "10",
+          "caringStarted.answer" -> Mappings.yes,
+          "caringStarted.date.day" -> "1",
+          "caringStarted.date.month" -> "1",
+          "caringStarted.date.year" -> "2001",
+          "caringStarted.time" -> "12",
           "whereWasDp.answer" -> BreaksInCareOtherOptions.SomewhereElse,
           "whereWasDp.text" -> "test1",
           "whereWereYou.answer" -> BreaksInCareOtherOptions.SomewhereElse,
@@ -176,15 +176,15 @@ class GBreaksInCareOtherSpec extends Specification {
       val requestNew = FakeRequest()
         .withFormUrlEncodedBody(
           "iterationID" -> breakId1,
-          "dpOtherEnded.date.day" -> "1",
-          "dpOtherEnded.date.month" -> "1",
-          "dpOtherEnded.date.year" -> "2001",
-          "dpOtherEnded.time" -> "10",
-          "startedCaring.answer" -> Mappings.yes,
-          "startedCaring.date.day" -> "2",
-          "startedCaring.date.month" -> "1",
-          "startedCaring.date.year" -> "2001",
-          "startedCaring.time" -> "12",
+          "caringEnded.date.day" -> "1",
+          "caringEnded.date.month" -> "1",
+          "caringEnded.date.year" -> "2001",
+          "caringEnded.time" -> "10",
+          "caringStarted.answer" -> Mappings.yes,
+          "caringStarted.date.day" -> "1",
+          "caringStarted.date.month" -> "1",
+          "caringStarted.date.year" -> "2001",
+          "caringStarted.time" -> "12",
           "whereWasDp.answer" -> BreaksInCareOtherOptions.SomewhereElse,
           "whereWasDp.text" -> "test1",
           "whereWereYou.answer" -> BreaksInCareOtherOptions.SomewhereElse,
@@ -192,29 +192,29 @@ class GBreaksInCareOtherSpec extends Specification {
 
       val result = GBreaksInCareOther.submit(requestNew)
 
-      val yearUpdate = 2005
+      val yearUpdate = 2000
 
       val requestUpdate = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result))
         .withFormUrlEncodedBody(
           "iterationID" -> breakId1,
-          "dpOtherEnded.date.day" -> "1",
-          "dpOtherEnded.date.month" -> "1",
-          "dpOtherEnded.date.year" -> "2001",
-          "dpOtherEnded.time" -> "10",
-          "startedCaring.answer" -> Mappings.yes,
-          "startedCaring.date.day" -> "2",
-          "startedCaring.date.month" -> "1",
-          "startedCaring.date.year" -> yearUpdate.toString,
-          "startedCaring.time" -> "12",
+          "caringEnded.date.day" -> "1",
+          "caringEnded.date.month" -> "1",
+          "caringEnded.date.year" -> "2001",
+          "caringEnded.time" -> "10",
+          "caringStarted.answer" -> Mappings.yes,
+          "caringStarted.date.day" -> "1",
+          "caringStarted.date.month" -> "1",
+          "caringStarted.date.year" -> yearUpdate.toString,
+          "caringStarted.time" -> "12",
           "whereWasDp.answer" -> BreaksInCareOtherOptions.Holiday,
           "whereWereYou.answer" -> BreaksInCareOtherOptions.SomewhereElse,
           "whereWereYou.text" -> "test"
         )
 
-      GBreaksInCareOther.submit(requestUpdate)
+      val page = GBreaksInCareOther.submit(requestUpdate)
 
       getClaimFromCache(result).questionGroup(BreaksInCare) must beLike {
-        case Some(b: BreaksInCare) => b.breaks.head.yourStayEnded.get.date.get.year.get shouldEqual yearUpdate
+        case Some(b: BreaksInCare) => b.breaks.head.caringStarted.get.date.get.year.get shouldEqual yearUpdate
       }
     }
   }

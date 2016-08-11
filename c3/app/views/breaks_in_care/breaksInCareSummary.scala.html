@@ -60,14 +60,15 @@
     break.whoWasAway match {
         case You => break.whenWereYouAdmitted.get.`dd/MM/yyyy`
         case DP => break.whenWasDpAdmitted.get.`dd/MM/yyyy`
-        case _ if (break.typeOfCare == Breaks.another) => ""
+        case _ if (break.typeOfCare == Breaks.another && break.caringStarted.isDefined && break.caringStarted.get.answer == "yes") => break.caringStarted.get.date.get.`dd/MM/yyyy`
         case _ => "ERROR In caretypeFrom"
     }
 }
 @careTypeTo(break: Break) = @{
-    ( break.whoWasAway, break.yourStayEnded, break.dpStayEnded ) match {
-        case ( You, Some(you), _ ) if(you.answer == "yes")=> you.date.get.`dd/MM/yyyy`
-        case ( DP, _, Some(dp) ) if(dp.answer == "yes")=> dp.date.get.`dd/MM/yyyy`
+    ( break.whoWasAway, break.yourStayEnded, break.dpStayEnded, break.caringEnded ) match {
+        case ( You, Some(you), _, _ ) if(you.answer == "yes")=> you.date.get.`dd/MM/yyyy`
+        case ( DP, _, Some(dp), _ ) if(dp.answer == "yes")=> dp.date.get.`dd/MM/yyyy`
+        case ( _, _, _, Some(ce)) if(break.typeOfCare == Breaks.another)=> ce.`dd/MM/yyyy`
         case _ => "Not ended"
     }
 }

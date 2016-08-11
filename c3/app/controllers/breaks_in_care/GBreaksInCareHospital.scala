@@ -35,10 +35,12 @@ object GBreaksInCareHospital extends Controller with CachedClaim with I18nSuppor
     "breaksInCareStillCaring" -> optional(nonEmptyText),
     "yourMedicalProfessional" -> default(optional(nonEmptyText), None),
     "dpMedicalProfessional" -> default(optional(nonEmptyText), None),
+    "caringEnded" -> default(optional(dayMonthYear), None),
+    "caringStarted" -> default(optional(yesNoWithDate), None),
     "whereWasDp" -> default(optional(radioWithText), None),
     "whereWereYou" -> default(optional(radioWithText), None),
     "whenWereYouAdmitted.time" -> default(optional(carersNonEmptyText), None),
-    "dpOtherEnded.time" -> default(optional(carersNonEmptyText), None)
+    "caringEnded.time" -> default(optional(carersNonEmptyText), None)
   )(Break.apply)(Break.unapply)
     .verifying(requiredWhenWereYouAdmitted)
     .verifying(requiredYourStayEndedAnswer)

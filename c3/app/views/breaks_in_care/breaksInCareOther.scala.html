@@ -33,22 +33,22 @@
         <fieldset class="form-elements">
             <legend class="heading-medium form-label-bold">@Html(messages("breaksInCareOtherDeclaration", dpDetails))</legend>
             <ul>
-                @dateTimePickerWithDynamicLabel(currentForm("dpOtherEnded.date"), '_label -> messages("dpOtherEnded.date", dpDetails),
+                @dateTimePickerWithDynamicLabel(currentForm("caringEnded.date"), '_label -> messages("caringEnded.date", dpDetails),
                     'dynamicDateDays -> 34, 'ignoreOptional -> true, 'track -> true)
 
-                @carersInputText(currentForm("dpOtherEnded.time"), 'maxLength -> 60, 'track -> true, 'ignoreOptional -> false)
+                @carersInputText(currentForm("caringEnded.time"), 'maxLength -> 60, 'track -> true, 'ignoreOptional -> false)
 
-                @yesNoRadioGroup(currentForm("startedCaring.answer"),
-                    '_label -> messages("startedCaring.answer"),
+                @yesNoRadioGroup(currentForm("caringStarted.answer"),
+                    '_label -> messages("caringStarted.answer"),
                     'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")),
                     'ignoreOptional-> true, 'track -> true
                 )
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
-                        dateTimePickerWithDynamicLabel(currentForm("startedCaring.date"),
+                        dateTimePickerWithDynamicLabel(currentForm("caringStarted.date"),
                             'dynamicDateDays -> 34, 'ignoreOptional -> true, 'track -> true),
-                        carersInputText(currentForm("startedCaring.time"), 'maxLength -> 60, 'track -> true, 'ignoreOptional -> false),
+                        carersInputText(currentForm("caringStarted.time"), 'maxLength -> 60, 'track -> true, 'ignoreOptional -> false),
                         listRadioGroupWithOther(currentForm("whereWasDp"),
                             'items -> whereList,
                             '_label -> messages("whereWasDp.answer", dpDetails),
@@ -77,7 +77,7 @@
                             'track -> true
                         )
                     ),
-                    'id -> "startedCaringWrap"
+                    'id -> "caringStartedWrap"
                 )
 
             </ul>
@@ -98,13 +98,13 @@
             window.areaCounter({selector: "@CarersCrypto.encryptAES("whereWereYou_text")", maxChars: 60});
 
             window.initEvents(
-                    "@CarersCrypto.encryptAES("startedCaring_answer_yes")",
-                    "@CarersCrypto.encryptAES("startedCaring_answer_no")",
-                    "startedCaringWrap",
-                    "@CarersCrypto.encryptAES("startedCaring_date")",
-                    "@CarersCrypto.encryptAES("dpOtherEnded_date")",
-                    "@CarersCrypto.encryptAES("startedCaring_time")",
-                    "@CarersCrypto.encryptAES("dpOtherEnded_time")",
+                    "@CarersCrypto.encryptAES("caringStarted_answer_yes")",
+                    "@CarersCrypto.encryptAES("caringStarted_answer_no")",
+                    "caringStartedWrap",
+                    "@CarersCrypto.encryptAES("caringStarted_date")",
+                    "@CarersCrypto.encryptAES("caringEnded_date")",
+                    "@CarersCrypto.encryptAES("caringStarted_time")",
+                    "@CarersCrypto.encryptAES("caringEnded_time")",
                     "wherePersonBreaksInCareWrap",
                     "whereYouBreaksInCareWrap"
             );

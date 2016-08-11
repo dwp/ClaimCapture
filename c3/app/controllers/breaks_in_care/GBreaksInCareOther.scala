@@ -1,5 +1,6 @@
 package controllers.breaks_in_care
 
+import app.BreaksInCareOtherOptions
 import app.ConfigProperties._
 import controllers.CarersForms._
 import controllers.mappings.Mappings
@@ -26,29 +27,31 @@ object GBreaksInCareOther extends Controller with CachedClaim with I18nSupport w
 
   val whereWereYouMapping = "whereWereYou" -> optional(radioWithText)
 
-  val yourStayEndedMapping = "startedCaring" -> optional(yesNoWithDate)
+  val caringStartedMapping = "caringStarted" -> optional(yesNoWithDate)
 
   val form = Form(mapping(
     "iterationID" -> carersNonEmptyText,
     "typeOfCare" -> default(carersNonEmptyText, Breaks.another),
     "whoWasInHospital" -> default(carersNonEmptyText, ""),
-    "dpOtherEnded.date" -> optional(dayMonthYear),
-    yourStayEndedMapping,
+    "whenWereYouAdmitted" -> default(optional(dayMonthYear), None),
+    "yourStayEnded" -> default(optional(yesNoWithDate), None),
     "whenWasDpAdmitted" -> default(optional(dayMonthYear), None),
     "dpStayEnded" -> default(optional(yesNoWithDate), None),
     "breaksInCareStillCaring" -> default(optional(nonEmptyText), None),
     "yourMedicalProfessional" -> default(optional(nonEmptyText), None),
     "dpMedicalProfessional" -> default(optional(nonEmptyText), None),
+    "caringEnded.date" -> optional(dayMonthYear),
+    caringStartedMapping,
     whereWasDpMapping,
     whereWereYouMapping,
-    "dpOtherEnded.time" -> optional(text),
-    "startedCaring.time" -> optional(text)
+    "caringEnded.time" -> optional(text),
+    "caringStarted.time" -> optional(text)
   )(Break.apply)(Break.unapply)
-    .verifying(requiredOtherWhenWereYouAdmitted)
+    .verifying(requiredOtherCaringEnded)
     .verifying(validateOptionalCarersNonEmptyTextEnded)
     .verifying(requiredOtherStartDateNotAfterEndDate)
-    .verifying(requiredOtherStayEndedAnswer)
-    .verifying(requiredOtherStayEndedDate)
+    .verifying(requiredCaringStartedAnswer)
+    .verifying(requiredCaringStartedDate)
     .verifying(validateOptionalCarersNonEmptyTextStarted)
     .verifying(requiredWhereWhereYouRadioWithText)
     .verifying(requiredWhereWasDpRadioWithText)
@@ -66,18 +69,20 @@ object GBreaksInCareOther extends Controller with CachedClaim with I18nSupport w
       formWithErrors => {
         val dp = dpDetails(claim);
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("", "whenWereYouAdmitted", FormError("dpOtherEnded.date", errorRequiredWithError, Seq(dp)))
-          .replaceError("", "whenWereYouAdmitted.invalid", FormError("dpOtherEnded.date", errorInvalidWithError, Seq(dp)))
-          .replaceError("", "whenWereYouAdmitted.invalidDateRange", FormError("dpOtherEnded.date", errorInvalidDateRange))
-          .replaceError("", "whenWereYouAdmitted.time", FormError("dpOtherEnded.time", errorRestrictedCharacters))
-          .replaceError("", "yourStayEnded.answer", FormError("startedCaring.answer", errorRequired))
-          .replaceError("", "yourStayEnded.date", FormError("startedCaring.date", errorRequired))
-          .replaceError("", "yourStayEnded.date.invalid", FormError("startedCaring.date", errorInvalid))
-          .replaceError("", "yourStayEnded.time", FormError("startedCaring.time", errorRestrictedCharacters))
+          .replaceError("", "caringEnded", FormError("caringEnded.date", errorRequiredWithError, Seq(dp)))
+          .replaceError("", "caringEnded.invalid", FormError("caringEnded.date", errorInvalidWithError, Seq(dp)))
+          .replaceError("", "caringEnded.invalidDateRange", FormError("caringEnded.date", errorInvalidDateRange))
+          .replaceError("", "caringEnded.time", FormError("caringEnded.time", errorRestrictedCharacters))
+          .replaceError("", "caringStarted.answer", FormError("caringStarted.answer", errorRequired))
+          .replaceError("", "caringStarted.date", FormError("caringStarted.date", errorRequired))
+          .replaceError("", "caringStarted.date.invalid", FormError("caringStarted.date", errorInvalid))
+          .replaceError("", "caringStarted.time", FormError("caringStarted.time", errorRestrictedCharacters))
           .replaceError("", "whereWasDp", FormError("whereWasDp", errorRequired, Seq(dp)))
           .replaceError("", "whereWasDp.text", FormError("whereWasDp.text", errorRequired))
+          .replaceError("", "whereWasDp.text.restricted", FormError("whereWasDp.text", errorRestrictedCharacters))
           .replaceError("", "whereWereYou", FormError("whereWereYou", errorRequired))
           .replaceError("", "whereWereYou.text", FormError("whereWereYou.text", errorRequired))
+          .replaceError("", "whereWereYou.text.restricted", FormError("whereWereYou.text", errorRestrictedCharacters))
         BadRequest(views.html.breaks_in_care.breaksInCareOther(formWithErrorsUpdate, backCall))
       },
       break => {
@@ -93,31 +98,31 @@ object GBreaksInCareOther extends Controller with CachedClaim with I18nSupport w
       })
   }
 
-  private def requiredOtherWhenWereYouAdmitted: Constraint[Break] = Constraint[Break]("constraint.breakWhenWereYouAdmitted") { break =>
-    break.whenWereYouAdmitted.isDefined match {
-      case false => Invalid(ValidationError("whenWereYouAdmitted"))
-      case _ => validateDate(break.whenWereYouAdmitted.get, "whenWereYouAdmitted.invalid")
+  private def requiredOtherCaringEnded: Constraint[Break] = Constraint[Break]("constraint.breakCaringEnded") { break =>
+    break.caringEnded.isDefined match {
+      case false => Invalid(ValidationError("caringEnded"))
+      case _ => validateDate(break.caringEnded.get, "caringEnded.invalid")
     }
   }
 
   private def requiredOtherStartDateNotAfterEndDate(): Constraint[Break] = Constraint[Break]("constraint.breaksInCareDateRange") { break =>
-    break.whenWereYouAdmitted.isDefined match {
-      case true if (break.yourStayEnded.isDefined && break.yourStayEnded.get.answer == Mappings.yes) => checkDatesAfter(break.whenWereYouAdmitted, break.yourStayEnded.get.date, "whenWereYouAdmitted.invalidDateRange")
+    break.caringEnded.isDefined match {
+      case true if (break.caringStarted.isDefined && break.caringStarted.get.answer == Mappings.yes) => checkDatesAfter(break.caringStarted.get.date, break.caringEnded, "caringEnded.invalidDateRange")
       case _ => Valid
     }
   }
 
-  private def requiredOtherStayEndedAnswer: Constraint[Break] = Constraint[Break]("constraint.breakOtherStayEndedAnswer") { break =>
-    break.yourStayEnded.isDefined match {
-      case false => Invalid(ValidationError("yourStayEnded.answer"))
+  private def requiredCaringStartedAnswer: Constraint[Break] = Constraint[Break]("constraint.breakCaringStartedAnswer") { break =>
+    break.caringStarted.isDefined match {
+      case false => Invalid(ValidationError("caringStarted.answer"))
       case _ => Valid
     }
   }
 
-  private def requiredOtherStayEndedDate: Constraint[Break] = Constraint[Break]("constraint.breakOtherStayEndedDate") { break =>
-    break.yourStayEnded.isDefined match {
-      case true if !YesNoWithDate.validate(break.yourStayEnded.get) => Invalid(ValidationError("yourStayEnded.date"))
-      case true if (break.yourStayEnded.get.answer == Mappings.yes) => validateDate(break.yourStayEnded.get.date.get, "yourStayEnded.date.invalid")
+  private def requiredCaringStartedDate: Constraint[Break] = Constraint[Break]("constraint.breakCaringStartedDate") { break =>
+    break.caringStarted.isDefined match {
+      case true if !YesNoWithDate.validate(break.caringStarted.get) => Invalid(ValidationError("caringStarted.date"))
+      case true if (break.caringStarted.get.answer == Mappings.yes) => validateDate(break.caringStarted.get.date.get, "caringStarted.date.invalid")
       case _ => Valid
     }
   }
@@ -125,7 +130,8 @@ object GBreaksInCareOther extends Controller with CachedClaim with I18nSupport w
   private def requiredWhereWhereYouRadioWithText: Constraint[Break] = Constraint[Break]("constraint.radioWithText") { break =>
     break.whereWhereYou.isDefined match {
       case true if (!RadioWithText.validateOnOther(break.whereWhereYou.get)) => Invalid(ValidationError("whereWereYou.text"))
-      case false if(break.yourStayEnded.isDefined && break.yourStayEnded.get.answer == Mappings.yes) => Invalid(ValidationError("whereWereYou"))
+      case true if (break.whereWhereYou.get == BreaksInCareOtherOptions.SomewhereElse) => restrictedStringCheck(break.whereWhereYou.get.text.get, "whereWereYou.text.restricted")
+      case false if (break.caringStarted.isDefined && break.caringStarted.get.answer == Mappings.yes) => Invalid(ValidationError("whereWereYou"))
       case _ => Valid
     }
   }
@@ -133,14 +139,15 @@ object GBreaksInCareOther extends Controller with CachedClaim with I18nSupport w
   private def requiredWhereWasDpRadioWithText: Constraint[Break] = Constraint[Break]("constraint.radioWithText") { break =>
     break.whereWasDp.isDefined match {
       case true if (!RadioWithText.validateOnOther(break.whereWasDp.get)) => Invalid(ValidationError("whereWasDp.text"))
-      case false if(break.yourStayEnded.isDefined && break.yourStayEnded.get.answer == Mappings.yes) => Invalid(ValidationError("whereWasDp"))
+      case true if (break.whereWhereYou.get == BreaksInCareOtherOptions.SomewhereElse) => restrictedStringCheck(break.whereWasDp.get.text.get, "whereWasDp.text.restricted")
+      case false if (break.caringStarted.isDefined && break.caringStarted.get.answer == Mappings.yes) => Invalid(ValidationError("whereWasDp"))
       case _ => Valid
     }
   }
 
   private def validateOptionalCarersNonEmptyTextStarted: Constraint[Break] = Constraint[Break]("constraint.time") { break =>
-    (break.yourStayEnded.isDefined, break.dpStayEndedTime.isDefined) match {
-      case (true, true) if (!break.dpStayEndedTime.getOrElse("").isEmpty) => restrictedStringCheck(break.dpStayEndedTime.get, "yourStayEnded.time")
+    (break.caringStarted.isDefined, break.caringEndedTime.isDefined) match {
+      case (true, true) if (!break.caringEndedTime.getOrElse("").isEmpty) => restrictedStringCheck(break.caringEndedTime.get, "caringStarted.time")
       case _ => Valid
     }
   }
@@ -154,8 +161,8 @@ object GBreaksInCareOther extends Controller with CachedClaim with I18nSupport w
   }
 
   private def validateOptionalCarersNonEmptyTextEnded: Constraint[Break] = Constraint[Break]("constraint.time") { break =>
-    break.whenWereYouAdmittedTime.isDefined match {
-      case true if (!break.whenWereYouAdmittedTime.getOrElse("").isEmpty) => restrictedStringCheck(break.whenWereYouAdmittedTime.get, "whenWereYouAdmitted.time")
+    break.caringEndedTime.isDefined match {
+      case true if (!break.caringEndedTime.getOrElse("").isEmpty) => restrictedStringCheck(break.caringEndedTime.get, "caringEnded.time")
       case _ => Valid
     }
   }

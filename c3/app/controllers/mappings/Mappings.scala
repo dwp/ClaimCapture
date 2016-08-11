@@ -48,11 +48,11 @@ object Mappings {
   private val constraintRequired: String = "constraint.required"
 
   def yesNoWithDate: Mapping[YesNoWithDate] = mapping(
-    "answer" -> nonEmptyText,
+    "answer" -> text,
     "date" -> optional(dayMonthYear))(YesNoWithDate.apply)(YesNoWithDate.unapply)
 
   def radioWithText: Mapping[RadioWithText] = mapping(
-    "answer" -> carersNonEmptyText,
+    "answer" -> text,
     "text" -> optional(carersText(maxLength = sixty)))(RadioWithText.apply)(RadioWithText.unapply)
 
   val dayMonthYear: Mapping[DayMonthYear] = mapping(

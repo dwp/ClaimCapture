@@ -3,12 +3,12 @@ package utils.pageobjects.breaks_in_care
 import utils.WithBrowser
 import utils.pageobjects.{IterationManager, PageContext, ClaimPage, PageObjectsContext}
 
-class GBreaksInCareOtherPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, GBreaksInCareOtherPage.url) {
-  declareDate("#dpOtherEnded_date", "AboutTheCareYouProvideBreakEndDate_" + iteration)
-  declareInput("#dpOtherEnded_time", "AboutTheCareYouProvideBreakEndTime_" + iteration)
-  declareYesNo("#startedCaring_answer","AboutTheCareYouProvideBreakStartAnswer_"+iteration)
-  declareDate("#startedCaring_date", "AboutTheCareYouProvideBreakStartDate_" + iteration)
-  declareInput("#startedCaring_time", "AboutTheCareYouProvideBreakStartTime_" + iteration)
+class GBreaksInCareOtherPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, GBreaksInCareOtherPage.url+"/"+iteration, iteration) {
+  declareDate("#caringEnded_date", "AboutTheCareYouProvideBreakEndDate_" + iteration)
+  declareInput("#caringEnded_time", "AboutTheCareYouProvideBreakEndTime_" + iteration)
+  declareYesNo("#caringStarted_answer","AboutTheCareYouProvideBreakStartAnswer_"+iteration)
+  declareDate("#caringStarted_date", "AboutTheCareYouProvideBreakStartDate_" + iteration)
+  declareInput("#caringStarted_time", "AboutTheCareYouProvideBreakStartTime_" + iteration)
 
   declareRadioList("#whereWasDp_answer","AboutTheCareYouProvideBreakWhereWasDp_"+iteration)
   declareInput("#whereWasDp_text", "AboutTheCareYouProvideBreakWhereWasDpText_" + iteration)

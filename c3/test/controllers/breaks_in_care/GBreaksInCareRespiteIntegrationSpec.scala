@@ -18,7 +18,7 @@ class GBreaksInCareRespiteIntegrationSpec extends Specification {
     }
 
     "display respite text" in new WithBrowser with PageObjects {
-      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.careYouProvideWithBreaksInCareRespite(false), GBreaksInCareRespitePage.url)
+      val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.careYouProvideWithBreaksInCareRespite(false), GBreaksInCareRespitePage.url + "/1")
 
       breaksInCare.source contains "You told us that you or Tom Wilson have been in respite or a care home. You could still be paid Carer's Allowance for this time" should beTrue
     }
