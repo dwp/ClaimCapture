@@ -72,16 +72,6 @@ object PreviewRouteUtils {
     routesMap
   }
 
-  def oldBreaks = {
-    val gBreaksInCareRoute = controllers.s_breaks.routes.GOldBreaksInCare.present.toString
-
-    val breaksInCareList = Seq("care_you_provide_anyBreaks")
-
-    val routesMap = Map(breaksInCareList map{id => (id,gBreaksInCareRoute)}: _*)
-
-    routesMap
-  }
-
   def breaksRoute = {
     val route = controllers.breaks_in_care.routes.GBreaksInCareSummary.present.toString
     val list = Seq("breaks_hospital", "breaks_carehome", "breaks_breaktype_other", "breaks_breaktype")
