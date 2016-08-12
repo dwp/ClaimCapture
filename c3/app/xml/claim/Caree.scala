@@ -29,14 +29,9 @@ object Caree extends XMLComponent {
       {question(<OtherCarer/>,"otherCarer", moreAboutTheCare.otherCarer, dpName)}
       {question(<OtherCarerUc/>,"otherCarerUc", moreAboutTheCare.otherCarerUc, dpName)}
       {question(<OtherCarerUcDetails/>,"otherCarerUcDetails", moreAboutTheCare.otherCarerUcDetails)}
-      {careBreak(claim)}
+      {careBreak(claim, dpName)}
       {question(<LiveSameAddress/>,"theirAddress.answer", theirPersonalDetails.theirAddress.answer)}
     </Caree>
-  }
-
-  private def dpDetails(claim: Claim) : String = {
-    val theirPersonalDetails = claim.questionGroup(TheirPersonalDetails).getOrElse(TheirPersonalDetails()).asInstanceOf[TheirPersonalDetails]
-    theirPersonalDetails.firstName + " " + theirPersonalDetails.surname
   }
 
   private def yourDetails(claim: Claim) : String = {
@@ -59,14 +54,13 @@ object Caree extends XMLComponent {
     }
   }
 
-  private def careBreak(claim: Claim) = {
+  private def careBreak(claim: Claim, dp: String) = {
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
     def breaksInCareLabel (label: String, answer: String, dp: String) = {
       val claimDateQG = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
       question(<BreaksSinceClaim/>, label, answer, claimDateQG.dateWeRequireBreakInCareInformationFrom(claim.lang.getOrElse(Lang("en"))), dp)
     }
-    val dp = dpDetails(claim);
     val your = yourDetails(claim);
     val xmlLastBreak = {
       if (breaksInCare.breaks.size > 0) {
@@ -174,55 +168,54 @@ object Caree extends XMLComponent {
 
   def fromXml(xml: NodeSeq, claim: Claim) : Claim = {
     val breaksInCareTuple = createBreaksInCare(xml)
-    val breaksInCareType = BreaksInCareType()
+    val breaksInCareType = BreaksInCareType(none = Mappings.someTrue, other = Some(Mappings.no))
     val newClaim = claim.update(createYourDetailsFromXml(xml)).update(createMoreAboutCareFromXml(xml)).update(breaksInCareType)
-    breaksInCareTuple._1.hasBreaks match {
-      case true => newClaim.update(breaksInCareTuple._1)
-      case false => newClaim.update(BreaksInCare())
+    breaksInCareTuple.hasBreaks match {
+      case true => newClaim.update(breaksInCareTuple).update(breaksInCareType)
+      case false => newClaim.update(BreaksInCare()).update(breaksInCareType)
     }
   }
 
   private def createBreaksInCare(xml: NodeSeq) = {
     val breaksInCareXml = (xml \\ "Caree" \ "CareBreak")
     var breaks = List[Break]()
-    var breaksSinceClaim = Mappings.yes
     breaksInCareXml.zip (Stream from 1).foreach(node =>
     {
-      breaksSinceClaim = (node._1 \ "BreaksSinceClaim" \ "Answer").text
       val break = {(node._1 \ "BreaksType" \ "Answer").text match {
-          case "Hospital" => createHospitalBreak(node._1, node._2)
-          case "Respite" => createRespiteBreak(node._1, node._2)
+          case "YouHospital" | "DPHospital" => createHospitalBreak(node._1, node._2)
+          case "YouRespite" | "DPRespite" => createRespiteBreak(node._1, node._2)
           case "Other" => createOtherBreak(node._1, node._2)
           case _ => Break()
         }
       }
       if (!break.iterationID.isEmpty) breaks = breaks :+ break
     })
-    (BreaksInCare(breaks), breaksSinceClaim)
+    (BreaksInCare(breaks))
   }
 
   private def createHospitalBreak(xml: NodeSeq, iterationId: Integer) = {
+    val whoWasAway = (xml \ "BreaksType" \ "Answer").text.startsWith("DP") match { case true => BreaksInCareGatherOptions.DP case _ => BreaksInCareGatherOptions.You }
     Break(
       iterationID = s"${iterationId}",
       typeOfCare = Breaks.hospital,
-      whoWasAway = (xml \ "WhoWasAway" \ "Answer").text,
-      whenWereYouAdmitted = (xml \ "WhoWasAway" \ "Answer").text match {
+      whoWasAway = whoWasAway,
+      whenWereYouAdmitted = whoWasAway match {
         case BreaksInCareGatherOptions.You => createFormattedDateOptional((xml \ "StartDate" \ "Answer").text)
         case _ => None
       },
-      whenWasDpAdmitted = (xml \ "WhoWasAway" \ "Answer").text match {
+      whenWasDpAdmitted = whoWasAway match {
         case BreaksInCareGatherOptions.DP => createFormattedDateOptional((xml \ "StartDate" \ "Answer").text)
         case _ => None
       },
-      dpStayEnded = (xml \ "WhoWasAway" \ "Answer").text match {
+      dpStayEnded = whoWasAway match {
         case BreaksInCareGatherOptions.DP => Some(YesNoWithDate(createYesNoText((xml \ "BreakEnded" \ "Answer").text), createFormattedDateOptional((xml \ "EndDate" \ "Answer").text)))
         case _ => None
       },
-      yourStayEnded = (xml \ "WhoWasAway" \ "Answer").text match {
+      yourStayEnded = whoWasAway match {
         case BreaksInCareGatherOptions.You => Some(YesNoWithDate(createYesNoText((xml \ "BreakEnded" \ "Answer").text), createFormattedDateOptional((xml \ "EndDate" \ "Answer").text)))
         case _ => None
       },
-      breaksInCareStillCaring = (xml \ "WhoWasAway" \ "Answer").text match {
+      breaksInCareStillCaring = whoWasAway match {
         case BreaksInCareGatherOptions.DP => createYesNoTextOptional((xml \ "BreaksInCareRespiteStillCaring" \ "Answer").text)
         case _ => None
       }
@@ -230,35 +223,36 @@ object Caree extends XMLComponent {
   }
 
   private def createRespiteBreak(xml: NodeSeq, iterationId: Integer) = {
+    val whoWasAway = (xml \ "BreaksType" \ "Answer").text.startsWith("DP") match { case true => BreaksInCareGatherOptions.DP case _ => BreaksInCareGatherOptions.You }
     Break(
       iterationID = s"${iterationId}",
       typeOfCare = Breaks.carehome,
-      whoWasAway = (xml \ "WhoWasAway" \ "Answer").text,
-      whenWereYouAdmitted = (xml \ "WhoWasAway" \ "Answer").text match {
+      whoWasAway = whoWasAway,
+      whenWereYouAdmitted = whoWasAway match {
         case BreaksInCareGatherOptions.You => createFormattedDateOptional((xml \ "StartDate" \ "Answer").text)
         case _ => None
       },
-      whenWasDpAdmitted = (xml \ "WhoWasAway" \ "Answer").text match {
+      whenWasDpAdmitted = whoWasAway match {
         case BreaksInCareGatherOptions.DP => createFormattedDateOptional((xml \ "StartDate" \ "Answer").text)
         case _ => None
       },
-      dpStayEnded = (xml \ "WhoWasAway" \ "Answer").text match {
+      dpStayEnded = whoWasAway match {
         case BreaksInCareGatherOptions.DP => Some(YesNoWithDate(createYesNoText((xml \ "BreakEnded" \ "Answer").text), createFormattedDateOptional((xml \ "EndDate" \ "Answer").text)))
         case _ => None
       },
-      yourStayEnded = (xml \ "WhoWasAway" \ "Answer").text match {
+      yourStayEnded = whoWasAway match {
         case BreaksInCareGatherOptions.You => Some(YesNoWithDate(createYesNoText((xml \ "BreakEnded" \ "Answer").text), createFormattedDateOptional((xml \ "EndDate" \ "Answer").text)))
         case _ => None
       },
-      breaksInCareStillCaring = (xml \ "WhoWasAway" \ "Answer").text match {
+      breaksInCareStillCaring = whoWasAway match {
         case BreaksInCareGatherOptions.DP => createYesNoTextOptional((xml \ "BreaksInCareRespiteStillCaring" \ "Answer").text)
         case _ => None
       },
-      dpMedicalProfessional = (xml \ "WhoWasAway" \ "Answer").text match {
+      dpMedicalProfessional = whoWasAway match {
         case BreaksInCareGatherOptions.DP => createYesNoTextOptional((xml \ "DpMedicalCare" \ "Answer").text)
         case _ => None
       },
-      yourMedicalProfessional = (xml \ "WhoWasAway" \ "Answer").text match {
+      yourMedicalProfessional = whoWasAway match {
         case BreaksInCareGatherOptions.You => createYesNoTextOptional((xml \ "MedicalCare" \ "Answer").text)
         case _ => None
       }
