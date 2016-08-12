@@ -135,6 +135,10 @@ POST        /care-you-provide/more-about-the-care                       controll
 
 # Breaks in care
 ###############
+GET         /breaks/breaks-in-care                                      controllers.breaks_in_care.GBreaksInCareSummary.present
+POST        /breaks/breaks-in-care                                      controllers.breaks_in_care.GBreaksInCareSummary.submit
+POST        /breaks/breaks-in-care-delete                               controllers.breaks_in_care.GBreaksInCareSummary.delete
+
 GET         /breaks/hospital/:id                                        controllers.breaks_in_care.GBreaksInCareHospital.present(id: String)
 POST        /breaks/hospital                                            controllers.breaks_in_care.GBreaksInCareHospital.submit
 
@@ -143,10 +147,6 @@ POST        /breaks/respite-care-home                                   controll
 
 GET         /breaks/other-breaks/:id                                    controllers.breaks_in_care.GBreaksInCareOther.present(id: String)
 POST        /breaks/other-breaks                                        controllers.breaks_in_care.GBreaksInCareOther.submit
-
-GET         /breaks/summary                                             controllers.breaks_in_care.GBreaksInCareSummary.present
-POST        /breaks/summary                                             controllers.breaks_in_care.GBreaksInCareSummary.submit
-POST        /breaks/summary-delete                                      controllers.breaks_in_care.GBreaksInCareSummary.delete
 
 
 # Education

@@ -11,7 +11,7 @@ class GBreaksInCareSummaryPage(ctx:PageObjectsContext) extends ClaimPage(ctx, GB
 }
 
 object GBreaksInCareSummaryPage {
-  val url  = "/breaks/summary"
+  val url  = "/breaks/breaks-in-care"
 
   def apply(ctx:PageObjectsContext) = new GBreaksInCareSummaryPage(ctx)
 }
