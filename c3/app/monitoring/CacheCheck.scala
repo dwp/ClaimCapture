@@ -7,7 +7,7 @@ import play.api.cache.CacheApi
 import play.api.Play.current
 import scala.concurrent.duration._
 
-class CacheCheck extends CADSHealthCheck(ClaimHandling.C3NAME, ClaimHandling.C3VERSION_VALUE) {
+class CacheCheck extends CADSHealthCheck(ClaimHandling.C3NAME, ClaimHandling.C3VERSION_VALUE, "-cache-check") {
 
   override protected def check: CADSHealthCheck.Result = {
     val cache = current.injector.instanceOf[CacheApi]

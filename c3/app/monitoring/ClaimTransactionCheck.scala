@@ -5,7 +5,7 @@ import gov.dwp.carers.CADSHealthCheck.Result
 import models.view.ClaimHandling
 import services.ClaimTransactionComponent
 
-class ClaimTransactionCheck extends CADSHealthCheck(ClaimHandling.C3NAME, ClaimHandling.C3VERSION_VALUE) with ClaimTransactionComponent {
+class ClaimTransactionCheck extends CADSHealthCheck(ClaimHandling.C3NAME, ClaimHandling.C3VERSION_VALUE, "-db-check") with ClaimTransactionComponent {
   val claimTransaction = new ClaimTransaction
 
   override protected def check: CADSHealthCheck.Result = {
