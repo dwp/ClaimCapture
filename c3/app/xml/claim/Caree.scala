@@ -117,7 +117,7 @@ object Caree extends XMLComponent {
   }
 
   def createRespiteBreak(break: Break, dp: String, your: String) = {
-    val startDetails = break.whoWasAway match { case BreaksInCareGatherOptions.DP => (break.whenWasDpAdmitted.get, "whenWasDpAdmitted", dp) case _ => (break.whenWereYouAdmitted.get, "whenWereYouAdmitted", your) },
+    val startDetails = break.whoWasAway match { case BreaksInCareGatherOptions.DP => (break.whenWasDpAdmitted.get, "whenWasDpAdmitted", dp) case _ => (break.whenWereYouAdmitted.get, "whenWereYouAdmitted", your) }
     val breakEndedDetails = break.whoWasAway match { case BreaksInCareGatherOptions.DP => (break.dpStayEnded.get, "dpRespiteStayEnded") case _ => (break.yourStayEnded.get, "yourRespiteStayEnded") }
     <CareBreak>
       {question(<BreaksType/>, "Type of Break", s"${break.whoWasAway}Respite")}
