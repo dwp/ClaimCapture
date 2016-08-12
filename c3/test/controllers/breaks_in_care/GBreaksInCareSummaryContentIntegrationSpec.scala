@@ -53,8 +53,8 @@ class GBreaksInCareSummaryContentIntegrationSpec extends Specification {
       page goToThePage()
       val errors = page.submitPage().listErrors
       errors.size mustEqual 2
-      errors(0) mustEqual ("Since 1 October 2016 have there been any times you or Albert Johnson have been in hospital, respite or care home for at least a week? - You must select 'None' if only None applies.")
-      errors(1) mustEqual ("Have there been any times you've not provided care for Albert Johnson for 35 hours a week? - You must complete this section")
+      errors(0) mustEqual ("Since 1 October 2016 have there been any times you or Albert Johnson have been in hospital, respite or care home for at least a week? - You must select 'None' if only 'None' applies.")
+      errors(1) mustEqual ("Have there been any other times you've not provided care for Albert Johnson for 35 hours a week? - You must complete this section")
     }
 
     "present 2 errors with correct dynamic wording if no fields are populated and got existing breaks" in new WithJsBrowser with PageObjects {
@@ -68,7 +68,7 @@ class GBreaksInCareSummaryContentIntegrationSpec extends Specification {
       page goToThePage()
       val errors = page.submitPage().listErrors
       errors.size mustEqual 2
-      errors(0) mustEqual ("Since 1 October 2016 have there been any other times you or Albert Johnson have been in hospital, respite or care home for at least a week? - You must select 'None' if only None applies.")
+      errors(0) mustEqual ("Since 1 October 2016 have there been any other times you or Albert Johnson have been in hospital, respite or care home for at least a week? - You must select 'None' if only 'None' applies.")
       errors(1) mustEqual ("Have there been any other times you've not provided care for Albert Johnson for 35 hours a week? - You must complete this section")
     }
 
@@ -130,7 +130,7 @@ class GBreaksInCareSummaryContentIntegrationSpec extends Specification {
       browser.click("#breaktype_other_no")
       val errors = page.submitPage().listErrors
       errors.size mustEqual 1
-      errors(0) mustEqual ("Since 1 October 2016 have there been any times you or Albert Johnson have been in hospital, respite or care home for at least a week? - You must select 'Hospital','Respite or care home' or 'None'.")
+      errors(0) mustEqual ("Since 1 October 2016 have there been any other times you or Albert Johnson have been in hospital, respite or care home for at least a week? - You must select 'Hospital','Respite or care home' or 'None'.")
     }
 
     "present Too-Many-Options error with correct wording when submit after select Respite and None" in new WithJsBrowser with PageObjects {
