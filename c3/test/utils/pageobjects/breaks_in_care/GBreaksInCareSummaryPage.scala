@@ -4,8 +4,10 @@ import utils.WithBrowser
 import utils.pageobjects.{PageContext, ClaimPage, PageObjectsContext}
 
 class GBreaksInCareSummaryPage(ctx:PageObjectsContext) extends ClaimPage(ctx, GBreaksInCareSummaryPage.url) {
-  declareYesNo("#breaksummary_other", "BreakSummaryOtherYesNo")
-  declareRadioList("#breaksummary_answer", "BreakSummaryAnswer")
+  declareCheck("#breaktype_hospital", "BreaktypeHospitalCheckbox")
+  declareCheck("#breaktype_carehome", "BreaktypeCareHomeCheckbox")
+  declareCheck("#breaktype_none", "BreaktypeNoneCheckbox")
+  declareYesNo("#breaktype_other", "BreaktypeOtherYesNo")
 }
 
 object GBreaksInCareSummaryPage {

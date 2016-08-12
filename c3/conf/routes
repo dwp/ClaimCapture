@@ -132,22 +132,9 @@ POST        /care-you-provide/their-personal-details                    controll
 GET         /care-you-provide/more-about-the-care                       controllers.s_care_you_provide.GMoreAboutTheCare.present
 POST        /care-you-provide/more-about-the-care                       controllers.s_care_you_provide.GMoreAboutTheCare.submit
 
-# Breaks
-###############
-
-GET         /breaks/breaks-in-care                                      controllers.s_breaks.GOldBreaksInCare.present
-POST        /breaks/breaks-in-care                                      controllers.s_breaks.GOldBreaksInCare.submit
-POST        /breaks/delete-break-in-care                                controllers.s_breaks.GOldBreaksInCare.delete
-
-GET         /breaks/break/:id                                           controllers.s_breaks.GOldBreak.present(id: String)
-POST        /breaks/break                                               controllers.s_breaks.GOldBreak.submit
-
 
 # Breaks in care
 ###############
-GET         /breaks/new-breaks-in-care-GONE                                  controllers.breaks_in_care.GBreaksInCareType.present
-POST        /breaks/new-breaks-in-care-GONE                                  controllers.breaks_in_care.GBreaksInCareType.submit
-
 GET         /breaks/hospital/:id                                        controllers.breaks_in_care.GBreaksInCareHospital.present(id: String)
 POST        /breaks/hospital                                            controllers.breaks_in_care.GBreaksInCareHospital.submit
 

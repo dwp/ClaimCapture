@@ -1,7 +1,8 @@
 package utils.pageobjects.breaks_in_care
 
+import controllers.mappings.Mappings
 import utils.WithBrowser
-import utils.pageobjects.{IterationManager, PageContext, ClaimPage, PageObjectsContext}
+import utils.pageobjects._
 
 class GBreaksInCareOtherPage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, GBreaksInCareOtherPage.url+"/"+iteration, iteration) {
   declareDate("#caringEnded_date", "AboutTheCareYouProvideBreakEndDate_" + iteration)
@@ -26,7 +27,21 @@ object GBreaksInCareOtherPage {
   val url  = "/breaks/other-breaks"
 
   def apply(ctx:PageObjectsContext, iteration:Int=1) = new GBreaksInCareOtherPage(ctx,iteration)
-}
+
+  def fillDetails(context: PageObjectsContext, f: => TestData => Unit) = {
+    val claimData = defaultOtherDetails()
+    f(claimData)
+    val page = new GBreaksInCareOtherPage(context, 1) goToThePage()
+    page.fillPageWith(claimData)
+    page.submitPage()
+  }
+
+  private def defaultOtherDetails() = {
+    val claim = new TestData
+    claim.AboutTheCareYouProvideBreakEndDate_1 = "01/10/2015"
+    claim.AboutTheCareYouProvideBreakStartAnswer_1 = Mappings.no
+    claim
+  }}
 
 trait GBreaksInCareOtherPageContext extends PageContext {
   this: WithBrowser[_] =>
