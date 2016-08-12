@@ -172,13 +172,13 @@ class GBreaksInCareOtherSpec extends Specification {
       claim.questionGroup(BreaksInCare) must beLike { case Some(b: BreaksInCare) => b.breaks.size mustEqual 2 }
     }
 
-    "update existing break" in new WithApplication with Claiming {
+    "update existing other break start date from 2001 to 2002" in new WithApplication with Claiming {
       val requestNew = FakeRequest()
         .withFormUrlEncodedBody(
           "iterationID" -> breakId1,
           "caringEnded.date.day" -> "1",
           "caringEnded.date.month" -> "1",
-          "caringEnded.date.year" -> "2001",
+          "caringEnded.date.year" -> "2000",
           "caringEnded.time" -> "10",
           "caringStarted.answer" -> Mappings.yes,
           "caringStarted.date.day" -> "1",
@@ -192,19 +192,21 @@ class GBreaksInCareOtherSpec extends Specification {
 
       val result = GBreaksInCareOther.submit(requestNew)
 
-      val yearUpdate = 2000
+      getClaimFromCache(result).questionGroup(BreaksInCare) must beLike {
+        case Some(b: BreaksInCare) => b.breaks.head.caringStarted.get.date.get.year.get shouldEqual 2001
+      }
 
       val requestUpdate = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result))
         .withFormUrlEncodedBody(
           "iterationID" -> breakId1,
           "caringEnded.date.day" -> "1",
           "caringEnded.date.month" -> "1",
-          "caringEnded.date.year" -> "2001",
+          "caringEnded.date.year" -> "2000",
           "caringEnded.time" -> "10",
           "caringStarted.answer" -> Mappings.yes,
           "caringStarted.date.day" -> "1",
           "caringStarted.date.month" -> "1",
-          "caringStarted.date.year" -> yearUpdate.toString,
+          "caringStarted.date.year" -> "2002",
           "caringStarted.time" -> "12",
           "whereWasDp.answer" -> BreaksInCareOtherOptions.Holiday,
           "whereWereYou.answer" -> BreaksInCareOtherOptions.SomewhereElse,
@@ -214,7 +216,7 @@ class GBreaksInCareOtherSpec extends Specification {
       val page = GBreaksInCareOther.submit(requestUpdate)
 
       getClaimFromCache(result).questionGroup(BreaksInCare) must beLike {
-        case Some(b: BreaksInCare) => b.breaks.head.caringStarted.get.date.get.year.get shouldEqual yearUpdate
+        case Some(b: BreaksInCare) => b.breaks.head.caringStarted.get.date.get.year.get shouldEqual 2002
       }
     }
   }
