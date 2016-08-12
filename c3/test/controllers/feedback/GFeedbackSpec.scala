@@ -77,14 +77,14 @@ class GFeedbackSpec extends Specification {
       status(result) mustEqual SEE_OTHER
     }
 
-    "good submit redirect to uk gov page" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("origin.tag" -> "GB", "feedback.gb.thankyou.url" -> "/govuk/thankyou"))) with Claiming {
+    "good submit redirect to uk gov page" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("feedback.cads.enabled" -> "true", "origin.tag" -> "GB", "feedback.gb.thankyou.url" -> "/govuk/thankyou"))) with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(inputSatisfiedOnlyOK: _*)
       val result = GFeedback.submit("Claim")(request)
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) must beSome("/govuk/thankyou")
     }
 
-    "good submit for nissa redirect to ni gov page" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("origin.tag" -> "GB-NIR", "feedback.ni.thankyou.url" -> "/nissagov/thankyou"))) with Claiming {
+    "good submit for nissa redirect to ni gov page" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("feedback.cads.enabled" -> "true", "origin.tag" -> "GB-NIR", "feedback.ni.thankyou.url" -> "/nissagov/thankyou"))) with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(inputSatisfiedOnlyOK: _*)
       val result = GFeedback.submit("Claim")(request)
       status(result) mustEqual SEE_OTHER

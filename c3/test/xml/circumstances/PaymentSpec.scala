@@ -18,7 +18,7 @@ class PaymentSpec extends Specification {
   section("unit")
   "Circs payment change" should {
     "generate correct xml including stripped account number spaces" in new WithApplication {
-      val paymentChange=CircumstancesPaymentChange(YesNoWith2Text("No", None, Some("By Cheque")),
+      val paymentChange=CircumstancesPaymentChange("No", None, Some("By Cheque"),
                 "John Smith",
                 "Barclays Preston",
                 SortCode("20", "56", "57" ),

@@ -25,13 +25,13 @@
 	            <legend class="heading-medium form-label-bold">@Html(messages("c2.g5"))</legend>
 
 	            <ul class="coc-layout">
-	                @yesNoRadioGroup(currentForm("currentlyPaidIntoBank.answer"),
-	                    '_label -> messages("currentlyPaidIntoBank.label"))
+	                @yesNoRadioGroup(currentForm("currentlyPaidIntoBankAnswer"),
+	                    '_label -> messages("currentlyPaidIntoBankLabel"))
 
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
-	                        carersInputText(currentForm("currentlyPaidIntoBank.text1"),
-	                            '_label -> messages("currentlyPaidIntoBank.text1"),
+	                        carersInputText(currentForm("currentlyPaidIntoBankText1"),
+	                            '_label -> messages("currentlyPaidIntoBankText1"),
 	                            'maxLength -> 35)
 	                    ),
 	                    'id -> "currentlyPaidIntoBankWrap1"
@@ -39,8 +39,8 @@
 
 	                @otherDetailPlaceHolder(
 	                    inputDef = Seq(
-	                        carersInputText(currentForm("currentlyPaidIntoBank.text2"),
-	                            '_label -> messages("currentlyPaidIntoBank.text2"),
+	                        carersInputText(currentForm("currentlyPaidIntoBankText2"),
+	                            '_label -> messages("currentlyPaidIntoBankText2"),
 	                            'maxLength -> 35)
 	                    ),
 	                    'id -> "currentlyPaidIntoBankWrap2"
@@ -88,10 +88,10 @@
 			window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:@CircumstancesPaymentChange.textMaxLength});
 		})
 		$(function(){
-			window.initEvents("@CarersCrypto.encryptAES("currentlyPaidIntoBank_answer_yes")",
-			"@CarersCrypto.encryptAES("currentlyPaidIntoBank_answer_no")",
-			"@CarersCrypto.encryptAES("currentlyPaidIntoBank_text1")",
-			"@CarersCrypto.encryptAES("currentlyPaidIntoBank_text2")",
+			window.initEvents("@CarersCrypto.encryptAES("currentlyPaidIntoBankAnswer_yes")",
+			"@CarersCrypto.encryptAES("currentlyPaidIntoBankAnswer_no")",
+			"@CarersCrypto.encryptAES("currentlyPaidIntoBankText1")",
+			"@CarersCrypto.encryptAES("currentlyPaidIntoBankText2")",
 			"@CarersCrypto.encryptAES("moreAboutChanges")");
 			@ga.stagePrompt()
 		});

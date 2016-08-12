@@ -27,9 +27,9 @@ class GPaymentChangeFormSpec extends Specification {
      "map data into case class" in new WithApplication {
        GPaymentChange.form.bind(
          Map(
-           "currentlyPaidIntoBank.answer" -> yes,
-           "currentlyPaidIntoBank.text1" -> nameOfCurrentBank,
-           "currentlyPaidIntoBank.text2" -> currentPaymentMethod,
+           "currentlyPaidIntoBankAnswer" -> yes,
+           "currentlyPaidIntoBankText1" -> nameOfCurrentBank,
+           "currentlyPaidIntoBankText2" -> currentPaymentMethod,
            "currentPaymentMethod" -> currentPaymentMethod,
            "accountHolderName" -> accountHolderName,
            "bankFullName" -> bankFullName,
@@ -46,9 +46,9 @@ class GPaymentChangeFormSpec extends Specification {
            "This mapping should not happen." must equalTo("Error")
          },
          f => {
-           f.currentlyPaidIntoBank.answer must equalTo(yes)
-           f.currentlyPaidIntoBank.text1.get must equalTo(nameOfCurrentBank)
-           f.currentlyPaidIntoBank.text2.get must equalTo(currentPaymentMethod)
+           f.currentlyPaidIntoBankAnswer must equalTo(yes)
+           f.currentlyPaidIntoBankText1.get must equalTo(nameOfCurrentBank)
+           f.currentlyPaidIntoBankText2.get must equalTo(currentPaymentMethod)
            f.accountHolderName must equalTo(accountHolderName)
            f.bankFullName must equalTo(bankFullName)
            f.sortCode must equalTo(sortCode)
@@ -85,20 +85,22 @@ class GPaymentChangeFormSpec extends Specification {
      "mandatory fields must be populated when currentlyPaidIntoBank is yes" in new WithApplication {
        GPaymentChange.form.bind(
          Map(
-           "currentlyPaidIntoBank.answer" -> yes
+           "currentlyPaidIntoBankAnswer" -> yes,
+           "currentPaymentMethod" -> currentPaymentMethod,
+           "accountHolderName" -> accountHolderName,
+           "bankFullName" -> bankFullName,
+           "sortCode.sort1" -> sortCode1,
+           "sortCode.sort2" -> sortCode2,
+           "sortCode.sort3" -> sortCode3,
+           "accountNumber" -> accountNumber,
+           "rollOrReferenceNumber" -> rollOrReferenceNumber,
+           "paymentFrequency" -> paymentFrequency,
+           "moreAboutChanges" -> moreAboutChanges
          )
        ).fold(
            formWithErrors => {
-             formWithErrors.errors.length must equalTo(9)
-             formWithErrors.errors(0).message must equalTo("required")
-             formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
-             formWithErrors.errors(2).message must equalTo(Mappings.errorRequired)
-             formWithErrors.errors(3).message must equalTo(Mappings.errorRequired)
-             formWithErrors.errors(4).message must equalTo(Mappings.errorRequired)
-             formWithErrors.errors(5).message must equalTo(Mappings.errorRequired)
-             formWithErrors.errors(6).message must equalTo(Mappings.errorRequired)
-             formWithErrors.errors(7).message must equalTo(Mappings.errorRequired)
-             formWithErrors.errors(8).message must equalTo(Mappings.errorRequired)
+             formWithErrors.errors.length must equalTo(1)
+             formWithErrors.errors(0).message must equalTo("currentlyPaidIntoBankText1.required")
            },
            f => "This mapping should not happen." must equalTo("Valid")
          )
@@ -107,20 +109,22 @@ class GPaymentChangeFormSpec extends Specification {
      "mandatory fields must be populated when currentlyPaidIntoBank is no" in new WithApplication {
        GPaymentChange.form.bind(
          Map(
-           "currentlyPaidIntoBank.answer" -> no
+           "currentlyPaidIntoBankAnswer" -> no,
+           "currentPaymentMethod" -> currentPaymentMethod,
+           "accountHolderName" -> accountHolderName,
+           "bankFullName" -> bankFullName,
+           "sortCode.sort1" -> sortCode1,
+           "sortCode.sort2" -> sortCode2,
+           "sortCode.sort3" -> sortCode3,
+           "accountNumber" -> accountNumber,
+           "rollOrReferenceNumber" -> rollOrReferenceNumber,
+           "paymentFrequency" -> paymentFrequency,
+           "moreAboutChanges" -> moreAboutChanges
          )
        ).fold(
            formWithErrors => {
-             formWithErrors.errors.length must equalTo(9)
-             formWithErrors.errors(0).message must equalTo("required")
-             formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
-             formWithErrors.errors(2).message must equalTo(Mappings.errorRequired)
-             formWithErrors.errors(3).message must equalTo(Mappings.errorRequired)
-             formWithErrors.errors(4).message must equalTo(Mappings.errorRequired)
-             formWithErrors.errors(5).message must equalTo(Mappings.errorRequired)
-             formWithErrors.errors(6).message must equalTo(Mappings.errorRequired)
-             formWithErrors.errors(7).message must equalTo(Mappings.errorRequired)
-             formWithErrors.errors(8).message must equalTo(Mappings.errorRequired)
+             formWithErrors.errors.length must equalTo(1)
+             formWithErrors.errors(0).message must equalTo("currentlyPaidIntoBankText2.required")
            },
            f => "This mapping should not happen." must equalTo("Valid")
          )
@@ -129,9 +133,9 @@ class GPaymentChangeFormSpec extends Specification {
     "allow numbers and spaces in account number field" in new WithApplication {
       GPaymentChange.form.bind(
         Map(
-          "currentlyPaidIntoBank.answer" -> yes,
-          "currentlyPaidIntoBank.text1" -> nameOfCurrentBank,
-          "currentlyPaidIntoBank.text2" -> currentPaymentMethod,
+          "currentlyPaidIntoBankAnswer" -> yes,
+          "currentlyPaidIntoBankText1" -> nameOfCurrentBank,
+          "currentlyPaidIntoBankText2" -> currentPaymentMethod,
           "currentPaymentMethod" -> currentPaymentMethod,
           "accountHolderName" -> accountHolderName,
           "bankFullName" -> bankFullName,
@@ -148,9 +152,9 @@ class GPaymentChangeFormSpec extends Specification {
           "This mapping should not happen." must equalTo("Error")
         },
         f => {
-          f.currentlyPaidIntoBank.answer must equalTo(yes)
-          f.currentlyPaidIntoBank.text1.get must equalTo(nameOfCurrentBank)
-          f.currentlyPaidIntoBank.text2.get must equalTo(currentPaymentMethod)
+          f.currentlyPaidIntoBankAnswer must equalTo(yes)
+          f.currentlyPaidIntoBankText1.get must equalTo(nameOfCurrentBank)
+          f.currentlyPaidIntoBankText2.get must equalTo(currentPaymentMethod)
           f.accountHolderName must equalTo(accountHolderName)
           f.bankFullName must equalTo(bankFullName)
           f.sortCode must equalTo(sortCode)
@@ -165,9 +169,9 @@ class GPaymentChangeFormSpec extends Specification {
     "block letters in account number field" in new WithApplication {
       GPaymentChange.form.bind(
         Map(
-          "currentlyPaidIntoBank.answer" -> yes,
-          "currentlyPaidIntoBank.text1" -> nameOfCurrentBank,
-          "currentlyPaidIntoBank.text2" -> currentPaymentMethod,
+          "currentlyPaidIntoBankAnswer" -> yes,
+          "currentlyPaidIntoBankText1" -> nameOfCurrentBank,
+          "currentlyPaidIntoBankText2" -> currentPaymentMethod,
           "currentPaymentMethod" -> currentPaymentMethod,
           "accountHolderName" -> accountHolderName,
           "bankFullName" -> bankFullName,

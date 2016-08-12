@@ -31,9 +31,9 @@ class GPaymentChangeSpec extends Specification {
   val nextPageUrl = GCircsYourDetailsPage.url
 
   val validPaymentChangeFormInputScenario1 = Seq(
-    "currentlyPaidIntoBank.answer" -> yes,
-    "currentlyPaidIntoBank.text1" -> nameOfCurrentBank,
-    "currentlyPaidIntoBank.text2" -> "",
+    "currentlyPaidIntoBankAnswer" -> yes,
+    "currentlyPaidIntoBankText1" -> nameOfCurrentBank,
+    "currentlyPaidIntoBankText2" -> "",
     "currentPaymentMethod" -> currentPaymentMethod,
     "accountHolderName" -> accountHolderName,
     "whoseNameIsTheAccountIn" -> whoseNameIsTheAccountIn,
@@ -48,9 +48,9 @@ class GPaymentChangeSpec extends Specification {
   )
 
   val validPaymentChangeFormInputScenario2 = Seq(
-    "currentlyPaidIntoBank.answer" -> no,
-    "currentlyPaidIntoBank.text1" -> "",
-    "currentlyPaidIntoBank.text2" -> currentPaymentMethod,
+    "currentlyPaidIntoBankAnswer" -> no,
+    "currentlyPaidIntoBankText1" -> "",
+    "currentlyPaidIntoBankText2" -> currentPaymentMethod,
     "currentPaymentMethod" -> currentPaymentMethod,
     "accountHolderName" -> accountHolderName,
     "whoseNameIsTheAccountIn" -> whoseNameIsTheAccountIn,
@@ -65,9 +65,9 @@ class GPaymentChangeSpec extends Specification {
   )
 
   val blankAccount = Seq(
-    "currentlyPaidIntoBank.answer" -> no,
-    "currentlyPaidIntoBank.text1" -> "",
-    "currentlyPaidIntoBank.text2" -> currentPaymentMethod,
+    "currentlyPaidIntoBankAnswer" -> no,
+    "currentlyPaidIntoBankText1" -> "",
+    "currentlyPaidIntoBankText2" -> currentPaymentMethod,
     "currentPaymentMethod" -> currentPaymentMethod,
     "accountHolderName" -> accountHolderName,
     "whoseNameIsTheAccountIn" -> whoseNameIsTheAccountIn,
@@ -82,9 +82,9 @@ class GPaymentChangeSpec extends Specification {
   )
 
   val alphaAccount = Seq(
-    "currentlyPaidIntoBank.answer" -> no,
-    "currentlyPaidIntoBank.text1" -> "",
-    "currentlyPaidIntoBank.text2" -> currentPaymentMethod,
+    "currentlyPaidIntoBankAnswer" -> no,
+    "currentlyPaidIntoBankText1" -> "",
+    "currentlyPaidIntoBankText2" -> currentPaymentMethod,
     "currentPaymentMethod" -> currentPaymentMethod,
     "accountHolderName" -> accountHolderName,
     "whoseNameIsTheAccountIn" -> whoseNameIsTheAccountIn,
@@ -99,9 +99,9 @@ class GPaymentChangeSpec extends Specification {
   )
 
   val shortAccount = Seq(
-    "currentlyPaidIntoBank.answer" -> no,
-    "currentlyPaidIntoBank.text1" -> "",
-    "currentlyPaidIntoBank.text2" -> currentPaymentMethod,
+    "currentlyPaidIntoBankAnswer" -> no,
+    "currentlyPaidIntoBankText1" -> "",
+    "currentlyPaidIntoBankText2" -> currentPaymentMethod,
     "currentPaymentMethod" -> currentPaymentMethod,
     "accountHolderName" -> accountHolderName,
     "whoseNameIsTheAccountIn" -> whoseNameIsTheAccountIn,
@@ -116,9 +116,9 @@ class GPaymentChangeSpec extends Specification {
   )
 
   val spacedAccount = Seq(
-    "currentlyPaidIntoBank.answer" -> no,
-    "currentlyPaidIntoBank.text1" -> "",
-    "currentlyPaidIntoBank.text2" -> currentPaymentMethod,
+    "currentlyPaidIntoBankAnswer" -> no,
+    "currentlyPaidIntoBankText1" -> "",
+    "currentlyPaidIntoBankText2" -> currentPaymentMethod,
     "currentPaymentMethod" -> currentPaymentMethod,
     "accountHolderName" -> accountHolderName,
     "whoseNameIsTheAccountIn" -> whoseNameIsTheAccountIn,

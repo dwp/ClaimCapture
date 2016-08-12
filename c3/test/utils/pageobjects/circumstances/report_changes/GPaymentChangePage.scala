@@ -4,9 +4,9 @@ import utils.pageobjects.{PageContext, CircumstancesPage, PageObjectsContext}
 import utils.WithBrowser
 
 final class GPaymentChangePage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, GPaymentChangePage.url) {
-  declareYesNo("#currentlyPaidIntoBank_answer", "CircumstancesPaymentChangeCurrentlyPaidIntoBank")
-  declareInput("#currentlyPaidIntoBank_text1", "CircumstancesPaymentChangeNameOfCurrentBank")
-  declareInput("#currentlyPaidIntoBank_text2", "CircumstancesPaymentCurrentPaymentMethod")
+  declareYesNo("#currentlyPaidIntoBankAnswer", "CircumstancesPaymentChangeCurrentlyPaidIntoBank")
+  declareInput("#currentlyPaidIntoBankText1", "CircumstancesPaymentChangeNameOfCurrentBank")
+  declareInput("#currentlyPaidIntoBankText2", "CircumstancesPaymentCurrentPaymentMethod")
   declareInput("#accountHolderName", "CircumstancesPaymentChangeAccountHolderName")
   declareInput("#bankFullName", "CircumstancesPaymentChangeBankFullName")
   declareSortCode("#sortCode", "CircumstancesPaymentChangeSortCode")

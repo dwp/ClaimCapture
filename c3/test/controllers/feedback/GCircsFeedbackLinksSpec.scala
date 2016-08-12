@@ -23,6 +23,10 @@ class GCircsFeedbackLinksSpec extends Specification {
 
       val mainfeedback = browser.$("#feedback")
       mainfeedback.getText() mustEqual ("What did you think of this service?")
+
+      val linktext=browser.$(".finish-button").first().getText()
+      linktext mustEqual("What did you think of this service? (Takes 30 seconds.)")
+
       mainfeedback.getAttribute("href") must contain(CircsFeedbackUrl)
       mainfeedback.getAttribute("rel") mustEqual null
       mainfeedback.getAttribute("target") mustEqual null
@@ -38,7 +42,11 @@ class GCircsFeedbackLinksSpec extends Specification {
       browser.goTo("/circs-error")
 
       val mainfeedback = browser.$("#feedback")
-      mainfeedback.getText() mustEqual ("Leave feedback for this service")
+      mainfeedback.getText() mustEqual ("What did you think of this service?")
+
+      val linktext=browser.$(".form-steps").first().getText()
+      linktext mustEqual("What did you think of this service? (Takes 30 seconds.)")
+
       mainfeedback.getAttribute("href") must contain(CircsFeedbackUrl)
       mainfeedback.getAttribute("rel") mustEqual null
       mainfeedback.getAttribute("target") mustEqual null

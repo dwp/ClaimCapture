@@ -23,7 +23,7 @@
                 <nav class="form-steps">
                     <ul>
                         <li><button type="submit" name="action" value="next" class="button" @views.html.ga.trackClickEvent(linkName = "Chose try again") onClick="location.href = ' @url '" aria-label="@Html(messages("restart.claim.help"))">@Html(messages("restart.claim"))</button></li>
-                        <li>@common.feedbackLink(isFooterItem = false)</li>
+                        <li>@common.feedbackLink(isFooterItem = false) @messages("feedback.takes30secs")</li>
                     </ul>
                 </nav>
 

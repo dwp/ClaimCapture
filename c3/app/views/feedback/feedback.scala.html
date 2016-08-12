@@ -39,15 +39,15 @@
                     'trackLabel -> messages("xxxx"))
 
                 <ul>
-                    @yesNoRadioGroup(currentForm("difficultyAndText.answer"),
+                    @yesNoRadioGroup(currentForm("difficulty"),
                         'ignoreOptional -> true,
                         '_label -> messages("feedback.difficulty.label"))
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            carersInputTextArea(currentForm("difficultyAndText.text1"),
-                                '_label -> messages("feedback.difficulty.text1"),
-                                'helperAbove -> messages("feedback.difficulty.helper1"),
+                            carersInputTextArea(currentForm("feedback_text1"),
+                                '_label -> messages("feedback_text1"),
+                                'helperAbove -> messages("feedback_helper1"),
                                 'textAreaHelper -> Html(messages("3000charsLeft")),
                                 'maxLength -> 3000)
                         ),
@@ -56,8 +56,8 @@
 
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
-                            carersInputTextArea(currentForm("difficultyAndText.text2"),
-                                '_label -> messages("feedback.difficulty.text2"),
+                            carersInputTextArea(currentForm("feedback_text2"),
+                                '_label -> messages("feedback_text2"),
                                 'textAreaHelper -> Html(messages("3000charsLeft")),
                                 'maxLength -> 3000)
                         ),
@@ -75,16 +75,16 @@
 
     <script type="text/javascript">
     	$(function(){
-			window.areaCounter({selector:"@CarersCrypto.encryptAES("difficultyAndText_text1")",maxChars:3000});
-			window.areaCounter({selector:"@CarersCrypto.encryptAES("difficultyAndText_text2")",maxChars:3000});
+			window.areaCounter({selector:"@CarersCrypto.encryptAES("text1")",maxChars:3000});
+			window.areaCounter({selector:"@CarersCrypto.encryptAES("text2")",maxChars:3000});
 		})
 
 		$(function(){
 			window.initEvents(
-			"@CarersCrypto.encryptAES("difficultyAndText_answer_yes")",
-			"@CarersCrypto.encryptAES("difficultyAndText_answer_no")",
-			"@CarersCrypto.encryptAES("difficultyAndText_text1")",
-			"@CarersCrypto.encryptAES("difficultyAndText_text2")",
+			"@CarersCrypto.encryptAES("difficulty_yes")",
+			"@CarersCrypto.encryptAES("difficulty_no")",
+			"@CarersCrypto.encryptAES("feedback_text1")",
+			"@CarersCrypto.encryptAES("feedback_text2")",
 			"difficultyWrap1",
 			"difficultyWrap2"
 			);

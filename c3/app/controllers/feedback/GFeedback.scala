@@ -2,10 +2,9 @@ package controllers.feedback
 
 import controllers.CarersForms._
 import controllers.mappings.Mappings._
-import models.yesNo.{OptYesNoWith2Text}
 import play.api.i18n.{MMessages, MessagesApi, I18nSupport}
 import language.reflectiveCalls
-import play.api.data.Form
+import play.api.data.{Form}
 import play.api.data.Forms._
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
@@ -23,20 +22,11 @@ import scala.collection.mutable
 object GFeedback extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
 
-  val difficultyAndText =
-    "difficultyAndText" -> mapping(
-      "answer" -> {
-        optional(text.verifying(validYesNo))
-      },
-      "text1" -> optional(carersNonEmptyText(maxLength = 3000)),
-      "text2" -> optional(carersNonEmptyText(maxLength = 3000))
-    )(OptYesNoWith2Text.apply)(OptYesNoWith2Text.unapply)
-
   val form = Form(mapping(
-    "satisfiedAnswer" -> {
-      nonEmptyText
-    },
-    difficultyAndText
+    "satisfiedAnswer" -> {nonEmptyText},
+    "difficulty" -> optional(text.verifying(validYesNo)),
+    "feedback_text1" -> optional(carersNonEmptyText(maxLength = 3000)),
+    "feedback_text2" -> optional(carersNonEmptyText(maxLength = 3000))
   )
   (Feedback.apply)(Feedback.unapply))
 
@@ -86,8 +76,12 @@ object GFeedback extends Controller with CachedClaim with Navigable with I18nSup
     feedbackCacheObject.put("origin", form.origin)
     feedbackCacheObject.put("claimOrCircs", claimOrCircs)
     feedbackCacheObject.put("satisfiedScore", form.satisfiedScore.toString)
-    feedbackCacheObject.put("difficulty", form.difficultyAndText.answer.getOrElse(""))
-    feedbackCacheObject.put("comment", form.difficultyAndText.text)
+    feedbackCacheObject.put("difficulty", form.difficulty.getOrElse(""))
+    form.difficulty match {
+      case Some("yes") => feedbackCacheObject.put("comment", form.feedback_text1.getOrElse(""))
+      case Some("no") => feedbackCacheObject.put("comment", form.feedback_text2.getOrElse(""))
+      case _ =>
+    }
     feedbackCacheObject.put("useragent", request.headers.get("User-Agent").getOrElse(""))
     feedbackCacheObject
   }

@@ -34,6 +34,10 @@ onmousedown="trackEvent('/circumstances/report-changes/selection','Feedback');" 
       // No id on old style main body feedback link need to find 1st matching href
       val mainfeedback = browser.$("a[href=\"" + CircsFeedbackUrl + "\"]").first()
       mainfeedback.getText() mustEqual ("What did you think of this service?")
+
+      val linktext=browser.$(".finish-button").first().getText()
+      linktext mustEqual("What did you think of this service? (Takes 30 seconds.)")
+
       mainfeedback.getAttribute("href") mustEqual (CircsFeedbackUrl)
       mainfeedback.getAttribute("rel") mustEqual ("external")
       mainfeedback.getAttribute("target") mustEqual ("_blank")
@@ -52,7 +56,11 @@ onmousedown="trackEvent('/circumstances/report-changes/selection','Feedback');" 
 
       // No id on old style main body feedback link need to find 1st matching href
       val mainfeedback = browser.$("a[href=\"" + CircsFeedbackUrl + "\"]").first()
-      mainfeedback.getText() mustEqual ("Leave feedback for this service")
+      mainfeedback.getText() mustEqual ("What did you think of this service?")
+
+      val linktext=browser.$(".form-steps").first().getText()
+      linktext mustEqual("What did you think of this service? (Takes 30 seconds.)")
+
       mainfeedback.getAttribute("href") mustEqual (CircsFeedbackUrl)
       mainfeedback.getAttribute("rel") mustEqual ("external")
       mainfeedback.getAttribute("target") mustEqual ("_blank")

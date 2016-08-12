@@ -25,7 +25,7 @@ class ClaimEncryptionSpec extends Specification {
   def yourPartnerPersonalDetails = YourPartnerPersonalDetails(Some("Mrs"), Some("H"),
     None, Some("Dawg"), None, Some(NationalInsuranceNumber(Some("AA123456A"))),
     Some(DayMonthYear(1,1,1988)), Some("Cornish"), Some("yes"), Some("yes"), "yes")
-  def circumstancesPaymentChange = CircumstancesPaymentChange(YesNoWith2Text("blah", Some("blah"), None),
+  def circumstancesPaymentChange = CircumstancesPaymentChange("blah", Some("blah"), None,
     "H-dawg", "Barclays", SortCode("00", "00", "00"), "00000000", "", "Weekly", Some("blah"))
   def circumstancesAddressChange = CircumstancesAddressChange(MultiLineAddress(
     Some("123"), Some("Fake street"), None), Some("PL18 1AA"), YesNoWithDateAndQs("yes",

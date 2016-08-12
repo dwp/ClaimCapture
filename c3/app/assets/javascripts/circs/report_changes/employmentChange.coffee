@@ -88,6 +88,8 @@ hideHasWorkStartedYetWrap = (dateWhenStartedDay, dateWhenStartedMonth, dateWhenS
     $("#" + dateWhenStartedYear).val("")
     $("#" + hasWorkFinishedYetYes).prop('checked', false)
     $("#" + hasWorkFinishedYetNo).prop('checked', false)
+    $("#" + hasWorkFinishedYetYes).parent().removeClass("selected")
+    $("#" + hasWorkFinishedYetNo).parent().removeClass("selected")
 
 hideHasWorkFinishedYetWrap = (dateWhenFinishedDay, dateWhenFinishedMonth, dateWhenFinishedYear) ->
   $("#hasWorkFinishedYetWrap").slideUp 0, ->

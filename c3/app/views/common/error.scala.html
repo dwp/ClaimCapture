@@ -23,7 +23,7 @@
                 <p>@Html(messages("unrecoverable.error.cookie.if")) <a @views.html.ga.trackClickEvent(linkName = "Chose start again") href="@url">@Html(messages("unrecoverable.error.cookie.restart"))</a></p>
                 <nav class="form-steps">
                     <ul>
-                        <li>@common.feedbackLink(isFooterItem = false)</li>
+                        <li>@common.feedbackLink(isFooterItem = false) @messages("feedback.takes30secs")</li>
                     </ul>
                 </nav>
             </article>

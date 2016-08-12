@@ -7,13 +7,12 @@
 @import views.html.helper.dates._
 @import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
-@import controllers.s_employment.Employment.completedQuestionGroups
 @import controllers.IterationID
 @import utils.helpers.PastPresentLabelHelper._
 @import models.domain.{Iteration, Jobs}
-@import play.api.i18n.Messages
 @import controllers.mappings.Mappings._
 @import scala.language.postfixOps
+@import views.html.s_employment.main
 
 @employerName = @{
     claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.iterationID == IterationID(currentForm)).getOrElse(Iteration("", List())).employerName
@@ -35,8 +34,9 @@
 
             <ul>
                 @paymentFrequencySelect(currentForm("oftenGetPaid"),
-                    '_label -> labelForEmployment(claim, lang, "oftenGetPaidFrequency", IterationID(currentForm)),
-                    'id -> "oftenGetPaid",'textAreaHelper -> Html(messages("60charsLeft")), 'maxLength -> 60, 'class -> "textarea-reduced",
+                    '_label -> labelForEmployment(claim, lang, "oftenGetPaidFrequency", IterationID(currentForm)), 'id -> "oftenGetPaid",
+                    '_otherLabel -> messages("oftenGetPaid.otherHelper"),
+                    'textAreaHelper -> Html(messages("60charsLeft")), 'maxLength -> 60, 'class -> "textarea-reduced",
                     '_anchorIdRequired -> true, '_anchorId -> "oftenGetPaid"
                 )
 
@@ -64,13 +64,12 @@
     }
 
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
-    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/selectOther.js")></script>
-
     <script type="text/javascript">
     $(function(){
         window.areaCounter({selector:"@CarersCrypto.encryptAES("payInclusions")",maxChars:300});
         window.areaCounter({selector:"@CarersCrypto.encryptAES("oftenGetPaid_frequency_other")",maxChars:60});
     })
     </script>
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/selectOther.js")></script>
 
 }

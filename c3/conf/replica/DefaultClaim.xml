@@ -1,25 +1,25 @@
 <DWPBody xsi:schemaLocation="http://www.govtalk.gov.uk/dwp/carers-allowance file:/future/schema/ca/CarersAllowance_Schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns="http://www.govtalk.gov.uk/dwp/carers-allowance">
     <Version>0.24</Version>
-    <ClaimVersion>3.13</ClaimVersion>
+    <ClaimVersion>3.14</ClaimVersion>
     <Origin>GB</Origin>
-    <DWPCATransaction id="16070000243">
-      <TransactionId>16070000243</TransactionId>
-      <DateTimeGenerated>12-07-2016 14:27</DateTimeGenerated>
+    <DWPCATransaction id="16070000416">
+      <TransactionId>16070000416</TransactionId>
+      <DateTimeGenerated>25-07-2016 10:18</DateTimeGenerated>
       <LanguageUsed>English</LanguageUsed>
       <DWPCAClaim>
       <DateOfClaim><QuestionLabel>Claim date</QuestionLabel><Answer>08-04-2016</Answer></DateOfClaim>
       <QualifyingBenefit><QuestionLabel>What benefit does the person you care for get?</QuestionLabel><Answer>AA</Answer></QualifyingBenefit>
       <Claimant>
-      <Surname><QuestionLabel>Last name</QuestionLabel><Answer>IkNaAlaNrU8Kk2Hs2T9KxF0lWH9GelLgG7c+1HlLPTwFF2F6TtWfRSQY7AgszoXU</Answer></Surname>
+      <Surname><QuestionLabel>Last name</QuestionLabel><Answer>dBv4AgWmGZngyqfWoaKbm16SZlNCMEAJVZ5M0x6egiGe7UaHt1O6MtCDD1SdeRwE</Answer></Surname>
       <OtherNames><QuestionLabel>First name</QuestionLabel><Answer>Joe</Answer></OtherNames>
       
       <Title><QuestionLabel>Title</QuestionLabel><Answer>Mr</Answer></Title>
-      <DateOfBirth><QuestionLabel>Date of birth</QuestionLabel><Answer>10-10-2014</Answer></DateOfBirth>
-      <NationalInsuranceNumber><QuestionLabel>National Insurance number</QuestionLabel><Answer>h3BF8n1eFuUVHsdXDFD7BuigcsMuF59GBiGI/Ew0a60NOL+wDcB2wjk9ivKkg6vD</Answer></NationalInsuranceNumber>
+      <DateOfBirth><QuestionLabel>Date of birth</QuestionLabel><Answer>10-10-1990</Answer></DateOfBirth>
+      <NationalInsuranceNumber><QuestionLabel>National Insurance number</QuestionLabel><Answer>G8vOGV415DUOKD+8hFHm/Uf3FaXuD92+VHCHbYZqTBJpzTfumv2g+2RH51c32kRU</Answer></NationalInsuranceNumber>
       <Address>
       <QuestionLabel>Address</QuestionLabel>
       <Answer>
-        <Line>123</Line><Line>Street</Line><PostCode>NA33+IjwVhZDZZJqsuAmuPmi5Gwou4wPjaQgYRVM363FIdJkrmZg3zDZ5Wqc0oVy</PostCode>
+        <Line>123</Line><Line>Street</Line><PostCode>DNCyh3Fm0sLGKLq1P7vmd38v8e8znlv9xev6NyalUdSOriO8KWR9dtDXVXjp6jSQ</PostCode>
       </Answer>
     </Address>
       
@@ -31,20 +31,23 @@
       <Email><QuestionLabel>Email address</QuestionLabel><Answer>CAU.CASA@dwp.gsi.gov.uk</Answer></Email>
     </Claimant>
       <Caree>
-      <Surname><QuestionLabel>Last name</QuestionLabel><Answer>386cTm4ZT+gw1onXid8fwwpnFRzQQ9GirWQ84oR7Ct94POx5Xr6uvRR0TxOBmFxi</Answer></Surname>
+      <Surname><QuestionLabel>Last name</QuestionLabel><Answer>MM/vDjAoupWbjuffHzoZl+G6gm6NeIiQWyuu1FRhRLJClJNMLI5Fbtrc9cK52y27</Answer></Surname>
       <OtherNames><QuestionLabel>First name</QuestionLabel><Answer>Jane</Answer></OtherNames>
       
       <Title><QuestionLabel>Title</QuestionLabel><Answer>Mrs</Answer></Title>
       <DateOfBirth><QuestionLabel>Date of birth</QuestionLabel><Answer>08-04-2001</Answer></DateOfBirth>
-      <NationalInsuranceNumber><QuestionLabel>National Insurance number</QuestionLabel><Answer>I0Ir2ORFtviME/HUgja5o2nL3r+3DH3rSvtak6r3bP0fVTuxuGZ8/Xas03R7ddbv</Answer></NationalInsuranceNumber>
+      <NationalInsuranceNumber><QuestionLabel>National Insurance number</QuestionLabel><Answer>pBHIdIs9Bo0sSHRN/DBb6fjPlGGS3gH69AErfgKK0mNohul4VpiiLQVxp7iEZnmS</Answer></NationalInsuranceNumber>
       <Address>
       <QuestionLabel>Address</QuestionLabel>
       <Answer>
-        <Line>470 Street</Line><Line>Newtown</Line><PostCode>+Qs7LD8VnpPhEzDvsPtZu2APkDfL2JLDcbJxAucq/3cfTn2cMjf3bXjjXHpFgAWd</PostCode>
+        <Line>470 Street</Line><Line>Newtown</Line><PostCode>XzFTWYbVWgBmXMfWMy8sJpG0km/p02D2OL3eVSpA8Uw05NoE8S3c86L1XdgJ6WeL</PostCode>
       </Answer>
     </Address>
       <RelationToClaimant><QuestionLabel>What's their relationship to you?</QuestionLabel><Answer>Grandma</Answer></RelationToClaimant>
-      <Cared35Hours><QuestionLabel>Do you spend 35 hours or more each week caring for the person you care for?</QuestionLabel><Answer>Yes</Answer></Cared35Hours>
+      <Cared35Hours><QuestionLabel>Do you spend 35 hours or more each week providing care for Jane Bloggs?</QuestionLabel><Answer>Yes</Answer></Cared35Hours>
+      <OtherCarer><QuestionLabel>Does anyone else spend 35 hours or more each week providing care for Jane Bloggs?</QuestionLabel><Answer>No</Answer></OtherCarer>
+      
+      
       <CareBreak>
         <BreaksSinceClaim><QuestionLabel>Have you had any breaks from caring for this person since 8 January 2016?</QuestionLabel><Answer>Yes</Answer></BreaksSinceClaim>
         <StartDate><QuestionLabel>When did the break start?</QuestionLabel><Answer>08-12-2015</Answer></StartDate>
@@ -193,13 +196,13 @@
     </Incomes>
       <HavePartner><QuestionLabel>Have you lived with a partner at any time since your claim date?</QuestionLabel><Answer>Yes</Answer></HavePartner>
       <Partner>
-        <Surname><QuestionLabel>Last name</QuestionLabel><Answer>rUwqzqjh8YB3673fT12vgOHpV7nJ3lSk4OxbWX25SoVKMBMJOqY6yXtAervZpw+F</Answer></Surname>
+        <Surname><QuestionLabel>Last name</QuestionLabel><Answer>ISolxIdYlxifBo4ByQkssVeLv9Ap1caM3FFiy2+E6kjNFl5Z8v4sqx3UgRqFuPsx</Answer></Surname>
         <OtherNames><QuestionLabel>First name</QuestionLabel><Answer>Joan</Answer></OtherNames>
         
         
         <Title><QuestionLabel>Title</QuestionLabel><Answer>Miss</Answer></Title>
         <DateOfBirth><QuestionLabel>Date of birth</QuestionLabel><Answer>08-04-2006</Answer></DateOfBirth>
-        <NationalInsuranceNumber><QuestionLabel>National Insurance number</QuestionLabel><Answer>ASVdmR0e+56jId7Q1ppARen4Dbxv++foo70eAd/JHHQopvJL2g1bPJlHznFhjbMU</Answer></NationalInsuranceNumber>
+        <NationalInsuranceNumber><QuestionLabel>National Insurance number</QuestionLabel><Answer>BNDNU10V1ZU9yu3kcoe9WYyaoneerUfDriZgMgkHv+MJYu4VDeiAJK2ys2r4n7Kr</Answer></NationalInsuranceNumber>
         <NationalityPartner><QuestionLabel>Nationality</QuestionLabel><Answer>British</Answer></NationalityPartner>
         <RelationshipStatus>
           <SeparatedFromPartner><QuestionLabel>Have you separated since your claim date?</QuestionLabel><Answer>No</Answer></SeparatedFromPartner>
@@ -247,7 +250,7 @@
         <Content>Read more about how Carer's Allowance affects other benefits.</Content>
         <Content>You must tell the person you care for before you claim.</Content>
       </DisclaimerStatement>
-      <DisclaimerQuestion><QuestionLabel>I agree</QuestionLabel><Answer>No</Answer></DisclaimerQuestion>
+      <DisclaimerQuestion><QuestionLabel>I agree</QuestionLabel><Answer>Yes</Answer></DisclaimerQuestion>
     </Disclaimer>
       <EvidenceList>
       <RecipientAddress>
@@ -263,23 +266,23 @@
       <Consents>
       <Consent><QuestionLabel>Do you agree to the Carer's Allowance Unit contacting anyone mentioned in this form?</QuestionLabel><Answer>Yes</Answer></Consent>
     </Consents>
-      <AssistedDecisions><AssistedDecision><Reason>Customer does not turn 16 in next 3 months. Send Proforma 491 to customer.</Reason><RecommendedDecision>Potential disallowance decision,no table</RecommendedDecision></AssistedDecision></AssistedDecisions>
+      <AssistedDecisions><AssistedDecision><Reason>Send DS790/790B COMB to customer.</Reason><RecommendedDecision>None,show table</RecommendedDecision></AssistedDecision></AssistedDecisions>
     </DWPCAClaim>
       </DWPCATransaction>
     <ds:Signature>
 <ds:SignedInfo>
 <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
 <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
-<ds:Reference URI="#16070000243">
+<ds:Reference URI="#16070000416">
 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-<ds:DigestValue>VZO5fVUO9s+jUU8uN3+Cdb9CDp4=</ds:DigestValue>
+<ds:DigestValue>Wv1Hy66eZyPRNUCUPX3VECd7F8Y=</ds:DigestValue>
 </ds:Reference>
 </ds:SignedInfo>
 <ds:SignatureValue>
-e9Kw2UfFakhYSNQClb+sJd8JlDwsj5XUfTWhPw3TSC/Scv6yz1LYzIup1od0j6aS2jvGNvEe4X0p
-okpYIlbt/EY3fGKND8soZE+PgrFk8ZJIv1yd8SS2wpxpNtB88o3ETiIRsbTHm6ZHQYzMXXKNOMth
-WcDEjM/Iu2L0mpxdCNhs4HCx2rxedrhNgR4oL4EXSYufEQRMQ3/LbRd4u2rd3insms8+G0/ub2WA
-KJvCWpa9CiXjRbm6GiUasBwAOgI9Y9mHYjFC5mcx51s7wu1JOh+1Uxkb2DqRDdA71hl2OrQYBRPy
-VI87IXjF/whERs9EhyufrUp1GktgpRTZOW7rWg==
+Qlka0DhvxxFs4CaSxyLMOkxx4k2oIddOTddVg8d0qgizfcwgRZBR7Ia48SVT4AY+oOeNlNApHTGg
+Vg5YghiT7eli00JyZIdkIdPQyaJxkID0rP3+2Rd0wU4IOfmOXcDRCAjmpVv8GNbjeip5uwGbl1a3
+Ws7rFKX2YeEhs07wxQSW5He2tqv5CYJPDKQ5KCHIF+jsXl9QZqK1akwsFh7STE29s0rDL7AWhi9d
+Tmk3IrSiv9hRjP5fgDAfgfNx+nCSQK357IxllY2v6377QbzMsWBJXqaSoPVxxWIpyPqPZq11Nlvi
+wxK1hrwfX2SMzByMS67FTinlgJ/iM7iIzkxLpg==
 </ds:SignatureValue>
 </ds:Signature></DWPBody>
