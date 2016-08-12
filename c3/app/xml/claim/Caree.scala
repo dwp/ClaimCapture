@@ -1,5 +1,6 @@
 package xml.claim
 
+import app.BreaksInCareGatherOptions
 import controllers.mappings.Mappings
 import models.yesNo.{YesNoWithDate, RadioWithText, YesNoMandWithAddress}
 import models.MultiLineAddress
@@ -33,61 +34,137 @@ object Caree extends XMLComponent {
     </Caree>
   }
 
+  private def dpDetails(claim: Claim) : String = {
+    val theirPersonalDetails = claim.questionGroup(TheirPersonalDetails).getOrElse(TheirPersonalDetails()).asInstanceOf[TheirPersonalDetails]
+    theirPersonalDetails.firstName + " " + theirPersonalDetails.surname
+  }
+
+  def findSelectedMapping(breaks: List[Break]) = {
+    val hospital = breaks.filter(b => b.typeOfCare == Breaks.hospital).size
+    breaks.filter(b => b.typeOfCare == Breaks.carehome).size>0 match {
+      case true => if (hospital == 0) "Respite or care home" else "Hospital, Respite or care home"
+      case _ => if (hospital == 0) "" else "Hospital"
+    }
+  }
+
+  def findOtherSelected(breaks: List[Break]) = {
+    breaks.filter(b => b.typeOfCare == Breaks.another).size>0 match {
+      case true => "yes"
+      case _ => "no"
+    }
+  }
+
   private def careBreak(claim: Claim) = {
-    val breaksInCare = claim.questionGroup[OldBreaksInCare].getOrElse(OldBreaksInCare())
+    val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
-    def breaksInCareLabel (label:String, answer:Boolean) = {
-
+    def breaksInCareLabel (label: String, answer: String, dp: String) = {
       val claimDateQG = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
-      question(<BreaksSinceClaim/>, label, answer, claimDateQG.dateWeRequireBreakInCareInformationFrom(claim.lang.getOrElse(Lang("en"))))
+      question(<BreaksSinceClaim/>, label, answer, claimDateQG.dateWeRequireBreakInCareInformationFrom(claim.lang.getOrElse(Lang("en"))), dp)
+    }
+    val dp = dpDetails(claim);
+    val xmlLastBreak = {
+      if (breaksInCare.breaks.size > 0) {
+        <CareBreak>
+          {breaksInCareLabel("breaktype_another", "None", dp)}
+          {question(<BreaksOtherSinceClaim/>, "breaktype_other_another", "no", dp)}
+        </CareBreak>
+      } else {NodeSeq.Empty}
     }
 
-    val lastValue = claim.questionGroup[OldBreaksInCareSummary].getOrElse(OldBreaksInCareSummary()).answer == Mappings.yes
-    val xmlNoBreaks = {
+    val xmlFirstBreak = {
       <CareBreak>
-        {if (breaksInCare.breaks.size > 0){
-          {breaksInCareLabel("answer.more.label", lastValue)}
-        } else {
-          {breaksInCareLabel("answer.label", lastValue)}
-        }}
+        {breaksInCareLabel("breaktype_first", findSelectedMapping(breaksInCare.breaks), dp)}
+        {question(<BreaksOtherSinceClaim/>, "breaktype_other_first", findOtherSelected(breaksInCare.breaks), dp)}
       </CareBreak>
     }
 
+    xmlFirstBreak ++
     {for ((break, index) <- breaksInCare.breaks.zipWithIndex) yield {
-      <CareBreak>
-        {index > 0 match {
-          case true =>  breaksInCareLabel("answer.more.label", true)
-          case false => breaksInCareLabel("answer.label", true)
-        }}
-        {break.startTime match {
-            case Some(s) => {question(<StartDate/>, "start", break.start.`dd-MM-yyyy`) ++
-                             question(<StartTime/>, "startTime", s)
-                             }
-            case _ => question(<StartDate/>, "start", break.start.`dd-MM-yyyy`)
-          }
+        {
+          {break.typeOfCare match {
+            case Breaks.hospital => {createHospitalBreak(break, dp)}
+            case Breaks.carehome => {createRespiteBreak(break, dp)}
+            case Breaks.another => {createOtherBreak(break, dp)}
+          }}
         }
-        {break.hasBreakEnded.answer match {
-          case "yes" => {
-            break.endTime match {
-              case Some(e) => {
-                  question(<EndDateDoNotKnow/>,"hasBreakEnded.answer",break.hasBreakEnded.answer) ++
-                  question(<EndDate/>,"hasBreakEnded.date", break.hasBreakEnded.date.get.`dd-MM-yyyy`) ++
-                  question(<EndTime/>, "endTime", e)
-              }
-              case _ => {
-                  question(<EndDateDoNotKnow/>, "hasBreakEnded.answer", break.hasBreakEnded.answer) ++
-                  question(<EndDate/>, "hasBreakEnded.date", break.hasBreakEnded.date.get.`dd-MM-yyyy`)
-              }
+    }} ++ xmlLastBreak
+  }
+
+  def createHospitalBreak(break: Break, dp: String) = {
+    val startDetails = break.whoWasAway match { case BreaksInCareGatherOptions.DP => (break.whenWasDpAdmitted.get, "whenWasDpAdmitted") case _ => (break.whenWereYouAdmitted.get, "whenWereYouAdmitted") }
+    val breakEndedDetails = break.whoWasAway match { case BreaksInCareGatherOptions.DP => (break.dpStayEnded.get, "dpStayEnded") case _ => (break.yourStayEnded.get, "yourStayEnded") }
+    <CareBreak>
+      {question(<BreaksType/>, "Type of Break", "Hospital")}
+      {question(<WhoWasAway/>, "whoWasInHospital", break.whoWasAway)}
+      {question(<StartDate/>, startDetails._2, startDetails._1.`dd-MM-yyyy`, dp)}
+      {breakEndedDetails._1.answer match {
+        case "yes" => {
+          question(<BreakEnded/>, s"${breakEndedDetails._2}.answer", breakEndedDetails._1.answer, dp) ++ question(<EndDate/>, s"${breakEndedDetails._2}.date", breakEndedDetails._1.date.get.`dd-MM-yyyy`, dp)
+        }
+        case "no" => question(<BreakEnded/>, s"${breakEndedDetails._2}.answer", breakEndedDetails._1.answer, dp)
+        case _ => NodeSeq.Empty
+      }}
+      {if (break.whoWasAway == BreaksInCareGatherOptions.DP) {
+        question(<BreaksInCareRespiteStillCaring/>, "breaksInCareStillCaring", break.breaksInCareStillCaring.get, dp)
+      }}
+    </CareBreak>
+  }
+
+  def createRespiteBreak(break: Break, dp: String) = {
+    val startDetails = break.whoWasAway match { case BreaksInCareGatherOptions.DP => (break.whenWasDpAdmitted.get, "whenWasDpAdmitted") case _ => (break.whenWereYouAdmitted.get, "whenWereYouAdmitted") }
+    val breakEndedDetails = break.whoWasAway match { case BreaksInCareGatherOptions.DP => (break.dpStayEnded.get, "dpRespiteStayEnded") case _ => (break.yourStayEnded.get, "yourRespiteStayEnded") }
+    <CareBreak>
+      {question(<BreaksType/>, "Type of Break", "Respite")}
+      {question(<WhoWasAway/>, "whoWasInHospital", break.whoWasAway)}
+      {question(<StartDate/>, startDetails._2, startDetails._1.`dd-MM-yyyy`, dp)}
+      {breakEndedDetails._1.answer match {
+        case "yes" => {
+          question(<BreakEnded/>, s"${breakEndedDetails._2}.answer", breakEndedDetails._1.answer, dp) ++ question(<EndDate/>, s"${breakEndedDetails._2}.date", breakEndedDetails._1.date.get.`dd-MM-yyyy`, dp)
+        }
+        case "no" => question(<BreakEnded/>, s"${breakEndedDetails._2}.answer", breakEndedDetails._1.answer, dp)
+        case _ => NodeSeq.Empty
+      }}
+      {break.whoWasAway match {
+        case BreaksInCareGatherOptions.You => question(<MedicalCare/>, "yourMedicalProfessional", break.yourMedicalProfessional.get, dp)
+        case BreaksInCareGatherOptions.DP =>
+          question(<DpMedicalCare/>, "dpMedicalProfessional", break.dpMedicalProfessional.get, dp) ++
+          question(<BreaksInCareRespiteStillCaring/>, "breaksInCareStillCaring", break.breaksInCareStillCaring.get, dp)
+      }}
+      </CareBreak>
+  }
+
+  def createOtherBreak(break: Break, dp: String) = {
+    <CareBreak>
+      {question(<BreaksType/>, "Type of Break", "Other")}
+      {question(<WhoWasAway/>, "whoWasInHospital", "You")}
+      {break.caringStarted.get.answer match {
+        case "yes" => {
+          break.caringStartedTime match {
+            case Some(e) => {
+              question(<BreakStarted/>, "caringStarted.answer", break.caringStarted.get.answer, dp) ++
+              question(<StartDate/>, "caringStarted.date", break.caringStarted.get.date.get.`dd-MM-yyyy`, dp) ++
+              question(<StartTime/>, "caringStarted.time", e, dp)
+            }
+            case _ => {
+              question(<BreakStarted/>, "caringStarted.answer", break.caringStarted.get.answer, dp) ++
+              question(<StartDate/>, "caringStarted.date", break.caringStarted.get.date.get.`dd-MM-yyyy`, dp)
             }
           }
-          case "no" => question(<EndDateDoNotKnow/>,"hasBreakEnded.answer",break.hasBreakEnded.answer)
-          case _ => NodeSeq.Empty
-        }}
-        {question(<MedicalCare/>,"medicalDuringBreak", break.medicalDuringBreak)}
-        {questionOther(<ReasonClaimant/>,"whereYou", break.whereYou.answer, break.whereYou.text)}
-        {questionOther(<ReasonCaree/>,"wherePerson", break.wherePerson.answer, break.wherePerson.text)}
-      </CareBreak>
-    }} ++ xmlNoBreaks
+        }
+        case "no" => {question(<BreakStarted/>, "caringStarted.answer", break.caringStarted.get.answer, dp)}
+        case _ => NodeSeq.Empty
+      }
+    }
+    {break.caringStartedTime match {
+      case Some(e) => {
+        question(<EndDate/>, "caringStarted.date", break.caringStarted.get.date.get.`dd-MM-yyyy`, dp) ++
+        question(<EndTime/>, "caringStarted.time", e, dp)
+      }
+      case _ => question(<EndDate/>, "caringStarted.date", break.caringStarted.get.date.get.`dd-MM-yyyy`, dp)
+    }}
+    {questionOther(<ReasonClaimant/>,"whereWereYou", break.whereWereYou.get.answer, break.whereWereYou.get.text, dp)}
+    {questionOther(<ReasonCaree/>,"whereWasDp", break.whereWasDp.get.answer, break.whereWasDp.get.text, dp)}
+    </CareBreak>
   }
 
   def fromXml(xml: NodeSeq, claim: Claim) : Claim = {

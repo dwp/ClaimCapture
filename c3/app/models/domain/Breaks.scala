@@ -39,7 +39,7 @@ case object BreaksInCare extends QuestionGroup.Identifier {
 }
 
 case class Break(iterationID: String = "",
-                 typeOfCare: String = "hospital",
+                 typeOfCare: String = Breaks.hospital,
                  whoWasAway: String = "",
                  whenWereYouAdmitted: Option[DayMonthYear] = None,
                  yourStayEnded: Option[YesNoWithDate] = None,
@@ -50,7 +50,7 @@ case class Break(iterationID: String = "",
                  dpMedicalProfessional: Option[String] = None,
                  caringEnded: Option[DayMonthYear] = None,
                  caringStarted: Option[YesNoWithDate] = None,
-                 whereWhereYou: Option[RadioWithText] = None,
+                 whereWereYou: Option[RadioWithText] = None,
                  whereWasDp: Option[RadioWithText] = None,
                  caringEndedTime: Option[String] = None,
                  caringStartedTime: Option[String] = None

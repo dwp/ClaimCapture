@@ -53,7 +53,7 @@ object GBreaksInCareOther extends Controller with CachedClaim with I18nSupport w
     .verifying(requiredCaringStartedAnswer)
     .verifying(requiredCaringStartedDate)
     .verifying(validateOptionalCarersNonEmptyTextStarted)
-    .verifying(requiredWhereWhereYouRadioWithText)
+    .verifying(requiredwhereWereYouRadioWithText)
     .verifying(requiredWhereWasDpRadioWithText)
   )
 
@@ -133,10 +133,10 @@ object GBreaksInCareOther extends Controller with CachedClaim with I18nSupport w
     }
   }
 
-  private def requiredWhereWhereYouRadioWithText: Constraint[Break] = Constraint[Break]("constraint.radioWithText") { break =>
-    break.whereWhereYou.isDefined match {
-      case true if (!RadioWithText.validateOnOther(break.whereWhereYou.get)) => Invalid(ValidationError("whereWereYou.text"))
-      case true if (break.whereWhereYou.get == BreaksInCareOtherOptions.SomewhereElse) => restrictedStringCheck(break.whereWhereYou.get.text.get, "whereWereYou.text.restricted")
+  private def requiredwhereWereYouRadioWithText: Constraint[Break] = Constraint[Break]("constraint.radioWithText") { break =>
+    break.whereWereYou.isDefined match {
+      case true if (!RadioWithText.validateOnOther(break.whereWereYou.get)) => Invalid(ValidationError("whereWereYou.text"))
+      case true if (break.whereWereYou.get == BreaksInCareOtherOptions.SomewhereElse) => restrictedStringCheck(break.whereWereYou.get.text.get, "whereWereYou.text.restricted")
       case false if (break.caringStarted.isDefined && break.caringStarted.get.answer == Mappings.yes) => Invalid(ValidationError("whereWereYou"))
       case _ => Valid
     }
@@ -145,7 +145,7 @@ object GBreaksInCareOther extends Controller with CachedClaim with I18nSupport w
   private def requiredWhereWasDpRadioWithText: Constraint[Break] = Constraint[Break]("constraint.radioWithText") { break =>
     break.whereWasDp.isDefined match {
       case true if (!RadioWithText.validateOnOther(break.whereWasDp.get)) => Invalid(ValidationError("whereWasDp.text"))
-      case true if (break.whereWhereYou.get == BreaksInCareOtherOptions.SomewhereElse) => restrictedStringCheck(break.whereWasDp.get.text.get, "whereWasDp.text.restricted")
+      case true if (break.whereWereYou.get == BreaksInCareOtherOptions.SomewhereElse) => restrictedStringCheck(break.whereWasDp.get.text.get, "whereWasDp.text.restricted")
       case false if (break.caringStarted.isDefined && break.caringStarted.get.answer == Mappings.yes) => Invalid(ValidationError("whereWasDp"))
       case _ => Valid
     }

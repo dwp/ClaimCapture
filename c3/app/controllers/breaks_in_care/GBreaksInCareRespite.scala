@@ -64,7 +64,7 @@ object GBreaksInCareRespite extends Controller with CachedClaim with I18nSupport
   def submit = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        val theirPersonalDetails = claim.questionGroup(TheirPersonalDetails).getOrElse(TheirPersonalDetails()).asInstanceOf[TheirPersonalDetails]
+        val dp = dpDetails(claim);
         val formWithErrorsUpdate = formWithErrors
           .replaceError("", "whenWereYouAdmitted", FormError("whenWereYouAdmitted", errorRequired))
           .replaceError("", "whenWereYouAdmitted.invalid", FormError("whenWereYouAdmitted", errorInvalid))
@@ -74,16 +74,16 @@ object GBreaksInCareRespite extends Controller with CachedClaim with I18nSupport
           .replaceError("", "yourStayEnded.invalidDateRange", FormError("yourStayEnded.date", errorInvalidDateRange))
           .replaceError("", "yourMedicalProfessional", FormError("yourMedicalProfessional", errorRequired))
           .replaceError("", "yourMedicalProfessional.invalidYesNo", FormError("yourMedicalProfessional", invalidYesNo))
-          .replaceError("", "whenWasDpAdmitted", FormError("whenWasDpAdmitted", errorRequired, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
-          .replaceError("", "whenWasDpAdmitted.invalid", FormError("whenWasDpAdmitted", errorInvalid, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
+          .replaceError("", "whenWasDpAdmitted", FormError("whenWasDpAdmitted", errorRequired, Seq(dp)))
+          .replaceError("", "whenWasDpAdmitted.invalid", FormError("whenWasDpAdmitted", errorInvalid, Seq(dp)))
           .replaceError("", "dpStayEnded.answer", FormError("dpRespiteStayEnded.answer", errorRequired))
-          .replaceError("", "dpStayEnded.date", FormError("dpRespiteStayEnded.date", errorRequired, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
-          .replaceError("", "dpStayEnded.date.invalid", FormError("dpRespiteStayEnded.date", errorInvalid, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
-          .replaceError("", "dpStayEnded.invalidDateRange", FormError("dpStayEnded.date", errorInvalidDateRange, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
-          .replaceError("", "breaksInCareStillCaring", FormError("breaksInCareRespiteStillCaring", errorRequired, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
-          .replaceError("", "breaksInCareStillCaring.invalidYesNo", FormError("breaksInCareRespiteStillCaring", invalidYesNo, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
-          .replaceError("", "dpMedicalProfessional", FormError("dpMedicalProfessional", errorRequired, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
-          .replaceError("", "dpMedicalProfessional.invalidYesNo", FormError("dpMedicalProfessional", invalidYesNo, Seq(theirPersonalDetails.firstName + " " + theirPersonalDetails.surname)))
+          .replaceError("", "dpStayEnded.date", FormError("dpRespiteStayEnded.date", errorRequired, Seq(dp)))
+          .replaceError("", "dpStayEnded.date.invalid", FormError("dpRespiteStayEnded.date", errorInvalid, Seq(dp)))
+          .replaceError("", "dpStayEnded.invalidDateRange", FormError("dpStayEnded.date", errorInvalidDateRange, Seq(dp)))
+          .replaceError("", "breaksInCareStillCaring", FormError("breaksInCareRespiteStillCaring", errorRequired, Seq(dp)))
+          .replaceError("", "breaksInCareStillCaring.invalidYesNo", FormError("breaksInCareRespiteStillCaring", invalidYesNo, Seq(dp)))
+          .replaceError("", "dpMedicalProfessional", FormError("dpMedicalProfessional", errorRequired, Seq(dp)))
+          .replaceError("", "dpMedicalProfessional.invalidYesNo", FormError("dpMedicalProfessional", invalidYesNo, Seq(dp)))
         BadRequest(views.html.breaks_in_care.breaksInCareRespite(formWithErrorsUpdate, backCall))
       },
       break => {
