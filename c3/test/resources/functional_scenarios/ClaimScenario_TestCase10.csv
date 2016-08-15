@@ -52,7 +52,8 @@ About the care you provide,Contact details of the person you care for,Postcode,A
 About the care you provide,More about the care you provide,Do you spend 35 hours or more each week caring for this person?,AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek,No
 About the care you provide,More about the care you provide,Does anyone else spend 35 hours or more each week providing care for dp?,AboutTheCareYouProvideOtherCarer,No
 About the care you provide,Breaks from Care,"Any times dp has been in hospital, respite or care home?",BreaktypeNoneCheckbox,true
-About the care you provide,Breaks from Care,"Any other times you've not provided care for dp?",BreaktypeOtherYesNo,NoEducation,Your course details,Have you been on a course of education since your claim date:<ddmmyyyy>? ,EducationHaveYouBeenOnACourseOfEducation,No
+About the care you provide,Breaks from Care,"Any other times you've not provided care for dp?",BreaktypeOtherYesNo,No
+Education,Your course details,Have you been on a course of education since your claim date:<ddmmyyyy>? ,EducationHaveYouBeenOnACourseOfEducation,No
 Education,Your course details,Course title,EducationCourseTitle,
 Education,Your course details,"Name of school, college or university",EducationNameofSchool,
 Education,Your course details,Name of Main Teacher or Tutor,EducationNameOfMainTeacherOrTutor,
