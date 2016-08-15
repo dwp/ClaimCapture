@@ -16,13 +16,12 @@ class CareYouProvideIntegrationSpec extends Specification {
       page goToThePage()
     }
 
-    "navigate to education if all details provided and no breaks" in new WithBrowser with PageObjects {
+    "navigate to breaks summary page if all details provided" in new WithBrowser with PageObjects {
       val claim = ClaimScenarioFactory.s4CareYouProvide(true,true)
       val page = GTheirPersonalDetailsPage(context)
       page goToThePage()
       val breakPage = page runClaimWith(claim,GBreaksInCareSummaryPage.url)
-      breakPage.fillYesNo("#answer","no")
-      breakPage.submitPage().url mustEqual GYourCourseDetailsPage.url
+      breakPage must beAnInstanceOf[GBreaksInCareSummaryPage]
     }
   }
   section("integration", models.domain.CareYouProvide.id)
