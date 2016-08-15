@@ -44,20 +44,8 @@ About Your Partner,Partner/Spouse details,Date of birth,AboutYourPartnerDateofBi
 About Your Partner,Partner/Spouse details,Nationality? (e.g. British),AboutYourPartnerNationality,French
 About Your Partner,Partner/Spouse details,Have you separated from your partner/spouse since the date you want to claim from?,AboutYourPartnerHaveYouSeparatedfromYourPartner,No
 About Your Partner,Person you care for,"Is your partner/spouse the person you are claiming Carer's Allowance for?",AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor,No
-About the care you provide,Details of the person you care for,"What's their relationship to you?",AboutTheCareYouProvideWhatTheirRelationshipToYou,Father
-About the care you provide,Details of the person you care for,Title,AboutTheCareYouProvideTitlePersonCareFor,Mr
-About the care you provide,Details of the person you care for,First name ,AboutTheCareYouProvideFirstNamePersonCareFor,Person
-About the care you provide,Details of the person you care for,Middle name,AboutTheCareYouProvideMiddleNamePersonCareFor,Cared
-About the care you provide,Details of the person you care for,Surname or family name,AboutTheCareYouProvideSurnamePersonCareFor,For
-About the care you provide,Details of the person you care for,National Insurance (NI) number,AboutTheCareYouProvideNINOPersonCareFor,JA789871C
-About the care you provide,Details of the person you care for,Date of birth,AboutTheCareYouProvideDateofBirthPersonYouCareFor,12/09/1923
-About the care you provide,Details of the person you care for,Do they live at the same address as you?,AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou,No
-About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,12 Preston Road&Preston&Lancashire
-About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,pr1 2th
-About the care you provide,More about the care you provide,Do you spend 35 hours or more each week caring for this person?,AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek,Yes
-About the care you provide,More about the care you provide,Does anyone else spend 35 hours or more each week providing care for dp?,AboutTheCareYouProvideOtherCarer,No
-About the care you provide,Breaks from Care,"Have you had any breaks from caring for this person since, [[Claim Date]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1,No
-Education,Your course details,Have you been on a course of education since your claim date:<ddmmyyyy>? ,EducationHaveYouBeenOnACourseOfEducation,Yes
+About the care you provide,Breaks from Care,"Any times dp has been in hospital, respite or care home?",BreaktypeNoneCheckbox,true
+About the care you provide,Breaks from Care,"Any other times you've not provided care for dp?",BreaktypeOtherYesNo,No
 Education,Your course details,Course title,EducationCourseTitle,Bussines Studies
 Education,Your course details,"Name of school, college or university",EducationNameofSchool,Oxford College
 Education,Your course details,Name of Main Teacher or Tutor,EducationNameOfMainTeacherOrTutor,Edward Mansfield
