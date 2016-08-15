@@ -15,7 +15,7 @@ object Caree extends XMLComponent {
   def xml(claim: Claim) = {
     val theirPersonalDetails = claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())
     val moreAboutTheCare = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
-    val dpName=theirPersonalDetails.firstName+" "+theirPersonalDetails.surname
+    val dpName="@dpname"
     <Caree>
       {question(<Surname/>, "surname", encrypt(theirPersonalDetails.surname))}
       {question(<OtherNames/>, "firstName", theirPersonalDetails.firstName)}
@@ -32,11 +32,6 @@ object Caree extends XMLComponent {
       {careBreak(claim, dpName)}
       {question(<LiveSameAddress/>,"theirAddress.answer", theirPersonalDetails.theirAddress.answer)}
     </Caree>
-  }
-
-  private def yourDetails(claim: Claim) : String = {
-    val yourDetails = claim.questionGroup(YourDetails).getOrElse(YourDetails()).asInstanceOf[YourDetails]
-    yourDetails.firstName + " " + yourDetails.surname
   }
 
   def findSelectedMapping(breaks: List[Break]) = {
@@ -61,7 +56,7 @@ object Caree extends XMLComponent {
       val claimDateQG = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
       question(<BreaksSinceClaim/>, label, answer, claimDateQG.dateWeRequireBreakInCareInformationFrom(claim.lang.getOrElse(Lang("en"))), dp)
     }
-    val your = yourDetails(claim);
+    val your = "@yourname"
     val xmlLastBreak = {
       if (breaksInCare.breaks.size > 0) {
         <CareBreak>
@@ -154,12 +149,12 @@ object Caree extends XMLComponent {
         case _ => NodeSeq.Empty
       }
     }
-    {break.caringStartedTime match {
+    {break.caringEndedTime match {
       case Some(e) => {
-        question(<EndDate/>, "caringStarted.date", break.caringStarted.get.date.get.`dd-MM-yyyy`, dp) ++
-        question(<EndTime/>, "caringStarted.time", e, dp)
+        question(<EndDate/>, "caringEnded.date", break.caringEnded.get.`dd-MM-yyyy`, dp) ++
+        question(<EndTime/>, "caringEnded.time", e, dp)
       }
-      case _ => question(<EndDate/>, "caringStarted.date", break.caringStarted.get.date.get.`dd-MM-yyyy`, dp)
+      case _ => question(<EndDate/>, "caringEnded.date", break.caringEnded.get.`dd-MM-yyyy`, dp)
     }}
     {questionOther(<ReasonClaimant/>,"whereWereYou", break.whereWereYou.get.answer, break.whereWereYou.get.text, dp)}
     {questionOther(<ReasonCaree/>,"whereWasDp", break.whereWasDp.get.answer, break.whereWasDp.get.text, dp)}
