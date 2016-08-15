@@ -31,7 +31,7 @@ class GBreaksInCareSummaryContentIntegrationSpec extends Specification {
       val page = GBreaksInCareSummaryPage(context)
       page goToThePage()
       $("#breaktype_questionLabel").getText() mustEqual ("Since 1 October 2016 have there been any times you or Albert Johnson have been in hospital, respite or care home for at least a week?")
-      $("#breaktype_other_questionLabel").getText() mustEqual ("Have there been any times you've not provided care for Albert Johnson for 35 hours a week?")
+      $("#breaktype_other_questionLabel").getText() mustEqual ("Have there been any other times you've not provided care for Albert Johnson for 35 hours a week?")
     }
 
     "be presented with correct checkbox options" in new WithBrowser with PageObjects with WithBrowserHelper {
@@ -130,7 +130,7 @@ class GBreaksInCareSummaryContentIntegrationSpec extends Specification {
       browser.click("#breaktype_other_no")
       val errors = page.submitPage().listErrors
       errors.size mustEqual 1
-      errors(0) mustEqual ("Since 1 October 2016 have there been any other times you or Albert Johnson have been in hospital, respite or care home for at least a week? - You must select 'Hospital','Respite or care home' or 'None'.")
+      errors(0) mustEqual ("Since 1 October 2016 have there been any times you or Albert Johnson have been in hospital, respite or care home for at least a week? - You must select 'Hospital','Respite or care home' or 'None'.")
     }
 
     "present Too-Many-Options error with correct wording when submit after select Respite and None" in new WithJsBrowser with PageObjects {
