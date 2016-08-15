@@ -328,7 +328,8 @@ object ClaimScenarioFactory {
 
   def s4CareYouProvideWithNoBreaksInCare() = {
     val claim = s4CareYouProvide(true)
-    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "no"
+    claim.BreaktypeNoneCheckbox = someTrue.get
+    claim.BreaktypeOtherYesNo = "no"
     claim
   }
 
@@ -585,7 +586,8 @@ object ClaimScenarioFactory {
 
   def s7EmploymentMinimum(hours35: Boolean) = {
     val claim = if (hours35) s4CareYouProvide(true) else s4CareYouProvide(false)
-    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "no"
+    claim.BreaktypeNoneCheckbox = someTrue.get
+    claim.BreaktypeOtherYesNo = "no"
     claim.EducationHaveYouBeenOnACourseOfEducation = "no"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
@@ -626,7 +628,8 @@ object ClaimScenarioFactory {
 
   def s7EmploymentMaximum(hours35: Boolean) = {
     val claim = if (hours35) s4CareYouProvide(true) else s4CareYouProvide(false)
-    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "no"
+    claim.BreaktypeNoneCheckbox = someTrue.get
+    claim.BreaktypeOtherYesNo = "no"
     claim.EducationHaveYouBeenOnACourseOfEducation = "no"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"

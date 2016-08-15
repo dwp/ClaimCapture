@@ -63,40 +63,43 @@ class GBreaksInCareOtherIntegrationSpec extends Specification {
         findFirst("input[value='Change']").click()
 
         urlMustEqual(GBreaksInCareOtherPage.url)
+        $("#caringEnded_date_year").getValue mustEqual 2016.toString
         $("#caringStarted_date_year").getValue mustEqual 2016.toString
+        fill("#caringEnded_date_year") `with` "2013"
+        fill("#caringStarted_date_year") `with` "2014"
 
-        fill("#caringStarted_date_year") `with` "2015"
         next
         urlMustEqual(GBreaksInCareSummaryPage.url) //will need to go to summary
 
         $("#summary-table tr.data-table").size() shouldEqual 2
-        $("#summary-table tr.data-table").getText shouldEqual "Other04/01/201504/01/2016"
+        $("#summary-table tr.data-table").getText shouldEqual "YouOther04/01/201304/01/2014"
       }
 
-      "add two breaks and edit the second's start year" in new WithJsBrowser with BreakFillerOther with WithBrowserHelper with BrowserMatchers {
-        goTo(GBreaksInCareOtherPage.url + "/1")
-        urlMustEqual(GBreaksInCareOtherPage.url)
-        break()
-        next
-        urlMustEqual(GBreaksInCareSummaryPage.url) //will need to go to summary
+    "add two breaks and edit the second's start year" in new WithJsBrowser with BreakFillerOther with WithBrowserHelper with BrowserMatchers {
+      goTo(GBreaksInCareOtherPage.url + "/1")
+      urlMustEqual(GBreaksInCareOtherPage.url)
+      break()
+      next
+      urlMustEqual(GBreaksInCareSummaryPage.url) //will need to go to summary
 
-        goTo(GBreaksInCareOtherPage.url + "/2")
-        urlMustEqual(GBreaksInCareOtherPage.url)
-        break()
-        next
+      goTo(GBreaksInCareOtherPage.url + "/2")
+      urlMustEqual(GBreaksInCareOtherPage.url)
+      break()
+      next
 
-        findAll("input[value='Change']").get(1).click()
+      findAll("input[value='Change']").get(1).click()
 
-        urlMustEqual(GBreaksInCareOtherPage.url)
-        $("#caringStarted_date_year").getValue mustEqual 2016.toString
+      urlMustEqual(GBreaksInCareOtherPage.url)
+      $("#caringEnded_date_year").getValue mustEqual 2016.toString
+      $("#caringStarted_date_year").getValue mustEqual 2016.toString
+      fill("#caringEnded_date_year") `with` "2014"
+      fill("#caringStarted_date_year") `with` "2015"
+      next
+      urlMustEqual(GBreaksInCareSummaryPage.url) //will need to go to summary
 
-        fill("#caringStarted_date_year") `with` "2015"
-        next
-        urlMustEqual(GBreaksInCareSummaryPage.url) //will need to go to summary
-
-        $("#summary-table tr.data-table").size() shouldEqual 2
-        findAll("#summary-table tr.data-table").get(1).getText shouldEqual "Other04/01/201504/01/2016"
-      }
+      $("#summary-table tr.data-table").size() shouldEqual 2
+      findAll("#summary-table tr.data-table").get(1).getText shouldEqual "YouOther04/01/201404/01/2015"
+    }
   }
   section("integration", models.domain.Breaks.id)
 }
