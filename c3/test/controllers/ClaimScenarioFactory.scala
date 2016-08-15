@@ -1,5 +1,6 @@
 package controllers
 
+import controllers.mappings.Mappings
 import utils.pageobjects.TestData
 import app._
 import controllers.mappings.Mappings._
@@ -342,12 +343,10 @@ object ClaimScenarioFactory {
   def s4CareYouProvideWithBreaksInCare(hours35: Boolean) = {
     val claim = if (hours35) s4CareYouProvide(true) else s4CareYouProvide(false)
 
-    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "yes"
-    claim.AboutTheCareYouProvideBreakStartDate_1 = "10/01/1999"
-    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_1 = "In hospital"
-    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1 = "In hospital"
-    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1 = "Yes"
-    claim.AboutTheCareYouProvideHasBreakEnded_1 = "No"
+    /* Temp to get tests fixed up ... will add preview breaks shortly along side replica data ... COLING
+     */
+    claim.BreaktypeNoneCheckbox = someTrue.get
+    claim.BreaktypeOtherYesNo = Mappings.no
 
     claim
   }
