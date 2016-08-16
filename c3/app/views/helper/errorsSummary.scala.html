@@ -1,12 +1,13 @@
-@(form: Form[_])(implicit lang: Lang, request: Request[AnyContent], messages: play.api.i18n.Messages)
+@(form: Form[_])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], messages: play.api.i18n.Messages)
 
 @import utils.helpers.CarersCrypto
 @import utils.helpers.GAHelper._
 @import app.ConfigProperties._
+@import models.domain.TheirPersonalDetails
 
 @gaTrack(key: String, errorMessage: String)  = @{
     if (getBooleanProperty("analytics.enabled")) {
-        trackEvent(request.path, "Error", Some(s"${trimDate(key)} - $errorMessage"))
+        trackEvent(request.path, "Error", Some(s"${stripDpname(trimDate(key))} - $errorMessage"))
     } else {
         ""
     }
@@ -18,6 +19,13 @@
     } else {
         ""
     }
+}
+
+@theirPersonalDetails = @{claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())}
+@dpname=@{theirPersonalDetails.firstName+" "+theirPersonalDetails.surname}
+
+@stripDpname(key: String) = @{
+    key.replaceAll(dpname, "@dpname")
 }
 
 @trimDate(key: String) = @{
