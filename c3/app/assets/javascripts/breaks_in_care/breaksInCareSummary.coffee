@@ -25,7 +25,7 @@ setVisibility = (o) ->
 
   $(".yesDelete").on "click", ->
     iterationid=$(this).closest("tr").attr("iterationid")
-    $("#deleteId").val(iterationid)
+    $("#" +o.deleteId).val(iterationid)
     $("#delete-break-form").submit()
 
   $(".changerow").on "click", ->
