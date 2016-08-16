@@ -2,6 +2,7 @@ package controllers
 
 import java.io.FileReader
 
+import app.BreaksInCareGatherOptions
 import controllers.mappings.Mappings
 import gov.dwp.carers.xml.signing.XmlSignatureValidator
 import gov.dwp.carers.xml.validation.XmlValidatorFactory
@@ -81,10 +82,10 @@ object ReplicaData {
           YourPartnerPersonalDetails(hadPartnerSinceClaimDate = Mappings.yes,title = Some("Miss"),firstName = Some("Joan"),surname = Some("Bloggs"),dateOfBirth = Some(DayMonthYear.today - 10 years),nationality = Some("British"),separatedFromPartner = Some(Mappings.no),isPartnerPersonYouCareFor = Some(Mappings.no)) +
           TheirPersonalDetails(relationship = "Grandma",title = "Mrs",firstName = "Jane",surname = "Bloggs",dateOfBirth = DayMonthYear.today - 15 years,theirAddress = YesNoMandWithAddress(answer = Mappings.no, address = Option(MultiLineAddress(lineOne = Some("470 Street"),lineTwo = Some("Newtown"))), postCode = Some("PR1 1HB"))) +
           MoreAboutTheCare(spent35HoursCaring = Mappings.yes, otherCarer= Mappings.no) +
-          OldBreaksInCareSummary(Mappings.no) +
-          OldBreaksInCare(List(
-            OldBreak("1",DayMonthYear.today - 4 months,hasBreakEnded = YesNoWithDate(answer = Mappings.no,None),whereYou = RadioWithText(app.CircsBreaksWhereabouts.Holiday),wherePerson = RadioWithText(app.CircsBreaksWhereabouts.Home),medicalDuringBreak = Mappings.no),
-            OldBreak("2",DayMonthYear.today - 3 months,hasBreakEnded = YesNoWithDate(answer = Mappings.no,None),whereYou = RadioWithText(app.CircsBreaksWhereabouts.Hospital),wherePerson = RadioWithText(app.CircsBreaksWhereabouts.Home),medicalDuringBreak = Mappings.yes)
+          BreaksInCareSummary(breaksummary_other = Some(Mappings.no), breaksummary_answer = None) +
+          BreaksInCare(List(
+            Break("1", typeOfCare=Breaks.hospital, whoWasAway=BreaksInCareGatherOptions.You, whenWereYouAdmitted=Some(DayMonthYear.today - 1 months), yourStayEnded=Some(YesNoWithDate(answer = Mappings.no,None))),
+            Break("2", typeOfCare=Breaks.carehome, whoWasAway=BreaksInCareGatherOptions.You, whenWereYouAdmitted=Some(DayMonthYear.today - 2 months), yourStayEnded=Some(YesNoWithDate(answer = Mappings.no,None)))
           )) +
           YourCourseDetails(beenInEducationSinceClaimDate = Mappings.yes,title = Some("Biology"),nameOfSchoolCollegeOrUniversity = Some("A College"),
           nameOfMainTeacherOrTutor = Some("A Tutor"),startDate = Some(DayMonthYear.today - 1 month),expectedEndDate = Some(DayMonthYear.today + 2 years)) +
