@@ -25,8 +25,7 @@
 @dpname=@{theirPersonalDetails.firstName+" "+theirPersonalDetails.surname}
 
 @stripDpname(key: String) = @{
-    // weird error if do replaceAll maybe related to recurse of dpname.
-    key.replace(dpname, "@dpname")
+    key.replace(dpname, "dpname")
 }
 
 @trimDate(key: String) = @{
