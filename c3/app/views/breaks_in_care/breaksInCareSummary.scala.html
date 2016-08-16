@@ -58,17 +58,17 @@
 }
 @careTypeFrom(break: Break) = @{
     (break.typeOfCare, break.whoWasAway, break.caringEnded ) match {
-        case (Breaks.another, _, Some(ce)) => ce.`dd/MM/yyyy`
-        case (_, You, _ ) => break.whenWereYouAdmitted.get.`dd/MM/yyyy`
-        case (_, DP, _ ) => break.whenWasDpAdmitted.get.`dd/MM/yyyy`
+        case (Breaks.another, _, Some(ce)) => ce.`dd month yyyy`
+        case (_, You, _ ) => break.whenWereYouAdmitted.get.`dd month yyyy`
+        case (_, DP, _ ) => break.whenWasDpAdmitted.get.`dd month yyyy`
         case _ => "ERROR In caretypeFrom"
     }
 }
 @careTypeTo(break: Break) = @{
     (break.typeOfCare, break.whoWasAway, break.yourStayEnded, break.dpStayEnded, break.caringStarted) match {
-        case (Breaks.another, _, _, _, Some(cs)) if (cs.answer == "yes") => break.caringStarted.get.date.get.`dd/MM/yyyy`
-        case (_, You, Some(you), _, _) if (you.answer == "yes") => break.yourStayEnded.get.date.get.`dd/MM/yyyy`
-        case (_, DP, _, Some(dp), _) if (dp.answer == "yes") => break.dpStayEnded.get.date.get.`dd/MM/yyyy`
+        case (Breaks.another, _, _, _, Some(cs)) if (cs.answer == "yes") => break.caringStarted.get.date.get.`dd month yyyy`
+        case (_, You, Some(you), _, _) if (you.answer == "yes") => break.yourStayEnded.get.date.get.`dd month yyyy`
+        case (_, DP, _, Some(dp), _) if (dp.answer == "yes") => break.dpStayEnded.get.date.get.`dd month yyyy`
         case _ => "Not ended"
     }
 }
@@ -112,8 +112,8 @@
                             <td colspan="6">
                                 <div class="prompt breaks-prompt validation-summary">
                                     <p>@Html(messages("areYouSureYouWantToDeleteThisBreak"))</p>
-                                    <input class="noDelete" type="button" name="no" class="button secondary" value="@Html(messages("no.delete"))" aria-label="@Html(messages("no.delete.label"))">
-                                    <input class="yesDelete" type="button" name="yes" class="button warning" value="@Html(messages("yes.delete"))" aria-label="@Html(messages("yes.delete.label"))" @views.html.ga.trackClickEvent(linkName = "BIC - Delete")>
+                                    <input class="noDelete button secondary" type="button" name="no" class="button secondary" value="@Html(messages("no.delete"))" aria-label="@Html(messages("no.delete.label"))">
+                                    <input class="yesDelete button warning" type="button" name="yes" class="button warning" value="@Html(messages("yes.delete"))" aria-label="@Html(messages("yes.delete.label"))" @views.html.ga.trackClickEvent(linkName = "BIC - Delete")>
                                 </div>
                             </td>
                         </tr>
