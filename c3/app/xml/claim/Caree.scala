@@ -156,8 +156,16 @@ object Caree extends XMLComponent {
       }
       case _ => question(<EndDate/>, "caringEnded.date", break.caringEnded.get.`dd-MM-yyyy`, dp)
     }}
-    {questionOther(<ReasonClaimant/>,"whereWereYou", break.whereWereYou.get.answer, break.whereWereYou.get.text, dp)}
-    {questionOther(<ReasonCaree/>,"whereWasDp", break.whereWasDp.get.answer, break.whereWasDp.get.text, dp)}
+    {break.whereWereYou match {
+      case Some(e) =>
+        questionOther(<ReasonClaimant/>,"whereWereYou", break.whereWereYou.get.answer, break.whereWereYou.get.text, dp )
+      case _ =>
+    }}
+    {break.whereWasDp match {
+      case Some(e) =>
+        questionOther(<ReasonCaree/>,"whereWasDp", break.whereWasDp.get.answer, break.whereWasDp.get.text, dp)
+      case _ =>
+    }}
     </CareBreak>
   }
 
