@@ -109,7 +109,7 @@ object AssistedDecision extends XMLComponent {
 
   private def isTooOld(claim: Claim): AssistedDecisionDetails = {
     if (lessThan65YearsOld(claim)) emptyAssistedDecisionDetails
-    else decisionModel("Check CIS for benefits.", "Potential underlying entitlement,show table")
+    else decisionModel("Check CIS for benefits. Send Pro517 if relevant.", "Potential underlying entitlement,show table")
   }
 
   private def isCheckCIS(claim: Claim): AssistedDecisionDetails = {
@@ -152,7 +152,7 @@ object AssistedDecision extends XMLComponent {
     }
     else{
       Logger.info(s"AssistedDecision happy path means check CIS")
-      decisionModel("Check CIS for benefits.", "Potential award,show table")
+      decisionModel("Check CIS for benefits. Send Pro517 if relevant.", "Potential award,show table")
     }
   }
 

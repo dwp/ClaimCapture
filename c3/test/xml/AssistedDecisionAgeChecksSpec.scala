@@ -55,7 +55,7 @@ class AssistedDecisionAgeChecksSpec extends Specification with Mockito {
       val yourDetails = YourDetails(dateOfBirth = submitDate.minusYears(65))
       val claim = AssistedDecision.createAssistedDecisionDetails(happyClaim.update(claimDateDetails).update(yourDetails));
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain("Check CIS for benefits.")
+      (xml \\ "Reason").text must contain("Check CIS for benefits. Send Pro517 if relevant.")
       (xml \\ "RecommendedDecision").text must contain("Potential underlying entitlement")
     }
 
@@ -70,7 +70,7 @@ class AssistedDecisionAgeChecksSpec extends Specification with Mockito {
       val yourDetails = YourDetails(dateOfBirth = submitDate.minusYears(65).minusDays(1))
       val claim = AssistedDecision.createAssistedDecisionDetails(happyClaim.update(claimDateDetails).update(yourDetails));
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain("Check CIS for benefits.")
+      (xml \\ "Reason").text must contain("Check CIS for benefits. Send Pro517 if relevant.")
       (xml \\ "RecommendedDecision").text must contain("Potential underlying entitlement")
     }
 
@@ -79,7 +79,7 @@ class AssistedDecisionAgeChecksSpec extends Specification with Mockito {
       val claimDateDetails = ClaimDate(DateTime.now.plusDays(7))
       val claim = AssistedDecision.createAssistedDecisionDetails(happyClaim.update(claimDateDetails).update(yourDetails));
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain("Check CIS for benefits.")
+      (xml \\ "Reason").text must contain("Check CIS for benefits. Send Pro517 if relevant.")
       (xml \\ "RecommendedDecision").text must contain("Potential underlying entitlement")
     }
 
