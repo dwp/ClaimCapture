@@ -4,7 +4,6 @@
 @import utils.helpers.GAHelper._
 @import app.ConfigProperties._
 @import models.domain.TheirPersonalDetails
-@import play.api.Logger
 
 @gaTrack(key: String, errorMessage: String)  = @{
     if (getBooleanProperty("analytics.enabled")) {
@@ -26,12 +25,7 @@
 @dpname=@{theirPersonalDetails.firstName+" "+theirPersonalDetails.surname}
 
 @stripDpname(key: String) = @{
-    Logger.info("stripDpName entered")
-    Logger.info("stripDpName got key:"+key)
-    Logger.info("stripDpName dpname:"+dpname)
-    val x=key.replace(dpname, "dpname")
-    Logger.info("stripDpName stripped key to:"+x)
-    x
+    key.replace(dpname, "@dpname")
 }
 
 @trimDate(key: String) = @{
