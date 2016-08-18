@@ -10,7 +10,6 @@
 @breaksFromDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateWeRequireBreakInCareInformationFrom(lang)}
 @theirPersonalDetails = @{claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())}
 @dpname=@{theirPersonalDetails.firstName+" "+theirPersonalDetails.surname}
-@disableChangeButton = @{!getBooleanProperty("cyaToggleVisible")}
 
 @hasBreaksMessage(breakType: String = "MatchAny") = @{
 	val found = breakType match {
@@ -24,16 +23,27 @@
 		case (_, false) => messages("label.no")
 	}
 }
-
+@q1LinkElement=@{
+	breaks.hasBreaks match {
+		case true => None
+		case false => Some("breaktype")
+	}
+}
+@q4LinkElement=@{
+	breaks.hasBreaksForType(Breaks.another) match{
+		case true => None
+		case false => Some("breaktype_other")
+	}
+}
 @content = {
-	@fieldWithLink("breaks_breaktype", messages("breaktype_first",breaksFromDate, dpname), hasBreaksMessage(), disableLink = disableChangeButton)
+	@fieldWithLink("breaks_breaktype", messages("breaktype_first",breaksFromDate, dpname), hasBreaksMessage(), elementId = q1LinkElement)
 	@if(breaks.hasBreaksForType(Breaks.hospital)) {
-		@fieldWithLink("breaks_breaktype", "breaks.hospital", hasBreaksMessage(Breaks.hospital), disableLink = disableChangeButton)
+		@fieldWithLink("breaks_breaktype", "breaks.hospital", hasBreaksMessage(Breaks.hospital))
 	}
 	@if(breaks.hasBreaksForType(Breaks.carehome)) {
-		@fieldWithLink("breaks_breaktype", "breaks.carehome", hasBreaksMessage(Breaks.carehome), disableLink = disableChangeButton)
+		@fieldWithLink("breaks_breaktype", "breaks.carehome", hasBreaksMessage(Breaks.carehome))
 	}
-	@fieldWithLink("breaks_breaktype", messages("breaktype_other_first", dpname), hasBreaksMessage(Breaks.another), disableLink = disableChangeButton)
+	@fieldWithLink("breaks_breaktype", messages("breaktype_other_first", dpname), hasBreaksMessage(Breaks.another), elementId = q4LinkElement)
 }
 
 @accordion(label = messages("s4.5.longName"), openLabel = "open-breaks-in-care", closeLabel = "close-breaks-in-care", content = content, 'track -> true)
