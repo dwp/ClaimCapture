@@ -295,6 +295,6 @@ object Caree extends XMLComponent {
 
   private def createMoreAboutCareFromXml(xml: NodeSeq) = {
     val claimant = (xml \\ "Caree")
-    MoreAboutTheCare(spent35HoursCaring = createYesNoText((claimant \ "Cared35Hours" \ "Answer").text), otherCarer = createYesNoText((claimant \ "OtherCarer" \ "Answer").text))
+    MoreAboutTheCare(spent35HoursCaring = createStringOptional(createYesNoText((claimant \ "Cared35Hours" \ "Answer").text)), otherCarer = createStringOptional(createYesNoText((claimant \ "OtherCarer" \ "Answer").text)))
   }
 }

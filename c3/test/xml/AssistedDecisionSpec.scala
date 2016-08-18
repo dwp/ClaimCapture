@@ -21,7 +21,7 @@ class AssistedDecisionSpec extends Specification {
   section("unit")
   "Assisted section" should {
     "Create an assisted decision section if care less than 35 hours" in new WithApplication {
-      val moreAboutTheCare = MoreAboutTheCare(Mappings.no)
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.no))
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare))
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text must contain("Not caring 35 hours a week.")
@@ -29,7 +29,7 @@ class AssistedDecisionSpec extends Specification {
     }
 
     "Default assisted decision if care more than 35 hours" in new WithApplication {
-      val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
       val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.no, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no))))
       val benefits = Benefits(benefitsAnswer = Benefits.pip)
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
@@ -39,7 +39,7 @@ class AssistedDecisionSpec extends Specification {
     }
 
     "Create an assisted decision section if date of claim > 3 months and 1 day" in new WithApplication {
-      val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
       val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.no, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no))))
       val benefits = Benefits(benefitsAnswer = Benefits.pip)
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
@@ -51,7 +51,7 @@ class AssistedDecisionSpec extends Specification {
     }
 
     "Default assisted decision if date of claim <= 3 month and 1 day" in new WithApplication {
-      val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
       val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.no, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no))))
       val benefits = Benefits(benefitsAnswer = Benefits.pip)
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
@@ -62,7 +62,7 @@ class AssistedDecisionSpec extends Specification {
     }
 
     "Create an assisted decision section if no EEA and no benefits" in new WithApplication {
-      val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
       val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.no, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no))))
       val benefits = Benefits(benefitsAnswer = Benefits.noneOfTheBenefits)
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
@@ -73,7 +73,7 @@ class AssistedDecisionSpec extends Specification {
     }
 
     "Create an assisted decision section if no EEA and AFIP" in new WithApplication {
-      val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
       val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.no, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no))))
       val benefits = Benefits(benefitsAnswer = Benefits.afip)
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
@@ -84,7 +84,7 @@ class AssistedDecisionSpec extends Specification {
     }
 
     "Create an assisted decision section if EEA insurance or working 1" in new WithApplication {
-      val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
       val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.yes, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.yes)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no))))
       val benefits = Benefits(benefitsAnswer = Benefits.afip)
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
@@ -95,7 +95,7 @@ class AssistedDecisionSpec extends Specification {
     }
 
     "Create an assisted decision section if EEA insurance or working 2" in new WithApplication {
-      val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
       val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.yes, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.yes))))
       val benefits = Benefits(benefitsAnswer = Benefits.afip)
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
@@ -106,7 +106,7 @@ class AssistedDecisionSpec extends Specification {
     }
 
     "Create an assisted decision section if EEA insurance or working 3" in new WithApplication {
-      val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
       val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.yes, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.yes)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.yes))))
       val benefits = Benefits(benefitsAnswer = Benefits.afip)
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
@@ -117,7 +117,7 @@ class AssistedDecisionSpec extends Specification {
     }
 
     "Default assisted decision if no EEA insurance or working" in new WithApplication {
-      val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
       val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.yes, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no))))
       val benefits = Benefits(benefitsAnswer = Benefits.aa)
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
@@ -127,7 +127,7 @@ class AssistedDecisionSpec extends Specification {
     }
 
     "Create an assisted decision section if no EEA and in education" in new WithApplication {
-      val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
       val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.no, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no))))
       val benefits = Benefits(benefitsAnswer = Benefits.caa)
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.yes)
@@ -138,7 +138,7 @@ class AssistedDecisionSpec extends Specification {
     }
 
     "Create an assisted decision section if no EEA but yes to EEA guard question and in education" in new WithApplication {
-      val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
       val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.no, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.yes)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.yes))))
       val benefits = Benefits(benefitsAnswer = Benefits.caa)
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.yes)
@@ -149,7 +149,7 @@ class AssistedDecisionSpec extends Specification {
     }
 
     "Default assisted decision if no EEA and not in education" in new WithApplication {
-      val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
       val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.no, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no))))
       val benefits = Benefits(benefitsAnswer = Benefits.aa)
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
@@ -159,7 +159,7 @@ class AssistedDecisionSpec extends Specification {
     }
 
     "Create an exportability assisted decision section for british never lived in UK" in new WithApplication {
-      val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
       val nationality = NationalityAndResidency("British", None, alwaysLivedInUK = "no", liveInUKNow = Some("no"), None, None, None, "no", None)
       val breaksInCare = OldBreaksInCare()
       val employment = YourIncomes(beenSelfEmployedSince1WeekBeforeClaim = Mappings.no, beenEmployedSince6MonthsBeforeClaim = Mappings.no, yourIncome_none = Mappings.someTrue)
@@ -175,7 +175,7 @@ class AssistedDecisionSpec extends Specification {
     }
 
     "Create an exportability assisted decision section for british lived in UK less than 3 years" in new WithApplication {
-      val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
       val nationality = NationalityAndResidency("British", None, alwaysLivedInUK = "no", liveInUKNow = Some("yes"), arrivedInUK = Some("less"), None, None, "no", None)
       val breaksInCare = OldBreaksInCare()
       val employment = YourIncomes(beenSelfEmployedSince1WeekBeforeClaim = Mappings.no, beenEmployedSince6MonthsBeforeClaim = Mappings.no, yourIncome_none = Mappings.someTrue)
@@ -191,7 +191,7 @@ class AssistedDecisionSpec extends Specification {
     }
 
     "Default assisted decision section for british lived in UK more than 3 years" in new WithApplication {
-      val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
       val nationality = NationalityAndResidency("British", None, alwaysLivedInUK = "no", liveInUKNow = Some("yes"), arrivedInUK = Some("more"), None, None, "no", None)
       val additionalInfo = AdditionalInfo(anythingElse = YesNoWithText(Mappings.no))
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(nationality).update(additionalInfo))
@@ -200,7 +200,7 @@ class AssistedDecisionSpec extends Specification {
     }
 
     "Simplest claim (happy path no income breaks addinfo etc.) creates CIS decision" in new WithApplication {
-      val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
       val nationality = NationalityAndResidency("British", None, "yes", None, None, None, None, "no", None)
       val breaksInCare = OldBreaksInCare()
       val employment = YourIncomes(beenSelfEmployedSince1WeekBeforeClaim = Mappings.no, beenEmployedSince6MonthsBeforeClaim = Mappings.no, yourIncome_none = Mappings.someTrue)

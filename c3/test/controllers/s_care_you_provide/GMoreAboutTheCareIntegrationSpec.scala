@@ -12,6 +12,7 @@ class GMoreAboutTheCareIntegrationSpec extends Specification {
 
   section("integration", models.domain.CareYouProvide.id)
   "Representatives For The Person" should {
+/*
     "be presented" in new WithBrowser with PageObjects {
       val page = GMoreAboutTheCarePage(context)
       page goToThePage()
@@ -28,14 +29,15 @@ class GMoreAboutTheCareIntegrationSpec extends Specification {
       moreAboutCarePage.source must contain("Does anyone else spend 35 hours or more each week providing care for Tom Wilson?")
       moreAboutCarePage.source must contain("Are they getting the carer element of Universal Credit for Tom Wilson?")
     }
-
+*/
     "contain 2 errors on invalid submission" in new WithBrowser with PageObjects {
       val page = GMoreAboutTheCarePage(context)
       page goToThePage()
       page submitPage()
+println(page.source)
       page.listErrors.size mustEqual 2
     }
-
+/*
     "navigate back" in new WithBrowser with PageObjects {
       val theirPersonalDetailsPage = GTheirPersonalDetailsPage(context)
       theirPersonalDetailsPage goToThePage()
@@ -58,6 +60,7 @@ class GMoreAboutTheCareIntegrationSpec extends Specification {
       browser.find("#otherCarerUc_yes").getAttribute("selected") mustEqual "true"
       browser.find("#otherCarerUcDetails").getValue() must contain("My sister gets uc here ninum is NR121212A")
     }
+*/
   }
   section("integration", models.domain.CareYouProvide.id)
 }

@@ -1,6 +1,7 @@
 package controllers.s_care_you_provide
 
 import play.api.Play._
+import utils.helpers.OriginTagHelper._
 
 import language.reflectiveCalls
 import play.api.data.{FormError, Form}
@@ -16,17 +17,26 @@ import controllers.CarersForms._
 object GMoreAboutTheCare extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val form = Form(mapping(
-    "spent35HoursCaring" -> nonEmptyText.verifying(validYesNo),
-    "otherCarer" -> nonEmptyText.verifying(validYesNo),
+    "spent35HoursCaring" -> optional(text.verifying(validYesNo)),
+    "otherCarer" -> optional(text.verifying(validYesNo)),
     "otherCarerUc" -> optional(text.verifying(validYesNo)),
     "otherCarerUcDetails" -> optional(carersText(maxLength = MoreAboutTheCare.textMaxLength))
   )(MoreAboutTheCare.apply)(MoreAboutTheCare.unapply)
+    .verifying("spent35HoursCaring.required", validateSpent35 _)
+    .verifying("otherCarer.required", validateCarer _)
     .verifying("otherCarerUc.required", validateCarerUc _)
   )
 
+  private def validateSpent35(moreAboutTheCare: MoreAboutTheCare) = moreAboutTheCare.spent35HoursCaring.isDefined
+
+  private def validateCarer(moreAboutTheCare: MoreAboutTheCare) = isOriginGB match {
+    case true => moreAboutTheCare.otherCarer.isDefined
+    case _ => true
+  }
+
   private def validateCarerUc(moreAboutTheCare: MoreAboutTheCare) = {
     moreAboutTheCare.otherCarer match {
-      case `yes` => moreAboutTheCare.otherCarerUc.isDefined
+      case Some(`yes`) => moreAboutTheCare.otherCarerUc.isDefined
       case _ => true
     }
   }
@@ -40,8 +50,8 @@ object GMoreAboutTheCare extends Controller with CachedClaim with Navigable with
       formWithErrors => {
         val theirPersonalDetails = claim.questionGroup(TheirPersonalDetails).getOrElse(TheirPersonalDetails()).asInstanceOf[TheirPersonalDetails]
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("spent35HoursCaring", errorRequired, FormError("spent35HoursCaring", errorRequired, Seq(theirPersonalDetails.firstName+" "+theirPersonalDetails.surname)))
-          .replaceError("otherCarer", errorRequired, FormError("otherCarer", errorRequired, Seq(theirPersonalDetails.firstName+" "+theirPersonalDetails.surname)))
+          .replaceError("", "spent35HoursCaring.required", FormError("spent35HoursCaring", errorRequired, Seq(theirPersonalDetails.firstName+" "+theirPersonalDetails.surname)))
+          .replaceError("", "otherCarer.required", FormError("otherCarer", errorRequired, Seq(theirPersonalDetails.firstName+" "+theirPersonalDetails.surname)))
           .replaceError("otherCarerUc", errorRequired, FormError("otherCarerUc", errorRequired, Seq(theirPersonalDetails.firstName+" "+theirPersonalDetails.surname)))
           .replaceError("", "otherCarerUc.required", FormError("otherCarerUc", errorRequired, Seq(theirPersonalDetails.firstName+" "+theirPersonalDetails.surname)))
         BadRequest(views.html.s_care_you_provide.g_moreAboutTheCare(formWithErrorsUpdate))

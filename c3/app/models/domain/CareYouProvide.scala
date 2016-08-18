@@ -26,8 +26,8 @@ case object TheirPersonalDetails extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g1"
 }
 
-case class MoreAboutTheCare(spent35HoursCaring: String = "",
-                            otherCarer: String = "",
+case class MoreAboutTheCare(spent35HoursCaring: Option[String] = None,
+                            otherCarer: Option[String] = None,
                             otherCarerUc: Option[String] = None,
                             otherCarerUcDetails: Option[String] = None
                              ) extends QuestionGroup(MoreAboutTheCare)
