@@ -68,7 +68,7 @@ class GBreaksInCareRespiteIntegrationSpec extends Specification {
       urlMustEqual(GBreaksInCareSummaryPage.url) //will need to go to summary
 
       $("#summary-table tr.data-table").size() shouldEqual 2
-      $("#summary-table tr.data-table").getText shouldEqual "YouRespite or care home01/01/200101/01/2002"
+      $("#summary-table tr.data-table").getText shouldEqual "YouRespite or care home01 January 200101 January 2002"
     }
 
     "add two breaks and edit the second's start year which will be DP" in new WithJsBrowser with BreakFillerRespite with WithBrowserHelper with BrowserMatchers {
@@ -93,7 +93,7 @@ class GBreaksInCareRespiteIntegrationSpec extends Specification {
       urlMustEqual(GBreaksInCareSummaryPage.url) //will need to go to summary
 
       $("#summary-table tr.data-table").size() shouldEqual 2
-      findAll("#summary-table tr.data-table").get(1).getText shouldEqual "Respite or care home01/01/200101/01/2002"
+      findAll("#summary-table tr.data-table").get(1).getText shouldEqual "Respite or care home01 January 200101 January 2002"
     }
   }
   section("integration", models.domain.Breaks.id)

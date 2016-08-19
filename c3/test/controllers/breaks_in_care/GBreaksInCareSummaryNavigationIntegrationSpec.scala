@@ -208,8 +208,8 @@ class GBreaksInCareSummaryNavigationIntegrationSpec extends Specification {
       // table cols ... 0=who 1=where 2=from 3=to 4=change 5=delete
       val fromDate1 = browser.find("#summary-table tr", 1).find("td", 2).getText
       val fromDate2 = browser.find("#summary-table tr", 3).find("td", 2).getText
-      fromDate1 mustEqual "01/01/2000"
-      fromDate2 mustEqual "01/01/2002"
+      fromDate1 mustEqual "01 January 2000"
+      fromDate2 mustEqual "01 January 2002"
     }
 
     "delete respite 1st break from 3 breaks when click delete and confirm yes" in new WithJsBrowser with PageObjects {
@@ -254,8 +254,8 @@ class GBreaksInCareSummaryNavigationIntegrationSpec extends Specification {
       // table cols ... 0=who 1=where 2=from 3=to 4=change 5=delete
       val fromDate1 = browser.find("#summary-table tr", 1).find("td", 2).getText
       val fromDate2 = browser.find("#summary-table tr", 3).find("td", 2).getText
-      fromDate1 mustEqual "01/01/2005"
-      fromDate2 mustEqual "01/01/2006"
+      fromDate1 mustEqual "01 January 2005"
+      fromDate2 mustEqual "01 January 2006"
     }
 
     "delete other break from single break when click delete" in new WithJsBrowser with PageObjects {

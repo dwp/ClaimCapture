@@ -69,7 +69,7 @@ class GBreaksInCareHospitalIntegrationSpec extends Specification {
         urlMustEqual(GBreaksInCareSummaryPage.url) //will need to go to summary
 
         $("#summary-table tr.data-table").size() shouldEqual 2
-        $("#summary-table tr.data-table").getText shouldEqual "YouHospital01/01/200101/01/2002"
+        $("#summary-table tr.data-table").getText shouldEqual "YouHospital01 January 200101 January 2002"
       }
 
       "add two breaks and edit the second's start year which will be DP" in new WithJsBrowser with BreakFillerHospital with WithBrowserHelper with BrowserMatchers {
@@ -94,7 +94,7 @@ class GBreaksInCareHospitalIntegrationSpec extends Specification {
         urlMustEqual(GBreaksInCareSummaryPage.url) //will need to go to summary
 
         $("#summary-table tr.data-table").size() shouldEqual 2
-        findAll("#summary-table tr.data-table").get(1).getText shouldEqual "Hospital01/01/200101/01/2002"
+        findAll("#summary-table tr.data-table").get(1).getText shouldEqual "Hospital01 January 200101 January 2002"
       }
   }
   section("integration", models.domain.Breaks.id)

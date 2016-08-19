@@ -72,7 +72,7 @@ class GBreaksInCareOtherIntegrationSpec extends Specification {
         urlMustEqual(GBreaksInCareSummaryPage.url) //will need to go to summary
 
         $("#summary-table tr.data-table").size() shouldEqual 2
-        $("#summary-table tr.data-table").getText shouldEqual "YouOther04/01/201304/01/2014"
+        $("#summary-table tr.data-table").getText shouldEqual "YouOther04 January 201304 January 2014"
       }
 
     "add two breaks and edit the second's start year" in new WithJsBrowser with BreakFillerOther with WithBrowserHelper with BrowserMatchers {
@@ -98,7 +98,7 @@ class GBreaksInCareOtherIntegrationSpec extends Specification {
       urlMustEqual(GBreaksInCareSummaryPage.url) //will need to go to summary
 
       $("#summary-table tr.data-table").size() shouldEqual 2
-      findAll("#summary-table tr.data-table").get(1).getText shouldEqual "YouOther04/01/201404/01/2015"
+      findAll("#summary-table tr.data-table").get(1).getText shouldEqual "YouOther04 January 201404 January 2015"
     }
   }
   section("integration", models.domain.Breaks.id)
