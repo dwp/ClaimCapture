@@ -119,7 +119,7 @@ object AssistedDecision extends XMLComponent {
       Logger.info(s"AssistedDecision trip52weeks means emptyDecision")
       emptyAssistedDecisionDetails
     }
-    else if(claim.questionGroup[OldBreaksInCare].getOrElse(OldBreaksInCare()).hasBreaks){
+    else if(claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare()).hasBreaks){
       Logger.info(s"AssistedDecision breaksInCare means emptyDecision")
       emptyAssistedDecisionDetails
     }

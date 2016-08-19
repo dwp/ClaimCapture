@@ -32,9 +32,6 @@ class AssistedDecisionBlankDecisionsSpec extends Specification {
     }
 
     "Blank decision when got breaks" in new WithApplication {
-      val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
-      val break=OldBreak()
-      val breaksInCare = OldBreaksInCare().update(break)
       val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
       val break=Break()
       val breaksInCare = BreaksInCare().update(break)

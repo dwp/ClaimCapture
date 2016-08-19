@@ -8,17 +8,17 @@ class BreaksInCareSpec extends Specification with Mockito {
   section("unit")
   "Breaks from care" should {
     "give zero breaks upon deleting from no existing breaks in care" in new WithApplication {
-      val breaksInCare = OldBreaksInCare()
+      val breaksInCare = BreaksInCare()
 
       val updatedBreaksInCare = breaksInCare delete "non existing break ID"
       updatedBreaksInCare.breaks.size mustEqual 0
     }
 
     "give zero breaks upon deleting the only break" in new WithApplication {
-      val break = mock[OldBreak]
+      val break = mock[Break]
       break.iterationID returns "breakID"
 
-      val breaksInCare = OldBreaksInCare().update(break)
+      val breaksInCare = BreaksInCare().update(break)
       breaksInCare.breaks.size mustEqual 1
 
       val updatedBreaksInCare = breaksInCare delete break.iterationID
@@ -26,16 +26,16 @@ class BreaksInCareSpec extends Specification with Mockito {
     }
 
     "give 2 breaks upon deleting 2nd out of 3 breaks" in new WithApplication {
-      val break1 = mock[OldBreak]
+      val break1 = mock[Break]
       break1.iterationID returns "break1ID"
 
-      val break2 = mock[OldBreak]
+      val break2 = mock[Break]
       break2.iterationID returns "break2ID"
 
-      val break3 = mock[OldBreak]
+      val break3 = mock[Break]
       break3.iterationID returns "break3ID"
 
-      val breaksInCare = OldBreaksInCare().update(break1).update(break2).update(break3)
+      val breaksInCare = BreaksInCare().update(break1).update(break2).update(break3)
       breaksInCare.breaks.size mustEqual 3
 
       val updatedBreaksInCare = breaksInCare delete break2.iterationID
