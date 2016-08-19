@@ -15,7 +15,7 @@ class AssistedDecisionAgeChecksSpec extends Specification with Mockito {
   // Do not reformat this xml it breaks the tests ... !!!
   val emptyAssistedDecisionNode = <AssistedDecision><Reason>None</Reason><RecommendedDecision>None,show table</RecommendedDecision></AssistedDecision>
 
-  lazy val moreAboutTheCare = MoreAboutTheCare(Mappings.yes)
+  lazy val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
   lazy val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.no, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no))))
   lazy val benefits = Benefits(benefitsAnswer = Benefits.pip)
   lazy val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)

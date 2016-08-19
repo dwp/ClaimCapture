@@ -23,7 +23,7 @@
                 <nav class="form-steps">
                 	<ul>
                 		<li><a href="@url" class="button" aria-label="@Html(messages("restart.claim.help"))">@Html(messages("restart.claim"))</a></li>
-                		<li><a rel="external" href="https://www.gov.uk/done/apply-carers-allowance" target="_blank">@Html(messages("feedbacklink.claim"))</a></li>
+                        <li>@common.feedbackLink(isFooterItem = false) @messages("feedback.takes30secs")</li>
                 	</ul>
                 </nav>
         

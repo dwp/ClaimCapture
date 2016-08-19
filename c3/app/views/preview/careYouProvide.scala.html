@@ -5,6 +5,7 @@
 @import models.domain.TheirPersonalDetails
 @import helper._
 @import app.ConfigProperties._
+@import utils.helpers.OriginTagHelper._
 
 @yourPartner = @{claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())}
 @aboutTheCare = @{claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())}
@@ -57,13 +58,15 @@
 	}
 	@fieldWithLink("care_you_provide_relationship", "relationship", theirPersonalDetails.relationship,disableLink = disableChangeButton, elementId = Some("relationship"))
 	@fieldWithLink("care_you_provide_address", "theirAddress.answer", address,disableLink = disableChangeButton, elementId = Some("theirAddress_answer"))
-	@fieldWithLink("care_you_provide_spent35HoursCaring", messages("spent35HoursCaring",dpname), s"${Html(messages("label."+aboutTheCare.spent35HoursCaring))}",disableLink = disableChangeButton, elementId = Some("spent35HoursCaring"))
-	@fieldWithLink("care_you_provide_otherCarer", messages("otherCarer",dpname), s"${Html(messages("label."+aboutTheCare.otherCarer))}",disableLink = disableChangeButton, elementId = Some("otherCarer"))
-	@if(aboutTheCare.otherCarer.equals("yes")) {
-		@fieldWithLink("care_you_provide_otherCarerUc", messages("otherCarerUc",dpname), s"${Html(messages("label."+aboutTheCare.otherCarerUc.get))}",disableLink = disableChangeButton, elementId = Some("otherCarerUc"))
-	}
-	@if(aboutTheCare.otherCarerUc.getOrElse("").equals("yes")) {
-		@fieldWithLink("care_you_provide_otherCarerUcDetails", "otherCarerUcDetails", otherCarerUcDetailsText, disableLink = disableChangeButton, elementId = Some("otherCarerUcDetails"))
+	@fieldWithLink("care_you_provide_spent35HoursCaring", messages("spent35HoursCaring",dpname), messages("label."+aboutTheCare.spent35HoursCaring.getOrElse("")),disableLink = disableChangeButton, elementId = Some("spent35HoursCaring"))
+	@if(isOriginGB){
+		@fieldWithLink("care_you_provide_otherCarer", messages("otherCarer",dpname), messages("label."+aboutTheCare.otherCarer.getOrElse("")),disableLink = disableChangeButton, elementId = Some("otherCarer"))
+		@if(aboutTheCare.otherCarer.getOrElse("").equals("yes")) {
+			@fieldWithLink("care_you_provide_otherCarerUc", messages("otherCarerUc",dpname), messages("label."+aboutTheCare.otherCarerUc.getOrElse("")),disableLink = disableChangeButton, elementId = Some("otherCarerUc"))
+		}
+		@if(aboutTheCare.otherCarerUc.getOrElse("").equals("yes")) {
+			@fieldWithLink("care_you_provide_otherCarerUcDetails", "otherCarerUcDetails", otherCarerUcDetailsText, disableLink = disableChangeButton, elementId = Some("otherCarerUcDetails"))
+		}
 	}
 }
 

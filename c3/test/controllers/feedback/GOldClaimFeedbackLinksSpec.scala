@@ -144,6 +144,27 @@ class GOldClaimFeedbackLinksSpec extends Specification {
       footerfeedback.getAttribute("rel") mustEqual ("external")
       footerfeedback.getAttribute("target") mustEqual ("_blank")
     }
+
+    "timeout page should contain main link and footer feedback link in new tab" in new WithBrowser(app = LightFakeApplication(additionalConfiguration = Map("feedback.cads.enabled" -> "false"))) {
+      browser.goTo("/timeout")
+
+      // No id on old style main body feedback link need to find 1st matching href
+      val mainfeedback = browser.$("a[href=\"" + ClaimsFeedbackUrl + "\"]").first()
+      mainfeedback.getText() mustEqual ("What did you think of this service?")
+
+      val linktext = browser.$(".form-steps").first().getText()
+      linktext mustEqual ("Start againWhat did you think of this service? (Takes 30 seconds.)")
+
+      mainfeedback.getAttribute("href") mustEqual (ClaimsFeedbackUrl)
+      mainfeedback.getAttribute("rel") mustEqual ("external")
+      mainfeedback.getAttribute("target") mustEqual ("_blank")
+
+      val footerfeedback = browser.$("#claim-feedback")
+      footerfeedback.getText() mustEqual ("Feedback")
+      footerfeedback.getAttribute("href") mustEqual (ClaimsFeedbackUrl)
+      footerfeedback.getAttribute("rel") mustEqual ("external")
+      footerfeedback.getAttribute("target") mustEqual ("_blank")
+    }
   }
   section("unit", models.domain.ThirdParty.id)
 }
