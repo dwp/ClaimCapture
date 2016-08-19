@@ -4,10 +4,13 @@
 @import utils.helpers.CarersCrypto
 @import views.html.helper.checkConstraintRequired
 
-<li class="form-group @if(field.hasErrors) {validation-error}" id="@CarersCrypto.encryptAES(field.id)">
-    @checkConstraintRequired(field, args:_*)
+<li class="form-group" id="@CarersCrypto.encryptAES(field.id)">
+    @fieldConstructor = @{utils.helpers.CarersTemplate.apply(lang).fieldConstructor}
+            @helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
+            @checkConstraintRequired(field, args:_*)
 
-    <ul class="form-group form-group-compound">
-        @carersListCheckbox(field, form, args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items):_*)(utils.helpers.EmptyTemplate.apply(lang).fieldConstructor,lang,request,messages)
-    </ul>
+            <ul class="form-group form-group-compound">
+            @carersListCheckbox(field, form, args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items):_*)(utils.helpers.EmptyTemplate.apply(lang).fieldConstructor,lang,request,messages)
+            </ul>
+    }(fieldConstructor,messages)
 </li>
