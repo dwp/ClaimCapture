@@ -91,12 +91,20 @@ object GBreaksInCareHospital extends Controller with CachedClaim with I18nSuppor
   }
 
   private def updateClaim(newbreaks: BreaksInCare)(implicit claim: Claim) = {
-    // Delete the hospital answer from claim. Otherwise, it will prepopulate the answer when return to Summary page
-    // And also update with the new break
-    def breaksTypes(implicit claim: Claim) = claim.questionGroup[BreaksInCareType].getOrElse(BreaksInCareType())
-    val updatedBreaks = breaksTypes.copy(hospital = None)
+    val updatedBreaks = updatedBreakTypesObject
     val updatedClaim = claim.update(updatedBreaks).update(newbreaks)
     updatedClaim
+  }
+
+  private def updatedBreakTypesObject(implicit claim: Claim) = {
+    // Delete the hospital answer from claim. Otherwise, it will prepopulate the answer when return to Summary page
+    // But if we are the last break type being collected, clear all answers so that summary page needs to be re-selected.
+    if (breaksTypes.carehome.isDefined || breaksTypes.other.equals(Some(Mappings.yes))) {
+      breaksTypes.copy(hospital = None)
+    }
+    else {
+      new BreaksInCareType()
+    }
   }
 
   private def nextPage(implicit claim: Claim, request: Request[_]) = {
@@ -109,4 +117,5 @@ object GBreaksInCareHospital extends Controller with CachedClaim with I18nSuppor
   }
 
   def breaksInCare(implicit claim: Claim) = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
+  def breaksTypes(implicit claim: Claim) = claim.questionGroup[BreaksInCareType].getOrElse(BreaksInCareType())
 }

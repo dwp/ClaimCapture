@@ -96,12 +96,21 @@ object GBreaksInCareOther extends Controller with CachedClaim with I18nSupport w
   }
 
   private def updateClaim(newbreaks: BreaksInCare)(implicit claim: Claim) = {
-    // Delete the other-care answer from claim. Otherwise, it will prepopulate the answer when return to Summary page
-    // And also update with the new break
-    def breaksTypes(implicit claim: Claim) = claim.questionGroup[BreaksInCareType].getOrElse(BreaksInCareType())
-    val updatedBreaks = breaksTypes.copy(other = None)
+    val updatedBreaks = updatedBreakTypesObject
     val updatedClaim = claim.update(updatedBreaks).update(newbreaks)
     updatedClaim
+  }
+
+  private def updatedBreakTypesObject(implicit claim: Claim) = {
+    // Delete the other answer from claim. Otherwise, it will prepopulate the answer when return to Summary page
+    // But if we are the last break type being collected, clear all answers so that summary page needs to be re-selected.
+    def breaksTypes(implicit claim: Claim) = claim.questionGroup[BreaksInCareType].getOrElse(BreaksInCareType())
+    if (breaksTypes.hospital.isDefined || breaksTypes.carehome.isDefined) {
+      breaksTypes.copy(other = None)
+    }
+    else {
+      new BreaksInCareType()
+    }
   }
 
   private def requiredOtherCaringEnded: Constraint[Break] = Constraint[Break]("constraint.breakCaringEnded") { break =>
@@ -174,4 +183,5 @@ object GBreaksInCareOther extends Controller with CachedClaim with I18nSupport w
   }
 
   def breaksInCare(implicit claim: Claim) = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
+  def breaksTypes(implicit claim: Claim) = claim.questionGroup[BreaksInCareType].getOrElse(BreaksInCareType())
 }
