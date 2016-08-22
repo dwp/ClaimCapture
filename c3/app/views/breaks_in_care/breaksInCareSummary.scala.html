@@ -40,9 +40,9 @@
 }
 @whoWasAway(break: Break)=@{
     break.whoWasAway match {
-        case You => You
+        case You => messages("breaksummary.you")
         case DP => dpname
-        case _ if (break.typeOfCare == Breaks.another) => "You"
+        case _ if (break.typeOfCare == Breaks.another) => messages("breaksummary.you")
         case _ => "ERROR in whoAway"
     }
 }
@@ -86,10 +86,10 @@
                 <h2 class="heading-medium" id="summary-heading">@messages("breaksummary_title")</h2>
                 <table id="summary-table">
                     <tr>
-                        <th>Who</th>
-                        <th>Where</th>
-                        <th>From</th>
-                        <th>To</th>
+                        <th>@messages("breaksummary.who")</th>
+                        <th>@messages("breaksummary.where")</th>
+                        <th>@messages("breaksummary.from")</th>
+                        <th>@messages("breaksummary.to")</th>
                         <th></th>
                         <th></th>
                     </tr>
