@@ -29,16 +29,14 @@
     theirPersonalDetails.firstName+" "+theirPersonalDetails.surname
 }
 @breaktypeLabel=@{
-    breaks.hasBreaks match {
-        case true => "breaktype_another"
-        case false => "breaktype_first"
+    (breaks.hasBreaksForType(Breaks.hospital), breaks.hasBreaksForType(Breaks.carehome)) match {
+        case(true, _) => "breaktype_another"
+        case(_,true) => "breaktype_another"
+        case _ => "breaktype_first"
     }
 }
 @otherbreakLabel=@{
-    breaks.hasBreaks match {
-        case true => "breaktype_other_another"
-        case false => "breaktype_other_first"
-    }
+    "breaktype_other_another"
 }
 @whoWasAway(break: Break)=@{
     break.whoWasAway match {
