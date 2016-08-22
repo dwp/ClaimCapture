@@ -82,7 +82,7 @@ object GBreaksInCareHospital extends Controller with CachedClaim with I18nSuppor
       },
       break => {
         val updatedBreaksInCare = breaksInCare.update(break).breaks.size match {
-          case noOfBreaks if (noOfBreaks > getIntProperty("maximumBreaksInCare")) => breaksInCare
+          case noOfBreaks if (noOfBreaks > Breaks.maximumBreaks) => breaksInCare
           case _ => breaksInCare.update(break)
         }
         val updatedClaim = updateClaim(updatedBreaksInCare)

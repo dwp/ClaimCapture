@@ -12,6 +12,8 @@ case object Breaks extends Section.Identifier {
   val carehome = "carehome"
   val none = "none"
   val another = "another"
+
+  val maximumBreaks=getIntProperty("maximumBreaksInCare")
 }
 
 case class BreaksInCare(breaks: List[Break] = Nil) extends QuestionGroup(BreaksInCare) {
@@ -35,7 +37,7 @@ case class BreaksInCare(breaks: List[Break] = Nil) extends QuestionGroup(BreaksI
   }
 
   def maximumReached = {
-    if (breaks.size >= getIntProperty("maximumBreaksInCare"))
+    if (breaks.size >= Breaks.maximumBreaks)
       true
     else
       false

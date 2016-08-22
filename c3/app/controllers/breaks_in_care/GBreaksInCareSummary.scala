@@ -39,7 +39,7 @@ object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport
     form.bindEncrypted.fold(
       formWithErrors => {
         val errors = formWithErrors
-          .replaceError("", "toomanybreaks", FormError("breaks.toomanybreaks.error", "breaks.toomanybreaks.error"))
+          .replaceError("", "toomanybreaks", FormError("breaks.toomanybreaks", "breaks.toomanybreaks", Seq(Breaks.maximumBreaks)))
           .replaceError("", "deselectnone", FormError("breaktype", "breaks.breaktype.deselectnone", Seq(dateForBreaks(claim, request2lang), dpname(claim))))
           .replaceError("", "selectone", FormError("breaktype", "breaks.breaktype.selectone", Seq(dateForBreaks(claim, request2lang), dpname(claim))))
           .replaceError("", "selectother", FormError("breaktype_other", errorRequired, Seq(dpname(claim))))
