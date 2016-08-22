@@ -13,7 +13,7 @@
 
 @hasBreaksMessage(breakType: String = "MatchAny") = @{
 	val found = breakType match {
-		case "MatchAny" => breaks.hasBreaks
+		case "MatchAny" => breaks.hasBreaksForType(Breaks.hospital) || breaks.hasBreaksForType(Breaks.carehome)
 		case _ => breaks.hasBreaksForType(breakType)
 	}
 
