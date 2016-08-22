@@ -45,24 +45,16 @@ $(function() {
     $(".js-message").css("display", "none");
     $(".feed-close").css("display", "block");
 
-    // //add new window message aria
-    //   $(document).ready(function() { 
-    //     $("a[rel='external']").attr("aria-label" , "This link opens in a new window");
-    //   });          
-      
-      // //add field length contextual for screen readers
-      // $(function() {
-      //   var value = $(".form-control").attr("maxlength");        
-      //   $(".form-control").attr("aria-label" ,"Maximum " + value + " characters'");  
-      // });  
-      
-    // smooth scroll
+    // smooth scroll for page anchors typically click on error message anchors at top of page to position on the item with the error
     $('a[href^="#"]').bind('click.smoothscroll', function (e) {
         e.preventDefault();
-        var target = this.hash,
-            $target = $(target);
+        var target = this.hash;
+        var scrollto=$(target).offset().top - 40;
+        if ($(target).closest(".validation-error").length >0) {
+            scrollto=$(target).closest(".validation-error").offset().top
+        }
         $('html, body').animate({
-            scrollTop: $(target).offset().top - 40
+            scrollTop: scrollto
         }, 750, 'swing', function () {
             window.location.hash = target;
         });
