@@ -40,6 +40,7 @@ object Mappings {
   val errorInvalid = "error.invalid"
   val errorInvalidWithError = "error.invalid.error"
   val errorInvalidDateRange = "error.invalid.date.range"
+  val errorInvalidRestartDateRange = "error.restart.date.range"
   val maxLengthError = "error.maxLength"
   val invalidYesNo: String = "yesNo.invalid"
   val invalidPostcode: String = "error.postcode"

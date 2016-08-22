@@ -71,7 +71,7 @@ object GBreaksInCareOther extends Controller with CachedClaim with I18nSupport w
         val formWithErrorsUpdate = formWithErrors
           .replaceError("", "caringEnded", FormError("caringEnded.date", errorRequiredWithError, Seq(dp)))
           .replaceError("", "caringEnded.invalid", FormError("caringEnded.date", errorInvalidWithError, Seq(dp)))
-          .replaceError("", "caringEnded.invalidDateRange", FormError("caringEnded.date", errorInvalidDateRange))
+          .replaceError("", "caringEnded.invalidDateRange", FormError("caringStarted.date", errorInvalidRestartDateRange))
           .replaceError("", "caringEnded.time", FormError("caringEnded.time", errorRestrictedCharacters))
           .replaceError("", "caringStarted.answer", FormError("caringStarted.answer", errorRequired))
           .replaceError("", "caringStarted.date", FormError("caringStarted.date", errorRequired))
