@@ -13,7 +13,7 @@ class GBreaksInCareSummaryNavigationIntegrationSpec extends Specification {
   val ROWSPERBREAK = 2
   val COLSINBREAKROW = 6
 
-  section("integration", models.domain.YourIncomes.id)
+  section("integration", models.domain.Breaks.id)
   "Breaks in care summary page" should {
     "be presented" in new WithBrowser with PageObjects {
       val page = GBreaksInCareSummaryPage(context)
@@ -315,5 +315,5 @@ class GBreaksInCareSummaryNavigationIntegrationSpec extends Specification {
     // Some back button checks ??
     //
   }
-  section("integration", models.domain.YourIncomes.id)
+  section("integration", models.domain.Breaks.id)
 }
