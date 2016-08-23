@@ -53,8 +53,8 @@ object GBreaksInCareOther extends Controller with CachedClaim with I18nSupport w
     .verifying(requiredCaringStartedAnswer)
     .verifying(requiredCaringStartedDate)
     .verifying(validateOptionalCarersNonEmptyTextStarted)
-    .verifying(requiredwhereWereYouRadioWithText)
     .verifying(requiredWhereWasDpRadioWithText)
+    .verifying(requiredwhereWereYouRadioWithText)
   )
 
   val backCall = routes.GBreaksInCareSummary.present()
@@ -154,7 +154,7 @@ object GBreaksInCareOther extends Controller with CachedClaim with I18nSupport w
   private def requiredWhereWasDpRadioWithText: Constraint[Break] = Constraint[Break]("constraint.radioWithText") { break =>
     break.whereWasDp.isDefined match {
       case true if (!RadioWithText.validateOnOther(break.whereWasDp.get)) => Invalid(ValidationError("whereWasDp.text"))
-      case true if (break.whereWereYou.get == BreaksInCareOtherOptions.SomewhereElse) => restrictedStringCheck(break.whereWasDp.get.text.get, "whereWasDp.text.restricted")
+      case true if (break.whereWasDp.get == BreaksInCareOtherOptions.SomewhereElse) => restrictedStringCheck(break.whereWasDp.get.text.get, "whereWasDp.text.restricted")
       case false if (break.caringStarted.isDefined && break.caringStarted.get.answer == Mappings.yes) => Invalid(ValidationError("whereWasDp"))
       case _ => Valid
     }

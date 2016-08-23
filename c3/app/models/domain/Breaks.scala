@@ -60,8 +60,8 @@ case class Break(iterationID: String = "",
                  dpMedicalProfessional: Option[String] = None,
                  caringEnded: Option[DayMonthYear] = None,
                  caringStarted: Option[YesNoWithDate] = None,
-                 whereWereYou: Option[RadioWithText] = None,
                  whereWasDp: Option[RadioWithText] = None,
+                 whereWereYou: Option[RadioWithText] = None,
                  caringEndedTime: Option[String] = None,
                  caringStartedTime: Option[String] = None
                   )
