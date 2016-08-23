@@ -23,11 +23,13 @@
 		case (_, false) => messages("label.no")
 	}
 }
-@q1LinkElement=@{
-	breaks.hasBreaks match {
-		case true => None
-		case false => Some("breaktype")
-	}
+@q1LinkElement = @{
+    if(breaks.hasBreaksForType(Breaks.hospital) || breaks.hasBreaksForType(Breaks.carehome)) {
+        None
+    }
+    else {
+        Some("breaktype")
+    }
 }
 @q4LinkElement=@{
 	breaks.hasBreaksForType(Breaks.another) match{
