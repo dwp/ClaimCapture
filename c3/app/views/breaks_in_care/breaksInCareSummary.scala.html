@@ -95,14 +95,14 @@
                     </tr>
                     @for((break, breakNum) <- breaks.breaks.zipWithIndex){
                         <tr iterationid="@break.iterationID" class="data-table">
-                            <td>@whoWasAway(break)</td>
-                            <td>@careTypeLabel(break)</td>
-                            <td>@careTypeFrom(break)</td>
-                            <td>@careTypeTo(break)</td>
-                            <td class="actions">
+                            <td id="who@breakNum">@whoWasAway(break)</td>
+                            <td id="where@breakNum">@careTypeLabel(break)</td>
+                            <td id="from@breakNum">@careTypeFrom(break)</td>
+                            <td id="to@breakNum">@careTypeTo(break)</td>
+                            <td id="change@breakNum" class="actions">
                                 <input type="button" class="changerow" id="changerow@breakNum" value="@Html(messages("change"))" href="@changeHref(break)" aria-label="@Html(messages("change.button"))" @views.html.ga.trackClickEvent(linkName = "BIC - Change")>
                             </td>
-                            <td class="actions">
+                            <td id="delete@breakNum" class="actions">
                                 <input type="button" class="deleterow" id="deleterow@breakNum" value="@Html(messages("delete"))" aria-label="@Html(messages("delete.button"))">
                             </td>
                         </tr>
