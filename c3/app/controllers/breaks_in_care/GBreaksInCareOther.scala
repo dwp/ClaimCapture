@@ -161,8 +161,8 @@ object GBreaksInCareOther extends Controller with CachedClaim with I18nSupport w
   }
 
   private def validateOptionalCarersNonEmptyTextStarted: Constraint[Break] = Constraint[Break]("constraint.time") { break =>
-    (break.caringStarted.isDefined, break.caringEndedTime.isDefined) match {
-      case (true, true) if (!break.caringEndedTime.getOrElse("").isEmpty) => restrictedStringCheck(break.caringEndedTime.get, "caringStarted.time")
+    (break.caringStarted.isDefined, break.caringStartedTime.isDefined) match {
+      case (true, true) if (!break.caringStartedTime.getOrElse("").isEmpty) => restrictedStringCheck(break.caringStartedTime.get, "caringStarted.time")
       case _ => Valid
     }
   }
