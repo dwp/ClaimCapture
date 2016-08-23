@@ -11,6 +11,7 @@ import play.api.data.Forms._
 import play.api.i18n.{Lang, I18nSupport, MMessages, MessagesApi}
 import play.api.mvc.{Request, Controller}
 import play.api.data.{Form, FormError}
+import play.api.Logger
 import utils.helpers.CarersForm._
 import models.view.{CachedClaim}
 
@@ -95,6 +96,7 @@ object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport
   }
 
   private def validateMaxReached(implicit claim: Claim, breaksInCareType: BreaksInCareType) = {
+    Logger.info("Validating breaksInCare Maximum with "+breaksInCare.breaks.size+" against maximum of "+Breaks.maximumBreaks)
     (breaksInCare.maximumReached, breaksInCareType.none, breaksInCareType.other) match {
       case (false, _, _) => true
       case (true, Mappings.someTrue, Some(Mappings.no)) => true
