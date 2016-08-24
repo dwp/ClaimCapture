@@ -115,3 +115,4 @@ object ApplicationBuild extends Build {
 
   val main = Project(appName, file(".")).enablePlugins(play.sbt.PlayScala, SbtWeb).settings(appSettings: _*).settings(unmanagedResourceDirectories in Test <+= baseDirectory( _ / "target/web/public/test" ))
 }
+
