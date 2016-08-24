@@ -67,27 +67,14 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
         val claim = newInstance()
         renameThread(claim.uuid)
         Logger.info(s"New ${claim.key} ${claim.uuid} with google-analytics:${googleAnalyticsAgentId(r)}.")
-        // Cookies need to be changed BEFORE session, session is within cookies.
-        def tofilter(theCookie: Cookie): Boolean = {
-          theCookie.name == ClaimHandling.C3VERSION || theCookie.name == getStringProperty("play.http.session.cookieName")
-        }
 
-        // This workaround shit has been put in place in order to clear up the PLAY_LANG cookie at the startup of the app.
-        // It's this ugly because the play framework has deemed us outcasts on the cookie managing for requests.
-        // Since the discarding only takes place after the rendering of the first page, that wasn't of much use for that page
-        // So we have to rely on dark arts in order to modify the cookies before render time so the framework doesn't read the lingering language from here
-        val lang = if (OriginTagHelper.isOriginGB())request.getQueryString("lang").getOrElse("") else "";
-        val newHeaders = request.headers.get(COOKIE) match {
-          case Some(cookieHeader) => request.headers.remove(COOKIE).add(COOKIE->Cookies.mergeCookieHeader(cookieHeader,Seq(Cookie("PLAY_LANG",lang))))
-          case _ => request.headers.remove(COOKIE).add(COOKIE->Cookies.mergeCookieHeader("", Seq(Cookie("PLAY_LANG",lang))))
-        }
 
-        implicit val newRequest = Request(request.copy(headers=newHeaders),request.body)
+        implicit val newRequest = createNewRequest(request)
 
         // Added C3Version for full Zero downtime
         Logger.info(s"New C3Version cookie for ${claim.uuid} value:${ClaimHandling.C3VERSION_VALUE} expiresecs:${ClaimHandling.C3VERSION_SECSTOLIVE}")
         withHeaders(action(claim, newRequest, bestLang)(f))
-          .withCookies(newRequest.cookies.toSeq.filterNot(tofilter) :+ Cookie(ClaimHandling.C3VERSION, ClaimHandling.C3VERSION_VALUE, Some(ClaimHandling.C3VERSION_SECSTOLIVE)): _*)
+          .withCookies(newRequest.cookies.toSeq.filterNot(toFilter) :+ Cookie(ClaimHandling.C3VERSION, ClaimHandling.C3VERSION_VALUE, Some(ClaimHandling.C3VERSION_SECSTOLIVE)): _*)
           .withSession(claim.key -> claim.uuid)
           .discardingCookies(DiscardingCookie(ClaimHandling.applicationFinished))
       } else {
@@ -118,6 +105,19 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
     }
   }
 
+  def createNewRequest(request: Request[AnyContent]) = {
+    // This workaround shit has been put in place in order to clear up the PLAY_LANG cookie at the startup of the app.
+    // It's this ugly because the play framework has deemed us outcasts on the cookie managing for requests.
+    // Since the discarding only takes place after the rendering of the first page, that wasn't of much use for that page
+    // So we have to rely on dark arts in order to modify the cookies before render time so the framework doesn't read the lingering language from here
+    val lang = if (OriginTagHelper.isOriginGB())request.getQueryString("lang").getOrElse("") else "";
+    val newHeaders = request.headers.get(COOKIE) match {
+      case Some(cookieHeader) => request.headers.remove(COOKIE).add(COOKIE->Cookies.mergeCookieHeader(cookieHeader,Seq(Cookie("PLAY_LANG",lang))))
+      case _ => request.headers.remove(COOKIE).add(COOKIE->Cookies.mergeCookieHeader("", Seq(Cookie("PLAY_LANG",lang))))
+    }
+    Request(request.copy(headers=newHeaders),request.body)
+  }
+
   /*
     If we have a claim, whether valid or not then we keep it since we might go back to it later.
     If we dont have a claim then create a new one.
@@ -131,12 +131,22 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
           withHeaders(action(claim, r, bestLang)(f))
         }
         case _ => {
+          implicit val newRequest = createNewRequest(request)
+
           val claim = newInstance()
           Logger.info("ClaimHandling optionalClaim created new claim:" + claim.uuid)
-          withHeaders(action(claim, r, bestLang)(f))
+          withHeaders(action(claim, newRequest, bestLang)(f))
+            .withCookies(newRequest.cookies.toSeq.filterNot(toFilter) :+ Cookie(ClaimHandling.C3VERSION, ClaimHandling.C3VERSION_VALUE, Some(ClaimHandling.C3VERSION_SECSTOLIVE)): _*)
+            .withSession(claim.key -> claim.uuid)
+            .discardingCookies(DiscardingCookie(ClaimHandling.applicationFinished))
         }
       }
     }
+  }
+
+  // Cookies need to be changed BEFORE session, session is within cookies.
+  def toFilter(theCookie: Cookie): Boolean = {
+    theCookie.name == ClaimHandling.C3VERSION || theCookie.name == getStringProperty("play.http.session.cookieName")
   }
 
   //============================================================================================================
