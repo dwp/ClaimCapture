@@ -38,7 +38,7 @@ object Caree extends XMLComponent {
     val hospital = breaks.filter(b => b.typeOfCare == Breaks.hospital).size
     breaks.filter(b => b.typeOfCare == Breaks.carehome).size>0 match {
       case true => if (hospital == 0) "Respite or care home" else "Hospital, Respite or care home"
-      case _ => if (hospital == 0) "" else "Hospital"
+      case _ => if (hospital == 0) "None" else "Hospital"
     }
   }
 
@@ -49,6 +49,10 @@ object Caree extends XMLComponent {
     }
   }
 
+  // We show 2 questions on Breaks header and 2 questions on Breaks footer on the PDF that we store in xml as first-break and last-break respectively
+  // These questions reflect the Summary page questions "Any Hospital/CareHome" and "Any other types of break".
+  // We show them on the PDF for initial question status and final question answers.
+  // The last break summary questions are always None and No as customer needs to answer None and No to exit the Breaks loop
   private def careBreak(claim: Claim, dp: String) = {
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
@@ -57,6 +61,13 @@ object Caree extends XMLComponent {
       question(<BreaksSinceClaim/>, label, answer, claimDateQG.dateWeRequireBreakInCareInformationFrom(claim.lang.getOrElse(Lang("en"))), dp)
     }
     val your = "@yourname"
+    val xmlFirstBreak = {
+      <CareBreak>
+        {breaksInCareLabel("breaktype_first", findSelectedMapping(breaksInCare.breaks), dp)}
+        {question(<BreaksOtherSinceClaim/>, "breaktype_other_first", findOtherSelected(breaksInCare.breaks), dp)}
+      </CareBreak>
+    }
+
     val xmlLastBreak = {
       if (breaksInCare.breaks.size > 0) {
         <CareBreak>
@@ -64,13 +75,6 @@ object Caree extends XMLComponent {
           {question(<BreaksOtherSinceClaim/>, "breaktype_other_another", "no", dp)}
         </CareBreak>
       } else {NodeSeq.Empty}
-    }
-
-    val xmlFirstBreak = {
-      <CareBreak>
-        {breaksInCareLabel("breaktype_first", findSelectedMapping(breaksInCare.breaks), dp)}
-        {question(<BreaksOtherSinceClaim/>, "breaktype_other_first", findOtherSelected(breaksInCare.breaks), dp)}
-      </CareBreak>
     }
 
     xmlFirstBreak ++
