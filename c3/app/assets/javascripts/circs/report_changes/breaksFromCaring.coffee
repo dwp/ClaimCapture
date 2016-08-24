@@ -15,10 +15,17 @@ window.initEvents = (breakEndedY, breakEndedN, expectStartCaringY, expectStartCa
 
   if not $("#" + expectStartCaringY).prop("checked")
     hideExpectStartCaringDate()
-    hidePermanentBreakDate()
 
   if not $("#" + expectStartCaringN).prop("checked")
     hidePermanentBreakDate()
+
+  if $("#" + expectStartCaringY).prop("checked")
+    showExpectStartCaringDate()
+    hidePermanentBreakDate()
+
+  if $("#" + expectStartCaringN).prop("checked")
+    showPermanentBreakDate()
+    hideExpectStartCaringDate()
 
   if isNotMondayOrFriday(breakStartDate)
     hideTime(breakStartTime)
