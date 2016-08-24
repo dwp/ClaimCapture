@@ -25,7 +25,10 @@
 @dpname=@{theirPersonalDetails.firstName+" "+theirPersonalDetails.surname}
 
 @stripDpname(key: String) = @{
-    key.replace(dpname, "@dpname")
+    if(dpname.length >3 )
+        key.replace(dpname, "@dpname")
+    else
+        key
 }
 
 @trimDate(key: String) = @{
