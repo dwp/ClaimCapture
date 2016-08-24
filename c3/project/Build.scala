@@ -11,7 +11,7 @@ import com.typesafe.sbt.packager.SettingsHelper._
 
 object ApplicationBuild extends Build {
   val appName = "c3"
-  val appVersion = "3.18-SNAPSHOT"
+  val appVersion = "3.17.1-SNAPSHOT"
 
   processConfFiles(Seq("conf/application-info.conf"), Seq("application.version" -> appVersion, "application.name" -> appName))
 
@@ -29,7 +29,7 @@ object ApplicationBuild extends Build {
     "com.typesafe.akka" %% "akka-testkit" % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-agent" % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-remote" % "2.3.9" % "test" withSources() withJavadoc(),
-    "gov.dwp.carers" % "xmlcommons" % "8.13-SNAPSHOT",
+    "gov.dwp.carers" % "xmlcommons" % "8.19-SNAPSHOT",
     "gov.dwp.carers" % "carerscommon" % "8.01-SNAPSHOT",
     "org.postgresql" % "postgresql" % "9.3-1103-jdbc41",
     "com.h2database" % "h2" % "1.4.186" % "test",
