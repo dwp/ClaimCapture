@@ -14,19 +14,21 @@ object YourIncome extends Section.Identifier {
   val spmp = "patmatadoppay"
   val fa = "fostering"
   val dp = "directpay"
+  val rental = "rental"
   val ao = "anyother"
   val n = "none"
 }
 
 case class YourIncomes(beenSelfEmployedSince1WeekBeforeClaim: String = "",
-                      beenEmployedSince6MonthsBeforeClaim: String = "",
-                      yourIncome_sickpay: Option[String] = None,
-                      yourIncome_patmatadoppay: Option[String] = None,
-                      yourIncome_fostering: Option[String] = None,
-                      yourIncome_directpay: Option[String] = None,
-                      yourIncome_anyother: Option[String] = None,
-                      yourIncome_none: Option[String] = None
-                     ) extends QuestionGroup(YourIncomes)
+                       beenEmployedSince6MonthsBeforeClaim: String = "",
+                       yourIncome_sickpay: Option[String] = None,
+                       yourIncome_patmatadoppay: Option[String] = None,
+                       yourIncome_fostering: Option[String] = None,
+                       yourIncome_directpay: Option[String] = None,
+                       yourIncome_rentalincome: Option[String] = None,
+                       yourIncome_anyother: Option[String] = None,
+                       yourIncome_none: Option[String] = None
+                        ) extends QuestionGroup(YourIncomes)
 
 object YourIncomes extends QuestionGroup.Identifier {
   val id = s"${YourIncome.id}.g0"
@@ -53,13 +55,13 @@ object StatutorySickPay extends QuestionGroup.Identifier with OtherIncomes {
 }
 
 case class StatutorySickPay(
-                            override val stillBeingPaidThisPay: String = "",
-                            override val whenDidYouLastGetPaid: Option[DayMonthYear] = None,
-                            override val whoPaidYouThisPay: String = "",
-                            override val amountOfThisPay: String = "",
-                            override val howOftenPaidThisPay: String = "",
-                            override val howOftenPaidThisPayOther: Option[String] = None
-                           ) extends QuestionGroup(StatutorySickPay) with OtherIncomes
+                             override val stillBeingPaidThisPay: String = "",
+                             override val whenDidYouLastGetPaid: Option[DayMonthYear] = None,
+                             override val whoPaidYouThisPay: String = "",
+                             override val amountOfThisPay: String = "",
+                             override val howOftenPaidThisPay: String = "",
+                             override val howOftenPaidThisPayOther: Option[String] = None
+                             ) extends QuestionGroup(StatutorySickPay) with OtherIncomes
 
 object YourIncomeStatutoryMaternityPaternityAdoptionPay extends Section.Identifier {
   val id = "s18"
@@ -74,14 +76,14 @@ object StatutoryMaternityPaternityAdoptionPay extends QuestionGroup.Identifier w
 }
 
 case class StatutoryMaternityPaternityAdoptionPay(
-                                                  override val paymentTypesForThisPay: String = "",
-                                                  override val stillBeingPaidThisPay: String = "",
-                                                  override val whenDidYouLastGetPaid: Option[DayMonthYear] = None,
-                                                  override val whoPaidYouThisPay: String = "",
-                                                  override val amountOfThisPay: String = "",
-                                                  override val howOftenPaidThisPay: String = "",
-                                                  override val howOftenPaidThisPayOther: Option[String] = None
-                                                 ) extends QuestionGroup(StatutoryMaternityPaternityAdoptionPay) with OtherIncomes
+                                                   override val paymentTypesForThisPay: String = "",
+                                                   override val stillBeingPaidThisPay: String = "",
+                                                   override val whenDidYouLastGetPaid: Option[DayMonthYear] = None,
+                                                   override val whoPaidYouThisPay: String = "",
+                                                   override val amountOfThisPay: String = "",
+                                                   override val howOftenPaidThisPay: String = "",
+                                                   override val howOftenPaidThisPayOther: Option[String] = None
+                                                   ) extends QuestionGroup(StatutoryMaternityPaternityAdoptionPay) with OtherIncomes
 
 object YourIncomeFosteringAllowance extends Section.Identifier {
   val id = "s19"
@@ -97,15 +99,15 @@ object FosteringAllowance extends QuestionGroup.Identifier with OtherIncomes {
 }
 
 case class FosteringAllowance(
-                              override val paymentTypesForThisPay: String = "",
-                              override val paymentTypesForThisPayOther: Option[String] = None,
-                              override val stillBeingPaidThisPay: String = "",
-                              override val whenDidYouLastGetPaid: Option[DayMonthYear] = None,
-                              override val whoPaidYouThisPay: String = "",
-                              override val amountOfThisPay: String = "",
-                              override val howOftenPaidThisPay: String = "",
-                              override val howOftenPaidThisPayOther: Option[String] = None
-                             ) extends QuestionGroup(FosteringAllowance) with OtherIncomes
+                               override val paymentTypesForThisPay: String = "",
+                               override val paymentTypesForThisPayOther: Option[String] = None,
+                               override val stillBeingPaidThisPay: String = "",
+                               override val whenDidYouLastGetPaid: Option[DayMonthYear] = None,
+                               override val whoPaidYouThisPay: String = "",
+                               override val amountOfThisPay: String = "",
+                               override val howOftenPaidThisPay: String = "",
+                               override val howOftenPaidThisPayOther: Option[String] = None
+                               ) extends QuestionGroup(FosteringAllowance) with OtherIncomes
 
 object YourIncomeDirectPayment extends Section.Identifier {
   val id = "s20"
@@ -120,13 +122,28 @@ object DirectPayment extends QuestionGroup.Identifier with OtherIncomes {
 }
 
 case class DirectPayment(
-                         override val stillBeingPaidThisPay: String = "",
-                         override val whenDidYouLastGetPaid: Option[DayMonthYear] = None,
-                         override val whoPaidYouThisPay: String = "",
-                         override val amountOfThisPay: String = "",
-                         override val howOftenPaidThisPay: String = "",
-                         override val howOftenPaidThisPayOther: Option[String] = None
-                        ) extends QuestionGroup(DirectPayment) with OtherIncomes
+                          override val stillBeingPaidThisPay: String = "",
+                          override val whenDidYouLastGetPaid: Option[DayMonthYear] = None,
+                          override val whoPaidYouThisPay: String = "",
+                          override val amountOfThisPay: String = "",
+                          override val howOftenPaidThisPay: String = "",
+                          override val howOftenPaidThisPayOther: Option[String] = None
+                          ) extends QuestionGroup(DirectPayment) with OtherIncomes
+
+object YourIncomeRentalIncome extends Section.Identifier {
+  val id = "s24"
+
+  def rentalIncomeMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//RentalIncomeInfo//Answer")
+}
+
+object RentalIncome extends QuestionGroup.Identifier {
+  val id = s"${YourIncomeRentalIncome.id}.g1"
+}
+
+case class RentalIncome(
+                         rentalIncomeInfo: String = ""
+                         ) extends QuestionGroup(RentalIncome)
+
 
 object YourIncomeOtherPayments extends Section.Identifier {
   val id = "s21"
@@ -138,8 +155,8 @@ object OtherPayments extends QuestionGroup.Identifier {
 }
 
 case class OtherPayments(
-                        otherPaymentsInfo: String = ""
-                        ) extends QuestionGroup(OtherPayments)
+                          otherPaymentsInfo: String = ""
+                          ) extends QuestionGroup(OtherPayments)
 
 
 trait OtherIncomes {

@@ -43,7 +43,7 @@ object GDirectPayment extends Controller with CachedClaim with Navigable with I1
           .replaceError("", "whenDidYouLastGetPaid.required", FormError("whenDidYouLastGetPaid", errorRequired))
         BadRequest(views.html.your_income.directPayment(formWithErrorsUpdate))
       },
-      directPayment => claim.update(directPayment) -> Redirect(controllers.your_income.routes.GOtherPayments.present()))
+      directPayment => claim.update(directPayment) -> Redirect(controllers.your_income.routes.GRentalIncome.present()))
   }.withPreviewConditionally[YourIncomes](checkGoPreview)
 
   def directPayment(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
@@ -54,7 +54,7 @@ object GDirectPayment extends Controller with CachedClaim with Navigable with I1
     val previousYourIncome = if (claim.navigation.beenInPreview)claim.checkYAnswers.previouslySavedClaim.get.questionGroup[YourIncomes].get else YourIncomes()
     val yourIncomes = claim.questionGroup[YourIncomes].get
     if (((previousYourIncome.yourIncome_directpay != yourIncomes.yourIncome_directpay || claim.questionGroup[DirectPayment].getOrElse(DirectPayment()).whoPaidYouThisPay.isEmpty) && yourIncomes.yourIncome_directpay.isDefined || !request.flash.isEmpty) && models.domain.YourIncomeDirectPayment.visible) c
-    else claim -> Redirect(controllers.your_income.routes.GOtherPayments.present())
+    else claim -> Redirect(controllers.your_income.routes.GRentalIncome.present())
   }
 
   private def checkGoPreview(t:(Option[YourIncomes], YourIncomes), c:(Option[Claim],Claim)): Boolean = {

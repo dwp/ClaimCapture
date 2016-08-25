@@ -22,6 +22,7 @@ object GYourIncomes extends Controller with CachedClaim with Navigable with I18n
       "yourIncome_patmatadoppay" -> optional(nonEmptyText),
       "yourIncome_fostering" -> optional(nonEmptyText),
       "yourIncome_directpay" -> optional(nonEmptyText),
+      "yourIncome_rental" -> optional(nonEmptyText),
       "yourIncome_anyother" -> optional(nonEmptyText),
       "yourIncome_none" -> optional(nonEmptyText)
       )(YourIncomes.apply)(YourIncomes.unapply)
@@ -61,6 +62,7 @@ object GYourIncomes extends Controller with CachedClaim with Navigable with I18n
       .showHideSection(yourIncomes.yourIncome_patmatadoppay == someTrue, models.domain.YourIncomeStatutoryMaternityPaternityAdoptionPay)
       .showHideSection(yourIncomes.yourIncome_fostering == someTrue, models.domain.YourIncomeFosteringAllowance)
       .showHideSection(yourIncomes.yourIncome_directpay == someTrue, models.domain.YourIncomeDirectPayment)
+      .showHideSection(yourIncomes.yourIncome_rentalincome == someTrue, models.domain.YourIncomeRentalIncome)
       .showHideSection(yourIncomes.yourIncome_anyother == someTrue, models.domain.YourIncomeOtherPayments)
   }
 
@@ -69,9 +71,13 @@ object GYourIncomes extends Controller with CachedClaim with Navigable with I18n
       claim.delete(OtherPayments)
     } else claim
 
-    val directPayment = if(yourIncomes.yourIncome_directpay == None) {
-      deletedAnyOther.delete(DirectPayment)
+    val rentalincomePayment = if(yourIncomes.yourIncome_rentalincome == None) {
+      deletedAnyOther.delete(RentalIncome)
     } else deletedAnyOther
+
+    val directPayment = if(yourIncomes.yourIncome_directpay == None) {
+      rentalincomePayment.delete(DirectPayment)
+    } else rentalincomePayment
 
     val fosteringAllowance = if(yourIncomes.yourIncome_fostering == None) {
       directPayment.delete(FosteringAllowance)
@@ -101,14 +107,14 @@ object GYourIncomes extends Controller with CachedClaim with Navigable with I18n
 
   private def validateOtherAndNonePaymentsSelected(yourIncomes: YourIncomes) = {
     someTrue match {
-      case (yourIncomes.yourIncome_anyother | yourIncomes.yourIncome_directpay | yourIncomes.yourIncome_fostering | yourIncomes.yourIncome_patmatadoppay | yourIncomes.yourIncome_sickpay) if(yourIncomes.yourIncome_none == someTrue) => false
+      case (yourIncomes.yourIncome_anyother | yourIncomes.yourIncome_directpay | yourIncomes.yourIncome_fostering | yourIncomes.yourIncome_patmatadoppay | yourIncomes.yourIncome_sickpay | yourIncomes.yourIncome_rentalincome) if(yourIncomes.yourIncome_none == someTrue) => false
       case _ => true
     }
   }
 
   private def validateOtherPaymentsSelected(yourIncomes: YourIncomes) = {
     yourIncomes match {
-      case YourIncomes(_, _, None, None, None, None, None, None) => false
+      case YourIncomes(_, _, None, None, None, None, None, None, None) => false
       case _ => true
     }
   }

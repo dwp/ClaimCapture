@@ -196,6 +196,9 @@ POST        /your-income/fostering-allowance                           controlle
 GET         /your-income/direct-payment                                controllers.your_income.GDirectPayment.present
 POST        /your-income/direct-payment                                controllers.your_income.GDirectPayment.submit
 
+GET         /your-income/rental-income                                 controllers.your_income.GRentalIncome.present
+POST        /your-income/rental-income                                 controllers.your_income.GRentalIncome.submit
+
 GET         /your-income/other-income                                  controllers.your_income.GOtherPayments.present
 POST        /your-income/other-income                                  controllers.your_income.GOtherPayments.submit
 
