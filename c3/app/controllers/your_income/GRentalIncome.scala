@@ -43,6 +43,6 @@ object GRentalIncome extends Controller with CachedClaim with Navigable with I18
     val yourIncomes = claim.questionGroup[YourIncomes].get
     if (((previousYourIncome.yourIncome_rentalincome != yourIncomes.yourIncome_rentalincome && yourIncomes.yourIncome_rentalincome.isDefined || claim.questionGroup[RentalIncome].getOrElse(RentalIncome()).rentalIncomeInfo.isEmpty) || !request.flash.isEmpty) && models.domain.YourIncomeRentalIncome.visible) c
     else if (claim.navigation.beenInPreview)claim -> Redirect(controllers.preview.routes.Preview.present().url + getReturnToSummaryValue(claim))
-    else claim -> Redirect(controllers.s_pay_details.routes.GHowWePayYou.present())
+    else claim -> Redirect(controllers.your_income.routes.GOtherPayments.present())
   }
 }
