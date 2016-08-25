@@ -29,6 +29,7 @@ object Incomes extends XMLComponent {
       {question(<PatMatAdopPayment/>, "yourIncome.spmp", incomes.yourIncome_patmatadoppay)}
       {question(<FosteringPayment/>, "yourIncome.fostering", incomes.yourIncome_fostering)}
       {question(<DirectPayment/>, "yourIncome.direct", incomes.yourIncome_directpay)}
+      {question(<RentalIncome/>, "yourIncome.rental", incomes.yourIncome_rentalincome)}
       {question(<AnyOtherPayment/>, "yourIncome.anyother", incomes.yourIncome_anyother)}
       {question(<NoOtherPayment/>, "yourIncome.none", incomes.yourIncome_none)}
       {Employment.xml(claim)}
@@ -38,6 +39,7 @@ object Incomes extends XMLComponent {
       {statPatMatAdoptPayXml(claim)}
       {fosteringAllowanceXml(claim)}
       {directPaymentXml(claim)}
+      {rentalIncomeXml(claim)}
       {otherPaymentsXml(claim)}
     </Incomes>
   }
