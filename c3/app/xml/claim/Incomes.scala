@@ -130,6 +130,18 @@ object Incomes extends XMLComponent {
     }
   }
 
+  def rentalIncomeXml(claim: Claim): NodeSeq = {
+    val claimDate = claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)
+    val data = claim.questionGroup[RentalIncome].getOrElse(RentalIncome())
+    val showXml = claim.questionGroup[YourIncomes].getOrElse(YourIncomes()).yourIncome_rentalincome.getOrElse("").toLowerCase == "true"
+    if (showXml) {
+      {question(<RentalIncomeInfo/>, "rentalIncomeInfo", data.rentalIncomeInfo, claimDate)}
+    }
+    else {
+      NodeSeq.Empty
+    }
+  }
+
   def otherPaymentsXml(claim: Claim): NodeSeq = {
     val claimDate = claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)
     val data = claim.questionGroup[OtherPayments].getOrElse(OtherPayments())
@@ -148,6 +160,7 @@ object Incomes extends XMLComponent {
       .update(createStatutoryPayFromXml(xml))
       .update(createFosteringAllowanceFromXml(xml))
       .update(createDirectPaymentFromXml(xml))
+      .update(createRentalIncomeFromXml(xml))
       .update(createOtherPaymentsFromXml(xml))
   }
 
@@ -209,6 +222,15 @@ object Incomes extends XMLComponent {
     } else models.domain.DirectPayment()
   }
 
+  private def createRentalIncomeFromXml(xmlNode: NodeSeq) = {
+    val rentalIncomeInfo = (xmlNode \\ "RentalIncomeInfo")
+    if (!rentalIncomeInfo.isEmpty) {
+      models.domain.RentalIncome(
+        rentalIncomeInfo = (rentalIncomeInfo \ "Answer").text
+      )
+    } else models.domain.RentalIncome()
+  }
+
   private def createOtherPaymentsFromXml(xmlNode: NodeSeq) = {
     val otherPaymentsInfo = (xmlNode \\ "OtherPaymentsInfo")
     if (!otherPaymentsInfo.isEmpty) {
@@ -225,6 +247,7 @@ object Incomes extends XMLComponent {
     val statutoryPay = (xmlNode \\ "PatMatAdopPayment")
     val fosteringAllowance = (xmlNode \\ "FosteringPayment")
     val directPayment = (xmlNode \\ "DirectPayment")
+    val rentalIncome = (xmlNode \\ "RentalIncome")
     val otherPayments = (xmlNode \\ "AnyOtherPayment")
     val noOtherPayments = (xmlNode \\ "NoOtherPayment")
     models.domain.YourIncomes(
@@ -249,6 +272,10 @@ object Incomes extends XMLComponent {
         case true => None
       },
       yourIncome_directpay = directPayment.isEmpty match {
+        case false => Mappings.someTrue
+        case true => None
+      },
+      yourIncome_rentalincome = rentalIncome.isEmpty match {
         case false => Mappings.someTrue
         case true => None
       },

@@ -14,6 +14,7 @@ class GYourIncomePage(ctx:PageObjectsContext) extends ClaimPage(ctx, GYourIncome
   declareCheck("#yourIncome_patmatadoppay", "YourIncomePatMatAdopPay")
   declareCheck("#yourIncome_fostering", "YourIncomeFosteringAllowance")
   declareCheck("#yourIncome_directpay", "YourIncomeDirectPay")
+  declareCheck("#yourIncome_rental", "YourIncomeRentalIncome")
   declareCheck("#yourIncome_anyother", "YourIncomeAnyOtherPay")
   declareCheck("#yourIncome_none", "YourIncomeNone")
 }
