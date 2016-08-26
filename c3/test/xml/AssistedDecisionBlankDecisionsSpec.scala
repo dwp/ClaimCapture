@@ -56,9 +56,49 @@ class AssistedDecisionBlankDecisionsSpec extends Specification {
       (xml \\ "AssistedDecision") (0) mustEqual emptyAssistedDecisionNode
     }
 
-    "Blank decision when got Other Income" in new WithApplication {
+    "Blank decision when got SSP Sickpay Income" in new WithApplication {
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
+      val employment = YourIncomes(beenSelfEmployedSince1WeekBeforeClaim = Mappings.no, beenEmployedSince6MonthsBeforeClaim = Mappings.no, yourIncome_sickpay = Mappings.someTrue)
+      val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(employment))
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "AssistedDecision") (0) mustEqual emptyAssistedDecisionNode
+    }
+
+    "Blank decision when got Paternity Maternity or Adoption Income" in new WithApplication {
       val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
       val employment = YourIncomes(beenSelfEmployedSince1WeekBeforeClaim = Mappings.no, beenEmployedSince6MonthsBeforeClaim = Mappings.no, yourIncome_patmatadoppay = Mappings.someTrue)
+      val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(employment))
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "AssistedDecision") (0) mustEqual emptyAssistedDecisionNode
+    }
+
+    "Blank decision when got Fostering Income" in new WithApplication {
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
+      val employment = YourIncomes(beenSelfEmployedSince1WeekBeforeClaim = Mappings.no, beenEmployedSince6MonthsBeforeClaim = Mappings.no, yourIncome_fostering = Mappings.someTrue)
+      val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(employment))
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "AssistedDecision") (0) mustEqual emptyAssistedDecisionNode
+    }
+
+    "Blank decision when got Direct Payment Income" in new WithApplication {
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
+      val employment = YourIncomes(beenSelfEmployedSince1WeekBeforeClaim = Mappings.no, beenEmployedSince6MonthsBeforeClaim = Mappings.no, yourIncome_directpay = Mappings.someTrue)
+      val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(employment))
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "AssistedDecision") (0) mustEqual emptyAssistedDecisionNode
+    }
+
+    "Blank decision when got Rental Income" in new WithApplication {
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
+      val employment = YourIncomes(beenSelfEmployedSince1WeekBeforeClaim = Mappings.no, beenEmployedSince6MonthsBeforeClaim = Mappings.no, yourIncome_rentalincome = Mappings.someTrue)
+      val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(employment))
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "AssistedDecision") (0) mustEqual emptyAssistedDecisionNode
+    }
+
+    "Blank decision when got Any Other Income" in new WithApplication {
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
+      val employment = YourIncomes(beenSelfEmployedSince1WeekBeforeClaim = Mappings.no, beenEmployedSince6MonthsBeforeClaim = Mappings.no, yourIncome_anyother = Mappings.someTrue)
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(employment))
       val xml = AssistedDecision.xml(claim)
       (xml \\ "AssistedDecision") (0) mustEqual emptyAssistedDecisionNode
