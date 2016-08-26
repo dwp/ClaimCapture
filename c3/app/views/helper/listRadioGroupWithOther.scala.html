@@ -1,29 +1,35 @@
 @(field: play.api.data.Field, args: (Symbol, Any)*)(implicit request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
-@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
-@import views.html.helper._
-@import views.html.helper.base._
-@import play.api.i18n.Messages
+    @implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
+    @import views.html.helper._
+    @import views.html.helper.base._
+    @import play.api.i18n.Messages
 
-@nestedFieldSet = @{ args.toMap.get('_nestedFieldSet).getOrElse(false) == true }
+    @nestedFieldSet = @{ args.toMap.get('_nestedFieldSet).getOrElse(false) == true }
 
-@helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
+    @otherLabel=@{
+        args.find(_._1 == '_otherLabel).getOrElse('_otherLabel->"")._2.toString
+    }
 
-    <fieldset @if(nestedFieldSet) {class="nested-fieldset"} else {class="form-elements"}>
+    @helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
 
-        @radioListPlaceholder(field("answer"), args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items) ++ Seq('class -> "listWithOther"):_*)(request,lang,utils.helpers.EmptyTemplate.apply(lang).fieldConstructor,messages)
+        <fieldset @if(nestedFieldSet) {class="nested-fieldset"} else {class="form-elements"}>
 
-        @ulDetailPlaceHolder(
-            inputDef = Seq(
-                carersInputTextArea(field("text"),
-                    'ignoreLabel -> true,
-                    'placeholder -> messages("ifOtherPleaseSpecify"),
-                    'textAreaHelper -> Html(messages("60charsLeft")),
-                    'class -> args.toMap.get('class).getOrElse(""),
-                    'maxLength -> args.toMap.get('maxLength).getOrElse(60))
-            ),
-            'id -> args.toMap.get('wrapperName).map(_.toString).getOrElse("answerWrap"),
-            'display -> {if (field("answer").value.getOrElse("no") == args.toMap.get('otherValue).map(_.toString).getOrElse("no")) "yes" else "no" })
+            @radioListPlaceholder(field("answer"), args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items) ++ Seq('class -> "listWithOther"):_*)(request,lang,utils.helpers.EmptyTemplate.apply(lang).fieldConstructor,messages)
 
-    </fieldset>
-}
+            @ulDetailPlaceHolder(
+                inputDef = Seq(
+                    carersInputTextArea(field("text"),
+                        'placeholder -> messages("ifOtherPleaseSpecify"),
+                        'textAreaHelper -> Html(messages("60charsLeft")),
+                        'class -> args.toMap.get('class).getOrElse(""),
+                        '_label -> otherLabel,
+                        'ignoreOptional -> true,
+                        'ignoreLabel -> false,
+                        'maxLength -> args.toMap.get('maxLength).getOrElse(60))
+                ),
+                'id -> args.toMap.get('wrapperName).map(_.toString).getOrElse("answerWrap"),
+                'display -> {if (field("answer").value.getOrElse("no") == args.toMap.get('otherValue).map(_.toString).getOrElse("no")) "yes" else "no" })
+
+        </fieldset>
+    }

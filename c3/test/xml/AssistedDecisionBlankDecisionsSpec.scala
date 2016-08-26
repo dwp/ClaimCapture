@@ -1,7 +1,6 @@
 package xml
 
 import controllers.mappings.Mappings
-import models.DayMonthYear
 import models.domain._
 import models.view.CachedClaim
 import models.yesNo._

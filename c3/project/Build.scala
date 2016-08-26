@@ -30,7 +30,7 @@ object ApplicationBuild extends Build {
     "com.typesafe.akka" %% "akka-agent" % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-remote" % "2.3.9" % "test" withSources() withJavadoc(),
     "gov.dwp.carers" % "xmlcommons" % "8.20-SNAPSHOT",
-    "gov.dwp.carers" % "carerscommon" % "8.01-SNAPSHOT",
+    "gov.dwp.carers" % "carerscommon" % "8.03-SNAPSHOT",
     "org.postgresql" % "postgresql" % "9.3-1103-jdbc41",
     "com.h2database" % "h2" % "1.4.186" % "test",
     "me.moocar" % "logback-gelf" % "0.12",
@@ -115,4 +115,3 @@ object ApplicationBuild extends Build {
 
   val main = Project(appName, file(".")).enablePlugins(play.sbt.PlayScala, SbtWeb).settings(appSettings: _*).settings(unmanagedResourceDirectories in Test <+= baseDirectory( _ / "target/web/public/test" ))
 }
-

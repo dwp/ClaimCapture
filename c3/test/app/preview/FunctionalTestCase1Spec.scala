@@ -34,7 +34,6 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
         "Date of birth"   displays DateTransformer("AboutTheCareYouProvideDateofBirthPersonYouCareFor"),
         "What's their relationship to you?"                               displays "AboutTheCareYouProvideWhatTheirRelationshipToYou",
         "Do you spend 35 hours or more each week providing care for I have a real nam Caseone filling some chars to test?" displays "AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek",
-        "Have you had any breaks from caring for this person since 21 January 2013"               displays AnyYesTransformer("AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare"),
         "Have you been on a course of education since your claim date?"   displays "EducationHaveYouBeenOnACourseOfEducation",
         "Have you been employed at any time since 21 January 2013"      displays "EmploymentHaveYouBeenEmployedAtAnyTime_0",
         "Have you been self-employed at any time since" displays "EmploymentHaveYouBeenSelfEmployedAtAnyTime",

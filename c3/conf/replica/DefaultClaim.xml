@@ -1,25 +1,25 @@
 <DWPBody xsi:schemaLocation="http://www.govtalk.gov.uk/dwp/carers-allowance file:/future/schema/ca/CarersAllowance_Schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns="http://www.govtalk.gov.uk/dwp/carers-allowance">
-    <Version>0.24</Version>
-    <ClaimVersion>3.14</ClaimVersion>
+    <Version>0.25</Version>
+    <ClaimVersion>3.15</ClaimVersion>
     <Origin>GB</Origin>
-    <DWPCATransaction id="16070000416">
-      <TransactionId>16070000416</TransactionId>
-      <DateTimeGenerated>25-07-2016 10:18</DateTimeGenerated>
+    <DWPCATransaction id="16080000398">
+      <TransactionId>16080000398</TransactionId>
+      <DateTimeGenerated>12-08-2016 15:35</DateTimeGenerated>
       <LanguageUsed>English</LanguageUsed>
       <DWPCAClaim>
       <DateOfClaim><QuestionLabel>Claim date</QuestionLabel><Answer>08-04-2016</Answer></DateOfClaim>
       <QualifyingBenefit><QuestionLabel>What benefit does the person you care for get?</QuestionLabel><Answer>AA</Answer></QualifyingBenefit>
       <Claimant>
-      <Surname><QuestionLabel>Last name</QuestionLabel><Answer>dBv4AgWmGZngyqfWoaKbm16SZlNCMEAJVZ5M0x6egiGe7UaHt1O6MtCDD1SdeRwE</Answer></Surname>
+      <Surname><QuestionLabel>Last name</QuestionLabel><Answer>6vUT8O60ajpb35wL5f7qJUvkpTu1KFPJrvQHa9K5toCy/x+tuUgkJlRSriLDNPdo</Answer></Surname>
       <OtherNames><QuestionLabel>First name</QuestionLabel><Answer>Joe</Answer></OtherNames>
       
       <Title><QuestionLabel>Title</QuestionLabel><Answer>Mr</Answer></Title>
       <DateOfBirth><QuestionLabel>Date of birth</QuestionLabel><Answer>10-10-1990</Answer></DateOfBirth>
-      <NationalInsuranceNumber><QuestionLabel>National Insurance number</QuestionLabel><Answer>G8vOGV415DUOKD+8hFHm/Uf3FaXuD92+VHCHbYZqTBJpzTfumv2g+2RH51c32kRU</Answer></NationalInsuranceNumber>
+      <NationalInsuranceNumber><QuestionLabel>National Insurance number</QuestionLabel><Answer>LP2UowA72D3L8d43M8+LGTbiOawaRdBfV/ug7Ym8EPvbIZ32UOpr+4rFXocwRsFJ</Answer></NationalInsuranceNumber>
       <Address>
       <QuestionLabel>Address</QuestionLabel>
       <Answer>
-        <Line>123</Line><Line>Street</Line><PostCode>DNCyh3Fm0sLGKLq1P7vmd38v8e8znlv9xev6NyalUdSOriO8KWR9dtDXVXjp6jSQ</PostCode>
+        <Line>123</Line><Line>Street</Line><PostCode>oGFuTgGoTVmUD+w0kYwLMagbgBfm59DwHW3nJbNZzMN7F7vVEaiaQjVScKBWRQ9R</PostCode>
       </Answer>
     </Address>
       
@@ -28,19 +28,19 @@
       <MaritalStatus><QuestionLabel>Your status</QuestionLabel><Answer>Single</Answer></MaritalStatus>
       <TextPhoneContact><QuestionLabel>This is a textphone for people with hearing difficulties.</QuestionLabel><Answer>Yes</Answer></TextPhoneContact>
       <WantsContactEmail><QuestionLabel>Have you got an email address?</QuestionLabel><Answer>Yes</Answer></WantsContactEmail>
-      <Email><QuestionLabel>Email address</QuestionLabel><Answer>CAU.CASA@dwp.gsi.gov.uk</Answer></Email>
+      <Email><QuestionLabel>Email address</QuestionLabel><Answer>cads.dwp@gmail.com</Answer></Email>
     </Claimant>
       <Caree>
-      <Surname><QuestionLabel>Last name</QuestionLabel><Answer>MM/vDjAoupWbjuffHzoZl+G6gm6NeIiQWyuu1FRhRLJClJNMLI5Fbtrc9cK52y27</Answer></Surname>
+      <Surname><QuestionLabel>Last name</QuestionLabel><Answer>z0edea5BNiMi0CaM1HLpHg3uIH7mXcE627oqaYxFsKPt/QwnNffyJKUqVhgXE6q8</Answer></Surname>
       <OtherNames><QuestionLabel>First name</QuestionLabel><Answer>Jane</Answer></OtherNames>
       
       <Title><QuestionLabel>Title</QuestionLabel><Answer>Mrs</Answer></Title>
       <DateOfBirth><QuestionLabel>Date of birth</QuestionLabel><Answer>08-04-2001</Answer></DateOfBirth>
-      <NationalInsuranceNumber><QuestionLabel>National Insurance number</QuestionLabel><Answer>pBHIdIs9Bo0sSHRN/DBb6fjPlGGS3gH69AErfgKK0mNohul4VpiiLQVxp7iEZnmS</Answer></NationalInsuranceNumber>
+      <NationalInsuranceNumber><QuestionLabel>National Insurance number</QuestionLabel><Answer>C5GhKp2HJFKb4oAIa4eerc5j3FYKvn4TyNkpHyVyEvHKiBQfyOzZbenVWEtEuADQ</Answer></NationalInsuranceNumber>
       <Address>
       <QuestionLabel>Address</QuestionLabel>
       <Answer>
-        <Line>470 Street</Line><Line>Newtown</Line><PostCode>XzFTWYbVWgBmXMfWMy8sJpG0km/p02D2OL3eVSpA8Uw05NoE8S3c86L1XdgJ6WeL</PostCode>
+        <Line>470 Street</Line><Line>Newtown</Line><PostCode>E3Ly/GPwUUTlE0SswZF0tZdVaM00Y3sOIJoFLcLYfAP8g7Gmmzxw/6RlnzRoK6aW</PostCode>
       </Answer>
     </Address>
       <RelationToClaimant><QuestionLabel>What's their relationship to you?</QuestionLabel><Answer>Grandma</Answer></RelationToClaimant>
@@ -49,22 +49,30 @@
       
       
       <CareBreak>
-        <BreaksSinceClaim><QuestionLabel>Have you had any breaks from caring for this person since 8 January 2016?</QuestionLabel><Answer>Yes</Answer></BreaksSinceClaim>
-        <StartDate><QuestionLabel>When did the break start?</QuestionLabel><Answer>08-12-2015</Answer></StartDate>
-        <EndDateDoNotKnow><QuestionLabel>Has this break ended?</QuestionLabel><Answer>No</Answer></EndDateDoNotKnow>
-        <MedicalCare><QuestionLabel>Did you or the person you care for get any medical treatment or professional care during this time?</QuestionLabel><Answer>No</Answer></MedicalCare>
-        <ReasonClaimant><QuestionLabel>Where were you during the break?</QuestionLabel><Answer>On holiday</Answer></ReasonClaimant>
-        <ReasonCaree><QuestionLabel>Where was the person you care for during the break?</QuestionLabel><Answer>At home</Answer></ReasonCaree>
+        <BreaksSinceClaim><QuestionLabel>Since 8 January 2016 have there been any times you or Jane Bloggs have been in hospital, respite or care home for at least a week?</QuestionLabel><Answer>Hospital, Respite or care home</Answer></BreaksSinceClaim>
+        <BreaksOtherSinceClaim><QuestionLabel>Have there been any times you've not provided care for Jane Bloggs for 35 hours a week?</QuestionLabel><Answer>Yes</Answer></BreaksOtherSinceClaim>
       </CareBreak><CareBreak>
-        <BreaksSinceClaim><QuestionLabel>Have you had any more breaks from caring for this person since 8 January 2016?</QuestionLabel><Answer>Yes</Answer></BreaksSinceClaim>
-        <StartDate><QuestionLabel>When did the break start?</QuestionLabel><Answer>08-01-2016</Answer></StartDate>
-        <EndDateDoNotKnow><QuestionLabel>Has this break ended?</QuestionLabel><Answer>No</Answer></EndDateDoNotKnow>
-        <MedicalCare><QuestionLabel>Did you or the person you care for get any medical treatment or professional care during this time?</QuestionLabel><Answer>Yes</Answer></MedicalCare>
-        <ReasonClaimant><QuestionLabel>Where were you during the break?</QuestionLabel><Answer>In hospital</Answer></ReasonClaimant>
-        <ReasonCaree><QuestionLabel>Where was the person you care for during the break?</QuestionLabel><Answer>At home</Answer></ReasonCaree>
+      <BreaksType><QuestionLabel>Type of Break</QuestionLabel><Answer>DPHospital</Answer></BreaksType>
+      <WhoWasAway><QuestionLabel>Who was in hospital?</QuestionLabel><Answer>Jane Bloggs</Answer></WhoWasAway>
+      <StartDate><QuestionLabel>When was Jane Bloggs admitted?</QuestionLabel><Answer>09-07-2016</Answer></StartDate>
+      <BreakEnded><QuestionLabel>Has the hospital stay ended?</QuestionLabel><Answer>Yes</Answer></BreakEnded><EndDate><QuestionLabel>When was Jane Bloggs discharged?</QuestionLabel><Answer>09-07-2016</Answer></EndDate>
+      <BreaksInCareRespiteStillCaring><QuestionLabel>During this time in hospital, were you still providing care for Jane Bloggs for 35 hours a week?</QuestionLabel><Answer>Yes</Answer></BreaksInCareRespiteStillCaring>
+    </CareBreak><CareBreak>
+      <BreaksType><QuestionLabel>Type of Break</QuestionLabel><Answer>DPRespite</Answer></BreaksType>
+      <WhoWasAway><QuestionLabel>Who was in respite or a care home?</QuestionLabel><Answer>Jane Bloggs</Answer></WhoWasAway>
+      <StartDate><QuestionLabel>When was Jane Bloggs admitted?</QuestionLabel><Answer>09-07-2016</Answer></StartDate>
+      <BreakEnded><QuestionLabel>Has the respite or care home stay ended?</QuestionLabel><Answer>Yes</Answer></BreakEnded><EndDate><QuestionLabel>When was Jane Bloggs discharged?</QuestionLabel><Answer>09-07-2016</Answer></EndDate>
+      <DpMedicalCare><QuestionLabel>Did Jane Bloggs receive care from a medical professional during this time?</QuestionLabel><Answer>Yes</Answer></DpMedicalCare><BreaksInCareRespiteStillCaring><QuestionLabel>During this time in hospital, were you still providing care for Jane Bloggs for 35 hours a week?</QuestionLabel><Answer>Yes</Answer></BreaksInCareRespiteStillCaring>
       </CareBreak><CareBreak>
-        <BreaksSinceClaim><QuestionLabel>Have you had any more breaks from caring for this person since 8 January 2016?</QuestionLabel><Answer>No</Answer></BreaksSinceClaim>
-      </CareBreak>
+      <BreaksType><QuestionLabel>Type of Break</QuestionLabel><Answer>Other</Answer></BreaksType>
+      <BreakStarted><QuestionLabel>Have you started providing care again?</QuestionLabel><Answer>Yes</Answer></BreakStarted><StartDate><QuestionLabel>What date did you start to provide care again?</QuestionLabel><Answer>09-07-2016</Answer></StartDate>
+    <EndDate><QuestionLabel>What date did you start to provide care again?</QuestionLabel><Answer>09-07-2016</Answer></EndDate>
+    <ReasonClaimant><QuestionLabel>Where were you during this time?</QuestionLabel><Other>Test1</Other><Answer>Somewhere else</Answer></ReasonClaimant>
+    <ReasonCaree><QuestionLabel>Where was Jane Bloggs during this time?</QuestionLabel><Other>Test2</Other><Answer>Somewhere else</Answer></ReasonCaree>
+    </CareBreak><CareBreak>
+          <BreaksSinceClaim><QuestionLabel>Since 8 January 2016 have there been any other times you or Jane Bloggs have been in hospital, respite or care home for at least a week?</QuestionLabel><Answer>None</Answer></BreaksSinceClaim>
+          <BreaksOtherSinceClaim><QuestionLabel>Have there been any other times you've not provided care for Jane Bloggs for 35 hours a week?</QuestionLabel><Answer>No</Answer></BreaksOtherSinceClaim>
+        </CareBreak>
       <LiveSameAddress><QuestionLabel>Do they live at the same address as you?</QuestionLabel><Answer>No</Answer></LiveSameAddress>
     </Caree>
       <Residency>
@@ -198,13 +206,13 @@
     </Incomes>
       <HavePartner><QuestionLabel>Have you lived with a partner at any time since your claim date?</QuestionLabel><Answer>Yes</Answer></HavePartner>
       <Partner>
-        <Surname><QuestionLabel>Last name</QuestionLabel><Answer>ISolxIdYlxifBo4ByQkssVeLv9Ap1caM3FFiy2+E6kjNFl5Z8v4sqx3UgRqFuPsx</Answer></Surname>
+        <Surname><QuestionLabel>Last name</QuestionLabel><Answer>wSmlck6LtoaO57DPKERDNra6jKwJXYOmOZM2XgZV2OckRUdLEEeGT01nSdVWVKxc</Answer></Surname>
         <OtherNames><QuestionLabel>First name</QuestionLabel><Answer>Joan</Answer></OtherNames>
         
         
         <Title><QuestionLabel>Title</QuestionLabel><Answer>Miss</Answer></Title>
         <DateOfBirth><QuestionLabel>Date of birth</QuestionLabel><Answer>08-04-2006</Answer></DateOfBirth>
-        <NationalInsuranceNumber><QuestionLabel>National Insurance number</QuestionLabel><Answer>BNDNU10V1ZU9yu3kcoe9WYyaoneerUfDriZgMgkHv+MJYu4VDeiAJK2ys2r4n7Kr</Answer></NationalInsuranceNumber>
+        <NationalInsuranceNumber><QuestionLabel>National Insurance number</QuestionLabel><Answer>C/KDBh9j7Lr8nBPiYEcpzlO9LdmWr1N2iZ5rmE/FqOM0DcDN8l02/OJu7iONmgJZ</Answer></NationalInsuranceNumber>
         <NationalityPartner><QuestionLabel>Nationality</QuestionLabel><Answer>British</Answer></NationalityPartner>
         <RelationshipStatus>
           <SeparatedFromPartner><QuestionLabel>Have you separated since your claim date?</QuestionLabel><Answer>No</Answer></SeparatedFromPartner>
@@ -275,16 +283,16 @@
 <ds:SignedInfo>
 <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
 <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
-<ds:Reference URI="#16070000416">
+<ds:Reference URI="#16080000398">
 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-<ds:DigestValue>Wv1Hy66eZyPRNUCUPX3VECd7F8Y=</ds:DigestValue>
+<ds:DigestValue>ljrQd1yPwudeCm/gzt6+MLFyI/A=</ds:DigestValue>
 </ds:Reference>
 </ds:SignedInfo>
 <ds:SignatureValue>
-Qlka0DhvxxFs4CaSxyLMOkxx4k2oIddOTddVg8d0qgizfcwgRZBR7Ia48SVT4AY+oOeNlNApHTGg
-Vg5YghiT7eli00JyZIdkIdPQyaJxkID0rP3+2Rd0wU4IOfmOXcDRCAjmpVv8GNbjeip5uwGbl1a3
-Ws7rFKX2YeEhs07wxQSW5He2tqv5CYJPDKQ5KCHIF+jsXl9QZqK1akwsFh7STE29s0rDL7AWhi9d
-Tmk3IrSiv9hRjP5fgDAfgfNx+nCSQK357IxllY2v6377QbzMsWBJXqaSoPVxxWIpyPqPZq11Nlvi
-wxK1hrwfX2SMzByMS67FTinlgJ/iM7iIzkxLpg==
+LIxasC43hjFtbSQDilQlGXFG3+jM+iiRL6IgNeSmABoluZnDqW5mAnxfB7ceQP+jUvtePN7ExHjX
+QsWos9LeSABywYvXkQwI3hNTxEaqPyw5iPmO8mexkLpqgconn6uiq24EP4/jKT86wWrrJuwyaosb
+0W1npHCq27ivEdrMYtNZ91fnKOOAO5jqiDyj2aPk3v1nTPLt+1vEsAZIh4ku5IaRfOejvowQdcoP
+rbDDsVjr5JRSQVCdfOXvUoZR6kE4GfdTkZms3LeGVbDHoVn0l8pWgZmbtIEtsxJxqDt8rfGzjXfh
+nY3w02dLZDNLpLulv6wqxv89InDO3hbxM9eeSg==
 </ds:SignatureValue>
 </ds:Signature></DWPBody>

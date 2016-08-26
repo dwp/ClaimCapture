@@ -1,6 +1,7 @@
 package controllers.preview.PreviewPageCareYouProvideContentSpec
 
 import org.specs2.mutable._
+import utils.pageobjects.breaks_in_care.GBreaksInCareHospitalPage
 import utils.pageobjects.s_about_you.GContactDetailsPage
 import utils.pageobjects.{TestData, PageObjectsContext, PageObjects}
 import utils.pageobjects.preview.PreviewPage
@@ -14,7 +15,7 @@ import utils.helpers.PreviewField._
 class PreviewPageCareYouProvideContentSpec extends Specification {
   section("preview")
   "Preview Page" should {
-    "display Care you provide data - when partner is not the person you care for" in new WithJsBrowser with PageObjects {
+   "display Care you provide data - when partner is not the person you care for" in new WithJsBrowser with PageObjects {
       val partnerData = ClaimScenarioFactory.s2ands3WithTimeOUtsideUKAndProperty()
       partnerData.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
 
@@ -132,7 +133,7 @@ class PreviewPageCareYouProvideContentSpec extends Specification {
       source must contain("About the person you care for")
       source must contain("Yes")
       source must contain("Father")
-      source must contain("Yes - Details provided for 1 break(s)")
+      source must contain("Yes - details provided")
 
       val carerAddressPage = page.clickLinkOrButton(getLinkId("about_you_address"))
 
@@ -187,12 +188,6 @@ class PreviewPageCareYouProvideContentSpec extends Specification {
     val moreAboutTheCarePage = careYouProvidePage submitPage()
     moreAboutTheCarePage fillPageWith careYouProvideData
 
-    val breaksIncarePage = moreAboutTheCarePage submitPage()
-    breaksIncarePage fillPageWith careYouProvideData
-
-    val breakDetailsPage = breaksIncarePage submitPage()
-    breakDetailsPage fillPageWith careYouProvideData
-    breakDetailsPage submitPage()
-
+    GBreaksInCareHospitalPage.fillDetails(context, testData => {})
   }
 }

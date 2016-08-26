@@ -76,11 +76,14 @@ class ReplicaSpec extends Specification {
         .filterNot(value => value.contains("/thankyou"))
         .filterNot(value => value.contains("/back-button"))
         .filterNot(value => value.contains("delete"))
-        .filterNot(value => value.contains("/breaks/break"))
         .filterNot(value => value.contains("/your-income/employment/job-details"))
         .filterNot(value => value.contains("/your-income/self-employment/completed"))
         .filterNot(value => value.contains("/your-income/employment/last-wage"))
         .filterNot(value => value.contains("/your-income/employment/about-expenses"))
+        .filterNot(value => value.contains("/breaks/hospital"))
+        .filterNot(value => value.contains("/breaks/respite-care-home"))
+        .filterNot(value => value.contains("/breaks/other-breaks"))
+
         .distinct
     }
     section("unit", "replica")

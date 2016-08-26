@@ -38,6 +38,11 @@
     } else key
 }
 
+@getMessageKey(key: String ) = @{
+    if (key.endsWith(".error")) key.dropRight(6)
+    else key
+}
+
 @if(form.hasErrors) {
     <div class="validation-summary">
         <h2 class="heading-small">@Html(messages("error.title"))</h2>
@@ -46,10 +51,10 @@
         @for(error <- form.errors) {
             <li>
                 <a href="#@CarersCrypto.encryptAES(form(error.key).id)">
-                    @if(messages(error.key + ".error") != error.key + ".error") {
-                        @Html(messages(error.message, error.args: _*))
+                    @if(messages(error.key + ".error") != error.key + ".error" && !error.message.endsWith(".error")) {
+                        @Html(messages(getMessageKey(error.message), error.args: _*))
                     } else {
-                        @Html(messages(error.key, error.args: _*)) - @Html(messages(error.message, error.args: _*))
+                        @Html(messages(error.key, error.args: _*)) - @Html(messages(getMessageKey(error.message), error.args: _*))
                     }
                 </a>
             </li>
@@ -60,10 +65,10 @@
     <script type="text/javascript">
     $(function() {
             @for(error <- form.errors) {
-                @if(messages(error.key + ".error") != error.key + ".error") {
-                    @Html(gaTrackError(messages(error.message, error.args: _*)))
+                @if(messages(error.key + ".error") != error.key + ".error" && !error.message.endsWith(".error")) {
+                    @Html(gaTrackError(messages(getMessageKey(error.message), error.args: _*)))
                 } else {
-                    @Html(gaTrack(messages(error.key, error.args: _*), messages(error.message, error.args: _*)))
+                    @Html(gaTrack(messages(error.key, error.args: _*), messages(getMessageKey(error.message), error.args: _*)))
                 }
             }
     });
