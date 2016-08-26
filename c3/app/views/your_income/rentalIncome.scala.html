@@ -8,6 +8,7 @@
 @import views.html.helper._
 @import views.html.helper.base._
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+@import utils.helpers.ReturnToSummaryHelper._
 
 @main(messages("s7.g1")+ " " + messages("s24.g1"), messages("s7.g1")+ " - " + messages("s24.g1"), Some(currentForm)) {
     @form(action = controllers.your_income.routes.GRentalIncome.submit, 'role -> "form") {
@@ -28,7 +29,7 @@
             </ul>
         </fieldset>
 
-        @views.html.common.bottomNavigation(customTrack = Some(views.html.ga.trackSubmit()))
+        @views.html.common.bottomNavigation(nextLabel=displayReturnToSummaryFromRentalIncomeInfo(claim), customTrack = Some(views.html.ga.trackSubmit()))
     }
 
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>

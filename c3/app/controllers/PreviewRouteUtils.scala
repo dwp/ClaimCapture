@@ -51,6 +51,7 @@ object PreviewRouteUtils {
     val statutoryPayRoute = controllers.your_income.routes.GStatutoryMaternityPaternityAdoptionPay.present.toString
     val fosteringAllowanceRoute = controllers.your_income.routes.GFosteringAllowance.present.toString
     val directPayment = controllers.your_income.routes.GDirectPayment.present.toString
+    val rentalIncome = controllers.your_income.routes.GRentalIncome.present.toString
     val otherPayments = controllers.your_income.routes.GOtherPayments.present.toString
 
     Map(
@@ -58,6 +59,7 @@ object PreviewRouteUtils {
       "your_income_statutory_pay" -> statutoryPayRoute,
       "your_income_fostering_allowance" -> fosteringAllowanceRoute,
       "your_income_direct_payment" -> directPayment,
+      "your_income_rental_income" -> rentalIncome,
       "your_income_other_payments" -> otherPayments
     )
   }

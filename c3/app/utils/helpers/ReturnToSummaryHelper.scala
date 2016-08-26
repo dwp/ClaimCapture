@@ -31,6 +31,11 @@ object ReturnToSummaryHelper {
     else None
   }
 
+  def displayReturnToSummaryFromRentalIncomeInfo(claim: Claim): Option[String] = {
+    if (claim.navigation.beenInPreview && !haveOtherPaymentsFromRentalIncomeChanged(claim)) Some("form.next")
+    else None
+  }
+
   def haveOtherPaymentsChanged(claim: Claim) = {
     val previousYourIncomes = if (claim.navigation.beenInPreview)claim.checkYAnswers.previouslySavedClaim.get.questionGroup[YourIncomes].get else YourIncomes()
     val yourIncomes = claim.questionGroup[YourIncomes].get
@@ -38,8 +43,9 @@ object ReturnToSummaryHelper {
     val statutorySickChanged = hasStatutoryMaternityPaternityAdoptionPaymentsChanged(claim, yourIncomes, previousYourIncomes)
     val fosteringAllowanceChanged = hasFosteringAllowancePaymentsChanged(claim, yourIncomes, previousYourIncomes)
     val directPaymentChanged = hasDirectPaymentsChanged(claim, yourIncomes, previousYourIncomes)
+    val rentalIncomeChanged = hasRentalIncomeChanged(claim, yourIncomes, previousYourIncomes)
     val otherPaymentsChanged = hasOtherPaymentsChanged(claim, yourIncomes, previousYourIncomes)
-    !(statutorySickPayChanged || statutorySickChanged || fosteringAllowanceChanged || directPaymentChanged || otherPaymentsChanged)
+    !(statutorySickPayChanged || statutorySickChanged || fosteringAllowanceChanged || directPaymentChanged || rentalIncomeChanged || otherPaymentsChanged)
   }
 
   def haveOtherPaymentsFromStatutorySickPayChanged(claim: Claim) = {
@@ -48,8 +54,9 @@ object ReturnToSummaryHelper {
     val statutorySickChanged = hasStatutoryMaternityPaternityAdoptionPaymentsChanged(claim, yourIncomes, previousYourIncomes)
     val fosteringAllowanceChanged = hasFosteringAllowancePaymentsChanged(claim, yourIncomes, previousYourIncomes)
     val directPaymentChanged = hasDirectPaymentsChanged(claim, yourIncomes, previousYourIncomes)
+    val rentalIncomeChanged = hasRentalIncomeChanged(claim, yourIncomes, previousYourIncomes)
     val otherPaymentsChanged = hasOtherPaymentsChanged(claim, yourIncomes, previousYourIncomes)
-    !(statutorySickChanged || fosteringAllowanceChanged || directPaymentChanged || otherPaymentsChanged)
+    !(statutorySickChanged || fosteringAllowanceChanged || directPaymentChanged || rentalIncomeChanged || otherPaymentsChanged)
   }
 
   def haveOtherPaymentsFromStatutoryPayChanged(claim: Claim) = {
@@ -57,19 +64,29 @@ object ReturnToSummaryHelper {
     val yourIncomes = claim.questionGroup[YourIncomes].get
     val fosteringAllowanceChanged = hasFosteringAllowancePaymentsChanged(claim, yourIncomes, previousYourIncomes)
     val directPaymentChanged = hasDirectPaymentsChanged(claim, yourIncomes, previousYourIncomes)
+    val rentalIncomeChanged = hasRentalIncomeChanged(claim, yourIncomes, previousYourIncomes)
     val otherPaymentsChanged = hasOtherPaymentsChanged(claim, yourIncomes, previousYourIncomes)
-    !(fosteringAllowanceChanged || directPaymentChanged || otherPaymentsChanged)
+    !(fosteringAllowanceChanged || directPaymentChanged || rentalIncomeChanged || otherPaymentsChanged)
   }
 
   def haveOtherPaymentsFromFosteringAllowanceChanged(claim: Claim) = {
     val previousYourIncomes = if (claim.navigation.beenInPreview)claim.checkYAnswers.previouslySavedClaim.get.questionGroup[YourIncomes].get else YourIncomes()
     val yourIncomes = claim.questionGroup[YourIncomes].get
     val directPaymentChanged = hasDirectPaymentsChanged(claim, yourIncomes, previousYourIncomes)
+    val rentalIncomeChanged = hasRentalIncomeChanged(claim, yourIncomes, previousYourIncomes)
     val otherPaymentsChanged = hasOtherPaymentsChanged(claim, yourIncomes, previousYourIncomes)
-    !(directPaymentChanged || otherPaymentsChanged)
+    !(directPaymentChanged || rentalIncomeChanged || otherPaymentsChanged)
   }
 
   def haveOtherPaymentsFromDirectPaymentChanged(claim: Claim) = {
+    val previousYourIncomes = if (claim.navigation.beenInPreview)claim.checkYAnswers.previouslySavedClaim.get.questionGroup[YourIncomes].get else YourIncomes()
+    val yourIncomes = claim.questionGroup[YourIncomes].get
+    val rentalIncomeChanged = hasRentalIncomeChanged(claim, yourIncomes, previousYourIncomes)
+    val otherPaymentsChanged = hasOtherPaymentsChanged(claim, yourIncomes, previousYourIncomes)
+    !(rentalIncomeChanged || otherPaymentsChanged)
+  }
+
+  def haveOtherPaymentsFromRentalIncomeChanged(claim: Claim) = {
     val previousYourIncomes = if (claim.navigation.beenInPreview)claim.checkYAnswers.previouslySavedClaim.get.questionGroup[YourIncomes].get else YourIncomes()
     val yourIncomes = claim.questionGroup[YourIncomes].get
     val otherPaymentsChanged = hasOtherPaymentsChanged(claim, yourIncomes, previousYourIncomes)
@@ -90,6 +107,10 @@ object ReturnToSummaryHelper {
 
   def hasDirectPaymentsChanged(claim: Claim, yourIncomes: YourIncomes, previousYourIncomes: YourIncomes): Boolean = {
     (!previousYourIncomes.yourIncome_directpay.isDefined && yourIncomes.yourIncome_directpay.isDefined) || (yourIncomes.yourIncome_directpay.isDefined && claim.questionGroup[DirectPayment].getOrElse(DirectPayment()).whoPaidYouThisPay.isEmpty)
+  }
+
+  def hasRentalIncomeChanged(claim: Claim, yourIncomes: YourIncomes, previousYourIncomes: YourIncomes): Boolean = {
+    (!previousYourIncomes.yourIncome_rentalincome.isDefined && yourIncomes.yourIncome_rentalincome.isDefined) || (yourIncomes.yourIncome_rentalincome.isDefined && claim.questionGroup[RentalIncome].getOrElse(RentalIncome()).rentalIncomeInfo.isEmpty)
   }
 
   def hasOtherPaymentsChanged(claim: Claim, yourIncomes: YourIncomes, previousYourIncomes: YourIncomes): Boolean = {

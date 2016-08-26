@@ -9,6 +9,7 @@
 @yourIncomeStatutoryPayQ = @{claim.questionGroup[StatutoryMaternityPaternityAdoptionPay].getOrElse(StatutoryMaternityPaternityAdoptionPay())}
 @yourIncomeFosteringAllowanceQ = @{claim.questionGroup[FosteringAllowance].getOrElse(FosteringAllowance())}
 @yourIncomeDirectPaymentQ = @{claim.questionGroup[DirectPayment].getOrElse(DirectPayment())}
+@yourIncomeRentalIncomeQ = @{claim.questionGroup[RentalIncome].getOrElse(RentalIncome())}
 @yourIncomeOtherPaymentsQ = @{claim.questionGroup[OtherPayments].getOrElse(OtherPayments())}
 @claimDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate())}
 @hasYourIncomeOtherPayment(value: Option[String]) = @{value == Some("true")}
@@ -19,6 +20,7 @@
             displayMessage(yourIncome.yourIncome_patmatadoppay, "preview.yourIncome.spmp") +
             displayMessage(yourIncome.yourIncome_fostering, "preview.yourIncome.fostering") +
             displayMessage(yourIncome.yourIncome_directpay, "preview.yourIncome.direct") +
+            displayMessage(yourIncome.yourIncome_rentalincome, "preview.yourIncome.rental") +
             displayMessage(yourIncome.yourIncome_anyother, "preview.yourIncome.anyother")
 }
 @yourIncomeStatutorySickPay = @{
@@ -44,6 +46,10 @@
             displayMessageDetail(yourIncomeDirectPaymentQ.whoPaidYouThisPay) +
             displayPaymentFrequencyMessage(yourIncomeDirectPaymentQ.amountOfThisPay, yourIncomeDirectPaymentQ.howOftenPaidThisPay, yourIncomeDirectPaymentQ.howOftenPaidThisPayOther) +
             displayStillInPaymentOrEnded(yourIncomeDirectPaymentQ.whenDidYouLastGetPaid, "preview.yourIncome.stillBeingPaid", "preview.yourIncome.ended")
+}
+@yourIncomeRentalIncome = @{
+    displayTitleMessage("preview.yourIncome.rental") +
+            displayMessageOnly(yourIncomeRentalIncomeQ.rentalIncomeInfo, "preview.yourIncome.detailsProvided")
 }
 @yourIncomeOtherPayments = @{
     displayTitleMessage("preview.yourIncome.anyother") +
@@ -90,5 +96,6 @@
 @if(hasYourIncomeOtherPayment(yourIncome.yourIncome_patmatadoppay)){ @fieldWithLink("your_income_statutory_pay", "", yourIncomeStatutoryPay, disableLink = disableChangeButton, elementId = Some("paymentTypesForThisPay")) }
 @if(hasYourIncomeOtherPayment(yourIncome.yourIncome_fostering)){ @fieldWithLink("your_income_fostering_allowance", "", yourIncomeFosteringAllowance, disableLink = disableChangeButton, elementId = Some("fosteringAllowancePay")) }
 @if(hasYourIncomeOtherPayment(yourIncome.yourIncome_directpay)){ @fieldWithLink("your_income_direct_payment", "", yourIncomeDirectPayment, disableLink = disableChangeButton, elementId = Some("stillBeingPaidThisPay_directPayment")) }
+@if(hasYourIncomeOtherPayment(yourIncome.yourIncome_rentalincome)){ @fieldWithLink("your_income_rental_income", "", yourIncomeRentalIncome, disableLink = disableChangeButton, elementId = Some("rentalIncomeInfo")) }
 @if(hasYourIncomeOtherPayment(yourIncome.yourIncome_anyother)){ @fieldWithLink("your_income_other_payments", "", yourIncomeOtherPayments, disableLink = disableChangeButton, elementId = Some("otherPaymentsInfo")) }
 

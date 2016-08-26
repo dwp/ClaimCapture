@@ -77,11 +77,13 @@
                         ,previousStatutoryPay: "@previousClaimEmployment.yourIncome_patmatadoppay"
                         ,previousFosteringAllowance: "@previousClaimEmployment.yourIncome_fostering"
                         ,previousDirectPayment: "@previousClaimEmployment.yourIncome_directpay"
+                        ,previousRentalIncome: "@previousClaimEmployment.yourIncome_rentalincome"
                         ,previousOtherPayments: "@previousClaimEmployment.yourIncome_anyother"
                         ,sickPay: "@CarersCrypto.encryptAES("yourIncome_sickpay")"
                         ,statutoryPay: "@CarersCrypto.encryptAES("yourIncome_patmatadoppay")"
                         ,fostering: "@CarersCrypto.encryptAES("yourIncome_fostering")"
                         ,directPayment: "@CarersCrypto.encryptAES("yourIncome_directpay")"
+                        ,rentalIncome: "@CarersCrypto.encryptAES("yourIncome_rental")"
                         ,otherPayments: "@CarersCrypto.encryptAES("yourIncome_anyother")"
                         ,noPayments: "@CarersCrypto.encryptAES("yourIncome_none")"
                         ,statutorySickPayData:@{claim.questionGroup[StatutorySickPay].getOrElse(StatutorySickPay()).whoPaidYouThisPay.isEmpty}
