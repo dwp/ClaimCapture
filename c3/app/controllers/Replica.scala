@@ -85,7 +85,7 @@ object ReplicaData {
           BreaksInCareSummary(breaksummary_other = Some(Mappings.no), breaksummary_answer = None) +
           BreaksInCare(List(
             Break("1", typeOfCare=Breaks.hospital, whoWasAway=BreaksInCareGatherOptions.You, whenWereYouAdmitted=Some(DayMonthYear.today - 1 months), yourStayEnded=Some(YesNoWithDate(answer = Mappings.no,None))),
-            Break("2", typeOfCare=Breaks.carehome, whoWasAway=BreaksInCareGatherOptions.You, whenWereYouAdmitted=Some(DayMonthYear.today - 2 months), yourStayEnded=Some(YesNoWithDate(answer = Mappings.no,None)))
+            Break("2", typeOfCare=Breaks.carehome, whoWasAway=BreaksInCareGatherOptions.You, whenWereYouAdmitted=Some(DayMonthYear.today - 2 months), yourStayEnded=Some(YesNoWithDate(answer = Mappings.no,None)), yourMedicalProfessional=Some(Mappings.no))
           )) +
           YourCourseDetails(beenInEducationSinceClaimDate = Mappings.yes,title = Some("Biology"),nameOfSchoolCollegeOrUniversity = Some("A College"),
           nameOfMainTeacherOrTutor = Some("A Tutor"),startDate = Some(DayMonthYear.today - 1 month),expectedEndDate = Some(DayMonthYear.today + 2 years)) +
