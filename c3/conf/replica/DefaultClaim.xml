@@ -105,6 +105,7 @@
       <PatMatAdopPayment><QuestionLabel>Statutory Paternity, Maternity or Adoption Pay</QuestionLabel><Answer>Yes</Answer></PatMatAdopPayment>
       <FosteringPayment><QuestionLabel>Fostering Allowance</QuestionLabel><Answer>Yes</Answer></FosteringPayment>
       <DirectPayment><QuestionLabel>Direct payment for caring for someone</QuestionLabel><Answer>Yes</Answer></DirectPayment>
+      <RentalIncome><QuestionLabel>Rental income</QuestionLabel><Answer>Yes</Answer></RentalIncome>
       <AnyOtherPayment><QuestionLabel>Any other income, eg rental income</QuestionLabel><Answer>Yes</Answer></AnyOtherPayment>
       
       <Employment>
@@ -192,6 +193,7 @@
         <HowOftenPaidThisPay><QuestionLabel>How often are you paid?</QuestionLabel><Answer>Other</Answer></HowOftenPaidThisPay>
         <HowOftenPaidThisPayOther><QuestionLabel>How often are you paid?</QuestionLabel><Answer>Twice a day</Answer></HowOftenPaidThisPayOther>
       </DirectPay>
+      <RentalIncomeInfo><QuestionLabel>What rental income have you had since 08/04/2016?</QuestionLabel><Answer>Some money paid by tenants</Answer></RentalIncomeInfo>
       <OtherPaymentsInfo><QuestionLabel>What other income have you had since 08/04/2016?</QuestionLabel><Answer>Testing other payments</Answer></OtherPaymentsInfo>
     </Incomes>
       <HavePartner><QuestionLabel>Have you lived with a partner at any time since your claim date?</QuestionLabel><Answer>Yes</Answer></HavePartner>
