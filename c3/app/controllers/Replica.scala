@@ -74,7 +74,7 @@ object ReplicaData {
           Eligibility(hours = Mappings.yes, over16 = Mappings.yes, origin = "GB") +
           ThirdPartyDetails(thirdParty = ThirdPartyDetails.noCarer, nameAndOrganisation  = Some("Jenny Bloggs Preston carers")) +
           ClaimDate(DayMonthYear.today,spent35HoursCaringBeforeClaim = YesNoWithDate(Mappings.yes,date = Some(DayMonthYear.today - 3 months))) +
-          YourDetails(title = "Mr",firstName = "Joe",surname = "Bloggs",nationalInsuranceNumber = NationalInsuranceNumber(Some("AB123456D")),dateOfBirth = DayMonthYear(10,10,2014)) +
+          YourDetails(title = "Mr",firstName = "Joe",surname = "Bloggs",nationalInsuranceNumber = NationalInsuranceNumber(Some("AB123456D")),dateOfBirth = DayMonthYear(10,10,1990)) +
           MaritalStatus(maritalStatus = app.MaritalStatus.Single) +
           ContactDetails(address = new MultiLineAddress(Some("123"),Some("Street")),postcode = Some("C4T 0AD"),howWeContactYou = Some("0000000000"),wantsContactEmail = Mappings.yes, email = Some("CAU.CASA@dwp.gsi.gov.uk"), emailConfirmation = Some("CAU.CASA@dwp.gsi.gov.uk")) +
           NationalityAndResidency("British", None, Mappings.yes, None, None, None, None, Mappings.no, None) +
@@ -82,7 +82,7 @@ object ReplicaData {
           YourPartnerPersonalDetails(hadPartnerSinceClaimDate = Mappings.yes,title = Some("Miss"),firstName = Some("Joan"),surname = Some("Bloggs"),dateOfBirth = Some(DayMonthYear.today - 10 years),nationality = Some("British"),separatedFromPartner = Some(Mappings.no),isPartnerPersonYouCareFor = Some(Mappings.no)) +
           TheirPersonalDetails(relationship = "Grandma",title = "Mrs",firstName = "Jane",surname = "Bloggs",dateOfBirth = DayMonthYear.today - 15 years,theirAddress = YesNoMandWithAddress(answer = Mappings.no, address = Option(MultiLineAddress(lineOne = Some("470 Street"),lineTwo = Some("Newtown"))), postCode = Some("PR1 1HB"))) +
           MoreAboutTheCare(spent35HoursCaring = Some(Mappings.yes), otherCarer= Some(Mappings.no)) +
-          BreaksInCareSummary(breaksummary_other = Some(Mappings.no), breaksummary_answer = None) +
+          BreaksInCareType(none = Mappings.someTrue, other = Some(Mappings.no)) +
           BreaksInCare(List(
             Break("1", typeOfCare=Breaks.hospital, whoWasAway=BreaksInCareGatherOptions.You, whenWereYouAdmitted=Some(DayMonthYear.today - 1 months), yourStayEnded=Some(YesNoWithDate(answer = Mappings.no,None))),
             Break("2", typeOfCare=Breaks.carehome, whoWasAway=BreaksInCareGatherOptions.You, whenWereYouAdmitted=Some(DayMonthYear.today - 2 months), yourStayEnded=Some(YesNoWithDate(answer = Mappings.no,None)), yourMedicalProfessional=Some(Mappings.no))
