@@ -13,7 +13,7 @@ case object Breaks extends Section.Identifier {
   val none = "none"
   val another = "another"
 
-  val maximumBreaks=getIntProperty("maximumBreaksInCare")
+  def maximumBreaks=getIntProperty("maximumBreaksInCare")
 }
 
 case class BreaksInCare(breaks: List[Break] = Nil) extends QuestionGroup(BreaksInCare) {
