@@ -135,7 +135,9 @@ object AssistedDecision extends XMLComponent {
       Logger.info(s"AssistedDecision SelfEmployed means emptyDecision")
       emptyAssistedDecisionDetails
     }
-    else if(yourIncomes.yourIncome_patmatadoppay == Mappings.someTrue
+    else if(
+      yourIncomes.yourIncome_sickpay == Mappings.someTrue
+        || yourIncomes.yourIncome_patmatadoppay == Mappings.someTrue
         || yourIncomes.yourIncome_fostering == Mappings.someTrue
         || yourIncomes.yourIncome_directpay == Mappings.someTrue
         || yourIncomes.yourIncome_anyother == Mappings.someTrue){
