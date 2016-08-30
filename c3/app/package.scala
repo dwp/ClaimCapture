@@ -43,19 +43,19 @@ package object app {
 
     def whereWasThePersonList(implicit lang: Lang, messages: Messages) = {
       Seq(
-        Hospital -> Html(messages("circsBreaks.inhospital")),
-        RespiteCare -> Html(messages("circsBreaks.inrespitecare")),
-        Holiday -> Html(messages("circsBreaks.onholiday")),
-        Home -> Html(messages("circsBreaks.athome")),
-        SomewhereElse -> Html(messages("circsBreaks.somewhereelse")))
+        Hospital -> messages("circsBreaks.inhospital"),
+        RespiteCare -> messages("circsBreaks.inrespitecare"),
+        Holiday -> messages("circsBreaks.onholiday"),
+        Home -> messages("circsBreaks.athome"),
+        SomewhereElse -> messages("circsBreaks.somewhereelse"))
     }
 
     def whereWereYouList(implicit lang: Lang, messages: Messages) = {
       Seq(
-        Home -> Html(messages("circsBreaks.athome")),
-        Holiday -> Html(messages("circsBreaks.onholiday")),
-        Hospital -> Html(messages("circsBreaks.inhospital")),
-        SomewhereElse -> Html(messages("circsBreaks.somewhereelse")))
+        Home -> messages("circsBreaks.athome"),
+        Holiday -> messages("circsBreaks.onholiday"),
+        Hospital -> messages("circsBreaks.inhospital"),
+        SomewhereElse -> messages("circsBreaks.somewhereelse"))
     }
 
   }

@@ -81,7 +81,7 @@
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             yesNoRadioGroup(breaksForm("expectStartCaring.answer"),
-                                'values -> Seq("yes" -> Html(messages("label.yes")), "no" -> Html(messages("label.no")), "dontknow" -> Html(messages("label.dontknow"))),
+                                'values -> Seq("yes" -> messages("label.yes"), "no" -> messages("label.no"), "dontknow" -> messages("label.dontknow")),
                                 'ignoreOptional -> true
                             ),
                             otherDetailPlaceHolder(
@@ -100,9 +100,9 @@
                         'id -> "expectStartCaring"
                     )
 
-                    @yesNoRadioGroup(breaksForm("medicalCareDuringBreak"),'values -> Seq("yes" -> Html(messages("label.yes3")), "no" -> Html(messages("label.no"))))
+                    @yesNoRadioGroup(breaksForm("medicalCareDuringBreak"),'values -> Seq("yes" -> messages("label.yes3"), "no" -> messages("label.no")))
 
-                    @carersInputTextArea(breaksForm("moreAboutChanges"), 'helperAbove-> Html(messages("moreAboutChanges.helper")), 'textAreaHelper -> Html(messages(s"${CircumstancesBreaksInCare.textMaxLength}charsLeft")), 'maxLength -> CircumstancesBreaksInCare.textMaxLength)
+                    @carersInputTextArea(breaksForm("moreAboutChanges"), 'helperAbove-> messages("moreAboutChanges.helper"), 'textAreaHelper -> Html(messages(s"${CircumstancesBreaksInCare.textMaxLength}charsLeft")), 'maxLength -> CircumstancesBreaksInCare.textMaxLength)
 
                 </ul>
 
