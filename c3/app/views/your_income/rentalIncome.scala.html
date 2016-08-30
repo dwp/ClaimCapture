@@ -33,9 +33,14 @@
     }
 
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/your_income/otherIncome.js")></script>
     <script type="text/javascript">
         $(function(){
             window.areaCounter({selector:"@CarersCrypto.encryptAES("rentalIncomeInfo")",maxChars:@YourIncomeRentalIncome.rentalIncomeMaxLength});
+
+            window.initRentalIncomesEvents(
+                    "@CarersCrypto.encryptAES("rentalIncomeInfo")"
+            );
         });
     </script>
 }

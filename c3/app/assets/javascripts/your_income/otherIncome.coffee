@@ -75,3 +75,6 @@ showFosteringAllowancePayWrap = ->
 
 window.initOtherPaymentsEvents = (textArea) ->
   $("#" + textArea).trigger("blur")
+
+window.initRentalIncomesEvents = (textArea) ->
+  $("#" + textArea).trigger("blur")
