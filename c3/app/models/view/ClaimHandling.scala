@@ -64,7 +64,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
         // Delete any old data to avoid somebody getting access to session left by somebody else
         if (!key.isEmpty) Cache.remove(key)
         // Start with new claim
-        val claim = newInstance()
+        val claim = newInstance().copy(lang = Some(Lang(request.getQueryString("lang").getOrElse("en"))))(Navigation())
         renameThread(claim.uuid)
         Logger.info(s"New ${claim.key} ${claim.uuid} with google-analytics:${googleAnalyticsAgentId(r)}.")
 
