@@ -23,7 +23,7 @@ class IncomesSpec extends Specification {
       (xml \\ "Incomes" \\ "SelfEmployed" \\ "QuestionLabel").text must contain("been self-employed")
       (xml \\ "Incomes" \\ "SelfEmployed" \\ "Answer").text shouldEqual "Yes"
 
-      (xml \\ "Incomes" \\ "OtherPaymentQuestion" \\ "QuestionLabel").text shouldEqual "What other income have you had since 20/03/2016?"
+      (xml \\ "Incomes" \\ "OtherPaymentQuestion" \\ "QuestionLabel").text shouldEqual "What other income have you had since 20 March 2016?"
       (xml \\ "Incomes" \\ "OtherPaymentQuestion" \\ "Answer").text shouldEqual "Some"
 
       (xml \\ "Incomes" \\ "SickPayment" \\ "QuestionLabel").text must contain("Sick Pay")
@@ -61,7 +61,7 @@ class IncomesSpec extends Specification {
       (xml \\ "Incomes" \\ "SelfEmployed" \\ "QuestionLabel").text must contain("been self-employed")
       (xml \\ "Incomes" \\ "SelfEmployed" \\ "Answer").text shouldEqual "No"
 
-      (xml \\ "Incomes" \\ "OtherPaymentQuestion" \\ "QuestionLabel").text shouldEqual "What other income have you had since 20/03/2016?"
+      (xml \\ "Incomes" \\ "OtherPaymentQuestion" \\ "QuestionLabel").text shouldEqual "What other income have you had since 20 March 2016?"
       (xml \\ "Incomes" \\ "OtherPaymentQuestion" \\ "Answer").text shouldEqual "None"
 
       (xml \\ "Incomes" \\ "NoOtherPayment" \\ "QuestionLabel").text shouldEqual "None"
@@ -200,7 +200,7 @@ class IncomesSpec extends Specification {
       val xml = Incomes.xml(claim + claimDate + incomeHeader + rentalIncome)
       (xml \\ "Incomes" \\ "RentalIncome" \\ "Answer").text shouldEqual "Yes"
 
-      (xml \\ "Incomes" \\ "RentalIncomeInfo" \\ "QuestionLabel").text should contain("What rental income have you had since 10/02/2016?")
+      (xml \\ "Incomes" \\ "RentalIncomeInfo" \\ "QuestionLabel").text should contain("What rental income have you had since 10 February 2016?")
       (xml \\ "Incomes" \\ "RentalIncomeInfo" \\ "Answer").text shouldEqual "Some rent money paid by tenant"
     }
 
@@ -213,7 +213,7 @@ class IncomesSpec extends Specification {
       val xml = Incomes.xml(claim + claimDate + incomeHeader + otherPayment)
       (xml \\ "Incomes" \\ "AnyOtherPayment" \\ "Answer").text shouldEqual "Yes"
 
-      (xml \\ "Incomes" \\ "OtherPaymentsInfo" \\ "QuestionLabel").text should contain("What other income have you had since 10/02/2016?")
+      (xml \\ "Incomes" \\ "OtherPaymentsInfo" \\ "QuestionLabel").text should contain("What other income have you had since 10 February 2016?")
       (xml \\ "Incomes" \\ "OtherPaymentsInfo" \\ "Answer").text shouldEqual "Was paid some money by carees brother"
     }
   }
