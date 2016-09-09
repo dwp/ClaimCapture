@@ -90,6 +90,7 @@
                         ,statutoryPayData:@{claim.questionGroup[StatutoryMaternityPaternityAdoptionPay].getOrElse(StatutoryMaternityPaternityAdoptionPay()).whoPaidYouThisPay.isEmpty}
                         ,fosteringAllowanceData:@{claim.questionGroup[FosteringAllowance].getOrElse(FosteringAllowance()).whoPaidYouThisPay.isEmpty}
                         ,directPaymentData:@{claim.questionGroup[DirectPayment].getOrElse(DirectPayment()).whoPaidYouThisPay.isEmpty}
+                        ,rentalIncomeData:@{claim.questionGroup[RentalIncome].getOrElse(RentalIncome()).rentalIncomeInfo.isEmpty}
                         ,otherPaymentsData:@{claim.questionGroup[OtherPayments].getOrElse(OtherPayments()).otherPaymentsInfo.isEmpty}
                     })
             }

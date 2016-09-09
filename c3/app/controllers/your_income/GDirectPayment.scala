@@ -52,7 +52,7 @@ object GDirectPayment extends Controller with CachedClaim with Navigable with I1
 
   def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     val previousYourIncome = if (claim.navigation.beenInPreview)claim.checkYAnswers.previouslySavedClaim.get.questionGroup[YourIncomes].get else YourIncomes()
-    val yourIncomes = claim.questionGroup[YourIncomes].get
+    val yourIncomes = claim.questionGroup[YourIncomes].getOrElse(YourIncomes())
     if (((previousYourIncome.yourIncome_directpay != yourIncomes.yourIncome_directpay || claim.questionGroup[DirectPayment].getOrElse(DirectPayment()).whoPaidYouThisPay.isEmpty) && yourIncomes.yourIncome_directpay.isDefined || !request.flash.isEmpty) && models.domain.YourIncomeDirectPayment.visible) c
     else claim -> Redirect(controllers.your_income.routes.GRentalIncome.present())
   }

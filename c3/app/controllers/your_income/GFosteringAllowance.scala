@@ -56,7 +56,7 @@ object GFosteringAllowance extends Controller with CachedClaim with Navigable wi
 
   def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     val previousYourIncome = if (claim.navigation.beenInPreview)claim.checkYAnswers.previouslySavedClaim.get.questionGroup[YourIncomes].get else YourIncomes()
-    val yourIncomes = claim.questionGroup[YourIncomes].get
+    val yourIncomes = claim.questionGroup[YourIncomes].getOrElse(YourIncomes())
     if (((previousYourIncome.yourIncome_fostering != yourIncomes.yourIncome_fostering || claim.questionGroup[FosteringAllowance].getOrElse(FosteringAllowance()).whoPaidYouThisPay.isEmpty) && yourIncomes.yourIncome_fostering.isDefined || !request.flash.isEmpty) && models.domain.YourIncomeFosteringAllowance.visible) c
     else claim -> Redirect(controllers.your_income.routes.GDirectPayment.present())
   }

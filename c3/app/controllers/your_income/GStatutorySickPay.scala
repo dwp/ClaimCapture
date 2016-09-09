@@ -52,7 +52,7 @@ object GStatutorySickPay extends Controller with CachedClaim with Navigable with
 
   def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     val previousYourIncome = if (claim.navigation.beenInPreview)claim.checkYAnswers.previouslySavedClaim.get.questionGroup[YourIncomes].get else YourIncomes()
-    val yourIncomes = claim.questionGroup[YourIncomes].get
+    val yourIncomes = claim.questionGroup[YourIncomes].getOrElse(YourIncomes())
     if (((previousYourIncome.yourIncome_sickpay != yourIncomes.yourIncome_sickpay || claim.questionGroup[StatutorySickPay].getOrElse(StatutorySickPay()).whoPaidYouThisPay.isEmpty) && yourIncomes.yourIncome_sickpay.isDefined || !request.flash.isEmpty) && models.domain.YourIncomeStatutorySickPay.visible) c
     else claim -> Redirect(controllers.your_income.routes.GStatutoryMaternityPaternityAdoptionPay.present())
   }

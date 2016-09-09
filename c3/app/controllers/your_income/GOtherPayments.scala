@@ -45,7 +45,7 @@ object GOtherPayments extends Controller with CachedClaim with Navigable with I1
 
   def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     val previousYourIncome = if (claim.navigation.beenInPreview)claim.checkYAnswers.previouslySavedClaim.get.questionGroup[YourIncomes].get else YourIncomes()
-    val yourIncomes = claim.questionGroup[YourIncomes].get
+    val yourIncomes = claim.questionGroup[YourIncomes].getOrElse(YourIncomes())
     if (((previousYourIncome.yourIncome_anyother != yourIncomes.yourIncome_anyother || claim.questionGroup[OtherPayments].getOrElse(OtherPayments()).otherPaymentsInfo.isEmpty) && yourIncomes.yourIncome_anyother.isDefined || !request.flash.isEmpty) && models.domain.YourIncomeOtherPayments.visible) c
     else if (claim.navigation.beenInPreview)claim -> Redirect(controllers.preview.routes.Preview.present().url + getReturnToSummaryValue(claim))
     else claim -> Redirect(controllers.s_pay_details.routes.GHowWePayYou.present())

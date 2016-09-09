@@ -40,7 +40,7 @@ window.updateNextLabel = (o) ->
     directPaymentChanged = (!bPreviousDirectPayment && directPayment) || (directPayment && o.directPaymentData)
     rentalIncomeChanged = (!bPreviousRentalIncome && rentalIncome) || (rentalIncome && o.rentalIncomeData)
     otherPaymentsChanged = (!bPreviousOtherPayments && otherPayments) || (otherPayments && o.otherPaymentsData)
-    noneSelected = !(statutorySickPay || statutoryPay || fosteringAllowance || directPayment || otherPayments || $("#" + o.noPayments).is ":checked")
+    noneSelected = !(statutorySickPay || statutoryPay || fosteringAllowance || directPayment || rentalIncome || otherPayments || $("#" + o.noPayments).is ":checked")
     !(statutorySickPayChanged || statutorySickChanged || fosteringAllowanceChanged || directPaymentChanged || rentalIncomeChanged || otherPaymentsChanged || noneSelected)
 
   #Definitions end, starts execution
