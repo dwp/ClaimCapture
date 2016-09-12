@@ -10,6 +10,8 @@
 @import app.PaymentFrequency._
 @import utils.CommonValidation
 @import models.domain.CircumstancesPaymentChange
+@import play.api.Play
+@import play.api.Play.current
 
 @main(messages("c2.g5") + " - " + messages("c2.name"), isChanging = true) {
     @errorsSummary(currentForm)
@@ -75,7 +77,7 @@
 
 	        </fieldset>
 
-			@views.html.common.bottomNavigation(changing = true)
+			@views.html.common.bottomNavigation(changing = true, customTrack = Some(Html("onclick=analyticsCallback()")))
         </div>
 
     }
@@ -95,6 +97,13 @@
 			"@CarersCrypto.encryptAES("moreAboutChanges")");
 			@ga.stagePrompt()
 		});
+
+	    function analyticsCallback() {
+            var textelement="#@CarersCrypto.encryptAES(currentForm("moreAboutChanges").id)"
+            if(!@Play.isTest && $(textelement).is(":visible")){
+                window.trackEvent( "@{request.path}", "moreAboutChanges.tracking", $(textelement).val().length )
+            }
+        }
 	</script>
 
 }

@@ -9,6 +9,8 @@
 @import views.html.circs.report_changes.main
 @import app.CircsBreaksWhereabouts._
 @import models.domain.CircumstancesBreaksInCare
+@import play.api.Play
+@import play.api.Play.current
 
 @backCall = @{
     claim.questionGroup[CircumstancesBreaksInCare].getOrElse(new CircumstancesBreaksInCare()).medicalCareDuringBreak.isEmpty match {
@@ -108,7 +110,7 @@
 
             </fieldset>
 
-            @views.html.common.bottomNavigation(changing = newChanging, backCall = Some(backCall))
+            @views.html.common.bottomNavigation(changing = newChanging, backCall = Some(backCall), customTrack = Some(Html("onclick=analyticsCallback()")))
         </div>
 
     }
@@ -140,6 +142,12 @@
             @ga.stagePrompt()
         });
 
+        function analyticsCallback() {
+            var textelement="#@CarersCrypto.encryptAES(breaksForm("moreAboutChanges").id)"
+            if(!@Play.isTest && $(textelement).is(":visible")){
+                window.trackEvent( "@{request.path}", "moreAboutChanges.tracking", $(textelement).val().length )
+            }
+        }
     </script>
 
 

@@ -8,6 +8,8 @@
 @import utils.helpers.CarersCrypto
 @import models.domain.CircumstancesSelfEmployment
 @import views.html.circs.report_changes.main
+@import play.api.Play
+@import play.api.Play.current
 
 @stillCaring = @{employmentChange("stillCaring")}
 @hasWorkStartedYet = @{employmentChange("hasWorkStartedYet")}
@@ -100,7 +102,7 @@
                 
 	        </fieldset>
 	
-            @views.html.common.bottomNavigation(changing = true)
+            @views.html.common.bottomNavigation(changing = true, customTrack = Some(Html("onclick=analyticsCallback()")))
         </div>
 
     }
@@ -182,6 +184,13 @@
             "@CarersCrypto.encryptAES(employmentChange("paidMoneyYet")("date")("year").id)",
             "paidMoneyYetWrap");
         });
+
+        function analyticsCallback() {
+            var textelement="#@CarersCrypto.encryptAES(employmentChange("typeOfWork_selfEmployedMoreAboutChanges").id)"
+            if(!@Play.isTest && $(textelement).is(":visible")){
+                window.trackEvent( "@{request.path}", "typeOfWork_selfEmployedMoreAboutChanges.tracking", $(textelement).val().length )
+            }
+        }
     </script>
 
 }
