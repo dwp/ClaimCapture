@@ -14,7 +14,7 @@ object Caree extends XMLComponent {
   def xml(claim: Claim) = {
     val theirPersonalDetails = claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())
     val moreAboutTheCare = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
-    val dpName=theirPersonalDetails.firstName+" "+theirPersonalDetails.surname
+    val dpname="@dpname"
     <Caree>
       {question(<Surname/>, "surname", encrypt(theirPersonalDetails.surname))}
       {question(<OtherNames/>, "firstName", theirPersonalDetails.firstName)}
@@ -24,9 +24,9 @@ object Caree extends XMLComponent {
       {question(<NationalInsuranceNumber/>,"nationalInsuranceNumber", encrypt(theirPersonalDetails.nationalInsuranceNumber.getOrElse("")))}
       {postalAddressStructure("address", theirPersonalDetails.theirAddress.address.getOrElse(MultiLineAddress()), encrypt(theirPersonalDetails.theirAddress.postCode.getOrElse("").toUpperCase))}
       {question(<RelationToClaimant/>,"relationship", theirPersonalDetails.relationship)}
-      {question(<Cared35Hours/>,"spent35HoursCaring", moreAboutTheCare.spent35HoursCaring, dpName)}
-      {question(<OtherCarer/>,"otherCarer", moreAboutTheCare.otherCarer, dpName)}
-      {question(<OtherCarerUc/>,"otherCarerUc", moreAboutTheCare.otherCarerUc, dpName)}
+      {question(<Cared35Hours/>,"spent35HoursCaring", moreAboutTheCare.spent35HoursCaring, dpname)}
+      {question(<OtherCarer/>,"otherCarer", moreAboutTheCare.otherCarer, dpname)}
+      {question(<OtherCarerUc/>,"otherCarerUc", moreAboutTheCare.otherCarerUc, dpname)}
       {question(<OtherCarerUcDetails/>,"otherCarerUcDetails", moreAboutTheCare.otherCarerUcDetails)}
       {careBreak(claim)}
       {question(<LiveSameAddress/>,"theirAddress.answer", theirPersonalDetails.theirAddress.answer)}
@@ -145,6 +145,6 @@ object Caree extends XMLComponent {
 
   private def createMoreAboutCareFromXml(xml: NodeSeq) = {
     val claimant = (xml \\ "Caree")
-    MoreAboutTheCare(spent35HoursCaring = createYesNoText((claimant \ "Cared35Hours" \ "Answer").text), otherCarer = createYesNoText((claimant \ "OtherCarer" \ "Answer").text))
+    MoreAboutTheCare(spent35HoursCaring = createStringOptional(createYesNoText((claimant \ "Cared35Hours" \ "Answer").text)), otherCarer = createStringOptional(createYesNoText((claimant \ "OtherCarer" \ "Answer").text)))
   }
 }
