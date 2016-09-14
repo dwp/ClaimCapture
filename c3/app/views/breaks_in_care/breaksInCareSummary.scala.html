@@ -28,11 +28,11 @@
 @dpname=@{
     theirPersonalDetails.firstName+" "+theirPersonalDetails.surname
 }
-@breaktypeLabel=@{
+@anyothertimes=@{
     (breaks.hasBreaksForType(Breaks.hospital), breaks.hasBreaksForType(Breaks.carehome)) match {
-        case(true, _) => "breaktype_another"
-        case(_,true) => "breaktype_another"
-        case _ => "breaktype_first"
+        case(true, _) => messages("breaktype.anyothertimes")
+        case(_,true) => messages("breaktype.anyothertimes")
+        case _ => messages("breaktype.anytimes")
     }
 }
 @otherbreakLabel=@{
@@ -128,7 +128,7 @@
                     'track -> true,
                     'ignoreOptional -> true,
                     '_showId -> true,
-                    '_label -> messages(breaktypeLabel, dateWeRequireBreakInCareInformationFrom, dpname))
+                    '_label -> messages("breaktype", dateWeRequireBreakInCareInformationFrom, anyothertimes, dpname))
 
                 @yesNoRadioGroup(currentForm("breaktype_other"),
                     '_label -> messages(otherbreakLabel, dpname),
