@@ -29,6 +29,7 @@ object GRentalIncome extends Controller with CachedClaim with Navigable with I18
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
           .replaceError("rentalIncomeInfo", Mappings.errorRequired, FormError("rentalIncomeInfo", Mappings.errorRequired,Seq(displayPlaybackDatesFormat(request2lang, claim.dateOfClaim.getOrElse(DayMonthYear.today)))))
+          .replaceError("rentalIncomeInfo", Mappings.errorRestrictedCharacters, FormError("rentalIncomeInfo", Mappings.errorRestrictedCharacters,Seq(displayPlaybackDatesFormat(request2lang, claim.dateOfClaim.getOrElse(DayMonthYear.today)))))
         BadRequest(views.html.your_income.rentalIncome(formWithErrorsUpdate))
       },
       rentalIncome => claim.update(rentalIncome) -> Redirect(controllers.your_income.routes.GOtherPayments.present()))
