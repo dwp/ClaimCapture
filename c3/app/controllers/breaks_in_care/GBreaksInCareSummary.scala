@@ -51,11 +51,6 @@ object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport
       })
   }
 
-  private def breaktypeLabel(implicit claim: Claim) = breaks.hasBreaks match {
-    case false => "breaktype_first"
-    case true => "breaktype_another"
-  }
-
   private def otherbreakLabel(implicit claim: Claim) = breaks.hasBreaks match {
     case false => "breaktype_other_first"
     case true => "breaktype_other_another"
