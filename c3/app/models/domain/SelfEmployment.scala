@@ -3,6 +3,7 @@ package models.domain
 import controllers.mappings.Mappings
 import models.DayMonthYear
 import models.yesNo.YesNoWithText
+import utils.helpers.TextLengthHelper
 
 case object SelfEmployment extends Section.Identifier {
   val id = "s23"
@@ -23,6 +24,8 @@ object Employment extends QuestionGroup.Identifier {
 
 case object SelfEmploymentDates extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g1"
+
+  def typeOfWorkMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//SelfEmployment//TypeOfWork//Answer")
 }
 
 case class SelfEmploymentDates( typeOfWork: String = "",

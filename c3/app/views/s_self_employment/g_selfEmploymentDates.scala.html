@@ -1,3 +1,4 @@
+@import models.domain.SelfEmploymentDates
 @(currentForm: Form[models.domain.SelfEmploymentDates])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
@@ -19,7 +20,7 @@
         @DwpCSRFFormHelper.formField
 	        <fieldset class="form-elements" data-journey="carers-allowance:page:self-employment">
 	            <ul>
-					@carersInputText(currentForm("typeOfWork"), 'helperAbove -> messages("typeOfWorkHelper"), 'maxLength -> mappings.Mappings.thirtyfive)
+					@carersInputText(currentForm("typeOfWork"), 'helperAbove -> messages("typeOfWorkHelper"), 'maxLength -> SelfEmploymentDates.typeOfWorkMaxLength)
 					@yesNoRadioGroup(currentForm("stillSelfEmployed"), 'track -> true, 'trackLabel -> messages("stillSelfEmployed"))
 					@otherDetailPlaceHolder(
 						inputDef = Seq(
