@@ -18,6 +18,7 @@ object GSelfEmploymentDates extends Controller with CachedClaim with Navigable w
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
 
   val form = Form(mapping(
+    "typeOfWork" -> carersNonEmptyText(maxLength = 35),
     "stillSelfEmployed" -> carersNonEmptyText.verifying(validYesNo),
     "moreThanYearAgo" -> carersNonEmptyText.verifying(validYesNo),
     "startThisWork" -> optional(dayMonthYear.verifying(validDate)),

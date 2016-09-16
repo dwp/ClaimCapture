@@ -25,7 +25,7 @@ case object SelfEmploymentDates extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g1"
 }
 
-case class SelfEmploymentDates(
+case class SelfEmploymentDates( typeOfWork: String = "",
                                 stillSelfEmployed: String = "",
                                 moreThanYearAgo: String = "",
                                 startThisWork: Option[DayMonthYear] = None,

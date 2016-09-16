@@ -33,18 +33,19 @@
 }
 @yourIncome = @{claim.questionGroup[YourIncomes].getOrElse(YourIncomes())}
 @selfEmploymentDates = @{
+    displayMessage(selfEmployment.typeOfWork, selfEmployment.typeOfWork + " - " + messages("detailsProvided.simplelc")) +
     displayMessage(selfEmployment.moreThanYearAgo, "preview.self_employed.moreThanAYearAgo") +
-            displayMessageDate(selfEmployment.startThisWork, "preview.self_employed.startThisWork") +
-            displayMessageDate(selfEmployment.finishThisWork, "preview.self_employed.finishThisWork") +
-            displayMessageDetails(selfEmployment.haveAccounts, "preview.self_employed.haveAccounts") +
-            displayMessageDate(selfEmployment.tradingYearStart, "preview.self_employed.tradingYearStart") +
-            displayMessageDetailsNo(selfEmployment.knowTradingYear, "preview.self_employed.unknownTradingYear") +
-            displayPensionsAndExpenses(selfEmploymentPensionsAndExpenses.haveExpensesForJob, selfEmploymentPensionsAndExpenses.payPensionScheme, "preview.self_employed.hasExpenses")
+    displayMessageDate(selfEmployment.startThisWork, "preview.self_employed.startThisWork") +
+    displayMessageDate(selfEmployment.finishThisWork, "preview.self_employed.finishThisWork") +
+    displayMessageDetails(selfEmployment.haveAccounts, "preview.self_employed.haveAccounts") +
+    displayMessageDate(selfEmployment.tradingYearStart, "preview.self_employed.tradingYearStart") +
+    displayMessageDetailsNo(selfEmployment.knowTradingYear, "preview.self_employed.unknownTradingYear") +
+    displayPensionsAndExpenses(selfEmploymentPensionsAndExpenses.haveExpensesForJob, selfEmploymentPensionsAndExpenses.payPensionScheme, "preview.self_employed.hasExpenses")
 }
 @isSelfEmployed = @{yourIncome.beenSelfEmployedSince1WeekBeforeClaim == yes}
 @disableChangeButton = @{!getBooleanProperty("cyaToggleVisible")}
 
 @fieldWithLink("self_employment_been_self_employed", messages("beenSelfEmployed.simple", oneWeekBeforeDate(claimDate.dateOfClaim).`d month yyyy`), messages("label." + yourIncome.beenSelfEmployedSince1WeekBeforeClaim), disableLink = disableChangeButton, elementId = Some("beenSelfEmployedSince1WeekBeforeClaim"))
 @if(isSelfEmployed) {
-    @fieldWithLink("self_employment_dates", messages("s8.longName", oneWeekBeforeDate(claimDate.dateOfClaim).`d month yyyy`), selfEmploymentDates, disableLink = disableChangeButton, elementId = Some("stillSelfEmployed"))
+    @fieldWithLink("self_employment_dates", messages("s8.longName", oneWeekBeforeDate(claimDate.dateOfClaim).`d month yyyy`), selfEmploymentDates, disableLink = disableChangeButton, elementId = Some("typeOfWork"))
 }
