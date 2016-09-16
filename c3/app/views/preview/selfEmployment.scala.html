@@ -33,7 +33,7 @@
 }
 @yourIncome = @{claim.questionGroup[YourIncomes].getOrElse(YourIncomes())}
 @selfEmploymentDates = @{
-    displayMessage(selfEmployment.typeOfWork, selfEmployment.typeOfWork + " - " + messages("detailsProvided.simplelc")) +
+    displayMessage(selfEmployment.typeOfWork, selfEmployment.typeOfWork) +
     displayMessage(selfEmployment.moreThanYearAgo, "preview.self_employed.moreThanAYearAgo") +
     displayMessageDate(selfEmployment.startThisWork, "preview.self_employed.startThisWork") +
     displayMessageDate(selfEmployment.finishThisWork, "preview.self_employed.finishThisWork") +
