@@ -531,7 +531,6 @@ object ClaimScenarioFactory {
     // Employment
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "No"
-    claim.YourIncomeStatutorySickPay = "true"
     claim
   }
 

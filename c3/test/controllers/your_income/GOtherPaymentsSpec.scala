@@ -64,8 +64,7 @@ class GOtherPaymentsSpec extends Specification {
     }
 
     "have text maxlength set correctly in present()" in new WithBrowser with PageObjects {
-      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeAnyOtherPay = "true" })
-      val otherPayments = GOtherPaymentsPage(context)
+      val otherPayments=GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeAnyOtherPay = "true" })
       otherPayments must beAnInstanceOf[GOtherPaymentsPage]
 
       val anythingElse = browser.$("#otherPaymentsInfo")
