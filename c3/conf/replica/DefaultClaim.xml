@@ -1,5 +1,5 @@
 <DWPBody xsi:schemaLocation="http://www.govtalk.gov.uk/dwp/carers-allowance file:/future/schema/ca/CarersAllowance_Schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns="http://www.govtalk.gov.uk/dwp/carers-allowance">
-    <Version>0.25</Version>
+    <Version>0.26</Version>
     <ClaimVersion>3.15</ClaimVersion>
     <Origin>GB</Origin>
     <DWPCATransaction id="16080000398">
@@ -151,6 +151,7 @@
             </JobDetails>
       </Employment>
       <SelfEmployment>
+        <TypeOfWork><QuestionLabel>Type of business or work</QuestionLabel><Answer>Labourer</Answer></TypeOfWork>
         <SelfEmployedNow><QuestionLabel>Are you still doing this work?</QuestionLabel><Answer>No</Answer></SelfEmployedNow>
         <MoreThanYearAgo><QuestionLabel>Did you start this work more than a year ago?</QuestionLabel><Answer>No</Answer></MoreThanYearAgo>
         <DateStarted><QuestionLabel>When did you start this work?</QuestionLabel><Answer>08-10-2015</Answer></DateStarted>

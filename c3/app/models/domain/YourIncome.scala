@@ -19,8 +19,8 @@ object YourIncome extends Section.Identifier {
   val n = "none"
 }
 
-case class YourIncomes(beenSelfEmployedSince1WeekBeforeClaim: String = "",
-                       beenEmployedSince6MonthsBeforeClaim: String = "",
+case class YourIncomes(beenEmployedSince6MonthsBeforeClaim: String = "",
+                       beenSelfEmployedSince1WeekBeforeClaim: String = "",
                        yourIncome_sickpay: Option[String] = None,
                        yourIncome_patmatadoppay: Option[String] = None,
                        yourIncome_fostering: Option[String] = None,

@@ -7,7 +7,9 @@
 }
 
 @if(elements.hasErrors) {
-    <p class="validation-message">@elements.carersErrors.mkString(", ")</p>
+    @for(error <- elements.errors) {
+        <span class="validation-message">@Html(error)</span>
+    }
 }
 
 @if(elements.args.contains('prompt)) {

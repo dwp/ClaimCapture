@@ -57,7 +57,6 @@ class GBreaksInCareSummaryContentIntegrationSpec extends Specification {
       errors(1) mustEqual ("Have there been any other times you've not provided care for Albert Johnson for 35 hours a week? - You must complete this section")
     }
 
-    /* Its tricky to place an error with a dynamic label. :(
     "present 2 errors with correct dynamic wording if no fields are populated and got existing breaks" in new WithJsBrowser with PageObjects {
       GClaimDatePage.fillClaimDate(context, testData => {
         testData.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "01/10/2016"
@@ -72,7 +71,6 @@ class GBreaksInCareSummaryContentIntegrationSpec extends Specification {
       errors(0) mustEqual ("Since 1 October 2016 have there been any other times you or Albert Johnson have been in hospital, respite or care home for at least a week? - You must select 'None' if only 'None' applies.")
       errors(1) mustEqual ("Have there been any other times you've not provided care for Albert Johnson for 35 hours a week? - You must complete this section")
     }
-    */
 
     "present YesNo-Other error with correct wording when submit after select Hospital checkbox but not selected YesNo-got-other-times option" in new WithJsBrowser with PageObjects {
       GClaimDatePage.fillClaimDate(context, testData => {
@@ -131,8 +129,14 @@ class GBreaksInCareSummaryContentIntegrationSpec extends Specification {
       browser.click("#breaktype_none")
       browser.click("#breaktype_other_no")
       val errors = page.submitPage().listErrors
-      errors.size mustEqual 1
-      errors(0) mustEqual ("Since 1 October 2016 have there been any times you or Albert Johnson have been in hospital, respite or care home for at least a week? - You must select 'Hospital','Respite or care home' or 'None'.")
+      // We get the errors on multiple lines because we have a bullet list to explain the complex rules
+      val errorWithBulletPoints = 5
+      errors.size mustEqual errorWithBulletPoints
+      errors(0) must contain("Since 1 October 2016 have there been any times you or Albert Johnson have been in hospital, respite or care home for at least a week? - You must select:")
+      errors(1) mustEqual ("Hospital")
+      errors(2) mustEqual ("Respite or care home")
+      errors(3) mustEqual ("Both 'Hospital' and 'Respite or care home'")
+      errors(4) mustEqual ("None")
     }
 
     "present Too-Many-Options error with correct wording when submit after select Respite and None" in new WithJsBrowser with PageObjects {
@@ -147,8 +151,14 @@ class GBreaksInCareSummaryContentIntegrationSpec extends Specification {
       browser.click("#breaktype_none")
       browser.click("#breaktype_other_no")
       val errors = page.submitPage().listErrors
-      errors.size mustEqual 1
-      errors(0) mustEqual ("Since 1 October 2016 have there been any times you or Albert Johnson have been in hospital, respite or care home for at least a week? - You must select 'Hospital','Respite or care home' or 'None'.")
+      // We get the errors on multiple lines because we have a bullet list to explain the complex rules
+      val errorWithBulletPoints = 5
+      errors.size mustEqual errorWithBulletPoints
+      errors(0) must contain("Since 1 October 2016 have there been any times you or Albert Johnson have been in hospital, respite or care home for at least a week? - You must select:")
+      errors(1) mustEqual ("Hospital")
+      errors(2) mustEqual ("Respite or care home")
+      errors(3) mustEqual ("Both 'Hospital' and 'Respite or care home'")
+      errors(4) mustEqual ("None")
     }
 
     "display summary table with just hospital break added" in new WithJsBrowser with PageObjects {

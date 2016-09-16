@@ -4,6 +4,7 @@ import utils.WithBrowser
 import utils.pageobjects._
 
 final class GSelfEmploymentDatesPage(ctx:PageObjectsContext) extends ClaimPage(ctx, GSelfEmploymentDatesPage.url) {
+  declareInput("#typeOfWork", "SelfEmployedTypeOfWork")
   declareYesNo("#stillSelfEmployed", "SelfEmployedAreYouSelfEmployedNow")
   declareDate("#startThisWork", "SelfEmployedWhenDidYouStartThisJob")
   declareDate("#finishThisWork", "SelfEmployedWhenDidTheJobFinish")

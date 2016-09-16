@@ -26,11 +26,26 @@ object GYourIncomePage {
 
   def fillYourIncomes(context: PageObjectsContext, f: => TestData => Unit) = {
     val claimData = s7NotEmployedNorSelfEmployed()
-    claimData.YourIncomeStatutorySickPay = ""
     f(claimData)
-    val employment = new GYourIncomePage(context) goToThePage()
-    employment.fillPageWith(claimData)
-    employment.submitPage()
+    val incomePage = new GYourIncomePage(context) goToThePage()
+    incomePage.fillPageWith(claimData)
+    incomePage.submitPage()
+  }
+
+  def fillSelfEmployed(context: PageObjectsContext, f: => TestData => Unit) = {
+    val claimData = s12ClaimDate()
+    claimData.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "No"
+    claimData.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "Yes"
+    claimData.YourIncomeNone = "true"
+    claimData.SelfEmployedTypeOfWork = "Some text about rental income"
+    claimData.SelfEmployedMoreThanYearAgo = "Yes"
+    claimData.SelfEmployedAreYouSelfEmployedNow = "Yes"
+    claimData.SelfEmployedHaveAccounts = "Yes"
+    f(claimData)
+    val incomePage = new GYourIncomePage(context) goToThePage()
+    val selfEmploymentPage=incomePage.fillPageWith(claimData).submitPage()
+    selfEmploymentPage.fillPageWith(claimData)
+    selfEmploymentPage.submitPage()
   }
 
   def fillRentalIncome(context: PageObjectsContext, f: => TestData => Unit) = {

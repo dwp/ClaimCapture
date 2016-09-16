@@ -28,11 +28,11 @@
 @dpname=@{
     theirPersonalDetails.firstName+" "+theirPersonalDetails.surname
 }
-@breaktypeLabel=@{
+@anyothertimes=@{
     (breaks.hasBreaksForType(Breaks.hospital), breaks.hasBreaksForType(Breaks.carehome)) match {
-        case(true, _) => "breaktype_another"
-        case(_,true) => "breaktype_another"
-        case _ => "breaktype_first"
+        case(true, _) => messages("breaktype.anyothertimes")
+        case(_,true) => messages("breaktype.anyothertimes")
+        case _ => messages("breaktype.anytimes")
     }
 }
 @otherbreakLabel=@{
@@ -67,7 +67,7 @@
         case (Breaks.another, _, _, _, Some(cs)) if (cs.answer == "yes") => break.caringStarted.get.date.get.`dd month yyyy`
         case (_, You, Some(you), _, _) if (you.answer == "yes") => break.yourStayEnded.get.date.get.`dd month yyyy`
         case (_, DP, _, Some(dp), _) if (dp.answer == "yes") => break.dpStayEnded.get.date.get.`dd month yyyy`
-        case _ => "Not ended"
+        case _ => messages("breaksummary.notended")
     }
 }
 @changeHref(break: Break) = @{
@@ -128,7 +128,7 @@
                     'track -> true,
                     'ignoreOptional -> true,
                     '_showId -> true,
-                    '_label -> messages(breaktypeLabel, dateWeRequireBreakInCareInformationFrom, dpname))
+                    '_label -> messages("breaktype", dateWeRequireBreakInCareInformationFrom, anyothertimes, dpname))
 
                 @yesNoRadioGroup(currentForm("breaktype_other"),
                     '_label -> messages(otherbreakLabel, dpname),
