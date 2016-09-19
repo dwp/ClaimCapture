@@ -48,22 +48,21 @@ class GAboutSelfEmploymentSpec extends Specification {
     }
 
     "have text maxlength set correctly in present()" in new WithBrowser with PageObjects {
-      GYourIncomePage.fillYourIncomes(context, testData => {
+      val selfEmploymentPage = GYourIncomePage.fillYourIncomes(context, testData => {
         testData.EmploymentHaveYouBeenSelfEmployedAtAnyTime = Mappings.yes
+        testData.YourIncomeNone = "true"
       })
-      val page = GSelfEmploymentDatesPage(context)
-      page must beAnInstanceOf[GSelfEmploymentDatesPage]
+      selfEmploymentPage must beAnInstanceOf[GSelfEmploymentDatesPage]
       val typeOfWork = browser.$("#typeOfWork")
       typeOfWork.getAttribute("maxlength") mustEqual "60"
     }
 
-
     "present 3 errors when submit with nothing populated" in new WithJsBrowser with PageObjects {
-      GYourIncomePage.fillYourIncomes(context, testData => {
+      val selfEmploymentPage = GYourIncomePage.fillYourIncomes(context, testData => {
         testData.EmploymentHaveYouBeenSelfEmployedAtAnyTime = Mappings.yes
+        testData.YourIncomeNone = "true"
       })
-      val page = GSelfEmploymentDatesPage(context)
-      val errors = page.goToThePage().submitPage().listErrors
+      val errors = selfEmploymentPage.submitPage().listErrors
       errors.size mustEqual 3
       errors(0) mustEqual ("Type of business or work - You must complete this section")
       errors(1) mustEqual ("Are you still doing this work? - You must complete this section")
