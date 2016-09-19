@@ -534,6 +534,12 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def s7SSPOnly() = {
+    val claim = s7NotEmployedNorSelfEmployed()
+    claim.YourIncomeStatutorySickPay = "true"
+    claim
+  }
+
   def s7MandatoryJobDetails() = {
     val claim = new TestData
 
