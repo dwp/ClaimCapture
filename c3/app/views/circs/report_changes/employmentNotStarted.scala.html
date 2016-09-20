@@ -65,63 +65,6 @@
                     )
                 </ul>
             </fieldset>
-            <fieldset class="form-elements">
-                <legend class="heading-medium form-label-bold">@Html(messages("c2.g9.pensionsAndExpenses"))</legend>
-
-                <ul>
-                    @yesNoRadioGroup(willYouPayIntoPension("answer"),
-                        '_label -> "willYouPayIntoPension",
-                        'values -> Seq("yes" -> messages("label.yes8"), "no" -> messages("label.no"))
-                    )
-
-                    @otherDetailPlaceHolder(
-                        inputDef = Seq(
-                            carersInputTextArea(willYouPayIntoPension("whatFor"),
-                                'textAreaHelper -> Html(messages("300charsLeft")),
-                                '_label -> "willYouPayIntoPension.whatFor",
-                                'ignoreOptional -> true,
-                                'maxLength -> 300)
-                        ),
-                        'id -> "whatForWrap"
-                    )
-
-                    @yesNoRadioGroup(willYouPayForThings("answer"),
-                        '_label -> "willYouPayForThings",
-                        'helperAbove -> Html(messages("payForThings.answer.helper.future")),
-                        'values -> Seq("yes" -> messages("label.yes8"), "no" -> messages("label.no"))
-                    )
-
-                    @otherDetailPlaceHolder(
-                        inputDef = Seq(
-                            carersInputTextArea(willYouPayForThings("whatFor"),
-                                'textAreaHelper -> Html(messages("300charsLeft")),
-                                'ignoreOptional -> true,
-                                'maxLength -> 300)
-                        ),
-                        'id -> "whatThingsWrap"
-                    )
-
-                    @yesNoRadioGroup(willCareCostsForThisWork("answer"),
-                        '_label -> "willCareCostsForThisWork",
-                        'helperAbove -> Html(messages("haveExpensesForJob.answer.helper.past")),
-                        'values -> Seq("yes" -> messages("label.yes7"), "no" -> messages("label.no"))
-                    )
-
-                    @otherDetailPlaceHolder(
-                        inputDef = Seq(
-                            carersInputTextArea(willCareCostsForThisWork("whatCosts"),
-                                'textAreaHelper -> Html(messages("300charsLeft")),
-                                '_label -> "willCareCostsForThisWork.whatCosts",
-                                'helperAbove -> Html(messages("willCareCostsForThisWork.whatCosts.help")),
-                                'ignoreOptional -> true,
-                                'maxLength -> 300)
-                        ),
-                        'id -> "whatCostsWrap"
-                    )
-
-                    @carersInputTextArea(moreAboutChanges, 'helperAbove-> messages("moreAboutChanges.helper"), 'textAreaHelper -> Html(messages(s"${CircumstancesEmploymentNotStarted.textMaxLength}charsLeft")), 'maxLength -> CircumstancesEmploymentNotStarted.textMaxLength)
-                </ul>
-	        </fieldset>
 
             @views.html.common.bottomNavigation()
 
@@ -174,24 +117,7 @@ $(function(){
             usuallyPaidSameAmountOtherText:"@Html(messages("usuallyPaidSameAmount.will.other"))"
     });
 
-
-    window.whatFor("@CarersCrypto.encryptAES(willYouPayIntoPension("answer")("yes").id)",
-                   "@CarersCrypto.encryptAES(willYouPayIntoPension("answer")("no").id)",
-                   "@CarersCrypto.encryptAES(willYouPayIntoPension("whatFor").id)");
-
-    window.whatThings ( "@CarersCrypto.encryptAES(willYouPayForThings("answer")("yes").id)",
-                        "@CarersCrypto.encryptAES(willYouPayForThings("answer")("no").id)",
-                        "@CarersCrypto.encryptAES(willYouPayForThings("whatFor").id)");
-
-    window.whatCosts("@CarersCrypto.encryptAES(willCareCostsForThisWork("answer")("yes").id)",
-                     "@CarersCrypto.encryptAES(willCareCostsForThisWork("answer")("no").id)",
-                     "@CarersCrypto.encryptAES(willCareCostsForThisWork("whatCosts").id)");
-
     window.areaCounter({selector: "@CarersCrypto.encryptAES(howOftenFrequency("other").id)",maxChars:60});
-    window.areaCounter({selector: "@CarersCrypto.encryptAES(willYouPayIntoPension("whatFor").id)",maxChars:300});
-    window.areaCounter({selector: "@CarersCrypto.encryptAES(willYouPayForThings("whatFor").id)",maxChars:300});
-    window.areaCounter({selector: "@CarersCrypto.encryptAES(willCareCostsForThisWork("whatCosts").id)",maxChars:300});
-    window.areaCounter({selector: "@CarersCrypto.encryptAES(moreAboutChanges.id)",maxChars:@CircumstancesEmploymentNotStarted.textMaxLength});
 });
 </script>
 }

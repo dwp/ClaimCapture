@@ -1,6 +1,7 @@
 package utils.pageobjects.circumstances.report_changes
 
-import utils.pageobjects.{CircumstancesPage, PageContext, PageObjectsContext}
+import controllers.mappings.Mappings
+import utils.pageobjects.{TestData, CircumstancesPage, PageContext, PageObjectsContext}
 import utils.WithBrowser
 
 class GEmploymentNotStartedPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, GEmploymentNotStartedPage.url) {
@@ -10,13 +11,6 @@ class GEmploymentNotStartedPage(ctx:PageObjectsContext) extends CircumstancesPag
   declareSelect("#howOften_frequency", "CircumstancesEmploymentChangeHowOftenFrequency")
   declareInput("#howOften_frequency_other", "CircumstancesEmploymentChangeHowOftenFrequencyOther")
   declareYesNo("#usuallyPaidSameAmount", "CircumstancesEmploymentChangeUsuallyPaidSameAmount")
-  declareYesNo("#willYouPayIntoPension_answer", "CircumstancesEmploymentChangeWillYouPayIntoPensionAnswer")
-  declareInput("#willYouPayIntoPension_whatFor", "CircumstancesEmploymentChangeWillYouPayIntoPensionWhatFor")
-  declareYesNo("#willYouPayForThings_answer", "CircumstancesEmploymentChangeWillYouPayForThingsAnswer")
-  declareInput("#willYouPayForThings_whatFor", "CircumstancesEmploymentChangeWillYouPayForThingsWhatFor")
-  declareYesNo("#willCareCostsForThisWork_answer", "CircumstancesEmploymentChangeWillCareCostsForThisWorkAnswer")
-  declareInput("#willCareCostsForThisWork_whatCosts", "CircumstancesEmploymentChangeWillCareCostsForThisWorkWhatCosts")
-  declareInput("#moreAboutChanges", "CircumstancesEmploymentChangeMoreAboutChanges")
 }
 
 /**
@@ -27,6 +21,13 @@ object GEmploymentNotStartedPage {
   val url  = "/circumstances/report-changes/future-employment"
 
   def apply(ctx:PageObjectsContext) = new GEmploymentNotStartedPage(ctx)
+
+  def fillJobDetails(context: PageObjectsContext, f: => TestData => Unit) = {
+    val futureJobPage = GEmploymentChangePage.fillFutureJobDetails(context, testData => {})
+    val claimData = new TestData
+    claimData.CircumstancesEmploymentChangeBeenPaidYet = Mappings.no
+    futureJobPage.fillPageWith(claimData).submitPage()
+  }
 }
 
 /** The context for Specs tests */

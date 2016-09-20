@@ -65,14 +65,7 @@ class GEmploymentNotStartedSpec extends Specification {
       "whenExpectedToBePaidDate.year" -> whenExpectedToBePaidDateYear.toString,
       "howOften.frequency" -> other,
       "howOften.frequency.other" -> otherText,
-      "usuallyPaidSameAmount" -> yes,
-      "willYouPayIntoPension.answer" -> yes,
-      "willYouPayIntoPension.whatFor" -> willYouPayIntoPensionText,
-      "willYouPayForThings.answer" -> yes,
-      "willYouPayForThings.whatFor" -> willYouPayForThingsText,
-      "willCareCostsForThisWork.answer" -> yes,
-      "willCareCostsForThisWork.whatCosts" -> willCareCostsForThisWorkText,
-      "moreAboutChanges" -> moreInfo
+      "usuallyPaidSameAmount" -> yes
     )
 
     section("unit", models.domain.CircumstancesSelfEmployment.id)

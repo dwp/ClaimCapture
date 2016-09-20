@@ -224,19 +224,3 @@ window.whatThings = (payForThingsY, payForThingsN, whatThings) ->
     S("whatThingsWrap").slideDown 0
 
   S(payForThingsN).on "click", -> S("whatThingsWrap").slideUp 0, -> val(whatThings,"")
-
-
-#
-# What Costs function
-#
-window.whatCosts = (careCostsForThisWorkY, careCostsForThisWorkN, whatCosts) ->
-  $("#"+whatCosts).trigger("blur")
-
-  if not checked(careCostsForThisWorkY)
-    S("whatCostsWrap").slideUp 0, -> val(whatCosts,"")
-
-  S(careCostsForThisWorkY).on "click", ->
-    $("#"+whatCosts).trigger("blur")
-    S("whatCostsWrap").slideDown 0
-
-  S(careCostsForThisWorkN).on "click", -> S("whatCostsWrap").slideUp 0, -> val(whatCosts,"")

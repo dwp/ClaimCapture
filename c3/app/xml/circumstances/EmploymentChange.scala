@@ -5,7 +5,7 @@ import xml.XMLHelper._
 
 import scala.xml.NodeSeq
 import controllers.mappings.Mappings
-import models.yesNo.YesNoWithText
+import models.yesNo.{OptYesNoWithText, YesNoWithText}
 import play.api.i18n.{MMessages, MessagesApi}
 import play.api.Play.current
 
@@ -58,24 +58,24 @@ object EmploymentChange {
 
   def employmentChange(circs :Claim, circsEmploymentChange: CircumstancesEmploymentChange): NodeSeq = {
     var buff = NodeSeq.Empty
-
+    val pensionExpenses=circs.questionGroup[CircumstancesEmploymentPensionExpenses].getOrElse(CircumstancesEmploymentPensionExpenses())
     buff = buff ++ {
       circs.questionGroup[CircumstancesStartedEmploymentAndOngoing] match {
-        case Some(change) => startedEmploymentAndOngoingChange(circsEmploymentChange, change)
+        case Some(change) => startedEmploymentAndOngoingChange(circsEmploymentChange, change, pensionExpenses)
         case _ => NodeSeq.Empty
       }
     }
 
     buff = buff ++ {
       circs.questionGroup[CircumstancesStartedAndFinishedEmployment] match {
-        case Some(change) => startedAndFinishedEmploymentChange(circsEmploymentChange, change)
+        case Some(change) => startedAndFinishedEmploymentChange(circsEmploymentChange, change, pensionExpenses)
         case _ => NodeSeq.Empty
       }
     }
 
     buff = buff ++ {
       circs.questionGroup[CircumstancesEmploymentNotStarted] match {
-        case Some(change) => employmentNotStartedChange(circsEmploymentChange, change)
+        case Some(change) => employmentNotStartedChange(circsEmploymentChange, change, pensionExpenses)
         case _ => NodeSeq.Empty
       }
     }
@@ -98,7 +98,7 @@ object EmploymentChange {
     </SelfEmployment>
   }
 
-  def startedEmploymentAndOngoingChange(circsEmploymentChange: CircumstancesEmploymentChange, change: CircumstancesStartedEmploymentAndOngoing): NodeSeq = {
+  def startedEmploymentAndOngoingChange(circsEmploymentChange: CircumstancesEmploymentChange, change: CircumstancesStartedEmploymentAndOngoing, pensionAndExpenses: CircumstancesEmploymentPensionExpenses): NodeSeq = {
     <StartedEmploymentAndOngoing>
       {question(<EmployerName/>, "typeOfWork.employerName", circsEmploymentChange.typeOfWork.employerName)}
 
@@ -166,27 +166,27 @@ object EmploymentChange {
         }
       }
 
-      {question(<PayIntoPension/>, "doYouPayIntoPension", change.payIntoPension.answer)}
+      {question(<PayIntoPension/>, "doYouPayIntoPension", pensionAndExpenses.payIntoPension.answer)}
 
       {
-        change.payIntoPension.answer match {
-          case "yes" => {question(<PayIntoPensionWhatFor/>, "doYouPayIntoPension.whatFor", change.payIntoPension.text)}
+      pensionAndExpenses.payIntoPension.answer match {
+          case "yes" => {question(<PayIntoPensionWhatFor/>, "doYouPayIntoPension.whatFor", pensionAndExpenses.payIntoPension.text)}
           case _ => NodeSeq.Empty
         }
       }
 
-      {payForThings(change.doYouPayForThings, "doYouPayForThings")}
+      {payForThings(pensionAndExpenses.payForThings, "doYouPayForThings")}
 
-      {question(<CareCostsForThisWork/>, "doCareCostsForThisWork", change.careCostsForThisWork.answer)}
+      {question(<CareCostsForThisWork/>, "doCareCostsForThisWork", pensionAndExpenses.careCosts.answer)}
       {
-        change.careCostsForThisWork.answer match {
-          case "yes" => {question(<CareCostsForThisWorkWhatCosts/>, "doCareCostsForThisWork.whatCosts", change.careCostsForThisWork.text)}
+        pensionAndExpenses.careCosts.answer match {
+          case "yes" => {question(<CareCostsForThisWorkWhatCosts/>, "doCareCostsForThisWork.whatFor", pensionAndExpenses.careCosts.text)}
           case _ => NodeSeq.Empty
         }
       }
 
       {
-        change.moreAboutChanges match {
+        pensionAndExpenses.moreAboutChanges match {
           case Some(moreAboutChanges) => {question(<MoreAboutChanges/>, "moreAboutChanges.helper", moreAboutChanges)}
           case None => NodeSeq.Empty
         }
@@ -194,7 +194,7 @@ object EmploymentChange {
     </StartedEmploymentAndOngoing>
   }
 
-  def startedAndFinishedEmploymentChange(circsEmploymentChange: CircumstancesEmploymentChange, change: CircumstancesStartedAndFinishedEmployment): NodeSeq = {
+  def startedAndFinishedEmploymentChange(circsEmploymentChange: CircumstancesEmploymentChange, change: CircumstancesStartedAndFinishedEmployment, pensionAndExpenses: CircumstancesEmploymentPensionExpenses): NodeSeq = {
     <StartedEmploymentAndFinished>
       {question(<EmployerName/>, "typeOfWork.employerName", circsEmploymentChange.typeOfWork.employerName)}
 
@@ -246,27 +246,27 @@ object EmploymentChange {
         }
       }
 
-      {question(<PayIntoPension/>, "didYouPayIntoPension", change.payIntoPension.answer)}
+      {question(<PayIntoPension/>, "didYouPayIntoPension", pensionAndExpenses.payIntoPension.answer)}
 
       {
-        change.payIntoPension.answer match {
-          case "yes" => {question(<PayIntoPensionWhatFor/>, "didYouPayIntoPension.whatFor", change.payIntoPension.text)}
+      pensionAndExpenses.payIntoPension.answer match {
+          case "yes" => {question(<PayIntoPensionWhatFor/>, "didYouPayIntoPension.whatFor", pensionAndExpenses.payIntoPension.text)}
           case _ => NodeSeq.Empty
         }
       }
 
-      {payForThings(change.didYouPayForThings, "didYouPayForThings")}
+      {payForThings(pensionAndExpenses.payForThings, "didYouPayForThings")}
 
-      {question(<CareCostsForThisWork/>, "didCareCostsForThisWork", change.careCostsForThisWork.answer)}
+      {question(<CareCostsForThisWork/>, "didCareCostsForThisWork", pensionAndExpenses.careCosts.answer)}
       {
-        change.careCostsForThisWork.answer match {
-          case "yes" => {question(<CareCostsForThisWorkWhatCosts/>, "didCareCostsForThisWork.whatCosts", change.careCostsForThisWork.text)}
+        pensionAndExpenses.careCosts.answer match {
+          case "yes" => {question(<CareCostsForThisWorkWhatCosts/>, "didCareCostsForThisWork.whatFor", pensionAndExpenses.careCosts.text)}
           case _ => NodeSeq.Empty
         }
       }
 
       {
-        change.moreAboutChanges match {
+        pensionAndExpenses.moreAboutChanges match {
           case Some(moreAboutChanges) => {question(<MoreAboutChanges/>, "moreAboutChanges.helper", moreAboutChanges)}
           case None => NodeSeq.Empty
         }
@@ -274,7 +274,7 @@ object EmploymentChange {
     </StartedEmploymentAndFinished>
   }
 
-  def employmentNotStartedChange(circsEmploymentChange: CircumstancesEmploymentChange, change: CircumstancesEmploymentNotStarted): NodeSeq = {
+  def employmentNotStartedChange(circsEmploymentChange: CircumstancesEmploymentChange, change: CircumstancesEmploymentNotStarted, pensionAndExpenses: CircumstancesEmploymentPensionExpenses): NodeSeq = {
     <NotStartedEmployment>
       {question(<EmployerName/>, "typeOfWork.employerName", circsEmploymentChange.typeOfWork.employerName)}
 
@@ -322,26 +322,26 @@ object EmploymentChange {
         }
       }
 
-      {question(<PayIntoPension/>, "willYouPayIntoPension", change.payIntoPension.answer)}
+      {question(<PayIntoPension/>, "willYouPayIntoPension", pensionAndExpenses.payIntoPension.answer)}
       {
-        change.payIntoPension.answer match {
-          case "yes" => {question(<PayIntoPensionWhatFor/>, "willYouPayIntoPension.whatFor", change.payIntoPension.text)}
+        pensionAndExpenses.payIntoPension.answer match {
+          case "yes" => {question(<PayIntoPensionWhatFor/>, "willYouPayIntoPension.whatFor", pensionAndExpenses.payIntoPension.text)}
           case _ => NodeSeq.Empty
         }
       }
 
-      {payForThings(change.willYouPayForThings, "willYouPayForThings")}
+      {payForThings(pensionAndExpenses.payForThings, "willYouPayForThings")}
 
-      {question(<CareCostsForThisWork/>, "willCareCostsForThisWork", change.careCostsForThisWork.answer)}
+      {question(<CareCostsForThisWork/>, "willCareCostsForThisWork", pensionAndExpenses.careCosts.answer)}
       {
-        change.careCostsForThisWork.answer match {
-          case "yes" => {question(<CareCostsForThisWorkWhatCosts/>, "willCareCostsForThisWork.whatCosts", change.careCostsForThisWork.text)}
+        pensionAndExpenses.careCosts.answer match {
+          case "yes" => {question(<CareCostsForThisWorkWhatCosts/>, "willCareCostsForThisWork.whatFor", pensionAndExpenses.careCosts.text)}
           case _ => NodeSeq.Empty
         }
       }
 
       {
-        change.moreAboutChanges match {
+        pensionAndExpenses.moreAboutChanges match {
           case Some(moreAboutChanges) => {question(<MoreAboutChanges/>, "moreAboutChanges.helper", moreAboutChanges)}
           case None => NodeSeq.Empty
         }

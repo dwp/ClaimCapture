@@ -117,17 +117,11 @@ case class CircumstancesStartedEmploymentAndOngoing(beenPaid: String,
                                                     date: DayMonthYear,
                                                     howOften: PaymentFrequency,
                                                     monthlyPayDay: Option[String],
-                                                    usuallyPaidSameAmount: String,
-                                                    payIntoPension: YesNoWithText = YesNoWithText("", None),
-                                                    doYouPayForThings: YesNoWithText = YesNoWithText("", None),
-                                                    careCostsForThisWork: YesNoWithText = YesNoWithText("", None),
-                                                    moreAboutChanges: Option[String] = None)
+                                                    usuallyPaidSameAmount: String)
   extends QuestionGroup(CircumstancesStartedEmploymentAndOngoing)
 
 object CircumstancesStartedEmploymentAndOngoing extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g10"
-
-  def textMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//EmploymentChange//StartedEmploymentAndOngoing//MoreAboutChanges//Answer")
 }
 
 case class CircumstancesStartedAndFinishedEmployment(beenPaid: String,
@@ -138,32 +132,42 @@ case class CircumstancesStartedAndFinishedEmployment(beenPaid: String,
                                                      monthlyPayDay: Option[String],
                                                      usuallyPaidSameAmount: String,
                                                      employerOwesYouMoney: String,
-                                                     employerOwesYouMoneyInfo: Option[String] = None,
-                                                     payIntoPension: YesNoWithText = YesNoWithText("", None),
-                                                     didYouPayForThings: YesNoWithText = YesNoWithText("", None),
-                                                     careCostsForThisWork: YesNoWithText = YesNoWithText("", None),
-                                                     moreAboutChanges: Option[String] = None)
+                                                     employerOwesYouMoneyInfo: Option[String] = None)
   extends QuestionGroup(CircumstancesStartedAndFinishedEmployment)
 
 object CircumstancesStartedAndFinishedEmployment extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g11"
-
-  def textMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//EmploymentChange//StartedEmploymentAndFinished//MoreAboutChanges//Answer")
 }
 
 case class CircumstancesEmploymentNotStarted(beenPaid: String,
                                              howMuchPaid: Option[String],
                                              whenExpectedToBePaidDate: Option[DayMonthYear],
                                              howOften: PaymentFrequency,
-                                             usuallyPaidSameAmount: Option[String],
-                                             payIntoPension: YesNoWithText = YesNoWithText("", None),
-                                             willYouPayForThings: YesNoWithText = YesNoWithText("", None),
-                                             careCostsForThisWork: YesNoWithText = YesNoWithText("", None),
-                                             moreAboutChanges: Option[String] = None)
+                                             usuallyPaidSameAmount: Option[String])
   extends QuestionGroup(CircumstancesEmploymentNotStarted)
 
 object CircumstancesEmploymentNotStarted extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g12"
+}
 
-  def textMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//EmploymentChange//NotStartedEmployment//MoreAboutChanges//Answer")
+case class CircumstancesEmploymentPensionExpenses(  payIntoPension: YesNoWithText = YesNoWithText("", None),
+                                                    payForThings: YesNoWithText = YesNoWithText("", None),
+                                                    careCosts: YesNoWithText = YesNoWithText("", None),
+                                                    moreAboutChanges: Option[String] = None)
+  extends QuestionGroup(CircumstancesEmploymentPensionExpenses)
+
+object CircumstancesEmploymentPensionExpenses extends QuestionGroup.Identifier {
+  val id = s"${CircumstancesReportChanges.id}.g13"
+
+  def payIntoPensionMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//EmploymentChange//StartedEmploymentAndOngoing//PayIntoPension//Answer")
+  def payForThingsMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//EmploymentChange//StartedEmploymentAndOngoing//PaidForThingsWhatFor//Answer")
+  def careCostsMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//EmploymentChange//StartedEmploymentAndOngoing//CareCostsForThisWorkWhatCosts//Answer")
+  def moreAboutChangesMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//EmploymentChange//StartedEmploymentAndOngoing//MoreAboutChanges//Answer")
+
+  def presentPastOrFuture(claim: Claim)={
+    if (claim.questionGroup[CircumstancesStartedEmploymentAndOngoing].isDefined) {"present"}
+    else if (claim.questionGroup[CircumstancesStartedAndFinishedEmployment].isDefined) { "past"}
+    else if (claim.questionGroup[CircumstancesEmploymentNotStarted].isDefined) { "future" }
+    else{"error-no-employment"}
+  }
 }
