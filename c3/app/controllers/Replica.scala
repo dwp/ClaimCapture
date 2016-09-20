@@ -84,8 +84,8 @@ object ReplicaData {
           MoreAboutTheCare(spent35HoursCaring = Some(Mappings.yes), otherCarer= Some(Mappings.no)) +
           BreaksInCareType(none = Mappings.someTrue, other = Some(Mappings.no)) +
           BreaksInCare(List(
-            Break("1", typeOfCare=Breaks.hospital, whoWasAway=BreaksInCareGatherOptions.You, whenWereYouAdmitted=Some(DayMonthYear.today - 1 months), yourStayEnded=Some(YesNoWithDate(answer = Mappings.no,None))),
-            Break("2", typeOfCare=Breaks.carehome, whoWasAway=BreaksInCareGatherOptions.You, whenWereYouAdmitted=Some(DayMonthYear.today - 2 months), yourStayEnded=Some(YesNoWithDate(answer = Mappings.no,None)), yourMedicalProfessional=Some(Mappings.no))
+            Break("295e065e-b0d2-4ec6-9e02-64c20c91436a", typeOfCare=Breaks.hospital, whoWasAway=BreaksInCareGatherOptions.You, whenWereYouAdmitted=Some(DayMonthYear.today - 1 months), yourStayEnded=Some(YesNoWithDate(answer = Mappings.no,None))),
+            Break("9b889213-b047-4179-ad11-1caaf8ab624e", typeOfCare=Breaks.carehome, whoWasAway=BreaksInCareGatherOptions.You, whenWereYouAdmitted=Some(DayMonthYear.today - 2 months), yourStayEnded=Some(YesNoWithDate(answer = Mappings.no,None)), yourMedicalProfessional=Some(Mappings.no))
           )) +
           YourCourseDetails(beenInEducationSinceClaimDate = Mappings.yes,title = Some("Biology"),nameOfSchoolCollegeOrUniversity = Some("A College"),
           nameOfMainTeacherOrTutor = Some("A Tutor"),startDate = Some(DayMonthYear.today - 1 month),expectedEndDate = Some(DayMonthYear.today + 2 years)) +
@@ -94,11 +94,11 @@ object ReplicaData {
           SelfEmploymentDates(typeOfWork = "Plumber", stillSelfEmployed = Mappings.no, finishThisWork=Some(DayMonthYear.today - 2 months), moreThanYearAgo = Mappings.no, startThisWork = Some(DayMonthYear.today - 6 months), paidMoney = Some(Mappings.yes), paidMoneyDate = Some(DayMonthYear.today - 5 months)) +
           SelfEmploymentPensionsAndExpenses(payPensionScheme = YesNoWithText(Mappings.no),haveExpensesForJob = YesNoWithText(Mappings.no)) +
           Jobs(List(
-            models.domain.Iteration("1", List(
-              JobDetails("1",employerName = "Hiding Consultants", phoneNumber = "01111111111", address = MultiLineAddress(lineOne = Some("456 Street"),lineTwo = Some("Newtown")),
+            models.domain.Iteration("be425f6c-d675-498a-8d77-b425173c1f72", List(
+              JobDetails("be425f6c-d675-498a-8d77-b425173c1f72",employerName = "Hiding Consultants", phoneNumber = "01111111111", address = MultiLineAddress(lineOne = Some("456 Street"),lineTwo = Some("Newtown")),
                 startJobBeforeClaimDate = Mappings.yes,finishedThisJob = Mappings.no),
-                LastWage("1",oftenGetPaid = PaymentFrequency(app.PensionPaymentFrequency.Weekly),whenGetPaid = "Fridays",lastPaidDate = DayMonthYear.today - 1 week,grossPay = "3000",payInclusions = Some("Some catnip on the side"),sameAmountEachTime = Mappings.yes),
-                PensionAndExpenses("1",payPensionScheme = YesNoWithText(Mappings.no),payForThings = YesNoWithText(Mappings.no),haveExpensesForJob = YesNoWithText(Mappings.no))
+                LastWage("be425f6c-d675-498a-8d77-b425173c1f72",oftenGetPaid = PaymentFrequency(app.PensionPaymentFrequency.Weekly),whenGetPaid = "Fridays",lastPaidDate = DayMonthYear.today - 1 week,grossPay = "3000",payInclusions = Some("Some catnip on the side"),sameAmountEachTime = Mappings.yes),
+                PensionAndExpenses("be425f6c-d675-498a-8d77-b425173c1f72",payPensionScheme = YesNoWithText(Mappings.no),payForThings = YesNoWithText(Mappings.no),haveExpensesForJob = YesNoWithText(Mappings.no))
               ),completed = true)
           )) +
           BeenEmployed(Mappings.no) +

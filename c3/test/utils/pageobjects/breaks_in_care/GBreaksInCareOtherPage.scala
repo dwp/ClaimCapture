@@ -36,12 +36,43 @@ object GBreaksInCareOtherPage {
     page.submitPage()
   }
 
+  def fillDetails2(context: PageObjectsContext, f: => TestData => Unit) = {
+    val claimData = defaultOtherDetails2()
+    f(claimData)
+    val page = new GBreaksInCareOtherPage(context, 2) goToThePage()
+    page.fillPageWith(claimData)
+    page.submitPage()
+  }
+
+  def fillDetails3(context: PageObjectsContext, f: => TestData => Unit) = {
+    val claimData = defaultOtherDetails3()
+    f(claimData)
+    val page = new GBreaksInCareOtherPage(context, 3) goToThePage()
+    page.fillPageWith(claimData)
+    page.submitPage()
+  }
+
   private def defaultOtherDetails() = {
     val claim = new TestData
     claim.AboutTheCareYouProvideBreakEndDate_1 = "01/10/2015"
     claim.AboutTheCareYouProvideBreakStartAnswer_1 = Mappings.no
     claim
-  }}
+  }
+
+  private def defaultOtherDetails2() = {
+    val claim = new TestData
+    claim.AboutTheCareYouProvideBreakEndDate_2 = "01/10/2015"
+    claim.AboutTheCareYouProvideBreakStartAnswer_2 = Mappings.no
+    claim
+  }
+
+  private def defaultOtherDetails3() = {
+    val claim = new TestData
+    claim.AboutTheCareYouProvideBreakEndDate_3 = "01/10/2015"
+    claim.AboutTheCareYouProvideBreakStartAnswer_3 = Mappings.no
+    claim
+  }
+}
 
 trait GBreaksInCareOtherPageContext extends PageContext {
   this: WithBrowser[_] =>

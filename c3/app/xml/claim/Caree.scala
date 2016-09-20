@@ -1,5 +1,7 @@
 package xml.claim
 
+import java.util.UUID._
+
 import app.BreaksInCareGatherOptions
 import controllers.mappings.Mappings
 import models.yesNo.{YesNoWithDate, RadioWithText, YesNoMandWithAddress}
@@ -189,9 +191,9 @@ object Caree extends XMLComponent {
     breaksInCareXml.zip (Stream from 1).foreach(node =>
     {
       val break = {(node._1 \ "BreaksType" \ "Answer").text match {
-          case "YouHospital" | "DPHospital" => createHospitalBreak(node._1, node._2)
-          case "YouRespite" | "DPRespite" => createRespiteBreak(node._1, node._2)
-          case "Other" => createOtherBreak(node._1, node._2)
+          case "YouHospital" | "DPHospital" => createHospitalBreak(node._1)
+          case "YouRespite" | "DPRespite" => createRespiteBreak(node._1)
+          case "Other" => createOtherBreak(node._1)
           case _ => Break()
         }
       }
@@ -200,10 +202,10 @@ object Caree extends XMLComponent {
     (BreaksInCare(breaks))
   }
 
-  private def createHospitalBreak(xml: NodeSeq, iterationId: Integer) = {
+  private def createHospitalBreak(xml: NodeSeq) = {
     val whoWasAway = (xml \ "BreaksType" \ "Answer").text.startsWith("DP") match { case true => BreaksInCareGatherOptions.DP case _ => BreaksInCareGatherOptions.You }
     Break(
-      iterationID = s"${iterationId}",
+      iterationID = randomUUID.toString,
       typeOfCare = Breaks.hospital,
       whoWasAway = whoWasAway,
       whenWereYouAdmitted = whoWasAway match {
@@ -229,10 +231,10 @@ object Caree extends XMLComponent {
     )
   }
 
-  private def createRespiteBreak(xml: NodeSeq, iterationId: Integer) = {
+  private def createRespiteBreak(xml: NodeSeq) = {
     val whoWasAway = (xml \ "BreaksType" \ "Answer").text.startsWith("DP") match { case true => BreaksInCareGatherOptions.DP case _ => BreaksInCareGatherOptions.You }
     Break(
-      iterationID = s"${iterationId}",
+      iterationID = randomUUID.toString,
       typeOfCare = Breaks.carehome,
       whoWasAway = whoWasAway,
       whenWereYouAdmitted = whoWasAway match {
@@ -266,9 +268,9 @@ object Caree extends XMLComponent {
     )
   }
 
-  private def createOtherBreak(xml: NodeSeq, iterationId: Integer) = {
+  private def createOtherBreak(xml: NodeSeq) = {
     Break(
-      iterationID = s"${iterationId}",
+      iterationID = randomUUID.toString,
       typeOfCare = Breaks.another,
       caringStarted = Some(YesNoWithDate(createYesNoText((xml \ "BreakStarted" \ "Answer").text), createFormattedDateOptional((xml \ "StartDate" \ "Answer").text))),
       caringStartedTime = createStringOptional((xml \ "StartTime" \ "Answer").text),

@@ -81,11 +81,11 @@ class GBreaksInCareSummaryNavigationIntegrationSpec extends Specification {
       GBreaksInCareHospitalPage.fillDetails(context, testData => {
         testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_1 = "01/01/2009"
       })
-      GBreaksInCareHospitalPage.fillDetails(context, testData => {
-        testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_1 = "01/01/2010"
+      GBreaksInCareHospitalPage.fillDetails2(context, testData => {
+        testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_2 = "01/01/2010"
       })
-      GBreaksInCareHospitalPage.fillDetails(context, testData => {
-        testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_1 = "01/01/2011"
+      GBreaksInCareHospitalPage.fillDetails3(context, testData => {
+        testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_3 = "01/01/2011"
       })
       val page = GBreaksInCareSummaryPage(context)
       page goToThePage()
@@ -112,11 +112,11 @@ class GBreaksInCareSummaryNavigationIntegrationSpec extends Specification {
       GBreaksInCareHospitalPage.fillDetails(context, testData => {
         testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_1 = "01/01/2000"
       })
-      GBreaksInCareRespitePage.fillDetails(context, testData => {
-        testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_1 = "01/01/2001"
+      GBreaksInCareRespitePage.fillDetails2(context, testData => {
+        testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_2 = "01/01/2001"
       })
-      GBreaksInCareHospitalPage.fillDetails(context, testData => {
-        testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_1 = "01/01/2002"
+      GBreaksInCareHospitalPage.fillDetails3(context, testData => {
+        testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_3 = "01/01/2002"
       })
       val page = GBreaksInCareSummaryPage(context)
       page goToThePage()
@@ -143,11 +143,11 @@ class GBreaksInCareSummaryNavigationIntegrationSpec extends Specification {
       GBreaksInCareHospitalPage.fillDetails(context, testData => {
         testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_1 = "01/01/2003"
       })
-      GBreaksInCareRespitePage.fillDetails(context, testData => {
-        testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_1 = "01/01/2004"
+      GBreaksInCareRespitePage.fillDetails2(context, testData => {
+        testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_2 = "01/01/2004"
       })
-      GBreaksInCareOtherPage.fillDetails(context, testData => {
-        testData.AboutTheCareYouProvideBreakEndDate_1 = "01/01/2005"
+      GBreaksInCareOtherPage.fillDetails3(context, testData => {
+        testData.AboutTheCareYouProvideBreakEndDate_3 = "01/01/2005"
       })
       val page = GBreaksInCareSummaryPage(context)
       page goToThePage()
@@ -174,11 +174,11 @@ class GBreaksInCareSummaryNavigationIntegrationSpec extends Specification {
       GBreaksInCareHospitalPage.fillDetails(context, testData => {
         testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_1 = "01/01/2000"
       })
-      GBreaksInCareRespitePage.fillDetails(context, testData => {
-        testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_1 = "01/01/2001"
+      GBreaksInCareRespitePage.fillDetails2(context, testData => {
+        testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_2 = "01/01/2001"
       })
-      GBreaksInCareHospitalPage.fillDetails(context, testData => {
-        testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_1 = "01/01/2002"
+      GBreaksInCareHospitalPage.fillDetails3(context, testData => {
+        testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_3 = "01/01/2002"
       })
       val page = GBreaksInCareSummaryPage(context)
       page goToThePage()
@@ -219,11 +219,11 @@ class GBreaksInCareSummaryNavigationIntegrationSpec extends Specification {
       GBreaksInCareRespitePage.fillDetails(context, testData => {
         testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_1 = "01/01/2004"
       })
-      GBreaksInCareRespitePage.fillDetails(context, testData => {
-        testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_1 = "01/01/2005"
+      GBreaksInCareRespitePage.fillDetails2(context, testData => {
+        testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_2 = "01/01/2005"
       })
-      GBreaksInCareHospitalPage.fillDetails(context, testData => {
-        testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_1 = "01/01/2006"
+      GBreaksInCareHospitalPage.fillDetails3(context, testData => {
+        testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_3 = "01/01/2006"
       })
 
       val page = GBreaksInCareSummaryPage(context)
@@ -287,8 +287,8 @@ class GBreaksInCareSummaryNavigationIntegrationSpec extends Specification {
       GBreaksInCareRespitePage.fillDetails(context, testData => {
         testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_1 = "01/01/2005"
       })
-      GBreaksInCareRespitePage.fillDetails(context, testData => {
-        testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_1 = "01/01/2006"
+      GBreaksInCareRespitePage.fillDetails2(context, testData => {
+        testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_2 = "01/01/2006"
       })
 
       val page = GBreaksInCareSummaryPage(context)
