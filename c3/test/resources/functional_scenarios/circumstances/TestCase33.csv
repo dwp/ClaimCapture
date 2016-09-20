@@ -31,12 +31,12 @@ Finished Employment - Change in circumstances,Employment,Did you usually get the
 Finished Employment - Change in circumstances,Employment,Other,CircumstancesEmploymentChangeHowOftenFrequencyOther,
 Finished Employment - Change in circumstances,Employment,Does your employer owe you any money?,CircumstancesEmploymentChangeEmployerOwesYouMoney,yes
 Finished Employment - Change in circumstances,Employment,Does your employer owe you any money?,CircumstancesEmploymentChangeEmployerOwesYouMoneyInfo,Overtime with lots of pay and lots of other benefits like free dinnerOvertime with lots of pay and lots of other benefits like free dinnerOvertime with lots of pay and lots of other benefits like free dinnerOvertime with lots of pay and lots of other benefits like free dinner and drinks and moviesss
-Finished Employment - Change in circumstances,Employment,Did you pay into a pension?,CircumstancesEmploymentChangeDidYouPayIntoPensionAnswer,no
-Finished Employment - Change in circumstances,Employment,"Give details of each pension you paid into, including how much and how often you paid into them.",CircumstancesEmploymentChangeDidYouPayIntoPensionWhatFor,
-Finished Employment - Change in circumstances,Employment,Did you pay for things you needed to do your job?,CircumstancesEmploymentChangeDidYouPayForThingsAnswer,no
-Finished Employment - Change in circumstances,Employment,"Give details of what you needed to buy, why you needed it and how much it cost.",CircumstancesEmploymentChangeDidYouPayForThingsWhatFor,
-Finished Employment - Change in circumstances,Employment,Do you have any care costs because of this work?,CircumstancesEmploymentChangeDoCareCostsForThisWorkAnswer,no
-Finished Employment - Change in circumstances,Employment,"Tell us what the cost is for, how much, how often and who to",CircumstancesEmploymentChangeDoCareCostsForThisWorkWhatCosts,
+Employment - Change in circumstances,Employment,Do/Did/Will you pay into a pension?,CircumstancesEmploymentPayIntoPensionAnswer,no
+Employment - Change in circumstances,Employment,"Give details of each pension you paid into, including how much and how often you paid into them.",CircumstancesEmploymentPayIntoPensionWhatFor,
+Employment - Change in circumstances,Employment,Do/Did/Will you pay for things you needed to do your job?,CircumstancesEmploymentPayForThingsAnswer,yes
+Employment - Change in circumstances,Employment,"Give details of what you needed to buy, why you needed it and how much it cost.",CircumstancesEmploymentPayForThingsWhatFor,Some things needed to do the job
+Employment - Change in circumstances,Employment,Do/Did/Will you have any care costs because of this work?,CircumstancesEmploymentCareCostsAnswer,no
+Employment - Change in circumstances,Employment,"Tell us what the cost is for, how much, how often and who to",CircumstancesEmploymentCareCostsWhatFor,
 Declaration - consent and declaration,Declaration,Contact phone or mobile number,FurtherInfoContact,07771 899899
 Declaration - consent and declaration,Declaration,"Select this box if you filled this form in for someone else.",CircumstancesSomeOneElseConfirmation,yes
 Declaration - consent and declaration,Declaration,"Your name or organisation",NameOrOrganisation,Mr Smith

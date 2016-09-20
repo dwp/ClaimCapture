@@ -45,27 +45,6 @@ class GEmploymentNotStartedFormSpec extends Specification {
           }
         )
     }
-
-    "should fail for special characters" in new WithApplication {
-      GEmploymentNotStarted.form.bind(
-        Map(
-          "beenPaidYet" -> yes,
-          "howMuchPaid" -> amountPaid,
-          "whenExpectedToBePaidDate.day" -> whenExpectedToBePaidDateDay.toString,
-          "whenExpectedToBePaidDate.month" -> whenExpectedToBePaidDateMonth.toString,
-          "whenExpectedToBePaidDate.year" -> whenExpectedToBePaidDateYear.toString,
-          "howOften.frequency" -> weekly,
-          "usuallyPaidSameAmount" -> no
-        )
-      ).fold(
-        formWithErrors => {
-          formWithErrors.errors.size mustEqual 3
-        },
-        f => {
-          "This mapping should not happen." must equalTo("Error")
-        }
-      )
-    }
   }
   section("unit", models.domain.CircumstancesSelfEmployment.id)
 }

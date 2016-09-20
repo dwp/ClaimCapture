@@ -1,12 +1,11 @@
 package controllers.circs.report_changes
 
-import app.ConfigProperties._
 import org.specs2.mutable._
 import play.api.test.FakeRequest
 import models.domain.MockForm
-import utils.pageobjects.circumstances.report_changes.GStartedAndFinishedEmploymentPage
+import utils.pageobjects.circumstances.report_changes.GEmploymentPensionExpensesPage
 import utils.pageobjects.circumstances.start_of_process.GCircsYourDetailsPage
-import utils.{WithBrowser, LightFakeApplication, WithApplication}
+import utils.{WithApplication}
 import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
 
@@ -25,7 +24,7 @@ class GStartedAndFinishedEmploymentSpec extends Specification {
   val otherText = "some other text"
   val employerOwesYouMoneyInfo = "kick back for keeping my mouth shut"
   val startedAndFinishedPath = "DWPCAChangeOfCircumstances//EmploymentChange//StartedEmploymentAndFinished//MoreAboutChanges//Answer"
-  val nextPageUrl = GCircsYourDetailsPage.url
+  val nextPageUrl = GEmploymentPensionExpensesPage.url
 
   val validFinishedWeeklyPaymentEmployment = Seq(
     "beenPaidYet" -> no,

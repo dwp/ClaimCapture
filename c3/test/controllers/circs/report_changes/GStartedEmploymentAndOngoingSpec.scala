@@ -1,15 +1,14 @@
 package controllers.circs.report_changes
 
-import app.ConfigProperties._
 import controllers.mappings.Mappings
 import org.specs2.mutable._
 import play.api.test.FakeRequest
 import models.domain.MockForm
 import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
-import utils.pageobjects.circumstances.report_changes.GStartedEmploymentAndOngoingPage
+import utils.pageobjects.circumstances.report_changes.GEmploymentPensionExpensesPage
 import utils.pageobjects.circumstances.start_of_process.GCircsYourDetailsPage
-import utils.{WithBrowser, LightFakeApplication, WithApplication}
+import utils.{LightFakeApplication, WithApplication}
 import play.api.i18n.{MMessages, MessagesApi}
 import play.api.Play.current
 
@@ -25,7 +24,7 @@ class GStartedEmploymentAndOngoingSpec extends Specification {
   val monthlyPayDay = "2nd Thursday every month"
   val other = "other"
   val otherText = "some other text"
-  val nextPageUrl = GCircsYourDetailsPage.url
+  val nextPageUrl = GEmploymentPensionExpensesPage.url
 
   val validOngoingWeeklyPaymentEmployment = Seq(
     "beenPaidYet" -> yes,
@@ -64,7 +63,7 @@ class GStartedEmploymentAndOngoingSpec extends Specification {
     "howMuchPaid" -> amountPaid,
     "whatDatePaid.month" -> whatDatePaidMonth.toString,
     "whatDatePaid.year" -> whatDatePaidYear.toString,
-    "usuallyPaidSameAmount" -> yes,
+    "usuallyPaidSameAmount" -> yes
   )
 
   section("unit", models.domain.CircumstancesReportChanges.id)
