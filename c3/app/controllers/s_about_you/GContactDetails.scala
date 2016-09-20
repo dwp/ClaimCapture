@@ -18,6 +18,7 @@ import models.domain._
 import controllers.CarersForms._
 import EMail._
 import play.api.i18n._
+import app.ConfigProperties._
 
 object GContactDetails extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
@@ -39,12 +40,18 @@ object GContactDetails extends Controller with CachedClaim with Navigable with I
     track(ContactDetails) { implicit claim => Ok(views.html.s_about_you.g_contactDetails(form.fill(ContactDetails))) }
   }
 
+  private def emailLabel = {
+    if(getBooleanProperty("saveForLaterSaveEnabled")) messagesApi("wantsEmailContactNew")
+    else messagesApi("wantsEmailContactOld")
+  }
+
   def submit = claiming {implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedForm = formWithErrors.replaceError("","error.email.match",FormError("mailConfirmation","error.email.match"))
                                         .replaceError("","error.email.required",FormError("mail",errorRequired))
-                                        .replaceError("","error.wants.required",FormError("wantsEmailContact",errorRequired))
+                                        .replaceError("wantsEmailContact","error.required",FormError("wantsEmailContact", "error.required", Seq(messagesApi(emailLabel))))
+                                        .replaceError("","error.wants.required",FormError("wantsEmailContact", "error.required", Seq(messagesApi(emailLabel))))
         BadRequest(views.html.s_about_you.g_contactDetails(updatedForm))
       },
       (contactDetails: ContactDetails) =>{
