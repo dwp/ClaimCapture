@@ -34,7 +34,7 @@ object GOtherPayments extends Controller with CachedClaim with Navigable with I1
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
           .replaceError("otherPaymentsInfo", Mappings.errorRequired, FormError("otherPaymentsInfo", Mappings.errorRequired,Seq(displayPlaybackDatesFormat(request2lang, claim.dateOfClaim.getOrElse(DayMonthYear.today)))))
-          .replaceError("otherPaymentsInfo", Mappings.errorRestrictedCharacters, FormError("otherPaymentsInfo", Mappings.errorRequired,Seq(displayPlaybackDatesFormat(request2lang, claim.dateOfClaim.getOrElse(DayMonthYear.today)))))
+          .replaceError("otherPaymentsInfo", Mappings.errorRestrictedCharacters, FormError("otherPaymentsInfo", Mappings.errorRestrictedCharacters,Seq(displayPlaybackDatesFormat(request2lang, claim.dateOfClaim.getOrElse(DayMonthYear.today)))))
         BadRequest(views.html.your_income.otherPayments(formWithErrorsUpdate))
       },
       otherPayments => claim.update(otherPayments) -> Redirect(controllers.s_pay_details.routes.GHowWePayYou.present()))
