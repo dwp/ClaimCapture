@@ -55,7 +55,7 @@ object GEmploymentPensionExpenses extends Controller with CachedChangeOfCircs wi
       formWithErrors => {
         // Note that this hacky error replacement requires none tense error message like pension={0} and then actual error-message of pension.past=The errror message.
         def errorMsgWithTense(errorKey: String) = {
-          val tense = CircumstancesEmploymentPensionExpenses.presentPastOrFuture(circs)
+          val tense = CircumstancesEmploymentPensionExpenses.presentPastOrFuture(circs.questionGroup[CircumstancesEmploymentChange].getOrElse(CircumstancesEmploymentChange()))
           Seq(messagesApi(s"$errorKey.$tense"))
         }
         val formWithErrorsUpdate = formWithErrors

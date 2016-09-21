@@ -1,5 +1,6 @@
 package models.domain
 
+import controllers.mappings.Mappings
 import models.yesNo._
 import models.DayMonthYear
 import models.SortCode
@@ -164,10 +165,12 @@ object CircumstancesEmploymentPensionExpenses extends QuestionGroup.Identifier {
   def careCostsMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//EmploymentChange//StartedEmploymentAndOngoing//CareCostsForThisWorkWhatCosts//Answer")
   def moreAboutChangesMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//EmploymentChange//StartedEmploymentAndOngoing//MoreAboutChanges//Answer")
 
-  def presentPastOrFuture(claim: Claim)={
-    if (claim.questionGroup[CircumstancesStartedEmploymentAndOngoing].isDefined) {"present"}
-    else if (claim.questionGroup[CircumstancesStartedAndFinishedEmployment].isDefined) { "past"}
-    else if (claim.questionGroup[CircumstancesEmploymentNotStarted].isDefined) { "future" }
-    else{"error-no-employment"}
+  def presentPastOrFuture(employment: CircumstancesEmploymentChange)={
+    ( employment.hasWorkStartedYet.answer, employment.hasWorkFinishedYet.answer) match {
+      case( Mappings.yes, Some(Mappings.yes)) => "past"
+      case( Mappings.yes, _) => "present"
+      case( Mappings.no, _) => "future"
+      case _ => "error-no-employment-tense"
+    }
   }
 }

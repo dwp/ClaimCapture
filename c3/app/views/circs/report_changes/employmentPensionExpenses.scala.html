@@ -1,5 +1,7 @@
 @import models.domain.CircumstancesStartedEmploymentAndOngoing
 @import models.domain.CircumstancesEmploymentPensionExpenses
+@import controllers.circs.report_changes.GEmploymentPensionExpenses
+@import models.domain.CircumstancesEmploymentChange
 @(currentForm: Form[models.domain.CircumstancesEmploymentPensionExpenses])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @import helper._
@@ -15,14 +17,8 @@
 @import models.domain.CircumstancesStartedAndFinishedEmployment
 @import models.domain.CircumstancesEmploymentNotStarted
 
-@employmentOngoingOrFuture=@{
-    if (claim.questionGroup[CircumstancesStartedEmploymentAndOngoing].isDefined) {"present"}
-    else if (claim.questionGroup[CircumstancesStartedAndFinishedEmployment].isDefined) { "past"}
-    else if (claim.questionGroup[CircumstancesEmploymentNotStarted].isDefined) { "future" }
-    else{"error-no-employment"}
-}
-@labelWithTense(label: String)=@{
-    messages(label+"."+employmentOngoingOrFuture)
+@questionWithTense(label: String)=@{
+    messages(label+"."+CircumstancesEmploymentPensionExpenses.presentPastOrFuture(claim.questionGroup[CircumstancesEmploymentChange].getOrElse(CircumstancesEmploymentChange())))
 }
 @main(messages("c2.g11") + " - " + messages("c2.name")) {
     @errorsSummary(currentForm)
@@ -35,14 +31,14 @@
 
                 <ul>
                     @yesNoRadioGroup(currentForm("payIntoPension")("answer"),
-                        '_label -> labelWithTense("payIntoPension"), 'ignoreOptional -> true,
+                        '_label -> questionWithTense("payIntoPension"), 'ignoreOptional -> true,
                         'values -> Seq("yes" -> messages("label.yes6"), "no" -> messages("label.no"))
                     )
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             carersInputTextArea(currentForm("payIntoPension")("whatFor"),
                                 'textAreaHelper -> Html(messages(s"${CircumstancesEmploymentPensionExpenses.payIntoPensionMaxLength}charsLeft")),
-                                '_label -> labelWithTense("payIntoPension.whatFor"),
+                                '_label -> questionWithTense("payIntoPension.whatFor"),
                                 'ignoreOptional -> true,
                                 'maxLength -> CircumstancesEmploymentPensionExpenses.payIntoPensionMaxLength)
                         ),
@@ -50,8 +46,8 @@
                     )
 
                     @yesNoRadioGroup(currentForm("payForThings")("answer"),
-                        '_label -> labelWithTense("payForThings"), 'ignoreOptional -> true,
-                        'helperAbove -> Html(labelWithTense("payForThings.answer.helper")),
+                        '_label -> questionWithTense("payForThings"), 'ignoreOptional -> true,
+                        'helperAbove -> Html(questionWithTense("payForThings.answer.helper")),
                         'values -> Seq("yes" -> messages("label.yes6"), "no" -> messages("label.no"))
                     )
 
@@ -59,7 +55,7 @@
                         inputDef = Seq(
                             carersInputTextArea(currentForm("payForThings")("whatFor"),
                                 'textAreaHelper -> Html(messages(s"${CircumstancesEmploymentPensionExpenses.payForThingsMaxLength}charsLeft")),
-                                '_label -> labelWithTense("payForThings.whatFor"),
+                                '_label -> questionWithTense("payForThings.whatFor"),
                                 'ignoreOptional -> true,
                                 'maxLength -> CircumstancesEmploymentPensionExpenses.payForThingsMaxLength)
                         ),
@@ -67,8 +63,8 @@
                     )
 
                     @yesNoRadioGroup(currentForm("careCosts")("answer"),
-                        '_label -> labelWithTense("careCosts"), 'ignoreOptional -> true,
-                        'helperAbove -> Html(labelWithTense("careCosts.helper")),
+                        '_label -> questionWithTense("careCosts"), 'ignoreOptional -> true,
+                        'helperAbove -> Html(questionWithTense("careCosts.helper")),
                         'values -> Seq("yes" -> messages("label.yes2"), "no" -> messages("label.no"))
                     )
 
@@ -76,8 +72,8 @@
                         inputDef = Seq(
                             carersInputTextArea(currentForm("careCosts")("whatFor"),
                                 'textAreaHelper -> Html(messages(s"${CircumstancesEmploymentPensionExpenses.careCostsMaxLength}charsLeft")),
-                                '_label -> labelWithTense("careCosts.whatFor"),
-                                'helperAbove -> Html(labelWithTense("careCosts.whatFor.help")),
+                                '_label -> questionWithTense("careCosts.whatFor"),
+                                'helperAbove -> Html(questionWithTense("careCosts.whatFor.help")),
                                 'ignoreOptional -> true,
                                 'maxLength -> CircumstancesEmploymentPensionExpenses.careCostsMaxLength)
                         ),
