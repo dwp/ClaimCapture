@@ -1,6 +1,7 @@
-executeEvent = (selector, maxChars) ->
+executeEvent = (selector, maxChars, type) ->
     elem = $(selector)
-    checkValidCharacters(elem, maxChars)
+    if (type == "blur" || (type == "keyup" && elem.val().replace(/\r(?!\n)|\n(?!\r)/g, "\r\n").length > maxChars))
+        checkValidCharacters(elem, maxChars)
     helper = elem.parent().find(".countdown")
     text = helper.html()
     num = maxChars - elem.val().replace(/\r(?!\n)|\n(?!\r)/g, "\r\n").length
@@ -18,6 +19,6 @@ window.areaCounter = (textarea) ->
     selector = "#" + textarea.selector
 
     if ($(selector).length > 0)
-        $(selector).on "click", -> executeEvent(selector, textarea.maxChars)
-        $(selector).on "blur", -> executeEvent(selector, textarea.maxChars)
-        $(selector).on "keyup", -> executeEvent(selector, textarea.maxChars)
+        $(selector).on "click", -> executeEvent(selector, textarea.maxChars, "click")
+        $(selector).on "blur", -> executeEvent(selector, textarea.maxChars, "blur")
+        $(selector).on "keyup", -> executeEvent(selector, textarea.maxChars, "keyup")
