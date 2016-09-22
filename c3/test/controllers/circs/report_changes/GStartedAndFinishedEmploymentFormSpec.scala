@@ -42,7 +42,7 @@ class GStartedAndFinishedEmploymentFormSpec extends Specification {
             f.whatWasIncluded.get must equalTo(whatWasIncluded)
             f.dateLastPaid must equalTo(DayMonthYear(Some(dateLastPaidDay), Some(dateLastPaidMonth), Some(dateLastPaidYear), None, None))
             f.howOften.frequency must equalTo(weekly)
-            f.usuallyPaidSameAmount must equalTo(no)
+            f.usuallyPaidSameAmount must equalTo(Some(no))
             f.employerOwesYouMoney must equalTo(no)
           }
         )
@@ -71,7 +71,7 @@ class GStartedAndFinishedEmploymentFormSpec extends Specification {
             f.dateLastPaid must equalTo(DayMonthYear(Some(dateLastPaidDay), Some(dateLastPaidMonth), Some(dateLastPaidYear), None, None))
             f.howOften.frequency must equalTo(monthly)
             f.monthlyPayDay.get must equalTo(monthlyPayDay)
-            f.usuallyPaidSameAmount must equalTo(no)
+            f.usuallyPaidSameAmount must equalTo(Some(no))
             f.employerOwesYouMoney must equalTo(no)
           }
         )
@@ -101,7 +101,7 @@ class GStartedAndFinishedEmploymentFormSpec extends Specification {
             f.dateLastPaid must equalTo(DayMonthYear(Some(dateLastPaidDay), Some(dateLastPaidMonth), Some(dateLastPaidYear), None, None))
             f.howOften.frequency must equalTo(other)
             f.howOften.other.get must equalTo(otherText)
-            f.usuallyPaidSameAmount must equalTo(yes)
+            f.usuallyPaidSameAmount must equalTo(Some(yes))
             f.employerOwesYouMoney must equalTo(yes)
             f.employerOwesYouMoneyInfo.get must equalTo(employerOwesYouMoneyInfo)
           }

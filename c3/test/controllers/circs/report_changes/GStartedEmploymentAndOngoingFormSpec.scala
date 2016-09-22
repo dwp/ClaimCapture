@@ -38,7 +38,7 @@ class GStartedEmploymentAndOngoingFormSpec extends Specification {
             f.beenPaid must equalTo(yes)
             f.date must equalTo(DayMonthYear(Some(whatDatePaidDay), Some(whatDatePaidMonth), Some(whatDatePaidYear), None, None))
             f.howOften.frequency must equalTo(weekly)
-            f.usuallyPaidSameAmount must equalTo(no)
+            f.usuallyPaidSameAmount must equalTo(Some(no))
           }
         )
     }
@@ -64,7 +64,7 @@ class GStartedEmploymentAndOngoingFormSpec extends Specification {
             f.date must equalTo(DayMonthYear(Some(whatDatePaidDay), Some(whatDatePaidMonth), Some(whatDatePaidYear), None, None))
             f.howOften.frequency must equalTo(other)
             f.howOften.other.get must equalTo(otherText)
-            f.usuallyPaidSameAmount must equalTo(yes)
+            f.usuallyPaidSameAmount must equalTo(Some(yes))
           }
         )
     }
@@ -90,7 +90,7 @@ class GStartedEmploymentAndOngoingFormSpec extends Specification {
             f.date must equalTo(DayMonthYear(Some(whatDatePaidDay), Some(whatDatePaidMonth), Some(whatDatePaidYear), None, None))
             f.howOften.frequency must equalTo(monthly)
             f.monthlyPayDay.get must equalTo(monthlyPayDay)
-            f.usuallyPaidSameAmount must equalTo(no)
+            f.usuallyPaidSameAmount must equalTo(Some(no))
           }
         )
     }

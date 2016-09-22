@@ -55,7 +55,8 @@
                                     '_label -> {
                                         if(beenPaidYet.value == Some("yes"))"howMuchPaid" else "howMuchPaid.expect"
                                     },
-                                    'maxLength -> 12
+                                    'maxLength -> 12,
+                                    'ignoreOptional -> true
                                 ),
                                 dateTimePickerWithDynamicLabel(whatDatePaid,
                                     '_label -> {
@@ -67,36 +68,36 @@
                                 paymentFrequencySelect(howOften,
                                     'id -> "howOften",
                                     'visibleOn -> "yes",
+                                    'ignoreOptional -> true,
                                     '_label -> {
                                         if(beenPaidYet.value == Some("yes"))"circs.howOften" else "circs.howOften.expect"
                                     },
+                                    '_anchorIdRequired -> true, '_anchorId -> "howOften",
                                     '_otherLabel -> messages("oftenGetPaid.otherHelper"),
                                     'textAreaHelper -> Html(messages("60charsLeft")), 'maxLength -> 60, 'class -> "textarea-reduced"
+                                ),
+                                otherDetailPlaceHolder(
+                                    inputDef = Seq(
+                                        yesNoRadioGroup(usuallyPaidSameAmount)
+                                    ),
+                                    'id -> "usuallyPaidSameAmountWrap",
+                                    'display -> {
+                                        if((howOftenFrequency.value != None) &&
+                                                (howOftenFrequency.value.getOrElse("no") != Html(messages("pleaseSelect"))) &&
+                                                (howOftenFrequency.value.getOrElse("no") != ""))"yes" else "no"
+                                    }
+                                ),
+                                otherDetailPlaceHolder(
+                                    inputDef = Seq(
+                                        carersInputText(monthlyPayDay,
+                                            'maxLength -> 35,
+                                            'ignoreOptional -> true,
+                                            'helperAbove -> Html(messages("monthlyPayDay.help")))
+                                    ),
+                                    'id -> "monthlyPayDayWrap"
                                 )
                             ),
                             'id -> "beenPaidYetWrap"
-                        )
-
-                        @otherDetailPlaceHolder(
-                            inputDef = Seq(
-                                carersInputText(monthlyPayDay,
-                                    'maxLength -> 35,
-                                    'ignoreOptional -> true,
-                                    'helperAbove -> Html(messages("monthlyPayDay.help")))
-                            ),
-                            'id -> "monthlyPayDayWrap"
-                        )
-
-                        @otherDetailPlaceHolder(
-                            inputDef = Seq(
-                                yesNoRadioGroup(usuallyPaidSameAmount)
-                            ),
-                            'id -> "usuallyPaidSameAmountWrap",
-                            'display -> {
-                                if((howOftenFrequency.value != None) &&
-                                        (howOftenFrequency.value.getOrElse("no") != Html(messages("pleaseSelect"))) &&
-                                        (howOftenFrequency.value.getOrElse("no") != ""))"yes" else "no"
-                            }
                         )
                     </ul>
                 </fieldset>

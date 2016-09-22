@@ -22,7 +22,7 @@ object GStartedAndFinishedEmployment extends Controller with CachedChangeOfCircs
     "whatWasIncluded" -> optional(carersText(maxLength = 300)),
     "howOften" -> mandatoryPaymentFrequency.verifying(validPaymentFrequencyOnly),
     "monthlyPayDay" -> optional(carersText(maxLength = 35)),
-    "usuallyPaidSameAmount" -> nonEmptyText.verifying(validYesNo),
+    "usuallyPaidSameAmount" -> optional(nonEmptyText.verifying(validYesNo)),
     "employerOwesYouMoney" -> nonEmptyText.verifying(validYesNo),
     "employerOwesYouMoneyInfo" -> optional(carersText(maxLength = 300))
   )(CircumstancesStartedAndFinishedEmployment.apply)(CircumstancesStartedAndFinishedEmployment.unapply)
