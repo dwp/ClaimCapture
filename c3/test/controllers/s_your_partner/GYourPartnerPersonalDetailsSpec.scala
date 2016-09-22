@@ -16,27 +16,27 @@ class GYourPartnerPersonalDetailsSpec extends Specification {
   val surname = "Doe"
   val otherNames = "Duck"
   val nino = "AB123456C"
-  val dateOfBirthDay = 5
+  val dateOfBirthDay = 10
   val dateOfBirthMonth = 12
   val dateOfBirthYear = 1990
   val nationality = "British"
   val liveAtSameAddress = "yes"
   val separatedFromPartner = "yes"
-  
+
   val yourPartnerPersonalDetailsInput = Seq("title" -> title,
-          "firstName" -> firstName,
-          "middleName" -> middleName,
-          "surname" -> surname,
-          "otherNames" -> otherNames,
-          "nationalInsuranceNumber.nino" -> nino,
-          "dateOfBirth.day" -> dateOfBirthDay.toString,
-          "dateOfBirth.month" -> dateOfBirthMonth.toString,
-          "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "partner.nationality" -> nationality,
-          "liveAtSameAddress" -> liveAtSameAddress,
-          "separated.fromPartner" -> separatedFromPartner,
-          "isPartnerPersonYouCareFor" -> "yes",
-          "hadPartnerSinceClaimDate" -> "yes")
+    "firstName" -> firstName,
+    "middleName" -> middleName,
+    "surname" -> surname,
+    "otherNames" -> otherNames,
+    "nationalInsuranceNumber.nino" -> nino,
+    "dateOfBirth.day" -> dateOfBirthDay.toString,
+    "dateOfBirth.month" -> dateOfBirthMonth.toString,
+    "dateOfBirth.year" -> dateOfBirthYear.toString,
+    "partner.nationality" -> nationality,
+    "liveAtSameAddress" -> liveAtSameAddress,
+    "separated.fromPartner" -> separatedFromPartner,
+    "isPartnerPersonYouCareFor" -> "yes",
+    "hadPartnerSinceClaimDate" -> "yes")
 
   val checkForNationalityInput = Seq("title" -> title,
     "firstName" -> firstName,
@@ -56,7 +56,7 @@ class GYourPartnerPersonalDetailsSpec extends Specification {
       val result = GYourPartnerPersonalDetails.present(request)
       status(result) mustEqual OK
     }
-    
+
     "add submitted form to the cached claim" in new WithApplication with Claiming {
       val request = FakeRequest()
         .withFormUrlEncodedBody(yourPartnerPersonalDetailsInput: _*)
@@ -103,7 +103,7 @@ class GYourPartnerPersonalDetailsSpec extends Specification {
         }
       }
     }
-    
+
     "return a bad request after an invalid submission" in new WithApplication with Claiming {
       val request = FakeRequest()
         .withFormUrlEncodedBody("foo" -> "bar")
@@ -111,7 +111,7 @@ class GYourPartnerPersonalDetailsSpec extends Specification {
       val result = GYourPartnerPersonalDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
-    
+
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
       val request = FakeRequest()
         .withFormUrlEncodedBody(yourPartnerPersonalDetailsInput: _*)
@@ -130,7 +130,7 @@ class GYourPartnerPersonalDetailsSpec extends Specification {
 
     "nationality should be mandatory when carer is not british and married or living with partner" in new WithApplication with Claiming {
       val maritalResult = GMaritalStatus.submit(FakeRequest()
-        withFormUrlEncodedBody(
+        withFormUrlEncodedBody (
         "maritalStatus" -> "Married or civil partner"
         ))
 
@@ -138,16 +138,32 @@ class GYourPartnerPersonalDetailsSpec extends Specification {
 
       val result1 = GNationalityAndResidency.submit(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(maritalResult))
         .withFormUrlEncodedBody(
-        "nationality" -> "Another nationality",
-        "actualnationality" -> "French",
-        "resideInUK.answer" -> "yes")
+          "nationality" -> "Another nationality",
+          "actualnationality" -> "French",
+          "resideInUK.answer" -> "yes")
       )
 
-       val result2 = GYourPartnerPersonalDetails.submit(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1))
-                     .withFormUrlEncodedBody(checkForNationalityInput:_*))
+      val result2 = GYourPartnerPersonalDetails.submit(FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result1))
+        .withFormUrlEncodedBody(checkForNationalityInput: _*))
 
       status(result2) mustEqual BAD_REQUEST
     }
+
+    "update dp details when partner = dp and partner details are amended" in new WithApplication with Claiming {
+      val request = FakeRequest()
+        .withFormUrlEncodedBody(yourPartnerPersonalDetailsInput: _*)
+
+      val result = GYourPartnerPersonalDetails.submit(request)
+      val claim = getClaimFromCache(result)
+      val partner = claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
+      val dp = claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())
+      dp.title mustEqual (title)
+      dp.firstName mustEqual (firstName)
+      dp.middleName.getOrElse("") mustEqual (middleName)
+      dp.surname mustEqual (surname)
+      dp.nationalInsuranceNumber.getOrElse(None) mustEqual (NationalInsuranceNumber(Some(nino)))
+      dp.dateOfBirth.`dd/MM/yyyy` mustEqual (s"$dateOfBirthDay/$dateOfBirthMonth/$dateOfBirthYear")
+    }
+    section("unit", models.domain.YourPartner.id)
   }
-  section("unit", models.domain.YourPartner.id)
 }
