@@ -78,7 +78,15 @@ class GEmploymentPensionExpensesContentSpec extends Specification {
       page.ctx.browser.find("#careCosts_whatFor_questionLabel").getText mustEqual("Give details of who you will pay and what it will cost.")
       page.ctx.browser.find("#careCosts_whatFor_questionLabel +.form-hint").getText mustEqual("If you will pay a family member let us know their relationship to you and the person you care for.")
     }
-  }
 
+    "set the text area field lengths correctly .. all variants default to using present ongoing employment xsd" in new WithJsBrowser with PageObjects{
+      val page = GStartedEmploymentAndOngoingPage.fillJobDetails(context, testData => {})
+      page must beAnInstanceOf[GEmploymentPensionExpensesPage]
+      page.ctx.browser.find("#payIntoPension_whatFor").getAttribute("maxlength") mustEqual("300")
+      page.ctx.browser.find("#payForThings_whatFor").getAttribute("maxlength") mustEqual("300")
+      page.ctx.browser.find("#careCosts_whatFor").getAttribute("maxlength") mustEqual("300")
+      page.ctx.browser.find("#moreAboutChanges").getAttribute("maxlength") mustEqual("3000")
+    }
+  }
   section("unit", models.domain.CircumstancesSelfEmployment.id)
 }
