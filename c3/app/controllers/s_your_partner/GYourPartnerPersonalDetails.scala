@@ -1,5 +1,6 @@
 package controllers.s_your_partner
 
+import models.DayMonthYear
 import play.api.Play._
 import utils.CommonValidation
 import language.reflectiveCalls
@@ -73,7 +74,7 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
       },
       f => {
         val preUpdatedClaim = clearTheirPersonalDetailsIfPartnerQuestionChanged(claim, f)
-        val updatedDpClaim = updateDpDetailsIfChanged(preUpdatedClaim, f)
+        val updatedDpClaim = updateDpDetails(preUpdatedClaim, f)
         updatedDpClaim.update(f) -> Redirect(controllers.s_care_you_provide.routes.GTheirPersonalDetails.present())
       }
     )
@@ -131,10 +132,18 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
     claim.delete(TheirPersonalDetails)
   }
 
-  def updateDpDetailsIfChanged(claim: Claim, formData: YourPartnerPersonalDetails) = {
-    (formData.isPartnerPersonYouCareFor, claim.questionGroup[TheirPersonalDetails]) match{
-      case(Some("yes"), Some(dp)) => {
-        val newdp=dp.copy(firstName = formData.firstName.getOrElse(""), surname = formData.surname.getOrElse(""))
+  def updateDpDetails(claim: Claim, formData: YourPartnerPersonalDetails) = {
+    formData.isPartnerPersonYouCareFor match{
+      case(Some("yes")) => {
+        val dp=claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())
+        val newdp=dp.copy(
+          title = formData.title.getOrElse(""),
+          firstName = formData.firstName.getOrElse(""),
+          middleName = formData.middleName,
+          surname = formData.surname.getOrElse(""),
+          nationalInsuranceNumber = formData.nationalInsuranceNumber,
+          dateOfBirth = formData.dateOfBirth.getOrElse(DayMonthYear(1,1,1900))
+        )
         claim.update(newdp)
       }
       case _ => claim
