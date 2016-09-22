@@ -57,7 +57,7 @@
                 window.initEvents("warninghours_answer","@CarersCrypto.encryptAES("hours_answer_yes")", "@CarersCrypto.encryptAES("hours_answer_no")");
                 window.initEvents("warningover16_answer","@CarersCrypto.encryptAES("over16_answer_yes")", "@CarersCrypto.encryptAES("over16_answer_no")");
                 window.initEvents("warninglivesInGB_answer","@CarersCrypto.encryptAES("livesInGB_answer_yes")", "@CarersCrypto.encryptAES("livesInGB_answer_no")");
-                window.originWarning("origin_GB", "origin_NI", "origin_OTHER", "originWarning");
+                window.originWarning("@CarersCrypto.encryptAES("origin_GB")","@CarersCrypto.encryptAES("origin_NI")","@CarersCrypto.encryptAES("origin_OTHER")","originWarning");
                 window.gaEvents("@goodCountrySelection", "@badCountrySelection", "@otherCountrySelection");
             @if(!Play.isTest(Play.current)){
                 var hoursId = '@CarersCrypto.encryptAES("hours_answer")';
