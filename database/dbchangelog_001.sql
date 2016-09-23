@@ -44,7 +44,7 @@ $dbvis$ LANGUAGE plpgsql
 --rollback DROP FUNCTION IF EXISTS get_new_transaction_id();
 
 --changeset jmigueis:001_4
-DROP OWNED by carers_c3;
+-- DROP OWNED by carers_c3;
 DROP USER IF EXISTS carers_c3;
 CREATE USER carers_c3 PASSWORD 'claimant23';
 GRANT USAGE on SCHEMA PUBLIC to carers_c3;
