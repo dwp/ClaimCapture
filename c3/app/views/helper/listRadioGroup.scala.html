@@ -1,4 +1,4 @@
-@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
 @implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
 @import views.html.helper._
@@ -8,6 +8,6 @@
 
 @helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
     @if(nestedFieldSet) {<fieldset>}
-    @radioListPlaceholder(field, args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items):_*)(request,lang,utils.helpers.EmptyTemplate.apply(lang).fieldConstructor,messages)
+    @radioListPlaceholder(field, args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items):_*)(claim,request,lang,utils.helpers.EmptyTemplate.apply(lang).fieldConstructor,messages)
     @if(nestedFieldSet) {</fieldset>}
 }
