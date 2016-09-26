@@ -1,4 +1,4 @@
-@(field: Field, args: (Symbol, Any)*)(implicit request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
+@(field: Field, args: (Symbol, Any)*)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
 @import helper._
 @implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
@@ -21,6 +21,6 @@
             Partner -> messages("maritalStatus.livingWithPartner")
         ),
         (args ++ Seq('_label -> messages("maritalStatus")):_*)
-    )(request,lang,utils.helpers.EmptyTemplate.apply(lang).fieldConstructor,messages)
+    )(claim,request,lang,utils.helpers.EmptyTemplate.apply(lang).fieldConstructor,messages)
     @if(nestedFieldSet) {</fieldset>}
 }

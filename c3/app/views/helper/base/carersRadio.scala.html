@@ -1,4 +1,4 @@
-@(field: play.api.data.Field, options: Seq[(String, String)], args: (Symbol, Any)*)(implicit handler: helper.FieldConstructor, lang: play.api.i18n.Lang, request: Request[AnyContent], messages: play.api.i18n.Messages)
+@(field: play.api.data.Field, options: Seq[(String, String)], args: (Symbol, Any)*)(implicit handler: helper.FieldConstructor, lang: play.api.i18n.Lang, claim: models.domain.Claim, request: Request[AnyContent], messages: play.api.i18n.Messages)
 
 @import utils.helpers.CarersCrypto
 @import play.api.Play
@@ -6,12 +6,21 @@
 @import utils.helpers.GAHelper._
 @import app.ConfigProperties._
 @import play.api.i18n.Messages
+@import models.domain.TheirPersonalDetails
 
+    @theirPersonalDetails = @{claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())}
+    @dpname=@{theirPersonalDetails.firstName+" "+theirPersonalDetails.surname}
+    @stripDpname(key: String) = @{
+        if(dpname.length >3 )
+            key.replace(dpname, "@dpname")
+        else
+            key
+    }
     @gaTrack(id: String,v: (String,String)) = @{
         val tracking = args.find(_._1 == 'track).getOrElse('track->true)._2.asInstanceOf[Boolean]
 
         if(getBooleanProperty("analytics.enabled") && tracking){
-            trackEvent(request.path,args.find(_._1 == 'trackLabel).getOrElse('trackLabel->(id+".tracking"))._2.toString,Some(v._2))
+            trackEvent(request.path,args.find(_._1 == 'trackLabel).getOrElse('trackLabel->(id+".tracking"))._2.toString,Some(stripDpname((v._2))))
         }
     }
 

@@ -1,4 +1,4 @@
-@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 
 @import helper.base._
 @import utils.helpers.CarersCrypto
@@ -10,7 +10,7 @@
         <p class="form-hint">@Html(messages(args.find(_._1=='helperAbove).getOrElse('helperAbove->"")._2.toString()))</p>
     }
     <ul class="form-group form-group-compound" id="@CarersCrypto.encryptAES(field.id)">
-        @carersRadio(field, args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items):_*)(utils.helpers.EmptyTemplate.apply(lang).fieldConstructor,lang,request,messages)
+        @carersRadio(field, args.find(_._1 == 'items).get._2.asInstanceOf[Seq[(String,String)]], args.filter(e => e._1 != 'label && e._1 != 'items):_*)(utils.helpers.EmptyTemplate.apply(lang).fieldConstructor,lang,claim,request,messages)
     </ul>
 }(fieldConstructor,messages)
 
