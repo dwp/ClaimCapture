@@ -72,7 +72,7 @@ class GYourIncomesIntegrationSpec extends Specification {
       val errors = page.submitPage().listErrors
 
       errors.size mustEqual 2
-      errors(0) must contain("Have you been in")
+      errors(0) must contain("Have you been self-employed")
     }
 
     "select all checkboxes should raise error" in new WithJsBrowser with PageObjects {
