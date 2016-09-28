@@ -29,7 +29,7 @@ class AssistedDecisionAgeChecksSpec extends Specification with Mockito {
   // Do not reformat this xml it breaks the tests ... !!!
   lazy val showTableDecisionNode = <AssistedDecision><Reason>None</Reason><RecommendedDecision>None,show table</RecommendedDecision></AssistedDecision>
   lazy val defaultCheckCISDecisionNode = <AssistedDecision><Reason>Check CIS for benefits. Send Pro517 if relevant.</Reason><RecommendedDecision>Potential award,show table</RecommendedDecision></AssistedDecision>
-  lazy val pensionerCheckCISDecisionNode = <AssistedDecision><Reason>Check CIS for benefits. Send Pro517 if relevant.</Reason><RecommendedDecision>Potential underlying entitlement</RecommendedDecision></AssistedDecision>
+  lazy val pensionerCheckCISDecisionNode = <AssistedDecision><Reason>Check CIS for benefits. Send Pro517 if relevant.</Reason><RecommendedDecision>Potential underlying entitlement,show table</RecommendedDecision></AssistedDecision>
 
   section("unit")
   "Assisted section" should {
@@ -44,8 +44,8 @@ class AssistedDecisionAgeChecksSpec extends Specification with Mockito {
       val yourDetails = YourDetails(dateOfBirth = submitDate.minusMonths(fifteenAndNineInMonths).plusDays(1))
       val claim = AssistedDecision.createAssistedDecisionDetails(happyClaim.update(claimDateDetails).update(yourDetails));
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain("Customer does not turn 16 in next 3 months. Send Proforma 491 to customer.")
-      (xml \\ "RecommendedDecision").text must contain("Potential disallowance decision")
+      (xml \\ "Reason").text mustEqual("Customer does not turn 16 in next 3 months. Send Proforma 491 to customer.")
+      (xml \\ "RecommendedDecision").text mustEqual("Potential disallowance decision,no table")
     }
 
     "Default AD if customer OLDER THAN 15 and 9 year old today i.e. i.e. born 1 day earlier" in new WithApplication {
@@ -60,7 +60,7 @@ class AssistedDecisionAgeChecksSpec extends Specification with Mockito {
       val claim = AssistedDecision.createAssistedDecisionDetails(happyClaim.update(claimDateDetails).update(yourDetails).update(noBankDetails));
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text mustEqual("None")
-      (xml \\ "RecommendedDecision").text must contain("show table")
+      (xml \\ "RecommendedDecision").text mustEqual("None,show table")
     }
 
     "Create 'underlying entitlement' AD if customer EQUALS 65 claim date=today" in new WithApplication {
