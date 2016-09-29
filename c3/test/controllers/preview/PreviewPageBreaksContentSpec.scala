@@ -20,8 +20,8 @@ class PreviewPageBreaksContentSpec extends Specification {
       val page =  PreviewPage(context)
       page goToThePage()
       val source = page.source
-      
-      source must contain("Yes - Details provided for 1 break(s)")
+      source must contain("any times you or Tom Wilson have been in hospital")
+      source must contain("any other times you've not provided care for Tom Wilson")
     }
   }
   section("preview")

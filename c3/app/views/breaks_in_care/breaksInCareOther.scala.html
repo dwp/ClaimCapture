@@ -1,0 +1,115 @@
+@(currentForm: Form[models.domain.Break], backCall: Call)(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
+
+@import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
+@import models.domain.TheirPersonalDetails
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dates._
+@import scala.language.postfixOps
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
+@import controllers.IterationID
+@import app.BreaksInCareOtherOptions._
+@import views.html.breaks_in_care.main
+
+@dpDetails() = @{
+    val theirPersonalDetails = claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())
+    theirPersonalDetails.firstName + " " + theirPersonalDetails.surname
+}
+
+@whereList = @{
+    Seq(
+        Holiday -> messages("breaksInCareOtherHoliday"),
+        Home -> messages("breaksInCareOtherHome"),
+        SomewhereElse -> messages("breaksInCareOtherSomewhereElse")
+    )
+}
+
+@main(messages("breaksInCareOtherTitle"), messages("breaksInCareOtherSectionHeading"), Some(currentForm), Some(backCall), true) {
+
+    @form(action = controllers.breaks_in_care.routes.GBreaksInCareOther.submit, 'role -> "form") {
+        <input type="hidden" name="iterationID" value="@IterationID(currentForm)">
+        @DwpCSRFFormHelper.formField
+        <fieldset class="form-elements">
+            <legend class="heading-medium form-label-bold">@Html(messages("breaksInCareOtherDeclaration", dpDetails))</legend>
+            <ul>
+                @dateTimePickerWithDynamicLabel(currentForm("caringEnded.date"), '_label -> messages("caringEnded.date", dpDetails),
+                    'dynamicDateDays -> 34, 'ignoreOptional -> true, 'track -> true)
+
+                @carersInputText(currentForm("caringEnded.time"), 'maxLength -> 60, 'track -> true, 'ignoreOptional -> false)
+
+                @yesNoRadioGroup(currentForm("caringStarted.answer"),
+                    '_label -> messages("caringStarted.answer"),
+                    'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")),
+                    'ignoreOptional-> true, 'track -> true
+                )
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        dateTimePickerWithDynamicLabel(currentForm("caringStarted.date"),
+                            'dynamicDateDays -> 34, 'ignoreOptional -> true, 'track -> true),
+                        carersInputText(currentForm("caringStarted.time"), 'maxLength -> 60, 'track -> true, 'ignoreOptional -> false),
+                        listRadioGroupWithOther(currentForm("whereWasDp"),
+                            'items -> whereList,
+                            '_label -> messages("whereWasDp.answer", dpDetails),
+                            'wrapperName -> "wherePersonBreaksInCareWrap",
+                            '_nestedFieldSet -> true,
+                            'maxLength -> 60,
+                            'class -> "textarea-reduced",
+                            'otherValue -> SomewhereElse,
+                            '_anchorIdRequired -> true,
+                            '_anchorId -> "whereWasDp",
+                            'ignoreOptional -> true,
+                            '_otherLabel -> messages("whereWasDp.text"),
+                            'track -> true
+                        ),
+                        listRadioGroupWithOther(currentForm("whereWereYou"),
+                            'items -> whereList,
+                            'wrapperName -> "whereYouBreaksInCareWrap",
+                            '_nestedFieldSet -> true,
+                            'maxLength -> 60,
+                            'class -> "textarea-reduced",
+                            'otherValue -> SomewhereElse,
+                            '_anchorIdRequired -> true,
+                            '_anchorId -> "whereWereYou",
+                            '_otherLabel -> messages("whereWereYou.text"),
+                            'ignoreOptional -> true,
+                            'track -> true
+                        )
+                    ),
+                    'id -> "caringStartedWrap"
+                )
+
+            </ul>
+
+        </fieldset>
+
+        @views.html.common.bottomNavigation(nextLabel = Some("form.next"), backCall = Some(backCall), forceShow = true)
+
+    }
+
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/listWithOther.js")></script>
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/breaks_in_care/breaksInCareOtherGather.js")></script>
+
+    <script type="text/javascript">
+        $(function(){
+            window.areaCounter({selector: "@CarersCrypto.encryptAES("whereWasDp_text")", maxChars: 60});
+            window.areaCounter({selector: "@CarersCrypto.encryptAES("whereWereYou_text")", maxChars: 60});
+
+            window.initEvents(
+                    "@CarersCrypto.encryptAES("caringStarted_answer_yes")",
+                    "@CarersCrypto.encryptAES("caringStarted_answer_no")",
+                    "caringStartedWrap",
+                    "@CarersCrypto.encryptAES("caringStarted_date")",
+                    "@CarersCrypto.encryptAES("caringEnded_date")",
+                    "@CarersCrypto.encryptAES("caringStarted_time")",
+                    "@CarersCrypto.encryptAES("caringEnded_time")",
+                    "wherePersonBreaksInCareWrap",
+                    "whereYouBreaksInCareWrap"
+            );
+        });
+    </script>
+
+}
+

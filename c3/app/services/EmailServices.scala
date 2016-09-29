@@ -60,7 +60,7 @@ object EmailServices extends I18nSupport {
   def claimEmailSubject(claim: Claim, l: Lang) = {
     implicit val lang = l
     (claim.questionGroup[YourIncomes], claim.questionGroup[SelfEmploymentPensionsAndExpenses]) match {
-      case (Some(YourIncomes(XMLValues.yes, _, _, _, _, _, _, _)), _) | (Some(YourIncomes(_, XMLValues.yes, _, _, _, _, _, _)), _) => messagesApi("subject.claim.employed")
+      case (Some(YourIncomes(XMLValues.yes, _, _, _, _, _, _, _, _)), _) | (Some(YourIncomes(_, XMLValues.yes, _, _, _, _, _, _, _)), _) => messagesApi("subject.claim.employed")
       case (_, Some(SelfEmploymentPensionsAndExpenses(YesNoWithText(XMLValues.yes, _), _))) => messagesApi("subject.claim.employed")
       case _ => messagesApi("subject.claim.notemployed")
     }

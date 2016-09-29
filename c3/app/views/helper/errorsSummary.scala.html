@@ -25,7 +25,10 @@
 @dpname=@{theirPersonalDetails.firstName+" "+theirPersonalDetails.surname}
 
 @stripDpname(key: String) = @{
-    key.replace(dpname, "@dpname")
+    if(dpname.length >3 )
+        key.replace(dpname, "@dpname")
+    else
+        key
 }
 
 @trimDate(key: String) = @{
@@ -33,6 +36,11 @@
     if (result.isDefined) {
         key.substring(0, result.get.end(0) - 2) + "?"
     } else key
+}
+
+@getMessageKey(key: String ) = @{
+    if (key.endsWith(".error")) key.dropRight(6)
+    else key
 }
 
 @if(form.hasErrors) {
@@ -43,10 +51,10 @@
         @for(error <- form.errors) {
             <li>
                 <a href="#@CarersCrypto.encryptAES(form(error.key).id)">
-                    @if(messages(error.key + ".error") != error.key + ".error") {
-                        @Html(messages(error.message, error.args: _*))
+                    @if(messages(error.key + ".error") != error.key + ".error" && !error.message.endsWith(".error")) {
+                        @Html(messages(getMessageKey(error.message), error.args: _*))
                     } else {
-                        @Html(messages(error.key, error.args: _*)) - @Html(messages(error.message, error.args: _*))
+                        @Html(messages(error.key, error.args: _*)) - @Html(messages(getMessageKey(error.message), error.args: _*))
                     }
                 </a>
             </li>
@@ -57,10 +65,10 @@
     <script type="text/javascript">
     $(function() {
             @for(error <- form.errors) {
-                @if(messages(error.key + ".error") != error.key + ".error") {
-                    @Html(gaTrackError(messages(error.message, error.args: _*)))
+                @if(messages(error.key + ".error") != error.key + ".error" && !error.message.endsWith(".error")) {
+                    @Html(gaTrackError(messages(getMessageKey(error.message), error.args: _*)))
                 } else {
-                    @Html(gaTrack(messages(error.key, error.args: _*), messages(error.message, error.args: _*)))
+                    @Html(gaTrack(messages(error.key, error.args: _*), messages(getMessageKey(error.message), error.args: _*)))
                 }
             }
     });

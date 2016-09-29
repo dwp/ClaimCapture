@@ -9,6 +9,8 @@
 @import utils.helpers._
 @import models.domain.CircumstancesOtherInfo
 @import views.html.circs.report_changes.main
+@import play.api.Play
+@import play.api.Play.current
 
 @main(messages("c2.g4") + " - " + messages("c2.name"), isChanging = true) {
     @errorsSummary(otherInfoForm)
@@ -28,7 +30,7 @@
                 
 	        </fieldset>
 	
-            @views.html.common.bottomNavigation(changing = true)
+            @views.html.common.bottomNavigation(changing = true, customTrack = Some(Html("onclick=analyticsCallback()")))
         </div>
 
     }
@@ -45,6 +47,13 @@
             window.initEvents("@CarersCrypto.encryptAES("changeInCircs")"
             );
         });
+
+        function analyticsCallback() {
+            var textelement="#@CarersCrypto.encryptAES(otherInfoForm("changeInCircs").id)"
+            if(!@Play.isTest && $(textelement).is(":visible")){
+                window.trackEvent( "@{request.path}", "changeInCircs.tracking", $(textelement).val().length )
+            }
+        }
     </script>
 
 }

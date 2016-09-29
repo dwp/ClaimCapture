@@ -44,7 +44,7 @@ object Preview extends Controller with CachedClaim with Navigable with I18nSuppo
     }
 
     val routesMap = PreviewRouteUtils.yourDetailsRoute ++
-      PreviewRouteUtils.educationRoute ++ PreviewRouteUtils.careYouProvide ++ PreviewRouteUtils.breaks ++ PreviewRouteUtils.yourPartner ++
+      PreviewRouteUtils.educationRoute ++ PreviewRouteUtils.careYouProvide ++ PreviewRouteUtils.breaksRoute ++ PreviewRouteUtils.yourPartner ++
       PreviewRouteUtils.employmentRoute ++ PreviewRouteUtils.yourIncomeOtherPaymentsRoute ++ PreviewRouteUtils.bankDetailsRoute ++ PreviewRouteUtils.additionalInfoRoute ++ PreviewRouteUtils.thirdPartyRoute
 
     val updatedClaim = claim.copy(checkYAnswers = claim.checkYAnswers.copy(cyaPointOfEntry = Some(routesMap(id)), returnToSummaryAnchor = returnToSummaryValue))(claim.navigation)

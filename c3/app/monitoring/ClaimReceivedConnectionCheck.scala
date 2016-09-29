@@ -13,7 +13,7 @@ import app.ConfigProperties._
 /**
  * Try to ping the ClaimReceived service in IL3.
  */
-class ClaimReceivedConnectionCheck extends CADSHealthCheck(ClaimHandling.C3NAME, ClaimHandling.C3VERSION_VALUE) {
+class ClaimReceivedConnectionCheck extends CADSHealthCheck(ClaimHandling.C3NAME, ClaimHandling.C3VERSION_VALUE, "-cr-connection-check") {
 
   override def check(): Result = {
     val url = Configuration.root().getString("submissionServerUrl", "SubmissionServerEndpointNotSet") + "ping"

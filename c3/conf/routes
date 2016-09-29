@@ -132,12 +132,21 @@ POST        /care-you-provide/their-personal-details                    controll
 GET         /care-you-provide/more-about-the-care                       controllers.s_care_you_provide.GMoreAboutTheCare.present
 POST        /care-you-provide/more-about-the-care                       controllers.s_care_you_provide.GMoreAboutTheCare.submit
 
-GET         /breaks/breaks-in-care                                      controllers.s_breaks.GBreaksInCare.present
-POST        /breaks/breaks-in-care                                      controllers.s_breaks.GBreaksInCare.submit
-POST        /breaks/delete-break-in-care                                controllers.s_breaks.GBreaksInCare.delete
 
-GET         /breaks/break/:id                                           controllers.s_breaks.GBreak.present(id: String)
-POST        /breaks/break                                               controllers.s_breaks.GBreak.submit
+# Breaks in care
+###############
+GET         /breaks/breaks-in-care                                      controllers.breaks_in_care.GBreaksInCareSummary.present
+POST        /breaks/breaks-in-care                                      controllers.breaks_in_care.GBreaksInCareSummary.submit
+POST        /breaks/breaks-in-care-delete                               controllers.breaks_in_care.GBreaksInCareSummary.delete
+
+GET         /breaks/hospital/:id                                        controllers.breaks_in_care.GBreaksInCareHospital.present(id: String)
+POST        /breaks/hospital                                            controllers.breaks_in_care.GBreaksInCareHospital.submit
+
+GET         /breaks/respite-care-home/:id                               controllers.breaks_in_care.GBreaksInCareRespite.present(id: String)
+POST        /breaks/respite-care-home                                   controllers.breaks_in_care.GBreaksInCareRespite.submit
+
+GET         /breaks/other-breaks/:id                                    controllers.breaks_in_care.GBreaksInCareOther.present(id: String)
+POST        /breaks/other-breaks                                        controllers.breaks_in_care.GBreaksInCareOther.submit
 
 
 # Education
@@ -195,6 +204,9 @@ POST        /your-income/fostering-allowance                           controlle
 
 GET         /your-income/direct-payment                                controllers.your_income.GDirectPayment.present
 POST        /your-income/direct-payment                                controllers.your_income.GDirectPayment.submit
+
+GET         /your-income/rental-income                                 controllers.your_income.GRentalIncome.present
+POST        /your-income/rental-income                                 controllers.your_income.GRentalIncome.submit
 
 GET         /your-income/other-income                                  controllers.your_income.GOtherPayments.present
 POST        /your-income/other-income                                  controllers.your_income.GOtherPayments.submit

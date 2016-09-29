@@ -190,14 +190,7 @@ class AssistedDecisionSpec extends Specification {
       (xml \\ "RecommendedDecision").text must contain("None")
     }
 
-    "Default assisted decision section for british lived in UK more than 3 years" in new WithApplication {
-      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
-      val nationality = NationalityAndResidency("British", None, alwaysLivedInUK = "no", liveInUKNow = Some("yes"), arrivedInUK = Some("more"), None, None, "no", None)
-      val additionalInfo = AdditionalInfo(anythingElse = YesNoWithText(Mappings.no))
-      val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(nationality).update(additionalInfo))
-      val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain(defaultAssistedDecisionReason)
-    }
+    // "Blank assisted decision section for none British lived in UK more than 3 years" ....  in BlankDecisions tests
 
     "Simplest claim (happy path no income breaks addinfo etc.) creates CIS decision" in new WithApplication {
       val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))

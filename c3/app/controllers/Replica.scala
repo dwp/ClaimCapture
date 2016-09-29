@@ -2,6 +2,7 @@ package controllers
 
 import java.io.FileReader
 
+import app.BreaksInCareGatherOptions
 import controllers.mappings.Mappings
 import gov.dwp.carers.xml.signing.XmlSignatureValidator
 import gov.dwp.carers.xml.validation.XmlValidatorFactory
@@ -73,7 +74,7 @@ object ReplicaData {
           Eligibility(hours = Mappings.yes, over16 = Mappings.yes, origin = "GB") +
           ThirdPartyDetails(thirdParty = ThirdPartyDetails.noCarer, nameAndOrganisation  = Some("Jenny Bloggs Preston carers")) +
           ClaimDate(DayMonthYear.today,spent35HoursCaringBeforeClaim = YesNoWithDate(Mappings.yes,date = Some(DayMonthYear.today - 3 months))) +
-          YourDetails(title = "Mr",firstName = "Joe",surname = "Bloggs",nationalInsuranceNumber = NationalInsuranceNumber(Some("AB123456D")),dateOfBirth = DayMonthYear(10,10,2014)) +
+          YourDetails(title = "Mr",firstName = "Joe",surname = "Bloggs",nationalInsuranceNumber = NationalInsuranceNumber(Some("AB123456D")),dateOfBirth = DayMonthYear(10,10,1990)) +
           MaritalStatus(maritalStatus = app.MaritalStatus.Single) +
           ContactDetails(address = new MultiLineAddress(Some("123"),Some("Street")),postcode = Some("C4T 0AD"),howWeContactYou = Some("0000000000"),wantsContactEmail = Mappings.yes, email = Some("CAU.CASA@dwp.gsi.gov.uk"), emailConfirmation = Some("CAU.CASA@dwp.gsi.gov.uk")) +
           NationalityAndResidency("British", None, Mappings.yes, None, None, None, None, Mappings.no, None) +
@@ -81,14 +82,14 @@ object ReplicaData {
           YourPartnerPersonalDetails(hadPartnerSinceClaimDate = Mappings.yes,title = Some("Miss"),firstName = Some("Joan"),surname = Some("Bloggs"),dateOfBirth = Some(DayMonthYear.today - 10 years),nationality = Some("British"),separatedFromPartner = Some(Mappings.no),isPartnerPersonYouCareFor = Some(Mappings.no)) +
           TheirPersonalDetails(relationship = "Grandma",title = "Mrs",firstName = "Jane",surname = "Bloggs",dateOfBirth = DayMonthYear.today - 15 years,theirAddress = YesNoMandWithAddress(answer = Mappings.no, address = Option(MultiLineAddress(lineOne = Some("470 Street"),lineTwo = Some("Newtown"))), postCode = Some("PR1 1HB"))) +
           MoreAboutTheCare(spent35HoursCaring = Some(Mappings.yes), otherCarer= Some(Mappings.no)) +
-          BreaksInCareSummary(Mappings.no) +
+          BreaksInCareType(none = Mappings.someTrue, other = Some(Mappings.no)) +
           BreaksInCare(List(
-            Break("1",DayMonthYear.today - 4 months,hasBreakEnded = YesNoWithDate(answer = Mappings.no,None),whereYou = RadioWithText(app.CircsBreaksWhereabouts.Holiday),wherePerson = RadioWithText(app.CircsBreaksWhereabouts.Home),medicalDuringBreak = Mappings.no),
-            Break("2",DayMonthYear.today - 3 months,hasBreakEnded = YesNoWithDate(answer = Mappings.no,None),whereYou = RadioWithText(app.CircsBreaksWhereabouts.Hospital),wherePerson = RadioWithText(app.CircsBreaksWhereabouts.Home),medicalDuringBreak = Mappings.yes)
+            Break("1", typeOfCare=Breaks.hospital, whoWasAway=BreaksInCareGatherOptions.You, whenWereYouAdmitted=Some(DayMonthYear.today - 1 months), yourStayEnded=Some(YesNoWithDate(answer = Mappings.no,None))),
+            Break("2", typeOfCare=Breaks.carehome, whoWasAway=BreaksInCareGatherOptions.You, whenWereYouAdmitted=Some(DayMonthYear.today - 2 months), yourStayEnded=Some(YesNoWithDate(answer = Mappings.no,None)), yourMedicalProfessional=Some(Mappings.no))
           )) +
           YourCourseDetails(beenInEducationSinceClaimDate = Mappings.yes,title = Some("Biology"),nameOfSchoolCollegeOrUniversity = Some("A College"),
           nameOfMainTeacherOrTutor = Some("A Tutor"),startDate = Some(DayMonthYear.today - 1 month),expectedEndDate = Some(DayMonthYear.today + 2 years)) +
-          YourIncomes(beenSelfEmployedSince1WeekBeforeClaim = Mappings.yes, beenEmployedSince6MonthsBeforeClaim = Mappings.yes, yourIncome_sickpay = Mappings.someTrue, yourIncome_patmatadoppay = Mappings.someTrue, yourIncome_fostering = Mappings.someTrue, yourIncome_directpay = Mappings.someTrue, yourIncome_anyother = Mappings.someTrue, yourIncome_none = None) +
+          YourIncomes(beenSelfEmployedSince1WeekBeforeClaim = Mappings.yes, beenEmployedSince6MonthsBeforeClaim = Mappings.yes, yourIncome_sickpay = Mappings.someTrue, yourIncome_patmatadoppay = Mappings.someTrue, yourIncome_fostering = Mappings.someTrue, yourIncome_directpay = Mappings.someTrue, yourIncome_anyother = Mappings.someTrue, yourIncome_rentalincome = Mappings.someTrue, yourIncome_none = None) +
           Employment(beenSelfEmployedSince1WeekBeforeClaim = Mappings.yes, beenEmployedSince6MonthsBeforeClaim = Mappings.yes) +
           SelfEmploymentDates(stillSelfEmployed = Mappings.no, finishThisWork=Some(DayMonthYear.today - 2 months), moreThanYearAgo = Mappings.no, startThisWork = Some(DayMonthYear.today - 6 months), paidMoney = Some(Mappings.yes), paidMoneyDate = Some(DayMonthYear.today - 5 months)) +
           SelfEmploymentPensionsAndExpenses(payPensionScheme = YesNoWithText(Mappings.no),haveExpensesForJob = YesNoWithText(Mappings.no)) +
@@ -106,6 +107,7 @@ object ReplicaData {
           StatutoryMaternityPaternityAdoptionPay(paymentTypesForThisPay = app.PaymentTypes.MaternityPaternity, stillBeingPaidThisPay = Mappings.no, whenDidYouLastGetPaid = Some(DayMonthYear.today - 3 months), whoPaidYouThisPay = "Hiding Consultants", amountOfThisPay = "223.56", howOftenPaidThisPay = app.StatutoryPaymentFrequency.FourWeekly, howOftenPaidThisPayOther = None) +
           FosteringAllowance(paymentTypesForThisPay = app.PaymentTypes.FosteringAllowance, stillBeingPaidThisPay = Mappings.yes, whenDidYouLastGetPaid = None, whoPaidYouThisPay = "Hiding Consultants", amountOfThisPay = "323.56", howOftenPaidThisPay = app.StatutoryPaymentFrequency.Monthly, howOftenPaidThisPayOther = None) +
           DirectPayment(stillBeingPaidThisPay = Mappings.no, whenDidYouLastGetPaid = Some(DayMonthYear.today - 3 months), whoPaidYouThisPay = "Hiding Consultants", amountOfThisPay = "423.56", howOftenPaidThisPay = app.StatutoryPaymentFrequency.ItVaries, howOftenPaidThisPayOther = Some("Twice a day")) +
+          RentalIncome(rentalIncomeInfo = "Testing rental income") +
           OtherPayments(otherPaymentsInfo = "Testing other payments") +
           HowWePayYou(likeToBePaid = Mappings.no,paymentFrequency = app.PaymentFrequency.EveryWeek) +
           AdditionalInfo(anythingElse = YesNoWithText(Mappings.no),welshCommunication = Mappings.no)

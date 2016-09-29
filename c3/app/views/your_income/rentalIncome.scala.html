@@ -1,0 +1,48 @@
+@import models.domain.YourIncomeRentalIncome
+@(currentForm: Form[models.domain.RentalIncome])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
+
+@import utils.helpers.CarersCrypto
+@import utils.csrf.DwpCSRFFormHelper
+@import scala.language.postfixOps
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
+@import views.html.helper._
+@import views.html.helper.base._
+@import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
+@import utils.helpers.ReturnToSummaryHelper._
+
+@main(messages("s7.g1")+ " " + messages("s24.g1"), messages("s7.g1")+ " - " + messages("s24.g1"), Some(currentForm)) {
+    @form(action = controllers.your_income.routes.GRentalIncome.submit, 'role -> "form") {
+
+        @DwpCSRFFormHelper.formField
+
+        <fieldset class="form-elements">
+            <legend class="visuallyhidden">@Html(messages("s21.g1"))</legend>
+            <ul>
+                @carersInputTextArea(currentForm("rentalIncomeInfo"),
+                    'helperAbove -> "rentalIncomeInfo_helper",
+                    'track -> true,
+                    'textAreaHelper -> Html(messages(s"${YourIncomeRentalIncome.rentalIncomeMaxLength}charsLeft")),
+                    'maxLength -> YourIncomeRentalIncome.rentalIncomeMaxLength,
+                    'ignoreOptional -> true,
+                    '_label -> messages("rentalIncomeInfo", displayPlaybackDatesFormat(lang, claim.dateOfClaim.getOrElse(DayMonthYear.today)))
+                )
+            </ul>
+        </fieldset>
+
+        @views.html.common.bottomNavigation(nextLabel=displayReturnToSummaryFromRentalIncomeInfo(claim), customTrack = Some(views.html.ga.trackSubmit()))
+    }
+
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/your_income/otherIncome.js")></script>
+    <script type="text/javascript">
+        $(function(){
+            window.areaCounter({selector:"@CarersCrypto.encryptAES("rentalIncomeInfo")",maxChars:@YourIncomeRentalIncome.rentalIncomeMaxLength});
+
+            window.initRentalIncomesEvents(
+                    "@CarersCrypto.encryptAES("rentalIncomeInfo")"
+            );
+        });
+    </script>
+}
+
+

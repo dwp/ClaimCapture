@@ -6,8 +6,8 @@
 # WARNING .. Temporary script for sbt builds therefore simplistic and likely duplicated amongst any projects with database
 #
 # The database zipfile looks like
-# <appname>_<scalaversion>-<appversion>-database.zip
-# i.e. c3_2.10-3.13-SNAPSHOT-database.zip
+# <appname>-<appversion>-database.zip
+# i.e. c3-3.13-SNAPSHOT-database.zip
 #
 # We post to artifactory using curl PUT with command that looks like
 # curl -u $user:$password -X PUT http://build.3cbeta.co.uk:8080/artifactory/libs-snapshot-local/gov/dwp/carers/cs_2.10/2.8-SNAPSHOT/cg.txt -T cg.txt
@@ -48,7 +48,6 @@ fi
 appname=`awk -F= '/application.name/{print $2}' $appconffile`
 appversion=`awk -F= '/application.version/{print $2}' $appconffile`
 echo "Retrieved application.name:$appname and application.version:$appversion from $appconffile"
-scalaversion="2.10"
 
 if [ ! -d "database" ]
 then
@@ -57,7 +56,7 @@ then
 	echo "========================================================================="
 	exit 1
 fi
-dbzipfile=$appname"_"$scalaversion"-"$appversion"-database.zip"
+dbzipfile=$appname"-"$appversion"-database.zip"
 rm -f $dbzipfile
 zip -r $dbzipfile database
 
@@ -86,7 +85,6 @@ fi
 user=`awk -F= '/user/{print $2}' $credfile`
 password=`awk -F= '/password/{print $2}' $credfile`
 
-# curl -u jenkins:$password -X PUT http://build.3cbeta.co.uk:8080/artifactory/libs-snapshot-local/gov/dwp/carers/cs_2.10/2.8-SNAPSHOT/cg.txt -T cg.txt
-urlfolder="$artifactory/artifactory/libs-snapshot-local/gov/dwp/carers/"$appname"_"$scalaversion"/"$appversion
+urlfolder="$artifactory/artifactory/libs-snapshot-local/gov/dwp/carers/"$appname"/"$appversion
 curlcmd="curl -u $user:$password -X PUT $urlfolder/$dbzipfile -T $dbzipfile"
 $curlcmd

@@ -1,7 +1,9 @@
 package controllers
 
+import controllers.mappings.Mappings
 import utils.pageobjects.TestData
-import app.{PensionPaymentFrequency, WhoseNameAccount, PaymentFrequency, AccountStatus}
+import app._
+import controllers.mappings.Mappings._
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -220,6 +222,20 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def defaultDpDetails() = {
+    val claim = new TestData
+
+    claim.AboutTheCareYouProvideTitlePersonCareFor = "Mr"
+    claim.AboutTheCareYouProvideFirstNamePersonCareFor = "Albert"
+    claim.AboutTheCareYouProvideMiddleNamePersonCareFor = "H"
+    claim.AboutTheCareYouProvideSurnamePersonCareFor = "Johnson"
+    claim.AboutTheCareYouProvideNINOPersonCareFor = "AB123456A"
+    claim.AboutTheCareYouProvideDateofBirthPersonYouCareFor = "01/02/1900"
+    claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "yes"
+    claim.AboutTheCareYouProvideWhatTheirRelationshipToYou = "Father"
+    claim
+  }
+
   def s4CareYouProvide(hours35: Boolean, liveSameAddress: Boolean = false) = {
     val claim = s2ands3WithTimeOUtsideUKAndProperty()
     // Their Personal Details
@@ -299,20 +315,18 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek = "Yes"
     claim.AboutTheCareYouProvideOtherCarer = "No"
 
-    // Breaks in care
-    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "yes"
-    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_1 = "At home"
-    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1 = "In hospital"
-    claim.AboutTheCareYouProvideBreakStartDate_1 = "12/12/2006"
-    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1 = "no"
-    claim.AboutTheCareYouProvideHasBreakEnded_1 = "No"
+    // Breaks in care hospital break
+    claim.AboutTheCareYouProvideBreakWhoWasInHospital_1 = BreaksInCareGatherOptions.You
+    claim.AboutTheCareYouProvideBreakWhenWereYouAdmitted_1 = "01/01/2016"
+    claim.AboutTheCareYouProvideYourStayEnded_1 = Mappings.no
 
     claim
   }
 
   def s4CareYouProvideWithNoBreaksInCare() = {
     val claim = s4CareYouProvide(true)
-    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "no"
+    claim.BreaktypeNoneCheckbox = someTrue.get
+    claim.BreaktypeOtherYesNo = "no"
     claim
   }
 
@@ -327,12 +341,10 @@ object ClaimScenarioFactory {
   def s4CareYouProvideWithBreaksInCare(hours35: Boolean) = {
     val claim = if (hours35) s4CareYouProvide(true) else s4CareYouProvide(false)
 
-    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "yes"
-    claim.AboutTheCareYouProvideBreakStartDate_1 = "10/01/1999"
-    claim.AboutTheCareYouProvideWhereWereYouDuringTheBreak_1 = "In hospital"
-    claim.AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_1 = "In hospital"
-    claim.AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1 = "Yes"
-    claim.AboutTheCareYouProvideHasBreakEnded_1 = "No"
+    /* Temp to get tests fixed up ... will add preview breaks shortly along side replica data ... COLING
+     */
+    claim.BreaktypeNoneCheckbox = someTrue.get
+    claim.BreaktypeOtherYesNo = Mappings.no
 
     claim
   }
@@ -571,7 +583,8 @@ object ClaimScenarioFactory {
 
   def s7EmploymentMinimum(hours35: Boolean) = {
     val claim = if (hours35) s4CareYouProvide(true) else s4CareYouProvide(false)
-    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "no"
+    claim.BreaktypeNoneCheckbox = someTrue.get
+    claim.BreaktypeOtherYesNo = "no"
     claim.EducationHaveYouBeenOnACourseOfEducation = "no"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
@@ -612,7 +625,8 @@ object ClaimScenarioFactory {
 
   def s7EmploymentMaximum(hours35: Boolean) = {
     val claim = if (hours35) s4CareYouProvide(true) else s4CareYouProvide(false)
-    claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "no"
+    claim.BreaktypeNoneCheckbox = someTrue.get
+    claim.BreaktypeOtherYesNo = "no"
     claim.EducationHaveYouBeenOnACourseOfEducation = "no"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "Yes"
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
@@ -1034,6 +1048,31 @@ object ClaimScenarioFactory {
   def feedbackSatisfiedVS() = {
     val claim = new TestData
     claim.FeedbackSatisfied = "VS"
+    claim
+  }
+
+  def careYouProvideWithBreaksInCareYou(hours35: Boolean) = {
+    val claim = if (hours35) s4CareYouProvide(true) else s4CareYouProvide(false)
+    claim.BreaktypeHospitalCheckbox = someTrue.get
+    claim.BreaktypeOtherYesNo = "no"
+
+    claim
+  }
+
+  def careYouProvideWithBreaksInCareRespite(hours35: Boolean) = {
+    val claim = if (hours35) s4CareYouProvide(true) else s4CareYouProvide(false)
+
+    claim.BreaktypeCareHomeCheckbox = someTrue.get
+    claim.BreaktypeOtherYesNo = "no"
+    claim
+  }
+
+
+  def careYouProvideWithBreaksInCareOther(hours35: Boolean) = {
+    val claim = if (hours35) s4CareYouProvide(true) else s4CareYouProvide(false)
+
+    claim.BreaktypeNoneCheckbox = someTrue.get
+    claim.BreaktypeOtherYesNo = "yes"
     claim
   }
 }

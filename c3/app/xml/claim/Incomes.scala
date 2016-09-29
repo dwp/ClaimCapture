@@ -12,8 +12,9 @@ import scala.xml.NodeSeq
 
 object Incomes extends XMLComponent {
   val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
+  def displayableClaimDate(claim: Claim) = claim.dateOfClaim.fold("")(_.`dd month yyyy`)
+
   def xml(claim: Claim) = {
-    val claimDate = claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)
     val incomes = claim.questionGroup[YourIncomes].getOrElse(YourIncomes())
     val empAdditionalInfo = claim.questionGroup[EmploymentAdditionalInfo].getOrElse(EmploymentAdditionalInfo())
     val anyOtherPayments = incomes.yourIncome_none match {
@@ -22,13 +23,14 @@ object Incomes extends XMLComponent {
     }
 
     <Incomes>
-      {question(<Employed/>, "aboutYou_beenEmployedSince6MonthsBeforeClaim.label", incomes.beenEmployedSince6MonthsBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => DWPCAClaim.displayClaimDate(dmy - 6 months)), claimDate)}
-      {question(<SelfEmployed/>, "aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label", incomes.beenSelfEmployedSince1WeekBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 1 week}")(dmy => DWPCAClaim.displayClaimDate(dmy - 1 week)), claimDate)}
-      {question(<OtherPaymentQuestion/>, "yourIncome.otherIncome.label", anyOtherPayments, claimDate)}
+      {question(<Employed/>, "aboutYou_beenEmployedSince6MonthsBeforeClaim.label", incomes.beenEmployedSince6MonthsBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => DWPCAClaim.displayClaimDate(dmy - 6 months)), displayableClaimDate(claim))}
+      {question(<SelfEmployed/>, "aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label", incomes.beenSelfEmployedSince1WeekBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 1 week}")(dmy => DWPCAClaim.displayClaimDate(dmy - 1 week)), displayableClaimDate(claim))}
+      {question(<OtherPaymentQuestion/>, "yourIncome.otherIncome.label", anyOtherPayments, displayableClaimDate(claim))}
       {question(<SickPayment/>, "yourIncome.ssp", incomes.yourIncome_sickpay)}
       {question(<PatMatAdopPayment/>, "yourIncome.spmp", incomes.yourIncome_patmatadoppay)}
       {question(<FosteringPayment/>, "yourIncome.fostering", incomes.yourIncome_fostering)}
       {question(<DirectPayment/>, "yourIncome.direct", incomes.yourIncome_directpay)}
+      {question(<RentalIncome/>, "yourIncome.rental", incomes.yourIncome_rentalincome)}
       {question(<AnyOtherPayment/>, "yourIncome.anyother", incomes.yourIncome_anyother)}
       {question(<NoOtherPayment/>, "yourIncome.none", incomes.yourIncome_none)}
       {Employment.xml(claim)}
@@ -38,6 +40,7 @@ object Incomes extends XMLComponent {
       {statPatMatAdoptPayXml(claim)}
       {fosteringAllowanceXml(claim)}
       {directPaymentXml(claim)}
+      {rentalIncomeXml(claim)}
       {otherPaymentsXml(claim)}
     </Incomes>
   }
@@ -130,12 +133,22 @@ object Incomes extends XMLComponent {
     }
   }
 
+  def rentalIncomeXml(claim: Claim): NodeSeq = {
+    val data = claim.questionGroup[RentalIncome].getOrElse(RentalIncome())
+    val showXml = claim.questionGroup[YourIncomes].getOrElse(YourIncomes()).yourIncome_rentalincome.getOrElse("").toLowerCase == "true"
+    if (showXml) {
+      {question(<RentalIncomeInfo/>, "rentalIncomeInfo", data.rentalIncomeInfo, displayableClaimDate(claim))}
+    }
+    else {
+      NodeSeq.Empty
+    }
+  }
+
   def otherPaymentsXml(claim: Claim): NodeSeq = {
-    val claimDate = claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)
     val data = claim.questionGroup[OtherPayments].getOrElse(OtherPayments())
     val showXml = claim.questionGroup[YourIncomes].getOrElse(YourIncomes()).yourIncome_anyother.getOrElse("").toLowerCase == "true"
     if (showXml) {
-        {question(<OtherPaymentsInfo/>, "otherPaymentsInfo", data.otherPaymentsInfo, claimDate)}
+        {question(<OtherPaymentsInfo/>, "otherPaymentsInfo", data.otherPaymentsInfo, displayableClaimDate(claim))}
     }
     else {
       NodeSeq.Empty
@@ -148,6 +161,7 @@ object Incomes extends XMLComponent {
       .update(createStatutoryPayFromXml(xml))
       .update(createFosteringAllowanceFromXml(xml))
       .update(createDirectPaymentFromXml(xml))
+      .update(createRentalIncomeFromXml(xml))
       .update(createOtherPaymentsFromXml(xml))
   }
 
@@ -209,6 +223,15 @@ object Incomes extends XMLComponent {
     } else models.domain.DirectPayment()
   }
 
+  private def createRentalIncomeFromXml(xmlNode: NodeSeq) = {
+    val rentalIncomeInfo = (xmlNode \\ "RentalIncomeInfo")
+    if (!rentalIncomeInfo.isEmpty) {
+      models.domain.RentalIncome(
+        rentalIncomeInfo = (rentalIncomeInfo \ "Answer").text
+      )
+    } else models.domain.RentalIncome()
+  }
+
   private def createOtherPaymentsFromXml(xmlNode: NodeSeq) = {
     val otherPaymentsInfo = (xmlNode \\ "OtherPaymentsInfo")
     if (!otherPaymentsInfo.isEmpty) {
@@ -225,6 +248,7 @@ object Incomes extends XMLComponent {
     val statutoryPay = (xmlNode \\ "PatMatAdopPayment")
     val fosteringAllowance = (xmlNode \\ "FosteringPayment")
     val directPayment = (xmlNode \\ "DirectPayment")
+    val rentalIncome = (xmlNode \\ "RentalIncome")
     val otherPayments = (xmlNode \\ "AnyOtherPayment")
     val noOtherPayments = (xmlNode \\ "NoOtherPayment")
     models.domain.YourIncomes(
@@ -249,6 +273,10 @@ object Incomes extends XMLComponent {
         case true => None
       },
       yourIncome_directpay = directPayment.isEmpty match {
+        case false => Mappings.someTrue
+        case true => None
+      },
+      yourIncome_rentalincome = rentalIncome.isEmpty match {
         case false => Mappings.someTrue
         case true => None
       },

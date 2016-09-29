@@ -1,0 +1,51 @@
+@()(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
+@import models.domain.BreaksInCare
+@import models.domain.Breaks
+@import models.domain.ClaimDate
+@import helper._
+@import app.ConfigProperties._
+@import models.domain.TheirPersonalDetails
+
+@breaks = @{claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())}
+@breaksFromDate = @{claim.questionGroup[ClaimDate].getOrElse(ClaimDate()).dateWeRequireBreakInCareInformationFrom(lang)}
+@theirPersonalDetails = @{claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())}
+@dpname=@{theirPersonalDetails.firstName+" "+theirPersonalDetails.surname}
+
+@hasBreaksMessage(breakType: String = "MatchAny") = @{
+	val found = breakType match {
+		case "MatchAny" => breaks.hasBreaksForType(Breaks.hospital) || breaks.hasBreaksForType(Breaks.carehome)
+		case _ => breaks.hasBreaksForType(breakType)
+	}
+
+	(breakType, found) match {
+		case ("MatchAny", true) => messages("label.yes")
+		case (_, true) => messages("yesDetailsProvided")
+		case (_, false) => messages("label.no")
+	}
+}
+@q1LinkElement = @{
+    if(breaks.hasBreaksForType(Breaks.hospital) || breaks.hasBreaksForType(Breaks.carehome)) {
+        None
+    }
+    else {
+        Some("breaktype")
+    }
+}
+@q4LinkElement=@{
+	breaks.hasBreaksForType(Breaks.another) match{
+		case true => None
+		case false => Some("breaktype_other")
+	}
+}
+@content = {
+	@fieldWithLink("breaks_breaktype", messages("breaktype_first",breaksFromDate, dpname), hasBreaksMessage(), elementId = q1LinkElement)
+	@if(breaks.hasBreaksForType(Breaks.hospital)) {
+		@fieldWithLink("breaks_hospital", "breaks.hospital", hasBreaksMessage(Breaks.hospital))
+	}
+	@if(breaks.hasBreaksForType(Breaks.carehome)) {
+		@fieldWithLink("breaks_carehome", "breaks.carehome", hasBreaksMessage(Breaks.carehome))
+	}
+	@fieldWithLink("breaks_breaktype_other", messages("breaktype_other_first", dpname), hasBreaksMessage(Breaks.another), elementId = q4LinkElement)
+}
+
+@accordion(label = messages("preview.breaks.heading"), openLabel = "open-breaks-in-care", closeLabel = "close-breaks-in-care", content = content, 'track -> true)

@@ -1,0 +1,163 @@
+@(currentForm: Form[models.domain.BreaksInCareType], breaks: models.domain.BreaksInCare)(implicit claim: models.domain.Claim, lang: Lang, request: play.api.mvc.Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
+
+@import views.html.helper._
+@import utils.csrf.DwpCSRFFormHelper
+@import language.postfixOps
+@import scala.language.postfixOps
+@import views.html.breaks_in_care.main
+@import models.domain.TheirPersonalDetails
+@import models.domain.Breaks
+@import models.domain.Break
+@import models.domain.ClaimDate
+@import app.BreaksInCareGatherOptions._
+@import views.html.helper.base._
+@import controllers.breaks_in_care.GBreaksInCareSummary
+@import utils.helpers.CarersCrypto
+
+@optionsList(implicit lang:Lang) = @{
+    Seq(Breaks.hospital -> messages("breaks.hospital"),
+        Breaks.carehome -> messages("breaks.carehome"),
+        Breaks.none -> messages("breaks.none")
+    )
+}
+@dateWeRequireBreakInCareInformationFrom() = @{
+    val claimDateQG = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
+    claimDateQG.dateWeRequireBreakInCareInformationFrom(lang)
+}
+@theirPersonalDetails = @{claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())}
+@dpname=@{
+    theirPersonalDetails.firstName+" "+theirPersonalDetails.surname
+}
+@breaktypeLabel=@{
+    (breaks.hasBreaksForType(Breaks.hospital), breaks.hasBreaksForType(Breaks.carehome)) match {
+        case(true, _) => "breaktype_another"
+        case(_,true) => "breaktype_another"
+        case _ => "breaktype_first"
+    }
+}
+@otherbreakLabel=@{
+    "breaktype_other_another"
+}
+@whoWasAway(break: Break)=@{
+    break.whoWasAway match {
+        case You => messages("breaksummary.you")
+        case DP => dpname
+        case _ if (break.typeOfCare == Breaks.another) => messages("breaksummary.you")
+        case _ => "ERROR in whoAway"
+    }
+}
+@careTypeLabel(break: Break)=@{
+    break.typeOfCare match {
+        case Breaks.hospital => messages("breaks.hospital")
+        case Breaks.carehome => messages("breaks.carehome")
+        case Breaks.another => messages("breaks.other")
+        case _ => "ERROR In caretypeLabel"
+    }
+}
+@careTypeFrom(break: Break) = @{
+    (break.typeOfCare, break.whoWasAway, break.caringEnded ) match {
+        case (Breaks.another, _, Some(ce)) => ce.`dd month yyyy`
+        case (_, You, _ ) => break.whenWereYouAdmitted.get.`dd month yyyy`
+        case (_, DP, _ ) => break.whenWasDpAdmitted.get.`dd month yyyy`
+        case _ => "ERROR In caretypeFrom"
+    }
+}
+@careTypeTo(break: Break) = @{
+    (break.typeOfCare, break.whoWasAway, break.yourStayEnded, break.dpStayEnded, break.caringStarted) match {
+        case (Breaks.another, _, _, _, Some(cs)) if (cs.answer == "yes") => break.caringStarted.get.date.get.`dd month yyyy`
+        case (_, You, Some(you), _, _) if (you.answer == "yes") => break.yourStayEnded.get.date.get.`dd month yyyy`
+        case (_, DP, _, Some(dp), _) if (dp.answer == "yes") => break.dpStayEnded.get.date.get.`dd month yyyy`
+        case _ => "Not ended"
+    }
+}
+@changeHref(break: Break) = @{
+    break.typeOfCare match {
+        case Breaks.hospital => "/breaks/hospital/"+break.iterationID
+        case Breaks.carehome => "/breaks/respite-care-home/"+break.iterationID
+        case Breaks.another => "/breaks/other-breaks/"+break.iterationID
+    }
+}
+@main(messages("breaks.title"), messages("breaks.title"), Some(currentForm)) {
+    @form(action = controllers.breaks_in_care.routes.GBreaksInCareSummary.submit, 'role -> "form") {
+        @DwpCSRFFormHelper.formField
+        <input type="hidden" id="js" name="jsEnabled" value="false">
+        <fieldset class="form-elements">
+            @if(breaks.hasBreaks){
+                <h2 class="heading-medium" id="summary-heading">@messages("breaksummary_title")</h2>
+                <table id="summary-table">
+                    <tr>
+                        <th>@messages("breaksummary.who")</th>
+                        <th>@messages("breaksummary.where")</th>
+                        <th>@messages("breaksummary.from")</th>
+                        <th>@messages("breaksummary.to")</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    @for((break, breakNum) <- breaks.breaks.zipWithIndex){
+                        <tr iterationid="@break.iterationID" class="data-table">
+                            <td id="who@breakNum">@whoWasAway(break)</td>
+                            <td id="where@breakNum">@careTypeLabel(break)</td>
+                            <td id="from@breakNum">@careTypeFrom(break)</td>
+                            <td id="to@breakNum">@careTypeTo(break)</td>
+                            <td id="change@breakNum" class="actions">
+                                <input type="button" class="changerow" id="changerow@breakNum" value="@Html(messages("change"))" href="@changeHref(break)" aria-label="@Html(messages("change.button"))" @views.html.ga.trackClickEvent(linkName = "BIC - Change")>
+                            </td>
+                            <td id="delete@breakNum" class="actions">
+                                <input type="button" class="deleterow" id="deleterow@breakNum" value="@Html(messages("delete"))" aria-label="@Html(messages("delete.button"))">
+                            </td>
+                        </tr>
+                        <tr iterationid="@break.iterationID" colspan="6" class="delete-confirm" id="delete-confirm@breakNum">
+                            <td colspan="6">
+                                <div class="prompt breaks-prompt validation-summary">
+                                    <p>@Html(messages("areYouSureYouWantToDeleteThisBreak"))</p>
+                                    <input class="noDelete button secondary" type="button" name="no" class="button secondary" value="@Html(messages("no.delete"))" aria-label="@Html(messages("no.delete.label"))">
+                                    <input class="yesDelete button warning" type="button" name="yes" class="button warning" value="@Html(messages("yes.delete"))" aria-label="@Html(messages("yes.delete.label"))" @views.html.ga.trackClickEvent(linkName = "BIC - Delete")>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <br>
+                <br>
+            }
+            <ul>
+                @standaloneListCheckboxGroup(currentForm("breaktype"),
+                    currentForm.asInstanceOf[Form[AnyContent]],
+                    'items -> optionsList,
+                    'helperAbove -> "breaks.breaktype.checkBoxHelp1",
+                    'track -> true,
+                    'ignoreOptional -> true,
+                    '_showId -> true,
+                    '_label -> messages(breaktypeLabel, dateWeRequireBreakInCareInformationFrom, dpname))
+
+                @yesNoRadioGroup(currentForm("breaktype_other"),
+                    '_label -> messages(otherbreakLabel, dpname),
+                    'helperAbove->messages("breaks.breaktype.other.helper"),
+                    'ignoreOptional->true)
+            </ul>
+        </fieldset>
+        @views.html.common.bottomNavigation(trackSubmit = true)
+    }
+    @if(breaks.hasBreaks){
+        @form(action = controllers.breaks_in_care.routes.GBreaksInCareSummary.delete,
+            'role -> "form", 'id -> "delete-break-form"){
+            @DwpCSRFFormHelper.formField
+            @carersInputHidden(GBreaksInCareSummary.deleteForm("deleteId"))
+        }
+    }
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/breaks_in_care/breaksInCareSummary.js")></script>
+    <script type="text/javascript">
+        $(function(){
+            window.initSummaryEvents({
+                previewEnabled: "@claim.navigation.beenInPreview",
+                textNext: "@messages("form.next")",
+                textPreview: "@messages("form.returnToSummary")",
+                breakHospital: "@CarersCrypto.encryptAES("breaktype_hospital")",
+                breakCareHome: "@CarersCrypto.encryptAES("breaktype_carehome")",
+                breakOtherYes: "@CarersCrypto.encryptAES("breaktype_other_yes")",
+                breakOtherNo: "@CarersCrypto.encryptAES("breaktype_other_no")",
+                deleteId: "@CarersCrypto.encryptAES("deleteId")"
+            });
+        });
+    </script>
+}

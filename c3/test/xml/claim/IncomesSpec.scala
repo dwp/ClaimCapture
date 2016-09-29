@@ -15,7 +15,7 @@ class IncomesSpec extends Specification {
       val claimDate = ClaimDate(DayMonthYear(20, 3, 2016))
 
       // SE, EMP, SICK, PATMATADOP, FOST, DP, OTHER
-      val incomeHeader = new YourIncomes("Yes", "Yes", Some("true"), Some("true"), Some("true"), Some("true"), Some("true"))
+      val incomeHeader = new YourIncomes("Yes", "Yes", Some("true"), Some("true"), Some("true"), Some("true"), Some("true"), Some("true"))
       val xml = Incomes.xml(claim + claimDate + incomeHeader)
       (xml \\ "Incomes" \\ "Employed" \\ "QuestionLabel").text must contain("been employed")
       (xml \\ "Incomes" \\ "Employed" \\ "Answer").text shouldEqual "Yes"
@@ -23,7 +23,7 @@ class IncomesSpec extends Specification {
       (xml \\ "Incomes" \\ "SelfEmployed" \\ "QuestionLabel").text must contain("been self-employed")
       (xml \\ "Incomes" \\ "SelfEmployed" \\ "Answer").text shouldEqual "Yes"
 
-      (xml \\ "Incomes" \\ "OtherPaymentQuestion" \\ "QuestionLabel").text shouldEqual "What other income have you had since 20/03/2016?"
+      (xml \\ "Incomes" \\ "OtherPaymentQuestion" \\ "QuestionLabel").text shouldEqual "What other income have you had since 20 March 2016?"
       (xml \\ "Incomes" \\ "OtherPaymentQuestion" \\ "Answer").text shouldEqual "Some"
 
       (xml \\ "Incomes" \\ "SickPayment" \\ "QuestionLabel").text must contain("Sick Pay")
@@ -40,6 +40,9 @@ class IncomesSpec extends Specification {
       (xml \\ "Incomes" \\ "DirectPayment" \\ "QuestionLabel").text must contain("Direct payment")
       (xml \\ "Incomes" \\ "DirectPayment" \\ "Answer").text shouldEqual "Yes"
 
+      (xml \\ "Incomes" \\ "RentalIncome" \\ "QuestionLabel").text must contain("Rental income")
+      (xml \\ "Incomes" \\ "RentalIncome" \\ "Answer").text shouldEqual "Yes"
+
       (xml \\ "Incomes" \\ "AnyOtherPayment" \\ "QuestionLabel").text must contain("other income")
       (xml \\ "Incomes" \\ "AnyOtherPayment" \\ "Answer").text shouldEqual "Yes"
     }
@@ -49,7 +52,7 @@ class IncomesSpec extends Specification {
       val claimDate = ClaimDate(DayMonthYear(20, 3, 2016))
 
       // SE, EMP, SICK, PATMATADOP, FOST, DP, OTHER, NONE
-      val incomeHeader = new YourIncomes("No", "No", None, None, None, None, None, Some("true"))
+      val incomeHeader = new YourIncomes("No", "No", None, None, None, None, None, None, Some("true"))
       val xml = Incomes.xml(claim + claimDate + incomeHeader)
 
       (xml \\ "Incomes" \\ "Employed" \\ "QuestionLabel").text must contain("been employed")
@@ -58,7 +61,7 @@ class IncomesSpec extends Specification {
       (xml \\ "Incomes" \\ "SelfEmployed" \\ "QuestionLabel").text must contain("been self-employed")
       (xml \\ "Incomes" \\ "SelfEmployed" \\ "Answer").text shouldEqual "No"
 
-      (xml \\ "Incomes" \\ "OtherPaymentQuestion" \\ "QuestionLabel").text shouldEqual "What other income have you had since 20/03/2016?"
+      (xml \\ "Incomes" \\ "OtherPaymentQuestion" \\ "QuestionLabel").text shouldEqual "What other income have you had since 20 March 2016?"
       (xml \\ "Incomes" \\ "OtherPaymentQuestion" \\ "Answer").text shouldEqual "None"
 
       (xml \\ "Incomes" \\ "NoOtherPayment" \\ "QuestionLabel").text shouldEqual "None"
@@ -67,7 +70,7 @@ class IncomesSpec extends Specification {
 
     "Generate correct xml for Sick Pay Section" in new WithApplication {
       var claim = new Claim(CachedClaim.key, uuid = "1234")
-      val incomeHeader = new YourIncomes("No", "No", Some("true"), Some("false"), Some("false"), Some("false"), Some("false"))
+      val incomeHeader = new YourIncomes("No", "No", Some("true"), Some("false"), Some("false"), Some("false"), Some("false"), Some("false"))
 
       val sickPay = new StatutorySickPay("No", Some(DayMonthYear(31, 1, 2016)), "Asda", "10.00", "Weekly", None)
       val xml = Incomes.xml(claim + incomeHeader + sickPay)
@@ -88,7 +91,7 @@ class IncomesSpec extends Specification {
 
     "Generate correct xml for PatMatAdopt Pay Section" in new WithApplication {
       var claim = new Claim(CachedClaim.key, uuid = "1234")
-      val incomeHeader = new YourIncomes("No", "No", Some("false"), Some("true"), Some("false"), Some("false"), Some("false"))
+      val incomeHeader = new YourIncomes("No", "No", Some("false"), Some("true"), Some("false"), Some("false"), Some("false"), Some("false"))
       val patMatAdoptPay = new StatutoryMaternityPaternityAdoptionPay(PaymentTypes.MaternityPaternity, "No", Some(DayMonthYear(31, 3, 2016)), "Tesco", "50.01", "Weekly", None)
       val xml = Incomes.xml(claim + incomeHeader + patMatAdoptPay)
       (xml \\ "Incomes" \\ "PatMatAdopPayment" \\ "Answer").text shouldEqual "Yes"
@@ -110,7 +113,7 @@ class IncomesSpec extends Specification {
 
     "Generate correct xml for PatMatAdopt Pay Section with Adoption Selected" in new WithApplication {
       var claim = new Claim(CachedClaim.key, uuid = "1234")
-      val incomeHeader = new YourIncomes("No", "No", Some("false"), Some("true"), Some("false"), Some("false"), Some("false"))
+      val incomeHeader = new YourIncomes("No", "No", Some("false"), Some("true"), Some("false"), Some("false"), Some("false"), Some("false"))
       val patMatAdoptPay = new StatutoryMaternityPaternityAdoptionPay(PaymentTypes.Adoption, "No", Some(DayMonthYear(31, 3, 2016)), "Tesco", "50.01", "Weekly", None)
       val xml = Incomes.xml(claim + incomeHeader + patMatAdoptPay)
       (xml \\ "Incomes" \\ "PatMatAdopPayment" \\ "Answer").text shouldEqual "Yes"
@@ -120,7 +123,7 @@ class IncomesSpec extends Specification {
 
     "Generate correct xml for Foster Pay Section for Paid By Local Authority" in new WithApplication {
       var claim = new Claim(CachedClaim.key, uuid = "1234")
-      val incomeHeader = new YourIncomes("No", "No", Some("false"), Some("false"), Some("true"), Some("false"), Some("false"))
+      val incomeHeader = new YourIncomes("No", "No", Some("false"), Some("false"), Some("true"), Some("false"), Some("false"), Some("false"))
       val foster = new FosteringAllowance(PaymentTypes.LocalAuthority, None, "No", Some(DayMonthYear(31, 3, 2016)), "LCC", "50.01", "Weekly", None)
       val xml = Incomes.xml(claim + incomeHeader + foster)
       (xml \\ "Incomes" \\ "FosteringPayment" \\ "Answer").text shouldEqual "Yes"
@@ -144,7 +147,7 @@ class IncomesSpec extends Specification {
 
     "Generate correct xml for Foster Pay Section for Paid By Foster Agency" in new WithApplication {
       var claim = new Claim(CachedClaim.key, uuid = "1234")
-      val incomeHeader = new YourIncomes("No", "No", Some("false"), Some("false"), Some("true"), Some("false"), Some("false"))
+      val incomeHeader = new YourIncomes("No", "No", Some("false"), Some("false"), Some("true"), Some("false"), Some("false"), Some("false"))
       val foster = new FosteringAllowance(PaymentTypes.FosteringAllowance, None, "No", Some(DayMonthYear(31, 3, 2016)), "LCC", "50.01", "Weekly", None)
       val xml = Incomes.xml(claim + incomeHeader + foster)
       (xml \\ "Incomes" \\ "FosteringPayment" \\ "Answer").text shouldEqual "Yes"
@@ -156,7 +159,7 @@ class IncomesSpec extends Specification {
 
     "Generate correct xml for Foster Pay Section for Paid By Other" in new WithApplication {
       var claim = new Claim(CachedClaim.key, uuid = "1234")
-      val incomeHeader = new YourIncomes("No", "No", Some("false"), Some("false"), Some("true"), Some("false"), Some("false"))
+      val incomeHeader = new YourIncomes("No", "No", Some("false"), Some("false"), Some("true"), Some("false"), Some("false"), Some("false"))
       val foster = new FosteringAllowance(PaymentTypes.Other, Some("Foster charity paid"), "No", Some(DayMonthYear(31, 3, 2016)), "LCC", "50.01", "Weekly", None)
       val xml = Incomes.xml(claim + incomeHeader + foster)
       (xml \\ "Incomes" \\ "FosteringPayment" \\ "Answer").text shouldEqual "Yes"
@@ -170,7 +173,7 @@ class IncomesSpec extends Specification {
     "Generate correct xml for DirectPay Section" in new WithApplication {
       var claim = new Claim(CachedClaim.key, uuid = "1234")
       val claimDate = ClaimDate(DayMonthYear(10, 2, 2016))
-      val incomeHeader = new YourIncomes("No", "No", Some("false"), Some("false"), Some("false"), Some("true"), Some("false"))
+      val incomeHeader = new YourIncomes("No", "No", Some("false"), Some("false"), Some("false"), Some("true"), Some("false"), Some("false"))
       val directPayment = new DirectPayment("No", Some(DayMonthYear(29, 2, 2016)), "Disabled person", "25.00", "Weekly", None)
       val xml = Incomes.xml(claim + claimDate + incomeHeader + directPayment)
       (xml \\ "Incomes" \\ "DirectPayment" \\ "Answer").text shouldEqual "Yes"
@@ -188,16 +191,29 @@ class IncomesSpec extends Specification {
       (xml \\ "Incomes" \\ "DirectPay" \\ "HowOftenPaidThisPayOther").length shouldEqual 0
     }
 
+    "Generate correct xml for RentalIncome Section" in new WithApplication {
+      var claim = new Claim(CachedClaim.key, uuid = "1234")
+      val claimDate = ClaimDate(DayMonthYear(10, 2, 2016))
+      val incomeHeader = new YourIncomes("No", "No", Some("false"), Some("false"), Some("false"), Some("false"), Some("true"), Some("false"))
+
+      val rentalIncome = new RentalIncome("Some rent money paid by tenant")
+      val xml = Incomes.xml(claim + claimDate + incomeHeader + rentalIncome)
+      (xml \\ "Incomes" \\ "RentalIncome" \\ "Answer").text shouldEqual "Yes"
+
+      (xml \\ "Incomes" \\ "RentalIncomeInfo" \\ "QuestionLabel").text should contain("What rental income have you had since 10 February 2016?")
+      (xml \\ "Incomes" \\ "RentalIncomeInfo" \\ "Answer").text shouldEqual "Some rent money paid by tenant"
+    }
+
     "Generate correct xml for OtherPay Section" in new WithApplication {
       var claim = new Claim(CachedClaim.key, uuid = "1234")
       val claimDate = ClaimDate(DayMonthYear(10, 2, 2016))
-      val incomeHeader = new YourIncomes("No", "No", Some("false"), Some("false"), Some("false"), Some("false"), Some("true"))
+      val incomeHeader = new YourIncomes("No", "No", Some("false"), Some("false"), Some("false"), Some("false"), Some("false"), Some("true"))
 
       val otherPayment = new OtherPayments("Was paid some money by carees brother")
       val xml = Incomes.xml(claim + claimDate + incomeHeader + otherPayment)
       (xml \\ "Incomes" \\ "AnyOtherPayment" \\ "Answer").text shouldEqual "Yes"
 
-      (xml \\ "Incomes" \\ "OtherPaymentsInfo" \\ "QuestionLabel").text should contain("What other income have you had since 10/02/2016?")
+      (xml \\ "Incomes" \\ "OtherPaymentsInfo" \\ "QuestionLabel").text should contain("What other income have you had since 10 February 2016?")
       (xml \\ "Incomes" \\ "OtherPaymentsInfo" \\ "Answer").text shouldEqual "Was paid some money by carees brother"
     }
   }

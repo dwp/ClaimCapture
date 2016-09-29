@@ -14,6 +14,7 @@ class GYourIncomePage(ctx:PageObjectsContext) extends ClaimPage(ctx, GYourIncome
   declareCheck("#yourIncome_patmatadoppay", "YourIncomePatMatAdopPay")
   declareCheck("#yourIncome_fostering", "YourIncomeFosteringAllowance")
   declareCheck("#yourIncome_directpay", "YourIncomeDirectPay")
+  declareCheck("#yourIncome_rental", "YourIncomeRentalIncome")
   declareCheck("#yourIncome_anyother", "YourIncomeAnyOtherPay")
   declareCheck("#yourIncome_none", "YourIncomeNone")
 }
@@ -30,6 +31,32 @@ object GYourIncomePage {
     val employment = new GYourIncomePage(context) goToThePage()
     employment.fillPageWith(claimData)
     employment.submitPage()
+  }
+
+  def fillRentalIncome(context: PageObjectsContext, f: => TestData => Unit) = {
+    val claimData = s12ClaimDate()
+    claimData.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
+    claimData.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "No"
+    claimData.YourIncomeRentalIncome = "true"
+    claimData.RentalIncomeInfo = "Some text about rental income"
+    f(claimData)
+
+    val incomePage=new GYourIncomePage(context) goToThePage()
+    val rentalIncomePage=incomePage.fillPageWith(claimData).submitPage()
+    rentalIncomePage.fillPageWith(claimData).submitPage()
+  }
+
+  def fillOtherIncome(context: PageObjectsContext, f: => TestData => Unit) = {
+    val claimData = s12ClaimDate()
+    claimData.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
+    claimData.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "No"
+    claimData.YourIncomeAnyOtherPay = "true"
+    claimData.OtherIncomeInfo = "Some text for other income"
+    f(claimData)
+
+    val incomePage=new GYourIncomePage(context) goToThePage()
+    val otherIncomePage=incomePage.fillPageWith(claimData).submitPage()
+    otherIncomePage.fillPageWith(claimData).submitPage()
   }
 }
 

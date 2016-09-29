@@ -1,6 +1,6 @@
 package utils.pageobjects
 
-import utils.pageobjects.s_breaks.{GBreaksInCarePage, GBreakPage}
+import utils.pageobjects.breaks_in_care._
 import utils.pageobjects.save_for_later.{GSaveForLaterResumePage, GSaveForLaterSavePage}
 import utils.pageobjects.third_party.GThirdPartyPage
 import utils.pageobjects.your_income._
@@ -64,8 +64,10 @@ object ClaimPageFactory extends PageFactory {
       case GMoreAboutTheCarePage.url => GMoreAboutTheCarePage(ctx)
     }.orElse[String, Page] {
       IterableNode(Breaks, ctx)(iteration => {
-        case GBreaksInCarePage.url => GBreaksInCarePage(ctx, iteration)
-        case GBreakPage.url => GBreakPage(ctx, iteration)
+        case GBreaksInCareSummaryPage.url => GBreaksInCareSummaryPage(ctx)
+        case GBreaksInCareHospitalPage.url => GBreaksInCareHospitalPage(ctx, iteration)
+        case GBreaksInCareRespitePage.url => GBreaksInCareRespitePage(ctx, iteration)
+        case GBreaksInCareOtherPage.url => GBreaksInCareOtherPage(ctx, iteration)
       })
     }.orElse[String, Page] {
       //S6
@@ -88,6 +90,7 @@ object ClaimPageFactory extends PageFactory {
       case GStatutoryMaternityPaternityAdoptionPayPage.url => GStatutoryMaternityPaternityAdoptionPayPage(ctx)
       case GFosteringAllowancePage.url => GFosteringAllowancePage(ctx)
       case GDirectPaymentPage.url => GDirectPaymentPage(ctx)
+      case GRentalIncomePage.url => GRentalIncomePage(ctx)
       case GOtherPaymentsPage.url => GOtherPaymentsPage(ctx)
       // S9
       case GHowWePayYouPage.url => GHowWePayYouPage(ctx)

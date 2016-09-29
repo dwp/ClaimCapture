@@ -51,6 +51,7 @@ object PreviewRouteUtils {
     val statutoryPayRoute = controllers.your_income.routes.GStatutoryMaternityPaternityAdoptionPay.present.toString
     val fosteringAllowanceRoute = controllers.your_income.routes.GFosteringAllowance.present.toString
     val directPayment = controllers.your_income.routes.GDirectPayment.present.toString
+    val rentalIncome = controllers.your_income.routes.GRentalIncome.present.toString
     val otherPayments = controllers.your_income.routes.GOtherPayments.present.toString
 
     Map(
@@ -58,6 +59,7 @@ object PreviewRouteUtils {
       "your_income_statutory_pay" -> statutoryPayRoute,
       "your_income_fostering_allowance" -> fosteringAllowanceRoute,
       "your_income_direct_payment" -> directPayment,
+      "your_income_rental_income" -> rentalIncome,
       "your_income_other_payments" -> otherPayments
     )
   }
@@ -72,13 +74,10 @@ object PreviewRouteUtils {
     routesMap
   }
 
-  def breaks = {
-    val gBreaksInCareRoute = controllers.s_breaks.routes.GBreaksInCare.present.toString
-
-    val breaksInCareList = Seq("care_you_provide_anyBreaks")
-
-    val routesMap = Map(breaksInCareList map{id => (id,gBreaksInCareRoute)}: _*)
-
+  def breaksRoute = {
+    val route = controllers.breaks_in_care.routes.GBreaksInCareSummary.present.toString
+    val list = Seq("breaks_hospital", "breaks_carehome", "breaks_breaktype_other", "breaks_breaktype")
+    val routesMap = Map(list map{id => (id,route)}: _*)
     routesMap
   }
 

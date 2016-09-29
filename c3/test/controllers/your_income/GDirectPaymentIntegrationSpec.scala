@@ -4,7 +4,7 @@ import controllers.ClaimScenarioFactory
 import controllers.ClaimScenarioFactory._
 import org.specs2.mutable._
 import utils.pageobjects._
-import utils.pageobjects.your_income.{GYourIncomePage, GOtherPaymentsPage, GDirectPaymentPage}
+import utils.pageobjects.your_income.{GRentalIncomePage, GYourIncomePage, GOtherPaymentsPage, GDirectPaymentPage}
 import utils.{WithBrowser, WithJsBrowser}
 
 class GDirectPaymentIntegrationSpec extends Specification {
@@ -16,7 +16,7 @@ class GDirectPaymentIntegrationSpec extends Specification {
 
   section ("integration", models.domain.DirectPayment.id)
   "Direct Payment" should {
-    "be presented" in new WithBrowser with PageObjects {
+   "be presented" in new WithBrowser with PageObjects {
       GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeDirectPay = "true" })
       val page = GDirectPaymentPage(context)
       page goToThePage ()
@@ -24,7 +24,7 @@ class GDirectPaymentIntegrationSpec extends Specification {
     }
 
     "navigate to next page on valid submission" in new WithJsBrowser with PageObjects {
-      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeDirectPay = "true"; testData.YourIncomeAnyOtherPay = "true" })
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeDirectPay = "true"; testData.YourIncomeRentalIncome = "true" })
       val page =  GDirectPaymentPage(context)
       page goToThePage ()
 
@@ -34,7 +34,7 @@ class GDirectPaymentIntegrationSpec extends Specification {
       claim.AmountOfThisPay = howMuch
       claim.HowOftenPaidThisPay = monthlyFrequency
       page fillPageWith claim
-      page submitPage() must beAnInstanceOf[GOtherPaymentsPage]
+      page submitPage() must beAnInstanceOf[GRentalIncomePage]
     }
 
     "present errors if mandatory fields are not populated" in new WithJsBrowser with PageObjects {
@@ -45,7 +45,7 @@ class GDirectPaymentIntegrationSpec extends Specification {
     }
 
     "navigate to next page on valid submission with other field selected" in new WithJsBrowser with PageObjects {
-      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeDirectPay = "true"; testData.YourIncomeAnyOtherPay = "true" })
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeDirectPay = "true"; testData.YourIncomeRentalIncome = "true" })
       val page = GDirectPaymentPage(context)
       val claim = ClaimScenarioFactory.s9OtherIncomeOther
 
@@ -54,7 +54,7 @@ class GDirectPaymentIntegrationSpec extends Specification {
 
       val nextPage = page submitPage ()
 
-      nextPage must beAnInstanceOf[GOtherPaymentsPage]
+      nextPage must beAnInstanceOf[GRentalIncomePage]
     }
 
     "howOften frequency of other with no other text entered" in new WithJsBrowser with PageObjects {
@@ -75,7 +75,7 @@ class GDirectPaymentIntegrationSpec extends Specification {
     }
 
     "howOften frequency of other with no other text entered then select yes and be able to move to next page" in new WithJsBrowser with PageObjects {
-      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeDirectPay = "true"; testData.YourIncomeAnyOtherPay = "true" })
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeDirectPay = "true"; testData.YourIncomeRentalIncome = "true" })
       val page = GDirectPaymentPage(context)
       val claim = new TestData
       claim.StillBeingPaidThisPay = no
@@ -99,11 +99,11 @@ class GDirectPaymentIntegrationSpec extends Specification {
 
       submittedPage fillPageWith claimAfterError
       val differentPage = submittedPage submitPage()
-      differentPage must beAnInstanceOf[GOtherPaymentsPage]
+      differentPage must beAnInstanceOf[GRentalIncomePage]
     }
 
     "data should be saved in claim and displayed when go back to page" in new WithJsBrowser with PageObjects {
-      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeDirectPay = "true"; testData.YourIncomeAnyOtherPay = "true" })
+      GYourIncomePage.fillYourIncomes(context, testData => { testData.YourIncomeDirectPay = "true"; testData.YourIncomeRentalIncome = "true" })
       val page =  GDirectPaymentPage(context)
       val claim = ClaimScenarioFactory.s9OtherIncomeOther
 
@@ -111,7 +111,7 @@ class GDirectPaymentIntegrationSpec extends Specification {
       page fillPageWith claim
 
       val nextPage = page submitPage ()
-      nextPage must beAnInstanceOf[GOtherPaymentsPage]
+      nextPage must beAnInstanceOf[GRentalIncomePage]
       val directPaymentPageAgain = nextPage.goBack()
       directPaymentPageAgain.source must contain(whoPaysYou)
       directPaymentPageAgain.source must contain(howMuch)

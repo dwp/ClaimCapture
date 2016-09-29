@@ -1,5 +1,6 @@
 package controllers.s_your_partner
 
+import models.DayMonthYear
 import play.api.Play._
 import utils.CommonValidation
 import language.reflectiveCalls
@@ -27,7 +28,8 @@ import play.api.i18n._
 
 object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
-  def form(implicit claim: Claim):Form[YourPartnerPersonalDetails] = Form(mapping(
+
+  def form(implicit claim: Claim): Form[YourPartnerPersonalDetails] = Form(mapping(
     "title" -> optional(carersNonEmptyText(maxLength = Mappings.twenty)),
     "firstName" -> optional(carersNonEmptyText(maxLength = Mappings.seventeen)),
     "middleName" -> optional(carersText(maxLength = Mappings.seventeen)),
@@ -49,7 +51,7 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
     .verifying("partner.nationality.required", YourPartnerPersonalDetails.validateNationalityIfPresent _)
   )
 
-  def present:Action[AnyContent] = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
+  def present: Action[AnyContent] = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     presentConditionally(yourPartnerPersonalDetails)
   }
 
@@ -57,7 +59,7 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
     track(YourPartnerPersonalDetails) { implicit claim => Ok(views.html.s_your_partner.g_yourPartnerPersonalDetails(form.fill(YourPartnerPersonalDetails))) }
   }
 
-  def submit:Action[AnyContent] = claimingWithCheck {implicit claim => implicit request => implicit request2lang =>
+  def submit: Action[AnyContent] = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
@@ -71,14 +73,14 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
         BadRequest(views.html.s_your_partner.g_yourPartnerPersonalDetails(formWithErrorsUpdate))
       },
       f => {
-        val preUpdatedClaim = clearTheirPersonalDetailsIfPartnerQuestionChanged(claim,f)
-
-        preUpdatedClaim.update(f) -> Redirect(controllers.s_care_you_provide.routes.GTheirPersonalDetails.present())
+        val preUpdatedClaim = clearTheirPersonalDetailsIfPartnerQuestionChanged(claim, f)
+        val updatedDpClaim = updateDpDetails(preUpdatedClaim, f)
+        updatedDpClaim.update(f) -> Redirect(controllers.s_care_you_provide.routes.GTheirPersonalDetails.present())
       }
     )
   }.withPreviewConditionally(goToPreviewCondition)
 
-  private def goToPreviewCondition(details: (Option[YourPartnerPersonalDetails],YourPartnerPersonalDetails),c: (Option[Claim],Claim)) = {
+  private def goToPreviewCondition(details: (Option[YourPartnerPersonalDetails], YourPartnerPersonalDetails), c: (Option[Claim], Claim)) = {
 
     val currentClaim = c._2
     val previewData = details._1
@@ -89,35 +91,35 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
       case None => false
       case _ =>
         matchingValue match {
-        case (Some(data),Some(isPartnerPerson))
-          if data.isPartnerPersonYouCareFor.nonEmpty && data.isPartnerPersonYouCareFor.get != isPartnerPerson => false
-        case (Some(data),None)
-          if data.isPartnerPersonYouCareFor.nonEmpty => false
-        case (Some(YourPartnerPersonalDetails(_,_,_,_,_,_,_,_,_,None,_)),Some(_)) => false
+          case (Some(data), Some(isPartnerPerson))
+            if data.isPartnerPersonYouCareFor.nonEmpty && data.isPartnerPersonYouCareFor.get != isPartnerPerson => false
+          case (Some(data), None)
+            if data.isPartnerPersonYouCareFor.nonEmpty => false
+          case (Some(YourPartnerPersonalDetails(_, _, _, _, _, _, _, _, _, None, _)), Some(_)) => false
 
-        case _ => true
-      }
+          case _ => true
+        }
     }
 
   }
 
-  def clearTheirPersonalDetailsIfPartnerQuestionChanged(claim:Claim,formData:YourPartnerPersonalDetails) = {
+  def clearTheirPersonalDetailsIfPartnerQuestionChanged(claim: Claim, formData: YourPartnerPersonalDetails) = {
     claim.questionGroup[YourPartnerPersonalDetails] -> claim.questionGroup[TheirPersonalDetails] match {
-      case (Some(oldData),Some(theirPersonalDetails)) =>
+      case (Some(oldData), Some(theirPersonalDetails)) =>
 
         val tupleData = (oldData.hadPartnerSinceClaimDate -> formData.hadPartnerSinceClaimDate) ->
           (oldData.isPartnerPersonYouCareFor -> formData.isPartnerPersonYouCareFor)
 
-         tupleData match {
-           case (("no","yes"),(None,Some("no"))) =>
-             //This case is when we change the partner question from no -> yes and we specify the DP is not our partner
-             //In this case we don't want to wipe the data
-             claim
-          case ((oldQ,newQ),_) if oldQ != newQ =>
-            wipeTheirPersonalDetailsData(claim,theirPersonalDetails)
+        tupleData match {
+          case (("no", "yes"), (None, Some("no"))) =>
+            //This case is when we change the partner question from no -> yes and we specify the DP is not our partner
+            //In this case we don't want to wipe the data
+            claim
+          case ((oldQ, newQ), _) if oldQ != newQ =>
+            wipeTheirPersonalDetailsData(claim, theirPersonalDetails)
 
-           case (_,(Some(oldQ), Some(newQ))) if oldQ != newQ =>
-             wipeTheirPersonalDetailsData(claim,theirPersonalDetails)
+          case (_, (Some(oldQ), Some(newQ))) if oldQ != newQ =>
+            wipeTheirPersonalDetailsData(claim, theirPersonalDetails)
 
           case _ => claim
         }
@@ -126,8 +128,26 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
 
   }
 
-  def wipeTheirPersonalDetailsData(claim:Claim,theirPersonalDetails:TheirPersonalDetails) = {
+  def wipeTheirPersonalDetailsData(claim: Claim, theirPersonalDetails: TheirPersonalDetails) = {
     claim.delete(TheirPersonalDetails)
+  }
+
+  def updateDpDetails(claim: Claim, formData: YourPartnerPersonalDetails) = {
+    formData.isPartnerPersonYouCareFor match{
+      case(Some("yes")) => {
+        val dp=claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())
+        val newdp=dp.copy(
+          title = formData.title.getOrElse(""),
+          firstName = formData.firstName.getOrElse(""),
+          middleName = formData.middleName,
+          surname = formData.surname.getOrElse(""),
+          nationalInsuranceNumber = formData.nationalInsuranceNumber,
+          dateOfBirth = formData.dateOfBirth.getOrElse(DayMonthYear(1,1,1900))
+        )
+        claim.update(newdp)
+      }
+      case _ => claim
+    }
   }
 }
 

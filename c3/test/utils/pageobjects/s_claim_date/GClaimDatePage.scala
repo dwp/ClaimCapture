@@ -1,5 +1,6 @@
 package utils.pageobjects.s_claim_date
 
+import controllers.ClaimScenarioFactory._
 import utils.WithBrowser
 import utils.pageobjects._
 
@@ -24,6 +25,14 @@ object GClaimDatePage {
   val url  = "/your-claim-date/claim-date"
 
   def apply(ctx:PageObjectsContext) = new GClaimDatePage(ctx)
+
+  def fillClaimDate(context: PageObjectsContext, f: => TestData => Unit) = {
+    val claimData = s12ClaimDate()
+    f(claimData)
+    val page = new GClaimDatePage(context) goToThePage()
+    page.fillPageWith(claimData)
+    page.submitPage()
+  }
 }
 
 /** The context for Specs tests */

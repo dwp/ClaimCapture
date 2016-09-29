@@ -75,7 +75,7 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors
-          .replaceError("","theirAddress.address", FormError("theirAddress.address", errorRequired))
+          .replaceError("","theirAddress.address", FormError("theirAddress.address", "error.address.lines.required"))
 
         BadRequest(views.html.s_care_you_provide.g_theirPersonalDetails(updatedFormWithErrors))
       },

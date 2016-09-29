@@ -1,5 +1,6 @@
 package utils.pageobjects.s_care_you_provide
 
+import controllers.ClaimScenarioFactory._
 import utils.WithBrowser
 import utils.pageobjects._
 
@@ -29,6 +30,14 @@ object GTheirPersonalDetailsPage {
   val url  = "/care-you-provide/their-personal-details"
 
   def apply(ctx:PageObjectsContext) = new GTheirPersonalDetailsPage(ctx)
+
+  def fillDpDetails(context: PageObjectsContext, f: => TestData => Unit) = {
+    val claimData = defaultDpDetails()
+    f(claimData)
+    val page = new GTheirPersonalDetailsPage(context) goToThePage()
+    page.fillPageWith(claimData)
+    page.submitPage()
+  }
 }
 
 /** The context for Specs tests */

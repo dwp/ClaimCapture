@@ -94,7 +94,7 @@ input[name*="nationalInsurance"] {
     max-width: 940px;
 }
 #global-browser-prompt .dismiss {
-    background-image: url(https://assets.digital.cabinet-office.gov.uk/static/close-d05b62d4287151f959ffdcf2387898f7.png);
+    background-image: url(/assets/images/close-d05b62d4287151f959ffdcf2387898f7.png);
     background-color: transparent;
     background-repeat: no-repeat;
     background-position: center right;
@@ -133,7 +133,7 @@ input[name*="nationalInsurance"] {
     line-height: 1.25;
     font-weight: 300;
     text-transform: none;
-    background-image: url(https://assets.digital.cabinet-office.gov.uk/static/separator-73822610794bc3a64871f144d93d6526.png);
+    background-image: url(/assets/images/separator-73822610794bc3a64871f144d93d6526.png);
     background-position: 100% 50%;
     background-repeat: no-repeat;
     float: left;
@@ -154,7 +154,7 @@ input[name*="nationalInsurance"] {
 }
 @media only screen and (-webkit-min-device-pixel-ratio:2), only screen and (min--moz-device-pixel-ratio:2), only screen and (-o-min-device-pixel-ratio:20 / 10), only screen and (min-device-pixel-ratio:2), only screen and (min-resolution:192dpi), only screen and (min-resolution:2dppx) {
     #global-breadcrumb nav ol li {
-	    background-image: url(https://assets.digital.cabinet-office.gov.uk/static/separator-2x-2ff66846b80b66edba8ce56d29daa935.png);
+	    background-image: url(/assets/images/separator-2x-2ff66846b80b66edba8ce56d29daa935.png);
 	    background-size: 6px 11px;
 	}
 }

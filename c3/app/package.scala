@@ -21,8 +21,8 @@ package object app {
   }
 
   /**
-   * @deprecated This Whereabouts objects shouldn't be used anymore since all whereabouts are "Circs based" so either refactor that to be common
-   *            for the entire application, or re-refactor to enable this one. (If you use this object for data input, nothing will work :D)
+    * @deprecated This Whereabouts objects shouldn't be used anymore since all whereabouts are "Circs based" so either refactor that to be common
+    *            for the entire application, or re-refactor to enable this one. (If you use this object for data input, nothing will work :D)
     */
   object Whereabouts {
     val Home = "Home"
@@ -43,19 +43,19 @@ package object app {
 
     def whereWasThePersonList(implicit lang: Lang, messages: Messages) = {
       Seq(
-        Hospital -> Html(messages("circsBreaks.inhospital")),
-        RespiteCare -> Html(messages("circsBreaks.inrespitecare")),
-        Holiday -> Html(messages("circsBreaks.onholiday")),
-        Home -> Html(messages("circsBreaks.athome")),
-        SomewhereElse -> Html(messages("circsBreaks.somewhereelse")))
+        Hospital -> messages("circsBreaks.inhospital"),
+        RespiteCare -> messages("circsBreaks.inrespitecare"),
+        Holiday -> messages("circsBreaks.onholiday"),
+        Home -> messages("circsBreaks.athome"),
+        SomewhereElse -> messages("circsBreaks.somewhereelse"))
     }
 
     def whereWereYouList(implicit lang: Lang, messages: Messages) = {
       Seq(
-        Home -> Html(messages("circsBreaks.athome")),
-        Holiday -> Html(messages("circsBreaks.onholiday")),
-        Hospital -> Html(messages("circsBreaks.inhospital")),
-        SomewhereElse -> Html(messages("circsBreaks.somewhereelse")))
+        Home -> messages("circsBreaks.athome"),
+        Holiday -> messages("circsBreaks.onholiday"),
+        Hospital -> messages("circsBreaks.inhospital"),
+        SomewhereElse -> messages("circsBreaks.somewhereelse"))
     }
 
   }
@@ -80,6 +80,17 @@ package object app {
     val FourWeekly = "Four-Weekly"
     val Monthly = "Monthly"
     val Other = "Other" // TODO [SKW] the xsd is inconsistent and needs changing as there is no value for other, so I just made up a value and Jorge will change the schema and can replace this with a sensible value.
+  }
+
+  object BreaksInCareGatherOptions {
+    val You = "You"
+    val DP = "DP"
+  }
+
+  object BreaksInCareOtherOptions {
+    val Holiday = "On holiday"
+    val Home = "At home"
+    val SomewhereElse = "Somewhere else"
   }
 
   object StatutoryPaymentFrequency {
