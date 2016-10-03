@@ -21,7 +21,7 @@ class GBreaksInCareOtherIntegrationSpec extends Specification {
     "display hospital text" in new WithBrowser with PageObjects {
       val breaksInCare = GClaimDatePage(context) goToThePage() runClaimWith(ClaimScenarioFactory.careYouProvideWithBreaksInCareOther(false), GBreaksInCareOtherPage.url + "/1")
 
-      breaksInCare.source contains "You told us that there was a time you weren't able to care for Tom Wilson 35 hours a week. We need these details." should beTrue
+      breaksInCare.source contains "You told us that there was a time you weren't able to care for Tom Wilson for 35 hours a week. We need these details." should beTrue
     }
 
     "give errors when missing mandatory fields of data" in new WithJsBrowser with BreakFillerOther with WithBrowserHelper with BrowserMatchers {
