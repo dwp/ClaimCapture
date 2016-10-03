@@ -60,7 +60,8 @@ object Caree extends XMLComponent {
 
     def breaksInCareLabel (label: String, answer: String, dp: String) = {
       val claimDateQG = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
-      question(<BreaksSinceClaim/>, label, answer, claimDateQG.dateWeRequireBreakInCareInformationFrom(claim.lang.getOrElse(Lang("en"))), dp)
+      val defaultLangForPdf=Lang("en")
+      question(<BreaksSinceClaim/>, label, answer, claimDateQG.dateWeRequireBreakInCareInformationFrom(defaultLangForPdf), dp)
     }
     val your = "@yourname"
     val xmlFirstBreak = {
@@ -186,17 +187,31 @@ object Caree extends XMLComponent {
   }
 
   private def createBreaksInCare(xml: NodeSeq) = {
-    val breaksInCareXml = (xml \\ "Caree" \ "CareBreak")
+    val breaksInCareXml = (xml \\ "Caree" \ "CGCareBreak")
     var breaks = List[Break]()
     breaksInCareXml.zip (Stream from 1).foreach(node =>
     {
+      println("COLING break type:"+node._1)
       val break = {(node._1 \ "BreaksType" \ "Answer").text match {
-          case "YouHospital" | "DPHospital" => createHospitalBreak(node._1)
-          case "YouRespite" | "DPRespite" => createRespiteBreak(node._1)
-          case "Other" => createOtherBreak(node._1)
-          case _ => Break()
+          case "YouHospital" | "DPHospital" => {
+            println("COLING break is Hospital or dphospital")
+            createHospitalBreak(node._1)
+          }
+          case "YouRespite" | "DPRespite" => {
+            println("COLING break is Respite")
+            createRespiteBreak(node._1)
+          }
+          case "Other" => {
+            println("COLING break is type Other")
+            createOtherBreak(node._1)
+          }
+          case _ => {
+            println("COLING break is type4?")
+            Break()
+          }
         }
       }
+      println("COLING break iterationId:"+break.iterationID)
       if (!break.iterationID.isEmpty) breaks = breaks :+ break
     })
     (BreaksInCare(breaks))
