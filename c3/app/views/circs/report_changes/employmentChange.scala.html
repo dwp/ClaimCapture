@@ -79,7 +79,7 @@
                             carersInputText(typeOfWork("employerName"), 'maxLength -> 60, 'minLength -> 2, 'ignoreOptional -> true),
                             inputAddress(typeOfWork("employerNameAndAddress"), 'ignoreOptional -> true, 'addressLabel -> "typeOfWork.employerNameAndAddress"),
                             carersInputPostcode(typeOfWork("employerPostcode"), 'maxLength -> 10, 'class -> "postcode"),
-                            carersInputText(typeOfWork("employerContactNumber"), 'maxLength -> 15),
+                            carersInputText(typeOfWork("employerContactNumber"), 'maxLength -> 15, 'ignoreOptional -> true),
                             carersInputText(typeOfWork("employerPayroll"), 'maxLength -> 15)
                         ),
                         'id -> "typeOfWorkEmployedWrap"
