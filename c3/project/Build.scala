@@ -11,7 +11,7 @@ import com.typesafe.sbt.packager.SettingsHelper._
 
 object ApplicationBuild extends Build {
   val appName = "c3"
-  val appVersion = "3.20-SNAPSHOT"
+  val appVersion = "3.21-SNAPSHOT"
 
   processConfFiles(Seq("conf/application-info.conf"), Seq("application.version" -> appVersion, "application.name" -> appName))
 
