@@ -35,8 +35,8 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
         "What's their relationship to you?"                               displays "AboutTheCareYouProvideWhatTheirRelationshipToYou",
         "Do you spend 35 hours or more each week providing care for I have a real nam Caseone filling some chars to test?" displays "AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek",
         "Have you been on a course of education since your claim date?"   displays "EducationHaveYouBeenOnACourseOfEducation",
-        "Have you been employed at any time since 21 January 2013"      displays "EmploymentHaveYouBeenEmployedAtAnyTime_0",
-        "Have you been self-employed at any time since" displays "EmploymentHaveYouBeenSelfEmployedAtAnyTime",
+        "Have you been an employee since 21 January 2013"      displays "EmploymentHaveYouBeenEmployedAtAnyTime_0",
+        "Have you been self-employed since" displays "EmploymentHaveYouBeenSelfEmployedAtAnyTime",
         "Do you want to tell us any additional information about your claim?" displays "ConsentDeclarationTellUsAnythingElseAnswerAboutClaim",
         "Do you live in Wales and want to receive future communications in Welsh?" displays "ConsentDeclarationCommunicationWelsh"
       )

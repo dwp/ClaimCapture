@@ -103,12 +103,3 @@ window.whatThings = (payForThingsY, payForThingsN, whatThings) ->
   S(payForThingsY).on "click", -> S("whatThingsWrap").slideDown(0).attr 'aria-hidden', 'false'
 
   S(payForThingsN).on "click", -> S("whatThingsWrap").slideUp 0, -> val(whatThings,"")
-
-
-window.whatCosts = (careCostsForThisWorkY, careCostsForThisWorkN, whatCosts) ->
-  if not checked careCostsForThisWorkY
-    S("whatCostsWrap").slideUp 0
-
-  S(careCostsForThisWorkY).on "click", -> S("whatCostsWrap").slideDown(0).attr 'aria-hidden', 'false'
-
-  S(careCostsForThisWorkN).on "click", -> S("whatCostsWrap").slideUp 0, -> S(whatCosts).val("")

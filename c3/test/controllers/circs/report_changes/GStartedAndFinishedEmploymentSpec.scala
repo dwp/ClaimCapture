@@ -1,12 +1,11 @@
 package controllers.circs.report_changes
 
-import app.ConfigProperties._
 import org.specs2.mutable._
 import play.api.test.FakeRequest
 import models.domain.MockForm
-import utils.pageobjects.circumstances.report_changes.GStartedAndFinishedEmploymentPage
+import utils.pageobjects.circumstances.report_changes.GEmploymentPensionExpensesPage
 import utils.pageobjects.circumstances.start_of_process.GCircsYourDetailsPage
-import utils.{WithBrowser, LightFakeApplication, WithApplication}
+import utils.{WithApplication}
 import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
 
@@ -24,12 +23,8 @@ class GStartedAndFinishedEmploymentSpec extends Specification {
   val other = "other"
   val otherText = "some other text"
   val employerOwesYouMoneyInfo = "kick back for keeping my mouth shut"
-  val didYouPayIntoPensionText = "pension text"
-  val didYouPayForThingsText = "Some things neeeded to do the job"
-  val didCareCostsForThisWorkText = "care text"
-  val moreInfo = "more information"
   val startedAndFinishedPath = "DWPCAChangeOfCircumstances//EmploymentChange//StartedEmploymentAndFinished//MoreAboutChanges//Answer"
-  val nextPageUrl = GCircsYourDetailsPage.url
+  val nextPageUrl = GEmploymentPensionExpensesPage.url
 
   val validFinishedWeeklyPaymentEmployment = Seq(
     "beenPaidYet" -> no,
@@ -40,10 +35,7 @@ class GStartedAndFinishedEmploymentSpec extends Specification {
     "dateLastPaid.year" -> dateLastPaidYear.toString,
     "howOften.frequency" -> weekly,
     "usuallyPaidSameAmount" -> no,
-    "employerOwesYouMoney" -> no,
-    "didYouPayIntoPension.answer" -> no,
-    "didYouPayForThings.answer" -> no,
-    "didCareCostsForThisWork.answer" -> no
+    "employerOwesYouMoney" -> no
   )
 
   val validFinishedMonthlyPaymentEmployment = Seq(
@@ -56,10 +48,7 @@ class GStartedAndFinishedEmploymentSpec extends Specification {
     "howOften.frequency" -> monthly,
     "monthlyPayDay" -> monthlyPayDay,
     "usuallyPaidSameAmount" -> no,
-    "employerOwesYouMoney" -> no,
-    "didYouPayIntoPension.answer" -> no,
-    "didYouPayForThings.answer" -> no,
-    "didCareCostsForThisWork.answer" -> no
+    "employerOwesYouMoney" -> no
   )
 
   val validFinishedOtherPaymentEmployment = Seq(
@@ -73,14 +62,7 @@ class GStartedAndFinishedEmploymentSpec extends Specification {
     "howOften.frequency.other" -> otherText,
     "usuallyPaidSameAmount" -> yes,
     "employerOwesYouMoney" -> yes,
-    "employerOwesYouMoneyInfo" -> employerOwesYouMoneyInfo,
-    "didYouPayIntoPension.answer" -> yes,
-    "didYouPayIntoPension.whatFor" -> didYouPayIntoPensionText,
-    "didYouPayForThings.answer" -> yes,
-    "didYouPayForThings.whatFor" -> didYouPayForThingsText,
-    "didCareCostsForThisWork.answer" -> yes,
-    "didCareCostsForThisWork.whatCosts" -> didCareCostsForThisWorkText,
-    "moreAboutChanges" -> moreInfo
+    "employerOwesYouMoneyInfo" -> employerOwesYouMoneyInfo
   )
 
   section("unit", models.domain.CircumstancesReportChanges.id)
@@ -115,27 +97,6 @@ class GStartedAndFinishedEmploymentSpec extends Specification {
 
       val result = GStartedAndFinishedEmployment.submit(request)
       redirectLocation(result) must beSome(nextPageUrl)
-    }
-
-    "handle gracefully when bad schema number passed to SchemaValidation getRestriction" in new WithApplication {
-      val schemaVersion = "BAD-SCHEMA"
-      schemaMaxLength(schemaVersion, startedAndFinishedPath) mustEqual -1
-    }
-
-    "pull maxlength from xml commons OK" in new WithApplication {
-      val schemaVersion = getStringProperty("xml.schema.version")
-      schemaVersion must not be "NOT-SET"
-      schemaMaxLength(schemaVersion, startedAndFinishedPath) mustEqual 3000
-    }
-
-    "have text maxlength set correctly in present()" in new WithBrowser {
-      browser.goTo(GStartedAndFinishedEmploymentPage.url)
-      val anythingElse = browser.$("#moreAboutChanges")
-      val countdown = browser.$("#moreAboutChanges + .countdown")
-
-      anythingElse.getAttribute("maxlength") mustEqual "3000"
-      countdown.getText must contain("3000 char")
-      browser.pageSource must contain("maxChars:3000")
     }
   }
   section("unit", models.domain.CircumstancesReportChanges.id)

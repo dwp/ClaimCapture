@@ -4,6 +4,7 @@
 @import app.MaritalStatus._
 @import helper._
 @import controllers.mappings.Mappings._
+@import app.ConfigProperties._
 
 @yourDetails = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}
 @contactDetails = @{claim.questionGroup[ContactDetails].getOrElse(ContactDetails())}
@@ -38,7 +39,13 @@
 @addressPostcode = @{
     s"${address.lineOne.getOrElse("")}${address.lineTwo.fold("")("<br/>"+_)}${address.lineThree.fold("")("<br/>"+_)} ${"<br/>"+contactDetails.postcode.getOrElse("")}"
 }
-
+@saveForLaterEnabled=@{
+    getBooleanProperty("saveForLaterSaveEnabled")
+}
+@emailLabel=@{
+    if(saveForLaterEnabled) messages("wantsEmailContactNew")
+    else messages("wantsEmailContactOld")
+}
 
 @content = {
     @fieldWithLink("about_you_claimDate", "dateOfClaim", claimDate.dateOfClaim.`dd month, yyyy`, true)
@@ -47,7 +54,7 @@
     @fieldWithLink("about_you_dob", "dateOfBirth", yourDetails.dateOfBirth.`dd month, yyyy`, elementId = Some("dateOfBirth"))
     @fieldWithLink("about_you_address", "address", addressPostcode, elementId = Some("address"), useQuestionLabel = true)
     @fieldWithLink("about_you_contact", "howWeContactYou", contactDetails.howWeContactYou.getOrElse(messages("notgiven")), elementId = Some("howWeContactYou"))
-    @fieldWithLink("about_you_email", "wantsEmailContact", email, elementId = Some("wantsEmailContact"))
+    @fieldWithLink("about_you_email", emailLabel, email, elementId = Some("wantsEmailContact"))
 }
 
 @accordion(label = messages("s2.longName"), openLabel = "open-about-you", closeLabel = "close-about-you", content = content, 'track -> true)

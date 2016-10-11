@@ -1,5 +1,6 @@
 package xml.claim
 
+import app.ConfigProperties._
 import models.yesNo.YesNoWithDate
 import models.NationalInsuranceNumber
 import models.domain._
@@ -13,6 +14,10 @@ import scala.xml.NodeSeq
 
 object Claimant extends XMLComponent {
   val datePattern = "dd-MM-yyyy"
+  private def emailLabel = {
+    if(getBooleanProperty("saveForLaterSaveEnabled")) "wantsEmailContactNew"
+    else "wantsEmailContactOld"
+  }
   def xml(claim: Claim) = {
     val yourDetails = claim.questionGroup[YourDetails].getOrElse(YourDetails())
     val contactDetails = claim.questionGroup[ContactDetails].getOrElse(ContactDetails())
@@ -35,7 +40,7 @@ object Claimant extends XMLComponent {
       }}
       {question(<MaritalStatus/>, "maritalStatus", maritalStatus.maritalStatus)}
       {question(<TextPhoneContact/>,"contactYouByTextphone", textPhone(contactDetails))}
-      {question(<WantsContactEmail/>,"wantsEmailContact", contactDetails.wantsContactEmail)}
+      {question(<WantsContactEmail/>,emailLabel, contactDetails.wantsContactEmail)}
       {question(<Email/>,"mail.output", contactDetails.email)}
     </Claimant>
   }

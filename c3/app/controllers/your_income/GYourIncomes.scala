@@ -16,8 +16,8 @@ import scala.language.{postfixOps, reflectiveCalls}
 object GYourIncomes extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val form = Form(mapping(
-      "beenSelfEmployedSince1WeekBeforeClaim" -> nonEmptyText.verifying(validYesNo),
       "beenEmployedSince6MonthsBeforeClaim" -> nonEmptyText.verifying(validYesNo),
+      "beenSelfEmployedSince1WeekBeforeClaim" -> nonEmptyText.verifying(validYesNo),
       "yourIncome_sickpay" -> optional(nonEmptyText),
       "yourIncome_patmatadoppay" -> optional(nonEmptyText),
       "yourIncome_fostering" -> optional(nonEmptyText),

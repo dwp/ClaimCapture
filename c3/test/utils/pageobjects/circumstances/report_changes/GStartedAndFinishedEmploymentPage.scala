@@ -1,6 +1,7 @@
 package utils.pageobjects.circumstances.report_changes
 
-import utils.pageobjects.{PageContext, CircumstancesPage, PageObjectsContext}
+import controllers.mappings.Mappings
+import utils.pageobjects.{TestData, PageContext, CircumstancesPage, PageObjectsContext}
 import utils.WithBrowser
 
 final class GStartedAndFinishedEmploymentPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, GStartedAndFinishedEmploymentPage.url) {
@@ -14,13 +15,6 @@ final class GStartedAndFinishedEmploymentPage(ctx:PageObjectsContext) extends Ci
   declareYesNo("#usuallyPaidSameAmount", "CircumstancesEmploymentChangeUsuallyPaidSameAmount")
   declareYesNo("#employerOwesYouMoney", "CircumstancesEmploymentChangeEmployerOwesYouMoney")
   declareInput("#employerOwesYouMoneyInfo", "CircumstancesEmploymentChangeEmployerOwesYouMoneyInfo")
-  declareYesNo("#didYouPayIntoPension_answer", "CircumstancesEmploymentChangeDidYouPayIntoPensionAnswer")
-  declareInput("#didYouPayIntoPension_whatFor", "CircumstancesEmploymentChangeDidYouPayIntoPensionWhatFor")
-  declareYesNo("#didYouPayForThings_answer", "CircumstancesEmploymentChangeDidYouPayForThingsAnswer")
-  declareInput("#didYouPayForThings_whatFor", "CircumstancesEmploymentChangeDidYouPayForThingsWhatFor")
-  declareYesNo("#didCareCostsForThisWork_answer", "CircumstancesEmploymentChangeDoCareCostsForThisWorkAnswer")
-  declareInput("#didCareCostsForThisWork_whatCosts", "CircumstancesEmploymentChangeDoCareCostsForThisWorkWhatCosts")
-  declareInput("#moreAboutChanges", "CircumstancesEmploymentChangeMoreAboutChanges")
 }
 
 /**
@@ -31,6 +25,18 @@ object GStartedAndFinishedEmploymentPage {
   val url  = "/circumstances/report-changes/employment-finished"
 
   def apply(ctx:PageObjectsContext) = new GStartedAndFinishedEmploymentPage(ctx)
+
+  def fillJobDetails(context: PageObjectsContext, f: => TestData => Unit) = {
+    val pastJobPage = GEmploymentChangePage.fillPastJobDetails(context, testData => {})
+    val claimData = new TestData
+    claimData.CircumstancesEmploymentChangeBeenPaidYet = Mappings.yes
+    claimData.CircumstancesEmploymentChangeHowMuchPaid = "150"
+    claimData.CircumstancesEmploymentChangeWhatDatePaid = "01/03/2013"
+    claimData.CircumstancesEmploymentChangeHowOftenFrequency = "Weekly"
+    claimData.CircumstancesEmploymentChangeUsuallyPaidSameAmount = Mappings.yes
+    claimData.CircumstancesEmploymentChangeEmployerOwesYouMoney = Mappings.no
+    pastJobPage.fillPageWith(claimData).submitPage()
+  }
 }
 
 /** The context for Specs tests */

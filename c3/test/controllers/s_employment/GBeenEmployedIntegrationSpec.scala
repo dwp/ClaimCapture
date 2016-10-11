@@ -30,11 +30,11 @@ class GBeenEmployedIntegrationSpec extends Specification {
 
     """be bypassed and go onto "statutory sick pay" having indicated that "employment" is not required.""" in new WithBrowser with PageObjects {
       val claimDate = new GClaimDatePage(context) goToThePage()
-      claimDate.fillPageWith(s7NotEmployedNorSelfEmployed())
+      claimDate.fillPageWith(s7SSPOnly())
       claimDate.submitPage()
 
       val employment = new GYourIncomePage(claimDate.ctx) goToThePage()
-      employment.fillPageWith(s7NotEmployedNorSelfEmployed())
+      employment.fillPageWith(s7SSPOnly())
       val statutorySickPay = employment.submitPage()
 
       statutorySickPay must beAnInstanceOf[GStatutorySickPayPage]

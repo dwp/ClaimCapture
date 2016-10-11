@@ -8,7 +8,7 @@ import models.domain._
 import models.yesNo.DeleteId
 import play.api.Play._
 import play.api.data.Forms._
-import play.api.i18n.{Lang, I18nSupport, MMessages, MessagesApi}
+import play.api.i18n._
 import play.api.mvc.{Request, Controller}
 import play.api.data.{Form, FormError}
 import play.api.Logger
@@ -41,19 +41,14 @@ object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport
       formWithErrors => {
         val errors = formWithErrors
           .replaceError("", "toomanybreaks", FormError("breaks.toomanybreaks", "breaks.toomanybreaks", Seq(Breaks.maximumBreaks)))
-          .replaceError("", "deselectnone", FormError("breaktype", "breaks.breaktype.deselectnone", Seq(dateForBreaks(claim, request2lang), dpname(claim))))
-          .replaceError("", "selectone", FormError("breaktype", "breaks.breaktype.selectone", Seq(dateForBreaks(claim, request2lang), dpname(claim))))
+          .replaceError("", "deselectnone", FormError("breaktype", "breaks.breaktype.deselectnone", Seq(dateForBreaks(claim, request2lang), anyothertimes, dpname(claim))))
+          .replaceError("", "selectone", FormError("breaktype", "breaks.breaktype.selectone", Seq(dateForBreaks(claim, request2lang), anyothertimes, dpname(claim))))
           .replaceError("", "selectother", FormError("breaktype_other", errorRequired, Seq(dpname(claim))))
         BadRequest(views.html.breaks_in_care.breaksInCareSummary(errors, breaks))
       },
       breaksInCareSummary => {
         claim.update(breaksInCareSummary) -> Redirect(nextPage(breaksInCareSummary))
       })
-  }
-
-  private def breaktypeLabel(implicit claim: Claim) = breaks.hasBreaks match {
-    case false => "breaktype_first"
-    case true => "breaktype_another"
   }
 
   private def otherbreakLabel(implicit claim: Claim) = breaks.hasBreaks match {
@@ -72,6 +67,12 @@ object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport
   private def dpname(claim: Claim) = {
     val theirPersonalDetails = claim.questionGroup(TheirPersonalDetails).getOrElse(TheirPersonalDetails()).asInstanceOf[TheirPersonalDetails]
     theirPersonalDetails.firstName + " " + theirPersonalDetails.surname
+  }
+
+  private def anyothertimes()(implicit claim: Claim) = (breaks.hasBreaksForType(Breaks.hospital), breaks.hasBreaksForType(Breaks.carehome)) match {
+    case (true, _) => Messages("breaktype.anyothertimes")
+    case (_, true) => Messages("breaktype.anyothertimes")
+    case _ => Messages("breaktype.anytimes")
   }
 
   private def dateForBreaks(claim: Claim, lang: Lang) = {
@@ -96,7 +97,7 @@ object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport
   }
 
   private def validateMaxReached(implicit claim: Claim, breaksInCareType: BreaksInCareType) = {
-    Logger.info("Validating breaksInCare Maximum with "+breaksInCare.breaks.size+" against maximum of "+Breaks.maximumBreaks)
+    Logger.info("Validating breaksInCare Maximum with " + breaksInCare.breaks.size + " against maximum of " + Breaks.maximumBreaks)
     (breaksInCare.maximumReached, breaksInCareType.none, breaksInCareType.other) match {
       case (false, _, _) => true
       case (true, Mappings.someTrue, Some(Mappings.no)) => true

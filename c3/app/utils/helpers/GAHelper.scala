@@ -4,6 +4,7 @@ import play.api.Play
 import play.api.Play.current
 
 object GAHelper {
+  val regexIterationId = "/[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}".r
 
   private def addOpt(s:Option[String]):String = s match{
     case Some(opt) if opt.nonEmpty => ",\""+opt+"\""
@@ -12,7 +13,8 @@ object GAHelper {
 
   def trackEvent(category:String, action:String, label:Option[String]=None, value:Option[String]=None):String = {
     if (!Play.isTest) {
-      s"""trackEvent('$category',\"$action\"${addOpt(label)}${addOpt(value)});""".toString
+      val newCategory = regexIterationId.replaceFirstIn(category, "");
+      s"""trackEvent('$newCategory',\"$action\"${addOpt(label)}${addOpt(value)});""".toString
     } else {
       ""
     }
@@ -20,7 +22,8 @@ object GAHelper {
 
   def trackPageView(category:String):String = {
     if (!Play.isTest) {
-      s"""trackVirtualPageView("$category");""".toString
+      val newCategory = regexIterationId.replaceFirstIn(category, "");
+      s"""trackVirtualPageView("$newCategory");""".toString
     } else {
       ""
     }

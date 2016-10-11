@@ -33,11 +33,11 @@
             <legend class="visuallyhidden">@Html(messages("s7.g1"))</legend>
 
             <ul>
-                @yesNoRadioGroup(currentForm("beenSelfEmployedSince1WeekBeforeClaim"),
-                    '_label -> messages("beenSelfEmployedSince1WeekBeforeClaim.label", displayPlaybackDatesFormat(lang, claim.dateOfClaim.getOrElse(DayMonthYear.today) - 1 week)), 'track -> true)
-
                 @yesNoRadioGroup(currentForm("beenEmployedSince6MonthsBeforeClaim"),
                     '_label -> messages("beenEmployedSince6MonthsBeforeClaim.label", displayPlaybackDatesFormat(lang, claim.dateOfClaim.getOrElse(DayMonthYear.today) - 6 months)), 'track -> true)
+
+                @yesNoRadioGroup(currentForm("beenSelfEmployedSince1WeekBeforeClaim"),
+                    '_label -> messages("beenSelfEmployedSince1WeekBeforeClaim.label", displayPlaybackDatesFormat(lang, claim.dateOfClaim.getOrElse(DayMonthYear.today) - 1 week)), 'track -> true)
 
                 @standaloneListCheckboxGroup(currentForm("yourIncome"),
                     currentForm.asInstanceOf[Form[AnyContent]],

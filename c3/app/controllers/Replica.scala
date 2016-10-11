@@ -76,7 +76,7 @@ object ReplicaData {
           ClaimDate(DayMonthYear.today,spent35HoursCaringBeforeClaim = YesNoWithDate(Mappings.yes,date = Some(DayMonthYear.today - 3 months))) +
           YourDetails(title = "Mr",firstName = "Joe",surname = "Bloggs",nationalInsuranceNumber = NationalInsuranceNumber(Some("AB123456D")),dateOfBirth = DayMonthYear(10,10,1990)) +
           MaritalStatus(maritalStatus = app.MaritalStatus.Single) +
-          ContactDetails(address = new MultiLineAddress(Some("123"),Some("Street")),postcode = Some("C4T 0AD"),howWeContactYou = Some("0000000000"),wantsContactEmail = Mappings.yes, email = Some("CAU.CASA@dwp.gsi.gov.uk"), emailConfirmation = Some("CAU.CASA@dwp.gsi.gov.uk")) +
+          ContactDetails(address = new MultiLineAddress(Some("123"),Some("Street")),postcode = Some("C4T 0AD"),howWeContactYou = Some("0000000000"),wantsContactEmail = Mappings.yes, email = Some("cads.dwp@gmail.com"), emailConfirmation = Some("cads.dwp@gmail.com")) +
           NationalityAndResidency("British", None, Mappings.yes, None, None, None, None, Mappings.no, None) +
           PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.yes,field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)))) +
           YourPartnerPersonalDetails(hadPartnerSinceClaimDate = Mappings.yes,title = Some("Miss"),firstName = Some("Joan"),surname = Some("Bloggs"),dateOfBirth = Some(DayMonthYear.today - 10 years),nationality = Some("British"),separatedFromPartner = Some(Mappings.no),isPartnerPersonYouCareFor = Some(Mappings.no)) +
@@ -84,21 +84,21 @@ object ReplicaData {
           MoreAboutTheCare(spent35HoursCaring = Some(Mappings.yes), otherCarer= Some(Mappings.no)) +
           BreaksInCareType(none = Mappings.someTrue, other = Some(Mappings.no)) +
           BreaksInCare(List(
-            Break("1", typeOfCare=Breaks.hospital, whoWasAway=BreaksInCareGatherOptions.You, whenWereYouAdmitted=Some(DayMonthYear.today - 1 months), yourStayEnded=Some(YesNoWithDate(answer = Mappings.no,None))),
-            Break("2", typeOfCare=Breaks.carehome, whoWasAway=BreaksInCareGatherOptions.You, whenWereYouAdmitted=Some(DayMonthYear.today - 2 months), yourStayEnded=Some(YesNoWithDate(answer = Mappings.no,None)), yourMedicalProfessional=Some(Mappings.no))
+            Break("295e065e-b0d2-4ec6-9e02-64c20c91436a", typeOfCare=Breaks.hospital, whoWasAway=BreaksInCareGatherOptions.You, whenWereYouAdmitted=Some(DayMonthYear.today - 1 months), yourStayEnded=Some(YesNoWithDate(answer = Mappings.no,None))),
+            Break("9b889213-b047-4179-ad11-1caaf8ab624e", typeOfCare=Breaks.carehome, whoWasAway=BreaksInCareGatherOptions.You, whenWereYouAdmitted=Some(DayMonthYear.today - 2 months), yourStayEnded=Some(YesNoWithDate(answer = Mappings.no,None)), yourMedicalProfessional=Some(Mappings.no))
           )) +
           YourCourseDetails(beenInEducationSinceClaimDate = Mappings.yes,title = Some("Biology"),nameOfSchoolCollegeOrUniversity = Some("A College"),
           nameOfMainTeacherOrTutor = Some("A Tutor"),startDate = Some(DayMonthYear.today - 1 month),expectedEndDate = Some(DayMonthYear.today + 2 years)) +
           YourIncomes(beenSelfEmployedSince1WeekBeforeClaim = Mappings.yes, beenEmployedSince6MonthsBeforeClaim = Mappings.yes, yourIncome_sickpay = Mappings.someTrue, yourIncome_patmatadoppay = Mappings.someTrue, yourIncome_fostering = Mappings.someTrue, yourIncome_directpay = Mappings.someTrue, yourIncome_anyother = Mappings.someTrue, yourIncome_rentalincome = Mappings.someTrue, yourIncome_none = None) +
           Employment(beenSelfEmployedSince1WeekBeforeClaim = Mappings.yes, beenEmployedSince6MonthsBeforeClaim = Mappings.yes) +
-          SelfEmploymentDates(stillSelfEmployed = Mappings.no, finishThisWork=Some(DayMonthYear.today - 2 months), moreThanYearAgo = Mappings.no, startThisWork = Some(DayMonthYear.today - 6 months), paidMoney = Some(Mappings.yes), paidMoneyDate = Some(DayMonthYear.today - 5 months)) +
+          SelfEmploymentDates(typeOfWork = "Plumber", stillSelfEmployed = Mappings.no, finishThisWork=Some(DayMonthYear.today - 2 months), moreThanYearAgo = Mappings.no, startThisWork = Some(DayMonthYear.today - 6 months), paidMoney = Some(Mappings.yes), paidMoneyDate = Some(DayMonthYear.today - 5 months)) +
           SelfEmploymentPensionsAndExpenses(payPensionScheme = YesNoWithText(Mappings.no),haveExpensesForJob = YesNoWithText(Mappings.no)) +
           Jobs(List(
-            models.domain.Iteration("1", List(
-              JobDetails("1",employerName = "Hiding Consultants", phoneNumber = "01111111111", address = MultiLineAddress(lineOne = Some("456 Street"),lineTwo = Some("Newtown")),
+            models.domain.Iteration("be425f6c-d675-498a-8d77-b425173c1f72", List(
+              JobDetails("be425f6c-d675-498a-8d77-b425173c1f72",employerName = "Hiding Consultants", phoneNumber = "01111111111", address = MultiLineAddress(lineOne = Some("456 Street"),lineTwo = Some("Newtown")),
                 startJobBeforeClaimDate = Mappings.yes,finishedThisJob = Mappings.no),
-                LastWage("1",oftenGetPaid = PaymentFrequency(app.PensionPaymentFrequency.Weekly),whenGetPaid = "Fridays",lastPaidDate = DayMonthYear.today - 1 week,grossPay = "3000",payInclusions = Some("Some catnip on the side"),sameAmountEachTime = Mappings.yes),
-                PensionAndExpenses("1",payPensionScheme = YesNoWithText(Mappings.no),payForThings = YesNoWithText(Mappings.no),haveExpensesForJob = YesNoWithText(Mappings.no))
+                LastWage("be425f6c-d675-498a-8d77-b425173c1f72",oftenGetPaid = PaymentFrequency(app.PensionPaymentFrequency.Weekly),whenGetPaid = "Fridays",lastPaidDate = DayMonthYear.today - 1 week,grossPay = "3000",payInclusions = Some("Some catnip on the side"),sameAmountEachTime = Mappings.yes),
+                PensionAndExpenses("be425f6c-d675-498a-8d77-b425173c1f72",payPensionScheme = YesNoWithText(Mappings.no),payForThings = YesNoWithText(Mappings.no),haveExpensesForJob = YesNoWithText(Mappings.no))
               ),completed = true)
           )) +
           BeenEmployed(Mappings.no) +

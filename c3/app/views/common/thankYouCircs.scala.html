@@ -1,4 +1,5 @@
 @import models.domain.CircumstancesYourDetails
+@import models.domain.CircumstancesEmploymentPensionExpenses
 @(lang: Lang)(implicit circs: models.domain.Claim, request: Request[AnyContent],flash:Flash, messages: Messages)
 
 @import controllers.mappings.Mappings
@@ -29,20 +30,11 @@ circs.questionGroup[CircumstancesStartedAndFinishedEmployment].isDefined
 }
 
 @showEmploymentPensionMessage = @{
-lazy val ongoingEmploymentOption = circs.questionGroup[CircumstancesStartedEmploymentAndOngoing]
-lazy val finishedEmploymentOption = circs.questionGroup[CircumstancesStartedAndFinishedEmployment]
-lazy val futureEmploymentOption = circs.questionGroup[CircumstancesEmploymentNotStarted]
-
-val show =
-if(ongoingEmploymentOption.isDefined)
-ongoingEmploymentOption.get.payIntoPension.answer == "yes"
-else if(finishedEmploymentOption.isDefined)
-finishedEmploymentOption.get.payIntoPension.answer == "yes"
-else if(futureEmploymentOption.isDefined)
-futureEmploymentOption.get.payIntoPension.answer == "yes"
-else false
-
-show
+    lazy val pensionExpenses = circs.questionGroup[CircumstancesEmploymentPensionExpenses].getOrElse(CircumstancesEmploymentPensionExpenses())
+    pensionExpenses.payIntoPension.answer match {
+        case Mappings.yes => true
+        case _ => false
+    }
 }
 
 @isEmail = @{

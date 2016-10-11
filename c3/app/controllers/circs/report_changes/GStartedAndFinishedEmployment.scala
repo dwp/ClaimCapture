@@ -15,27 +15,6 @@ import play.api.i18n._
 
 object GStartedAndFinishedEmployment extends Controller with CachedChangeOfCircs with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
-  val payIntoPension =
-    "didYouPayIntoPension" -> mapping (
-      "answer" -> nonEmptyText.verifying(validYesNo),
-      "whatFor" -> optional(carersNonEmptyText(maxLength = 300))
-    )(YesNoWithText.apply)(YesNoWithText.unapply)
-      .verifying("didYouPayIntoPension.text.required", YesNoWithText.validateOnYes _)
-
-  val payForThings =
-    "didYouPayForThings" -> mapping (
-      "answer" -> nonEmptyText.verifying(validYesNo),
-      "whatFor" -> optional(carersText(minLength=1, maxLength = 300))
-    )(YesNoWithText.apply)(YesNoWithText.unapply)
-      .verifying("didYouPayForThings.text.required", YesNoWithText.validateOnYes _)
-
-  val careCostsForThisWork =
-    "didCareCostsForThisWork" -> mapping (
-      "answer" -> nonEmptyText.verifying(validYesNo),
-      "whatCosts" -> optional(carersNonEmptyText(maxLength = 300))
-    )(YesNoWithText.apply)(YesNoWithText.unapply)
-      .verifying("didCareCostsForThisWork.text.required", YesNoWithText.validateOnYes _)
-
   val form = Form(mapping(
     "beenPaidYet" -> nonEmptyText.verifying(validYesNo),
     "howMuchPaid" -> required(nonEmptyText.verifying(validCurrency8Required)),
@@ -43,13 +22,9 @@ object GStartedAndFinishedEmployment extends Controller with CachedChangeOfCircs
     "whatWasIncluded" -> optional(carersText(maxLength = 300)),
     "howOften" -> mandatoryPaymentFrequency.verifying(validPaymentFrequencyOnly),
     "monthlyPayDay" -> optional(carersText(maxLength = 35)),
-    "usuallyPaidSameAmount" -> nonEmptyText.verifying(validYesNo),
+    "usuallyPaidSameAmount" -> optional(nonEmptyText.verifying(validYesNo)),
     "employerOwesYouMoney" -> nonEmptyText.verifying(validYesNo),
-    "employerOwesYouMoneyInfo" -> optional(carersText(maxLength = 300)),
-    payIntoPension,
-    payForThings,
-    careCostsForThisWork,
-    "moreAboutChanges" -> optional(carersText(maxLength = CircumstancesStartedAndFinishedEmployment.textMaxLength))
+    "employerOwesYouMoneyInfo" -> optional(carersText(maxLength = 300))
   )(CircumstancesStartedAndFinishedEmployment.apply)(CircumstancesStartedAndFinishedEmployment.unapply)
     .verifying("expected.monthlyPayDay", validateMonthlyPayDay _)
     .verifying("expected.employerOwesYouMoneyInfo", validateEmployerOwesYou _)
@@ -69,13 +44,9 @@ object GStartedAndFinishedEmployment extends Controller with CachedChangeOfCircs
           .replaceError("howOften.frequency.other",maxLengthError,FormError("howOften",maxLengthError))
           .replaceError("", "expected.monthlyPayDay",FormError("monthlyPayDay",errorRequired))
           .replaceError("", "expected.employerOwesYouMoneyInfo",FormError("employerOwesYouMoneyInfo",errorRequired))
-          .replaceError("didYouPayIntoPension","didYouPayIntoPension.text.required",FormError("didYouPayIntoPension.whatFor",errorRequired))
-          .replaceError("didYouPayForThings","didYouPayForThings.text.required",FormError("didYouPayForThings.whatFor",errorRequired))
-          .replaceError("didCareCostsForThisWork","didCareCostsForThisWork.text.required",FormError("didCareCostsForThisWork.whatCosts",errorRequired))
-
         BadRequest(views.html.circs.report_changes.startedAndFinishedEmployment(formWithErrorsUpdate))
       },
-      f => circs.update(f) -> Redirect(circsPathAfterFunction)
+      f => circs.update(f) -> Redirect(routes.GEmploymentPensionExpenses.present)
     )
   }
 

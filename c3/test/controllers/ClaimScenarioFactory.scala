@@ -531,6 +531,11 @@ object ClaimScenarioFactory {
     // Employment
     claim.EmploymentHaveYouBeenSelfEmployedAtAnyTime = "No"
     claim.EmploymentHaveYouBeenEmployedAtAnyTime_0 = "No"
+    claim
+  }
+
+  def s7SSPOnly() = {
+    val claim = s7NotEmployedNorSelfEmployed()
     claim.YourIncomeStatutorySickPay = "true"
     claim
   }
@@ -906,6 +911,7 @@ object ClaimScenarioFactory {
   def s9SelfEmployment = {
     val claim = s9OtherIncome
     // About self-employment
+    claim.SelfEmployedTypeOfWork = "Painter"
     claim.SelfEmployedAreYouSelfEmployedNow = "no"
     claim.SelfEmployedMoreThanYearAgo = "no"
     claim.SelfEmployedDoYouKnowYourTradingYear = "no"

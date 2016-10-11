@@ -1,0 +1,123 @@
+@import models.domain.CircumstancesStartedEmploymentAndOngoing
+@import models.domain.CircumstancesEmploymentPensionExpenses
+@import controllers.circs.report_changes.GEmploymentPensionExpenses
+@import models.domain.CircumstancesEmploymentChange
+@(currentForm: Form[models.domain.CircumstancesEmploymentPensionExpenses])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
+
+@import helper._
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
+@import utils.csrf.DwpCSRFFormHelper
+@import views.html.common._
+@import views.html.helper._
+@import views.html.helper.dropdowns._
+@import views.html.helper.base._
+@import views.html.helper.dates._
+@import controllers.mappings.Mappings._
+@import utils.helpers.CarersCrypto
+@import models.domain.CircumstancesStartedAndFinishedEmployment
+@import models.domain.CircumstancesEmploymentNotStarted
+
+@questionWithTense(label: String)=@{
+    messages(label+"."+CircumstancesEmploymentPensionExpenses.presentPastOrFuture(claim.questionGroup[CircumstancesEmploymentChange].getOrElse(CircumstancesEmploymentChange())))
+}
+@main(messages("c2.g11") + " - " + messages("c2.name")) {
+    @errorsSummary(currentForm)
+
+    @form(action = controllers.circs.report_changes.routes.GEmploymentPensionExpenses.submit) {
+        @DwpCSRFFormHelper.formField
+        <div class="form-wrap">
+	        <fieldset class="form-elements">
+                <legend class="heading-medium form-label-bold">@Html(messages("c2.g9.pensionsAndExpenses"))</legend>
+
+                <ul>
+                    @yesNoRadioGroup(currentForm("payIntoPension")("answer"),
+                        '_label -> questionWithTense("payIntoPension"), 'ignoreOptional -> true,
+                        'values -> Seq("yes" -> messages("label.yes6"), "no" -> messages("label.no"))
+                    )
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersInputTextArea(currentForm("payIntoPension")("whatFor"),
+                                'textAreaHelper -> Html(messages(s"${CircumstancesEmploymentPensionExpenses.payIntoPensionMaxLength}charsLeft")),
+                                '_label -> questionWithTense("payIntoPension.whatFor"),
+                                'ignoreOptional -> true,
+                                'maxLength -> CircumstancesEmploymentPensionExpenses.payIntoPensionMaxLength)
+                        ),
+                        'id -> "payIntoPensionWrap"
+                    )
+
+                    @yesNoRadioGroup(currentForm("payForThings")("answer"),
+                        '_label -> questionWithTense("payForThings"), 'ignoreOptional -> true,
+                        'helperAbove -> Html(questionWithTense("payForThings.answer.helper")),
+                        'values -> Seq("yes" -> messages("label.yes6"), "no" -> messages("label.no"))
+                    )
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersInputTextArea(currentForm("payForThings")("whatFor"),
+                                'textAreaHelper -> Html(messages(s"${CircumstancesEmploymentPensionExpenses.payForThingsMaxLength}charsLeft")),
+                                '_label -> questionWithTense("payForThings.whatFor"),
+                                'ignoreOptional -> true,
+                                'maxLength -> CircumstancesEmploymentPensionExpenses.payForThingsMaxLength)
+                        ),
+                        'id -> "payForThingsWrap"
+                    )
+
+                    @yesNoRadioGroup(currentForm("careCosts")("answer"),
+                        '_label -> questionWithTense("careCosts"), 'ignoreOptional -> true,
+                        'helperAbove -> Html(questionWithTense("careCosts.helper")),
+                        'values -> Seq("yes" -> messages("label.yes2"), "no" -> messages("label.no"))
+                    )
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersInputTextArea(currentForm("careCosts")("whatFor"),
+                                'textAreaHelper -> Html(messages(s"${CircumstancesEmploymentPensionExpenses.careCostsMaxLength}charsLeft")),
+                                '_label -> questionWithTense("careCosts.whatFor"),
+                                'helperAbove -> Html(questionWithTense("careCosts.whatFor.help")),
+                                'ignoreOptional -> true,
+                                'maxLength -> CircumstancesEmploymentPensionExpenses.careCostsMaxLength)
+                        ),
+                        'id -> "careCostsWrap"
+                    )
+
+                    @carersInputTextArea(currentForm("moreAboutChanges"), 'helperAbove -> messages("moreAboutChanges.helper"),
+                        'textAreaHelper -> Html(messages(s"${CircumstancesEmploymentPensionExpenses.moreAboutChangesMaxLength}charsLeft")),
+                        'maxLength -> CircumstancesEmploymentPensionExpenses.moreAboutChangesMaxLength)
+                </ul>
+	        </fieldset>
+	
+            @views.html.common.bottomNavigation()
+
+        </div>
+    }
+<script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
+<script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/circs/report_changes/employmentPensionExpenses.js")></script>
+<script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/selectOther.js")></script>
+
+<script type="text/javascript">
+    $(function(){
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("payIntoPension_whatFor")",maxChars:@CircumstancesEmploymentPensionExpenses.payIntoPensionMaxLength});
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("payForThings_whatFor")",maxChars:@CircumstancesEmploymentPensionExpenses.payForThingsMaxLength});
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("careCosts_whatFor")",maxChars:@CircumstancesEmploymentPensionExpenses.careCostsMaxLength});
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:@CircumstancesEmploymentPensionExpenses.moreAboutChangesMaxLength});
+
+        window.initEvents({
+                payIntoPensionY: "@CarersCrypto.encryptAES("payIntoPension_answer_yes")",
+                payIntoPensionN: "@CarersCrypto.encryptAES("payIntoPension_answer_no")",
+                payIntoPensionWrap: "@CarersCrypto.encryptAES("payIntoPensionWrap")",
+                payIntoPensionText: "@CarersCrypto.encryptAES("payIntoPension_whatFor")",
+                payForThingsY: "@CarersCrypto.encryptAES("payForThings_answer_yes")",
+                payForThingsN: "@CarersCrypto.encryptAES("payForThings_answer_no")",
+                payForThingsWrap: "@CarersCrypto.encryptAES("payForThingsWrap")",
+                payForThingsText: "@CarersCrypto.encryptAES("payForThings_whatFor")",
+                careCostsY: "@CarersCrypto.encryptAES("careCosts_answer_yes")",
+                careCostsN: "@CarersCrypto.encryptAES("careCosts_answer_no")",
+                careCostsWrap: "@CarersCrypto.encryptAES("careCostsWrap")",
+                careCostsText: "@CarersCrypto.encryptAES("careCosts_whatFor")",
+                moreAboutChangesText: "@CarersCrypto.encryptAES("moreAboutChanges")"
+        });
+    });
+</script>
+
+}
+

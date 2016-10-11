@@ -1,7 +1,9 @@
+@import models.domain.SelfEmploymentDates
 @(currentForm: Form[models.domain.SelfEmploymentDates])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
 @import views.html.helper._
+@import views.html.helper.base._
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper.dates._
 @import scala.language.postfixOps
@@ -18,7 +20,8 @@
         @DwpCSRFFormHelper.formField
 	        <fieldset class="form-elements" data-journey="carers-allowance:page:self-employment">
 	            <ul>
-	                @yesNoRadioGroup(currentForm("stillSelfEmployed"), 'track -> true, 'trackLabel -> messages("stillSelfEmployed"))
+					@carersInputText(currentForm("typeOfWork"), 'helperAbove -> messages("typeOfWorkHelper"), 'maxLength -> SelfEmploymentDates.typeOfWorkMaxLength)
+					@yesNoRadioGroup(currentForm("stillSelfEmployed"), 'track -> true, 'trackLabel -> messages("stillSelfEmployed"))
 					@otherDetailPlaceHolder(
 						inputDef = Seq(
 							inputDayMonthYear(currentForm("finishThisWork"), 'ignoreOptional-> true)
@@ -99,6 +102,8 @@
                             "@{request.path}",
                             "@messages("tradingYearStart")"
                     )
+                    var textelement="#@CarersCrypto.encryptAES(currentForm("typeOfWork").id)"
+                	window.trackEvent( "@{request.path}", "typeOfWork.tracking", $(textelement).val().length )
 				}
 			}
 	</script>

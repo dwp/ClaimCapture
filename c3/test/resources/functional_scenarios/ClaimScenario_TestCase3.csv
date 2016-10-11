@@ -118,6 +118,7 @@ Employment,Pension and expenses,"Give details of what you [[present=need]] [[pas
 Employment,Pension and expenses,"[[past=Did you]] [[present=Do you]] have any care costs because of this work?",EmploymentDoYouPayforAnythingNecessaryToDoYourJob_2,Yes
 Employment,Pension and expenses,"Tell us what the cost [[past=was]] [[present=is]] for, how much, how often and who to",EmploymentWhatAreNecessaryJobExpenses_2,Some job expenses paying 200 a week for xyz
 Employment,About other employment history,"Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?",EmploymentHaveYouBeenEmployedAtAnyTime_2,No
+Self-Employed,Dates,Type of work,SelfEmployedTypeOfWork,Childminder
 Self-Employed,Dates,Are you self-employed now?,SelfEmployedAreYouSelfEmployedNow,No
 Self-Employed,Dates,When did you finish this work?,SelfEmployedWhenDidTheJobFinish,01/02/2010
 Self-Employed,Dates,Did you start this work more than a year ago?,SelfEmployedMoreThanYearAgo,Yes

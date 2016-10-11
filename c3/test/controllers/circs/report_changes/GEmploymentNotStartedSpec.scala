@@ -1,14 +1,12 @@
 package controllers.circs.report_changes
 
-import app.ConfigProperties._
 import org.specs2.mutable._
 import play.api.test.FakeRequest
 import models.domain.MockForm
-import utils.pageobjects.circumstances.start_of_process.GCircsYourDetailsPage
-import utils.{WithBrowser, LightFakeApplication, WithApplication}
+import utils.{WithApplication}
 import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
-import utils.pageobjects.circumstances.report_changes.GEmploymentNotStartedPage
+import utils.pageobjects.circumstances.report_changes.{GEmploymentPensionExpensesPage, GEmploymentNotStartedPage}
 
 class GEmploymentNotStartedSpec extends Specification {
   val yes = "yes"
@@ -27,7 +25,7 @@ class GEmploymentNotStartedSpec extends Specification {
   val willCareCostsForThisWorkText = "care text"
   val moreInfo = "more information"
   val employmentNoStartedPath = "DWPCAChangeOfCircumstances//EmploymentChange//NotStartedEmployment//MoreAboutChanges//Answer"
-  val nextPageUrl = GCircsYourDetailsPage.url
+  val nextPageUrl = GEmploymentPensionExpensesPage.url
 
   "Report an Employment change in your circumstances where employment has not started - Employment Controller" should {
     val validWeeklyPaymentEmployment = Seq(
@@ -65,14 +63,7 @@ class GEmploymentNotStartedSpec extends Specification {
       "whenExpectedToBePaidDate.year" -> whenExpectedToBePaidDateYear.toString,
       "howOften.frequency" -> other,
       "howOften.frequency.other" -> otherText,
-      "usuallyPaidSameAmount" -> yes,
-      "willYouPayIntoPension.answer" -> yes,
-      "willYouPayIntoPension.whatFor" -> willYouPayIntoPensionText,
-      "willYouPayForThings.answer" -> yes,
-      "willYouPayForThings.whatFor" -> willYouPayForThingsText,
-      "willCareCostsForThisWork.answer" -> yes,
-      "willCareCostsForThisWork.whatCosts" -> willCareCostsForThisWorkText,
-      "moreAboutChanges" -> moreInfo
+      "usuallyPaidSameAmount" -> yes
     )
 
     section("unit", models.domain.CircumstancesSelfEmployment.id)
@@ -108,27 +99,6 @@ class GEmploymentNotStartedSpec extends Specification {
         val result = GEmploymentNotStarted.submit(request)
         redirectLocation(result) must beSome(nextPageUrl)
       }
-    }
-
-    "handle gracefully when bad schema number passed to SchemaValidation getRestriction" in new WithApplication {
-      val schemaVersion = "BAD-SCHEMA"
-      schemaMaxLength(schemaVersion, employmentNoStartedPath) mustEqual -1
-    }
-
-    "pull maxlength from xml commons OK" in new WithApplication {
-      val schemaVersion = getStringProperty("xml.schema.version")
-      schemaVersion must not be "NOT-SET"
-      schemaMaxLength(schemaVersion, employmentNoStartedPath) mustEqual 3000
-    }
-
-    "have text maxlength set correctly in present()" in new WithBrowser {
-      browser.goTo(GEmploymentNotStartedPage.url)
-      val anythingElse = browser.$("#moreAboutChanges")
-      val countdown = browser.$("#moreAboutChanges + .countdown")
-
-      anythingElse.getAttribute("maxlength") mustEqual "3000"
-      countdown.getText must contain( "3000 char")
-      browser.pageSource must contain("maxChars:3000")
     }
   }
   section("unit", models.domain.CircumstancesSelfEmployment.id)

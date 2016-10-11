@@ -71,6 +71,10 @@ object Mappings {
     "frequency" -> text(maxLength = sixty),
     "frequency.other" -> optional(carersText(maxLength = sixty)))(PaymentFrequency.apply)(PaymentFrequency.unapply)
 
+  val paymentFrequencyNoCheck: Mapping[PaymentFrequency] = mapping(
+    "frequency" -> text,
+    "frequency.other" -> optional(text))(PaymentFrequency.apply)(PaymentFrequency.unapply)
+
   val mandatoryPaymentFrequency: Mapping[PaymentFrequency] = mapping(
     "frequency" -> nonEmptyText(maxLength = sixty),
     "frequency.other" -> optional(carersText(maxLength = sixty)))(PaymentFrequency.apply)(PaymentFrequency.unapply)
@@ -126,20 +130,20 @@ object Mappings {
 
   private def areAllDigits(x: String) = x forall Character.isDigit
 
-  def dateValidation(dmy: DayMonthYear): ValidationResult = Try(new DateTime(dmy.year.get, dmy.month.get, dmy.day.get, 0, 0)) match {
-    case Success(dt: DateTime) if dt.getYear > 9999 || dt.getYear < 999 => Invalid(ValidationError(errorInvalid))
-    case Success(dt: DateTime) if dt.getYear > 9999 || dt.getYear < 999 => Invalid(ValidationError(errorInvalid))
+  def dateValidation(dmy: DayMonthYear, field: String): ValidationResult = Try(new DateTime(dmy.year.get, dmy.month.get, dmy.day.get, 0, 0)) match {
+    case Success(dt: DateTime) if dt.getYear > 9999 || dt.getYear < 999 => Invalid(ValidationError(field))
+    case Success(dt: DateTime) if dt.getYear > 9999 || dt.getYear < 999 => Invalid(ValidationError(field))
     case Success(dt: DateTime) => Valid
-    case Failure(_) => Invalid(ValidationError(errorInvalid))
+    case Failure(_) => Invalid(ValidationError(field))
   }
 
   def validDate: Constraint[DayMonthYear] = Constraint[DayMonthYear](constraintRequired) {
     case DayMonthYear(None, None, None, _, _) => Invalid(ValidationError(errorRequired))
-    case dmy@DayMonthYear(_, _, _, _, _) => dateValidation(dmy)
+    case dmy@DayMonthYear(_, _, _, _, _) => dateValidation(dmy, errorInvalid)
   }
 
   def validDateOnly: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.validateDate") { dmy =>
-    dateValidation(dmy)
+    dateValidation(dmy, errorInvalid)
   }
 
   def validPostcode: Constraint[String] = Constraint[String]("constraint.postcode") { postcode =>
@@ -178,7 +182,7 @@ object Mappings {
     validCurrencyWithPattern(decimalPattern, decimal)
   }
 
-  private def validCurrencyWithPattern(decimalPattern:Regex, decimal: String):ValidationResult = {
+  def validCurrencyWithPattern(decimalPattern:Regex, decimal: String):ValidationResult = {
     if(decimal != null && !decimal.isEmpty) {
       decimalPattern.pattern.matcher(decimal).matches match {
         case true => Valid
@@ -311,6 +315,34 @@ object Mappings {
     case BreaksInCareGatherOptions.You => Valid
     case BreaksInCareGatherOptions.DP => Valid
     case _ => Invalid(ValidationError("whoWasAway.invalid"))
+  }
+
+  def checkValidFrequency(validString: String, fieldSize: Int, field: String): ValidationResult = {
+    if (validString.length > fieldSize) Invalid(ValidationError(s"$field.maxlength"))
+    else restrictedStringTextCheck(validString, s"$field.restricted.characters")
+  }
+
+  def restrictedStringTextCheck(restrictedString: String, field: String): ValidationResult = {
+    val restrictedStringPattern = RESTRICTED_CHARS.r
+    restrictedStringPattern.pattern.matcher(restrictedString).matches match {
+      case true => Valid
+      case false => Invalid(ValidationError(field))
+    }
+  }
+
+  def validYesNoWithField(yesNo: String, field: String): ValidationResult = {
+    yesNo match {
+      case `yes` => Valid
+      case `no` => Valid
+      case _ => Invalid(ValidationError(field))
+    }
+  }
+
+  def validateDateWithField(day: DayMonthYear, field: String): ValidationResult = {
+    day match {
+      case DayMonthYear(None, None, None, _, _) => Invalid(ValidationError(s"$field.date.required"))
+      case dmy@DayMonthYear(_, _, _, _, _) => dateValidation(dmy, s"$field.date.invalid")
+    }
   }
 
   def stopOnFirstFail[T](constraints: Constraint[T]*) = Constraint[T]("constraint.required") { field: T =>

@@ -1,6 +1,7 @@
 package utils.pageobjects.circumstances.report_changes
 
-import utils.pageobjects.{PageContext, CircumstancesPage, PageObjectsContext}
+import controllers.mappings.Mappings
+import utils.pageobjects.{TestData, PageContext, CircumstancesPage, PageObjectsContext}
 import utils.WithBrowser
 
 final class GStartedEmploymentAndOngoingPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, GStartedEmploymentAndOngoingPage.url) {
@@ -11,13 +12,6 @@ final class GStartedEmploymentAndOngoingPage(ctx:PageObjectsContext) extends Cir
   declareInput("#howOften_frequency_other", "CircumstancesEmploymentChangeHowOftenFrequencyOther")
   declareInput("#monthlyPayDay", "CircumstancesEmploymentChangeMonthlyPayDay")
   declareYesNo("#usuallyPaidSameAmount", "CircumstancesEmploymentChangeUsuallyPaidSameAmount")
-  declareYesNo("#doYouPayIntoPension_answer", "CircumstancesEmploymentChangeDoYouPayIntoPensionAnswer")
-  declareInput("#doYouPayIntoPension_whatFor", "CircumstancesEmploymentChangeDoYouPayIntoPensionWhatFor")
-  declareYesNo("#doYouPayForThings_answer", "CircumstancesEmploymentChangeDoYouPayForThingsAnswer")
-  declareInput("#doYouPayForThings_whatFor", "CircumstancesEmploymentChangeDoYouPayForThingsWhatFor")
-  declareYesNo("#doCareCostsForThisWork_answer", "CircumstancesEmploymentChangeDoCareCostsForThisWorkAnswer")
-  declareInput("#doCareCostsForThisWork_whatCosts", "CircumstancesEmploymentChangeDoCareCostsForThisWorkWhatCosts")
-  declareInput("#moreAboutChanges", "CircumstancesEmploymentChangeMoreAboutChanges")
 }
 
 /**
@@ -28,6 +22,17 @@ object GStartedEmploymentAndOngoingPage {
   val url  = "/circumstances/report-changes/employment-ongoing"
 
   def apply(ctx:PageObjectsContext) = new GStartedEmploymentAndOngoingPage(ctx)
+
+  def fillJobDetails(context: PageObjectsContext, f: => TestData => Unit) = {
+    val presentJobPage = GEmploymentChangePage.fillPresentJobDetails(context, testData => {})
+    val claimData = new TestData
+    claimData.CircumstancesEmploymentChangeBeenPaidYet = Mappings.yes
+    claimData.CircumstancesEmploymentChangeHowMuchPaid = "100"
+    claimData.CircumstancesEmploymentChangeWhatDatePaid = "01/01/2013"
+    claimData.CircumstancesEmploymentChangeHowOftenFrequency = "Weekly"
+    claimData.CircumstancesEmploymentChangeUsuallyPaidSameAmount = Mappings.yes
+    presentJobPage.fillPageWith(claimData).submitPage()
+  }
 }
 
 /** The context for Specs tests */

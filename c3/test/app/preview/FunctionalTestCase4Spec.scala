@@ -33,9 +33,9 @@ class FunctionalTestCase4Spec extends FunctionalTestCommon {
         "What's their relationship to you?"                               displays "AboutTheCareYouProvideWhatTheirRelationshipToYou",
         "Do you spend 35 hours or more each week providing care for Cloe watson?" displays "AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek",
         "Have you been on a course of education since your claim date?"   displays "EducationHaveYouBeenOnACourseOfEducation",
-        "Have you been employed at any time since"      displays "EmploymentHaveYouBeenEmployedAtAnyTime_0",
+        "Have you been an employee since"      displays "EmploymentHaveYouBeenEmployedAtAnyTime_0",
         "Jobs"                displays EmploymentDetailsTransformer("EmploymentEmployerName",1),
-        "Have you been self-employed at any time since" displays "EmploymentHaveYouBeenSelfEmployedAtAnyTime"
+        "Have you been self-employed since" displays "EmploymentHaveYouBeenSelfEmployedAtAnyTime"
       )
 
       toFindData.assertReview(claim, context) must beTrue

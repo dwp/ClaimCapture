@@ -16,7 +16,7 @@ object EvidenceList {
     </EvidenceList>
   }
 
-  def evidence(circs:Claim):NodeSeq = {
+  def evidence(circs: Claim): NodeSeq = {
     import xml.claim.EvidenceList._
 
     val isBreaksInCare = showBreaksInCaremessages(circs)
@@ -27,8 +27,8 @@ object EvidenceList {
 
     var nodes = NodeSeq.Empty
 
-    if(isEmployment1 || isEmployment2){
-      nodes ++=         {
+    if (isEmployment1 || isEmployment2) {
+      nodes ++= {
         isOriginGB match {
           case true => recipientAddress("address.send")
           case false => recipientAddressNI("address.send")
@@ -40,11 +40,11 @@ object EvidenceList {
 
     if (isEmail) nodes ++= evidenceTitle("email.circs.thankYou")
 
-    if(isBreaksInCare){
+    if (isBreaksInCare) {
       nodes ++= evidenceTitle("circs.thankyou.breakmessage.content.nohtml")
     }
 
-    if(isEmployment1 || isEmployment2){
+    if (isEmployment1 || isEmployment2) {
       nodes ++= evidenceTitle("circs.next.1")
 
       val commonMessages = Seq("address.details")
@@ -56,7 +56,7 @@ object EvidenceList {
       nodes ++= evidenceSection(true, "evidence.required", Seq("thankyou.send") ++ employment1 ++ employment2 ++ evidenceSendDocuments ++ commonMessages)
     } else {
       nodes ++= evidenceTitle("circs.next.nodocuments.1")
-      nodes ++= evidenceTitle(Seq("circs.next.nodocuments.2","thankyou.report.another.change.short"))
+      nodes ++= evidenceTitle(Seq("circs.next.nodocuments.2", "thankyou.report.another.change.short"))
     }
 
     nodes
@@ -74,7 +74,7 @@ object EvidenceList {
     val breaksIncare = circs.questionGroup[CircumstancesBreaksInCare].getOrElse(CircumstancesBreaksInCare())
     val outputRequired = breaksIncare.expectStartCaring.answer match {
       case Some(n) => n match {
-        case Mappings.yes => if(!breaksIncare.expectStartCaring.expectStartCaringDate.isDefined) true else false
+        case Mappings.yes => if (!breaksIncare.expectStartCaring.expectStartCaringDate.isDefined) true else false
         case Mappings.dontknow => true
         case _ => false
       }
@@ -84,22 +84,10 @@ object EvidenceList {
     outputRequired
   }
 
-  def showEmploymentPensionMessage(circs: Claim,message:String) = {
-    lazy val ongoingEmploymentOption = circs.questionGroup[CircumstancesStartedEmploymentAndOngoing]
-    lazy val finishedEmploymentOption = circs.questionGroup[CircumstancesStartedAndFinishedEmployment]
-    lazy val futureEmploymentOption = circs.questionGroup[CircumstancesEmploymentNotStarted]
-
-    val show =
-      if (ongoingEmploymentOption.isDefined)
-        ongoingEmploymentOption.get.payIntoPension.answer == yes
-      else if (finishedEmploymentOption.isDefined)
-        finishedEmploymentOption.get.payIntoPension.answer == yes
-      else if (futureEmploymentOption.isDefined)
-        futureEmploymentOption.get.payIntoPension.answer == yes
-      else false
-
-    show match {
-      case true => Seq(message)
+  def showEmploymentPensionMessage(circs: Claim, message: String) = {
+    lazy val pensionExpenses = circs.questionGroup[CircumstancesEmploymentPensionExpenses].getOrElse(CircumstancesEmploymentPensionExpenses())
+    pensionExpenses.payIntoPension.answer match {
+      case Mappings.yes => Seq(message)
       case _ => Seq.empty[String]
     }
   }

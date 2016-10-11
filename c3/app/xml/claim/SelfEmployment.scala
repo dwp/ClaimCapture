@@ -18,6 +18,7 @@ object SelfEmployment extends XMLComponent {
 
     if (employment.beenSelfEmployedSince1WeekBeforeClaim.toLowerCase == yes) {
       <SelfEmployment>
+        {question(<TypeOfWork/>, "typeOfWork", selfEmploymentDates.typeOfWork)}
         {question(<SelfEmployedNow/>, "stillSelfEmployed", selfEmploymentDates.stillSelfEmployed)}
         {question(<MoreThanYearAgo/>, "moreThanYearAgo", selfEmploymentDates.moreThanYearAgo)}
         {question(<DateStarted/>, "startThisWork", selfEmploymentDates.startThisWork)}
@@ -71,6 +72,7 @@ object SelfEmployment extends XMLComponent {
   private def createAboutSelfEmploymentWithJobDetailsFromXml(xml: NodeSeq) = {
     val selfEmployment = (xml \\ "SelfEmployment")
     models.domain.SelfEmploymentDates(
+      typeOfWork = (selfEmployment \ "TypeOfWork" \ "Answer").text,
       stillSelfEmployed = createYesNoText((selfEmployment \ "SelfEmployedNow" \ "Answer").text),
       moreThanYearAgo = createYesNoText((selfEmployment \ "MoreThanYearAgo" \ "Answer").text),
       startThisWork = createFormattedDateOptional((selfEmployment \ "DateStarted" \ "Answer").text),

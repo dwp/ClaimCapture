@@ -18,13 +18,13 @@ class PreviewPageEmploymentContentSpec extends Specification {
       val source = page.source
 
       source must contain("Your income")
-      source must contain("Have you been employed at any time since 10 April 2016?")
+      source must contain("Have you been an employee since 10 April 2016?")
       source must contain("Yes")
       source must contain("Jobs")
       source must contain("Tesco's")
       source must contain("From 01/01/2013 To 01/07/2013")
       source must contain("£600 every time including expenses")
-      source must contain("Have you been self-employed at any time since 3 October 2016?")
+      source must contain("Have you been self-employed since 3 October 2016?")
       source must contain("Started 11 September 2001")
       source must contain("Expenses included")
     }

@@ -13,31 +13,13 @@ import xml.claim.AssistedDecision
 class AssistedDecisionSpec extends Specification {
   // Do not reformat this xml it breaks the tests ... !!!
   val emptyAssistedDecisionNode = <AssistedDecision><Reason>None</Reason><RecommendedDecision>None,show table</RecommendedDecision></AssistedDecision>
+  lazy val defaultCheckCISDecisionNode = <AssistedDecision><Reason>Check CIS for benefits. Send Pro517 if relevant.</Reason><RecommendedDecision>Potential award,show table</RecommendedDecision></AssistedDecision>
 
   lazy val now = DateTime.now()
   lazy val yourDetails30yo = YourDetails(dateOfBirth = now.minusYears(30))
-  lazy val defaultAssistedDecisionReason = "Check CIS for benefits"
 
   section("unit")
   "Assisted section" should {
-    "Create an assisted decision section if care less than 35 hours" in new WithApplication {
-      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.no))
-      val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare))
-      val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain("Not caring 35 hours a week.")
-      (xml \\ "RecommendedDecision").text must contain("Potential disallowance decision")
-    }
-
-    "Default assisted decision if care more than 35 hours" in new WithApplication {
-      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
-      val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.no, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no))))
-      val benefits = Benefits(benefitsAnswer = Benefits.pip)
-      val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
-      val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(paymentsFromAbroad).update(benefits).update(yourCourseDetails))
-      val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain(defaultAssistedDecisionReason)
-    }
-
     "Create an assisted decision section if date of claim > 3 months and 1 day" in new WithApplication {
       val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
       val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.no, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no))))
@@ -46,8 +28,8 @@ class AssistedDecisionSpec extends Specification {
       val details = ClaimDate(DayMonthYear(now.plusMonths(3).plusDays(2)))
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(details).update(yourDetails30yo).update(moreAboutTheCare).update(paymentsFromAbroad).update(benefits).update(yourCourseDetails))
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain("Claim date over 3 months into future.")
-      (xml \\ "RecommendedDecision").text must contain("Potential disallowance decision")
+      (xml \\ "Reason").text mustEqual("Claim date over 3 months into future.")
+      (xml \\ "RecommendedDecision").text mustEqual("Potential disallowance decision,no table")
     }
 
     "Default assisted decision if date of claim <= 3 month and 1 day" in new WithApplication {
@@ -58,7 +40,25 @@ class AssistedDecisionSpec extends Specification {
       val details = ClaimDate(DayMonthYear(now.plusMonths(3)))
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(details).update(yourDetails30yo).update(moreAboutTheCare).update(paymentsFromAbroad).update(benefits).update(yourCourseDetails))
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain(defaultAssistedDecisionReason)
+      (xml \\ "AssistedDecision") (0) mustEqual(defaultCheckCISDecisionNode)
+    }
+
+    "Create an assisted decision section if care less than 35 hours" in new WithApplication {
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.no))
+      val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare))
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "Reason").text mustEqual("Not caring 35 hours a week.")
+      (xml \\ "RecommendedDecision").text mustEqual("Potential disallowance decision,no table")
+    }
+
+    "Default assisted decision if care more than 35 hours" in new WithApplication {
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
+      val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.no, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no))))
+      val benefits = Benefits(benefitsAnswer = Benefits.pip)
+      val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
+      val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(paymentsFromAbroad).update(benefits).update(yourCourseDetails))
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "AssistedDecision") (0) mustEqual(defaultCheckCISDecisionNode)
     }
 
     "Create an assisted decision section if no EEA and no benefits" in new WithApplication {
@@ -68,8 +68,8 @@ class AssistedDecisionSpec extends Specification {
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(paymentsFromAbroad).update(benefits).update(yourCourseDetails))
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain("DP on No QB. Check CIS.")
-      (xml \\ "RecommendedDecision").text must contain("Potential disallowance decision")
+      (xml \\ "Reason").text mustEqual("DP on No QB. Check CIS.")
+      (xml \\ "RecommendedDecision").text mustEqual("Potential disallowance decision,show table")
     }
 
     "Create an assisted decision section if no EEA and AFIP" in new WithApplication {
@@ -79,8 +79,8 @@ class AssistedDecisionSpec extends Specification {
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(paymentsFromAbroad).update(benefits).update(yourCourseDetails))
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain("Assign to AFIP officer on CAMLite workflow.")
-      (xml \\ "RecommendedDecision").text must contain("None")
+      (xml \\ "Reason").text mustEqual("Assign to AFIP officer on CAMLite workflow.")
+      (xml \\ "RecommendedDecision").text mustEqual("None,show table")
     }
 
     "Create an assisted decision section if EEA insurance or working 1" in new WithApplication {
@@ -90,8 +90,8 @@ class AssistedDecisionSpec extends Specification {
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(paymentsFromAbroad).update(benefits).update(yourCourseDetails))
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain("Assign to AFIP officer on CAMLite workflow.")
-      (xml \\ "RecommendedDecision").text must contain("None")
+      (xml \\ "Reason").text mustEqual("Assign to AFIP officer on CAMLite workflow.")
+      (xml \\ "RecommendedDecision").text mustEqual("None,show table")
     }
 
     "Create an assisted decision section if EEA insurance or working 2" in new WithApplication {
@@ -101,8 +101,8 @@ class AssistedDecisionSpec extends Specification {
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(paymentsFromAbroad).update(benefits).update(yourCourseDetails))
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain("Assign to AFIP officer on CAMLite workflow.")
-      (xml \\ "RecommendedDecision").text must contain("None")
+      (xml \\ "Reason").text mustEqual("Assign to AFIP officer on CAMLite workflow.")
+      (xml \\ "RecommendedDecision").text mustEqual("None,show table")
     }
 
     "Create an assisted decision section if EEA insurance or working 3" in new WithApplication {
@@ -112,8 +112,8 @@ class AssistedDecisionSpec extends Specification {
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(paymentsFromAbroad).update(benefits).update(yourCourseDetails))
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain("Assign to AFIP officer on CAMLite workflow.")
-      (xml \\ "RecommendedDecision").text must contain("None")
+      (xml \\ "Reason").text mustEqual("Assign to AFIP officer on CAMLite workflow.")
+      (xml \\ "RecommendedDecision").text mustEqual("None,show table")
     }
 
     "Default assisted decision if no EEA insurance or working" in new WithApplication {
@@ -123,7 +123,7 @@ class AssistedDecisionSpec extends Specification {
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(paymentsFromAbroad).update(benefits).update(yourCourseDetails))
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain(defaultAssistedDecisionReason)
+      (xml \\ "AssistedDecision") (0) mustEqual(defaultCheckCISDecisionNode)
     }
 
     "Create an assisted decision section if no EEA and in education" in new WithApplication {
@@ -133,8 +133,8 @@ class AssistedDecisionSpec extends Specification {
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.yes)
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(paymentsFromAbroad).update(benefits).update(yourCourseDetails))
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain("Send DS790/790B COMB to customer.")
-      (xml \\ "RecommendedDecision").text must contain("None")
+      (xml \\ "Reason").text mustEqual("Send DS790/790B COMB to customer.")
+      (xml \\ "RecommendedDecision").text mustEqual("None,show table")
     }
 
     "Create an assisted decision section if no EEA but yes to EEA guard question and in education" in new WithApplication {
@@ -144,8 +144,8 @@ class AssistedDecisionSpec extends Specification {
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.yes)
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(paymentsFromAbroad).update(benefits).update(yourCourseDetails))
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain("Send DS790/790B COMB to customer.")
-      (xml \\ "RecommendedDecision").text must contain("None")
+      (xml \\ "Reason").text mustEqual("Send DS790/790B COMB to customer.")
+      (xml \\ "RecommendedDecision").text mustEqual("None,show table")
     }
 
     "Default assisted decision if no EEA and not in education" in new WithApplication {
@@ -155,10 +155,10 @@ class AssistedDecisionSpec extends Specification {
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(paymentsFromAbroad).update(benefits).update(yourCourseDetails))
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain(defaultAssistedDecisionReason)
+      (xml \\ "AssistedDecision") (0) mustEqual(defaultCheckCISDecisionNode)
     }
 
-    "Create an exportability assisted decision section for british never lived in UK" in new WithApplication {
+    "never lived in UK then create an exportability assisted decision section " in new WithApplication {
       val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
       val nationality = NationalityAndResidency("British", None, alwaysLivedInUK = "no", liveInUKNow = Some("no"), None, None, None, "no", None)
       val breaksInCare = BreaksInCare()
@@ -170,11 +170,11 @@ class AssistedDecisionSpec extends Specification {
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(nationality).update(breaksInCare).update(employment).update(paymentsFromAbroad).update(howWePayYou).update(benefits).update(additionalInfo).update(yourCourseDetails))
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain("Assign to Exportability in CAMLite workflow.")
-      (xml \\ "RecommendedDecision").text must contain("None")
+      (xml \\ "Reason").text mustEqual("Assign to Exportability in CAMLite workflow.")
+      (xml \\ "RecommendedDecision").text mustEqual("None,show table")
     }
 
-    "Create an exportability assisted decision section for british lived in UK less than 3 years" in new WithApplication {
+    "lived in UK less than 3 years then create an exportability assisted decision section " in new WithApplication {
       val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
       val nationality = NationalityAndResidency("British", None, alwaysLivedInUK = "no", liveInUKNow = Some("yes"), arrivedInUK = Some("less"), None, None, "no", None)
       val breaksInCare = BreaksInCare()
@@ -186,11 +186,18 @@ class AssistedDecisionSpec extends Specification {
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(nationality).update(breaksInCare).update(employment).update(paymentsFromAbroad).update(howWePayYou).update(benefits).update(additionalInfo).update(yourCourseDetails))
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain("Assign to Exportability in CAMLite workflow.")
-      (xml \\ "RecommendedDecision").text must contain("None")
+      (xml \\ "Reason").text mustEqual("Assign to Exportability in CAMLite workflow.")
+      (xml \\ "RecommendedDecision").text mustEqual("None,show table")
     }
 
-    // "Blank assisted decision section for none British lived in UK more than 3 years" ....  in BlankDecisions tests
+    "Lived in UK more than 3 years no workflow so drops through to default" in new WithApplication {
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
+      val nationality = NationalityAndResidency("Somali", None, alwaysLivedInUK = "no", liveInUKNow = Some("yes"), arrivedInUK = Some("more"), None, None, "no", None)
+      val additionalInfo = AdditionalInfo(anythingElse = YesNoWithText(Mappings.no))
+      val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(nationality).update(additionalInfo))
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "AssistedDecision") (0) mustEqual(defaultCheckCISDecisionNode)
+    }
 
     "Simplest claim (happy path no income breaks addinfo etc.) creates CIS decision" in new WithApplication {
       val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
@@ -214,8 +221,7 @@ class AssistedDecisionSpec extends Specification {
         .update(yourCourseDetails)
       )
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text must contain("Check CIS for benefits")
-      (xml \\ "RecommendedDecision").text must contain("Potential award,show table")
+      (xml \\ "AssistedDecision") (0) mustEqual(defaultCheckCISDecisionNode)
     }
   }
   section("unit")

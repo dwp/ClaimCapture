@@ -91,7 +91,6 @@ object AssistedDecision extends XMLComponent {
     (residency.alwaysLivedInUK, residency.liveInUKNow, residency.arrivedInUK) match {
       case ("no", Some("no"), _) => decisionModel("Assign to Exportability in CAMLite workflow.", "None,show table")
       case ("no", _, Some("less")) => decisionModel("Assign to Exportability in CAMLite workflow.", "None,show table")
-      case ("no", _, Some("more")) => blankDecisionShowTable
       case _ => noDecisionSoFar
     }
   }
@@ -159,7 +158,7 @@ object AssistedDecision extends XMLComponent {
 
   private def isTooOld(claim: Claim): AssistedDecisionDetails = {
     if (lessThan65YearsOldAtClaimDate(claim)) noDecisionSoFar
-    else decisionModel("Check CIS for benefits. Send Pro517 if relevant.", "Potential underlying entitlement")
+    else decisionModel("Check CIS for benefits. Send Pro517 if relevant.", "Potential underlying entitlement,show table")
   }
 
   private def defaultDecision(claim: Claim): AssistedDecisionDetails = {

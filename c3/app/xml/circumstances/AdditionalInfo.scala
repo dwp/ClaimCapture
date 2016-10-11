@@ -32,15 +32,7 @@ object AdditionalInfo {
         employmentChangesOptions.get.typeOfWork.text2b.getOrElse("")
       }
       else {
-        if (circs.questionGroup[CircumstancesStartedEmploymentAndOngoing].isDefined) {
-          circs.questionGroup[CircumstancesStartedEmploymentAndOngoing].get.moreAboutChanges.getOrElse("")
-        }
-        else if (circs.questionGroup[CircumstancesStartedAndFinishedEmployment].isDefined) {
-          circs.questionGroup[CircumstancesStartedAndFinishedEmployment].get.moreAboutChanges.getOrElse("")
-        }
-        else if (circs.questionGroup[CircumstancesEmploymentNotStarted].isDefined) {
-          circs.questionGroup[CircumstancesEmploymentNotStarted].get.moreAboutChanges.getOrElse("")
-        }
+        circs.questionGroup[CircumstancesEmploymentPensionExpenses].get.moreAboutChanges.getOrElse("")
       }
     }
   }
