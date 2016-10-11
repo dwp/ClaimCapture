@@ -5,9 +5,10 @@
 @import app.ConfigProperties._
 @import models.domain.TheirPersonalDetails
 
-@gaTrack(key: String, errorMessage: String)  = @{
+@gaTrack(errorLabel: String, errorMessage: String)  = @{
     if (getBooleanProperty("analytics.enabled")) {
-        trackEvent(request.path, "Error", Some(s"${stripDpname(trimDate(key))} - $errorMessage"))
+        val cleaned=removeHtml(replaceDate(errorLabel))
+        trackEvent(request.path, "Error", Some(s"${stripDpname(cleaned)} - ${removeHtml(errorMessage)}"))
     } else {
         ""
     }
@@ -29,13 +30,6 @@
         key.replace(dpname, "@dpname")
     else
         key
-}
-
-@trimDate(key: String) = @{
-    val result = ".*\\b(before \\d+|after \\d+|since \\d+|ers \\d+|cyn \\d+)\\b".r.findFirstMatchIn(key)
-    if (result.isDefined) {
-        key.substring(0, result.get.end(0) - 2) + "?"
-    } else key
 }
 
 @getMessageKey(key: String ) = @{
