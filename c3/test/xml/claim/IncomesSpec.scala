@@ -17,7 +17,7 @@ class IncomesSpec extends Specification {
       // SE, EMP, SICK, PATMATADOP, FOST, DP, OTHER
       val incomeHeader = new YourIncomes("Yes", "Yes", Some("true"), Some("true"), Some("true"), Some("true"), Some("true"), Some("true"))
       val xml = Incomes.xml(claim + claimDate + incomeHeader)
-      (xml \\ "Incomes" \\ "Employed" \\ "QuestionLabel").text must contain("been employed")
+      (xml \\ "Incomes" \\ "Employed" \\ "QuestionLabel").text must contain("been an employee")
       (xml \\ "Incomes" \\ "Employed" \\ "Answer").text shouldEqual "Yes"
 
       (xml \\ "Incomes" \\ "SelfEmployed" \\ "QuestionLabel").text must contain("been self-employed")
@@ -55,7 +55,7 @@ class IncomesSpec extends Specification {
       val incomeHeader = new YourIncomes("No", "No", None, None, None, None, None, None, Some("true"))
       val xml = Incomes.xml(claim + claimDate + incomeHeader)
 
-      (xml \\ "Incomes" \\ "Employed" \\ "QuestionLabel").text must contain("been employed")
+      (xml \\ "Incomes" \\ "Employed" \\ "QuestionLabel").text must contain("been an employee")
       (xml \\ "Incomes" \\ "Employed" \\ "Answer").text shouldEqual "No"
 
       (xml \\ "Incomes" \\ "SelfEmployed" \\ "QuestionLabel").text must contain("been self-employed")
