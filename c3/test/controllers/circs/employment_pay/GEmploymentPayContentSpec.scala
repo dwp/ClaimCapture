@@ -71,6 +71,30 @@ class GEmploymentPayContentSpec extends Specification {
       page.ctx.browser.click("#employerOwesYouMoney_yes")
       page.ctx.browser.find("#employerOwesYouMoneyInfo_questionLabel").getText mustEqual ("Tell us what this is for and how much")
     }
+
+    "contain correct labels for future employment when know-how-pay=YES" in new WithJsBrowser with PageObjects {
+      val page = GEmploymentChangePage.fillFutureJobDetails(context, testData => {})
+      page must beAnInstanceOf[GEmploymentNotStartedPage]
+
+      page.ctx.browser.find("#beenPaidYet_questionLabel").getText mustEqual ("Do you know how much you will be paid?")
+      page.ctx.browser.click("#beenPaidYet_yes")
+      println(page.source)
+      page.ctx.browser.find("#howMuchPaid_questionLabel").getText mustEqual ("How much will you be paid before tax or other deductions?")
+      page.ctx.browser.find("#whenExpectedToBePaidDate_questionLabel").getText mustEqual ("What date do you expect to receive your first pay?")
+      page.ctx.browser.find("#howOften_frequency_questionLabel").getText mustEqual ("How often will you be paid?")
+    }
+
+    "contain correct labels for future employment when know-how-pay=NO" in new WithJsBrowser with PageObjects {
+      val page = GEmploymentChangePage.fillFutureJobDetails(context, testData => {})
+      page must beAnInstanceOf[GEmploymentNotStartedPage]
+
+      page.ctx.browser.find("#beenPaidYet_questionLabel").getText mustEqual ("Do you know how much you will be paid?")
+      page.ctx.browser.click("#beenPaidYet_no")
+      println(page.source)
+      page.ctx.browser.find("#howMuchPaid_questionLabel").getText mustEqual ("")
+      page.ctx.browser.find("#whenExpectedToBePaidDate_questionLabel").getText mustEqual ("")
+      page.ctx.browser.find("#howOften_frequency_questionLabel").getText mustEqual ("")
+    }
   }
   section("unit", models.domain.CircumstancesSelfEmployment.id)
 }
