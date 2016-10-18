@@ -1,6 +1,6 @@
 package controllers.circs.employment_pay
 
-import controllers.circs.report_changes.{GEmploymentPay, GEmploymentPensionExpenses}
+import controllers.circs.report_changes.{GEmploymentPensionExpenses}
 import models.domain.MockForm
 import models.view.CachedChangeOfCircs
 import org.specs2.mutable._
@@ -13,11 +13,13 @@ import utils.{WithApplication, WithJsBrowser}
 class GEmploymentPayContentSpec extends Specification {
   section("unit", models.domain.CircumstancesSelfEmployment.id)
   "Circs Employment Pay page " should {
+    /*
     "present page correctly" in new WithApplication with MockForm {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
       val result = GEmploymentPay.present(request)
       status(result) mustEqual OK
     }
+    */
 
     "contain correct labels for present ongoing employment when been-paid=YES" in new WithJsBrowser with PageObjects {
       val page = GEmploymentChangePage.fillPresentJobDetails(context, testData => {})
