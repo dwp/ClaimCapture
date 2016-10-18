@@ -10,20 +10,13 @@
 @import play.api.Play
 @import utils.CommonValidation
 @import views.html.circs.start_of_process.main
-
     @main(messages("c1") + " - " + messages("c2.longName"), Some(reportAChangeForm), back = true) {
-
         @form(action = controllers.circs.your_details.routes.GYourDetails.submit) {
             @DwpCSRFFormHelper.formField
-
             <div class="form-wrap">
-
                 <fieldset class="form-elements" data-journey="carers-allowance:report-change:identification">
-
                     <legend class="form-label-bold heading-medium">@Html(messages("c1.yourDetails"))</legend>
-
                     <p>@Html(messages("c1.helper"))</p>
-
                     <ul>
                         @carersInputText(reportAChangeForm("fullName"), 'maxLength -> CommonValidation.FULL_NAME_MAX_LENGTH)
 
@@ -35,25 +28,10 @@
 
                         @dateOfBirth(reportAChangeForm("dateOfBirth"))
                     </ul>
-
                 </fieldset>
 
                 <fieldset class="form-elements">
-
-                    <legend class="form-label-bold heading-medium">@Html(messages("c1.personYouAreCaringFor"))</legend>
-
-                    <ul>
-                        @carersInputText(reportAChangeForm("theirFullName"), 'maxLength -> CommonValidation.FULL_NAME_MAX_LENGTH)
-
-                        @carersInputText(reportAChangeForm("theirRelationshipToYou"), 'helperAbove -> messages("theirRelationshipToYou.helper"), 'maxLength -> 35)
-                    </ul>
-
-                </fieldset>
-
-                <fieldset class="form-elements">
-
                     <legend class="form-label-bold heading-medium">@Html(messages("c3.g2"))</legend>
-
                     <ul>
                         @carersInputTel(reportAChangeForm("furtherInfoContact"),'ignoreOptional -> true, 'maxLength -> CommonValidation.PHONE_NUMBER_MAX_LENGTH)
 
@@ -69,7 +47,14 @@
                             )
                         }
                     </ul>
+                </fieldset>
 
+                <fieldset class="form-elements">
+                    <legend class="form-label-bold heading-medium">@Html(messages("c1.personYouAreCaringFor"))</legend>
+                    <ul>
+                        @carersInputText(reportAChangeForm("theirFullName"), 'maxLength -> CommonValidation.FULL_NAME_MAX_LENGTH)
+                        @carersInputText(reportAChangeForm("theirRelationshipToYou"), 'helperAbove -> messages("theirRelationshipToYou.helper"), 'maxLength -> 35)
+                    </ul>
                 </fieldset>
                 @views.html.common.bottomNavigation()
             </div>
@@ -95,4 +80,3 @@
             });
         </script>
     }
-
