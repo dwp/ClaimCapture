@@ -26,13 +26,14 @@ class EmploymentPaySpec extends Specification {
         typeOfWork = YesNoWithAddressAnd2TextOrTextWithYesNoAndText("employed", None, None, None, None),
         paidMoneyYet = OptYesNoWithDate(None, None)
       )
-      val circsOngoing = CircumstancesStartedEmploymentAndOngoing(
-        beenPaid = Mappings.yes,
-        howMuchPaid = "550",
-        date = DayMonthYear(1, 2, 2016),
+
+      val circsOngoing = CircumstancesEmploymentPay(
+        paid = Some(Mappings.yes),
+        howMuch = Some("550"),
+        payDate = Some(DayMonthYear(1, 2, 2016)),
         howOften = PaymentFrequency("Weekly", None),
         monthlyPayDay = None,
-        usuallyPaidSameAmount = Some(Mappings.yes)
+        sameAmount = Some(Mappings.yes)
       )
 
       val claim = Claim(CachedChangeOfCircs.key).update(circsemployment).update(circsOngoing).update(circsPension)
@@ -61,13 +62,13 @@ class EmploymentPaySpec extends Specification {
         typeOfWork = YesNoWithAddressAnd2TextOrTextWithYesNoAndText("employed", None, None, None, None),
         paidMoneyYet = OptYesNoWithDate(None, None)
       )
-      val circsOngoing = CircumstancesStartedEmploymentAndOngoing(
-        beenPaid = Mappings.no,
-        howMuchPaid = "300",
-        date = DayMonthYear(31, 12, 2030),
+      val circsOngoing = CircumstancesEmploymentPay(
+        paid = Some(Mappings.no),
+        howMuch = Some("300"),
+        payDate = Some(DayMonthYear(31, 12, 2030)),
         howOften = PaymentFrequency("Weekly", None),
         monthlyPayDay = None,
-        usuallyPaidSameAmount = Some(Mappings.yes)
+        sameAmount = Some(Mappings.yes)
       )
 
       val claim = Claim(CachedChangeOfCircs.key).update(circsemployment).update(circsOngoing).update(circsPension)
@@ -97,15 +98,15 @@ class EmploymentPaySpec extends Specification {
         typeOfWork = YesNoWithAddressAnd2TextOrTextWithYesNoAndText("employed", None, None, None, None),
         paidMoneyYet = OptYesNoWithDate(None, None)
       )
-      val circsPast = CircumstancesStartedAndFinishedEmployment(
-        beenPaid = Mappings.yes,
-        howMuchPaid = "600",
-        dateLastPaid = DayMonthYear(1, 3, 2016),
+      val circsPast = CircumstancesEmploymentPay(
+        paid = Some(Mappings.yes),
+        howMuch = Some("600"),
+        payDate = Some(DayMonthYear(1, 3, 2016)),
         whatWasIncluded = Some("included bonus money"),
         howOften = PaymentFrequency("Weekly", None),
         monthlyPayDay = None,
-        usuallyPaidSameAmount = Some(Mappings.yes),
-        employerOwesYouMoney = Mappings.no,
+        sameAmount = Some(Mappings.yes),
+        employerOwesYouMoney = Some(Mappings.no),
         employerOwesYouMoneyInfo = None
       )
 
@@ -120,7 +121,7 @@ class EmploymentPaySpec extends Specification {
       (xml \\ "PaymentDate" \\ "QuestionLabel").text mustEqual ("What date did you receive your last pay?")
       (xml \\ "PaymentDate" \\ "Answer").text mustEqual ("01-03-2016")
 
-      (xml \\ "WhatWasIncluded" \\ "QuestionLabel").text mustEqual ("What was included in this pay?")
+      (xml \\ "WhatWasIncluded" \\ "QuestionLabel").text mustEqual ("What was included in this pay? (optional)")
       (xml \\ "WhatWasIncluded" \\ "Answer").text mustEqual ("included bonus money")
     }
 
@@ -132,15 +133,15 @@ class EmploymentPaySpec extends Specification {
         typeOfWork = YesNoWithAddressAnd2TextOrTextWithYesNoAndText("employed", None, None, None, None),
         paidMoneyYet = OptYesNoWithDate(None, None)
       )
-      val circsPast = CircumstancesStartedAndFinishedEmployment(
-        beenPaid = Mappings.no,
-        howMuchPaid = "600",
-        dateLastPaid = DayMonthYear(1, 3, 2016),
+      val circsPast = CircumstancesEmploymentPay(
+        paid = Some(Mappings.no),
+        howMuch = Some("600"),
+        payDate = Some(DayMonthYear(1, 3, 2016)),
         whatWasIncluded = Some("money owed"),
         howOften = PaymentFrequency("Weekly", None),
         monthlyPayDay = None,
-        usuallyPaidSameAmount = Some(Mappings.yes),
-        employerOwesYouMoney = Mappings.no,
+        sameAmount = Some(Mappings.yes),
+        employerOwesYouMoney = Some(Mappings.no),
         employerOwesYouMoneyInfo = None
       )
 
@@ -155,7 +156,7 @@ class EmploymentPaySpec extends Specification {
       (xml \\ "PaymentDate" \\ "QuestionLabel").text mustEqual ("What date do you expect to be paid?")
       (xml \\ "PaymentDate" \\ "Answer").text mustEqual ("01-03-2016")
 
-      (xml \\ "WhatWasIncluded" \\ "QuestionLabel").text mustEqual ("What do you expect to be included in this pay?")
+      (xml \\ "WhatWasIncluded" \\ "QuestionLabel").text mustEqual ("What do you expect to be included in this pay? (optional)")
       (xml \\ "WhatWasIncluded" \\ "Answer").text mustEqual ("money owed")
     }
 
@@ -167,12 +168,12 @@ class EmploymentPaySpec extends Specification {
         typeOfWork = YesNoWithAddressAnd2TextOrTextWithYesNoAndText("employed", None, None, None, None),
         paidMoneyYet = OptYesNoWithDate(None, None)
       )
-      val circsFuture = CircumstancesEmploymentNotStarted(
-        beenPaid = Mappings.yes,
-        howMuchPaid = Some("200"),
-        whenExpectedToBePaidDate = Some(DayMonthYear(1, 6, 2020)),
+      val circsFuture = CircumstancesEmploymentPay(
+        paid = Some(Mappings.yes),
+        howMuch = Some("200"),
+        payDate = Some(DayMonthYear(1, 6, 2020)),
         howOften = PaymentFrequency("Weekly", None),
-        usuallyPaidSameAmount = Some(Mappings.no)
+        sameAmount = Some(Mappings.no)
       )
 
       val claim = Claim(CachedChangeOfCircs.key).update(circsemployment).update(circsFuture).update(circsPension)
@@ -201,12 +202,12 @@ class EmploymentPaySpec extends Specification {
         typeOfWork = YesNoWithAddressAnd2TextOrTextWithYesNoAndText("employed", None, None, None, None),
         paidMoneyYet = OptYesNoWithDate(None, None)
       )
-      val circsFuture = CircumstancesEmploymentNotStarted(
-        beenPaid = Mappings.no,
-        howMuchPaid = None,
-        whenExpectedToBePaidDate = None,
+      val circsFuture = CircumstancesEmploymentPay(
+        paid = Some(Mappings.no),
+        howMuch = None,
+        payDate = None,
         howOften = PaymentFrequency("Weekly", None),
-        usuallyPaidSameAmount = None
+        sameAmount = None
       )
 
       val claim = Claim(CachedChangeOfCircs.key).update(circsemployment).update(circsFuture).update(circsPension)

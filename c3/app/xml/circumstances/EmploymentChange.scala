@@ -60,22 +60,22 @@ object EmploymentChange {
     var buff = NodeSeq.Empty
     val pensionExpenses=circs.questionGroup[CircumstancesEmploymentPensionExpenses].getOrElse(CircumstancesEmploymentPensionExpenses())
     buff = buff ++ {
-      circs.questionGroup[CircumstancesStartedEmploymentAndOngoing] match {
-        case Some(change) => startedEmploymentAndOngoingChange(circsEmploymentChange, change, pensionExpenses)
+      circs.questionGroup[CircumstancesEmploymentPay] match {
+        case Some(change) => presentEmploymentChange(circsEmploymentChange, change, pensionExpenses)
         case _ => NodeSeq.Empty
       }
     }
 
     buff = buff ++ {
-      circs.questionGroup[CircumstancesStartedAndFinishedEmployment] match {
-        case Some(change) => startedAndFinishedEmploymentChange(circsEmploymentChange, change, pensionExpenses)
+      circs.questionGroup[CircumstancesEmploymentPay] match {
+        case Some(change) => pastEmploymentChange(circsEmploymentChange, change, pensionExpenses)
         case _ => NodeSeq.Empty
       }
     }
 
     buff = buff ++ {
-      circs.questionGroup[CircumstancesEmploymentNotStarted] match {
-        case Some(change) => employmentNotStartedChange(circsEmploymentChange, change, pensionExpenses)
+      circs.questionGroup[CircumstancesEmploymentPay] match {
+        case Some(change) => futureEmploymentChange(circsEmploymentChange, change, pensionExpenses)
         case _ => NodeSeq.Empty
       }
     }
@@ -98,7 +98,7 @@ object EmploymentChange {
     </SelfEmployment>
   }
 
-  def startedEmploymentAndOngoingChange(circsEmploymentChange: CircumstancesEmploymentChange, change: CircumstancesStartedEmploymentAndOngoing, pensionAndExpenses: CircumstancesEmploymentPensionExpenses): NodeSeq = {
+  def presentEmploymentChange(circsEmploymentChange: CircumstancesEmploymentChange, change: CircumstancesEmploymentPay, pensionAndExpenses: CircumstancesEmploymentPensionExpenses): NodeSeq = {
    <StartedEmploymentAndOngoing>
       {question(<EmployerName/>, "typeOfWork.employerName", circsEmploymentChange.typeOfWork.employerName)}
 
@@ -108,68 +108,68 @@ object EmploymentChange {
 
       {question(<EmployerPayroll/>, "typeOfWork.employerPayroll", circsEmploymentChange.typeOfWork.text1b)}
 
-      {question(<BeenPaidYet/>, "beenPaidYet", change.beenPaid)}
+      {question(<BeenPaidYet/>, "paid.present", change.paid)}
 
       {
-        change.beenPaid match {
-          case "yes" => {
+        change.paid match {
+          case Some("yes") => {
             var buff = NodeSeq.Empty
-            buff = buff ++ {question(<HowMuchPaid/>, "howMuchPaid", currencyAmount(change.howMuchPaid))}
-            buff = buff ++ {question(<PaymentDate/>, "whatDatePaid", change.date)}
+            buff = buff ++ {question(<HowMuchPaid/>, "howmuch.present", currencyAmount(change.howMuch.getOrElse("0")))}
+            buff = buff ++ {question(<PaymentDate/>, "paydate.present", change.payDate)}
             buff
           }
-          case "no" => {
+          case Some("no") => {
             var buff = NodeSeq.Empty
-            buff = buff ++ {question(<HowMuchPaid/>, "howMuchPaid.expect", currencyAmount(change.howMuchPaid))}
-            buff = buff ++ {question(<PaymentDate/>, "whatDatePaid.expect", change.date)}
+            buff = buff ++ {question(<HowMuchPaid/>, "howmuch.expect.present", currencyAmount(change.howMuch.getOrElse("0")))}
+            buff = buff ++ {question(<PaymentDate/>, "paydate.expect.present", change.payDate)}
             buff
           }
           case _ => NodeSeq.Empty
         }
       }
-      {question(<MonthlyPayDay/>, "monthlyPayDay", change.monthlyPayDay)}
+      {question(<MonthlyPayDay/>, "monthlyPayDay.present", change.monthlyPayDay)}
 
       <PayFrequency>
         {
-          change.beenPaid match {
-            case "yes" => questionOther(<Frequency/>, "circs.howOften", change.howOften.frequency, change.howOften.other)
-            case "no" => questionOther(<Frequency/>, "circs.howOften.expect", change.howOften.frequency, change.howOften.other)
+          change.paid match {
+            case Some("yes") => questionOther(<Frequency/>, "howOften.present", change.howOften.frequency, change.howOften.other)
+            case Some("no") => questionOther(<Frequency/>, "howOften.expect.present", change.howOften.frequency, change.howOften.other)
             case _ => NodeSeq.Empty
           }
         }
       </PayFrequency>
 
       {
-      val labelToUse = change.beenPaid match {
-          case "yes" => {
+      val labelToUse = change.paid match {
+          case Some("yes") => {
             change.howOften.frequency match {
-              case "Weekly" => "usuallyPaidSameAmount.week"
-              case "Fortnightly" => "usuallyPaidSameAmount.fortnight"
-              case "Four-Weekly" => "usuallyPaidSameAmount.fourweekly"
-              case "Monthly" => "usuallyPaidSameAmount.month"
-              case _ => "usuallyPaidSameAmount.other"
+              case "Weekly" => "sameAmount.weekly.present"
+              case "Fortnightly" => "sameAmount.fortnightly.present"
+              case "Four-Weekly" => "sameAmount.fourweekly.present"
+              case "Monthly" => "sameAmount.monthly.present"
+              case _ => "sameAmount.other.present"
             }
           }
           case _ => {
             change.howOften.frequency match {
-              case "Weekly" => "usuallyPaidSameAmount.week.expect"
-              case "Fortnightly" => "usuallyPaidSameAmount.fortnight.expect"
-              case "Four-Weekly" => "usuallyPaidSameAmount.fourweekly.expect"
-              case "Monthly" => "usuallyPaidSameAmount.month.expect"
-              case _ => "usuallyPaidSameAmount.other.expect"
+              case "Weekly" => "sameAmount.weekly.expect.present"
+              case "Fortnightly" => "sameAmount.fortnightly.expect.present"
+              case "Four-Weekly" => "sameAmount.fourweekly.expect.present"
+              case "Monthly" => "sameAmount.monthly.expect.present"
+              case _ => "sameAmount.other.expect.present"
             }
           }
         }
 
         {
-          question(<UsuallyPaidSameAmount/>, labelToUse, change.usuallyPaidSameAmount)
+          question(<UsuallyPaidSameAmount/>, labelToUse, change.sameAmount)
         }
       }
      {pensionAndExpensesXml(circsEmploymentChange, pensionAndExpenses)}
     </StartedEmploymentAndOngoing>
   }
 
-  def startedAndFinishedEmploymentChange(circsEmploymentChange: CircumstancesEmploymentChange, change: CircumstancesStartedAndFinishedEmployment, pensionAndExpenses: CircumstancesEmploymentPensionExpenses): NodeSeq = {
+  def pastEmploymentChange(circsEmploymentChange: CircumstancesEmploymentChange, change: CircumstancesEmploymentPay, pensionAndExpenses: CircumstancesEmploymentPensionExpenses): NodeSeq = {
     <StartedEmploymentAndFinished>
       {question(<EmployerName/>, "typeOfWork.employerName", circsEmploymentChange.typeOfWork.employerName)}
 
@@ -179,21 +179,21 @@ object EmploymentChange {
 
       {question(<EmployerPayroll/>, "typeOfWork.employerPayroll", circsEmploymentChange.typeOfWork.text1b)}
 
-      {question(<BeenPaidYet/>, "beenPaidYet.have", change.beenPaid)}
+      {question(<BeenPaidYet/>, "paid.past", change.paid)}
 
       {
-        change.beenPaid match {
-          case "yes" => {
+        change.paid match {
+          case Some("yes") => {
             var buff = NodeSeq.Empty
-            buff = buff ++ {question(<HowMuchPaid/>, "howMuchPaid.have", currencyAmount(change.howMuchPaid))}
-            buff = buff ++ {question(<PaymentDate/>, "dateLastPaid", change.dateLastPaid)}
+            buff = buff ++ {question(<HowMuchPaid/>, "howmuch.past", currencyAmount(change.howMuch.getOrElse("0")))}
+            buff = buff ++ {question(<PaymentDate/>, "paydate.past", change.payDate)}
             buff = buff ++ {question(<WhatWasIncluded/>, "whatWasIncluded", change.whatWasIncluded)}
             buff
           }
-          case "no" => {
+          case Some("no") => {
             var buff = NodeSeq.Empty
-            buff = buff ++ {question(<HowMuchPaid/>, "howMuchPaid.have.expect", currencyAmount(change.howMuchPaid))}
-            buff = buff ++ {question(<PaymentDate/>, "dateLastPaid.expect", change.dateLastPaid)}
+            buff = buff ++ {question(<HowMuchPaid/>, "howmuch.expect.past", currencyAmount(change.howMuch.getOrElse("0")))}
+            buff = buff ++ {question(<PaymentDate/>, "paydate.expect.past", change.payDate)}
             buff = buff ++ {question(<WhatWasIncluded/>, "whatWasIncluded.expect", change.whatWasIncluded)}
             buff
           }
@@ -205,26 +205,26 @@ object EmploymentChange {
       {questionOther(<EmployerOwesYouMoney/>, "employerOwesYouMoney", change.employerOwesYouMoney, change.employerOwesYouMoneyInfo)}
 
       <PayFrequency>
-        {questionOther(<Frequency/>,"circs.howOften.were", change.howOften.frequency, change.howOften.other)}
+        {questionOther(<Frequency/>,"howOften.past", change.howOften.frequency, change.howOften.other)}
       </PayFrequency>
 
       {
         val labelToUse = change.howOften.frequency match {
-          case "Weekly" => "usuallyPaidSameAmount.did.week"
-          case "Fortnightly" => "usuallyPaidSameAmount.did.fortnight"
-          case "Four-Weekly" => "usuallyPaidSameAmount.did.time"
-          case "Monthly" => "usuallyPaidSameAmount.did.month"
-          case _ => "usuallyPaidSameAmount.did.time"
+          case "Weekly" => "sameAmount.weekly.past"
+          case "Fortnightly" => "sameAmount.fortnightly.past"
+          case "Four-Weekly" => "sameAmount.fourweekly.past"
+          case "Monthly" => "sameAmount.monthly.past"
+          case _ => "sameAmount.other.past"
         }
         {
-          question(<UsuallyPaidSameAmount/>, labelToUse, change.usuallyPaidSameAmount)
+          question(<UsuallyPaidSameAmount/>, labelToUse, change.sameAmount)
         }
       }
       {pensionAndExpensesXml(circsEmploymentChange, pensionAndExpenses)}
     </StartedEmploymentAndFinished>
   }
 
-  def employmentNotStartedChange(circsEmploymentChange: CircumstancesEmploymentChange, change: CircumstancesEmploymentNotStarted, pensionAndExpenses: CircumstancesEmploymentPensionExpenses): NodeSeq = {
+  def futureEmploymentChange(circsEmploymentChange: CircumstancesEmploymentChange, change: CircumstancesEmploymentPay, pensionAndExpenses: CircumstancesEmploymentPensionExpenses): NodeSeq = {
     <NotStartedEmployment>
       {question(<EmployerName/>, "typeOfWork.employerName", circsEmploymentChange.typeOfWork.employerName)}
 
@@ -234,18 +234,18 @@ object EmploymentChange {
 
       {question(<EmployerPayroll/>, "typeOfWork.employerPayroll", circsEmploymentChange.typeOfWork.text1b)}
 
-      {question(<BeenPaidYet/>, "beenPaidYet.will", change.beenPaid)}
+      {question(<BeenPaidYet/>, "paid.future", change.paid)}
 
       {
-        change.beenPaid match {
-          case "yes" => {
+        change.paid match {
+          case Some("yes") => {
             var buff = NodeSeq.Empty
-            buff = buff ++  {question(<HowMuchPaid/>, "howMuchPaid.will", Some(currencyAmount(change.howMuchPaid.getOrElse(""))))}
-            buff = buff ++ {question(<PaymentDate/>, "whenExpectedToBePaidDate", change.whenExpectedToBePaidDate)}
+            buff = buff ++  {question(<HowMuchPaid/>, "howmuch.future", Some(currencyAmount(change.howMuch.getOrElse(""))))}
+            buff = buff ++ {question(<PaymentDate/>, "paydate.future", change.payDate)}
             if (change.howOften.frequency.size > 0){
               buff = buff ++
                 {<PayFrequency>
-                  {questionOther(<Frequency/>,"circs.howOften.will", change.howOften.frequency, change.howOften.other)}
+                  {questionOther(<Frequency/>,"howOften.future", change.howOften.frequency, change.howOften.other)}
                 </PayFrequency>}
             }
             buff
@@ -255,17 +255,17 @@ object EmploymentChange {
       }
 
       {
-        change.usuallyPaidSameAmount.isDefined match {
+        change.sameAmount.isDefined match {
           case true => {
             val labelToUse = change.howOften.frequency match {
-              case "Weekly" => "usuallyPaidSameAmount.will.week"
-              case "Fortnightly" => "usuallyPaidSameAmount.will.fortnight"
-              case "Four-Weekly" => "usuallyPaidSameAmount.will.time"
-              case "Monthly" => "usuallyPaidSameAmount.will.month"
-              case _ => "usuallyPaidSameAmount.will.time"
+              case "Weekly" => "sameAmount.weekly.future"
+              case "Fortnightly" => "sameAmount.fortnightly.future"
+              case "Four-Weekly" => "sameAmount.fourweekly.future"
+              case "Monthly" => "sameAmount.monthly.future"
+              case _ => "sameAmount.other.future"
             }
             {
-              question(<UsuallyPaidSameAmount/>, labelToUse, change.usuallyPaidSameAmount)
+              question(<UsuallyPaidSameAmount/>, labelToUse, change.sameAmount)
             }
           }
           case _ => NodeSeq.Empty

@@ -5,16 +5,16 @@ import utils.pageobjects.{TestData, PageContext, CircumstancesPage, PageObjectsC
 import utils.WithBrowser
 
 final class GEmploymentPayPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, GEmploymentPayPage.url) {
-  declareYesNo("#beenPaidYet", "CircumstancesEmploymentChangeBeenPaidYet")
-  declareInput("#howMuchPaid", "CircumstancesEmploymentChangeHowMuchPaid")
-  declareDate("#dateLastPaid", "CircumstancesEmploymentChangeWhatDatePaid")
+  declareYesNo("#paid", "CircumstancesEmploymentChangeBeenPaidYet")
+  declareInput("#howmuch", "CircumstancesEmploymentChangeHowMuchPaid")
+  declareDate("#paydate", "CircumstancesEmploymentChangeWhatDatePaid")
   declareInput("#whatWasIncluded", "CircumstancesEmploymentChangeWhatWasIncluded")
   declareSelect("#howOften_frequency", "CircumstancesEmploymentChangeHowOftenFrequency")
   declareInput("#howOften_frequency_other", "CircumstancesEmploymentChangeHowOftenFrequencyOther")
   declareInput("#monthlyPayDay", "CircumstancesEmploymentChangeMonthlyPayDay")
-  declareYesNo("#usuallyPaidSameAmount", "CircumstancesEmploymentChangeUsuallyPaidSameAmount")
-  declareYesNo("#employerOwesYouMoney", "CircumstancesEmploymentChangeEmployerOwesYouMoney")
-  declareInput("#employerOwesYouMoneyInfo", "CircumstancesEmploymentChangeEmployerOwesYouMoneyInfo")
+  declareYesNo("#sameAmount", "CircumstancesEmploymentChangeUsuallyPaidSameAmount")
+  declareYesNo("#owedMoney", "CircumstancesEmploymentChangeEmployerOwesYouMoney")
+  declareInput("#owedMoneyInfo", "CircumstancesEmploymentChangeEmployerOwesYouMoneyInfo")
 }
 
 object GEmploymentPayPage {
@@ -23,7 +23,7 @@ object GEmploymentPayPage {
   def apply(ctx:PageObjectsContext) = new GEmploymentPayPage(ctx)
 
   def fillPastJobPayDetails(context: PageObjectsContext, f: => TestData => Unit) = {
-    val pastJobPage = GEmploymentChangePage.fillPastJobDetails(context, testData => {})
+    val jobPage = GEmploymentChangePage.fillPastJobDetails(context, testData => {})
     val claimData = new TestData
     claimData.CircumstancesEmploymentChangeBeenPaidYet = Mappings.yes
     claimData.CircumstancesEmploymentChangeHowMuchPaid = "150"
@@ -31,7 +31,25 @@ object GEmploymentPayPage {
     claimData.CircumstancesEmploymentChangeHowOftenFrequency = "Weekly"
     claimData.CircumstancesEmploymentChangeUsuallyPaidSameAmount = Mappings.yes
     claimData.CircumstancesEmploymentChangeEmployerOwesYouMoney = Mappings.no
-    pastJobPage.fillPageWith(claimData).submitPage()
+    jobPage.fillPageWith(claimData).submitPage()
+  }
+
+  def fillPresentJobPayDetails(context: PageObjectsContext, f: => TestData => Unit) = {
+    val jobPage = GEmploymentChangePage.fillPresentJobDetails(context, testData => {})
+    val claimData = new TestData
+    claimData.CircumstancesEmploymentChangeBeenPaidYet = Mappings.yes
+    claimData.CircumstancesEmploymentChangeHowMuchPaid = "100"
+    claimData.CircumstancesEmploymentChangeWhatDatePaid = "01/01/2013"
+    claimData.CircumstancesEmploymentChangeHowOftenFrequency = "Weekly"
+    claimData.CircumstancesEmploymentChangeUsuallyPaidSameAmount = Mappings.yes
+    jobPage.fillPageWith(claimData).submitPage()
+  }
+
+  def fillFutureJobPayDetails(context: PageObjectsContext, f: => TestData => Unit) = {
+    val jobPage = GEmploymentChangePage.fillFutureJobDetails(context, testData => {})
+    val claimData = new TestData
+    claimData.CircumstancesEmploymentChangeBeenPaidYet = Mappings.no
+    jobPage.fillPageWith(claimData).submitPage()
   }
 }
 
