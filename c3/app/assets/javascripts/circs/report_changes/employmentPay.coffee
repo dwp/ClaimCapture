@@ -17,15 +17,15 @@ setVisibility = (o) ->
   $("#"+o.whatWasIncluded ).trigger("blur")
 
   if $("#"+o.paidY).prop 'checked'
-    setLabel(o.howmuch, o.howmuchQ)
-    setLabel(o.paydate, o.paydateQ)
+    setLabel(o.howmuchQL, o.howmuchQ)
+    setLabel(o.paydateQL, o.paydateQ)
     setLabel(o.whatWasIncludedQL, o.whatWasIncludedQ)
-    setLabel(o.howoften, o.howoftenQ)
+    setLabel(o.howOftenQL, o.howOftenQ)
   else if $("#"+o.paidN).prop 'checked'
-    setLabel(o.howmuch, o.howmuchExpectQ)
-    setLabel(o.paydate, o.paydateExpectQ)
+    setLabel(o.howmuchQL, o.howmuchExpectQ)
+    setLabel(o.paydateQL, o.paydateExpectQ)
     setLabel(o.whatWasIncludedQL, o.whatWasIncludedExpectQ)
-    setLabel(o.howoften, o.howoftenExpectQ)
+    setLabel(o.howOftenQL, o.howOftenExpectQ)
   if ( ( $("#"+o.paidY).prop 'checked' ) || ( o.pastpresentfuture != "future" && $("#"+o.paidN).prop 'checked' ) )
     showWrapper(o.howmuchWrapper)
     showWrapper(o.paydateWrapper)

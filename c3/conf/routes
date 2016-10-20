@@ -264,6 +264,9 @@ POST        /circumstances/report-changes/breaks-in-care-summary       controlle
 GET         /circumstances/report-changes/employment-change            controllers.circs.report_changes.GEmploymentChange.present
 POST        /circumstances/report-changes/employment-change            controllers.circs.report_changes.GEmploymentChange.submit
 
+GET         /circumstances/report-changes/employment-pay        controllers.circs.report_changes.GEmploymentPay.present
+POST        /circumstances/report-changes/employment-pay        controllers.circs.report_changes.GEmploymentPay.submit
+
 GET         /circumstances/report-changes/employment-ongoing           controllers.circs.report_changes.GStartedEmploymentAndOngoing.present
 POST        /circumstances/report-changes/employment-ongoing           controllers.circs.report_changes.GStartedEmploymentAndOngoing.submit
 

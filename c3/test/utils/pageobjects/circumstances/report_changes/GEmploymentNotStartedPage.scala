@@ -22,7 +22,7 @@ object GEmploymentNotStartedPage {
 
   def apply(ctx:PageObjectsContext) = new GEmploymentNotStartedPage(ctx)
 
-  def fillJobDetails(context: PageObjectsContext, f: => TestData => Unit) = {
+  def fillJobPayDetails(context: PageObjectsContext, f: => TestData => Unit) = {
     val futureJobPage = GEmploymentChangePage.fillFutureJobDetails(context, testData => {})
     val claimData = new TestData
     claimData.CircumstancesEmploymentChangeBeenPaidYet = Mappings.no

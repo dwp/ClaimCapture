@@ -1,0 +1,217 @@
+@(currentForm: Form[models.domain.CircumstancesEmploymentPay])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
+
+@import helper._
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
+@import utils.csrf.DwpCSRFFormHelper
+@import views.html.common._
+@import views.html.helper._
+@import views.html.helper.dropdowns._
+@import views.html.helper.base._
+@import views.html.helper.dates._
+@import utils.helpers.CarersCrypto
+@import models.domain.CircumstancesEmploymentPay
+@import models.domain.CircumstancesEmploymentChange
+@import controllers.mappings.Mappings
+
+@howOftenFrequency = @{currentForm("howOften")("frequency")}
+@pastEmployment=@{
+    val emp=claim.questionGroup[CircumstancesEmploymentChange].getOrElse(CircumstancesEmploymentChange())
+    CircumstancesEmploymentPay.presentPastOrFuture(emp) match {
+        case( "past" ) => true
+        case _ => false
+    }
+}
+@futureEmployment=@{
+    val emp=claim.questionGroup[CircumstancesEmploymentChange].getOrElse(CircumstancesEmploymentChange())
+    CircumstancesEmploymentPay.presentPastOrFuture(emp) match {
+        case( "future" ) => true
+        case _ => false
+    }
+}
+@pastPresentFuture=@{
+    CircumstancesEmploymentPay.presentPastOrFuture(claim.questionGroup[CircumstancesEmploymentChange].getOrElse(CircumstancesEmploymentChange()))
+}
+@messageWithTense(label: String)=@{
+    messages(label+"."+pastPresentFuture)
+}
+@sameAmountLabel()=@{
+    // if no javascript then get-paid-same-amount labels will default to selected Other ( without any expected or weekly, monthly tense )
+    messageWithTense("sameAmount.other")
+}
+@main(messages("c2.g11") + " - " + messages("c2.name")) {
+    @errorsSummary(currentForm)
+
+    @form(action = controllers.circs.report_changes.routes.GEmploymentPay.submit) {
+        @DwpCSRFFormHelper.formField
+        @helper.jsEnabled()
+        <input type="hidden" name="pastpresentfuture" id="pastpresentfuture" value="@{pastPresentFuture}"/>
+        <div class="form-wrap">
+	        <fieldset class="form-elements">
+	            <legend class="heading-medium form-label-bold">@Html(messageWithTense("circs.employment"))</legend>
+	            <ul>
+                    @yesNoRadioGroup(currentForm("paid"),
+                        'ignoreOptional -> true,
+                        '_label -> messageWithTense("paid")
+                    )
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            carersCurrency(currentForm("howmuch"),
+                                '_label -> messageWithTense("howmuch"),
+                                'maxLength -> 12,
+                                'ignoreOptional -> true
+                            )
+                        ),
+                        'id -> "howmuchWrapper"
+                    )
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            dateTimePickerWithDynamicLabel(currentForm("paydate"),
+                                'dynamicDateDays -> 7,
+                                'dynamicDateDaysAlternative -> -7,
+                                '_label -> messageWithTense("paydate")
+                            )
+                        ),
+                        'id -> "paydateWrapper"
+                    )
+
+                    @if(pastEmployment) {
+                        @otherDetailPlaceHolder(
+                            inputDef = Seq(
+                                carersInputTextArea(currentForm("whatWasIncluded"),
+                                    'textAreaHelper -> Html(messages("300charsLeft")),
+                                    'helperAbove -> Html(messages("whatWasIncluded.help")),
+                                    'maxLength -> 300,
+                                    '_label -> "whatWasIncluded"
+                                )
+                            ),
+                            'id -> "whatWasIncludedWrapper"
+                        )
+                    }
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            paymentFrequencySelect(currentForm("howOften"),
+                                'id -> "howOften",
+                                '_label -> messageWithTense("howOften"),
+                                '_anchorIdRequired -> true, '_anchorId -> "howOften",
+                                '_otherLabel -> messages("oftenGetPaid.otherHelper"),
+                                'textAreaHelper -> Html(messages("60charsLeft")), 'maxLength -> 60,
+                                'ignoreOptional -> true
+                            )
+                        ),
+                        'id -> "howOftenWrapper"
+                    )
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(
+                            yesNoRadioGroup(currentForm("sameAmount"), '_label -> sameAmountLabel)
+                        ),
+                        'id -> "sameAmountWrapper"
+                    )
+
+                    @if(!futureEmployment) {
+                        @otherDetailPlaceHolder(
+                            inputDef = Seq(
+                                carersInputText(currentForm("monthlyPayDay"),
+                                    '_label -> messageWithTense("monthlyPayDay"),
+                                    'maxLength -> 35,
+                                    'ignoreOptional -> true,
+                                    'helperAbove -> messageWithTense("monthlyPayDay.help"))
+                            ),
+                            'id -> "monthlyPayDayWrapper"
+                        )
+                    }
+
+                    @if(pastEmployment){
+                        @yesNoRadioGroup(currentForm("owedMoney"),
+                            'values -> Seq("yes" -> messages("label.yes4"), "no" -> messages("label.no")),
+                            'ignoreOptional -> true
+                        )
+
+                        @otherDetailPlaceHolder(
+                            inputDef = Seq(
+                                carersInputTextArea(currentForm("owedMoneyInfo"),
+                                    'textAreaHelper -> Html(messages("300charsLeft")),
+                                    'maxLength -> 300,
+                                    'ignoreOptional -> true)
+                            ),
+                            'id -> "owedMoneyWrapper"
+                        )
+                    }
+                </ul>
+	        </fieldset>
+	
+            @views.html.common.bottomNavigation()
+        </div>
+    }
+<script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/circs/report_changes/employmentPay.js")></script>
+<script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/circs/report_changes/employmentPayFrequency.js")></script>
+<script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
+<script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/selectOther.js")></script>
+
+<script type="text/javascript">
+    $(function(){
+        window.areaCounter ( { selector : "@CarersCrypto.encryptAES(howOftenFrequency("other").id)",maxChars:60});
+        window.areaCounter ( { selector : "@CarersCrypto.encryptAES("whatWasIncluded")",maxChars:300});
+        window.initEvents({
+                pastpresentfuture: "@pastPresentFuture",
+                paidY: "@CarersCrypto.encryptAES("paid_yes")",
+                paidN: "@CarersCrypto.encryptAES("paid_no")",
+                paidWrapper: "paidWrapper",
+                howmuchQL: "@CarersCrypto.encryptAES("howmuch_questionLabel")",
+                howmuchQ: "@messageWithTense("howmuch")",
+                howmuchExpectQ: "@messageWithTense("howmuch.expect")",
+                howmuchWrapper: "howmuchWrapper",
+                paydateQL: "@CarersCrypto.encryptAES("paydate_questionLabel")",
+                paydateQ: "@messageWithTense("paydate")",
+                paydateExpectQ: "@messageWithTense("paydate.expect")",
+                paydateWrapper: "paydateWrapper",
+                whatWasIncluded: "@CarersCrypto.encryptAES("whatWasIncluded")",
+                whatWasIncludedQL: "@CarersCrypto.encryptAES("whatWasIncluded_questionLabel")",
+                whatWasIncludedQ: "@messages("whatWasIncluded")",
+                whatWasIncludedExpectQ: "@messages("whatWasIncluded.expect")",
+                whatWasIncludedWrapper: "whatWasIncludedWrapper",
+                howOften: "@CarersCrypto.encryptAES("howOften_frequency")",
+                howOftenQL: "@CarersCrypto.encryptAES("howOften")",
+                howOftenQ: "@messageWithTense("howOften")",
+                howOftenExpectQ: "@messageWithTense("howOften.expect")",
+                howOftenWrapper: "howOftenWrapper",
+                sameAmount: "@CarersCrypto.encryptAES("howOften")",
+                sameAmountQ: "@messageWithTense("howOften")",
+                sameAmountExpectQ: "@messageWithTense("howOften.expect")",
+                employerOwesYouMoneyY: "@CarersCrypto.encryptAES("owedMoney_yes")",
+                employerOwesYouMoneyN: "@CarersCrypto.encryptAES("owedMoney_no")",
+                employerOwesYouMoneyWrapper: "owedMoneyWrapper"
+        });
+        window.initPayFrequency({
+                pastpresentfuture: "@pastPresentFuture",
+                paidY: "@CarersCrypto.encryptAES("paid_yes")",
+                paidN: "@CarersCrypto.encryptAES("paid_no")",
+                howOftenFrequency: "@CarersCrypto.encryptAES("howOften_frequency")",
+                howOftenWrapper: "howOftenWrapper",
+                weeklyQ: "@messageWithTense("sameAmount.week")",
+                weeklyExpectQ: "@messageWithTense("sameAmount.week.expect")",
+                fortnightlyQ: "@messageWithTense("sameAmount.fortnightly")",
+                fortnightlyExpectQ: "@messageWithTense("sameAmount.fortnightly.expect")",
+                fourWeeklyQ: "@messageWithTense("sameAmount.fourweekly")",
+                fourWeeklyExpectQ: "@messageWithTense("sameAmount.fourweekly.expect")",
+                monthlyQ: "@messageWithTense("sameAmount.monthly")",
+                monthlyExpectQ: "@messageWithTense("sameAmount.monthly.expect")",
+                otherQ: "@messageWithTense("sameAmount.other")",
+                otherExpectQ: "@messageWithTense("sameAmount.other.expect")",
+                moreinfo : "@CarersCrypto.encryptAES(howOftenFrequency("other").id)",
+                sameAmount: "sameAmount_questionLabel",
+                sameAmountWrapper: "sameAmountWrapper",
+                monthlyPayDay: "monthlyPayDay_questionLabel",
+                monthlyPayDayQ: "@messageWithTense("monthlyPayDay")",
+                monthlyPayDayExpectQ: "@messageWithTense("monthlyPayDay.expect")",
+                monthlyPayDayWrapper: "monthlyPayDayWrapper"
+        });
+    });
+</script>
+}
+
+
+

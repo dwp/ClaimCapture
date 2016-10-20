@@ -23,7 +23,7 @@ object GStartedEmploymentAndOngoingPage {
 
   def apply(ctx:PageObjectsContext) = new GStartedEmploymentAndOngoingPage(ctx)
 
-  def fillJobDetails(context: PageObjectsContext, f: => TestData => Unit) = {
+  def fillJobPayDetails(context: PageObjectsContext, f: => TestData => Unit) = {
     val presentJobPage = GEmploymentChangePage.fillPresentJobDetails(context, testData => {})
     val claimData = new TestData
     claimData.CircumstancesEmploymentChangeBeenPaidYet = Mappings.yes

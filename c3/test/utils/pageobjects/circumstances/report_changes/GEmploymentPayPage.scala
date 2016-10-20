@@ -4,7 +4,7 @@ import controllers.mappings.Mappings
 import utils.pageobjects.{TestData, PageContext, CircumstancesPage, PageObjectsContext}
 import utils.WithBrowser
 
-final class GStartedAndFinishedEmploymentPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, GStartedAndFinishedEmploymentPage.url) {
+final class GEmploymentPayPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, GEmploymentPayPage.url) {
   declareYesNo("#beenPaidYet", "CircumstancesEmploymentChangeBeenPaidYet")
   declareInput("#howMuchPaid", "CircumstancesEmploymentChangeHowMuchPaid")
   declareDate("#dateLastPaid", "CircumstancesEmploymentChangeWhatDatePaid")
@@ -17,16 +17,12 @@ final class GStartedAndFinishedEmploymentPage(ctx:PageObjectsContext) extends Ci
   declareInput("#employerOwesYouMoneyInfo", "CircumstancesEmploymentChangeEmployerOwesYouMoneyInfo")
 }
 
-/**
- * Companion object that integrates factory method.
- * It is used by PageFactory object defined in PageFactory.scala
- */
-object GStartedAndFinishedEmploymentPage {
-  val url  = "/circumstances/report-changes/employment-finished"
+object GEmploymentPayPage {
+  val url  = "/circumstances/report-changes/employment-pay"
 
-  def apply(ctx:PageObjectsContext) = new GStartedAndFinishedEmploymentPage(ctx)
+  def apply(ctx:PageObjectsContext) = new GEmploymentPayPage(ctx)
 
-  def fillJobPayDetails(context: PageObjectsContext, f: => TestData => Unit) = {
+  def fillPastJobPayDetails(context: PageObjectsContext, f: => TestData => Unit) = {
     val pastJobPage = GEmploymentChangePage.fillPastJobDetails(context, testData => {})
     val claimData = new TestData
     claimData.CircumstancesEmploymentChangeBeenPaidYet = Mappings.yes
@@ -40,8 +36,8 @@ object GStartedAndFinishedEmploymentPage {
 }
 
 /** The context for Specs tests */
-trait GStartedAndFinishedEmploymentPageContext extends PageContext {
+trait GEmploymentPayPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = GStartedAndFinishedEmploymentPage(PageObjectsContext(browser))
+  val page = GEmploymentPayPage(PageObjectsContext(browser))
 }
