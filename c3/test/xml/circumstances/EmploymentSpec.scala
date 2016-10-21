@@ -74,8 +74,8 @@ class EmploymentSpec extends Specification {
         howOften = PaymentFrequency("Weekly", None),
         monthlyPayDay = None,
         sameAmount = Some(Mappings.yes),
-        employerOwesYouMoney = Some(Mappings.no),
-        employerOwesYouMoneyInfo = None
+        owedMoney = Some(Mappings.no),
+        owedMoneyInfo = None
       )
 
       val claim = Claim(CachedChangeOfCircs.key).update(circsemployment).update(circsPast).update(circsPension)

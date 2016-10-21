@@ -202,7 +202,7 @@ object EmploymentChange {
       }
       {question(<MonthlyPayDay/>, "monthlyPayDay", change.monthlyPayDay)}
 
-      {questionOther(<EmployerOwesYouMoney/>, "employerOwesYouMoney", change.employerOwesYouMoney, change.employerOwesYouMoneyInfo)}
+      {questionOther(<EmployerOwesYouMoney/>, "employerOwesYouMoney", change.owedMoney, change.owedMoneyInfo)}
 
       <PayFrequency>
         {questionOther(<Frequency/>,"howOften.past", change.howOften.frequency, change.howOften.other)}

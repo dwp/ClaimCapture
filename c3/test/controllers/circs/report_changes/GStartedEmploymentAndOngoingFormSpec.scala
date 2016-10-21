@@ -8,9 +8,9 @@ class GStartedEmploymentAndOngoingFormSpec extends Specification {
   val yes = "yes"
   val no = "no"
   val amountPaid = "£199.98"
-  val whatDatePaidDay = 10
-  val whatDatePaidMonth = 11
-  val whatDatePaidYear = 2012
+  val paydateDay = 10
+  val paydateMonth = 11
+  val paydateYear = 2012
   val weekly = "weekly"
   val monthly = "monthly"
   val monthlyPayDay = "2nd Thursday every month"
@@ -20,77 +20,80 @@ class GStartedEmploymentAndOngoingFormSpec extends Specification {
   section("unit", models.domain.CircumstancesSelfEmployment.id)
   "Report an Employment change in your circumstances where the employment is ongoing - Employment Form" should {
     "map weekly paid with no pension/expenses paid when been paid set to 'yes'" in new WithApplication {
-      GStartedEmploymentAndOngoing.form.bind(
+      GEmploymentPay.form.bind(
         Map(
-          "beenPaidYet" -> yes,
-          "howMuchPaid" -> amountPaid,
-          "whatDatePaid.day" -> whatDatePaidDay.toString,
-          "whatDatePaid.month" -> whatDatePaidMonth.toString,
-          "whatDatePaid.year" -> whatDatePaidYear.toString,
+          "pastpresentfuture" -> "present",
+          "paid" -> yes,
+          "howmuch" -> amountPaid,
+          "paydate.day" -> paydateDay.toString,
+          "paydate.month" -> paydateMonth.toString,
+          "paydate.year" -> paydateYear.toString,
           "howOften.frequency" -> weekly,
-          "usuallyPaidSameAmount" -> no
+          "sameAmount" -> no
         )
       ).fold(
           formWithErrors => {
             "This mapping should not happen." must equalTo("Error")
           },
           f => {
-            f.beenPaid must equalTo(yes)
-            f.date must equalTo(DayMonthYear(Some(whatDatePaidDay), Some(whatDatePaidMonth), Some(whatDatePaidYear), None, None))
+            f.paid must equalTo(Some(yes))
+            f.payDate must equalTo(Some(DayMonthYear(Some(paydateDay), Some(paydateMonth), Some(paydateYear), None, None)))
             f.howOften.frequency must equalTo(weekly)
-            f.usuallyPaidSameAmount must equalTo(Some(no))
+            f.sameAmount must equalTo(Some(no))
           }
         )
     }
 
     "map 'other' paid with pension/expenses paid and more information about changes when been paid set to 'no'" in new WithApplication {
-      GStartedEmploymentAndOngoing.form.bind(
+      GEmploymentPay.form.bind(
         Map(
-          "beenPaidYet" -> no,
-          "howMuchPaid" -> amountPaid,
-          "whatDatePaid.day" -> whatDatePaidDay.toString,
-          "whatDatePaid.month" -> whatDatePaidMonth.toString,
-          "whatDatePaid.year" -> whatDatePaidYear.toString,
+          "pastpresentfuture" -> "present",
+          "paid" -> no,
+          "howmuch" -> amountPaid,
+          "paydate.day" -> paydateDay.toString,
+          "paydate.month" -> paydateMonth.toString,
+          "paydate.year" -> paydateYear.toString,
           "howOften.frequency" -> other,
           "howOften.frequency.other" -> otherText,
-          "usuallyPaidSameAmount" -> yes
+          "sameAmount" -> yes
         )
       ).fold(
           formWithErrors => {
             "This mapping should not happen." must equalTo("Error")
           },
           f => {
-            f.beenPaid must equalTo(no)
-            f.date must equalTo(DayMonthYear(Some(whatDatePaidDay), Some(whatDatePaidMonth), Some(whatDatePaidYear), None, None))
+            f.paid must equalTo(Some(no))
+            f.payDate must equalTo(Some(DayMonthYear(Some(paydateDay), Some(paydateMonth), Some(paydateYear), None, None)))
             f.howOften.frequency must equalTo(other)
             f.howOften.other.get must equalTo(otherText)
-            f.usuallyPaidSameAmount must equalTo(Some(yes))
+            f.sameAmount must equalTo(Some(yes))
           }
         )
     }
 
     "map monthly paid with no pension/expenses paid when been paid set to 'yes'" in new WithApplication {
-      GStartedEmploymentAndOngoing.form.bind(
+      GEmploymentPay.form.bind(
         Map(
-          "beenPaidYet" -> yes,
-          "howMuchPaid" -> amountPaid,
-          "whatDatePaid.day" -> whatDatePaidDay.toString,
-          "whatDatePaid.month" -> whatDatePaidMonth.toString,
-          "whatDatePaid.year" -> whatDatePaidYear.toString,
+          "pastpresentfuture" -> "present",
+          "paid" -> yes,
+          "howmuch" -> amountPaid,
+          "paydate.day" -> paydateDay.toString,
+          "paydate.month" -> paydateMonth.toString,
+          "paydate.year" -> paydateYear.toString,
           "howOften.frequency" -> monthly,
           "monthlyPayDay" -> monthlyPayDay,
-          "usuallyPaidSameAmount" -> no
+          "sameAmount" -> no
         )
       ).fold(
           formWithErrors => {
             "This mapping should not happen." must equalTo("Error")
           },
           f => {
-            f.beenPaid must equalTo(yes)
-            f.date must equalTo(DayMonthYear(Some(whatDatePaidDay), Some(whatDatePaidMonth), Some(whatDatePaidYear), None, None))
+            f.paid must equalTo(Some(yes))
+            f.payDate must equalTo(Some(DayMonthYear(Some(paydateDay), Some(paydateMonth), Some(paydateYear), None, None)))
             f.howOften.frequency must equalTo(monthly)
             f.monthlyPayDay.get must equalTo(monthlyPayDay)
-            f.usuallyPaidSameAmount must equalTo(Some(no))
+            f.sameAmount must equalTo(Some(no))
           }
         )
     }

@@ -122,8 +122,8 @@ case class CircumstancesEmploymentPay(
                                        howOften: PaymentFrequency=PaymentFrequency("",None),
                                        monthlyPayDay: Option[String]=None,
                                        sameAmount: Option[String]=None,
-                                       employerOwesYouMoney: Option[String]=None,
-                                       employerOwesYouMoneyInfo: Option[String] = None)
+                                       owedMoney: Option[String]=None,
+                                       owedMoneyInfo: Option[String] = None)
   extends QuestionGroup(CircumstancesEmploymentPay)
 
 object CircumstancesEmploymentPay extends QuestionGroup.Identifier {

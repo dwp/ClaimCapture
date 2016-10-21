@@ -108,12 +108,12 @@ object GEmploymentPay extends Controller with CachedChangeOfCircs with Navigable
   }
 
   private def validateEmployerOwesYouAnswer(input: CircumstancesEmploymentPay): Boolean = input.pastpresentfuture match {
-    case "past" => input.employerOwesYouMoney.isDefined
+    case "past" => input.owedMoney.isDefined
     case _ => true
   }
 
-  private def validateEmployerOwesYouText(input: CircumstancesEmploymentPay): Boolean = input.employerOwesYouMoney match {
-    case Some(Mappings.yes) => input.employerOwesYouMoneyInfo.isDefined
+  private def validateEmployerOwesYouText(input: CircumstancesEmploymentPay): Boolean = input.owedMoney match {
+    case Some(Mappings.yes) => input.owedMoneyInfo.isDefined
     case _ => true
   }
 
