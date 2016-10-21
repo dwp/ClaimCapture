@@ -61,21 +61,21 @@ object EmploymentChange {
     val pensionExpenses=circs.questionGroup[CircumstancesEmploymentPensionExpenses].getOrElse(CircumstancesEmploymentPensionExpenses())
     buff = buff ++ {
       circs.questionGroup[CircumstancesEmploymentPay] match {
-        case Some(change) => presentEmploymentChange(circsEmploymentChange, change, pensionExpenses)
+        case Some(change) if change.pastpresentfuture == "present" => presentEmploymentChange(circsEmploymentChange, change, pensionExpenses)
         case _ => NodeSeq.Empty
       }
     }
 
     buff = buff ++ {
       circs.questionGroup[CircumstancesEmploymentPay] match {
-        case Some(change) => pastEmploymentChange(circsEmploymentChange, change, pensionExpenses)
+        case Some(change) if change.pastpresentfuture == "past" => pastEmploymentChange(circsEmploymentChange, change, pensionExpenses)
         case _ => NodeSeq.Empty
       }
     }
 
     buff = buff ++ {
       circs.questionGroup[CircumstancesEmploymentPay] match {
-        case Some(change) => futureEmploymentChange(circsEmploymentChange, change, pensionExpenses)
+        case Some(change) if change.pastpresentfuture == "future" => futureEmploymentChange(circsEmploymentChange, change, pensionExpenses)
         case _ => NodeSeq.Empty
       }
     }
