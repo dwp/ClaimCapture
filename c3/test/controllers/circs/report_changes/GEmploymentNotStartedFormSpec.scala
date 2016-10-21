@@ -27,7 +27,7 @@ class GEmploymentNotStartedFormSpec extends Specification {
         Map(
           "pastpresentfuture" -> "future",
           "paid" -> yes,
-          "howMuch" -> amountPaid,
+          "howmuch" -> amountPaid,
           "paydate.day" -> paydateDay.toString,
           "paydate.month" -> paydateMonth.toString,
           "paydate.year" -> paydateYear.toString,
