@@ -28,6 +28,7 @@ class EmploymentPaySpec extends Specification {
       )
 
       val circsOngoing = CircumstancesEmploymentPay(
+        pastpresentfuture="present",
         paid = Some(Mappings.yes),
         howMuch = Some("550"),
         payDate = Some(DayMonthYear(1, 2, 2016)),
@@ -63,6 +64,7 @@ class EmploymentPaySpec extends Specification {
         paidMoneyYet = OptYesNoWithDate(None, None)
       )
       val circsOngoing = CircumstancesEmploymentPay(
+        pastpresentfuture="present",
         paid = Some(Mappings.no),
         howMuch = Some("300"),
         payDate = Some(DayMonthYear(31, 12, 2030)),
@@ -99,6 +101,7 @@ class EmploymentPaySpec extends Specification {
         paidMoneyYet = OptYesNoWithDate(None, None)
       )
       val circsPast = CircumstancesEmploymentPay(
+        pastpresentfuture="past",
         paid = Some(Mappings.yes),
         howMuch = Some("600"),
         payDate = Some(DayMonthYear(1, 3, 2016)),
@@ -134,6 +137,7 @@ class EmploymentPaySpec extends Specification {
         paidMoneyYet = OptYesNoWithDate(None, None)
       )
       val circsPast = CircumstancesEmploymentPay(
+        pastpresentfuture="past",
         paid = Some(Mappings.no),
         howMuch = Some("600"),
         payDate = Some(DayMonthYear(1, 3, 2016)),
@@ -169,6 +173,7 @@ class EmploymentPaySpec extends Specification {
         paidMoneyYet = OptYesNoWithDate(None, None)
       )
       val circsFuture = CircumstancesEmploymentPay(
+        pastpresentfuture="future",
         paid = Some(Mappings.yes),
         howMuch = Some("200"),
         payDate = Some(DayMonthYear(1, 6, 2020)),
@@ -203,6 +208,7 @@ class EmploymentPaySpec extends Specification {
         paidMoneyYet = OptYesNoWithDate(None, None)
       )
       val circsFuture = CircumstancesEmploymentPay(
+        pastpresentfuture="future",
         paid = Some(Mappings.no),
         howMuch = None,
         payDate = None,

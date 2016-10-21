@@ -114,7 +114,7 @@ object CircumstancesEmploymentChange extends QuestionGroup.Identifier {
 }
 
 case class CircumstancesEmploymentPay(
-                                       pastpresentfuture: String="",
+                                       pastpresentfuture: String="present",
                                        paid: Option[String]=None,
                                        howMuch: Option[String]=None,
                                        payDate: Option[DayMonthYear]=None,
