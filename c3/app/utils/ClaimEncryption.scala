@@ -90,10 +90,12 @@ object ClaimEncryption {
     claim.questionGroup[CircumstancesYourDetails] match {
       case Some(circumstancesReportChange) =>
         claim.update(circumstancesReportChange.copy(
-          encryptString(circumstancesReportChange.fullName),
+          encryptString(circumstancesReportChange.firstName),
+          encryptString(circumstancesReportChange.surname),
           encryptNationalInsuranceNumber(circumstancesReportChange.nationalInsuranceNumber),
           encryptDayMonthYear(circumstancesReportChange.dateOfBirth),
-          encryptString(circumstancesReportChange.theirFullName),
+          encryptString(circumstancesReportChange.theirFirstName),
+          encryptString(circumstancesReportChange.theirSurname),
           encryptString(circumstancesReportChange.theirRelationshipToYou),
           encryptOptionalString(circumstancesReportChange.furtherInfoContact),
           encryptString(circumstancesReportChange.wantsContactEmail),
@@ -233,10 +235,12 @@ object ClaimEncryption {
     claim.questionGroup[CircumstancesYourDetails] match {
       case Some(circumstancesReportChange) =>
         claim.update(circumstancesReportChange.copy(
-          decryptString(circumstancesReportChange.fullName),
+          decryptString(circumstancesReportChange.firstName),
+          decryptString(circumstancesReportChange.surname),
           decryptNationalInsuranceNumber(circumstancesReportChange.nationalInsuranceNumber),
           decryptDayMonthYear(circumstancesReportChange.dateOfBirth),
-          decryptString(circumstancesReportChange.theirFullName),
+          decryptString(circumstancesReportChange.theirFirstName),
+          decryptString(circumstancesReportChange.theirSurname),
           decryptString(circumstancesReportChange.theirRelationshipToYou),
           decryptOptionalString(circumstancesReportChange.furtherInfoContact),
           decryptString(circumstancesReportChange.wantsContactEmail),

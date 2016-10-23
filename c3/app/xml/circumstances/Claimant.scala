@@ -13,7 +13,8 @@ object Claimant {
     val reportChange = circs.questionGroup[CircumstancesYourDetails].getOrElse(CircumstancesYourDetails())
 
     <ClaimantDetails>
-      {question(<FullName/>, "fullName", encrypt(reportChange.fullName))}
+      {question(<Surname/>, "surname", encrypt(reportChange.surname))}
+      {question(<OtherNames/>, "firstName", reportChange.firstName)}
       {question(<DateOfBirth/>,"dateOfBirth", reportChange.dateOfBirth)}
       {question(<NationalInsuranceNumber/>, "nationalInsuranceNumber", encrypt(reportChange.nationalInsuranceNumber))}
       {question(<ContactPreference/>,"furtherInfoContact", reportChange.furtherInfoContact)}

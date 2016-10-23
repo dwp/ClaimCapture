@@ -1,6 +1,7 @@
 package controllers.circs.your_details
 
 import controllers.CarersForms._
+import controllers.mappings.Mappings
 import controllers.mappings.Mappings._
 import controllers.mappings.NINOMappings._
 import models.domain.EMail._
@@ -20,18 +21,14 @@ import scala.language.{postfixOps, reflectiveCalls}
 object GYourDetails extends Controller with CachedChangeOfCircs with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
 
-  val fullName = "fullName"
-  val nationalInsuranceNumber = "nationalInsuranceNumber"
-  val dateOfBirth = "dateOfBirth"
-  val theirFullName = "theirFullName"
-  val theirRelationshipToYou = "theirRelationshipToYou"
-
   val form = Form(mapping(
-    fullName -> carersNonEmptyText(maxLength = CommonValidation.FULL_NAME_MAX_LENGTH),
-    nationalInsuranceNumber -> nino.verifying(stopOnFirstFail (filledInNino,validNino)),
-    dateOfBirth -> dayMonthYear.verifying(validDate),
-    theirFullName -> carersNonEmptyText(maxLength = CommonValidation.FULL_NAME_MAX_LENGTH),
-    theirRelationshipToYou -> carersNonEmptyText(maxLength = 35),
+    "firstName" -> carersNonEmptyText(maxLength = 17),
+    "surname" -> carersNonEmptyText(maxLength = CommonValidation.NAME_MAX_LENGTH),
+    "nationalInsuranceNumber" -> nino.verifying(stopOnFirstFail (filledInNino,validNino)),
+    "dateOfBirth" -> dayMonthYear.verifying(validDate),
+    "theirFirstName" -> carersNonEmptyText(maxLength = 17),
+    "theirSurname" -> carersNonEmptyText(maxLength = CommonValidation.NAME_MAX_LENGTH),
+    "theirRelationshipToYou" -> carersNonEmptyText(maxLength = 35),
     "furtherInfoContact" -> optional(carersNonEmptyText.verifying(validPhoneNumberRequired)),
     "wantsEmailContactCircs" -> carersNonEmptyText.verifying(validYesNo),
     "mail" -> optional(carersEmailValidation.verifying(Constraints.maxLength(254))),

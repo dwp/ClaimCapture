@@ -11,12 +11,14 @@ import utils.WithApplication
 import utils.pageobjects.circumstances.consent_and_declaration.GCircsDeclarationPage
 
 class GYourDetailsFormSpec extends Specification {
-  val fullName = "Mr John Joe Smith"
+  val firstName = "John"
+  val surname = "Smith"
   val nino = "AB123456C"
   val dateOfBirthDay = 5
   val dateOfBirthMonth = 12
   val dateOfBirthYear = 1990
-  val theirFullName = "Mrs Jane Smith"
+  val theirFirstName = "Jane"
+  val theirSurname = "Jones"
   val theirRelationshipToYou = "Wife"
 
   val byTelephone = "01254897675"
@@ -28,12 +30,14 @@ class GYourDetailsFormSpec extends Specification {
     "map data into case class" in new WithApplication {
       GYourDetails.form.bind(
         Map(
-          "fullName" -> fullName,
+          "firstName" -> firstName,
+          "surname" -> surname,
           "nationalInsuranceNumber.nino" -> nino,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "theirFullName" -> theirFullName,
+          "theirFirstName" -> theirFirstName,
+          "theirSurname" -> theirSurname,
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "furtherInfoContact" -> byTelephone,
           "wantsEmailContactCircs" -> wantsEmailContactCircs
@@ -44,7 +48,8 @@ class GYourDetailsFormSpec extends Specification {
           "This mapping should not happen." must equalTo("Error")
         },
         f => {
-          f.fullName must equalTo("Mr John Joe Smith")
+          f.firstName must equalTo("John")
+          f.surname must equalTo("Smith")
         }
       )
     }
@@ -52,19 +57,22 @@ class GYourDetailsFormSpec extends Specification {
     "map data into case class no contact info" in new WithApplication {
       GYourDetails.form.bind(
         Map(
-          "fullName" -> fullName,
+          "firstName" -> firstName,
+          "surname" -> surname,
           "nationalInsuranceNumber.nino" -> nino,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "theirFullName" -> theirFullName,
+          "theirFirstName" -> theirFirstName,
+          "theirSurname" -> theirSurname,
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "wantsEmailContactCircs" -> wantsEmailContactCircs
         )
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         f => {
-          f.fullName must equalTo("Mr John Joe Smith")
+          f.firstName must equalTo("John")
+          f.surname must equalTo("Smith")
         }
       )
     }
@@ -72,21 +80,26 @@ class GYourDetailsFormSpec extends Specification {
     "reject too many characters in text fields" in new WithApplication {
       GYourDetails.form.bind(
         Map(
-          "fullName" -> "HARACTERS,CHARACTE,HARACTERS,CHARACTE,HARACTERS,CHARACTE,HARACTERS,CHARACTE",
+          "firstName" -> "a really long first name greater than max",
+          "surname" -> "a really long surname greater than max",
           "nationalInsuranceNumber.nino" -> nino,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "theirFullName" -> "HARACTERS,CHARACTE,HARACTERS,CHARACTE,HARACTERS,CHARACTE,HARACTERS,CHARACTE",
+          "theirFirstName" -> "HARACTERS,CHARACTE,HARACTERS,CHARACTE,HARACTERS,CHARACTE,HARACTERS,CHARACTE",
+          "theirSurname" -> "HARACTERS,CHARACTE,HARACTERS,CHARACTE,HARACTERS,CHARACTE,HARACTERS,CHARACTE",
           "theirRelationshipToYou" -> "HARACTERS,CHARACTE,HARACTERS,CHARACTE",
           "furtherInfoContact" -> byTelephone,
           "wantsEmailContactCircs" -> wantsEmailContactCircs
         )).fold(
         formWithErrors => {
-          formWithErrors.errors.length must equalTo(3)
+          println(formWithErrors)
+          formWithErrors.errors.length must equalTo(5)
           formWithErrors.errors(0).message must equalTo(Mappings.maxLengthError)
           formWithErrors.errors(1).message must equalTo(Mappings.maxLengthError)
           formWithErrors.errors(2).message must equalTo(Mappings.maxLengthError)
+          formWithErrors.errors(3).message must equalTo(Mappings.maxLengthError)
+          formWithErrors.errors(4).message must equalTo(Mappings.maxLengthError)
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
@@ -94,12 +107,14 @@ class GYourDetailsFormSpec extends Specification {
     "reject characters in contact number field" in new WithApplication {
       GYourDetails.form.bind(
         Map(
-          "fullName" -> fullName,
+          "firstName" -> firstName,
+          "surname" -> surname,
           "nationalInsuranceNumber.nino" -> nino,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "theirFullName" -> theirFullName,
+          "theirFirstName" -> theirFirstName,
+          "theirSurname" -> theirSurname,
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "furtherInfoContact" -> "dhjahskdk",
           "wantsEmailContactCircs" -> wantsEmailContactCircs
@@ -114,12 +129,14 @@ class GYourDetailsFormSpec extends Specification {
     "reject too many digits in contact number field" in new WithApplication {
       GYourDetails.form.bind(
         Map(
-          "fullName" -> fullName,
+          "firstName" -> firstName,
+          "surname" -> surname,
           "nationalInsuranceNumber.nino" -> nino,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "theirFullName" -> theirFullName,
+          "theirFirstName" -> theirFirstName,
+          "theirSurname" -> theirSurname,
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "furtherInfoContact" -> "012345678901234567890",
           "wantsEmailContactCircs" -> wantsEmailContactCircs
@@ -134,12 +151,14 @@ class GYourDetailsFormSpec extends Specification {
     "reject too few digits in contact number field" in new WithApplication {
       GYourDetails.form.bind(
         Map(
-          "fullName" -> fullName,
+          "firstName" -> firstName,
+          "surname" -> surname,
           "nationalInsuranceNumber.nino" -> nino,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "theirFullName" -> theirFullName,
+          "theirFirstName" -> theirFirstName,
+          "theirSurname" -> theirSurname,
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "furtherInfoContact" -> "012345",
           "wantsEmailContactCircs" -> wantsEmailContactCircs
@@ -154,48 +173,58 @@ class GYourDetailsFormSpec extends Specification {
     "reject special characters in text fields" in new WithApplication {
       GYourDetails.form.bind(
         Map(
-          "fullName" -> "John >",
+          "firstName" -> "John >",
+          "surname" -> "Smith $",
           "nationalInsuranceNumber.nino" -> nino,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "theirFullName" -> "Jane >",
+          "theirFirstName" -> "Jane >",
+          "theirSurname" -> "Evans $",
           "theirRelationshipToYou" -> "Wife >",
           "furtherInfoContact" -> byTelephone,
           "wantsEmailContactCircs" -> wantsEmailContactCircs
         )).fold(
         formWithErrors => {
-          formWithErrors.errors.length must equalTo(3)
+          println("FORMWITHERRORS:" + formWithErrors)
+          formWithErrors.errors.length must equalTo(5)
           formWithErrors.errors(0).message must equalTo(Mappings.errorRestrictedCharacters)
           formWithErrors.errors(1).message must equalTo(Mappings.errorRestrictedCharacters)
           formWithErrors.errors(2).message must equalTo(Mappings.errorRestrictedCharacters)
+          formWithErrors.errors(3).message must equalTo(Mappings.errorRestrictedCharacters)
+          formWithErrors.errors(4).message must equalTo(Mappings.errorRestrictedCharacters)
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "have 6 mandatory fields (plus invalid Nino)" in new WithApplication {
+    "have 8 mandatory fields (plus invalid Nino)" in new WithApplication {
       GYourDetails.form.bind(
         Map("fullName" -> "")).fold(
         formWithErrors => {
-          formWithErrors.errors.length must equalTo(6)
+          formWithErrors.errors.length must equalTo(8)
           formWithErrors.errors(0).message must equalTo(Mappings.errorRequired)
           formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
           formWithErrors.errors(3).message must equalTo(Mappings.errorRequired)
           formWithErrors.errors(4).message must equalTo(Mappings.errorRequired)
           formWithErrors.errors(5).message must equalTo(Mappings.errorRequired)
+          formWithErrors.errors(6).message must equalTo(Mappings.errorRequired)
+          formWithErrors.errors(7).message must equalTo(Mappings.errorRequired)
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
 
+
     "reject invalid national insurance number" in new WithApplication {
       GYourDetails.form.bind(
         Map(
-          "fullName" -> fullName,
+          "firstName" -> firstName,
+          "surname" -> surname,
           "nationalInsuranceNumber.nino" -> "INVALID",
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "theirFullName" -> theirFullName,
+          "theirFirstName" -> theirFirstName,
+          "theirSurname" -> theirSurname,
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "furtherInfoContact" -> byTelephone,
           "wantsEmailContactCircs" -> wantsEmailContactCircs
@@ -210,12 +239,14 @@ class GYourDetailsFormSpec extends Specification {
     "reject invalid date" in new WithApplication {
       GYourDetails.form.bind(
         Map(
-          "fullName" -> fullName,
+          "firstName" -> firstName,
+          "surname" -> surname,
           "nationalInsuranceNumber.nino" -> nino.toString,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> "12345",
-          "theirFullName" -> theirFullName,
+          "theirFirstName" -> theirFirstName,
+          "theirSurname" -> theirSurname,
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "furtherInfoContact" -> byTelephone,
           "wantsEmailContactCircs" -> wantsEmailContactCircs
@@ -236,12 +267,14 @@ class GYourDetailsFormSpec extends Specification {
     "allow maximum spaces in and around nino totalling 19 chars" in new WithApplication {
       GYourDetails.form.bind(
         Map(
-          "fullName" -> fullName,
+          "firstName" -> firstName,
+          "surname" -> surname,
           "nationalInsuranceNumber.nino" -> " N R 0 1 0 2 0 3 A ",
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "theirFullName" -> theirFullName,
+          "theirFirstName" -> theirFirstName,
+          "theirSurname" -> theirSurname,
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "furtherInfoContact" -> byTelephone,
           "wantsEmailContactCircs" -> wantsEmailContactCircs
@@ -259,12 +292,14 @@ class GYourDetailsFormSpec extends Specification {
     "enforce usual validation on nino" in new WithApplication {
       GYourDetails.form.bind(
         Map(
-          "fullName" -> fullName,
+          "firstName" -> firstName,
+          "surname" -> surname,
           "nationalInsuranceNumber.nino" -> " N R X 1 0 2 0 3 A ",
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "theirFullName" -> theirFullName,
+          "theirFirstName" -> theirFirstName,
+          "theirSurname" -> theirSurname,
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "furtherInfoContact" -> byTelephone,
           "wantsEmailContactCircs" -> wantsEmailContactCircs
@@ -279,12 +314,14 @@ class GYourDetailsFormSpec extends Specification {
 
     def g2FakeRequest(claimKey: String) = {
       FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey).withFormUrlEncodedBody(
-        "fullName" -> fullName,
+        "firstName" -> firstName,
+        "surname" -> surname,
         "nationalInsuranceNumber.nino" -> nino,
         "dateOfBirth.day" -> dateOfBirthDay.toString,
         "dateOfBirth.month" -> dateOfBirthMonth.toString,
         "dateOfBirth.year" -> dateOfBirthYear.toString,
-        "theirFullName" -> theirFullName,
+        "theirFirstName" -> theirFirstName,
+        "theirSurname" -> theirSurname,
         "theirRelationshipToYou" -> theirRelationshipToYou,
         "furtherInfoContact" -> byTelephone,
         "wantsEmailContactCircs" -> wantsEmailContactCircs

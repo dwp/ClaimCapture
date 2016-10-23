@@ -1,8 +1,10 @@
-Report a change in your circumstances - Change in circumstances,Circumstances,Full Name,CircumstancesAboutYouFullName,DWPCAChangeOfCircumstances>ClaimantDetails>FullName>Answer
+Report a change in your circumstances - Change in circumstances,Circumstances,First Name,CircumstancesAboutYouFirstName,DWPCAChangeOfCircumstances>ClaimantDetails>OtherNames>Answer
+Report a change in your circumstances - Change in circumstances,Circumstances,Surname,CircumstancesAboutYouSurname,DWPCAChangeOfCircumstances>ClaimantDetails>Surname>Answer
 Report a change in your circumstances - Change in circumstances,Circumstances,National Insurance number,CircumstancesAboutYouNationalInsuranceNumber,DWPCAChangeOfCircumstances>ClaimantDetails>NationalInsuranceNumber>Answer
 Report a change in your circumstances - Change in circumstances,Circumstances,Date of Birth,CircumstancesAboutYouDateOfBirth,DWPCAChangeOfCircumstances>ClaimantDetails>DateOfBirth>Answer
 Report a change in your circumstances - Change in circumstances,Your contact details,Address,CircumstancesYourContactDetailsAddress,
-Report a change in your circumstances - Change in circumstances,Circumstances,Their Full Name,CircumstancesAboutYouTheirFullName,DWPCAChangeOfCircumstances>CareeDetails>FullName>Answer
+Report a change in your circumstances - Change in circumstances,Circumstances,Their First Name,CircumstancesAboutYouTheirFirstName,DWPCAChangeOfCircumstances>CareeDetails>OtherNames>Answer
+Report a change in your circumstances - Change in circumstances,Circumstances,Their Surname,CircumstancesAboutYouTheirSurname,DWPCAChangeOfCircumstances>CareeDetails>Surname>Answer
 Report a change in your circumstances - Change in circumstances,Circumstances,Their Relationship to You,CircumstancesAboutYouTheirRelationshipToYou,DWPCAChangeOfCircumstances>CareeDetails>RelationToClaimant>Answer
 Details of your change in circumstances - Change in circumstances,Details of your change in circumstances,What type of change do you want to report?,CircumstancesReportChanges,
 Permanently stopped caring - Change in circumstances,Permanently stopped caring,Tell us more about your changes,CircumstancesPermanentlyStoppedCaringMoreAboutChanges,DWPCAChangeOfCircumstances>StoppedCaring>OtherChanges>Answer

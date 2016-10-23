@@ -28,7 +28,7 @@ trait CachedChangeOfCircs extends ClaimHandling {
   override protected def claimNotValid(claim:Claim):Boolean = {
     claim.questionGroup[CircumstancesYourDetails] match {
       case None => true
-      case Some(CircumstancesYourDetails(fullname,nino,_,_,_,_,_,_,_)) if fullname.isEmpty || nino.nino.isEmpty => true
+      case Some(CircumstancesYourDetails(firstname,surname,nino,_,_,_,_,_,_,_,_)) if firstname.isEmpty || surname.isEmpty || nino.nino.isEmpty => true
       case _ => false
     }
   }

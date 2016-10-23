@@ -15,21 +15,25 @@ class GYourDetailsSpec extends Specification{
 
   section("unit", models.domain.CircumstancesReportChanges.id)
   "Circumstances - About You - Controller" should {
-    val fullName = "Mr John Smith"
+    val firstName="John"
+    val surname="Smith"
     val nino = "AB123456C"
     val dateOfBirthDay = 5
     val dateOfBirthMonth = 12
     val dateOfBirthYear = 1990
-    val theirFullName = "Mr Jane Smith"
+    val theirFirstName = "Jane"
+    val theirSurname = "Jones"
     val theirRelationshipToYou = "Wife"
 
     val aboutYouInput = Seq(
-      "fullName" -> fullName,
+      "firstName" -> firstName,
+      "surname" -> surname,
       "nationalInsuranceNumber.nino" -> nino.toString,
       "dateOfBirth.day" -> dateOfBirthDay.toString,
       "dateOfBirth.month" -> dateOfBirthMonth.toString,
       "dateOfBirth.year" -> dateOfBirthYear.toString,
-      "theirFullName" -> theirFullName,
+      "theirFirstName" -> theirFirstName,
+      "theirSurname" -> theirSurname,
       "theirRelationshipToYou" -> theirRelationshipToYou,
       "furtherInfoContact"->"01234567890",
       "wantsEmailContactCircs"->"no"
@@ -53,7 +57,8 @@ class GYourDetailsSpec extends Specification{
       val section: Section = claim.section(models.domain.CircumstancesIdentification)
       section.questionGroup(CircumstancesYourDetails) must beLike {
         case Some(f: CircumstancesYourDetails) => {
-          f.fullName must equalTo(fullName)
+          f.firstName must equalTo("John")
+          f.surname must equalTo("Smith")
           f.nationalInsuranceNumber must equalTo(NationalInsuranceNumber(Some(nino)))
           f.dateOfBirth must equalTo(DayMonthYear(dateOfBirthDay, dateOfBirthMonth, dateOfBirthYear))
         }
@@ -79,12 +84,14 @@ class GYourDetailsSpec extends Specification{
     """should be valid submission with no contact number supplied".""" in new WithApplication with Claiming {
       val request = FakeRequest()
         .withFormUrlEncodedBody(
-          "fullName" -> fullName,
+          "firstName" -> firstName,
+          "surname" -> surname,
           "nationalInsuranceNumber.nino" -> nino.toString,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "theirFullName" -> theirFullName,
+          "theirFirstName" -> theirFirstName,
+          "theirSurname" -> theirSurname,
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "wantsEmailContactCircs"-> Mappings.no)
 
@@ -95,12 +102,14 @@ class GYourDetailsSpec extends Specification{
     """return bad request with characters in contact number".""" in new WithApplication with Claiming {
       val request = FakeRequest()
         .withFormUrlEncodedBody(
-          "fullName" -> fullName,
+          "firstName" -> firstName,
+          "surname" -> surname,
           "nationalInsuranceNumber.nino" -> nino.toString,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "theirFullName" -> theirFullName,
+          "theirFirstName" -> theirFirstName,
+          "theirSurname" -> theirSurname,
           "furtherInfoContact"->"dsdhjsdjs",
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "wantsEmailContactCircs"-> Mappings.no)
@@ -112,12 +121,14 @@ class GYourDetailsSpec extends Specification{
     """return bad request with less than minimum digits entered".""" in new WithApplication with Claiming {
       val request = FakeRequest()
         .withFormUrlEncodedBody(
-          "fullName" -> fullName,
+          "firstName" -> firstName,
+          "surname" -> surname,
           "nationalInsuranceNumber.nino" -> nino.toString,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "theirFullName" -> theirFullName,
+          "theirFirstName" -> theirFirstName,
+          "theirSurname" -> theirSurname,
           "furtherInfoContact"->"012345",
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "wantsEmailContactCircs"-> Mappings.no)
@@ -129,12 +140,14 @@ class GYourDetailsSpec extends Specification{
     """return bad request with greater than maximum digits entered".""" in new WithApplication with Claiming {
       val request = FakeRequest()
         .withFormUrlEncodedBody(
-          "fullName" -> fullName,
+          "firstName" -> firstName,
+          "surname" -> surname,
           "nationalInsuranceNumber.nino" -> nino.toString,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "theirFullName" -> theirFullName,
+          "theirFirstName" -> theirFirstName,
+          "theirSurname" -> theirSurname,
           "furtherInfoContact"->"012345678901234567890",
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "wantsEmailContactCircs"-> Mappings.no)
@@ -154,12 +167,14 @@ class GYourDetailsSpec extends Specification{
     """should be valid submission with no contact number supplied".""" in new WithApplication with Claiming {
       val request = FakeRequest()
         .withFormUrlEncodedBody(
-          "fullName" -> fullName,
+          "firstName" -> firstName,
+          "surname" -> surname,
           "nationalInsuranceNumber.nino" -> nino.toString,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
-          "theirFullName" -> theirFullName,
+          "theirFirstName" -> theirFirstName,
+          "theirSurname" -> theirSurname,
           "theirRelationshipToYou" -> theirRelationshipToYou,
           "wantsEmailContactCircs"-> Mappings.no)
 
