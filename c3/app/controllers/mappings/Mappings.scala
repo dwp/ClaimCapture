@@ -142,6 +142,18 @@ object Mappings {
     case dmy@DayMonthYear(_, _, _, _, _) => dateValidation(dmy, errorInvalid)
   }
 
+  def dateOfBirthValidation(dmy: DayMonthYear, field: String): ValidationResult = dateValidation(dmy, field) match {
+    case Invalid(e) => Invalid(e)
+    case _ if (dmy.year.getOrElse(0) < 1900) => Invalid(ValidationError(field))
+    case _ if (dmy.isAfter(DateTime.now())) => Invalid(ValidationError(field))
+    case _ => Valid
+  }
+
+  def validDateOfBirth: Constraint[DayMonthYear] = Constraint[DayMonthYear](constraintRequired) {
+      case DayMonthYear(None, None, None, _, _) =>   Invalid(ValidationError(errorRequired))
+      case dmy@DayMonthYear(_, _, _, _, _) =>  dateOfBirthValidation(dmy, errorInvalid)
+  }
+
   def validDateOnly: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.validateDate") { dmy =>
     dateValidation(dmy, errorInvalid)
   }
@@ -161,9 +173,9 @@ object Mappings {
   }
 
   /**
-    * Use this method to validate phone number when it is not empty. This was created for fields which are mandatory and have to validate for
-    * a valid phone number because the mandatory fields have their validation for empty fields.
-    */
+   * Use this method to validate phone number when it is not empty. This was created for fields which are mandatory and have to validate for
+   * a valid phone number because the mandatory fields have their validation for empty fields.
+   */
   def validPhoneNumberRequired: Constraint[String] = Constraint[String]("constraint.phoneNumber") { phoneNumber =>
     if (null != phoneNumber && !phoneNumber.isEmpty) validPhoneNumberPattern(phoneNumber)
     else Valid
@@ -182,8 +194,8 @@ object Mappings {
     validCurrencyWithPattern(decimalPattern, decimal)
   }
 
-  def validCurrencyWithPattern(decimalPattern:Regex, decimal: String):ValidationResult = {
-    if(decimal != null && !decimal.isEmpty) {
+  def validCurrencyWithPattern(decimalPattern: Regex, decimal: String): ValidationResult = {
+    if (decimal != null && !decimal.isEmpty) {
       decimalPattern.pattern.matcher(decimal).matches match {
         case true => Valid
         case false => Invalid(ValidationError(invalidDecimal))
@@ -262,11 +274,11 @@ object Mappings {
   }
 
   /**
-    * Use this method to manage error codes for sort code for special characters and call this from the controller
-    */
-  def manageErrorsSortCode[T](formWithErrors:Form[T], prefix: String = "")(implicit request: Request[_]):Form[T] = {
+   * Use this method to manage error codes for sort code for special characters and call this from the controller
+   */
+  def manageErrorsSortCode[T](formWithErrors: Form[T], prefix: String = "")(implicit request: Request[_]): Form[T] = {
     val updatedFormErrors = formWithErrors.errors.flatMap { fe =>
-      if (fe.key.startsWith(s"${prefix}${newErrorSortCode.key}" )) {
+      if (fe.key.startsWith(s"${prefix}${newErrorSortCode.key}")) {
         Some(newErrorSortCode.copy(key = s"$prefix${newErrorSortCode.key}"))
       } else {
         Some(fe)
@@ -276,10 +288,10 @@ object Mappings {
   }
 
   /**
-    * Use this method to display only one error message for the sort code for special characters and also to ignore
-    * group by functionality for the keys as provided by the utils.helpers.CarersForm.replaceError method
-    */
-  def ignoreGroupByForSortCode[T](formWithErrors:Form[T], prefix: String = "")(implicit request: Request[_]):Form[T] = {
+   * Use this method to display only one error message for the sort code for special characters and also to ignore
+   * group by functionality for the keys as provided by the utils.helpers.CarersForm.replaceError method
+   */
+  def ignoreGroupByForSortCode[T](formWithErrors: Form[T], prefix: String = "")(implicit request: Request[_]): Form[T] = {
     formWithErrors.copy(errors = formWithErrors.errors.foldLeft(Seq[FormError]()) { (z: Seq[FormError], fe: FormError) =>
       if (fe.key == s"${prefix}${newErrorSortCode.key}") {
         if (!z.contains(newErrorSortCode.copy(key = s"${prefix}${newErrorSortCode.key}"))) z :+ fe else z
