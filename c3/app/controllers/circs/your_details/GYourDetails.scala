@@ -25,7 +25,7 @@ object GYourDetails extends Controller with CachedChangeOfCircs with Navigable w
     "firstName" -> carersNonEmptyText(maxLength = 17),
     "surname" -> carersNonEmptyText(maxLength = CommonValidation.NAME_MAX_LENGTH),
     "nationalInsuranceNumber" -> nino.verifying(stopOnFirstFail (filledInNino,validNino)),
-    "dateOfBirth" -> dayMonthYear.verifying(validDate),
+    "dateOfBirth" -> dayMonthYear.verifying(validDateOfBirth),
     "theirFirstName" -> carersNonEmptyText(maxLength = 17),
     "theirSurname" -> carersNonEmptyText(maxLength = CommonValidation.NAME_MAX_LENGTH),
     "theirRelationshipToYou" -> carersNonEmptyText(maxLength = 35),

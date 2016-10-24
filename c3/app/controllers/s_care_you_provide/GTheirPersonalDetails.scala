@@ -32,7 +32,7 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
     "middleName" -> optional(carersText(maxLength = 17)),
     "surname" -> carersNonEmptyText(maxLength = CommonValidation.NAME_MAX_LENGTH),
     "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
-    "dateOfBirth" -> dayMonthYear.verifying(validDate),
+    "dateOfBirth" -> dayMonthYear.verifying(validDateOfBirth),
     "relationship" -> carersNonEmptyText(maxLength = 35),
     addressMapping
   )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply)

@@ -12,10 +12,9 @@ import play.api.data.Forms.optional
 import play.api.mvc.{Request, AnyContent, Controller, Action}
 import controllers.mappings.Mappings.errorRequired
 import controllers.mappings.NINOMappings._
-import controllers.mappings.Mappings.validDate
+import controllers.mappings.Mappings.validDateOfBirth
 import controllers.mappings.Mappings.validYesNo
 import controllers.mappings.Mappings.dayMonthYear
-import controllers.mappings.Mappings.validNationality
 import models.domain._
 import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm.formBinding
@@ -36,7 +35,7 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
     "surname" -> optional(carersNonEmptyText(maxLength = CommonValidation.NAME_MAX_LENGTH)),
     "otherNames" -> optional(carersText(maxLength = CommonValidation.NAME_MAX_LENGTH)),
     "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
-    "dateOfBirth" -> optional(dayMonthYear.verifying(validDate)),
+    "dateOfBirth" -> optional(dayMonthYear.verifying(validDateOfBirth)),
     "partner.nationality" -> optional(carersNonEmptyText(maxLength = CommonValidation.NATIONALITY_MAX_LENGTH)),
     "separated.fromPartner" -> optional(nonEmptyText.verifying(validYesNo)),
     "isPartnerPersonYouCareFor" -> optional(nonEmptyText.verifying(validYesNo)),
