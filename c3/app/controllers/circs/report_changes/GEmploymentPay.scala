@@ -88,11 +88,10 @@ object GEmploymentPay extends Controller with CachedChangeOfCircs with Navigable
       }
   }
 
-  def monthlyPaymentDateRequired(circsPay: CircumstancesEmploymentPay) = {
-    circsPay.monthlyPayDay match {
-      case Some(day) => checkValidFrequency(day, 35, "monthlyPayDay")
-      case _ => Invalid(ValidationError("monthlyPayDay.required"))
-    }
+  def monthlyPaymentDateRequired(circsPay: CircumstancesEmploymentPay) = (circsPay.pastpresentfuture, circsPay.monthlyPayDay) match {
+    case ("future", _) => Valid
+    case (_, Some(day)) => checkValidFrequency(day, 35, "monthlyPayDay")
+    case (_, _) => Invalid(ValidationError("monthlyPayDay.required"))
   }
 
   def otherRequired(circsPay: CircumstancesEmploymentPay) = {
@@ -133,6 +132,7 @@ object GEmploymentPay extends Controller with CachedChangeOfCircs with Navigable
           // check the selected paid button in the posted data not in the claim and only if js is enabled
           val jsEnabled = formWithErrors.data.getOrElse("jsEnabled", false)
           val pastpresentfuture = formWithErrors.data.getOrElse("pastpresentfuture", "error-past-present-future")
+          val payfrequency = formWithErrors.data.getOrElse("howOften.frequency", "error-frequency")
           val paidYesNo = formWithErrors.data.getOrElse("paid", "")
           val paidNoExpectString = (jsEnabled, paidYesNo) match {
             case ("true", Mappings.no) => ".expect"
@@ -145,6 +145,16 @@ object GEmploymentPay extends Controller with CachedChangeOfCircs with Navigable
             val msgkey = s"$errorKey$expect.$pastpresentfuture"
             Seq(messagesApi(msgkey))
           }
+
+          def errorMsgWithFrequency(errorKey: String) = payfrequency match {
+            case "Weekly" => errorMsgWithTense(errorKey + ".weekly")
+            case "Fortnightly" => errorMsgWithTense(errorKey + ".fortnightly")
+            case "Four-Weekly" => errorMsgWithTense(errorKey + ".fourweekly")
+            case "Monthly" => errorMsgWithTense(errorKey + ".monthly")
+            case "Other" => errorMsgWithTense(errorKey + ".other")
+            case _ => errorMsgWithTense(errorKey)
+          }
+
 
           val formWithErrorsUpdate = formWithErrors
             .replaceError("", "paid.required", FormError("paid", errorRequired, errorMsgWithTense("paid")))
@@ -159,7 +169,7 @@ object GEmploymentPay extends Controller with CachedChangeOfCircs with Navigable
             .replaceError("howOften", "error.frequency.other.invalid", FormError("howOften", errorInvalid, errorMsgWithTense("howOften")))
             .replaceError("howOften", "error.frequency.other.maxlength", FormError("howOften", maxLengthError, errorMsgWithTense("howOften")))
             .replaceError("howOften.frequency.other", "error.restricted.characters", FormError("howOften", errorRestrictedCharacters, errorMsgWithTense("howOften")))
-            .replaceError("", "sameAmount.required", FormError("sameAmount", errorRequired, errorMsgWithTense("sameAmount.other")))
+            .replaceError("", "sameAmount.required", FormError("sameAmount", errorRequired, errorMsgWithFrequency("sameAmount")))
             .replaceError("monthlyPayDay", "error.maxlength", FormError("monthlyPayDay", maxLengthError, errorMsgWithTense("monthlyPayDay")))
             .replaceError("monthlyPayDay", "error.restricted.characters", FormError("monthlyPayDay", errorRestrictedCharacters, errorMsgWithTense("monthlyPayDay")))
             .replaceError("", "monthlyPayDay.required", FormError("monthlyPayDay", errorRequired, errorMsgWithTense("monthlyPayDay")))
