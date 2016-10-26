@@ -27,7 +27,7 @@
     @selfEmployment()
     @yourIncomeOtherPayments()
 	@if(isSelfEmployed || isEmployed){
-		@fieldWithLink("employment_additional_info", messages("empAdditionalInfo.text"), additionalInfoValue, disableLink = disableChangeButton, elementId = Some("empAdditionalInfo_answer"))
+		@fieldWithLink("employment_additional_info", messages("empAdditionalInfo.answer"), additionalInfoValue, disableLink = disableChangeButton, elementId = Some("empAdditionalInfo_answer"))
 	}
 }
 

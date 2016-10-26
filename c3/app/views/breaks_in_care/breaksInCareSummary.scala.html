@@ -132,8 +132,8 @@
 
                 @yesNoRadioGroup(currentForm("breaktype_other"),
                     '_label -> messages(otherbreakLabel, dpname),
-                    'helperAbove->messages("breaks.breaktype.other.helper"),
-                    'ignoreOptional->true)
+                    'helperAbove->messages("breaks.breaktype.other.helper"), 'ignoreOptional->true,
+                    'values -> Seq("yes" -> messages("label.yes4"), "no" -> messages("label.no")))
             </ul>
         </fieldset>
         @views.html.common.bottomNavigation(trackSubmit = true)

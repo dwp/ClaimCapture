@@ -22,10 +22,13 @@
         <fieldset class="form-elements">
             <ul>
                 @yesNoRadioGroup(currentForm("spent35HoursCaring"), '_label-> messages("spent35HoursCaring", dpname),
-                    'helperAbove-> messages("spent35HoursHelper"), 'track -> true, 'ignoreOptional->true)
+                    'helperAbove-> messages("spent35HoursHelper"), 'track -> true, 'ignoreOptional->true,
+                    'values -> Seq("yes" -> messages("label.yes4"), "no" -> messages("label.no"))
+                )
 
                 @if(isOriginGB) {
-                    @yesNoRadioGroup(currentForm("otherCarer"), '_label-> messages("otherCarer", dpname), 'track -> true, 'ignoreOptional -> true)
+                    @yesNoRadioGroup(currentForm("otherCarer"), '_label-> messages("otherCarer", dpname), 'track -> true, 'ignoreOptional -> true,
+                        'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")))
                     @otherDetailPlaceHolder(
                         inputDef = Seq(
                             yesNoRadioGroup(currentForm("otherCarerUc"), '_label-> messages("otherCarerUc", dpname), 'track -> true,

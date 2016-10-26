@@ -3,9 +3,7 @@ val = (selector,text) -> if text? then $("##{selector}").val(text) else $("##{se
 S = (selector) -> $("##{selector}")
 
 window.initEvents =(o) ->
-
   updateHoursPerWeekLabel(o)
-
   if not isChecked(o.finishedThisJobY)
     hideLastWorkData(o)
 
@@ -46,16 +44,12 @@ reset = (resetList) ->
   (val(elem,"") for elem in resetList)
 
 updateHoursPerWeekLabel = (o) ->
-  id = o.hoursPerWeek.id
-  finishedThisJob = isChecked(o.finishedThisJobY)
-  presentLabel = o.hoursPerWeek.present
-  pastLabel = o.hoursPerWeek.past
-  labelChildren = $("##{id}").prev().children()
-  label = $("##{id}").prev()
-  if finishedThisJob
-    label.text(pastLabel).append(labelChildren)
+  label = $("#" + o.hoursPerWeek.id).prev()
+  optionalLabel = label.children()
+  if isChecked(o.finishedThisJobY)
+    label.text(o.hoursPerWeek.past+" ").append(optionalLabel)
   else
-    label.text(presentLabel).append(labelChildren)
+    label.text(o.hoursPerWeek.present+" ").append(optionalLabel)
 
 
 
