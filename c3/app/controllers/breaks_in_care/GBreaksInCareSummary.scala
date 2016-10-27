@@ -25,8 +25,8 @@ object GBreaksInCareSummary extends Controller with CachedClaim with I18nSupport
     "breaktype_other" -> optional(text.verifying(validYesNo))
   )(BreaksInCareType.apply)(BreaksInCareType.unapply)
     .verifying("selectother", validateOther _)
-    .verifying("selectone", validateAnySelected _)
-    .verifying("deselectnone", validateNoneNotallowed _)
+    .verifying("deselectnone", validateAnySelected _)
+    .verifying("selectone", validateNoneNotallowed _)
     .verifying("toomanybreaks", validateMaxReached(claim, _))
   )
 
