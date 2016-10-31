@@ -200,7 +200,7 @@ object EmploymentChange {
           case _ => NodeSeq.Empty
         }
       }
-      {question(<MonthlyPayDay/>, "monthlyPayDay", change.monthlyPayDay)}
+      {question(<MonthlyPayDay/>, "monthlyPayDay.past", change.monthlyPayDay)}
 
       {questionOther(<EmployerOwesYouMoney/>, "employerOwesYouMoney", change.owedMoney, change.owedMoneyInfo)}
 
