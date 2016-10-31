@@ -1,12 +1,18 @@
 package controllers
 
+import models.NationalInsuranceNumber
+import models.domain.{YourDetails, YourPartnerPersonalDetails, TheirPersonalDetails}
 import play.api.data.Forms._
 import play.api.data.Mapping
 import play.api.data.validation._
 import mappings.Mappings._
 import play.api.Logger
 import play.api.data.format.Formats._
+import play.api.mvc.{AnyContent, Request}
 import utils.CommonValidation._
+import utils.helpers.CarersCrypto
+
+import scala.util.{Failure, Try, Success}
 
 object CarersForms  {
 
@@ -40,5 +46,43 @@ object CarersForms  {
     if( postCode != newPostcode )
       Logger.info("Masked postcode whitespace stripped from:\""+postCode.replaceAll("[a-zA-Z]", "*")+"\" to:\""+newPostcode.replaceAll("[a-zA-Z]", "*")+"\"")
     newPostcode
+  }
+
+  def dpName(theirPersonalDetails: TheirPersonalDetails) = {
+    theirPersonalDetails.firstName + " " + theirPersonalDetails.surname
+  }
+
+  def partnerName(partnerDetails: YourPartnerPersonalDetails) = {
+    partnerDetails.firstName.getOrElse("") + " " + partnerDetails.surname.getOrElse("")
+  }
+
+  def dpNINO(theirPersonalDetails: TheirPersonalDetails) = {
+    theirPersonalDetails.nationalInsuranceNumber.getOrElse(NationalInsuranceNumber(None)).nino.getOrElse("").toUpperCase
+  }
+
+  def partnerNINO(partnerDetails: YourPartnerPersonalDetails) = {
+    partnerDetails.nationalInsuranceNumber.getOrElse(NationalInsuranceNumber(None)).nino.getOrElse("").toUpperCase
+  }
+
+  def yourNINO(yourDetails: YourDetails) = {
+    yourDetails.nationalInsuranceNumber.nino.getOrElse("").toUpperCase
+  }
+
+  def yourName(yourDetails: YourDetails) = {
+    yourDetails.firstName + " " + yourDetails.surname
+  }
+
+  def pageName(request: Request[AnyContent]): String = {
+    Try(request.body.asFormUrlEncoded.get.get(CarersCrypto.encryptAES("firstName")).get.head + " " + request.body.asFormUrlEncoded.get.get(CarersCrypto.encryptAES("surname")).get.head) match {
+      case Success(name: String) => name
+      case Failure(_) => ""
+    }
+  }
+
+  def getValueFromRequest(request: Request[AnyContent], value: String): String = {
+    Try(request.body.asFormUrlEncoded.get.get(CarersCrypto.encryptAES(value)).get.head) match {
+      case Success(name: String) => name
+      case Failure(_) => ""
+    }
   }
 }

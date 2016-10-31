@@ -1,7 +1,9 @@
 package controllers.s_your_partner
 
-import models.DayMonthYear
+import controllers.s_about_you.GYourDetails._
+import models.{NationalInsuranceNumber, DayMonthYear}
 import play.api.Play._
+import play.api.data.validation.{Valid, ValidationError, Invalid, Constraint}
 import utils.CommonValidation
 import language.reflectiveCalls
 import play.api.data.{FormError, Form}
@@ -10,17 +12,13 @@ import play.api.data.Forms.nonEmptyText
 import play.api.data.Forms.text
 import play.api.data.Forms.optional
 import play.api.mvc.{Request, AnyContent, Controller, Action}
-import controllers.mappings.Mappings.errorRequired
+import controllers.mappings.Mappings._
 import controllers.mappings.NINOMappings._
-import controllers.mappings.Mappings.validDateOfBirth
-import controllers.mappings.Mappings.validYesNo
-import controllers.mappings.Mappings.dayMonthYear
 import models.domain._
 import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm.formBinding
 import YourPartner.presentConditionally
-import controllers.CarersForms.carersNonEmptyText
-import controllers.CarersForms.carersText
+import controllers.CarersForms._
 import models.view.ClaimHandling.ClaimResult
 import controllers.mappings.Mappings
 import play.api.i18n._
@@ -28,13 +26,13 @@ import play.api.i18n._
 object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
 
-  def form(implicit claim: Claim): Form[YourPartnerPersonalDetails] = Form(mapping(
+  def form(implicit claim: Claim, request: Request[AnyContent]): Form[YourPartnerPersonalDetails] = Form(mapping(
     "title" -> optional(carersNonEmptyText(maxLength = Mappings.twenty)),
     "firstName" -> optional(carersNonEmptyText(maxLength = Mappings.seventeen)),
     "middleName" -> optional(carersText(maxLength = Mappings.seventeen)),
     "surname" -> optional(carersNonEmptyText(maxLength = CommonValidation.NAME_MAX_LENGTH)),
     "otherNames" -> optional(carersText(maxLength = CommonValidation.NAME_MAX_LENGTH)),
-    "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
+    "nationalInsuranceNumber" -> optional(nino.verifying(stopOnFirstFail (validNino, isSameNinoAsDPOrPartner))),
     "dateOfBirth" -> optional(dayMonthYear.verifying(validDateOfBirth)),
     "partner.nationality" -> optional(carersNonEmptyText(maxLength = CommonValidation.NATIONALITY_MAX_LENGTH)),
     "separated.fromPartner" -> optional(nonEmptyText.verifying(validYesNo)),
@@ -147,6 +145,22 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
       }
       case _ => claim
     }
+  }
+
+  private def isSameNinoAsDPOrPartner(implicit request: Request[AnyContent]): Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.nino") {
+    case nino@NationalInsuranceNumber(Some(_)) => checkSameValues(nino.nino.get.toUpperCase, request)
+    case _ => Invalid(ValidationError("error.nationalInsuranceNumber"))
+  }
+
+  private def checkSameValues(nino: String, request: Request[AnyContent]) = {
+    val claim = fromCache(request).getOrElse(new Claim("xxxx"))
+    val theirPersonalDetails = claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())
+    val partnerDetails = claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
+    val yourDetails = claim.questionGroup[YourDetails].getOrElse(YourDetails())
+    if (yourNINO(yourDetails) == nino) Invalid(ValidationError("error.you.and.partner.nationalInsuranceNumber", yourName(yourDetails), pageName(request)))
+    else if (dpNINO(theirPersonalDetails) == nino && getValueFromRequest(request, "isPartnerPersonYouCareFor") == Mappings.no
+      && partnerDetails.isPartnerPersonYouCareFor.getOrElse(Mappings.no) == Mappings.no) Invalid(ValidationError("error.dp.and.partner.nationalInsuranceNumber", dpName(theirPersonalDetails), pageName(request)))
+    else Valid
   }
 }
 

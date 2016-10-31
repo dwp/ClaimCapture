@@ -1,6 +1,7 @@
 @(yourDetailsForm: Form[models.domain.YourDetails])(implicit claim: models.domain.Claim, lang: Lang, request: Request[AnyContent], flash:Flash, messages: play.api.i18n.Messages)
 
 @implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
+@import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper._
 @import views.html.helper.dropdowns._
@@ -8,7 +9,15 @@
 @import views.html.helper.dates._
 @import views.html.s_about_you.main
 @import utils.CommonValidation
+@import models.domain.TheirPersonalDetails
+@import models.domain.YourPartnerPersonalDetails
 
+@theirPersonalDetails = @{claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())}
+@partnerDetails = @{claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())}
+@dpName=@{theirPersonalDetails.firstName + " " + theirPersonalDetails.surname}
+@partnerName=@{partnerDetails.firstName.getOrElse("") + " " + partnerDetails.surname.getOrElse("")}
+@dobPartner=@{partnerDetails.dateOfBirth.getOrElse(DayMonthYear()).`dd-MM-yyyy`}
+@dobDp=@{theirPersonalDetails.dateOfBirth.`dd-MM-yyyy`}
 
     @main(messages("s2.g1") + " - " + messages("s2.longName")) {
         @errorsSummary(yourDetailsForm)
@@ -35,6 +44,9 @@
 
                     @dateOfBirth(yourDetailsForm("dateOfBirth"))
 
+                    @Html(s"""<div id="dob-warning" class="prompt breaks-prompt validation-summary"> <p id="dob-warning-message">${messages("dob-warning-message")}</p> </div>""")
+                    @Html(s"""<div id="dob-warning-dp-and-you-message" style="display:none">${messages("dob-warning-dp-and-you-message")}</div>""")
+                    @Html(s"""<div id="dob-warning-partner-and-you-message" style="display:none">${messages("dob-warning-partner-and-you-message")}</div>""")
                 </ul>
 
             </fieldset>
@@ -43,10 +55,19 @@
 
         }
 
+        <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/dobWarning.js")></script>
         <script type="text/javascript">
-            $ ( function ( ) {
+            $(function() {
                 @ga.stagePrompt();
-            } )
+                window.dobWarning(
+                        "@CarersCrypto.encryptAES("dateOfBirth_day")",
+                        "@CarersCrypto.encryptAES("dateOfBirth_month")",
+                        "@CarersCrypto.encryptAES("dateOfBirth_year")",
+                        "@dobPartner","@dobDp", "@partnerName", "@dpName",
+                        "@CarersCrypto.encryptAES("firstName")",
+                        "@CarersCrypto.encryptAES("surname")",
+                        "dob-warning", "you", "dp", "partner");
+            });
         </script>
     }
 

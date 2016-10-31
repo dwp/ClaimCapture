@@ -1,5 +1,6 @@
 package controllers.s_care_you_provide
 
+import play.api.test.FakeRequest
 import utils.WithApplication
 import controllers.mappings.Mappings
 import org.specs2.mutable._
@@ -9,7 +10,7 @@ class GTheirPersonalDetailsFormSpec extends Specification {
   section("unit", models.domain.CareYouProvide.id)
   "Their Personal Details Form" should {
     "map data into case class" in new WithApplication {
-      GTheirPersonalDetails.form.bind(
+      GTheirPersonalDetails.form(FakeRequest()).bind(
         Map(
           "relationship" -> "father",
           "title" -> "Mr",
@@ -49,7 +50,7 @@ class GTheirPersonalDetailsFormSpec extends Specification {
     )
 
     "map address data into case class" in new WithApplication {
-      GTheirPersonalDetails.form.bind(personalData++
+      GTheirPersonalDetails.form(FakeRequest()).bind(personalData++
         Map(
           "theirAddress.address.lineOne" -> "lineOne",
           "theirAddress.address.lineTwo" -> "lineTwo",
@@ -69,28 +70,28 @@ class GTheirPersonalDetailsFormSpec extends Specification {
     }
 
     "have a mandatory address" in new WithApplication {
-      GTheirPersonalDetails.form.bind(personalData++
+      GTheirPersonalDetails.form(FakeRequest()).bind(personalData++
         Map("theirAddress.address.lineOne" -> "", "theirAddress.address.lineTwo" -> "", "theirAddress.address.lineThree" -> "", "theirAddress.postCode" -> "")).fold(
           formWithErrors => formWithErrors.errors.head.message must equalTo("theirAddress.address"),
           theirContactDetails => "This mapping should not happen." must equalTo("Valid"))
     }
 
     "reject an invalid postcode" in new WithApplication {
-      GTheirPersonalDetails.form.bind(personalData++
+      GTheirPersonalDetails.form(FakeRequest()).bind(personalData++
         Map("theirAddress.address.lineOne" -> "lineOne", "theirAddress.address.lineTwo" -> "lineTwo", "theirAddress.address.lineThree" -> "", "theirAddress.postCode" -> "INVALID")).fold(
           formWithErrors => formWithErrors.errors.head.message must equalTo("error.postcode"),
           theirContactDetails => "This mapping should not happen." must equalTo("Valid"))
     }
 
     "reject an invalid address with empty second line" in new WithApplication {
-      GTheirPersonalDetails.form.bind(personalData++
+      GTheirPersonalDetails.form(FakeRequest()).bind(personalData++
         Map("theirAddress.address.lineOne" -> "lineOne", "theirAddress.address.lineTwo" -> "", "theirAddress.address.lineThree" -> "", "theirAddress.postCode" -> "")).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.address.lines.required"),
         theirContactDetails => "This mapping should not happen." must equalTo("Valid"))
     }
 
     "reject too long firstName, middleName or surname" in new WithApplication {
-      GTheirPersonalDetails.form.bind(
+      GTheirPersonalDetails.form(FakeRequest()).bind(
         Map(
           "relationship" -> "father",
           "title" -> "Mr",
@@ -113,7 +114,7 @@ class GTheirPersonalDetailsFormSpec extends Specification {
     }
 
     "have 5 mandatory fields" in new WithApplication {
-      GTheirPersonalDetails.form.bind(
+      GTheirPersonalDetails.form(FakeRequest()).bind(
         Map("middleName" -> "middle optional")
       ).fold(
           formWithErrors => {
@@ -130,7 +131,7 @@ class GTheirPersonalDetailsFormSpec extends Specification {
     }
 
     "reject special characters" in new WithApplication {
-      GTheirPersonalDetails.form.bind(
+      GTheirPersonalDetails.form(FakeRequest()).bind(
         Map(
           "relationship" -> "father",
           "title" -> "Mr",

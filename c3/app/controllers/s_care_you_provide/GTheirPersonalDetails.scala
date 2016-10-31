@@ -2,19 +2,21 @@ package controllers.s_care_you_provide
 
 import controllers.mappings.AddressMappings._
 import controllers.mappings.Mappings
+import controllers.s_your_partner.GYourPartnerPersonalDetails._
 import models.yesNo.YesNoMandWithAddress
 import play.api.Play._
+import play.api.data.validation.{Valid, ValidationError, Invalid, Constraint}
 import utils.CommonValidation
 import language.reflectiveCalls
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
-import play.api.mvc.Controller
+import play.api.mvc.{AnyContent, Request, Controller}
 import controllers.mappings.Mappings._
 import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm._
 import models.domain._
 import controllers.CarersForms._
-import models.DayMonthYear
+import models.{NationalInsuranceNumber, DayMonthYear}
 import controllers.mappings.NINOMappings._
 import play.api.i18n._
 
@@ -26,12 +28,12 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
     "postCode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode))
       )(YesNoMandWithAddress.apply)(YesNoMandWithAddress.unapply)
 
-  val form = Form(mapping(
+  def form(implicit request: Request[AnyContent]) = Form(mapping(
     "title" -> carersNonEmptyText(maxLength = Mappings.twenty),
     "firstName" -> carersNonEmptyText(maxLength = 17),
     "middleName" -> optional(carersText(maxLength = 17)),
     "surname" -> carersNonEmptyText(maxLength = CommonValidation.NAME_MAX_LENGTH),
-    "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
+    "nationalInsuranceNumber" -> optional(nino.verifying(stopOnFirstFail (validNino, isSameNinoAsDPOrPartner))),
     "dateOfBirth" -> dayMonthYear.verifying(validDateOfBirth),
     "relationship" -> carersNonEmptyText(maxLength = 35),
     addressMapping
@@ -99,5 +101,19 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
     theirPersonalDetails.copy(
       theirAddress = theirPersonalDetails.theirAddress.copy(
         postCode = Some(formatPostCode(theirPersonalDetails.theirAddress.postCode.getOrElse("")))))
+  }
+
+  private def isSameNinoAsDPOrPartner(implicit request: Request[AnyContent]): Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.nino") {
+    case nino@NationalInsuranceNumber(Some(_)) => checkSameValues(nino.nino.get.toUpperCase, request)
+    case _ => Invalid(ValidationError("error.nationalInsuranceNumber"))
+  }
+
+  private def checkSameValues(nino: String, request: Request[AnyContent]) = {
+    val claim = fromCache(request).getOrElse(new Claim("xxxx"))
+    val partnerDetails = claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
+    val yourDetails = claim.questionGroup[YourDetails].getOrElse(YourDetails())
+    if (yourNINO(yourDetails) == nino) Invalid(ValidationError("error.you.and.dp.nationalInsuranceNumber", yourName(yourDetails), pageName(request)))
+    else if (partnerNINO(partnerDetails) == nino && partnerDetails.isPartnerPersonYouCareFor.getOrElse("no") == Mappings.no) Invalid(ValidationError("error.partner.and.dp.nationalInsuranceNumber", partnerName(partnerDetails), pageName(request)))
+    else Valid
   }
 }

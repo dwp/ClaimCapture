@@ -1,5 +1,6 @@
 package controllers.s_your_partner
 
+import play.api.test.FakeRequest
 import utils.WithApplication
 import controllers.mappings.Mappings
 import models.view.CachedClaim
@@ -23,7 +24,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
   section ("unit", models.domain.YourPartner.id)
   "Your Partner Personal Details Form" should {
     "map data into case class when partner answer is yes" in new WithApplication {
-      GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
+      GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key), FakeRequest()).bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middleName,
@@ -54,7 +55,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
     }
 
     "reject too many characters in text fields" in new WithApplication {
-      GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
+      GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key), FakeRequest()).bind(
         Map("title" -> title,
           "firstName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
           "middleName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
@@ -79,7 +80,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
     }
 
     "have 7 mandatory fields" in new WithApplication {
-      GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
+      GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key), FakeRequest()).bind(
         Map("hadPartnerSinceClaimDate" -> "yes","middleName" -> "middle optional")).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(7)
@@ -95,7 +96,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
     }
 
     "reject form when partner question not answered" in new WithApplication {
-      GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
+      GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key), FakeRequest()).bind(
         Map("hadPartnerSinceClaimDate" -> "")).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(2) // error.required and yesNo.invalid
@@ -104,7 +105,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
     }
 
     "reject invalid national insurance number" in new WithApplication {
-      GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
+      GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key), FakeRequest()).bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middleName,
@@ -126,7 +127,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
     }
 
     "reject invalid date" in new WithApplication {
-      GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
+      GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key), FakeRequest()).bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middleName,
@@ -148,7 +149,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
     }
 
     "reject form without partnerispersonyoucarefor" in new WithApplication {
-      GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
+      GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key), FakeRequest()).bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middleName,
@@ -168,7 +169,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
     }
 
     "accept nationality with space character, uppercase, lowercase and apostrophe" in new WithApplication {
-      GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
+      GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key), FakeRequest()).bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middleName,
@@ -189,7 +190,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
     }
 
     "reject invalid nationality with numbers" in new WithApplication {
-      GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
+      GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key), FakeRequest()).bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middleName,
@@ -211,7 +212,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
     }
 
     "reject invalid nationality with special characters" in new WithApplication {
-      GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
+      GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key), FakeRequest()).bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middleName,
@@ -234,7 +235,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
 
     /* at symbol accepted in most fields now */
     "reject special characters" in new WithApplication {
-      GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key)).bind(
+      GYourPartnerPersonalDetails.form(models.domain.Claim(CachedClaim.key), FakeRequest()).bind(
         Map("title" -> title,
           "firstName" -> "MyNa>me",
           "middleName" -> "middleNam©e",
