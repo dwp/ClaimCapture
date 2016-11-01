@@ -1,6 +1,7 @@
 package models
 
 import org.joda.time.DateTime
+import org.joda.time.format.{DateTimeFormatter, DateTimeFormat}
 import play.api.data.Form
 import org.specs2.mutable._
 import controllers.mappings.Mappings._
@@ -77,12 +78,15 @@ class DayMonthYearFormSpec extends Specification {
     }
 
     "allow date of birth of today" in new WithApplication {
-      val d = DateTime.now().getDayOfMonth.toString
-      val m = DateTime.now().getMonthOfYear.toString
-      val y = DateTime.now().getYear.toString
+      val now = DateTime.now()
+      val d = now.getDayOfMonth.toString
+      val m = now.getMonthOfYear.toString
+      val y = now.getYear.toString
+      val dtf = DateTimeFormat.forPattern("dd/MM/yyyy")
+      val ddmmyyyy = now.toString(dtf)
       Form("date" -> dayMonthYear.verifying(validDateOfBirth)).bind(Map("date.day" -> d, "date.month" -> m, "date.year" -> y)).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("BrokenTestIfDropInHere"),
-        dmy => dmy.`dd/MM/yyyy` must equalTo(d.format("%02s") + "/" + m.format("%02s") + "/" + y)
+        dmy => dmy.`dd/MM/yyyy` must equalTo(ddmmyyyy)
       )
     }
   }
