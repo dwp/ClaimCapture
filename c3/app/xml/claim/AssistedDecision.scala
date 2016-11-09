@@ -113,7 +113,11 @@ object AssistedDecision extends XMLComponent {
   private def isBlankShowTable(claim: Claim): AssistedDecisionDetails = {
     val yourIncomes = claim.questionGroup[YourIncomes].getOrElse(models.domain.YourIncomes())
     val nationalityAndResidency = claim.questionGroup[NationalityAndResidency].getOrElse(NationalityAndResidency(nationality = "British"))
-    if (nationalityAndResidency.trip52weeks == "yes") {
+    if (nationalityAndResidency.nationality == NationalityAndResidency.anothercountry && nationalityAndResidency.actualnationality.getOrElse("").length() > 0) {
+      Logger.info(s"AssistedDecision anotherNationality means emptyDecision")
+      blankDecisionShowTable
+    }
+    else if (nationalityAndResidency.trip52weeks == "yes") {
       Logger.info(s"AssistedDecision trip52weeks means emptyDecision")
       blankDecisionShowTable
     }
@@ -151,7 +155,7 @@ object AssistedDecision extends XMLComponent {
       Logger.info(s"AssistedDecision AdditionalInfo means emptyDecision")
       blankDecisionShowTable
     }
-    else{
+    else {
       noDecisionSoFar
     }
   }

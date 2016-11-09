@@ -192,7 +192,7 @@ class AssistedDecisionSpec extends Specification {
 
     "Lived in UK more than 3 years no workflow so drops through to default" in new WithApplication {
       val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
-      val nationality = NationalityAndResidency("Somali", None, alwaysLivedInUK = "no", liveInUKNow = Some("yes"), arrivedInUK = Some("more"), None, None, "no", None)
+      val nationality = NationalityAndResidency("British", None, alwaysLivedInUK = "no", liveInUKNow = Some("yes"), arrivedInUK = Some("more"), None, None, "no", None)
       val additionalInfo = AdditionalInfo(anythingElse = YesNoWithText(Mappings.no))
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(nationality).update(additionalInfo))
       val xml = AssistedDecision.xml(claim)
