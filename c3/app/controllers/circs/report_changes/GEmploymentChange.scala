@@ -56,7 +56,6 @@ object GEmploymentChange extends Controller with CachedChangeOfCircs with Naviga
       "employerNameAndAddress" -> optional(address),
       "employerPostcode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode)),
       "employerContactNumber" -> optional(carersText(maxLength = 15)),
-      "employerPayroll" -> optional(carersText(maxLength = 15)),
       "selfEmployedTypeOfWork" -> optional(carersText(maxLength = 35)),
       "selfEmployedTotalIncome" -> optional(carersText.verifying(validYesNoDontKnow)),
       "selfEmployedMoreAboutChanges" -> optional(carersText(maxLength = CircumstancesSelfEmployment.textMaxLength))

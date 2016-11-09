@@ -79,8 +79,7 @@
                             carersInputText(typeOfWork("employerName"), 'maxLength -> 60, 'minLength -> 2, 'ignoreOptional -> true),
                             inputAddress(typeOfWork("employerNameAndAddress"), 'ignoreOptional -> true, 'addressLabel -> "typeOfWork.employerNameAndAddress"),
                             carersInputPostcode(typeOfWork("employerPostcode"), 'maxLength -> 10, 'class -> "postcode"),
-                            carersInputText(typeOfWork("employerContactNumber"), 'maxLength -> 15, 'ignoreOptional -> true),
-                            carersInputText(typeOfWork("employerPayroll"), 'maxLength -> 15)
+                            carersInputText(typeOfWork("employerContactNumber"), 'maxLength -> 15, 'ignoreOptional -> true)
                         ),
                         'id -> "typeOfWorkEmployedWrap"
                     )
@@ -160,7 +159,6 @@
             "@CarersCrypto.encryptAES(typeOfWork("employerNameAndAddress")("lineThree").id)",
             "@CarersCrypto.encryptAES(typeOfWork("employerPostcode").id)",
             "@CarersCrypto.encryptAES(typeOfWork("employerContactNumber").id)",
-            "@CarersCrypto.encryptAES(typeOfWork("employerPayroll").id)",
             "@CarersCrypto.encryptAES(typeOfWork("selfEmployedTypeOfWork").id)",
             "@CarersCrypto.encryptAES(typeOfWork("selfEmployedTotalIncome")("yes").id)",
             "@CarersCrypto.encryptAES(typeOfWork("selfEmployedTotalIncome")("no").id)",

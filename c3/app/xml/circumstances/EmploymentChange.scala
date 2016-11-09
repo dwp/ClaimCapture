@@ -106,8 +106,6 @@ object EmploymentChange {
 
       {question(<EmployerContactNumber/>, "typeOfWork.employerContactNumber", circsEmploymentChange.typeOfWork.text1a)}
 
-      {question(<EmployerPayroll/>, "typeOfWork.employerPayroll", circsEmploymentChange.typeOfWork.text1b)}
-
       {question(<BeenPaidYet/>, "paid.present", change.paid)}
 
       {
@@ -177,8 +175,6 @@ object EmploymentChange {
 
       {question(<EmployerContactNumber/>, "typeOfWork.employerContactNumber", circsEmploymentChange.typeOfWork.text1a)}
 
-      {question(<EmployerPayroll/>, "typeOfWork.employerPayroll", circsEmploymentChange.typeOfWork.text1b)}
-
       {question(<BeenPaidYet/>, "paid.past", change.paid)}
 
       {
@@ -231,8 +227,6 @@ object EmploymentChange {
       {postalAddressStructureOpt("typeOfWork.employerNameAndAddress", circsEmploymentChange.typeOfWork.address, circsEmploymentChange.typeOfWork.postCode.getOrElse("").toUpperCase)}
 
       {question(<EmployerContactNumber/>, "typeOfWork.employerContactNumber", circsEmploymentChange.typeOfWork.text1a)}
-
-      {question(<EmployerPayroll/>, "typeOfWork.employerPayroll", circsEmploymentChange.typeOfWork.text1b)}
 
       {question(<BeenPaidYet/>, "paid.future", change.paid)}
 

@@ -39,12 +39,12 @@ window.hasWorkFinishedYet = (hasWorkFinishedYetY, hasWorkFinishedYetN, dateWhenF
     hideHasWorkFinishedYetWrap(dateWhenFinishedDay, dateWhenFinishedMonth, dateWhenFinishedYear)
 
 window.typeOfWork = (typeOfWorkEmployed, typeOfWorkSelfEmployed,
-                     employerName, employerNameAndAddress1, employerNameAndAddress2, employerNameAndAddress3, employerPostcode, employerContactNumber, employerPayrollNumber,
+                     employerName, employerNameAndAddress1, employerNameAndAddress2, employerNameAndAddress3, employerPostcode, employerContactNumber,
                      selfEmployedTypeOfWork, selfEmployedTotalIncomeYes, selfEmployedTotalIncomeNo, selfEmployedTotalIncomeDontKnow, paidMoneyYes, paidMoneyNo, selfEmployedMoreAboutChanges,
                      paidDay, paidMonth, paidYear, paidWrapper) ->
   if not $("#" + typeOfWorkEmployed).prop("checked")
     hideTypeOfWorkEmployedWrap(employerName, employerNameAndAddress1, employerNameAndAddress2, employerNameAndAddress3,
-      employerPostcode, employerContactNumber, employerPayrollNumber)
+      employerPostcode, employerContactNumber)
 
   if not $("#" + typeOfWorkSelfEmployed).prop("checked")
     hideTypeOfWorkSelfEmployedWrap(selfEmployedTypeOfWork, selfEmployedTotalIncomeYes, selfEmployedTotalIncomeNo,
@@ -57,7 +57,7 @@ window.typeOfWork = (typeOfWorkEmployed, typeOfWorkSelfEmployed,
 
   $("#" + typeOfWorkSelfEmployed).on "click", ->
     hideTypeOfWorkEmployedWrap(employerName, employerNameAndAddress1, employerNameAndAddress2, employerNameAndAddress3,
-      employerPostcode, employerContactNumber, employerPayrollNumber)
+      employerPostcode, employerContactNumber)
     showTypeOfWorkSelfEmployedWrap()
 
 showStillCaringWrap = () ->
@@ -100,7 +100,7 @@ hideHasWorkFinishedYetWrap = (dateWhenFinishedDay, dateWhenFinishedMonth, dateWh
 showHasWorkFinishedYetWrap = () ->
   $("#hasWorkFinishedYetWrap").slideDown 0
 
-hideTypeOfWorkEmployedWrap = (employerName, employerNameAndAddress1, employerNameAndAddress2, employerNameAndAddress3, employerPostcode, employerContactNumber, employerPayrollNumber) ->
+hideTypeOfWorkEmployedWrap = (employerName, employerNameAndAddress1, employerNameAndAddress2, employerNameAndAddress3, employerPostcode, employerContactNumber) ->
   $("#typeOfWorkEmployedWrap").slideUp 0, ->
     $("#" + employerName).val("")
     $("#" + employerNameAndAddress1).val("")
@@ -108,7 +108,6 @@ hideTypeOfWorkEmployedWrap = (employerName, employerNameAndAddress1, employerNam
     $("#" + employerNameAndAddress3).val("")
     $("#" + employerPostcode).val("")
     $("#" + employerContactNumber).val("")
-    $("#" + employerPayrollNumber).val("")
 
 showTypeOfWorkEmployedWrap = () ->
   $("#typeOfWorkEmployedWrap").slideDown 0
