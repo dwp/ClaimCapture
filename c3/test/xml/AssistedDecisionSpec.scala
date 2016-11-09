@@ -20,19 +20,19 @@ class AssistedDecisionSpec extends Specification {
 
   section("unit")
   "Assisted section" should {
-    "Create an assisted decision section if date of claim > 3 months and 1 day" in new WithApplication {
+    "Create an assisted decision section if date of claim > 3 months" in new WithApplication {
       val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
       val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.no, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no))))
       val benefits = Benefits(benefitsAnswer = Benefits.pip)
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
-      val details = ClaimDate(DayMonthYear(now.plusMonths(3).plusDays(2)))
+      val details = ClaimDate(DayMonthYear(now.plusMonths(3).plusDays(1)))
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(details).update(yourDetails30yo).update(moreAboutTheCare).update(paymentsFromAbroad).update(benefits).update(yourCourseDetails))
       val xml = AssistedDecision.xml(claim)
       (xml \\ "Reason").text mustEqual("Claim date over 3 months into future.")
       (xml \\ "RecommendedDecision").text mustEqual("Potential disallowance decision,no table")
     }
 
-    "Default assisted decision if date of claim <= 3 month and 1 day" in new WithApplication {
+    "Default assisted decision if date of claim <= 3 month" in new WithApplication {
       val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
       val paymentsFromAbroad = PaymentsFromAbroad(guardQuestion = YesNoWith2MandatoryFieldsOnYes(answer = Mappings.no, field1 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no)), field2 = Some(YesNoWith1MandatoryFieldOnYes(answer = Mappings.no))))
       val benefits = Benefits(benefitsAnswer = Benefits.pip)

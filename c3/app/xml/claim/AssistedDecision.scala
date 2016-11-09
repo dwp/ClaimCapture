@@ -51,7 +51,7 @@ object AssistedDecision extends XMLComponent {
   }
 
   private def dateOfClaim(claim: Claim): AssistedDecisionDetails = {
-    if (isOverThreeMonthsOneDay(claim)) decisionModel("Claim date over 3 months into future.", "Potential disallowance decision,no table")
+    if (isOverThreeMonths(claim)) decisionModel("Claim date over 3 months into future.", "Potential disallowance decision,no table")
     else noDecisionSoFar
   }
 
@@ -180,9 +180,9 @@ object AssistedDecision extends XMLComponent {
     else false
   }
 
-  private def isOverThreeMonthsOneDay(claim: Claim): Boolean = {
+  private def isOverThreeMonths(claim: Claim): Boolean = {
     val claimDateAnswer = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
-    val monthsFuture = DateTime.now().plusMonths(3).plusDays(1)
+    val monthsFuture = DateTime.now().plusMonths(3)
     val claimDate = new DateTime(claimDateAnswer.dateOfClaim.year.get, claimDateAnswer.dateOfClaim.month.get, claimDateAnswer.dateOfClaim.day.get, 0, 0)
     claimDate.isAfter(monthsFuture)
   }

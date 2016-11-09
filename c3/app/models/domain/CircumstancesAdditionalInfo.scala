@@ -45,17 +45,17 @@ object CircumstancesOtherInfo extends QuestionGroup.Identifier {
 }
 
 case class CircumstancesPaymentChange(
-  currentlyPaidIntoBankAnswer: String="",
-  currentlyPaidIntoBankText1: Option[String] = None,
-  currentlyPaidIntoBankText2: Option[String] = None,
-  accountHolderName: String = "",
-  bankFullName: String = "",
-  sortCode: SortCode = SortCode("","",""),
-  accountNumber: String = "",
-  rollOrReferenceNumber: String = "",
-  paymentFrequency: String = "",
-  moreAboutChanges: Option[String] = None
-) extends QuestionGroup(CircumstancesPaymentChange)
+                                       currentlyPaidIntoBankAnswer: String = "",
+                                       currentlyPaidIntoBankText1: Option[String] = None,
+                                       currentlyPaidIntoBankText2: Option[String] = None,
+                                       accountHolderName: String = "",
+                                       bankFullName: String = "",
+                                       sortCode: SortCode = SortCode("", "", ""),
+                                       accountNumber: String = "",
+                                       rollOrReferenceNumber: String = "",
+                                       paymentFrequency: String = "",
+                                       moreAboutChanges: Option[String] = None
+                                       ) extends QuestionGroup(CircumstancesPaymentChange)
 
 object CircumstancesPaymentChange extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g5"
@@ -79,7 +79,7 @@ object CircumstancesAddressChange extends QuestionGroup.Identifier {
 }
 
 case class CircumstancesBreaksInCare(breaksInCareStartDate: DayMonthYear = DayMonthYear(None, None, None),
-                                     breaksInCareStartTime: Option[String] = None ,
+                                     breaksInCareStartTime: Option[String] = None,
                                      wherePersonBreaksInCare: RadioWithText = RadioWithText("", None),
                                      whereYouBreaksInCare: RadioWithText = RadioWithText("", None),
                                      breakEnded: YesNoWithDateTimeAndText = YesNoWithDateTimeAndText("", None, None),
@@ -103,14 +103,40 @@ object CircumstancesBreaksInCareSummary extends QuestionGroup.Identifier {
 
 case class CircumstancesEmploymentChange(stillCaring: YesNoWithDate = YesNoWithDate("", None),
                                          hasWorkStartedYet: YesNoWithMutuallyExclusiveDates = YesNoWithMutuallyExclusiveDates("", None, None),
-                                         hasWorkFinishedYet: OptYesNoWithDate = OptYesNoWithDate (None, None),
+                                         hasWorkFinishedYet: OptYesNoWithDate = OptYesNoWithDate(None, None),
                                          typeOfWork: YesNoWithAddressAnd2TextOrTextWithYesNoAndText = YesNoWithAddressAnd2TextOrTextWithYesNoAndText("", None, None, None, None),
-                                          paidMoneyYet: OptYesNoWithDate = OptYesNoWithDate (None, None)
+                                         paidMoneyYet: OptYesNoWithDate = OptYesNoWithDate(None, None)
                                           )
   extends QuestionGroup(CircumstancesEmploymentChange)
 
 object CircumstancesEmploymentChange extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g9"
+}
+
+case class CircumstancesEmploymentPay(
+                                       pastpresentfuture: String="present",
+                                       paid: Option[String]=None,
+                                       howMuch: Option[String]=None,
+                                       payDate: Option[DayMonthYear]=None,
+                                       whatWasIncluded: Option[String]=None,
+                                       howOften: PaymentFrequency=PaymentFrequency("",None),
+                                       monthlyPayDay: Option[String]=None,
+                                       sameAmount: Option[String]=None,
+                                       owedMoney: Option[String]=None,
+                                       owedMoneyInfo: Option[String] = None)
+  extends QuestionGroup(CircumstancesEmploymentPay)
+
+object CircumstancesEmploymentPay extends QuestionGroup.Identifier {
+  val id = s"${CircumstancesReportChanges.id}.g11"
+
+  def presentPastOrFuture(employment: CircumstancesEmploymentChange) = {
+    (employment.hasWorkStartedYet.answer, employment.hasWorkFinishedYet.answer) match {
+      case (Mappings.yes, Some(Mappings.yes)) => "past"
+      case (Mappings.yes, _) => "present"
+      case (Mappings.no, _) => "future"
+      case _ => "error-no-employment-tense"
+    }
+  }
 }
 
 case class CircumstancesStartedEmploymentAndOngoing(beenPaid: String,
@@ -137,7 +163,7 @@ case class CircumstancesStartedAndFinishedEmployment(beenPaid: String,
   extends QuestionGroup(CircumstancesStartedAndFinishedEmployment)
 
 object CircumstancesStartedAndFinishedEmployment extends QuestionGroup.Identifier {
-  val id = s"${CircumstancesReportChanges.id}.g11"
+  val id = s"${CircumstancesReportChanges.id}.g99"
 }
 
 case class CircumstancesEmploymentNotStarted(beenPaid: String,
@@ -151,25 +177,28 @@ object CircumstancesEmploymentNotStarted extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g12"
 }
 
-case class CircumstancesEmploymentPensionExpenses(  payIntoPension: YesNoWithText = YesNoWithText("", None),
-                                                    payForThings: YesNoWithText = YesNoWithText("", None),
-                                                    careCosts: YesNoWithText = YesNoWithText("", None),
-                                                    moreAboutChanges: Option[String] = None)
+case class CircumstancesEmploymentPensionExpenses(payIntoPension: YesNoWithText = YesNoWithText("", None),
+                                                  payForThings: YesNoWithText = YesNoWithText("", None),
+                                                  careCosts: YesNoWithText = YesNoWithText("", None),
+                                                  moreAboutChanges: Option[String] = None)
   extends QuestionGroup(CircumstancesEmploymentPensionExpenses)
 
 object CircumstancesEmploymentPensionExpenses extends QuestionGroup.Identifier {
   val id = s"${CircumstancesReportChanges.id}.g13"
 
   def payIntoPensionMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//EmploymentChange//StartedEmploymentAndOngoing//PayIntoPensionWhatFor//Answer")
+
   def payForThingsMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//EmploymentChange//StartedEmploymentAndOngoing//PaidForThingsWhatFor//Answer")
+
   def careCostsMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//EmploymentChange//StartedEmploymentAndOngoing//CareCostsForThisWorkWhatCosts//Answer")
+
   def moreAboutChangesMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//EmploymentChange//StartedEmploymentAndOngoing//MoreAboutChanges//Answer")
 
-  def presentPastOrFuture(employment: CircumstancesEmploymentChange)={
-    ( employment.hasWorkStartedYet.answer, employment.hasWorkFinishedYet.answer) match {
-      case( Mappings.yes, Some(Mappings.yes)) => "past"
-      case( Mappings.yes, _) => "present"
-      case( Mappings.no, _) => "future"
+  def presentPastOrFuture(employment: CircumstancesEmploymentChange) = {
+    (employment.hasWorkStartedYet.answer, employment.hasWorkFinishedYet.answer) match {
+      case (Mappings.yes, Some(Mappings.yes)) => "past"
+      case (Mappings.yes, _) => "present"
+      case (Mappings.no, _) => "future"
       case _ => "error-no-employment-tense"
     }
   }

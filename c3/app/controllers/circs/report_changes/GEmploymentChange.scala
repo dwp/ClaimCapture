@@ -84,6 +84,20 @@ object GEmploymentChange extends Controller with CachedChangeOfCircs with Naviga
     .verifying("expected.hasWorkFinished", validHasWorkFinished _)
   )
 
+  private def clearEmploymentIfChangedTense(circs: Claim):Claim={
+    // If the current PPF past/present/future just selected does not match that saved in claim then remove the old one from claim
+    val pay=circs.questionGroup[CircumstancesEmploymentPay].getOrElse(CircumstancesEmploymentPay())
+    val emp=circs.questionGroup[CircumstancesEmploymentChange].getOrElse(CircumstancesEmploymentChange())
+    val newPPF=CircumstancesEmploymentPay.presentPastOrFuture(emp)
+    val previousPPF=pay.pastpresentfuture
+    if(!previousPPF.isEmpty && previousPPF != newPPF){
+      circs.update(CircumstancesEmploymentPay())
+    }
+    else{
+      circs
+    }
+  }
+
   def present = claiming { implicit circs => implicit request => implicit request2lang =>
     track(CircumstancesEmploymentChange) {
       implicit circs => Ok(views.html.circs.report_changes.employmentChange(form.fill(CircumstancesEmploymentChange)))
@@ -92,16 +106,8 @@ object GEmploymentChange extends Controller with CachedChangeOfCircs with Naviga
 
   def submit = claiming { implicit circs => implicit request => implicit request2lang =>
     def next(employmentChange: CircumstancesEmploymentChange): (QuestionGroup.Identifier, Call) = employmentChange.typeOfWork.answer match {
-      case `employed` => {
-        employmentChange.hasWorkStartedYet.answer match {
-          case `yes` => {
-            if (employmentChange.hasWorkFinishedYet.answer.getOrElse("no") == `yes`) CircumstancesStartedAndFinishedEmployment -> controllers.circs.report_changes.routes.GStartedAndFinishedEmployment.present()
-            else CircumstancesStartedEmploymentAndOngoing -> controllers.circs.report_changes.routes.GStartedEmploymentAndOngoing.present()
-          }
-          case _ => CircumstancesEmploymentNotStarted -> controllers.circs.report_changes.routes.GEmploymentNotStarted.present()
-        }
-      }
-      case _ => CircumstancesEmploymentChange -> controllers.circs.your_details.routes.GYourDetails.present()
+        case `employed` => CircumstancesEmploymentNotStarted -> controllers.circs.report_changes.routes.GEmploymentPay.present()
+        case _ => CircumstancesEmploymentChange -> controllers.circs.your_details.routes.GYourDetails.present()
     }
 
     @tailrec
@@ -131,12 +137,10 @@ object GEmploymentChange extends Controller with CachedChangeOfCircs with Naviga
       },
       employmentChange => {
         val optSections = Stack(CircumstancesStartedAndFinishedEmployment, CircumstancesStartedEmploymentAndOngoing, CircumstancesEmploymentNotStarted, CircumstancesEmploymentChange)
-
         val nextPage = next(employmentChange)
-
         val updatedCircs = popDeleteQG(circs, optSections.filter(_.id != nextPage._1.id))
-
-        updatedCircs.update(employmentChange.copy(typeOfWork = employmentChange.typeOfWork.copy(postCode = Some(formatPostCode(employmentChange.typeOfWork.postCode.getOrElse("")))))) -> Redirect(nextPage._2)
+        val newCircs=updatedCircs.update(employmentChange.copy(typeOfWork = employmentChange.typeOfWork.copy(postCode = Some(formatPostCode(employmentChange.typeOfWork.postCode.getOrElse(""))))))
+        clearEmploymentIfChangedTense(newCircs)-> Redirect(nextPage._2)
       }
     )
   }

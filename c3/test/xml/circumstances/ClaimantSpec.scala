@@ -14,7 +14,8 @@ class ClaimantSpec extends Specification {
 
   def getCircumstancesReportChange = {
     CircumstancesYourDetails(
-      fullName = "Mr Phil Joe Smith",
+      firstName = "Phil",
+      surname = "Smith",
       nationalInsuranceNumber = nationalInsuranceNr,
       dateOfBirth = DayMonthYear(1, 1, 1963),
       wantsContactEmail = "Yes",
@@ -30,7 +31,8 @@ class ClaimantSpec extends Specification {
       val claim = Claim(CachedChangeOfCircs.key).update(yourDetails)
       val xml = Claimant.xml(claim)
 
-      (new  EncryptorAES).decrypt(DatatypeConverter.parseBase64Binary((xml \\ "ClaimantDetails" \\ "FullName" \\ "Answer").text)) shouldEqual yourDetails.fullName
+      (xml \\ "ClaimantDetails" \\ "OtherNames" \\ "Answer").text shouldEqual yourDetails.firstName
+      (new  EncryptorAES).decrypt(DatatypeConverter.parseBase64Binary((xml \\ "ClaimantDetails" \\ "Surname" \\ "Answer").text)) shouldEqual yourDetails.surname
       (xml \\ "ClaimantDetails" \\ "DateOfBirth" \\ "Answer").text shouldEqual yourDetails.dateOfBirth.`dd-MM-yyyy`
       (xml \\ "ClaimantDetails" \\ "WantsContactEmail" \\ "Answer").text shouldEqual "Yes"
       (xml \\ "ClaimantDetails" \\ "Email" \\ "Answer").text shouldEqual "joe@smith.co.uk"

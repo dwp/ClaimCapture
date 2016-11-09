@@ -27,7 +27,7 @@ object GYourDetails extends Controller with CachedClaim with Navigable with I18n
     "middleName" -> optional(carersText(maxLength = 17)),
     "surname" -> carersNonEmptyText(maxLength = CommonValidation.NAME_MAX_LENGTH),
     "nationalInsuranceNumber" -> nino.verifying(stopOnFirstFail (filledInNino,validNino)),
-    "dateOfBirth" -> dayMonthYear.verifying(validDate)
+    "dateOfBirth" -> dayMonthYear.verifying(validDateOfBirth)
   )(YourDetails.apply)(YourDetails.unapply))
 
   def present = claiming {implicit claim => implicit request => implicit request2lang =>

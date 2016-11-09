@@ -1,7 +1,9 @@
-Report a change in your circumstances - Change in circumstances,Circumstances,Full Name,CircumstancesAboutYouFullName,Mr John Roger Smith
+Report a change in your circumstances - Change in circumstances,Your Details,First Name,CircumstancesAboutYouFirstName,John Roger
+Report a change in your circumstances - Change in circumstances,Your Details,Surname,CircumstancesAboutYouSurname,Smith
 Report a change in your circumstances - Change in circumstances,Circumstances,National Insurance number,CircumstancesAboutYouNationalInsuranceNumber,ja486278a
 Report a change in your circumstances - Change in circumstances,Circumstances,Date of Birth,CircumstancesAboutYouDateOfBirth,03/04/1950
-Report a change in your circumstances - Change in circumstances,Circumstances,Their Full Name,CircumstancesAboutYouTheirFullName,Mrs Jane Smith
+Report a change in your circumstances - Change in circumstances,Person you are caring for,Their First Name,CircumstancesAboutYouTheirFirstName,Big first name
+Report a change in your circumstances - Change in circumstances,Person you are caring for,Their Surname,CircumstancesAboutYouTheirSurname,my surname is really large like inc
 Report a change in your circumstances - Change in circumstances,Circumstances,Their Relationship to You,CircumstancesAboutYouTheirRelationshipToYou,Wife
 Details of your change in circumstances - Change in circumstances,Details of your change in circumstances,What type of change do you want to report?,CircumstancesReportChanges,addressChange
 Change of address - change in circumstances,Your previous address,Your previous address,CircumstancesAddressChangePreviousAddress,1 Preston Road&Preston

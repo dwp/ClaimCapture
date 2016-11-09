@@ -18,10 +18,12 @@ class GReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
 
   section("integration", models.domain.CircumstancesReportChanges.id)
   "About You" should {
-    val fullName = "Mr John Joe Smith"
+    val firstName = "Mr John Joe"
+    val surname = "Smith"
     val nino = "ab123456c"
     val dateOfBirth = "05/12/1990"
-    val theirFullName = "Mrs Jane Smith"
+    val theirFirstName = "Mrs Jane"
+    val theirSurname = "Jones"
     val theirRelationshipToYou = "Wife"
 
     val byPost = "01254 123456"
@@ -47,7 +49,7 @@ class GReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
     "present errors if mandatory fields are not populated" in new WithBrowser with PageObjects {
       val page = GCircsYourDetailsPage(context)
       page goToThePage()
-      page.submitPage().listErrors.size mustEqual 6
+      page.submitPage().listErrors.size mustEqual 8
     }
 
     "Accept submit if all mandatory fields are populated" in new WithBrowser with PageObjects {
@@ -59,12 +61,13 @@ class GReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
       page submitPage()
     }
 
-    "missing fullName field" in new WithBrowser with PageObjects {
+    "missing firstName and surname fields" in new WithBrowser with PageObjects {
       val page = GCircsYourDetailsPage(context)
       val claim = new TestData
       claim.CircumstancesAboutYouNationalInsuranceNumber = nino
       claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
-      claim.CircumstancesAboutYouTheirFullName = theirFullName
+      claim.CircumstancesAboutYouTheirFirstName = theirFirstName
+      claim.CircumstancesAboutYouTheirSurname = theirSurname
       claim.CircumstancesAboutYouTheirRelationshipToYou = theirRelationshipToYou
       claim.FurtherInfoContact = "01254 785678"
       claim.CircumstancesDeclarationWantsEmailContact = "no"
@@ -74,16 +77,19 @@ class GReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
       page fillPageWith claim
 
       val errors = page.submitPage().listErrors
-      errors.size mustEqual 1
-      errors(0) must contain("Full name - You must complete this section")
+      errors.size mustEqual 2
+      errors(0) must contain("First name - You must complete this section")
+      errors(1) must contain("Last name - You must complete this section")
     }
 
     "missing nino field" in new WithBrowser with PageObjects {
       val page = GCircsYourDetailsPage(context)
       val claim = new TestData
-      claim.CircumstancesAboutYouFullName = fullName
+      claim.CircumstancesAboutYouFirstName = firstName
+      claim.CircumstancesAboutYouSurname = surname
       claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
-      claim.CircumstancesAboutYouTheirFullName = theirFullName
+      claim.CircumstancesAboutYouTheirFirstName = theirFirstName
+      claim.CircumstancesAboutYouTheirSurname = theirSurname
       claim.CircumstancesAboutYouTheirRelationshipToYou = theirRelationshipToYou
       claim.FurtherInfoContact = "01254 785678"
       claim.CircumstancesDeclarationWantsEmailContact = "no"
@@ -99,10 +105,12 @@ class GReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
     "invalid nino containing numbers" in new WithBrowser with PageObjects {
       val page = GCircsYourDetailsPage(context)
       val claim = new TestData
-      claim.CircumstancesAboutYouFullName = fullName
+      claim.CircumstancesAboutYouFirstName = firstName
+      claim.CircumstancesAboutYouSurname = surname
       claim.CircumstancesAboutYouNationalInsuranceNumber = "11abcdef1"
       claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
-      claim.CircumstancesAboutYouTheirFullName = theirFullName
+      claim.CircumstancesAboutYouTheirFirstName = theirFirstName
+      claim.CircumstancesAboutYouTheirSurname = theirSurname
       claim.CircumstancesAboutYouTheirRelationshipToYou = theirRelationshipToYou
       claim.FurtherInfoContact = "01254 785678"
       claim.CircumstancesDeclarationWantsEmailContact = "no"
@@ -118,9 +126,11 @@ class GReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
     "missing dateOfBirth field" in new WithBrowser with PageObjects {
       val page = GCircsYourDetailsPage(context)
       val claim = new TestData
-      claim.CircumstancesAboutYouFullName = fullName
+      claim.CircumstancesAboutYouFirstName = firstName
+      claim.CircumstancesAboutYouSurname = surname
       claim.CircumstancesAboutYouNationalInsuranceNumber = nino
-      claim.CircumstancesAboutYouTheirFullName = theirFullName
+      claim.CircumstancesAboutYouTheirFirstName = theirFirstName
+      claim.CircumstancesAboutYouTheirSurname = theirSurname
       claim.CircumstancesAboutYouTheirRelationshipToYou = theirRelationshipToYou
       claim.FurtherInfoContact = "01254 785678"
       claim.CircumstancesDeclarationWantsEmailContact = "no"
@@ -133,10 +143,11 @@ class GReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
       errors(0) must contain("Date of birth - You must complete this section")
     }
 
-    "missing theirFullName field" in new WithBrowser with PageObjects {
+    "missing their FirstName and Surname fields" in new WithBrowser with PageObjects {
       val page = GCircsYourDetailsPage(context)
       val claim = new TestData
-      claim.CircumstancesAboutYouFullName = fullName
+      claim.CircumstancesAboutYouFirstName = firstName
+      claim.CircumstancesAboutYouSurname = surname
       claim.CircumstancesAboutYouNationalInsuranceNumber = nino
       claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
       claim.CircumstancesAboutYouTheirRelationshipToYou = theirRelationshipToYou
@@ -147,17 +158,21 @@ class GReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
       page fillPageWith claim
 
       val errors = page.submitPage().listErrors
-      errors.size mustEqual 1
-      errors(0) must contain("Their full name - You must complete this section")
+      println("ERRORS :"+errors)
+      errors.size mustEqual 2
+      errors(0) must contain("Their first name - You must complete this section")
+      errors(1) must contain("Their last name - You must complete this section")
     }
 
     "missing fullName field" in new WithBrowser with PageObjects {
       val page = GCircsYourDetailsPage(context)
       val claim = new TestData
-      claim.CircumstancesAboutYouFullName = fullName
+      claim.CircumstancesAboutYouFirstName = firstName
+      claim.CircumstancesAboutYouSurname = surname
       claim.CircumstancesAboutYouNationalInsuranceNumber = nino
       claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
-      claim.CircumstancesAboutYouTheirFullName = theirFullName
+      claim.CircumstancesAboutYouTheirFirstName = theirFirstName
+      claim.CircumstancesAboutYouTheirSurname = theirSurname
       claim.FurtherInfoContact = "01254 785678"
       claim.CircumstancesDeclarationWantsEmailContact = "no"
 

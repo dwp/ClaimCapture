@@ -57,11 +57,11 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito {
 
   }
 
-  def getCofc(fullname: String): Claim = {
+  def getCofc(firstName: String, surname: String): Claim = {
     val claim = new Claim(CachedChangeOfCircs.key,transactionId = Some(transactionId), uuid=randomUUID.toString)
 
     // need to set the qs groups used to create the fingerprint of the claim, otherwise a dup cache error will be thrown
-    val det = new CircumstancesYourDetails(fullname, NationalInsuranceNumber(Some(ni)), DayMonthYear(Some(1), Some(1), Some(1967)), "", "")
+    val det = new CircumstancesYourDetails(firstName, surname, NationalInsuranceNumber(Some(ni)), DayMonthYear(Some(1), Some(1), Some(1967)), "", "")
 
     val claimDate = new ClaimDate(DayMonthYear(Some(1), Some(1), Some(2014)))
 
@@ -104,7 +104,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito {
     "record change of circs submission SUCCESS" in new WithApplicationAndDB {
       val service = asyncService(http.Status.OK,transactionId,result = "response")
 
-      serviceSubmission(service, getCofc("test"))
+      serviceSubmission(service, getCofc("test", "jones"))
 
       Thread.sleep(500)
       val transactionStatus = service.claimTransaction.getTransactionStatusById(transactionId)
@@ -126,7 +126,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito {
 
     "do not submit a duplicate change of circs" in new WithApplicationAndDB(Map("mailer.enabled"->"false")) {
       val service = asyncService(http.Status.OK,transactionId)
-      val claim = getCofc("test")
+      val claim = getCofc("john", "jones")
       service.storeInCache(claim)
 
       serviceSubmission(service, claim)

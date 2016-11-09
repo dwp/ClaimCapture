@@ -12,57 +12,60 @@ import play.api.test.Helpers._
 class GStartedAndFinishedEmploymentSpec extends Specification {
   val yes = "yes"
   val no = "no"
-  val howMuchPaid = "£35"
+  val howmuch = "£35"
   val whatWasIncluded = "not enough"
-  val dateLastPaidDay = 10
-  val dateLastPaidMonth = 11
-  val dateLastPaidYear = 2012
+  val paydateDay = 10
+  val paydateMonth = 11
+  val paydateYear = 2012
   val weekly = "weekly"
   val monthly = "monthly"
   val monthlyPayDay = "2nd Thursday every month"
   val other = "other"
   val otherText = "some other text"
-  val employerOwesYouMoneyInfo = "kick back for keeping my mouth shut"
+  val owedMoneyInfo = "kick back for keeping my mouth shut"
   val startedAndFinishedPath = "DWPCAChangeOfCircumstances//EmploymentChange//StartedEmploymentAndFinished//MoreAboutChanges//Answer"
   val nextPageUrl = GEmploymentPensionExpensesPage.url
 
   val validFinishedWeeklyPaymentEmployment = Seq(
-    "beenPaidYet" -> no,
-    "howMuchPaid" -> howMuchPaid,
+    "pastpresentfuture" -> "past",
+    "paid" -> no,
+    "howmuch" -> howmuch,
     "whatWasIncluded" -> whatWasIncluded,
-    "dateLastPaid.day" -> dateLastPaidDay.toString,
-    "dateLastPaid.month" -> dateLastPaidMonth.toString,
-    "dateLastPaid.year" -> dateLastPaidYear.toString,
+    "paydate.day" -> paydateDay.toString,
+    "paydate.month" -> paydateMonth.toString,
+    "paydate.year" -> paydateYear.toString,
     "howOften.frequency" -> weekly,
-    "usuallyPaidSameAmount" -> no,
-    "employerOwesYouMoney" -> no
+    "sameAmount" -> no,
+    "owedMoney" -> no
   )
 
   val validFinishedMonthlyPaymentEmployment = Seq(
-    "beenPaidYet" -> no,
-    "howMuchPaid" -> howMuchPaid,
+    "pastpresentfuture" -> "past",
+    "paid" -> no,
+    "howmuch" -> howmuch,
     "whatWasIncluded" -> whatWasIncluded,
-    "dateLastPaid.day" -> dateLastPaidDay.toString,
-    "dateLastPaid.month" -> dateLastPaidMonth.toString,
-    "dateLastPaid.year" -> dateLastPaidYear.toString,
+    "paydate.day" -> paydateDay.toString,
+    "paydate.month" -> paydateMonth.toString,
+    "paydate.year" -> paydateYear.toString,
     "howOften.frequency" -> monthly,
     "monthlyPayDay" -> monthlyPayDay,
-    "usuallyPaidSameAmount" -> no,
-    "employerOwesYouMoney" -> no
+    "sameAmount" -> no,
+    "owedMoney" -> no
   )
 
   val validFinishedOtherPaymentEmployment = Seq(
-    "beenPaidYet" -> yes,
-    "howMuchPaid" -> howMuchPaid,
+    "pastpresentfuture" -> "past",
+    "paid" -> yes,
+    "howmuch" -> howmuch,
     "whatWasIncluded" -> whatWasIncluded,
-    "dateLastPaid.day" -> dateLastPaidDay.toString,
-    "dateLastPaid.month" -> dateLastPaidMonth.toString,
-    "dateLastPaid.year" -> dateLastPaidYear.toString,
+    "paydate.day" -> paydateDay.toString,
+    "paydate.month" -> paydateMonth.toString,
+    "paydate.year" -> paydateYear.toString,
     "howOften.frequency" -> other,
     "howOften.frequency.other" -> otherText,
-    "usuallyPaidSameAmount" -> yes,
-    "employerOwesYouMoney" -> yes,
-    "employerOwesYouMoneyInfo" -> employerOwesYouMoneyInfo
+    "sameAmount" -> yes,
+    "owedMoney" -> yes,
+    "owedMoneyInfo" -> owedMoneyInfo
   )
 
   section("unit", models.domain.CircumstancesReportChanges.id)
@@ -71,7 +74,7 @@ class GStartedAndFinishedEmploymentSpec extends Specification {
 
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
 
-      val result = GStartedAndFinishedEmployment.present(request)
+      val result = GEmploymentPay.present(request)
       status(result) mustEqual OK
     }
 
@@ -79,7 +82,9 @@ class GStartedAndFinishedEmploymentSpec extends Specification {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validFinishedWeeklyPaymentEmployment: _*)
 
-      val result = GStartedAndFinishedEmployment.submit(request)
+      val result = GEmploymentPay.submit(request)
+      println("PAge result follows:")
+      println(contentAsString(result))
       redirectLocation(result) must beSome(nextPageUrl)
     }
 
@@ -87,7 +92,7 @@ class GStartedAndFinishedEmploymentSpec extends Specification {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validFinishedMonthlyPaymentEmployment: _*)
 
-      val result = GStartedAndFinishedEmployment.submit(request)
+      val result = GEmploymentPay.submit(request)
       redirectLocation(result) must beSome(nextPageUrl)
     }
 
@@ -95,7 +100,7 @@ class GStartedAndFinishedEmploymentSpec extends Specification {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validFinishedOtherPaymentEmployment: _*)
 
-      val result = GStartedAndFinishedEmployment.submit(request)
+      val result = GEmploymentPay.submit(request)
       redirectLocation(result) must beSome(nextPageUrl)
     }
   }

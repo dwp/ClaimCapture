@@ -43,6 +43,7 @@ object GEmploymentChangePage {
     claimData.CircumstancesEmploymentChangeTypeOfWork = "employed"
     claimData.CircumstancesEmploymentChangeEmployerName = "Asda"
     claimData.CircumstancesEmploymentChangeEmployerNameAndAddress = "Fulwood&Preston"
+    claimData.CircumstancesEmploymentChangeHowOftenFrequency = "Weekly"
 
     f(claimData)
     val page = new GEmploymentChangePage(context) goToThePage()

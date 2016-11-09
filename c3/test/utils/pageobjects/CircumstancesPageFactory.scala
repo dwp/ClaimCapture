@@ -19,9 +19,7 @@ object CircumstancesPageFactory extends PageFactory {
       case GBreaksInCarePage.url => GBreaksInCarePage (ctx)
       case GBreaksInCareSummaryPage.url => GBreaksInCareSummaryPage (ctx)
       case GEmploymentChangePage.url => GEmploymentChangePage (ctx)
-      case GStartedEmploymentAndOngoingPage.url => GStartedEmploymentAndOngoingPage (ctx)
-      case GStartedAndFinishedEmploymentPage.url => GStartedAndFinishedEmploymentPage (ctx)
-      case GEmploymentNotStartedPage.url => GEmploymentNotStartedPage (ctx)
+      case GEmploymentPayPage.url => GEmploymentPayPage (ctx)
       case GEmploymentPensionExpensesPage.url => GEmploymentPensionExpensesPage (ctx)
       case GCircsDeclarationPage.url =>
         if (ctx.browser.pageSource() contains "DWPBody") XmlPage(ctx)

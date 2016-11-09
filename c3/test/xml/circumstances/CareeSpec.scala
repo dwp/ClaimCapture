@@ -15,13 +15,16 @@ class CareeSpec extends Specification {
   "Careree" should {
     "generate Careree xml from a given circumstances" in new WithApplication {
       val yourDetails = CircumstancesYourDetails(
-        theirFullName = "Mr Phil Joe Smith",
-        theirRelationshipToYou = "Wife of civil partner")
+        theirFirstName = "Phil",
+        theirSurname = "Smith",
+        theirRelationshipToYou = "Wife of civil partner"
+      )
 
       val claim = Claim(CachedChangeOfCircs.key).update(yourDetails)
       val xml = Caree.xml(claim)
 
-      (new  EncryptorAES).decrypt(DatatypeConverter.parseBase64Binary((xml \\ "CareeDetails" \\ "FullName" \\ "Answer").text)) shouldEqual yourDetails.theirFullName
+      (xml \\ "CareeDetails" \\ "OtherNames" \\ "Answer").text shouldEqual yourDetails.theirFirstName
+      (new  EncryptorAES).decrypt(DatatypeConverter.parseBase64Binary((xml \\ "CareeDetails" \\ "Surname" \\ "Answer").text)) shouldEqual yourDetails.theirSurname
       (xml \\ "CareeDetails" \\ "RelationToClaimant" \\ "Answer").text shouldEqual yourDetails.theirRelationshipToYou
     }
   }

@@ -4,10 +4,12 @@ import utils.WithBrowser
 import utils.pageobjects.{PageObjectsContext, CircumstancesPage, PageContext}
 
 final class GCircsYourDetailsPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, GCircsYourDetailsPage.url) {
-  declareInput("#fullName","CircumstancesAboutYouFullName")
+  declareInput("#firstName","CircumstancesAboutYouFirstName")
+  declareInput("#surname","CircumstancesAboutYouSurname")
   declareNino("#nationalInsuranceNumber","CircumstancesAboutYouNationalInsuranceNumber")
   declareDate("#dateOfBirth", "CircumstancesAboutYouDateOfBirth")
-  declareInput("#theirFullName","CircumstancesAboutYouTheirFullName")
+  declareInput("#theirFirstName","CircumstancesAboutYouTheirFirstName")
+  declareInput("#theirSurname","CircumstancesAboutYouTheirSurname")
   declareInput("#theirRelationshipToYou","CircumstancesAboutYouTheirRelationshipToYou")
   declareInput("#furtherInfoContact","FurtherInfoContact")
   declareYesNo("#wantsEmailContactCircs","CircumstancesDeclarationWantsEmailContact")

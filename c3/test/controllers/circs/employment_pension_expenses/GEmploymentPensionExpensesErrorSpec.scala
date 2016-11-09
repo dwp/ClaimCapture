@@ -12,7 +12,7 @@ class GEmploymentPensionExpensesErrorSpec extends Specification {
 
   "Circs Employment Pension and Expenses page " should {
     "present - have 3 correct error messages for present/ongoing employment when no yes/no buttons selected" in new WithJsBrowser with PageObjects {
-      val page = GStartedEmploymentAndOngoingPage.fillJobDetails(context, testData => {})
+      val page = GEmploymentPayPage.fillPresentJobPayDetails(context, testData => {})
       page must beAnInstanceOf[GEmploymentPensionExpensesPage]
       page.ctx.browser.find("#payIntoPension_answer_questionLabel").getText mustEqual ("Do you pay into a pension?")
       val errors = page.submitPage().listErrors
@@ -23,7 +23,7 @@ class GEmploymentPensionExpensesErrorSpec extends Specification {
     }
 
     "present - have 3 correct error messages for present/ongoing employment when no yes buttons selected but no text entered" in new WithJsBrowser with PageObjects {
-      val page = GStartedEmploymentAndOngoingPage.fillJobDetails(context, testData => {})
+      val page = GEmploymentPayPage.fillPresentJobPayDetails(context, testData => {})
       page must beAnInstanceOf[GEmploymentPensionExpensesPage]
       page.ctx.browser.find("#payIntoPension_answer_questionLabel").getText mustEqual ("Do you pay into a pension?")
       page.ctx.browser.click("#payIntoPension_answer_yes")
@@ -37,7 +37,7 @@ class GEmploymentPensionExpensesErrorSpec extends Specification {
     }
 
     "present - have 3 correct error messages for present/ongoing employment when no yes buttons selected and bad text entered" in new WithJsBrowser with PageObjects {
-      val page = GStartedEmploymentAndOngoingPage.fillJobDetails(context, testData => {})
+      val page = GEmploymentPayPage.fillPresentJobPayDetails(context, testData => {})
       page must beAnInstanceOf[GEmploymentPensionExpensesPage]
       page.ctx.browser.find("#payIntoPension_answer_questionLabel").getText mustEqual ("Do you pay into a pension?")
       page.ctx.browser.click("#payIntoPension_answer_yes")
@@ -57,7 +57,7 @@ class GEmploymentPensionExpensesErrorSpec extends Specification {
     }
 
     "past - have 3 correct error messages for past employment when no yes/no buttons selected" in new WithJsBrowser with PageObjects {
-      val page = GStartedAndFinishedEmploymentPage.fillJobDetails(context, testData => {})
+      val page = GEmploymentPayPage.fillPastJobPayDetails(context, testData => {})
       page must beAnInstanceOf[GEmploymentPensionExpensesPage]
       page.ctx.browser.find("#payIntoPension_answer_questionLabel").getText mustEqual ("Did you pay into a pension?")
       val errors = page.submitPage().listErrors
@@ -68,7 +68,7 @@ class GEmploymentPensionExpensesErrorSpec extends Specification {
     }
 
     "past - have 3 correct error messages for past employment when no yes buttons selected but no text entered" in new WithJsBrowser with PageObjects {
-      val page = GStartedAndFinishedEmploymentPage.fillJobDetails(context, testData => {})
+      val page = GEmploymentPayPage.fillPastJobPayDetails(context, testData => {})
       page must beAnInstanceOf[GEmploymentPensionExpensesPage]
       page.ctx.browser.find("#payIntoPension_answer_questionLabel").getText mustEqual ("Did you pay into a pension?")
       page.ctx.browser.click("#payIntoPension_answer_yes")
@@ -82,7 +82,7 @@ class GEmploymentPensionExpensesErrorSpec extends Specification {
     }
 
     "past - have 3 correct error messages for past employment when no yes buttons selected and bad text entered" in new WithJsBrowser with PageObjects {
-      val page = GStartedAndFinishedEmploymentPage.fillJobDetails(context, testData => {})
+      val page = GEmploymentPayPage.fillPastJobPayDetails(context, testData => {})
       page must beAnInstanceOf[GEmploymentPensionExpensesPage]
       page.ctx.browser.find("#payIntoPension_answer_questionLabel").getText mustEqual ("Did you pay into a pension?")
       page.ctx.browser.click("#payIntoPension_answer_yes")
@@ -101,7 +101,7 @@ class GEmploymentPensionExpensesErrorSpec extends Specification {
     }
 
     "future - have 3 correct error messages for future employment when no yes/no buttons selected" in new WithJsBrowser with PageObjects {
-      val page = GEmploymentNotStartedPage.fillJobDetails(context, testData => {})
+      val page = GEmploymentPayPage.fillFutureJobPayDetails(context, testData => {})
       page must beAnInstanceOf[GEmploymentPensionExpensesPage]
       page.ctx.browser.find("#payIntoPension_answer_questionLabel").getText mustEqual ("Will you pay into a pension?")
       val errors = page.submitPage().listErrors
@@ -112,7 +112,7 @@ class GEmploymentPensionExpensesErrorSpec extends Specification {
     }
 
     "future - have 3 correct error messages for future employment when no yes buttons selected but no text entered" in new WithJsBrowser with PageObjects {
-      val page = GEmploymentNotStartedPage.fillJobDetails(context, testData => {})
+      val page = GEmploymentPayPage.fillFutureJobPayDetails(context, testData => {})
       page must beAnInstanceOf[GEmploymentPensionExpensesPage]
       page.ctx.browser.find("#payIntoPension_answer_questionLabel").getText mustEqual ("Will you pay into a pension?")
       page.ctx.browser.click("#payIntoPension_answer_yes")
@@ -126,7 +126,7 @@ class GEmploymentPensionExpensesErrorSpec extends Specification {
     }
 
     "future - have 3 correct error messages for future employment when no yes buttons selected and bad text entered" in new WithJsBrowser with PageObjects {
-      val page = GEmploymentNotStartedPage.fillJobDetails(context, testData => {})
+      val page = GEmploymentPayPage.fillFutureJobPayDetails(context, testData => {})
       page must beAnInstanceOf[GEmploymentPensionExpensesPage]
       page.ctx.browser.find("#payIntoPension_answer_questionLabel").getText mustEqual ("Will you pay into a pension?")
       page.ctx.browser.click("#payIntoPension_answer_yes")

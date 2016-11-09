@@ -16,9 +16,9 @@ class GStartedEmploymentAndOngoingSpec extends Specification {
   val yes = "yes"
   val no = "no"
   val amountPaid = "£199.98"
-  val whatDatePaidDay = 10
-  val whatDatePaidMonth = 11
-  val whatDatePaidYear = 2012
+  val paydateDay = 10
+  val paydateMonth = 11
+  val paydateYear = 2012
   val weekly = "weekly"
   val monthly = "monthly"
   val monthlyPayDay = "2nd Thursday every month"
@@ -27,43 +27,47 @@ class GStartedEmploymentAndOngoingSpec extends Specification {
   val nextPageUrl = GEmploymentPensionExpensesPage.url
 
   val validOngoingWeeklyPaymentEmployment = Seq(
-    "beenPaidYet" -> yes,
-    "howMuchPaid" -> amountPaid,
-    "whatDatePaid.day" -> whatDatePaidDay.toString,
-    "whatDatePaid.month" -> whatDatePaidMonth.toString,
-    "whatDatePaid.year" -> whatDatePaidYear.toString,
+    "pastpresentfuture" -> "present",
+    "paid" -> yes,
+    "howmuch" -> amountPaid,
+    "paydate.day" -> paydateDay.toString,
+    "paydate.month" -> paydateMonth.toString,
+    "paydate.year" -> paydateYear.toString,
     "howOften.frequency" -> weekly,
-    "usuallyPaidSameAmount" -> no
+    "sameAmount" -> no
   )
 
   val validOngoingMonthlyPaymentEmployment = Seq(
-    "beenPaidYet" -> yes,
-    "howMuchPaid" -> amountPaid,
-    "whatDatePaid.day" -> whatDatePaidDay.toString,
-    "whatDatePaid.month" -> whatDatePaidMonth.toString,
-    "whatDatePaid.year" -> whatDatePaidYear.toString,
+    "pastpresentfuture" -> "present",
+    "paid" -> yes,
+    "howmuch" -> amountPaid,
+    "paydate.day" -> paydateDay.toString,
+    "paydate.month" -> paydateMonth.toString,
+    "paydate.year" -> paydateYear.toString,
     "howOften.frequency" -> monthly,
     "monthlyPayDay" -> monthlyPayDay,
-    "usuallyPaidSameAmount" -> no
+    "sameAmount" -> no
   )
 
   val validOngoingOtherPaymentEmployment = Seq(
-    "beenPaidYet" -> no,
-    "howMuchPaid" -> amountPaid,
-    "whatDatePaid.day" -> whatDatePaidDay.toString,
-    "whatDatePaid.month" -> whatDatePaidMonth.toString,
-    "whatDatePaid.year" -> whatDatePaidYear.toString,
+    "pastpresentfuture" -> "present",
+    "paid" -> no,
+    "howmuch" -> amountPaid,
+    "paydate.day" -> paydateDay.toString,
+    "paydate.month" -> paydateMonth.toString,
+    "paydate.year" -> paydateYear.toString,
     "howOften.frequency" -> other,
     "howOften.frequency.other" -> otherText,
-    "usuallyPaidSameAmount" -> yes
+    "sameAmount" -> yes
   )
 
   val invalidOngoingOtherPaymentEmployment = Seq(
-    "beenPaidYet" -> no,
-    "howMuchPaid" -> amountPaid,
-    "whatDatePaid.month" -> whatDatePaidMonth.toString,
-    "whatDatePaid.year" -> whatDatePaidYear.toString,
-    "usuallyPaidSameAmount" -> yes
+    "pastpresentfuture" -> "present",
+    "paid" -> no,
+    "howmuch" -> amountPaid,
+    "paydate.month" -> paydateMonth.toString,
+    "paydate.year" -> paydateYear.toString,
+    "sameAmount" -> yes
   )
 
   section("unit", models.domain.CircumstancesReportChanges.id)
@@ -71,7 +75,7 @@ class GStartedEmploymentAndOngoingSpec extends Specification {
     "present 'CoC Ongoing Employment Change'" in new WithApplication(app = LightFakeApplication.faCEATrue) with MockForm {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
 
-      val result = GStartedEmploymentAndOngoing.present(request)
+      val result = GEmploymentPay.present(request)
       status(result) mustEqual OK
     }
 
@@ -79,7 +83,7 @@ class GStartedEmploymentAndOngoingSpec extends Specification {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validOngoingWeeklyPaymentEmployment: _*)
 
-      val result = GStartedEmploymentAndOngoing.submit(request)
+      val result = GEmploymentPay.submit(request)
       redirectLocation(result) must beSome(nextPageUrl)
     }
 
@@ -87,7 +91,7 @@ class GStartedEmploymentAndOngoingSpec extends Specification {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validOngoingMonthlyPaymentEmployment: _*)
 
-      val result = GStartedEmploymentAndOngoing.submit(request)
+      val result = GEmploymentPay.submit(request)
       redirectLocation(result) must beSome(nextPageUrl)
     }
 
@@ -95,7 +99,7 @@ class GStartedEmploymentAndOngoingSpec extends Specification {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(validOngoingOtherPaymentEmployment: _*)
 
-      val result = GStartedEmploymentAndOngoing.submit(request)
+      val result = GEmploymentPay.submit(request)
       redirectLocation(result) must beSome(nextPageUrl)
     }
 
@@ -103,7 +107,7 @@ class GStartedEmploymentAndOngoingSpec extends Specification {
       val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(invalidOngoingOtherPaymentEmployment: _*)
 
-      val result = GStartedEmploymentAndOngoing.submit(request)
+      val result = GEmploymentPay.submit(request)
       val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
       contentAsString(result) must contain(messagesApi(Mappings.errorRequired))
     }

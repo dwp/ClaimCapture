@@ -20,7 +20,7 @@ class GEmploymentPensionExpensesContentSpec extends Specification {
     }
 
     "contain correct labels for present ongoing employment" in new WithJsBrowser with PageObjects {
-      val page = GStartedEmploymentAndOngoingPage.fillJobDetails(context, testData => {})
+      val page = GEmploymentPayPage.fillPresentJobPayDetails(context, testData => {})
       page must beAnInstanceOf[GEmploymentPensionExpensesPage]
 
       page.ctx.browser.find("#payIntoPension_answer_questionLabel").getText mustEqual("Do you pay into a pension?")
@@ -40,7 +40,7 @@ class GEmploymentPensionExpensesContentSpec extends Specification {
     }
 
     "contain correct labels for past employment" in new WithJsBrowser with PageObjects {
-      val page = GStartedAndFinishedEmploymentPage.fillJobDetails(context, testData => {})
+      val page = GEmploymentPayPage.fillPastJobPayDetails(context, testData => {})
       page must beAnInstanceOf[GEmploymentPensionExpensesPage]
 
       page.ctx.browser.find("#payIntoPension_answer_questionLabel").getText mustEqual("Did you pay into a pension?")
@@ -60,7 +60,7 @@ class GEmploymentPensionExpensesContentSpec extends Specification {
     }
 
     "contain correct labels for future employment" in new WithJsBrowser with PageObjects{
-      val page = GEmploymentNotStartedPage.fillJobDetails(context, testData => {})
+      val page = GEmploymentPayPage.fillFutureJobPayDetails(context, testData => {})
       page must beAnInstanceOf[GEmploymentPensionExpensesPage]
 
       page.ctx.browser.find("#payIntoPension_answer_questionLabel").getText mustEqual("Will you pay into a pension?")
@@ -80,7 +80,7 @@ class GEmploymentPensionExpensesContentSpec extends Specification {
     }
 
     "set the text area field lengths correctly .. all variants default to using present ongoing employment xsd" in new WithJsBrowser with PageObjects{
-      val page = GStartedEmploymentAndOngoingPage.fillJobDetails(context, testData => {})
+      val page = GEmploymentPayPage.fillPresentJobPayDetails(context, testData => {})
       page must beAnInstanceOf[GEmploymentPensionExpensesPage]
       page.ctx.browser.find("#payIntoPension_whatFor").getAttribute("maxlength") mustEqual("300")
       page.ctx.browser.find("#payForThings_whatFor").getAttribute("maxlength") mustEqual("300")

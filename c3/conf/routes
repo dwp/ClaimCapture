@@ -264,14 +264,8 @@ POST        /circumstances/report-changes/breaks-in-care-summary       controlle
 GET         /circumstances/report-changes/employment-change            controllers.circs.report_changes.GEmploymentChange.present
 POST        /circumstances/report-changes/employment-change            controllers.circs.report_changes.GEmploymentChange.submit
 
-GET         /circumstances/report-changes/employment-ongoing           controllers.circs.report_changes.GStartedEmploymentAndOngoing.present
-POST        /circumstances/report-changes/employment-ongoing           controllers.circs.report_changes.GStartedEmploymentAndOngoing.submit
-
-GET         /circumstances/report-changes/employment-finished          controllers.circs.report_changes.GStartedAndFinishedEmployment.present
-POST        /circumstances/report-changes/employment-finished          controllers.circs.report_changes.GStartedAndFinishedEmployment.submit
-
-GET         /circumstances/report-changes/future-employment            controllers.circs.report_changes.GEmploymentNotStarted.present
-POST        /circumstances/report-changes/future-employment            controllers.circs.report_changes.GEmploymentNotStarted.submit
+GET         /circumstances/report-changes/employment-pay        controllers.circs.report_changes.GEmploymentPay.present
+POST        /circumstances/report-changes/employment-pay        controllers.circs.report_changes.GEmploymentPay.submit
 
 GET         /circumstances/employment-pension-expenses                 controllers.circs.report_changes.GEmploymentPensionExpenses.present
 POST        /circumstances/employment-pension-expenses                 controllers.circs.report_changes.GEmploymentPensionExpenses.submit

@@ -23,8 +23,8 @@ object Incomes extends XMLComponent {
     }
 
     <Incomes>
-      {question(<Employed/>, "aboutYou_beenEmployedSince6MonthsBeforeClaim.label", incomes.beenEmployedSince6MonthsBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => DWPCAClaim.displayClaimDate(dmy - 6 months)), displayableClaimDate(claim))}
-      {question(<SelfEmployed/>, "aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label", incomes.beenSelfEmployedSince1WeekBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 1 week}")(dmy => DWPCAClaim.displayClaimDate(dmy - 1 week)), displayableClaimDate(claim))}
+      {question(<Employed/>, "beenEmployedSince6MonthsBeforeClaim.label", incomes.beenEmployedSince6MonthsBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => DWPCAClaim.displayClaimDate(dmy - 6 months)), displayableClaimDate(claim))}
+      {question(<SelfEmployed/>, "beenSelfEmployedSince1WeekBeforeClaim.label", incomes.beenSelfEmployedSince1WeekBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 1 week}")(dmy => DWPCAClaim.displayClaimDate(dmy - 1 week)), displayableClaimDate(claim))}
       {question(<OtherPaymentQuestion/>, "yourIncome.otherIncome.label", anyOtherPayments, displayableClaimDate(claim))}
       {question(<SickPayment/>, "yourIncome.ssp", incomes.yourIncome_sickpay)}
       {question(<PatMatAdopPayment/>, "yourIncome.spmp", incomes.yourIncome_patmatadoppay)}

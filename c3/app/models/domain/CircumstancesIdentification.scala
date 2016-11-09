@@ -18,10 +18,12 @@ case class ReportChangeReason(jsEnabled: Boolean = false, reportChanges: String 
 object ReportChangeReason extends QuestionGroup.Identifier {
   val id = s"${CircumstancesIdentification.id}.g1"
 }
-case class CircumstancesYourDetails(fullName: String = "",
+case class CircumstancesYourDetails( firstName: String = "",
+                                     surname: String = "",
                                      nationalInsuranceNumber: NationalInsuranceNumber = NationalInsuranceNumber(Some("")),
                                      dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
-                                     theirFullName: String = "",
+                                     theirFirstName: String = "",
+                                     theirSurname: String = "",
                                      theirRelationshipToYou: String = "",
                                      furtherInfoContact: Option[String] = None,
                                      override val wantsContactEmail:String = "",

@@ -15,7 +15,7 @@ class GEmploymentPensionExpensesIntegrationSpec extends Specification {
     }
 
     "navigate to next page for current employment" in new WithBrowser with PageObjects {
-      val page = GStartedEmploymentAndOngoingPage.fillJobDetails(context, testData => {})
+      val page = GEmploymentPayPage.fillPresentJobPayDetails(context, testData => {})
       page must beAnInstanceOf[GEmploymentPensionExpensesPage]
       page.ctx.browser.find("#payIntoPension_answer_questionLabel").getText must contain("Do you pay into a pension?")
       page.ctx.browser.click("#payIntoPension_answer_no")
@@ -26,7 +26,7 @@ class GEmploymentPensionExpensesIntegrationSpec extends Specification {
     }
 
     "navigate to next page for past employment" in new WithBrowser with PageObjects {
-      val page = GStartedAndFinishedEmploymentPage.fillJobDetails(context, testData => {})
+      val page = GEmploymentPayPage.fillPastJobPayDetails(context, testData => {})
       page must beAnInstanceOf[GEmploymentPensionExpensesPage]
       page.ctx.browser.find("#payIntoPension_answer_questionLabel").getText must contain("Did you pay into a pension?")
       page.ctx.browser.click("#payIntoPension_answer_no")
@@ -37,7 +37,7 @@ class GEmploymentPensionExpensesIntegrationSpec extends Specification {
     }
 
     "navigate to next page for future employment" in new WithBrowser with PageObjects {
-      val page = GEmploymentNotStartedPage.fillJobDetails(context, testData => {})
+      val page = GEmploymentPayPage.fillFutureJobPayDetails(context, testData => {})
       page must beAnInstanceOf[GEmploymentPensionExpensesPage]
       page.ctx.browser.find("#payIntoPension_answer_questionLabel").getText must contain("Will you pay into a pension?")
       page.ctx.browser.click("#payIntoPension_answer_no")
@@ -48,28 +48,28 @@ class GEmploymentPensionExpensesIntegrationSpec extends Specification {
     }
 
     "navigate back for current employment" in new WithBrowser with PageObjects {
-      val page = GStartedEmploymentAndOngoingPage.fillJobDetails(context, testData => {})
+      val page = GEmploymentPayPage.fillPresentJobPayDetails(context, testData => {})
       page must beAnInstanceOf[GEmploymentPensionExpensesPage]
       val backPage = page goBack ()
-      backPage must beAnInstanceOf[GStartedEmploymentAndOngoingPage]
+      backPage must beAnInstanceOf[GEmploymentPayPage]
     }
 
     "navigate back for past employment" in new WithBrowser with PageObjects {
-      val page = GStartedAndFinishedEmploymentPage.fillJobDetails(context, testData => {})
+      val page = GEmploymentPayPage.fillPastJobPayDetails(context, testData => {})
       page must beAnInstanceOf[GEmploymentPensionExpensesPage]
       val backPage = page goBack ()
-      backPage must beAnInstanceOf[GStartedAndFinishedEmploymentPage]
+      backPage must beAnInstanceOf[GEmploymentPayPage]
     }
 
     "navigate back for future employment" in new WithBrowser with PageObjects {
-      val page = GEmploymentNotStartedPage.fillJobDetails(context, testData => {})
+      val page = GEmploymentPayPage.fillFutureJobPayDetails(context, testData => {})
       page must beAnInstanceOf[GEmploymentPensionExpensesPage]
       val backPage = page goBack ()
-      backPage must beAnInstanceOf[GEmploymentNotStartedPage]
+      backPage must beAnInstanceOf[GEmploymentPayPage]
     }
 
     "persist data in claim when go forward and back" in new WithBrowser with PageObjects {
-      val page = GStartedEmploymentAndOngoingPage.fillJobDetails(context, testData => {})
+      val page = GEmploymentPayPage.fillPresentJobPayDetails(context, testData => {})
       page must beAnInstanceOf[GEmploymentPensionExpensesPage]
 
       page.ctx.browser.find("#payIntoPension_answer_questionLabel").getText must contain("Do you pay into a pension?")

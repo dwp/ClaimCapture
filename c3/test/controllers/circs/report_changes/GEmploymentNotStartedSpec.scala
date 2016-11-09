@@ -6,15 +6,15 @@ import models.domain.MockForm
 import utils.{WithApplication}
 import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
-import utils.pageobjects.circumstances.report_changes.{GEmploymentPensionExpensesPage, GEmploymentNotStartedPage}
+import utils.pageobjects.circumstances.report_changes.{GEmploymentPensionExpensesPage}
 
 class GEmploymentNotStartedSpec extends Specification {
   val yes = "yes"
   val no = "no"
   val amountPaid = "£199.98"
-  val whenExpectedToBePaidDateDay = 10
-  val whenExpectedToBePaidDateMonth = 11
-  val whenExpectedToBePaidDateYear = 2012
+  val paydateDay = 10
+  val paydateMonth = 11
+  val paydateYear = 2012
   val weekly = "weekly"
   val monthly = "monthly"
   val monthlyPayDay = "2nd Thursday every month"
@@ -29,41 +29,44 @@ class GEmploymentNotStartedSpec extends Specification {
 
   "Report an Employment change in your circumstances where employment has not started - Employment Controller" should {
     val validWeeklyPaymentEmployment = Seq(
-      "beenPaidYet" -> yes,
-      "howMuchPaid" -> amountPaid,
-      "whenExpectedToBePaidDate.day" -> whenExpectedToBePaidDateDay.toString,
-      "whenExpectedToBePaidDate.month" -> whenExpectedToBePaidDateMonth.toString,
-      "whenExpectedToBePaidDate.year" -> whenExpectedToBePaidDateYear.toString,
+      "pastpresentfuture" -> "future",
+      "paid" -> yes,
+      "howmuch" -> amountPaid,
+      "paydate.day" -> paydateDay.toString,
+      "paydate.month" -> paydateMonth.toString,
+      "paydate.year" -> paydateYear.toString,
       "howOften.frequency" -> weekly,
-      "usuallyPaidSameAmount" -> no,
+      "sameAmount" -> no,
       "willYouPayIntoPension.answer" -> no,
       "willYouPayForThings.answer" -> no,
       "willCareCostsForThisWork.answer" -> no
     )
 
     val validMonthlyPaymentEmployment = Seq(
-      "beenPaidYet" -> yes,
-      "howMuchPaid" -> amountPaid,
-      "whenExpectedToBePaidDate.day" -> whenExpectedToBePaidDateDay.toString,
-      "whenExpectedToBePaidDate.month" -> whenExpectedToBePaidDateMonth.toString,
-      "whenExpectedToBePaidDate.year" -> whenExpectedToBePaidDateYear.toString,
+      "pastpresentfuture" -> "future",
+      "paid" -> yes,
+      "howmuch" -> amountPaid,
+      "paydate.day" -> paydateDay.toString,
+      "paydate.month" -> paydateMonth.toString,
+      "paydate.year" -> paydateYear.toString,
       "howOften.frequency" -> monthly,
       "monthlyPayDay" -> monthlyPayDay,
-      "usuallyPaidSameAmount" -> no,
+      "sameAmount" -> no,
       "willYouPayIntoPension.answer" -> no,
       "willYouPayForThings.answer" -> no,
       "willCareCostsForThisWork.answer" -> no
     )
 
     val validOtherPaymentEmployment = Seq(
-      "beenPaidYet" -> no,
-      "howMuchPaid" -> amountPaid,
-      "whenExpectedToBePaidDate.day" -> whenExpectedToBePaidDateDay.toString,
-      "whenExpectedToBePaidDate.month" -> whenExpectedToBePaidDateMonth.toString,
-      "whenExpectedToBePaidDate.year" -> whenExpectedToBePaidDateYear.toString,
+      "pastpresentfuture" -> "future",
+      "paid" -> no,
+      "howmuch" -> amountPaid,
+      "paydate.day" -> paydateDay.toString,
+      "paydate.month" -> paydateMonth.toString,
+      "paydate.year" -> paydateYear.toString,
       "howOften.frequency" -> other,
       "howOften.frequency.other" -> otherText,
-      "usuallyPaidSameAmount" -> yes
+      "sameAmount" -> yes
     )
 
     section("unit", models.domain.CircumstancesSelfEmployment.id)
@@ -72,7 +75,7 @@ class GEmploymentNotStartedSpec extends Specification {
 
         val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
 
-        val result = GEmploymentNotStarted.present(request)
+        val result = GEmploymentPay.present(request)
         status(result) mustEqual OK
       }
 
@@ -80,7 +83,7 @@ class GEmploymentNotStartedSpec extends Specification {
         val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
           .withFormUrlEncodedBody(validWeeklyPaymentEmployment: _*)
 
-        val result = GEmploymentNotStarted.submit(request)
+        val result = GEmploymentPay.submit(request)
         redirectLocation(result) must beSome(nextPageUrl)
       }
 
@@ -88,7 +91,7 @@ class GEmploymentNotStartedSpec extends Specification {
         val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
           .withFormUrlEncodedBody(validMonthlyPaymentEmployment: _*)
 
-        val result = GEmploymentNotStarted.submit(request)
+        val result = GEmploymentPay.submit(request)
         redirectLocation(result) must beSome(nextPageUrl)
       }
 
@@ -96,7 +99,7 @@ class GEmploymentNotStartedSpec extends Specification {
         val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
           .withFormUrlEncodedBody(validOtherPaymentEmployment: _*)
 
-        val result = GEmploymentNotStarted.submit(request)
+        val result = GEmploymentPay.submit(request)
         redirectLocation(result) must beSome(nextPageUrl)
       }
     }
