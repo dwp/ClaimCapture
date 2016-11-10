@@ -19,14 +19,7 @@
     }
 }
 
-@newChanging = @{
-    claim.questionGroup[CircumstancesBreaksInCare].getOrElse(new CircumstancesBreaksInCare()).medicalCareDuringBreak.isEmpty match {
-        case true => true
-        case false => false
-    }
-}
-
-@main(messages("c2.g7") + " - " + messages("c2.name"), isChanging = newChanging, backCall = Some(backCall)) {
+@main(messages("c2.g7") + " - " + messages("c2.name"), isChanging = false, backCall = Some(backCall)) {
     @errorsSummary(breaksForm)
 
     @form(action = controllers.circs.report_changes.routes.GBreaksInCare.submit) {
@@ -110,7 +103,7 @@
 
             </fieldset>
 
-            @views.html.common.bottomNavigation(changing = newChanging, backCall = Some(backCall), customTrack = Some(Html("onclick=analyticsCallback()")))
+            @views.html.common.bottomNavigation(changing = false, backCall = Some(backCall), customTrack = Some(Html("onclick=analyticsCallback()")))
         </div>
 
     }

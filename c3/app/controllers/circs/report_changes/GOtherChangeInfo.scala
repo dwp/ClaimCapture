@@ -1,6 +1,7 @@
 package controllers.circs.report_changes
 
 import controllers.CarersForms._
+import controllers.circs.your_details.GYourDetails._
 import models.domain.CircumstancesOtherInfo
 import models.view.{CachedChangeOfCircs, Navigable}
 import play.api.Play._
@@ -27,7 +28,7 @@ object GOtherChangeInfo extends Controller with CachedChangeOfCircs with Navigab
   def submit = claiming {implicit circs => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.circs.report_changes.otherChangeInfo(formWithErrors)),
-      f => circs.update(f) -> Redirect(controllers.circs.your_details.routes.GYourDetails.present())
+      f => circs.update(f) -> Redirect(controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present())
     )
   }
 }

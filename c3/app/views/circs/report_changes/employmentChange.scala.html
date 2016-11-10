@@ -18,7 +18,7 @@
 @paidMoneyYet = @{employmentChange("paidMoneyYet")}
     
 
-@main(messages("c2.g9") + " - " + messages("c2.name"), isChanging = true) {
+@main(messages("c2.g9") + " - " + messages("c2.name"), isChanging = false) {
     @errorsSummary(employmentChange)
 
     @form(action = controllers.circs.report_changes.routes.GEmploymentChange.submit) {
@@ -101,7 +101,7 @@
                 
 	        </fieldset>
 	
-            @views.html.common.bottomNavigation(changing = true, customTrack = Some(Html("onclick=analyticsCallback()")))
+            @views.html.common.bottomNavigation(changing = false, customTrack = Some(Html("onclick=analyticsCallback()")))
         </div>
 
     }

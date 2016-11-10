@@ -1,6 +1,7 @@
 package controllers.circs.report_changes
 
 import controllers.CarersForms._
+import controllers.circs.your_details.GYourDetails._
 import controllers.mappings.AccountNumberMappings._
 import controllers.mappings.Mappings._
 import models.domain.CircumstancesPaymentChange
@@ -64,7 +65,7 @@ object GPaymentChange extends Controller with CachedChangeOfCircs with Navigable
           .replaceError("", "currentlyPaidIntoBankText2.required", FormError("currentlyPaidIntoBankText2", errorRequired))
         BadRequest(views.html.circs.report_changes.paymentChange(updatedErrors))
       },
-      f => circs.update(f) -> Redirect(controllers.circs.your_details.routes.GYourDetails.present())
+      f => circs.update(f) -> Redirect(controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present())
     )
   }
 }

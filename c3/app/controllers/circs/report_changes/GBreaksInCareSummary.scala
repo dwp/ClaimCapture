@@ -43,7 +43,7 @@ object GBreaksInCareSummary extends Controller with CachedChangeOfCircs with Nav
           .replaceError("additionalBreaks", "additionalBreaks.text.required", FormError("additionalBreaks.text", errorRequired))
         BadRequest(views.html.circs.report_changes.breaksInCareSummary(formWithErrorsUpdate, circs.questionGroup[CircumstancesBreaksInCare].getOrElse(new CircumstancesBreaksInCare()), backCall))
       },
-      f => circs.update(f) -> Redirect(controllers.circs.your_details.routes.GYourDetails.present())
+      f => circs.update(f) -> Redirect(controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present())
     )
   }
 

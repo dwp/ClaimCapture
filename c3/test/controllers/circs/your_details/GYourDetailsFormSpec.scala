@@ -1,6 +1,7 @@
 package controllers.circs.your_details
 
 import app.ReportChange
+import controllers.circs.report_changes.GOtherChangeInfo
 import controllers.mappings.Mappings
 import models.domain._
 import models.view.CachedChangeOfCircs
@@ -8,7 +9,8 @@ import org.specs2.mutable._
 import play.api.test.Helpers._
 import play.api.test.FakeRequest
 import utils.WithApplication
-import utils.pageobjects.circumstances.consent_and_declaration.GCircsDeclarationPage
+import utils.pageobjects.circumstances.report_changes.GOtherChangeInfoPage
+import utils.pageobjects.circumstances.start_of_process.GCircsYourDetailsPage
 
 class GYourDetailsFormSpec extends Specification {
   val firstName = "John"
@@ -23,7 +25,7 @@ class GYourDetailsFormSpec extends Specification {
 
   val byTelephone = "01254897675"
   val wantsEmailContactCircs = "no"
-  val nextPageUrl = GCircsDeclarationPage.url
+  val nextPageUrl = GOtherChangeInfoPage.url
 
   section("unit", models.domain.CircumstancesReportChanges.id)
   "Change of circumstances - About You Form" should {

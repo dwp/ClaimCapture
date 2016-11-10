@@ -12,7 +12,7 @@
 @import play.api.Play
 @import play.api.Play.current
 
-@main(messages("c2.g4") + " - " + messages("c2.name"), isChanging = true) {
+@main(messages("c2.g4") + " - " + messages("c2.name"), isChanging = false) {
     @errorsSummary(otherInfoForm)
 
     @form(action = controllers.circs.report_changes.routes.GOtherChangeInfo.submit) {
@@ -30,7 +30,7 @@
                 
 	        </fieldset>
 	
-            @views.html.common.bottomNavigation(changing = true, customTrack = Some(Html("onclick=analyticsCallback()")))
+            @views.html.common.bottomNavigation(changing = false, customTrack = Some(Html("onclick=analyticsCallback()")))
         </div>
 
     }

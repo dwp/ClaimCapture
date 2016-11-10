@@ -13,7 +13,7 @@
 @import play.api.Play
 @import play.api.Play.current
 
-@main(messages("c2.g5") + " - " + messages("c2.name"), isChanging = true) {
+@main(messages("c2.g5") + " - " + messages("c2.name"), isChanging = false) {
     @errorsSummary(currentForm)
 
 
@@ -77,7 +77,7 @@
 
 	        </fieldset>
 
-			@views.html.common.bottomNavigation(changing = true, customTrack = Some(Html("onclick=analyticsCallback()")))
+			@views.html.common.bottomNavigation(changing = false, customTrack = Some(Html("onclick=analyticsCallback()")))
         </div>
 
     }

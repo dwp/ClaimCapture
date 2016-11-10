@@ -1,7 +1,7 @@
 package controllers.circs.your_details
 
+import app.{ReportChange => r}
 import controllers.CarersForms._
-import controllers.mappings.Mappings
 import controllers.mappings.Mappings._
 import controllers.mappings.NINOMappings._
 import models.domain.EMail._
@@ -12,7 +12,7 @@ import play.api.data.Forms._
 import play.api.data.validation.Constraints
 import play.api.data.{Form, FormError}
 import play.api.i18n.{I18nSupport, MMessages, MessagesApi}
-import play.api.mvc.Controller
+import play.api.mvc.{Call, Controller}
 import utils.CommonValidation
 import utils.helpers.CarersForm._
 
@@ -56,9 +56,32 @@ object GYourDetails extends Controller with CachedChangeOfCircs with Navigable w
 
           BadRequest(views.html.circs.your_details.yourDetails(formWithErrorsUpdate))
         },
-        yourDetailsChange => circs.update(formatEmailAndPostCode(yourDetailsChange)) -> Redirect(controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present())
+        yourDetailsChange => {
+          val circsUpdate = circs.update(formatEmailAndPostCode(yourDetailsChange))
+          getReportChangesRedirect(circsUpdate)
+        }
       )
   },checkCookie=true)
+
+  private def getReportChangesRedirect(circs:Claim) = {
+    val reportChanges = circs.questionGroup[ReportChangeReason].getOrElse(ReportChangeReason()).reportChanges
+    val breakInCare = circs.questionGroup[CircumstancesBreaksInCare].getOrElse(CircumstancesBreaksInCare())
+
+    val selectedQG:(QuestionGroup.Identifier,Call) = {
+      reportChanges match {
+        case r.EmploymentChange.name => CircumstancesEmploymentChange -> controllers.circs.report_changes.routes.GEmploymentChange.present()
+        case r.AddressChange.name => CircumstancesAddressChange  -> controllers.circs.report_changes.routes.GAddressChange.present()
+        case r.StoppedCaring.name =>  CircumstancesStoppedCaring  -> controllers.circs.report_changes.routes.GPermanentlyStoppedCaring.present()
+        case r.PaymentChange.name => CircumstancesPaymentChange  -> controllers.circs.report_changes.routes.GPaymentChange.present()
+        case r.BreakFromCaring.name if(breakInCare.medicalCareDuringBreak != "") => CircumstancesBreaksInCare  -> controllers.circs.report_changes.routes.GBreaksInCareSummary.present()
+        case r.BreakFromCaring.name => CircumstancesBreaksInCare  -> controllers.circs.report_changes.routes.GBreaksInCare.present()
+        case r.BreakFromCaringYou.name if(breakInCare.medicalCareDuringBreak != "") => CircumstancesBreaksInCare  -> controllers.circs.report_changes.routes.GBreaksInCareSummary.present()
+        case r.BreakFromCaringYou.name => CircumstancesBreaksInCare  -> controllers.circs.report_changes.routes.GBreaksInCare.present()
+        case _ => CircumstancesOtherInfo -> controllers.circs.report_changes.routes.GOtherChangeInfo.present()
+      }
+    }
+    circs -> Redirect(selectedQG._2)
+  }
 
   private def formatEmailAndPostCode(circumstancesReportChange: CircumstancesYourDetails): CircumstancesYourDetails = {
     circumstancesReportChange.copy(

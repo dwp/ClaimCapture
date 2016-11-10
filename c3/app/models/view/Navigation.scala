@@ -43,7 +43,7 @@ trait Navigable {
   }
 
   def circsPathAfterFunction() = {
-    controllers.circs.your_details.routes.GYourDetails.present()
+    controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present()
   }
 
   def circsPathAfterYourDetails() = {

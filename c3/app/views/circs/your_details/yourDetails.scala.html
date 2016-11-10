@@ -9,8 +9,9 @@
 @import utils.helpers.CarersCrypto
 @import play.api.Play
 @import utils.CommonValidation
-@import views.html.circs.start_of_process.main
-    @main(messages("c1") + " - " + messages("c2.longName"), Some(reportAChangeForm), back = true) {
+@import views.html.circs.report_changes.main
+
+    @main(messages("c1") + " - " + messages("c2.longName"), Some(reportAChangeForm), isChanging = true) {
         @form(action = controllers.circs.your_details.routes.GYourDetails.submit) {
             @DwpCSRFFormHelper.formField
             <div class="form-wrap">
@@ -58,7 +59,7 @@
                         @carersInputText(reportAChangeForm("theirRelationshipToYou"), 'helperAbove -> messages("theirRelationshipToYou.helper"), 'maxLength -> 35)
                     </ul>
                 </fieldset>
-                @views.html.common.bottomNavigation()
+                @views.html.common.bottomNavigation(changing = true)
             </div>
         }
 

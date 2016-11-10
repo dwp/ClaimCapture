@@ -60,8 +60,8 @@ object GReportChangeReason extends Controller with CachedChangeOfCircs with Navi
       }
     }
 
-    val updatedCircs = popDeleteQG(circs,optSections.filter(_.id != selectedQG._1.id))
-    Redirect(selectedQG._2)
+    val updatedCircs = popDeleteQG(circs, optSections.filter(_.id != selectedQG._1.id))
+    Redirect(controllers.circs.your_details.routes.GYourDetails.present())
   }
 
   @tailrec
