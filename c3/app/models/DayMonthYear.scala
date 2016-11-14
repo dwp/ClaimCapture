@@ -162,6 +162,7 @@ object DayMonthYearComparator extends Ordering[Option[DayMonthYear]]{
 
 object DayMonthYear {
   import scala.language.implicitConversions
+  val SPACESTRING=" "
 
   implicit def dateTimeOrdering:Ordering[DayMonthYear]= new Ordering[DayMonthYear]{
     override def compare(x: DayMonthYear, y: DayMonthYear): Int = DayMonthYearComparator.compare(Some(x),Some(y))
@@ -176,7 +177,7 @@ object DayMonthYear {
   def convert(day: Option[String], month: Option[String], year: Option[String], hour: Option[String], minutes: Option[String]) = {
     def intArg(value:Option[String]):Option[Int] = {
       value match {
-        case Some(x) => Try(x.toInt) match { case Success(y) => Some(y); case _ => None}
+        case Some(x) => Try(x.replace(SPACESTRING,"").toInt) match { case Success(y) => Some(y); case _ => None}
         case _ => None
       }
     }
