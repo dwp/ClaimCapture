@@ -1,5 +1,6 @@
 package controllers
 
+import controllers.mappings.Mappings
 import utils.pageobjects.TestData
 import app.ReportChange._
 import app.{CircsBreaksWhereabouts, WhoseNameAccount, PaymentFrequency}
@@ -62,6 +63,21 @@ object CircumstancesScenarioFactory {
     claim.CircumstancesEmploymentChangeSelfEmployedTypeOfWork = "IT Consultant"
     claim.CircumstancesEmploymentChangeSelfEmployedTotalIncome = "yes"
     claim.CircumstancesEmploymentChangeSelfEmployedPaidMoneyYet = "no"
+
+    claim
+  }
+
+  def reportChangesEmploymentChangeEmploymentPresent = {
+    val claim = aboutDetails
+    claim.CircumstancesReportChanges = EmploymentChange.name
+    claim.CircumstancesEmploymentChangeStillCaring = Mappings.yes
+    claim.CircumstancesEmploymentChangeHasWorkStartedYet = Mappings.yes
+    claim.CircumstancesEmploymentChangeDateWhenStarted = "01/01/2013"
+    claim.CircumstancesEmploymentChangeHasWorkFinishedYet = Mappings.no
+    claim.CircumstancesEmploymentChangeTypeOfWork = "employed"
+    claim.CircumstancesEmploymentChangeEmployerName = "Asda"
+    claim.CircumstancesEmploymentChangeEmployerNameAndAddress = "Fulwood&Preston"
+    claim.CircumstancesEmploymentChangeHowOftenFrequency = "Weekly"
 
     claim
   }
