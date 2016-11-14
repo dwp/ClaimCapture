@@ -50,7 +50,7 @@ class GContactDetailsFormSpec extends Specification {
         Map("howWeContactYou" -> "01234567890")).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(2)
-          formWithErrors.errors(0).message must equalTo("error.address.lines.required")
+          formWithErrors.errors(0).message must equalTo("error.careraddress.lines.required")
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }

@@ -23,6 +23,14 @@ class AssistedDecisionBlankDecisionsSpec extends Specification {
       (xml \\ "RecommendedDecision").text must contain("Potential award,show table")
     }
 
+    "Show table decision when another nationality" in new WithApplication {
+      val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
+      val french = NationalityAndResidency(nationality=NationalityAndResidency.anothercountry, actualnationality = Some("French"))
+      val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(french))
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "AssistedDecision") (0) mustEqual showTableDecisionNode
+    }
+
     "Show table decision when got trips abroad greater than 52 weeks" in new WithApplication {
       val moreAboutTheCare = MoreAboutTheCare(Some(Mappings.yes))
       val tripsAbroad = NationalityAndResidency(trip52weeks = Mappings.yes)

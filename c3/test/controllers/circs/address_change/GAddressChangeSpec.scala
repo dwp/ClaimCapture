@@ -1,13 +1,14 @@
-package controllers.circs.report_changes
+package controllers.circs.address_change
 
 import app.ConfigProperties._
-import org.specs2.mutable._
-import play.api.test.FakeRequest
+import controllers.circs.report_changes.GAddressChange
 import models.domain.MockForm
 import models.view.CachedChangeOfCircs
+import org.specs2.mutable._
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.pageobjects.circumstances.report_changes.GAddressChangePage
-import utils.{WithBrowser, WithApplication}
+import utils.{WithApplication, WithBrowser}
 
 /**
  * Created by neddakaltcheva on 2/14/14.
