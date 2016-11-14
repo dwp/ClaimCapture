@@ -1,5 +1,6 @@
 package controllers.s_employment
 
+import controllers.mappings.AddressMappings
 import play.api.Play._
 
 import language.reflectiveCalls
@@ -25,7 +26,7 @@ object GJobDetails extends Controller with CachedClaim with Navigable with I18nS
     "iterationID" -> carersNonEmptyText,
     "employerName"-> carersNonEmptyText(maxLength = 60),
     "phoneNumber" -> nonEmptyText.verifying(validPhoneNumberRequired),
-    "address" -> address,
+    "address" -> address(AddressMappings.EMPLOYMENT),
     "postcode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode)),
     "startJobBeforeClaimDate" -> nonEmptyText.verifying(validYesNo),
     "jobStartDate" -> optional(dayMonthYear.verifying(validDate)),

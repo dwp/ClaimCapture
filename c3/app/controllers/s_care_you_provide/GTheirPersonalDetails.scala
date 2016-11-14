@@ -1,7 +1,7 @@
 package controllers.s_care_you_provide
 
 import controllers.mappings.AddressMappings._
-import controllers.mappings.Mappings
+import controllers.mappings.{AddressMappings, Mappings}
 import controllers.s_your_partner.GYourPartnerPersonalDetails._
 import models.yesNo.YesNoMandWithAddress
 import play.api.Play._
@@ -24,7 +24,7 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val addressMapping = "theirAddress"->mapping(
     "answer" -> nonEmptyText.verifying(validYesNo),
-    "address" -> optional(address),
+    "address" -> optional(address(AddressMappings.CAREE)),
     "postCode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode))
       )(YesNoMandWithAddress.apply)(YesNoMandWithAddress.unapply)
 
@@ -77,8 +77,7 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors
-          .replaceError("","theirAddress.address", FormError("theirAddress.address", "error.address.lines.required"))
-
+          .replaceError("","theirAddress.address", FormError("theirAddress.address", "error.careeaddress.lines.required"))
         BadRequest(views.html.s_care_you_provide.g_theirPersonalDetails(updatedFormWithErrors))
       },
       theirPersonalDetails => {
