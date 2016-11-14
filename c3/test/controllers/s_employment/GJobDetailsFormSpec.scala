@@ -85,7 +85,7 @@ class GJobDetailsFormSpec extends Specification {
           formWithErrors.errors(0).message must equalTo(Mappings.errorRequired)
           formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
           formWithErrors.errors(2).message must equalTo(Mappings.errorRequired)
-          formWithErrors.errors(3).message must equalTo("error.address.lines.required")
+          formWithErrors.errors(3).message must equalTo("error.empaddress.lines.required")
           formWithErrors.errors(4).message must equalTo(Mappings.errorRequired)
           formWithErrors.errors(5).message must equalTo(Mappings.errorRequired)
         },
@@ -265,7 +265,7 @@ class GJobDetailsFormSpec extends Specification {
           "jobStartDate.year" -> year1,
           "finishedThisJob" -> no)
       ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.address.lines.required"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.empaddress.lines.required"),
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
