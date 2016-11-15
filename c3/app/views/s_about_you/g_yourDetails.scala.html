@@ -44,7 +44,7 @@
 
                     @dateOfBirth(yourDetailsForm("dateOfBirth"))
 
-                    @Html(s"""<div id="dob-warning" class="prompt breaks-prompt validation-summary"> <p id="dob-warning-message">${messages("dob-warning-message")}</p> </div>""")
+                    @Html(s"""<div id="dob-warning" class="prompt breaks-prompt validation-summary" style="display:none"><p id="dob-warning-message">${messages("dob-warning-message")}</p> </div>""")
                     @Html(s"""<div id="dob-warning-dp-and-you-message" style="display:none">${messages("dob-warning-dp-and-you-message")}</div>""")
                     @Html(s"""<div id="dob-warning-partner-and-you-message" style="display:none">${messages("dob-warning-partner-and-you-message")}</div>""")
                 </ul>
