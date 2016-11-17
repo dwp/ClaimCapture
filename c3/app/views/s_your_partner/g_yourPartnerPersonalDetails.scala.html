@@ -12,7 +12,7 @@
 @import models.domain.YourPartnerPersonalDetails
 @import models.domain.YourDetails
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
-@import utils.CommonValidation
+@import gov.dwp.carers.xml.validation.CommonValidation
 
 @theirPersonalDetails = @{claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())}
 @partnerDetails = @{claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())}

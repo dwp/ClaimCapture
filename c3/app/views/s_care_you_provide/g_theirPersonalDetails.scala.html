@@ -8,7 +8,7 @@
 @import models.domain.YourPartnerPersonalDetails
 @import utils.helpers.CarersCrypto
 @import controllers.mappings.Mappings._
-@import utils.CommonValidation
+@import gov.dwp.carers.xml.validation.CommonValidation
 @import models.domain.YourDetails
 
 @yourDetails = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}

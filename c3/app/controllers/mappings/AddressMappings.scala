@@ -4,7 +4,7 @@ import models.MultiLineAddress
 import play.api.data.Forms._
 import play.api.data.Mapping
 import play.api.data.validation._
-import utils.CommonValidation._
+import gov.dwp.carers.xml.validation.CommonValidation._
 
 object AddressMappings {
   val CARER = "careraddress"

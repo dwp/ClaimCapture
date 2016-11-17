@@ -4,6 +4,7 @@ import controllers.CarersForms._
 import controllers.circs.your_details.GYourDetails._
 import controllers.mappings.AccountNumberMappings._
 import controllers.mappings.Mappings._
+import gov.dwp.carers.xml.validation.CommonValidation
 import models.domain.CircumstancesPaymentChange
 import models.view.{CachedChangeOfCircs, Navigable}
 import models.yesNo.YesNoWith2Text
@@ -12,7 +13,6 @@ import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
 import play.api.mvc.Controller
-import utils.CommonValidation
 import utils.helpers.CarersForm._
 import play.api.i18n._
 

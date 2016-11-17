@@ -4,7 +4,7 @@ import controllers.mappings.Mappings
 import models.NationalInsuranceNumber
 import play.api.Play._
 import play.api.data.validation._
-import utils.CommonValidation
+import gov.dwp.carers.xml.validation.CommonValidation
 
 import language.reflectiveCalls
 import play.api.data.Form

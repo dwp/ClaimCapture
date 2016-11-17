@@ -4,7 +4,7 @@ import controllers.s_about_you.GYourDetails._
 import models.{NationalInsuranceNumber, DayMonthYear}
 import play.api.Play._
 import play.api.data.validation.{Valid, ValidationError, Invalid, Constraint}
-import utils.CommonValidation
+import gov.dwp.carers.xml.validation.CommonValidation
 import language.reflectiveCalls
 import play.api.data.{FormError, Form}
 import play.api.data.Forms.mapping

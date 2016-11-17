@@ -8,7 +8,7 @@ import play.api.data.{Form}
 import play.api.data.Forms._
 import play.api.i18n._
 import play.api.mvc._
-import utils.CommonValidation
+import gov.dwp.carers.xml.validation.CommonValidation
 import scala.language.reflectiveCalls
 import controllers.CarersForms._
 import controllers.mappings.Mappings._

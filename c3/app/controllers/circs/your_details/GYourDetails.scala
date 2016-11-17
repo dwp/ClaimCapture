@@ -13,7 +13,7 @@ import play.api.data.validation.Constraints
 import play.api.data.{Form, FormError}
 import play.api.i18n.{I18nSupport, MMessages, MessagesApi}
 import play.api.mvc.{Call, Controller}
-import utils.CommonValidation
+import gov.dwp.carers.xml.validation.CommonValidation
 import utils.helpers.CarersForm._
 
 import scala.language.{postfixOps, reflectiveCalls}

@@ -8,7 +8,7 @@ import play.api.data.Forms._
 import controllers.mappings.Mappings._
 import play.api.data.{FormError, Form}
 import models.domain.NationalityAndResidency
-import utils.CommonValidation
+import gov.dwp.carers.xml.validation.CommonValidation
 import utils.helpers.CarersForm._
 import play.api.i18n._
 

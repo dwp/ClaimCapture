@@ -4,7 +4,7 @@ import app.{PaymentTypes, StatutoryPaymentFrequency}
 import controllers.mappings.Mappings
 import models.DayMonthYear
 import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
-import utils.CommonValidation
+import gov.dwp.carers.xml.validation.CommonValidation
 import utils.helpers.TextLengthHelper
 
 object YourIncome extends Section.Identifier {

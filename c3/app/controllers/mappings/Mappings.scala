@@ -11,7 +11,7 @@ import play.api.data.Forms._
 import play.api.data.validation._
 import play.api.data.{Form, FormError, Mapping}
 import play.api.mvc.Request
-import utils.CommonValidation._
+import gov.dwp.carers.xml.validation.CommonValidation._
 import scala.util.{Failure, Success, Try}
 import scala.util.matching.Regex
 

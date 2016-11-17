@@ -6,7 +6,7 @@ import controllers.s_your_partner.GYourPartnerPersonalDetails._
 import models.yesNo.YesNoMandWithAddress
 import play.api.Play._
 import play.api.data.validation.{Valid, ValidationError, Invalid, Constraint}
-import utils.CommonValidation
+import gov.dwp.carers.xml.validation.CommonValidation
 import language.reflectiveCalls
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
