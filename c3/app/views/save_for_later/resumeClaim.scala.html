@@ -18,9 +18,9 @@
             <input type="hidden" name="uuid" value="@resumeForm.data.get("uuid")"/>
             <fieldset class="form-elements" data-journey="carers-allowance:resume">
                 <ul>
-                    @carersInputText(resumeForm("firstName"), 'maxLength -> 17)
+                    @carersInputText(resumeForm("firstName"), 'maxLength -> CommonValidation.FIRSTNAME_MAX_LENGTH)
 
-                    @carersInputText(resumeForm("surname"), 'maxLength -> CommonValidation.NAME_MAX_LENGTH)
+                    @carersInputText(resumeForm("surname"), 'maxLength -> CommonValidation.SURNAME_MAX_LENGTH)
 
                     @nationalInsuranceNumber(resumeForm("nationalInsuranceNumber"),
                         'helperAbove -> messages("mandatory.nationalInsuranceNumber.helper"),

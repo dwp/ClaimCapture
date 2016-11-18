@@ -30,11 +30,11 @@
                 <ul>
                     @carersInputText(yourDetailsForm("title"), 'maxLength->20)
 
-                    @carersInputText(yourDetailsForm("firstName"), 'maxLength -> 17)
+                    @carersInputText(yourDetailsForm("firstName"), 'maxLength -> CommonValidation.FIRSTNAME_MAX_LENGTH)
 
-                    @carersInputText(yourDetailsForm("middleName"), 'maxLength -> 17,'ignoreOptional->true)
+                    @carersInputText(yourDetailsForm("middleName"), 'maxLength -> CommonValidation.MIDDLENAME_MAX_LENGTH,'ignoreOptional->true)
 
-                    @carersInputText(yourDetailsForm("surname"), 'maxLength -> CommonValidation.NAME_MAX_LENGTH)
+                    @carersInputText(yourDetailsForm("surname"), 'maxLength -> CommonValidation.SURNAME_MAX_LENGTH)
 
                     @nationalInsuranceNumber(yourDetailsForm("nationalInsuranceNumber"),
                         'helperAbove -> messages("mandatory.nationalInsuranceNumber.helper"),

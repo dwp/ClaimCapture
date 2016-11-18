@@ -30,9 +30,9 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
 
   def form(implicit request: Request[AnyContent]) = Form(mapping(
     "title" -> carersNonEmptyText(maxLength = Mappings.twenty),
-    "firstName" -> carersNonEmptyText(maxLength = 17),
-    "middleName" -> optional(carersText(maxLength = 17)),
-    "surname" -> carersNonEmptyText(maxLength = CommonValidation.NAME_MAX_LENGTH),
+    "firstName" -> nonEmptyText(maxLength = CommonValidation.FIRSTNAME_MAX_LENGTH).verifying(YourDetails.validName),
+    "middleName" -> optional(text(maxLength = CommonValidation.MIDDLENAME_MAX_LENGTH).verifying(YourDetails.validName)),
+    "surname" -> nonEmptyText(maxLength = CommonValidation.SURNAME_MAX_LENGTH).verifying(YourDetails.validName),
     "nationalInsuranceNumber" -> optional(nino.verifying(stopOnFirstFail (validNino, isSameNinoAsDPOrPartner))),
     "dateOfBirth" -> dayMonthYear.verifying(validDateOfBirth),
     "relationship" -> carersNonEmptyText(maxLength = 35),

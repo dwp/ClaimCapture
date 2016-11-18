@@ -73,13 +73,13 @@
                         inputDef = Seq(
                             carersInputText(currentForm("title"), 'maxLength -> 20),
 
-                            carersInputText(currentForm("firstName"), 'maxLength -> 17),
+                            carersInputText(currentForm("firstName"), 'maxLength -> CommonValidation.FIRSTNAME_MAX_LENGTH),
 
-                            carersInputText(currentForm("middleName"), 'maxLength -> 17,'ignoreOptional->true),
+                            carersInputText(currentForm("middleName"), 'maxLength -> CommonValidation.MIDDLENAME_MAX_LENGTH,'ignoreOptional->true),
 
-                            carersInputText(currentForm("surname"), 'maxLength -> CommonValidation.NAME_MAX_LENGTH),
+                            carersInputText(currentForm("surname"), 'maxLength -> CommonValidation.SURNAME_MAX_LENGTH),
 
-                            carersInputText(currentForm("otherNames"), 'maxLength -> CommonValidation.NAME_MAX_LENGTH),
+                            carersInputText(currentForm("otherNames"), 'maxLength -> CommonValidation.SURNAME_MAX_LENGTH),
 
                             nationalInsuranceNumber(currentForm("nationalInsuranceNumber"),
                                 'ignoreOptional->true,

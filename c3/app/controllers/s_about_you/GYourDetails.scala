@@ -26,38 +26,39 @@ object GYourDetails extends Controller with CachedClaim with Navigable with I18n
 
   def form(implicit request: Request[AnyContent]) = Form(mapping(
     "title" -> carersNonEmptyText(maxLength = Mappings.twenty),
-    "firstName" -> carersNonEmptyText(maxLength = 17),
-    "middleName" -> optional(carersText(maxLength = 17)),
-    "surname" -> carersNonEmptyText(maxLength = CommonValidation.NAME_MAX_LENGTH),
-    "nationalInsuranceNumber" -> nino.verifying(stopOnFirstFail (filledInNino, validNino, isSameNinoAsDPOrPartner)),
+    "firstName" -> nonEmptyText(maxLength = CommonValidation.FIRSTNAME_MAX_LENGTH).verifying(YourDetails.validName),
+    "middleName" -> optional(text(maxLength = CommonValidation.MIDDLENAME_MAX_LENGTH).verifying(YourDetails.validName)),
+    "surname" -> nonEmptyText(maxLength = CommonValidation.SURNAME_MAX_LENGTH).verifying(YourDetails.validName),
+    "nationalInsuranceNumber" -> nino.verifying(stopOnFirstFail(filledInNino, validNino, isSameNinoAsDPOrPartner)),
     "dateOfBirth" -> dayMonthYear.verifying(validDateOfBirth)
   )(YourDetails.apply)(YourDetails.unapply)
   )
 
-  def present = claiming {implicit claim => implicit request => implicit request2lang =>
+  def present = claiming { implicit claim => implicit request => implicit request2lang =>
     Logger.debug(s"Start your details ${claim.key} ${claim.uuid}")
     track(YourDetails) { implicit claim => Ok(views.html.s_about_you.g_yourDetails(form.fill(YourDetails))) }
   }
 
-  def submit = claiming {implicit claim => implicit request => implicit request2lang =>
+  def submit = claiming { implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         BadRequest(views.html.s_about_you.g_yourDetails(formWithErrors))
       },
-      yourDetails => { // Show pay details if the person is below age.hide.paydetails years of age on the day of the claim (claim date)
-        val updatedClaim:Claim = previewClaim(claim, yourDetails)
+      yourDetails => {
+        // Show pay details if the person is below age.hide.paydetails years of age on the day of the claim (claim date)
+        val updatedClaim: Claim = previewClaim(claim, yourDetails)
         updatedClaim.update(yourDetails) -> Redirect(routes.GMaritalStatus.present())
       })
   } withPreview()
 
-  def showPayDetails(claim:Claim, yourDetails:YourDetails):Boolean = {
+  def showPayDetails(claim: Claim, yourDetails: YourDetails): Boolean = {
     claim.dateOfClaim match {
       case Some(dmy) => yourDetails.dateOfBirth.yearsDiffWith(dmy) < getIntProperty("age.hide.paydetails")
       case _ => false
     }
   }
 
-  def previewClaim(claim:Claim, yourDetails:YourDetails): Claim = {
+  def previewClaim(claim: Claim, yourDetails: YourDetails): Claim = {
     if (!showPayDetails(claim, yourDetails)) {
       claim.delete(HowWePayYou).hideSection(PayDetails)
     } else {

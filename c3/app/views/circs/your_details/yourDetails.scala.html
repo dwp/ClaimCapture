@@ -19,8 +19,8 @@
                     <legend class="form-label-bold heading-medium">@Html(messages("c1.yourDetails"))</legend>
                     <p>@Html(messages("c1.helper"))</p>
                     <ul>
-                        @carersInputText(reportAChangeForm("firstName"), 'maxLength -> 17)
-                        @carersInputText(reportAChangeForm("surname"), 'maxLength -> CommonValidation.NAME_MAX_LENGTH)
+                        @carersInputText(reportAChangeForm("firstName"), 'maxLength -> CommonValidation.FIRSTNAME_MAX_LENGTH)
+                        @carersInputText(reportAChangeForm("surname"), 'maxLength -> CommonValidation.SURNAME_MAX_LENGTH)
 
                         @nationalInsuranceNumber(reportAChangeForm("nationalInsuranceNumber"),
                             'helperAbove -> messages("mandatory.nationalInsuranceNumber.helper"),
@@ -54,8 +54,8 @@
                 <fieldset class="form-elements">
                     <legend class="form-label-bold heading-medium">@Html(messages("c1.personYouAreCaringFor"))</legend>
                     <ul>
-                        @carersInputText(reportAChangeForm("theirFirstName"), 'maxLength -> 17)
-                        @carersInputText(reportAChangeForm("theirSurname"), 'maxLength -> CommonValidation.NAME_MAX_LENGTH)
+                        @carersInputText(reportAChangeForm("theirFirstName"), 'maxLength -> CommonValidation.FIRSTNAME_MAX_LENGTH)
+                        @carersInputText(reportAChangeForm("theirSurname"), 'maxLength -> CommonValidation.SURNAME_MAX_LENGTH)
                         @carersInputText(reportAChangeForm("theirRelationshipToYou"), 'helperAbove -> messages("theirRelationshipToYou.helper"), 'maxLength -> 35)
                     </ul>
                 </fieldset>
