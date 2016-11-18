@@ -57,10 +57,8 @@ object Mappings {
     "text" -> optional(carersText(maxLength = sixty)))(RadioWithText.apply)(RadioWithText.unapply)
 
   val dayMonthYear: Mapping[DayMonthYear] = {
-    println("Doing dayMonthYear mapping")
     mapping(
       "day" -> {
-        println("Got day:"+text)
         optional(text)
       },
       "month" -> optional(text),
@@ -149,7 +147,6 @@ object Mappings {
   }
 
   def dateOfBirthValidation(dmy: DayMonthYear, field: String): ValidationResult = {
-    println("date validation on dmy:"+dmy)
     dateValidation(dmy, field) match {
       case Invalid(e) => Invalid(e)
       case _ if (dmy.year.getOrElse(0) < 1900) => Invalid(ValidationError(field))
@@ -159,12 +156,10 @@ object Mappings {
   }
 
   def validDateOfBirth: Constraint[DayMonthYear] = {
-    val x=Constraint[DayMonthYear](constraintRequired) {
+    Constraint[DayMonthYear](constraintRequired) {
       case DayMonthYear(None, None, None, _, _) =>   Invalid(ValidationError(errorRequired))
       case dmy@DayMonthYear(_, _, _, _, _) =>  dateOfBirthValidation(dmy, errorInvalid)
     }
-    println("date validation result:"+x)
-    x
   }
 
   def validDateOnly: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.validateDate") { dmy =>
@@ -260,17 +255,14 @@ object Mappings {
 
   def validNationality: Constraint[String] = Constraint[String]("constraint.nationality") { nationality =>
     val nationalityPattern = NATIONALITY_REGEX.r
-
     nationalityPattern.pattern.matcher(nationality).matches match {
       case true => Valid
       case false => Invalid(ValidationError("error.nationality"))
     }
   }
 
-
   def restrictedStringText: Constraint[String] = Constraint[String]("constraint.restrictedStringText") { restrictedString =>
     val restrictedStringPattern = RESTRICTED_CHARS.r
-
     restrictedStringPattern.pattern.matcher(restrictedString).matches match {
       case true => Valid
       case false => Invalid(ValidationError(errorRestrictedCharacters))
@@ -279,7 +271,6 @@ object Mappings {
 
   def restrictedPostCodeAddressStringText: Constraint[String] = Constraint[String]("constraint.restrictedPostCodeAddressStringText") { restrictedString =>
     val restrictedStringPattern = RESTRICTED_POSTCODE_REGEX.r
-
     restrictedStringPattern.pattern.matcher(restrictedString).matches match {
       case true => Valid
       case false => Invalid(ValidationError(errorPostCodeAddressCharacters))
