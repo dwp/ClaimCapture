@@ -22,14 +22,39 @@ case class YourDetails(title: String = "",
 object YourDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g1"
   def getSwitchedNameRegex() = getBooleanProperty("surname-drs-regex") match {
-      case (true) => NAME_REGEX
-      case (_) => RESTRICTED_CHARS
+    case (true) => NAME_REGEX
+    case (_) => RESTRICTED_CHARS
+  }
+
+  def getNameBadCharacters(text: String): String = {
+    val sb = new StringBuffer
+    text.map(c => {
+      if (!NAME_CHARS.r.pattern.matcher(c.toString).matches()) {
+        if (sb.length() > 0) sb.append(",")
+        sb.append("\"" + c + "\"")
+      }
+    })
+    sb.toString
   }
 
   def validName: Constraint[String] = Constraint[String]("constraint.restrictedStringText") { text =>
     getSwitchedNameRegex().r.pattern.matcher(text).matches match {
       case true => Valid
-      case false => Invalid(ValidationError("error.restricted.characters"))
+      case false => {
+        val badchars=getNameBadCharacters(text)
+        if(!badchars.equals("")){
+          Invalid(ValidationError("error.name.restricted.characters", badchars))
+        }
+        else if(! "^[a-zA-Z].*".r.pattern.matcher(text).matches){
+          Invalid(ValidationError("error.name.badstart.character", badchars))
+        }
+        else if(! ".*[a-zA-Z]$".r.pattern.matcher(text).matches){
+          Invalid(ValidationError("error.name.badend.character", badchars))
+        }
+        else{
+          Invalid(ValidationError("Unknown error validating name against regex"))
+        }
+      }
     }
   }
 }
@@ -51,6 +76,4 @@ case class ContactDetails(address: MultiLineAddress = new MultiLineAddress(),
 object ContactDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g3"
 }
-
-
 
