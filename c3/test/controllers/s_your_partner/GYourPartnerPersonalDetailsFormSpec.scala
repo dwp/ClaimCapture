@@ -251,7 +251,7 @@ class GYourPartnerPersonalDetailsFormSpec extends Specification {
           "hadPartnerSinceClaimDate" -> "yes")).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(3)
-          formWithErrors.errors.head.message must equalTo(Mappings.errorRestrictedCharacters)
+          formWithErrors.errors.head.message must equalTo(Mappings.errorNameRestrictedCharacters)
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }

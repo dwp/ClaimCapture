@@ -48,11 +48,11 @@ class GYourDetailsFormSpec extends Specification {
         "reject too many characters in text fields" in new WithApplication {
           GYourDetails.form(FakeRequest()).bind(
             Map("title" -> title,
-              "firstName" -> "HARACTERS,CHARACTE",
-              "middleName" -> "HARACTERS,CHARACTE",
-              "surname" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
+              "firstName" -> "HARACTERS CHARACTE",
+              "middleName" -> "HARACTERS CHARACTE",
+              "surname" -> "CHARACTERS CHARACTERS CHARACTERS CHARACTERS CHARACTERS CHARACTERS",
               "nationalInsuranceNumber.nino" -> nino,
-              "nationality" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
+              "nationality" -> "CHARACTERS CHARACTERS CHARACTERS CHARACTERS CHARACTERS CHARACTERS",
               "dateOfBirth.day" -> dateOfBirthDay.toString,
               "dateOfBirth.month" -> dateOfBirthMonth.toString,
               "dateOfBirth.year" -> dateOfBirthYear.toString,
@@ -80,9 +80,9 @@ class GYourDetailsFormSpec extends Specification {
               "alwaysLivedUK" -> alwaysLivedUK)).fold(
               formWithErrors => {
                 formWithErrors.errors.length must equalTo(3)
-                formWithErrors.errors(0).message must equalTo(Mappings.errorRestrictedCharacters)
-                formWithErrors.errors(1).message must equalTo(Mappings.errorRestrictedCharacters)
-                formWithErrors.errors(2).message must equalTo(Mappings.errorRestrictedCharacters)
+                formWithErrors.errors(0).message must equalTo(Mappings.errorNameRestrictedCharacters)
+                formWithErrors.errors(1).message must equalTo(Mappings.errorNameRestrictedCharacters)
+                formWithErrors.errors(2).message must equalTo(Mappings.errorNameRestrictedCharacters)
               },
               f => "This mapping should not happen." must equalTo("Valid"))
         }

@@ -34,6 +34,7 @@ object Mappings {
   val errorRequiredWithError = "error.required.error"
   val required = "required"
   val errorRestrictedCharacters = "error.restricted.characters"
+  val errorNameRestrictedCharacters = "error.name.restricted.characters"
   val errorPostCodeAddressCharacters = "error.postcode.characters"
   val invalidNumber = "number.invalid"
   val invalidDecimal = "decimal.invalid"
