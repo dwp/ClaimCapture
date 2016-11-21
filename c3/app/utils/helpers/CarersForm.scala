@@ -33,7 +33,7 @@ object CarersForm {
             if (cKey.endsWith("[]")) s ++ values.zipWithIndex.map {
               case (v, i) => (cKey.dropRight(2) + "[" + i + "]") -> v
             }
-            else s + (cKey -> values.headOption.getOrElse(""))
+            else s + (cKey -> values.headOption.getOrElse("").trim)
         }
       )
     }
