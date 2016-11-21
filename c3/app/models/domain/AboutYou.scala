@@ -21,6 +21,7 @@ case class YourDetails(title: String = "",
 
 object YourDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g1"
+
   def getSwitchedNameRegex() = getBooleanProperty("surname-drs-regex") match {
     case (true) => NAME_REGEX
     case (_) => RESTRICTED_CHARS
@@ -38,9 +39,10 @@ object YourDetails extends QuestionGroup.Identifier {
   }
 
   def validName: Constraint[String] = Constraint[String]("constraint.restrictedStringText") { text =>
-    getSwitchedNameRegex().r.pattern.matcher(text).matches match {
-      case true => Valid
-      case false => {
+    ( getBooleanProperty("surname-drs-regex") , getSwitchedNameRegex().r.pattern.matcher(text).matches ) match {
+      case(_, true) => Valid
+      case(false,false) => Invalid(ValidationError("error.restricted.characters"))
+      case(true,false) => {
         val badchars=getNameBadCharacters(text)
         if(!badchars.equals("")){
           Invalid(ValidationError("error.name.restricted.characters", badchars))

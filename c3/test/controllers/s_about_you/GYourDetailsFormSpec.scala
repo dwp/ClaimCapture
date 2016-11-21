@@ -80,9 +80,9 @@ class GYourDetailsFormSpec extends Specification {
               "alwaysLivedUK" -> alwaysLivedUK)).fold(
               formWithErrors => {
                 formWithErrors.errors.length must equalTo(3)
-                formWithErrors.errors(0).message must equalTo(Mappings.errorNameRestrictedCharacters)
-                formWithErrors.errors(1).message must equalTo(Mappings.errorNameRestrictedCharacters)
-                formWithErrors.errors(2).message must equalTo(Mappings.errorNameRestrictedCharacters)
+                formWithErrors.errors(0).message must equalTo(Mappings.errorRestrictedCharacters)
+                formWithErrors.errors(1).message must equalTo(Mappings.errorRestrictedCharacters)
+                formWithErrors.errors(2).message must equalTo(Mappings.errorRestrictedCharacters)
               },
               f => "This mapping should not happen." must equalTo("Valid"))
         }
