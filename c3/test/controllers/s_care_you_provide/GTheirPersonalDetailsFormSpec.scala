@@ -1,7 +1,7 @@
 package controllers.s_care_you_provide
 
 import play.api.test.FakeRequest
-import utils.WithApplication
+import utils.{LightFakeApplication, WithApplication}
 import controllers.mappings.Mappings
 import org.specs2.mutable._
 import models.DayMonthYear
@@ -130,7 +130,7 @@ class GTheirPersonalDetailsFormSpec extends Specification {
         )
     }
 
-    "reject special characters" in new WithApplication {
+    "reject special characters pre drs schema" in new WithApplication {
       GTheirPersonalDetails.form(FakeRequest()).bind(
         Map(
           "relationship" -> "father",
@@ -148,6 +148,26 @@ class GTheirPersonalDetailsFormSpec extends Specification {
         formWithErrors.errors.head.message must equalTo(Mappings.errorRestrictedCharacters)
       },
           f => "This mapping should not happen." must equalTo("Valid"))
+    }
+
+    "reject special characters" in new WithApplication (app = LightFakeApplication(additionalConfiguration = Map("surname-drs-regex" -> "true"))){
+      GTheirPersonalDetails.form(FakeRequest()).bind(
+        Map(
+          "relationship" -> "father",
+          "title" -> "Mr",
+          "firstName" -> "Fir>name;",
+          "middleName" -> "Mc{",
+          "surname" -> "Surname<",
+          "dateOfBirth.day" -> "3",
+          "dateOfBirth.month" -> "4",
+          "dateOfBirth.year" -> "1980",
+          "theirAddress.answer" -> "yes"
+        )
+      ).fold(formWithErrors => {
+        formWithErrors.errors.length must equalTo(3)
+        formWithErrors.errors.head.message must equalTo(Mappings.errorNameRestrictedCharacters)
+      },
+        f => "This mapping should not happen." must equalTo("Valid"))
     }
   }
   section("unit", models.domain.CareYouProvide.id)
