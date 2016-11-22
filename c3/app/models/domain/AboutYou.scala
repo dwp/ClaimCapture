@@ -54,7 +54,7 @@ object YourDetails extends QuestionGroup.Identifier {
           Invalid(ValidationError("error.name.badend.character", badchars))
         }
         else{
-          Invalid(ValidationError("Unknown error validating name against regex"))
+          Invalid(ValidationError("Unknown error validating name against regex. Must be contain letters, aprostrophe, dash, whitespace."))
         }
       }
     }
