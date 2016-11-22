@@ -7,7 +7,7 @@ import scala.util.{Failure, Success, Try}
 import play.api.Logger
 
 object CarersForm {
-  implicit def formBinding[T](form: Form[T])(implicit request: Request[_]):FormCryptBind[T] = new FormCryptBind[T](form)
+  implicit def formBinding[T](form: Form[T])(implicit request: Request[_]): FormCryptBind[T] = new FormCryptBind[T](form)
 
   class FormCryptBind[T](form: Form[T])(implicit request: Request[_]) {
     def bindEncrypted: Form[T] = {
@@ -31,7 +31,7 @@ object CarersForm {
             }
 
             if (cKey.endsWith("[]")) s ++ values.zipWithIndex.map {
-              case (v, i) => (cKey.dropRight(2) + "[" + i + "]") -> v
+              case (v, i) => (cKey.dropRight(2) + "[" + i + "]") -> v.trim
             }
             else s + (cKey -> values.headOption.getOrElse("").trim)
         }
@@ -43,7 +43,7 @@ object CarersForm {
         if (fe.key == key) {
           if (form.error(newError.key).isDefined) None
           else {
-            if (newError.args.isEmpty ) Some(FormError(newError.key,newError.message,fe.args))
+            if (newError.args.isEmpty) Some(FormError(newError.key, newError.message, fe.args))
             else Some(newError)
           }
         } else {
@@ -60,10 +60,11 @@ object CarersForm {
       def matchingError(e: FormError) = e.key == key && e.message == message
       val oldError = form.errors.find(matchingError)
       if (oldError.isDefined) {
-        val error = if (newError.args.isEmpty) FormError(newError.key,newError.message,oldError.get.args) else newError
+        val error = if (newError.args.isEmpty) FormError(newError.key, newError.message, oldError.get.args) else newError
         form.copy(errors = form.errors.filterNot(e => e.key == key && e.message == message)).withError(error)
       }
       else form
     }
   }
+
 }
