@@ -10,8 +10,17 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 @import models.domain.YourPartnerPersonalDetails
+@import models.domain.YourDetails
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 @import utils.CommonValidation
+
+@theirPersonalDetails = @{claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())}
+@partnerDetails = @{claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())}
+@yourDetails = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}
+@dpName=@{theirPersonalDetails.firstName + " " + theirPersonalDetails.surname}
+@yourName=@{yourDetails.firstName + " " + yourDetails.surname}
+@dobYou=@{yourDetails.dateOfBirth.`dd-MM-yyyy`}
+@dobDp=@{ theirPersonalDetails.dateOfBirth.`dd-MM-yyyy`}
 
     @displayDateForLabel = @{
         claim.dateOfClaim.fold("")(dmy => displayPlaybackDatesFormat(lang, dmy))
@@ -80,6 +89,10 @@
 
                             dateOfBirth(currentForm("dateOfBirth")),
 
+                            Html(s"""<div id="dob-warning" class="prompt breaks-prompt validation-summary"> <p id="dob-warning-message">${messages("dob-warning-message")}</p></div><br/>"""),
+                            Html(s"""<div id="dob-warning-dp-and-partner-message" style="display:none">${messages("dob-warning-dp-and-partner-message")}</div>"""),
+                            Html(s"""<div id="dob-warning-you-and-partner-message" style="display:none">${messages("dob-warning-you-and-partner-message")}</div>"""),
+
                             carersInputText(currentForm("partner.nationality"), '_label -> messages("partner.nationality"), 'maxLength -> CommonValidation.NATIONALITY_MAX_LENGTH, 'ignoreOptional->true),
 
                             yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> messages("separated_fromPartner.label"), 'helperAbove -> messages("separated_fromPartner.helper",displayDateForLabel)),
@@ -88,9 +101,7 @@
                         ),
                         'id -> "partnerDetailsWrap"
                     )
-
                 </ul>
-
             </fieldset>
 
             @views.html.common.bottomNavigation(trackSubmit = true)
@@ -98,41 +109,55 @@
         }
 
         <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_your_partner/g_yourPartnerPersonalDetails.js")></script>
-
+        <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/dobWarning.js")></script>
         <script type="text/javascript">
 
-            $ ( function ( ) {
+            $(function() {
                 @ga.stagePrompt()
 
-                window.initEvents ( "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_yes")",
-                "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")",
-                "@CarersCrypto.encryptAES("title")",
-                "@CarersCrypto.encryptAES("firstName")",
-                "@CarersCrypto.encryptAES("middleName")",
-                "@CarersCrypto.encryptAES("surname")",
-                "@CarersCrypto.encryptAES("otherNames")",
-                "@CarersCrypto.encryptAES("nationalInsuranceNumber_nino")",
-                "@CarersCrypto.encryptAES("dateOfBirth_day")",
-                "@CarersCrypto.encryptAES("dateOfBirth_month")",
-                "@CarersCrypto.encryptAES("dateOfBirth_year")",
-                "@CarersCrypto.encryptAES("partner_nationality")",
-                "@CarersCrypto.encryptAES("separated_fromPartner_yes")",
-                "@CarersCrypto.encryptAES("separated_fromPartner_no")",
-                "@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_yes")",
-                "@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_no")"
-                ) ;
+                window.initEvents(
+                    "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_yes")",
+                    "@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")",
+                    "@CarersCrypto.encryptAES("title")",
+                    "@CarersCrypto.encryptAES("firstName")",
+                    "@CarersCrypto.encryptAES("middleName")",
+                    "@CarersCrypto.encryptAES("surname")",
+                    "@CarersCrypto.encryptAES("otherNames")",
+                    "@CarersCrypto.encryptAES("nationalInsuranceNumber_nino")",
+                    "@CarersCrypto.encryptAES("dateOfBirth_day")",
+                    "@CarersCrypto.encryptAES("dateOfBirth_month")",
+                    "@CarersCrypto.encryptAES("dateOfBirth_year")",
+                    "@CarersCrypto.encryptAES("partner_nationality")",
+                    "@CarersCrypto.encryptAES("separated_fromPartner_yes")",
+                    "@CarersCrypto.encryptAES("separated_fromPartner_no")",
+                    "@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_yes")",
+                    "@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_no")"
+                );
 
                 @if(claim.navigation.beenInPreview){
-                window.updateNextLabel({
-                isPersonYouCareForY:"@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_yes")",
-                isPersonYouCareForN:"@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_no")",
-                storedData:@jsiFy(previewStoredFormData.isPartnerPersonYouCareFor),
-                textNext:"@messages("form.next")",
-                textSummary:"@messages("form.returnToSummary")",
-                hadPartnerN:"@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")",
-                theirPersonalDetailsData:@claim.questionGroup[TheirPersonalDetails].exists(_=>true)});
+                    window.updateNextLabel({
+                        isPersonYouCareForY:"@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_yes")",
+                        isPersonYouCareForN:"@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_no")",
+                        storedData:@jsiFy(previewStoredFormData.isPartnerPersonYouCareFor),
+                        textNext:"@messages("form.next")",
+                        textSummary:"@messages("form.returnToSummary")",
+                        hadPartnerN:"@CarersCrypto.encryptAES("hadPartnerSinceClaimDate_no")",
+                        theirPersonalDetailsData:@claim.questionGroup[TheirPersonalDetails].exists(_=>true)
+                    });
                 }
-            } )
+                window.dobWarning(
+                        "@CarersCrypto.encryptAES("dateOfBirth_day")",
+                        "@CarersCrypto.encryptAES("dateOfBirth_month")",
+                        "@CarersCrypto.encryptAES("dateOfBirth_year")",
+                        "@dobYou", "@dobDp", "@yourName", "@dpName",
+                        "@CarersCrypto.encryptAES("firstName")",
+                        "@CarersCrypto.encryptAES("surname")",
+                        "dob-warning", "partner", "you", "dp",
+                        "@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_yes")",
+                        "@partnerDetails.isPartnerPersonYouCareFor.getOrElse("no")",
+                        "@CarersCrypto.encryptAES("isPartnerPersonYouCareFor_no")"
+                );
+            })
 
         </script>
         

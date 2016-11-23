@@ -9,7 +9,14 @@
 @import utils.helpers.CarersCrypto
 @import controllers.mappings.Mappings._
 @import utils.CommonValidation
+@import models.domain.YourDetails
 
+@yourDetails = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}
+@partnerDetails = @{claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())}
+@yourName=@{yourDetails.firstName + " " + yourDetails.surname}
+@partnerName=@{partnerDetails.firstName.getOrElse("") + " " + partnerDetails.surname.getOrElse("")}
+@dobPartner=@{partnerDetails.dateOfBirth.getOrElse(DayMonthYear()).`dd-MM-yyyy`}
+@dobYou=@{yourDetails.dateOfBirth.`dd-MM-yyyy`}
 
 @showBackButtonAfterPreview = @{
     claim.navigation.beenInPreview && (claim.checkYAnswers.cyaPointOfEntry match {
@@ -61,7 +68,11 @@
                                                                     '_anchorIdRequired -> true,
                                                                     '_anchorId -> "nationalInsuranceNumber"),
 
-                                dateOfBirth(currentForm("dateOfBirth"))
+                                dateOfBirth(currentForm("dateOfBirth")),
+
+                                Html(s"""<div id="dob-warning" class="prompt breaks-prompt validation-summary"> <p id="dob-warning-message">${messages("dob-warning-message")}</p> </div>"""),
+                                Html(s"""<div id="dob-warning-you-and-dp-message" style="display:none">${messages("dob-warning-you-and-dp-message")}</div>"""),
+                                Html(s"""<div id="dob-warning-partner-and-dp-message" style="display:none">${messages("dob-warning-partner-and-dp-message")}</div>""")
                             ),
                             'id -> "careYouProvideWrap"
                         )
@@ -77,8 +88,6 @@
                             ),
                             'id -> "addressWrapper"
                         )
-
-
                     </ul>
                     
                 </fieldset>
@@ -86,15 +95,21 @@
                 @views.html.common.bottomNavigation()
         }
 
+        <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/dobWarning.js")></script>
         <script type="text/javascript">
-            $ ( function ( ) {
+            $(function() {
                 @ga.stagePrompt()
-                window.showOrHideCareYouProvideDetails ( {
-                showOrHideDetails : @isPartnerPersonYouCareFor
-                } ) ;
-                window.initAddress("@CarersCrypto.encryptAES("theirAddress_answer_yes")",
-                  "@CarersCrypto.encryptAES("theirAddress_answer_no")");
-            } )
+                window.showOrHideCareYouProvideDetails({ showOrHideDetails : @isPartnerPersonYouCareFor });
+                window.initAddress("@CarersCrypto.encryptAES("theirAddress_answer_yes")", "@CarersCrypto.encryptAES("theirAddress_answer_no")");
+                window.dobWarning(
+                        "@CarersCrypto.encryptAES("dateOfBirth_day")",
+                        "@CarersCrypto.encryptAES("dateOfBirth_month")",
+                        "@CarersCrypto.encryptAES("dateOfBirth_year")",
+                        "@dobYou", "@dobPartner", "@yourName", "@partnerName",
+                        "@CarersCrypto.encryptAES("firstName")",
+                        "@CarersCrypto.encryptAES("surname")",
+                        "dob-warning", "dp", "you", "partner");
+            });
         </script>
 
         <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/s_care_you_provide/g_theirPersonalDetails.js")></script>

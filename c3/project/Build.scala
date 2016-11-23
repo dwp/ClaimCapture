@@ -11,7 +11,7 @@ import com.typesafe.sbt.packager.SettingsHelper._
 
 object ApplicationBuild extends Build {
   val appName = "c3"
-  val appVersion = "3.22-SNAPSHOT"
+  val appVersion = "3.23-SNAPSHOT"
 
   processConfFiles(Seq("conf/application-info.conf"), Seq("application.version" -> appVersion, "application.name" -> appName))
 
@@ -30,10 +30,9 @@ object ApplicationBuild extends Build {
     "com.typesafe.akka" %% "akka-agent" % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-remote" % "2.3.9" % "test" withSources() withJavadoc(),
     "gov.dwp.carers" % "xmlcommons" % "8.24-SNAPSHOT",
-    "gov.dwp.carers" % "carerscommon" % "8.03-SNAPSHOT",
+    "gov.dwp.carers" % "carerscommon" % "8.06-SNAPSHOT",
     "org.postgresql" % "postgresql" % "9.3-1103-jdbc41",
-    "com.h2database" % "h2" % "1.4.186" % "test",
-    "me.moocar" % "logback-gelf" % "0.12",
+    "com.h2database" % "h2" % "1.4.186" % "test",    "me.moocar" % "logback-gelf" % "0.12",
     "com.github.rjeschke" % "txtmark" % "0.11",
     "org.jacoco" % "org.jacoco.core" % "0.7.4.201502262128" % "test",
     "org.jacoco" % "org.jacoco.report" % "0.7.4.201502262128" % "test",

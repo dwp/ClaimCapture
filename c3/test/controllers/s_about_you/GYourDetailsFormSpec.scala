@@ -4,6 +4,7 @@ import controllers.mappings.Mappings
 import org.specs2.mutable._
 import models.DayMonthYear
 import models.NationalInsuranceNumber
+import play.api.test.FakeRequest
 import utils.WithApplication
 
 class GYourDetailsFormSpec extends Specification {
@@ -21,7 +22,7 @@ class GYourDetailsFormSpec extends Specification {
     val alwaysLivedUK = "yes"
 
         "map data into case class" in new WithApplication {
-          GYourDetails.form.bind(
+          GYourDetails.form(FakeRequest()).bind(
             Map("title" -> title,
               "firstName" -> firstName,
               "middleName" -> middleName,
@@ -45,7 +46,7 @@ class GYourDetailsFormSpec extends Specification {
         }
 
         "reject too many characters in text fields" in new WithApplication {
-          GYourDetails.form.bind(
+          GYourDetails.form(FakeRequest()).bind(
             Map("title" -> title,
               "firstName" -> "HARACTERS,CHARACTE",
               "middleName" -> "HARACTERS,CHARACTE",
@@ -66,7 +67,7 @@ class GYourDetailsFormSpec extends Specification {
         }
 
         "reject special characters in text fields" in new WithApplication {
-          GYourDetails.form.bind(
+          GYourDetails.form(FakeRequest()).bind(
             Map("title" -> title,
               "firstName" -> "kk~",
               "middleName" -> "<>",
@@ -87,7 +88,7 @@ class GYourDetailsFormSpec extends Specification {
         }
 
         "have 5 mandatory fields" in new WithApplication {
-          GYourDetails.form.bind(
+          GYourDetails.form(FakeRequest()).bind(
             Map("middleName" -> "middle optional")).fold(
               formWithErrors => {
                 formWithErrors.errors.length must equalTo(5)
@@ -101,7 +102,7 @@ class GYourDetailsFormSpec extends Specification {
         }
 
         "reject invalid national insurance number" in new WithApplication {
-          GYourDetails.form.bind(
+          GYourDetails.form(FakeRequest()).bind(
             Map("title" -> title,
               "firstName" -> firstName,
               "middleName" -> middleName,
@@ -120,7 +121,7 @@ class GYourDetailsFormSpec extends Specification {
         }
 
         "reject invalid date" in new WithApplication {
-          GYourDetails.form.bind(
+          GYourDetails.form(FakeRequest()).bind(
             Map("title" -> title,
               "firstName" -> firstName,
               "middleName" -> middleName,
@@ -139,7 +140,7 @@ class GYourDetailsFormSpec extends Specification {
         }
 
     "allow maximum spaces in and around nino totalling 19 chars" in new WithApplication {
-      GYourDetails.form.bind(
+      GYourDetails.form(FakeRequest()).bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middleName,
@@ -162,7 +163,7 @@ class GYourDetailsFormSpec extends Specification {
     }
 
     "enforce usual validation on nino" in new WithApplication {
-      GYourDetails.form.bind(
+      GYourDetails.form(FakeRequest()).bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middleName,

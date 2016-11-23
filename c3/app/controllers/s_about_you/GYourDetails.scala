@@ -1,13 +1,15 @@
 package controllers.s_about_you
 
 import controllers.mappings.Mappings
+import models.NationalInsuranceNumber
 import play.api.Play._
+import play.api.data.validation._
 import utils.CommonValidation
 
 import language.reflectiveCalls
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.mvc.Controller
+import play.api.mvc.{AnyContent, Request, Controller}
 import controllers.mappings.Mappings._
 import models.domain._
 import models.view.{Navigable, CachedClaim}
@@ -21,14 +23,16 @@ import play.api.i18n._
 
 object GYourDetails extends Controller with CachedClaim with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
-  val form = Form(mapping(
+
+  def form(implicit request: Request[AnyContent]) = Form(mapping(
     "title" -> carersNonEmptyText(maxLength = Mappings.twenty),
     "firstName" -> carersNonEmptyText(maxLength = 17),
     "middleName" -> optional(carersText(maxLength = 17)),
     "surname" -> carersNonEmptyText(maxLength = CommonValidation.NAME_MAX_LENGTH),
-    "nationalInsuranceNumber" -> nino.verifying(stopOnFirstFail (filledInNino,validNino)),
+    "nationalInsuranceNumber" -> nino.verifying(stopOnFirstFail (filledInNino, validNino, isSameNinoAsDPOrPartner)),
     "dateOfBirth" -> dayMonthYear.verifying(validDateOfBirth)
-  )(YourDetails.apply)(YourDetails.unapply))
+  )(YourDetails.apply)(YourDetails.unapply)
+  )
 
   def present = claiming {implicit claim => implicit request => implicit request2lang =>
     Logger.debug(s"Start your details ${claim.key} ${claim.uuid}")
@@ -62,6 +66,20 @@ object GYourDetails extends Controller with CachedClaim with Navigable with I18n
       if (claim.navigation.beenInPreview && howWePayYou.likeToBePaid == "") updatedClaim.update(howWePayYou.copy(paymentFrequency = "Every week", likeToBePaid = "no", bankDetails = None))
       else updatedClaim
     }
+  }
+
+  private def isSameNinoAsDPOrPartner(implicit request: Request[AnyContent]): Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.nino") {
+    case nino@NationalInsuranceNumber(Some(_)) => checkSameValues(nino.nino.get.toUpperCase, request)
+    case _ => Invalid(ValidationError("error.nationalInsuranceNumber"))
+  }
+
+  private def checkSameValues(nino: String, request: Request[AnyContent]) = {
+    val claim = fromCache(request).getOrElse(new Claim("xxxx"))
+    val theirPersonalDetails = claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())
+    val partnerDetails = claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
+    if (partnerNINO(partnerDetails) == nino) Invalid(ValidationError("error.partner.and.you.nationalInsuranceNumber", partnerName(partnerDetails), pageName(request)))
+    else if (dpNINO(theirPersonalDetails) == nino) Invalid(ValidationError("error.dp.and.you.nationalInsuranceNumber", dpName(theirPersonalDetails), pageName(request)))
+    else Valid
   }
 }
 
