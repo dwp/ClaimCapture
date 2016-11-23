@@ -67,7 +67,7 @@ object GYourDetails extends Controller with CachedChangeOfCircs with Navigable w
     val reportChanges = circs.questionGroup[ReportChangeReason].getOrElse(ReportChangeReason()).reportChanges
     val breakInCare = circs.questionGroup[CircumstancesBreaksInCare].getOrElse(CircumstancesBreaksInCare())
 
-    val selectedQG: (QuestionGroup.Identifier, Call) = {
+    val selectedQG:(QGIdentifier, Call) = {
       reportChanges match {
         case r.EmploymentChange.name => CircumstancesEmploymentChange -> controllers.circs.report_changes.routes.GEmploymentChange.present()
         case r.AddressChange.name => CircumstancesAddressChange -> controllers.circs.report_changes.routes.GAddressChange.present()

@@ -52,9 +52,8 @@ class NavigationSpec extends Specification {
       val route2 = "/about-you/contact-details"
       val navigation = Navigation().track(YourDetails)(route1).track(ContactDetails)(route2)
       navigation.routes.size shouldEqual 2
-      val expectedRoute = Route(route2)
 
-      navigation(ContactDetails) must beSome(expectedRoute)
+      navigation(ContactDetails).get.uri mustEqual route2
     }
 
     "track Preview and then start tracking on the alternative field" in new WithApplication {
@@ -62,9 +61,8 @@ class NavigationSpec extends Specification {
       val route2 = "/about-you/contact-details"
       val navigation = Navigation().track(YourDetails)(route1).track(ContactDetails)(route2)
       navigation.routes.size shouldEqual 2
-      val expectedRoute = Route(route2)
 
-      navigation(ContactDetails) must beSome(expectedRoute)
+      navigation(ContactDetails).get.uri mustEqual route2
 
       val previewRoute = "/preview"
       val updatedNav = navigation.track(PreviewModel,true)(previewRoute).track(YourDetails)(route1).track(ContactDetails)(route2)
@@ -72,7 +70,7 @@ class NavigationSpec extends Specification {
       updatedNav.routes.size shouldEqual 3
       updatedNav.routesAfterPreview.size shouldEqual 2
 
-      updatedNav.previous mustEqual Route(route1)
+      updatedNav.previous.uri mustEqual route1
     }
   }
   section("unit")

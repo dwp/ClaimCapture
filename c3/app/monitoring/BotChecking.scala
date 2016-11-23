@@ -25,11 +25,12 @@ trait BotChecking {
   def evaluateTimeToCompleteAllSections(claim: Claim, currentTime: Long = System.currentTimeMillis(), sectionExpectedTimes: Map[String, Long]) = {
 
     val expectedMinTimeToCompleteAllSections: Long = claim.sections.map(s => {
-      sectionExpectedTimes.get(s.identifier.id) match {
-        case Some(n) =>
-          if (s.questionGroups.size > 0) n else 0
-        case _ => 0
-      }
+//      sectionExpectedTimes.get(s.identifier.id) match {
+//        case Some(n) =>
+//          if (s.questionGroups.size > 0) n else 0
+//        case _ => 0
+//      }
+      0
     }).reduce(_ + _) // Aggregate all of the sectionExpectedTimes for completed sections only.
 
     val actualTimeToCompleteAllSections: Long = calculateActualTimeToCompleteAllSections(currentTime, claim.created)

@@ -106,13 +106,13 @@ object GEmploymentChange extends Controller with CachedChangeOfCircs with Naviga
   }
 
   def submit = claiming { implicit circs => implicit request => implicit request2lang =>
-    def next(employmentChange: CircumstancesEmploymentChange): (QuestionGroup.Identifier, Call) = employmentChange.typeOfWork.answer match {
+    def next(employmentChange: CircumstancesEmploymentChange): (QGIdentifier, Call) = employmentChange.typeOfWork.answer match {
         case `employed` => CircumstancesEmploymentNotStarted -> controllers.circs.report_changes.routes.GEmploymentPay.present()
         case _ => CircumstancesEmploymentChange -> controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present()
     }
 
     @tailrec
-    def popDeleteQG(circs: Claim, optSections: Stack[QuestionGroup.Identifier]): Claim = {
+    def popDeleteQG(circs: Claim, optSections: Stack[QGIdentifier]): Claim = {
       if (optSections.isEmpty) circs
       else popDeleteQG(circs delete (optSections top), optSections pop)
     }

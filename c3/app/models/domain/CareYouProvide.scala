@@ -8,9 +8,7 @@ import models.yesNo.{YesNoMandWithAddress, RadioWithText, YesNoWithDate}
 import controllers.Iteration.{Identifier => IterationID}
 import utils.helpers.TextLengthHelper
 
-case object CareYouProvide extends Section.Identifier {
-  val id = "s6"
-}
+object CareYouProvide extends Identifier(id = "s6")
 
 case class TheirPersonalDetails(title: String = "",
                                 firstName: String = "",
@@ -22,9 +20,7 @@ case class TheirPersonalDetails(title: String = "",
                                 theirAddress: YesNoMandWithAddress = YesNoMandWithAddress()
                                  ) extends QuestionGroup(TheirPersonalDetails)
 
-case object TheirPersonalDetails extends QuestionGroup.Identifier {
-  val id = s"${CareYouProvide.id}.g1"
-}
+object TheirPersonalDetails extends QGIdentifier(id = s"${CareYouProvide.id}.g1")
 
 case class MoreAboutTheCare(spent35HoursCaring: Option[String] = None,
                             otherCarer: Option[String] = None,
@@ -32,9 +28,7 @@ case class MoreAboutTheCare(spent35HoursCaring: Option[String] = None,
                             otherCarerUcDetails: Option[String] = None
                              ) extends QuestionGroup(MoreAboutTheCare)
 
-case object MoreAboutTheCare extends QuestionGroup.Identifier {
-  val id = s"${CareYouProvide.id}.g4"
-
+object MoreAboutTheCare extends QGIdentifier(id = s"${CareYouProvide.id}.g4") {
   def textMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Caree//OtherCarerUcDetails//Answer")
 }
 

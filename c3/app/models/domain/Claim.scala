@@ -17,23 +17,23 @@ import scala.reflect.ClassTag
 case class Claim(key: String, sections: List[Section] = List(), created: Long = System.currentTimeMillis(), lang: Option[Lang] = None,
                  uuid: String = "", transactionId: Option[String] = None,
                  checkYAnswers: CheckYAnswers = CheckYAnswers(), saveForLaterCurrentPageData: Map[String, String] = Map())(implicit val navigation: Navigation = Navigation()) {
-  def section(sectionIdentifier: Section.Identifier): Section = {
+  def section(sectionIdentifier: Identifier): Section = {
     sections.find(s => s.identifier == sectionIdentifier) match {
       case Some(s: Section) => s
       case _ => Section(sectionIdentifier, List())
     }
   }
 
-  def previousSection(sectionIdentifier: Section.Identifier): Section = {
+  def previousSection(sectionIdentifier: Identifier): Section = {
     sections.filter(s => s.identifier.index < sectionIdentifier.index && s.visible).lastOption match {
       case Some(s: Section) => s
       case _ => section(sectionIdentifier)
     }
   }
 
-  def previousSection(questionGroupIdentifier: QuestionGroup.Identifier): Section = previousSection(Section.sectionIdentifier(questionGroupIdentifier))
+  def previousSection(questionGroupIdentifier: QGIdentifier): Section = previousSection(Section.sectionIdentifier(questionGroupIdentifier))
 
-  def questionGroup(questionGroupIdentifier: QuestionGroup.Identifier): Option[QuestionGroup] = {
+  def questionGroup(questionGroupIdentifier: QGIdentifier): Option[QuestionGroup] = {
     val si = Section.sectionIdentifier(questionGroupIdentifier)
     section(si).questionGroup(questionGroupIdentifier)
   }
@@ -53,12 +53,12 @@ case class Claim(key: String, sections: List[Section] = List(), created: Long = 
     }
   }
 
-  def previousQuestionGroup(questionGroupIdentifier: QuestionGroup.Identifier): Option[QuestionGroup] = completedQuestionGroups(questionGroupIdentifier)
+  def previousQuestionGroup(questionGroupIdentifier: QGIdentifier): Option[QuestionGroup] = completedQuestionGroups(questionGroupIdentifier)
     .lastOption
 
-  def completedQuestionGroups(sectionIdentifier: Section.Identifier): List[QuestionGroup] = section(sectionIdentifier).questionGroups
+  def completedQuestionGroups(sectionIdentifier: Identifier): List[QuestionGroup] = section(sectionIdentifier).questionGroups
 
-  def completedQuestionGroups(questionGroupIdentifier: QuestionGroup.Identifier): List[QuestionGroup] = {
+  def completedQuestionGroups(questionGroupIdentifier: QGIdentifier): List[QuestionGroup] = {
     val si = Section.sectionIdentifier(questionGroupIdentifier)
     section(si).precedingQuestionGroups(questionGroupIdentifier)
   }
@@ -90,7 +90,7 @@ case class Claim(key: String, sections: List[Section] = List(), created: Long = 
    * removes all question groups except the specified ones
    * @param keep - the sections to keep
    */
-  def removeQuestionGroups(si: Section.Identifier, keep: Set[QuestionGroup.Identifier]): Claim = {
+  def removeQuestionGroups(si: Identifier, keep: Set[QGIdentifier]): Claim = {
     val currentSection = section(si)
     val updatedSection = currentSection.copy(questionGroups = currentSection.questionGroups.filter(qg => keep.contains(qg.identifier)))
     update(updatedSection)
@@ -98,18 +98,18 @@ case class Claim(key: String, sections: List[Section] = List(), created: Long = 
 
   def +(questionGroup: QuestionGroup): Claim = update(questionGroup)
 
-  def delete(questionGroupIdentifier: QuestionGroup.Identifier): Claim = {
+  def delete(questionGroupIdentifier: QGIdentifier): Claim = {
     val sectionIdentifier = Section.sectionIdentifier(questionGroupIdentifier)
     update(section(sectionIdentifier).delete(questionGroupIdentifier))
   }
 
-  def -(questionGroupIdentifier: QuestionGroup.Identifier): Claim = delete(questionGroupIdentifier)
+  def -(questionGroupIdentifier: QGIdentifier): Claim = delete(questionGroupIdentifier)
 
-  def hideSection(sectionIdentifier: Section.Identifier): Claim = update(section(sectionIdentifier).hide)
+  def hideSection(sectionIdentifier: Identifier): Claim = update(section(sectionIdentifier).hide)
 
-  def showSection(sectionIdentifier: Section.Identifier): Claim = update(section(sectionIdentifier).show)
+  def showSection(sectionIdentifier: Identifier): Claim = update(section(sectionIdentifier).show)
 
-  def showHideSection(visible: Boolean, sectionIdentifier: Section.Identifier): Claim = {
+  def showHideSection(visible: Boolean, sectionIdentifier: Identifier): Claim = {
     if (visible) showSection(sectionIdentifier) else hideSection(sectionIdentifier)
   }
 

@@ -5,9 +5,7 @@ import models.DayMonthYear
 import models.yesNo.YesNoWithText
 import utils.helpers.TextLengthHelper
 
-case object SelfEmployment extends Section.Identifier {
-  val id = "s23"
-
+object SelfEmployment extends Identifier(id = "s23") {
   def isSelfEmployed(claim: Claim): Boolean = {
     claim.questionGroup[YourIncomes] match {
       case Some(employment) => employment.beenSelfEmployedSince1WeekBeforeClaim == Mappings.yes
@@ -18,13 +16,9 @@ case object SelfEmployment extends Section.Identifier {
 
 case class Employment(beenSelfEmployedSince1WeekBeforeClaim: String = "", beenEmployedSince6MonthsBeforeClaim: String = "") extends QuestionGroup(Employment)
 
-object Employment extends QuestionGroup.Identifier {
-  val id = s"${SelfEmployment.id}.g0"
-}
+object Employment extends QGIdentifier(id = s"${SelfEmployment.id}.g0")
 
-case object SelfEmploymentDates extends QuestionGroup.Identifier {
-  val id = s"${SelfEmployment.id}.g1"
-
+object SelfEmploymentDates extends QGIdentifier(id = s"${SelfEmployment.id}.g1") {
   def typeOfWorkMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//SelfEmployment//TypeOfWork//Answer")
 }
 
@@ -41,9 +35,7 @@ case class SelfEmploymentDates( typeOfWork: String = "",
                                 ) extends QuestionGroup(SelfEmploymentDates)
 
 
-case object SelfEmploymentPensionsAndExpenses extends QuestionGroup.Identifier {
-  val id = s"${SelfEmployment.id}.g4"
-}
+object SelfEmploymentPensionsAndExpenses extends QGIdentifier(id = s"${SelfEmployment.id}.g4")
 
 case class SelfEmploymentPensionsAndExpenses(payPensionScheme: YesNoWithText = YesNoWithText("", None),
                                              haveExpensesForJob: YesNoWithText = YesNoWithText("", None)

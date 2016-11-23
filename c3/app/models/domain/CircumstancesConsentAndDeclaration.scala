@@ -2,9 +2,7 @@ package models.domain
 
 import controllers.mappings.Mappings._
 
-case object CircumstancesConsentAndDeclaration extends Section.Identifier {
-  val id = "c3"
-}
+object CircumstancesConsentAndDeclaration extends Identifier(id = "c3")
 
 case class CircumstancesDeclaration(jsEnabled: Boolean = false,
                                     obtainInfoAgreement: String = "",
@@ -13,8 +11,7 @@ case class CircumstancesDeclaration(jsEnabled: Boolean = false,
                                     nameOrOrganisation: Option[String] = None
                                    ) extends QuestionGroup(CircumstancesDeclaration)
 
-object CircumstancesDeclaration extends QuestionGroup.Identifier {
-  val id = s"${CircumstancesConsentAndDeclaration.id}.g1"
+object CircumstancesDeclaration extends QGIdentifier(id = s"${CircumstancesConsentAndDeclaration.id}.g1") {
 
   def validateWhy(input: CircumstancesDeclaration): Boolean = input.obtainInfoAgreement match {
     case `no` => input.obtainInfoWhy.isDefined

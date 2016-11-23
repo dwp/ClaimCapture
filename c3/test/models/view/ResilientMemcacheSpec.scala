@@ -9,17 +9,19 @@ import play.api.test.FakeRequest
 import utils._
 
 class ResilientMemcacheSpec extends Specification {
+  val uuid = "0bcd1234-0000-0000-0000-abcd1234cdef"
+
   section("unit")
   // These tests are all relate to each other and must run in order
   "Memcache" should {
     "write initial data alan to both memcache" in new WithMemcacheApplication(LightFakeApplicationWithMemcache.fa1only) with Claiming{
       cache.isInstanceOf[MemcachedCacheApi] mustEqual true
-      var claim = new Claim(CachedClaim.key, List(), System.currentTimeMillis(), Some(Lang("en")),  "XX1234")
+      var claim = new Claim(CachedClaim.key, List(), System.currentTimeMillis(), Some(Lang("en")),  "0bcd1234-0000-0000-0000-abcd1234cdef")
       val details = new YourDetails("Mr","alan", None, "green", NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(10, 12, 2000))
       val contactDetails = new ContactDetails(new MultiLineAddress(), None, None, None, "yes", Some("bt@bt.com"), Some("bt@bt.com"))
       claim = claim + details
       val cacheHandler = new CacheHandlingWithClaim()
-      val request = FakeRequest().withSession(cacheHandler.cacheKey -> "XX1234")
+      val request = FakeRequest().withSession(cacheHandler.cacheKey -> "0bcd1234-0000-0000-0000-abcd1234cdef")
       cacheHandler.saveInCache(claim)
 
       val retrievedClaim = cacheHandler.fromCache(request).get
@@ -30,12 +32,12 @@ class ResilientMemcacheSpec extends Specification {
 
     "write update bob to memcache 1 only" in new WithMemcacheApplication(LightFakeApplicationWithMemcache.fa1only) with Claiming{
       cache.isInstanceOf[MemcachedCacheApi] mustEqual true
-      var claim = new Claim(CachedClaim.key, List(), System.currentTimeMillis(), Some(Lang("en")),  "XX1234")
+      var claim = new Claim(CachedClaim.key, List(), System.currentTimeMillis(), Some(Lang("en")),  "0bcd1234-0000-0000-0000-abcd1234cdef")
       val details = new YourDetails("Mr","bob", None, "green", NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(10, 12, 2000))
       val contactDetails = new ContactDetails(new MultiLineAddress(), None, None, None, "yes", Some("bt@bt.com"), Some("bt@bt.com"))
       claim = claim + details
       val cacheHandler = new CacheHandlingWithClaim()
-      val request = FakeRequest().withSession(cacheHandler.cacheKey -> "XX1234")
+      val request = FakeRequest().withSession(cacheHandler.cacheKey -> "0bcd1234-0000-0000-0000-abcd1234cdef")
       cacheHandler.saveInCache(claim)
 
       val retrievedClaim = cacheHandler.fromCache(request).get
@@ -47,9 +49,9 @@ class ResilientMemcacheSpec extends Specification {
     "read bob back from both memcache" in new WithMemcacheApplication with Claiming{
       cache.isInstanceOf[MemcachedCacheApi] mustEqual true
       val cacheHandler = new CacheHandlingWithClaim()
-      val request = FakeRequest().withSession(cacheHandler.cacheKey -> "XX1234")
+      val request = FakeRequest().withSession(cacheHandler.cacheKey -> "0bcd1234-0000-0000-0000-abcd1234cdef")
       val retrievedClaim = cacheHandler.fromCache(request).get
-      retrievedClaim.uuid mustEqual("XX1234")
+      retrievedClaim.uuid mustEqual("0bcd1234-0000-0000-0000-abcd1234cdef")
       val yd=retrievedClaim.questionGroup[YourDetails].getOrElse(YourDetails())
       yd.firstName mustEqual("bob")
     }
@@ -57,9 +59,9 @@ class ResilientMemcacheSpec extends Specification {
     "read bob from memcache 1 only" in new WithMemcacheApplication(LightFakeApplicationWithMemcache.fa1only) with Claiming{
       cache.isInstanceOf[MemcachedCacheApi] mustEqual true
       val cacheHandler = new CacheHandlingWithClaim()
-      val request = FakeRequest().withSession(cacheHandler.cacheKey -> "XX1234")
+      val request = FakeRequest().withSession(cacheHandler.cacheKey -> "0bcd1234-0000-0000-0000-abcd1234cdef")
       val retrievedClaim = cacheHandler.fromCache(request).get
-      retrievedClaim.uuid mustEqual("XX1234")
+      retrievedClaim.uuid mustEqual("0bcd1234-0000-0000-0000-abcd1234cdef")
       val yd=retrievedClaim.questionGroup[YourDetails].getOrElse(YourDetails())
       yd.firstName mustEqual("bob")
     }
@@ -68,9 +70,9 @@ class ResilientMemcacheSpec extends Specification {
       pending("Fixup memcache resilient to sync between reads")
       cache.isInstanceOf[MemcachedCacheApi] mustEqual true
       val cacheHandler = new CacheHandlingWithClaim()
-      val request = FakeRequest().withSession(cacheHandler.cacheKey -> "XX1234")
+      val request = FakeRequest().withSession(cacheHandler.cacheKey -> "0bcd1234-0000-0000-0000-abcd1234cdef")
       val retrievedClaim = cacheHandler.fromCache(request).get
-      retrievedClaim.uuid mustEqual("XX1234")
+      retrievedClaim.uuid mustEqual("0bcd1234-0000-0000-0000-abcd1234cdef")
       val yd=retrievedClaim.questionGroup[YourDetails].getOrElse(YourDetails())
       yd.firstName mustEqual("bob")
     }

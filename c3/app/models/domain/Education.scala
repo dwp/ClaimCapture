@@ -3,9 +3,7 @@ package models.domain
 import models._
 import controllers.mappings.Mappings._
 
-object Education extends Section.Identifier {
-  val id = "s8"
-}
+object Education extends Identifier(id = "s8")
 
 case class YourCourseDetails(beenInEducationSinceClaimDate: String = "",
                              title: Option[String]  = None,
@@ -16,8 +14,7 @@ case class YourCourseDetails(beenInEducationSinceClaimDate: String = "",
                              expectedEndDate: Option[DayMonthYear] = None
                             ) extends QuestionGroup(YourCourseDetails)
 
-object YourCourseDetails extends QuestionGroup.Identifier {
-  val id = s"${Education.id}.g1"
+object YourCourseDetails extends QGIdentifier(id = s"${Education.id}.g1") {
 
   def validateTitle(input: YourCourseDetails): Boolean = input.beenInEducationSinceClaimDate match {
     case `yes` => input.title.isDefined

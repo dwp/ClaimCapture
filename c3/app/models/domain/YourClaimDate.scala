@@ -8,10 +8,7 @@ import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
 import scala.language.postfixOps
 
 
-object YourClaimDate extends Section.Identifier {
-  val id = "s2"
-}
-
+object YourClaimDate extends Identifier(id = "s2")
 
 case class ClaimDate(dateOfClaim: DayMonthYear = DayMonthYear(), spent35HoursCaringBeforeClaim:YesNoWithDate = YesNoWithDate("", None)) extends QuestionGroup(ClaimDate) {
 
@@ -36,6 +33,5 @@ case class ClaimDate(dateOfClaim: DayMonthYear = DayMonthYear(), spent35HoursCar
 
 }
 
-object ClaimDate extends QuestionGroup.Identifier {
-  val id = s"${YourClaimDate.id}.g1"
-}
+object ClaimDate extends QGIdentifier(id = s"${YourClaimDate.id}.g1")
+

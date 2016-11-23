@@ -5,9 +5,7 @@ import models.DayMonthYear
 import models.yesNo.{RadioWithText, YesNoWithDate}
 import controllers.Iteration.{Identifier => IterationID}
 
-case object Breaks extends Section.Identifier {
-  val id = "s7"
-
+object Breaks extends Identifier(id = "s7") {
   val hospital = "hospital"
   val carehome = "carehome"
   val none = "none"
@@ -44,9 +42,7 @@ case class BreaksInCare(breaks: List[Break] = Nil) extends QuestionGroup(BreaksI
   }
 }
 
-case object BreaksInCare extends QuestionGroup.Identifier {
-  val id = s"${Breaks.id}.g1"
-}
+object BreaksInCare extends QGIdentifier(id = s"${Breaks.id}.g1")
 
 case class Break(iterationID: String = "",
                  typeOfCare: String = Breaks.hospital,
@@ -72,15 +68,12 @@ case class BreaksInCareType(hospital: Option[String] = None,
                             other: Option[String] = None
                              ) extends QuestionGroup(BreaksInCareType)
 
-case object BreaksInCareType extends QuestionGroup.Identifier {
-  val id = s"${Breaks.id}.g2"
-}
+object BreaksInCareType extends QGIdentifier(id = s"${Breaks.id}.g2")
 
 case class BreaksInCareSummary(breaksummary_other: Option[String] = None,
                                breaksummary_answer: Option[String] = None
                                 ) extends QuestionGroup(BreaksInCareSummary)
 
-case object BreaksInCareSummary extends QuestionGroup.Identifier {
-  val id = s"${Breaks.id}.g3"
-}
+object BreaksInCareSummary extends QGIdentifier(id = s"${Breaks.id}.g3")
+
 

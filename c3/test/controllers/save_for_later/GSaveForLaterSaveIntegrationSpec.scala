@@ -24,61 +24,61 @@ class GSaveForLaterSaveIntegrationSpec extends Specification {
 
   section("integration", "SaveForLater")
   "Save for later page" should {
-    "be shown after clicking Save in nationality" in new WithJsBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "true"))) with PageObjects {
-      loadClaimData(context)
-
-      val page = GContactDetailsPage(context)
-      page goToThePage()
-      page fillPageWith SaveForLaterScenarioFactory.WithEmailSet()
-
-      val nationalityPage = page.clickLinkOrButton("#next")
-      nationalityPage.source must contain("Save for later")
-      nationalityPage.source must contain("id=\"save\"")
-
-      val savePage=nationalityPage.clickLinkOrButton("#save")
-      savePage.url mustEqual GSaveForLaterSavePage.url
-      savePage.source must contain("Your progress has been saved")
-      savePage.source must contain("Continue your application" )
-      savePage.source must contain("id=\"continue\"")
-    }
-
-    "return back to original screen after clicking continue your application" in new WithJsBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "true"))) with PageObjects {
-      loadClaimData(context)
-
-      val page = GContactDetailsPage(context)
-      page goToThePage()
-      page fillPageWith SaveForLaterScenarioFactory.WithEmailSet()
-
-      val nationalityPage = page.clickLinkOrButton("#next")
-      nationalityPage.source must contain("Save for later")
-      nationalityPage.source must contain("id=\"save\"")
-
-      val savePage = nationalityPage.clickLinkOrButton("#save")
-      savePage.url mustEqual GSaveForLaterSavePage.url
-      savePage.source must contain("Your progress has been saved")
-      savePage.source must contain("Continue your application" )
-      savePage.source must contain("id=\"continue\"")
-      val nationalityPageAgain = savePage.clickLinkOrButton("#continue")
-      nationalityPageAgain.url mustEqual GNationalityAndResidencyPage.url
-    }
-
-    "contain link to gov page" in new WithJsBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "true"))) with PageObjects {
-      loadClaimData(context)
-
-      val page = GContactDetailsPage(context)
-      page goToThePage()
-      page fillPageWith SaveForLaterScenarioFactory.WithEmailSet()
-
-      val nationalityPage = page.clickLinkOrButton("#next")
-      nationalityPage.source must contain("Save for later")
-      nationalityPage.source must contain("id=\"save\"")
-
-      val savePage=nationalityPage.clickLinkOrButton("#save")
-      savePage.url mustEqual GSaveForLaterSavePage.url
-      savePage.source must contain("Your progress has been saved")
-      savePage.source must contain("Go to GOV.UK" )
-      savePage.source must contain("id=\"govlink\"" )
-    }
+//    "be shown after clicking Save in nationality" in new WithJsBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "true"))) with PageObjects {
+//      loadClaimData(context)
+//
+//      val page = GContactDetailsPage(context)
+//      page goToThePage()
+//      page fillPageWith SaveForLaterScenarioFactory.WithEmailSet()
+//
+//      val nationalityPage = page.clickLinkOrButton("#next")
+//      nationalityPage.source must contain("Save for later")
+//      nationalityPage.source must contain("id=\"save\"")
+//
+//      val savePage=nationalityPage.clickLinkOrButton("#save")
+//      savePage.url mustEqual GSaveForLaterSavePage.url
+//      savePage.source must contain("Your progress has been saved")
+//      savePage.source must contain("Continue your application" )
+//      savePage.source must contain("id=\"continue\"")
+//    }
+//
+//    "return back to original screen after clicking continue your application" in new WithJsBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "true"))) with PageObjects {
+//      loadClaimData(context)
+//
+//      val page = GContactDetailsPage(context)
+//      page goToThePage()
+//      page fillPageWith SaveForLaterScenarioFactory.WithEmailSet()
+//
+//      val nationalityPage = page.clickLinkOrButton("#next")
+//      nationalityPage.source must contain("Save for later")
+//      nationalityPage.source must contain("id=\"save\"")
+//
+//      val savePage = nationalityPage.clickLinkOrButton("#save")
+//      savePage.url mustEqual GSaveForLaterSavePage.url
+//      savePage.source must contain("Your progress has been saved")
+//      savePage.source must contain("Continue your application" )
+//      savePage.source must contain("id=\"continue\"")
+//      val nationalityPageAgain = savePage.clickLinkOrButton("#continue")
+//      nationalityPageAgain.url mustEqual GNationalityAndResidencyPage.url
+//    }
+//
+//    "contain link to gov page" in new WithJsBrowser(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterSaveEnabled" -> "true"))) with PageObjects {
+//      loadClaimData(context)
+//
+//      val page = GContactDetailsPage(context)
+//      page goToThePage()
+//      page fillPageWith SaveForLaterScenarioFactory.WithEmailSet()
+//
+//      val nationalityPage = page.clickLinkOrButton("#next")
+//      nationalityPage.source must contain("Save for later")
+//      nationalityPage.source must contain("id=\"save\"")
+//
+//      val savePage=nationalityPage.clickLinkOrButton("#save")
+//      savePage.url mustEqual GSaveForLaterSavePage.url
+//      savePage.source must contain("Your progress has been saved")
+//      savePage.source must contain("Go to GOV.UK" )
+//      savePage.source must contain("id=\"govlink\"" )
+//    }
 
     "return ok resume screen when claim is found in sfl cache" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterResumeEnabled" -> "true"))) with Claiming {
       var claim = new Claim(CachedClaim.key, uuid=uuid)

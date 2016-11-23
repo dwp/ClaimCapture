@@ -8,6 +8,9 @@ import play.api.test.FakeRequest
 import utils.{WithMemcacheApplication}
 
 class CacheHandlingMemcacheSpec extends Specification {
+  val uuid = "567896f2-1ad7-416a-8b0f-43428b65a7fa"
+  val uuid1 = "567896f2-1ad7-416a-8b0f-43428b65a7fb"
+  
   section("unit")
   "Memcache" should {
     "save and restore claim values using CacheHandlingWithClaim" in new WithMemcacheApplication with Claiming {
@@ -28,12 +31,12 @@ class CacheHandlingMemcacheSpec extends Specification {
       val cacheHandling = new EncryptedCacheHandling() {
         val cacheKey = "12345678"
       }
-      var claim = new Claim(CachedClaim.key, uuid = "UUID-1234")
+      var claim = new Claim(CachedClaim.key, uuid = uuid)
 
       cacheHandling.saveInCache(claim)
-      val request = FakeRequest().withSession("UUID-1234" -> claimKey)
-      val retrievedClaim=cacheHandling.fromCache(request, "UUID-1234")
-      retrievedClaim.get.uuid mustEqual("UUID-1234")
+      val request = FakeRequest().withSession("key" -> CachedClaim.key, "uuid" -> uuid)
+      val retrievedClaim=cacheHandling.fromCache(request, uuid)
+      retrievedClaim.get.uuid mustEqual(uuid)
     }
 
     "concat SFL keylist into single cs string list removing duplicates" in new WithMemcacheApplication() with Claiming {
@@ -43,12 +46,12 @@ class CacheHandlingMemcacheSpec extends Specification {
       val cacheHandling = new EncryptedCacheHandling() {
         val cacheKey = "12345678"
       }
-      cacheHandling.createClaimInSaveForLaterList("ABCD-1234")
-      cacheHandling.createClaimInSaveForLaterList("WXYZ-4321")
-      cacheHandling.createClaimInSaveForLaterList("ABCD-1234")
+      cacheHandling.createClaimInSaveForLaterList(uuid)
+      cacheHandling.createClaimInSaveForLaterList(uuid1)
+      cacheHandling.createClaimInSaveForLaterList(uuid)
 
       val keyList = cacheHandling.getSaveForLaterList()
-      keyList mustEqual ("ABCD-1234,WXYZ-4321")
+      keyList mustEqual (uuid + "," + uuid1)
     }
 
     "concat FB keylist into single cs string list removing duplicates" in new WithMemcacheApplication() with Claiming {
@@ -58,12 +61,12 @@ class CacheHandlingMemcacheSpec extends Specification {
       val cacheHandling = new EncryptedCacheHandling() {
         val cacheKey = "12345678"
       }
-      cacheHandling.createFeedbackInList("ABCD-1234")
-      cacheHandling.createFeedbackInList("WXYZ-4321")
-      cacheHandling.createFeedbackInList("ABCD-1234")
+      cacheHandling.createFeedbackInList(uuid)
+      cacheHandling.createFeedbackInList(uuid1)
+      cacheHandling.createFeedbackInList(uuid)
 
       val keyList = cacheHandling.getFeedbackList
-      keyList mustEqual ("ABCD-1234,WXYZ-4321")
+      keyList mustEqual (uuid + "," + uuid1)
     }
 
   }

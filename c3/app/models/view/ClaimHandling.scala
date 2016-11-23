@@ -4,7 +4,7 @@ import java.util.UUID._
 
 import app.ConfigProperties._
 import gov.dwp.exceptions.DwpRuntimeException
-import models.domain.{Claim, ClaimDate, QuestionGroup, YourDetails}
+import models.domain._
 import models.view.ClaimHandling.ClaimResult
 import models.view.cache.EncryptedCacheHandling
 import play.api.cache.Cache
@@ -291,7 +291,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
   }
 
   implicit def formFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
-    def fill(qi: QuestionGroup.Identifier)(implicit claim: Claim): Form[Q] = {
+    def fill(qi: QGIdentifier)(implicit claim: Claim): Form[Q] = {
       (claim.saveForLaterCurrentPageData.isEmpty, claim.questionGroup(qi)) match {
         case (false, _) => form.copy[Q](data = claim.saveForLaterCurrentPageData)
         case (_, Some(q: Q)) => form.fill(q)

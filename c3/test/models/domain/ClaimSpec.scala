@@ -111,9 +111,8 @@ class ClaimSpec extends Specification {
 
     "be able to add section using +" in new WithApplication {
       val claim: Claim = Claim(CachedClaim.key).update(Benefits(Benefits.noneOfTheBenefits)).update(Eligibility("no","no","no"))
-      object Foo extends QuestionGroup.Identifier {
-        val id = "f10"
-      }
+      object Foo extends QGIdentifier(id = "f10")
+
       case class Foo(nothing:String) extends QuestionGroup(Foo) {}
 
       val claimWithNewSection = claim + new Foo("foo")

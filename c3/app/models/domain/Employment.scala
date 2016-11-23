@@ -10,8 +10,7 @@ import models.MultiLineAddress
 import models.yesNo.YesNoWithText
 import controllers.Iteration.{Identifier => IterationID}
 
-object Employed extends Section.Identifier {
-  val id = "s9"
+object Employed extends Identifier(id = "s9") {
 
   def isEmployed(claim: Claim): Boolean = {
     claim.questionGroup[YourIncomes] match {
@@ -23,9 +22,7 @@ object Employed extends Section.Identifier {
 
 case class BeenEmployed(beenEmployed: String) extends QuestionGroup(BeenEmployed)
 
-object BeenEmployed extends QuestionGroup.Identifier {
-  val id = s"${Employed.id}.g1"
-}
+object BeenEmployed extends QGIdentifier(id = s"${Employed.id}.g1")
 
 case class Jobs(jobs: List[Iteration] = Nil) extends QuestionGroup(Jobs) with Iterable[Iteration] {
   def update(job: Iteration): Jobs = {
@@ -50,7 +47,7 @@ case class Jobs(jobs: List[Iteration] = Nil) extends QuestionGroup(Jobs) with It
 
   def job(iterationID: String): Option[Iteration] = jobs.find(_.iterationID == iterationID)
 
-  def questionGroup(iterationID: String, questionGroup: QuestionGroup.Identifier): Option[QuestionGroup] = job(iterationID) match {
+  def questionGroup(iterationID: String, questionGroup: QGIdentifier): Option[QuestionGroup] = job(iterationID) match {
     case Some(j: Iteration) => j(questionGroup)
     case _ => None
   }
@@ -58,9 +55,7 @@ case class Jobs(jobs: List[Iteration] = Nil) extends QuestionGroup(Jobs) with It
   override def iterator: Iterator[Iteration] = jobs.iterator
 }
 
-object Jobs extends QuestionGroup.Identifier {
-  val id = s"${Employed.id}.g99"
-}
+object Jobs extends QGIdentifier(id = s"${Employed.id}.g99")
 
 case class Iteration(iterationID: String="", questionGroups: List[QuestionGroup with IterationID] = Nil, completed:Boolean=false) extends IterationID with Iterable[QuestionGroup with IterationID] {
   def employerName = jobDetails(_.employerName)
@@ -95,7 +90,7 @@ case class Iteration(iterationID: String="", questionGroups: List[QuestionGroup 
     }
   }
 
-  def apply(questionGroup: QuestionGroup.Identifier): Option[QuestionGroup] = questionGroups.find(_.identifier.id == questionGroup.id)
+  def apply(questionGroup: QGIdentifier): Option[QuestionGroup] = questionGroups.find(_.identifier.id == questionGroup.id)
 
   override def iterator: Iterator[QuestionGroup with IterationID] = questionGroups.iterator
 }
@@ -111,11 +106,10 @@ case class JobDetails(iterationID: String = "",
                       lastWorkDate:Option[DayMonthYear] = None,
                       p45LeavingDate:Option[DayMonthYear] = None,
                       hoursPerWeek: Option[String] = None) extends QuestionGroup(JobDetails) with IterationID {
-  override val definition = messagesApi(identifier.id, employerName)
+  //override val definition = messagesApi(identifier.id, employerName)
 }
 
-object JobDetails extends QuestionGroup.Identifier {
-  val id = s"${Employed.id}.g2"
+object JobDetails extends QGIdentifier(id = s"${Employed.id}.g2") {
 
   def validateLastWorkDate(input: JobDetails):Boolean = input.finishedThisJob match {
     case `yes` => input.lastWorkDate.isDefined
@@ -139,9 +133,7 @@ case class LastWage(iterationID: String = "",
                     employerOwesYouMoney: Option[String] = None) extends QuestionGroup(LastWage) with IterationID
 
 
-object LastWage extends QuestionGroup.Identifier {
-  val id = s"${Employed.id}.g3"
-}
+object LastWage extends QGIdentifier(id = s"${Employed.id}.g3")
 
 case class PensionAndExpenses(iterationID: String = "",
                          payPensionScheme: YesNoWithText = YesNoWithText("", None),
@@ -149,12 +141,9 @@ case class PensionAndExpenses(iterationID: String = "",
                          haveExpensesForJob: YesNoWithText = YesNoWithText("", None)
                         ) extends QuestionGroup(PensionAndExpenses) with IterationID
 
-object PensionAndExpenses extends QuestionGroup.Identifier {
-  val id = s"${Employed.id}.g4"
-}
+object PensionAndExpenses extends QGIdentifier(id = s"${Employed.id}.g4")
 
 case class EmploymentAdditionalInfo(empAdditionalInfo: YesNoWithText = YesNoWithText(answer = "", text = None)) extends QuestionGroup(EmploymentAdditionalInfo)
 
-object EmploymentAdditionalInfo extends QuestionGroup.Identifier {
-  val id = s"${Employed.id}.g5"
-}
+object EmploymentAdditionalInfo extends QGIdentifier(id = s"${Employed.id}.g5")
+

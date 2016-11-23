@@ -52,7 +52,7 @@ object GJobDetails extends Controller with CachedClaim with Navigable with I18nS
     track(JobDetails) { implicit claim => Ok(views.html.s_employment.g_jobDetails(form.fillWithJobID(JobDetails, iterationID))) }
   }
 
-  def submit = claimingWithCheckInIteration { iterationID => implicit claim => implicit request => implicit request2lang =>
+  def  submit = claimingWithCheckInIteration { iterationID => implicit claim => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors =>{
         val form = formWithErrors

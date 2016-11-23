@@ -3,11 +3,11 @@ package models.domain
 import play.api.i18n.{MMessages, MessagesApi}
 import play.api.Play.current
 
-case class Section(identifier: Section.Identifier, questionGroups: List[QuestionGroup] = Nil, visible: Boolean = true) extends Serializable {
+case class Section(identifier: Identifier, questionGroups: List[QuestionGroup] = Nil, visible: Boolean = true) extends Serializable {
   def messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   def name = messagesApi(identifier.id + ".name")
 
-  def questionGroup(questionGroupIdentifier: QuestionGroup.Identifier): Option[QuestionGroup] = {
+  def questionGroup(questionGroupIdentifier: QGIdentifier): Option[QuestionGroup] = {
     questionGroups.find(qg => qg.identifier == questionGroupIdentifier)
   }
 
@@ -25,15 +25,15 @@ case class Section(identifier: Section.Identifier, questionGroups: List[Question
 
   def -(questionGroup: QuestionGroup): Section = delete(questionGroup)
 
-  def delete(questionGroupIdentifier: QuestionGroup.Identifier): Section = {
+  def delete(questionGroupIdentifier: QGIdentifier): Section = {
     copy(questionGroups = questionGroups.filterNot(qg => qg.identifier == questionGroupIdentifier))
   }
 
-  def -(questionGroupIdentifier: QuestionGroup.Identifier): Section = delete(questionGroupIdentifier)
+  def -(questionGroupIdentifier: QGIdentifier): Section = delete(questionGroupIdentifier)
 
   def precedingQuestionGroups(questionGroup: QuestionGroup): List[QuestionGroup] = precedingQuestionGroups(questionGroup.identifier)
 
-  def precedingQuestionGroups(questionGroupIdentifier: QuestionGroup.Identifier): List[QuestionGroup] = {
+  def precedingQuestionGroups(questionGroupIdentifier: QGIdentifier): List[QuestionGroup] = {
     questionGroups.filter(_.identifier.index < questionGroupIdentifier.index)
   }
 
@@ -43,31 +43,27 @@ case class Section(identifier: Section.Identifier, questionGroups: List[Question
 }
 
 case object Section extends Serializable {
-  def sectionIdentifier(questionGroup: QuestionGroup): Section.Identifier = sectionIdentifier(questionGroup.identifier)
+  def sectionIdentifier(questionGroup: QuestionGroup): Identifier = sectionIdentifier(questionGroup.identifier)
 
-  def sectionIdentifier(questionGroupIdentifier: QuestionGroup.Identifier): Section.Identifier = {
-    new Section.Identifier {
-      override val id: String = questionGroupIdentifier.id.split('.')(0)
-    }
+  def sectionIdentifier(questionGroupIdentifier: QGIdentifier): Identifier = {
+    new Identifier(questionGroupIdentifier.id.split('.')(0))
+  }
+}
+
+case class Identifier(id: String) extends Serializable {
+  def index = id.drop(1).toInt
+
+  def name(implicit claim: Claim) = claim.section(this).name
+
+  def visible(implicit claim: Claim) = claim.section(this).visible
+
+  override def equals(other: Any) = other match {
+    case that: Identifier => id == that.id
+    case _ => false
   }
 
-  trait Identifier extends Serializable {
-    val id: String
-    
-    def index = id.drop(1).toInt
-
-    def name(implicit claim: Claim) = claim.section(this).name
-
-    def visible(implicit claim: Claim) = claim.section(this).visible
-
-    override def equals(other: Any) = other match {
-      case that: Identifier => id == that.id
-      case _ => false
-    }
-
-    override def hashCode() = {
-      val prime = 41
-      prime + id.hashCode
-    }
+  override def hashCode() = {
+    val prime = 41
+    prime + id.hashCode
   }
 }

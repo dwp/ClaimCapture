@@ -8,10 +8,7 @@ import models.MultiLineAddress
 import models._
 import utils.helpers.TextLengthHelper
 
-
-case object CircumstancesReportChanges extends Section.Identifier {
-  val id = "c2"
-}
+object CircumstancesReportChanges extends Identifier(id = "c2")
 
 case class CircumstancesSelfEmployment(stillCaring: YesNoWithDate = YesNoWithDate("", None),
                                        whenThisSelfEmploymentStarted: DayMonthYear = DayMonthYear(),
@@ -21,25 +18,21 @@ case class CircumstancesSelfEmployment(stillCaring: YesNoWithDate = YesNoWithDat
                                        moreAboutChanges: Option[String] = None)
   extends QuestionGroup(CircumstancesSelfEmployment)
 
-object CircumstancesSelfEmployment extends QuestionGroup.Identifier {
-  val id = s"${CircumstancesReportChanges.id}.g2"
-
+object CircumstancesSelfEmployment extends QGIdentifier(s"${CircumstancesReportChanges.id}.g2") {
   def textMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//EmploymentChange//SelfEmployment//MoreAboutChanges//Answer")
 }
 
 case class CircumstancesStoppedCaring(stoppedCaringDate: DayMonthYear = DayMonthYear(None, None, None),
                                       moreAboutChanges: Option[String] = None) extends QuestionGroup(CircumstancesStoppedCaring)
 
-object CircumstancesStoppedCaring extends QuestionGroup.Identifier {
-  val id = s"${CircumstancesReportChanges.id}.g3"
+object CircumstancesStoppedCaring extends QGIdentifier(id = s"${CircumstancesReportChanges.id}.g3") {
 
   def textMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//StoppedCaring//OtherChanges//Answer")
 }
 
 case class CircumstancesOtherInfo(change: String = "") extends QuestionGroup(CircumstancesOtherInfo)
 
-object CircumstancesOtherInfo extends QuestionGroup.Identifier {
-  val id = s"${CircumstancesReportChanges.id}.g4"
+object CircumstancesOtherInfo extends QGIdentifier(id = s"${CircumstancesReportChanges.id}.g4") {
 
   def textMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//OtherChanges//Answer")
 }
@@ -57,8 +50,7 @@ case class CircumstancesPaymentChange(
                                        moreAboutChanges: Option[String] = None
                                        ) extends QuestionGroup(CircumstancesPaymentChange)
 
-object CircumstancesPaymentChange extends QuestionGroup.Identifier {
-  val id = s"${CircumstancesReportChanges.id}.g5"
+object CircumstancesPaymentChange extends QGIdentifier(id = s"${CircumstancesReportChanges.id}.g5") {
 
   def textMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//PaymentChange//OtherChanges//Answer")
 }
@@ -72,8 +64,7 @@ case class CircumstancesAddressChange(previousAddress: MultiLineAddress = new Mu
                                       sameAddress: YesNoWithAddress = YesNoWithAddress(None, None),
                                       moreAboutChanges: Option[String] = None) extends QuestionGroup(CircumstancesAddressChange)
 
-object CircumstancesAddressChange extends QuestionGroup.Identifier {
-  val id = s"${CircumstancesReportChanges.id}.g6"
+object CircumstancesAddressChange extends QGIdentifier(id = s"${CircumstancesReportChanges.id}.g6") {
 
   def textMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//AddressChange//OtherChanges//Answer")
 }
@@ -87,16 +78,14 @@ case class CircumstancesBreaksInCare(breaksInCareStartDate: DayMonthYear = DayMo
                                      medicalCareDuringBreak: String = "",
                                      moreAboutChanges: Option[String] = None) extends QuestionGroup(CircumstancesBreaksInCare)
 
-object CircumstancesBreaksInCare extends QuestionGroup.Identifier {
-  val id = s"${CircumstancesReportChanges.id}.g7"
+object CircumstancesBreaksInCare extends QGIdentifier(id = s"${CircumstancesReportChanges.id}.g7") {
 
   def textMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//BreakFromCaring//MoreChanges//Answer")
 }
 
 case class CircumstancesBreaksInCareSummary(additionalBreaks: YesNoWithText = YesNoWithText("", None)) extends QuestionGroup(CircumstancesBreaksInCareSummary)
 
-object CircumstancesBreaksInCareSummary extends QuestionGroup.Identifier {
-  val id = s"${CircumstancesReportChanges.id}.g8"
+object CircumstancesBreaksInCareSummary extends QGIdentifier(id = s"${CircumstancesReportChanges.id}.g8") {
 
   def textMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//BreakFromCaring//AdditionalBreaksNotReportedDesc//Answer")
 }
@@ -109,9 +98,7 @@ case class CircumstancesEmploymentChange(stillCaring: YesNoWithDate = YesNoWithD
                                           )
   extends QuestionGroup(CircumstancesEmploymentChange)
 
-object CircumstancesEmploymentChange extends QuestionGroup.Identifier {
-  val id = s"${CircumstancesReportChanges.id}.g9"
-}
+object CircumstancesEmploymentChange extends QGIdentifier(id = s"${CircumstancesReportChanges.id}.g9")
 
 case class CircumstancesEmploymentPay(
                                        pastpresentfuture: String="present",
@@ -126,8 +113,7 @@ case class CircumstancesEmploymentPay(
                                        owedMoneyInfo: Option[String] = None)
   extends QuestionGroup(CircumstancesEmploymentPay)
 
-object CircumstancesEmploymentPay extends QuestionGroup.Identifier {
-  val id = s"${CircumstancesReportChanges.id}.g11"
+object CircumstancesEmploymentPay extends QGIdentifier(id = s"${CircumstancesReportChanges.id}.g11") {
 
   def presentPastOrFuture(employment: CircumstancesEmploymentChange) = {
     (employment.hasWorkStartedYet.answer, employment.hasWorkFinishedYet.answer) match {
@@ -147,9 +133,7 @@ case class CircumstancesStartedEmploymentAndOngoing(beenPaid: String,
                                                     usuallyPaidSameAmount: Option[String])
   extends QuestionGroup(CircumstancesStartedEmploymentAndOngoing)
 
-object CircumstancesStartedEmploymentAndOngoing extends QuestionGroup.Identifier {
-  val id = s"${CircumstancesReportChanges.id}.g10"
-}
+object CircumstancesStartedEmploymentAndOngoing extends QGIdentifier(id = s"${CircumstancesReportChanges.id}.g10")
 
 case class CircumstancesStartedAndFinishedEmployment(beenPaid: String,
                                                      howMuchPaid: String,
@@ -162,9 +146,7 @@ case class CircumstancesStartedAndFinishedEmployment(beenPaid: String,
                                                      employerOwesYouMoneyInfo: Option[String] = None)
   extends QuestionGroup(CircumstancesStartedAndFinishedEmployment)
 
-object CircumstancesStartedAndFinishedEmployment extends QuestionGroup.Identifier {
-  val id = s"${CircumstancesReportChanges.id}.g99"
-}
+object CircumstancesStartedAndFinishedEmployment extends QGIdentifier(id = s"${CircumstancesReportChanges.id}.g99")
 
 case class CircumstancesEmploymentNotStarted(beenPaid: String,
                                              howMuchPaid: Option[String],
@@ -173,9 +155,7 @@ case class CircumstancesEmploymentNotStarted(beenPaid: String,
                                              usuallyPaidSameAmount: Option[String])
   extends QuestionGroup(CircumstancesEmploymentNotStarted)
 
-object CircumstancesEmploymentNotStarted extends QuestionGroup.Identifier {
-  val id = s"${CircumstancesReportChanges.id}.g12"
-}
+object CircumstancesEmploymentNotStarted extends QGIdentifier(id = s"${CircumstancesReportChanges.id}.g12")
 
 case class CircumstancesEmploymentPensionExpenses(payIntoPension: YesNoWithText = YesNoWithText("", None),
                                                   payForThings: YesNoWithText = YesNoWithText("", None),
@@ -183,8 +163,7 @@ case class CircumstancesEmploymentPensionExpenses(payIntoPension: YesNoWithText 
                                                   moreAboutChanges: Option[String] = None)
   extends QuestionGroup(CircumstancesEmploymentPensionExpenses)
 
-object CircumstancesEmploymentPensionExpenses extends QuestionGroup.Identifier {
-  val id = s"${CircumstancesReportChanges.id}.g13"
+object CircumstancesEmploymentPensionExpenses extends QGIdentifier(id = s"${CircumstancesReportChanges.id}.g13") {
 
   def payIntoPensionMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//EmploymentChange//StartedEmploymentAndOngoing//PayIntoPensionWhatFor//Answer")
 

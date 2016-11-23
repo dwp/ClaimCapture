@@ -19,7 +19,7 @@ object SectionsManager {
     Information
   )
 
-  private def filterByVisibility(claim:Claim):Seq[Section.Identifier] = {
+  private def filterByVisibility(claim:Claim):Seq[Identifier] = {
     //We don't have to count in max number of sections those that are not visible
     claimSections.filter{section =>
       claim.sections.find(_.identifier == section) match {
@@ -33,7 +33,7 @@ object SectionsManager {
    filterByVisibility(claim).size
   }
 
-  def currentSection(s:Section.Identifier)(implicit claim:Claim):Int = {
+  def currentSection(s:Identifier)(implicit claim:Claim):Int = {
     filterByVisibility(claim).zipWithIndex.find(_._1 == s).getOrElse(AnyRef -> claimSections.indexOf(s))._2 + 1
   }
 }

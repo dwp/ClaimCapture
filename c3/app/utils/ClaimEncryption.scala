@@ -1,13 +1,14 @@
 package utils
 
+import app.ConfigProperties._
 import models.domain._
 import utils.C3Encryption._
 
 object ClaimEncryption {
+  def saveForLaterKey = getStringProperty("saveForLater.uuid.secret.key")
+  def encryptUuid(uuid:String):String=XorEncryption.encryptUuid(uuid, saveForLaterKey)
 
-  def encryptUuid(uuid:String):String=XorEncryption.encryptUuid(uuid)
-
-  def decryptUuid(encuuid:String):String=XorEncryption.decryptUuid(encuuid)
+  def decryptUuid(encuuid:String):String=XorEncryption.decryptUuid(encuuid, saveForLaterKey)
 
   def encrypt(claim: Claim): Claim = {
     val claimWithYourDetails = encryptYourDetails(claim)

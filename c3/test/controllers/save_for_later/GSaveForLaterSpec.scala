@@ -75,22 +75,22 @@ class GSaveForLaterSpec extends Specification {
     }
 
     // Warning this test sets the memcache expiry to 1+1 sec which will affect remaining tests unless overridden
-    "ensure that memcache item expires in correct seconds" in new WithApplication(app=LightFakeApplicationWithMemcache(additionalConfiguration = Map("cache.saveForLaterCacheExpirySecs" -> "0", "cache.saveForLaterGracePeriodSecs" -> "1"))) with Claiming{
+    "ensure that memcache item expires in correct seconds" in new WithApplication(app=LightFakeApplicationWithMemcache(additionalConfiguration = Map("cache.saveForLaterCacheExpirySecs" -> "0", "cache.saveForLaterGracePeriodSecs" -> "5"))) with Claiming{
       cache.isInstanceOf[MemcachedCacheApi] mustEqual true
       val cacheHandling = new EncryptedCacheHandling() {
         val cacheKey = "12345678"
       }
       cacheHandling.sflClaimExpirySecs() mustEqual(0)
-      cacheHandling.memcacheExpirySecs() mustEqual(1)
+      cacheHandling.memcacheExpirySecs() mustEqual(5)
 
-      var claim = new Claim(CachedClaim.key, List(), System.currentTimeMillis(), Some(Lang("en")),  "UUID-1234")
+      var claim = new Claim(CachedClaim.key, List(), System.currentTimeMillis(), Some(Lang("en")),  uuid=uuid)
       val details = new YourDetails("Mr","", None, "green", NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(None, None, None))
       val contactDetails = new ContactDetails(new MultiLineAddress(), None, None, None, "yes", Some("bt@bt.com"), Some("bt@bt.com"))
       claim = claim + details + contactDetails
       cacheHandling.saveForLaterInCache(claim,"/savedpath")
 
       // Since we set the SFL expiry to 0sec+1sec the item should not exist in cache after 1 second
-      val status1=cacheHandling.checkSaveForLaterInCache("UUID-1234")
+      val status1=cacheHandling.checkSaveForLaterInCache(uuid)
       status1 mustEqual("OK")
 
       // After 1 second the claim should have expired in memcache and have an SFL status of NO-CLAIM
@@ -100,7 +100,7 @@ class GSaveForLaterSpec extends Specification {
       loop.breakable{
         for(n<-1 to 10){
           TimeUnit.MILLISECONDS.sleep(1000)
-          val status2=cacheHandling.checkSaveForLaterInCache("UUID-1234")
+          val status2=cacheHandling.checkSaveForLaterInCache(uuid)
           Logger.info( "SFL DEBUG after "+n+" seconds the status is:"+status2)
           if( status2.equals("NO-CLAIM")){
             status=true
