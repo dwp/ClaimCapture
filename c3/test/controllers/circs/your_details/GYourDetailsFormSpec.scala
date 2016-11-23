@@ -172,7 +172,7 @@ class GYourDetailsFormSpec extends Specification {
         f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject special characters in text fields pre drs schema" in new WithApplication (app = LightFakeApplication(additionalConfiguration = Map("surname-drs-regex" -> "false"))){
+    "reject special characters in text fields pre drs schema" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("surname-drs-regex" -> "false"))) {
       GYourDetails.form.bind(
         Map(
           "firstName" -> "John >",
@@ -199,7 +199,7 @@ class GYourDetailsFormSpec extends Specification {
         f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject special characters in text fields" in new WithApplication (app = LightFakeApplication(additionalConfiguration = Map("surname-drs-regex" -> "true"))){
+    "reject special characters in text fields" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("surname-drs-regex" -> "true"))) {
       GYourDetails.form.bind(
         Map(
           "firstName" -> "John >",
@@ -216,11 +216,16 @@ class GYourDetailsFormSpec extends Specification {
         )).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(5)
+          // firstName
           formWithErrors.errors(0).message must equalTo(Mappings.errorNameRestrictedCharacters)
+          // surname
           formWithErrors.errors(1).message must equalTo(Mappings.errorNameRestrictedCharacters)
+          // theirFirstname
           formWithErrors.errors(2).message must equalTo(Mappings.errorNameRestrictedCharacters)
+          // theirSurname
           formWithErrors.errors(3).message must equalTo(Mappings.errorNameRestrictedCharacters)
-          formWithErrors.errors(4).message must equalTo(Mappings.errorNameRestrictedCharacters)
+          // Relationship
+          formWithErrors.errors(4).message must equalTo(Mappings.errorRestrictedCharacters)
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
