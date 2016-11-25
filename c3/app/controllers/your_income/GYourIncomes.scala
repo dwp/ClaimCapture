@@ -2,6 +2,7 @@ package controllers.your_income
 
 import controllers.mappings.Mappings
 import controllers.mappings.Mappings._
+import models.DayMonthYear
 import models.domain._
 import models.view.{CachedClaim, Navigable}
 import play.api.Play._
@@ -11,6 +12,7 @@ import play.api.i18n._
 import play.api.mvc.Controller
 import utils.helpers.CarersForm._
 import utils.helpers.ReturnToSummaryHelper
+import utils.helpers.HtmlLabelHelper._
 import scala.language.{postfixOps, reflectiveCalls}
 
 object GYourIncomes extends Controller with CachedClaim with Navigable with I18nSupport {
@@ -36,11 +38,14 @@ object GYourIncomes extends Controller with CachedClaim with Navigable with I18n
     def submit = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
       form.bindEncrypted.fold(
         formWithErrors => {
+          val empsince=displayPlaybackDatesFormat(request2lang, claim.dateOfClaim.getOrElse(DayMonthYear.today) - 6 months)
+          val selfempsince=displayPlaybackDatesFormat(request2lang, claim.dateOfClaim.getOrElse(DayMonthYear.today) - 1 week)
+          val claimdate=displayPlaybackDatesFormat(request2lang, claim.dateOfClaim.getOrElse(DayMonthYear.today))
           val formWithErrorsUpdate = formWithErrors
-            .replaceError("beenEmployedSince6MonthsBeforeClaim", errorRequired, FormError("beenEmployedSince6MonthsBeforeClaim", errorRequired, Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => (dmy - 6 months).`dd/MM/yyyy`),claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
-            .replaceError("beenSelfEmployedSince1WeekBeforeClaim", errorRequired, FormError("beenSelfEmployedSince1WeekBeforeClaim", errorRequired, Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => (dmy - 1 week).`dd/MM/yyyy`),claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
-            .replaceError("","value.required", FormError("yourIncome", Mappings.errorRequired, Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => (dmy).`dd/MM/yyyy`),claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
-            .replaceError("","required", FormError("yourIncome", messagesApi("yourIncome.otherIncome.selectOne"), Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => (dmy).`dd/MM/yyyy`),claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
+            .replaceError("beenEmployedSince6MonthsBeforeClaim", errorRequired, FormError("beenEmployedSince6MonthsBeforeClaim", errorRequired, Seq(empsince)))
+            .replaceError("beenSelfEmployedSince1WeekBeforeClaim", errorRequired, FormError("beenSelfEmployedSince1WeekBeforeClaim", errorRequired, Seq(selfempsince)))
+            .replaceError("","value.required", FormError("yourIncome", Mappings.errorRequired, Seq(claimdate)))
+            .replaceError("","required", FormError("yourIncome", messagesApi("yourIncome.otherIncome.selectOne"), Seq(claimdate)))
           BadRequest(views.html.your_income.yourIncome(formWithErrorsUpdate))
         }, yourIncomes => {
           val updatedClaim = showHideSections(claim, yourIncomes)
