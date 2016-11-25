@@ -18,14 +18,16 @@ window.dobWarning = (day, month, year, dob1, dob2, name1, name2, first, last, wa
     checkDateOfBirth(getDay(day), getMonth(month), $("#" + year).val(), dob1, dob2, name1, name2, first, last, warning, pageTag, firstTag, secondTag, testOn, testOnBefore)
 
 getDay = (day) ->
-  day = $("#" + day).val()
-  if (day < 10) then day = "0" + day
-  else day
+  newDay = $("#" + day).val()
+  if newDay.trim
+    if (newDay.trim().length < 2) then newDay = "0" + newDay.trim()
+  newDay
 
 getMonth = (month) ->
-  month = $("#" + month).val()
-  if (month < 10) then month = "0" + month
-  else month
+  newMonth = $("#" + month).val()
+  if newMonth.trim
+    if (newMonth.trim().length<2) then newMonth = "0" + newMonth.trim()
+  newMonth
 
 isLegalDate=(day,month,year)->
   if month>12 then false

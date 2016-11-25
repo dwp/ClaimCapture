@@ -57,15 +57,15 @@ object CarersForms  {
   }
 
   def dpNINO(theirPersonalDetails: TheirPersonalDetails) = {
-    theirPersonalDetails.nationalInsuranceNumber.getOrElse(NationalInsuranceNumber(None)).nino.getOrElse("").toUpperCase
+    theirPersonalDetails.nationalInsuranceNumber.getOrElse(NationalInsuranceNumber(None)).nino.getOrElse("").toUpperCase.replace(" ", "")
   }
 
   def partnerNINO(partnerDetails: YourPartnerPersonalDetails) = {
-    partnerDetails.nationalInsuranceNumber.getOrElse(NationalInsuranceNumber(None)).nino.getOrElse("").toUpperCase
+    partnerDetails.nationalInsuranceNumber.getOrElse(NationalInsuranceNumber(None)).nino.getOrElse("").toUpperCase.replace(" ", "")
   }
 
   def yourNINO(yourDetails: YourDetails) = {
-    yourDetails.nationalInsuranceNumber.nino.getOrElse("").toUpperCase
+    yourDetails.nationalInsuranceNumber.nino.getOrElse("").toUpperCase.replace(" ", "")
   }
 
   def yourName(yourDetails: YourDetails) = {
