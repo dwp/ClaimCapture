@@ -95,13 +95,13 @@ object ClaimEncryption {
           encryptString(circumstancesReportChange.surname),
           encryptNationalInsuranceNumber(circumstancesReportChange.nationalInsuranceNumber),
           encryptDayMonthYear(circumstancesReportChange.dateOfBirth),
+          encryptString(circumstancesReportChange.wantsContactEmail),
+          encryptOptionalString(circumstancesReportChange.email),
+          encryptOptionalString(circumstancesReportChange.emailConfirmation),
           encryptString(circumstancesReportChange.theirFirstName),
           encryptString(circumstancesReportChange.theirSurname),
           encryptString(circumstancesReportChange.theirRelationshipToYou),
-          encryptOptionalString(circumstancesReportChange.furtherInfoContact),
-          encryptString(circumstancesReportChange.wantsContactEmail),
-          encryptOptionalString(circumstancesReportChange.email),
-          encryptOptionalString(circumstancesReportChange.emailConfirmation)
+          encryptOptionalString(circumstancesReportChange.furtherInfoContact)
         ))
       case _ => claim
     }
@@ -240,13 +240,13 @@ object ClaimEncryption {
           decryptString(circumstancesReportChange.surname),
           decryptNationalInsuranceNumber(circumstancesReportChange.nationalInsuranceNumber),
           decryptDayMonthYear(circumstancesReportChange.dateOfBirth),
+          decryptString(circumstancesReportChange.wantsContactEmail),
+          decryptOptionalString(circumstancesReportChange.email),
+          decryptOptionalString(circumstancesReportChange.emailConfirmation),
           decryptString(circumstancesReportChange.theirFirstName),
           decryptString(circumstancesReportChange.theirSurname),
           decryptString(circumstancesReportChange.theirRelationshipToYou),
-          decryptOptionalString(circumstancesReportChange.furtherInfoContact),
-          decryptString(circumstancesReportChange.wantsContactEmail),
-          decryptOptionalString(circumstancesReportChange.email),
-          decryptOptionalString(circumstancesReportChange.emailConfirmation)
+          decryptOptionalString(circumstancesReportChange.furtherInfoContact)
         ))
       case _ => claim
     }

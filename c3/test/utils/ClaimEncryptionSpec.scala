@@ -18,8 +18,8 @@ class ClaimEncryptionSpec extends Specification {
     Some(NationalInsuranceNumber(Some("AA123456A"))), DayMonthYear(1,1,1988),"Wifey",
     YesNoMandWithAddress("No", Some(MultiLineAddress(Some("122"), Some("Fake street"),None)), None))
   def circumstancesReportChange = CircumstancesYourDetails("H","Dawg",
-    NationalInsuranceNumber(Some("AA123456A")), DayMonthYear(1,1,1986),
-    "blah", "blah", "blah", Some("blah"), "blah", Some("blah@blah.com"), Some("blah@blah.com"))
+    NationalInsuranceNumber(Some("AA123456A")), DayMonthYear(1,1,1986), "blah", Some("blah@blah.com"), Some("blah@blah.com"),
+    "blah", "blah", "blah", Some("blah"))
   def howWePayYou = HowWePayYou("Daily", Some(BankBuildingSocietyDetails(
     "H-dawg", "Barclays", SortCode("00", "00", "00"), "00000000", "")),"Cold, hard cash")
   def yourPartnerPersonalDetails = YourPartnerPersonalDetails(Some("Mrs"), Some("H"),
