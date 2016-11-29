@@ -21,14 +21,14 @@ trait CachedChangeOfCircs extends ClaimHandling {
   override lazy val errorPageBrowserBackButton = routes.CircsEnding.errorBrowserBackbutton()
   override lazy val backButtonPage = controllers.routes.Application.backButtonCircsPage()
 
-  override def newInstance(newuuid:String = randomUUID.toString): Claim = new Claim(cacheKey,uuid = newuuid)
+  override def newInstance(newuuid: String = randomUUID.toString): Claim = new Claim(cacheKey, uuid = newuuid)
 
-  override def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang,claim.uuid,claim.transactionId)(claim.navigation)
+  override def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.gacid, claim.uuid, claim.transactionId)(claim.navigation)
 
-  override protected def claimNotValid(claim:Claim):Boolean = {
+  override protected def claimNotValid(claim: Claim): Boolean = {
     claim.questionGroup[CircumstancesYourDetails] match {
       case None => true
-      case Some(CircumstancesYourDetails(firstname,surname,nino,_,_,_,_,_,_,_,_)) if firstname.isEmpty || surname.isEmpty || nino.nino.isEmpty => true
+      case Some(CircumstancesYourDetails(firstname, surname, nino, _, _, _, _, _, _, _, _)) if firstname.isEmpty || surname.isEmpty || nino.nino.isEmpty => true
       case _ => false
     }
   }

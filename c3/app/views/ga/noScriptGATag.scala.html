@@ -1,5 +1,6 @@
 @import utils.helpers.OriginTagHelper
-@()(implicit lang: Lang, request:play.api.mvc.Request[AnyContent])
+@import models.domain.Claim
+@()(implicit claim: Claim,request:play.api.mvc.Request[AnyContent])
 @googleurl=@{
     "https://www.google-analytics.com/collect"
 }
@@ -18,11 +19,14 @@
 @dt=@{
     "&dt=NoJavascript"
 }
+@cid=@{
+    "&cid="+claim.gacid
+}
 @z=@{
     "&z="+System.currentTimeMillis
 }
 @gaUrl = @{
-    googleurl+fixedParams+dl+t+tid+dt+z
+    googleurl+fixedParams+cid+dl+t+tid+dt+z
 }
 <noscript>
     <img alt="ga-no-javascript" style="display:none" height="0" width="0" src="@gaUrl">

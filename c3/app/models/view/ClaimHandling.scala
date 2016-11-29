@@ -30,20 +30,19 @@ object ClaimHandling {
   def C3VERSION_VALUE = getStringProperty("application.version").takeWhile(_ != '-')
   def C3VERSION_SECSTOLIVE = getIntProperty("application.seconds.to.live")
   val applicationFinished = "application-finished"
-  val GA_COOKIE="_ga"
+  val GA_COOKIE = "_ga"
+  val GA_COOKIE_SECSTOLIVE = 2 * 365 * 24 * 60 * 60
+  val GA_CID_PREFIX="GA1.1"
 }
 
 trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
   protected def claimNotValid(claim: Claim): Boolean
   protected def newInstance(newuuid: String = randomUUID.toString): Claim
   protected def copyInstance(claim: Claim): Claim
-  protected def backButtonPage : Call
+  protected def backButtonPage: Call
 
-  def googleAnalyticsAgentId(request: Request[AnyContent])={
-    request.cookies.get(ClaimHandling.GA_COOKIE) match{
-      case Some(cookie) => cookie.value
-      case _ => "N/A"
-    }
+  def newGoogleAnalyticsClientId = {
+    ClaimHandling.GA_CID_PREFIX + "." + Math.round(2147483647 * Math.random()) + "." + Math.round(2147483647 * Math.random())
   }
 
   //============================================================================================================
@@ -61,24 +60,33 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
       recordMeasurements()
 
       if (request.getQueryString("changing").getOrElse("false") == "false") {
-        // Delete any old data to avoid somebody getting access to session left by somebody else
-        if (!key.isEmpty) Cache.remove(key)
-        // Start with new claim
-        val claim = newInstance().copy(lang = Some(Lang(request.getQueryString("lang").getOrElse("en"))))(Navigation())
-        renameThread(claim.uuid)
-        Logger.info(s"New ${claim.key} ${claim.uuid} with google-analytics:${googleAnalyticsAgentId(r)}.")
-
-
         implicit val newRequest = createNewRequest(request)
 
-        // Added C3Version for full Zero downtime
+        // If we dont have a ga-cid then lets create one so we can add it to the claim and the response headers
+        val ga_cid = newRequest.cookies.get(ClaimHandling.GA_COOKIE) match {
+          case (Some(s)) => s.value
+          case _ => newGoogleAnalyticsClientId
+        }
+
+        // Delete any old data to avoid somebody getting access to session left by somebody else
+        if (!key.isEmpty) Cache.remove(key)
+
+        // Start with new claim
+        val claim = newInstance().copy(gacid = ga_cid, lang = Some(Lang(request.getQueryString("lang").getOrElse("en"))))(Navigation())
+        renameThread(claim.uuid)
+        Logger.info(s"New ${claim.key} ${claim.uuid} with google-analytics:${claim.gacid}.")
+
+
+        val c3versionCookie = Cookie(ClaimHandling.C3VERSION, ClaimHandling.C3VERSION_VALUE, Some(ClaimHandling.C3VERSION_SECSTOLIVE))
+        val gACookie = Cookie(ClaimHandling.GA_COOKIE, claim.gacid, Some(ClaimHandling.GA_COOKIE_SECSTOLIVE))
+        val cookies = newRequest.cookies.toSeq.filterNot(toFilter) :+ c3versionCookie :+ gACookie
+
         Logger.info(s"New C3Version cookie for ${claim.uuid} value:${ClaimHandling.C3VERSION_VALUE} expiresecs:${ClaimHandling.C3VERSION_SECSTOLIVE}")
         withHeaders(action(claim, newRequest, bestLang)(f))
-          .withCookies(newRequest.cookies.toSeq.filterNot(toFilter) :+ Cookie(ClaimHandling.C3VERSION, ClaimHandling.C3VERSION_VALUE, Some(ClaimHandling.C3VERSION_SECSTOLIVE)): _*)
+          .withCookies(cookies: _*)
           .withSession(claim.key -> claim.uuid)
           .discardingCookies(DiscardingCookie(ClaimHandling.applicationFinished))
       } else {
-
         implicit val r = request
         Logger.debug("New claim with changing true.")
         if (key.isEmpty) Redirect(errorPageCookie)
@@ -110,12 +118,12 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
     // It's this ugly because the play framework has deemed us outcasts on the cookie managing for requests.
     // Since the discarding only takes place after the rendering of the first page, that wasn't of much use for that page
     // So we have to rely on dark arts in order to modify the cookies before render time so the framework doesn't read the lingering language from here
-    val lang = if (OriginTagHelper.isOriginGB())request.getQueryString("lang").getOrElse("") else "";
+    val lang = if (OriginTagHelper.isOriginGB()) request.getQueryString("lang").getOrElse("") else "";
     val newHeaders = request.headers.get(COOKIE) match {
-      case Some(cookieHeader) => request.headers.remove(COOKIE).add(COOKIE->Cookies.mergeCookieHeader(cookieHeader,Seq(Cookie("PLAY_LANG",lang))))
-      case _ => request.headers.remove(COOKIE).add(COOKIE->Cookies.mergeCookieHeader("", Seq(Cookie("PLAY_LANG",lang))))
+      case Some(cookieHeader) => request.headers.remove(COOKIE).add(COOKIE -> Cookies.mergeCookieHeader(cookieHeader, Seq(Cookie("PLAY_LANG", lang))))
+      case _ => request.headers.remove(COOKIE).add(COOKIE -> Cookies.mergeCookieHeader("", Seq(Cookie("PLAY_LANG", lang))))
     }
-    Request(request.copy(headers=newHeaders),request.body)
+    Request(request.copy(headers = newHeaders), request.body)
   }
 
   /*
@@ -134,9 +142,14 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
           implicit val newRequest = createNewRequest(request)
 
           val claim = newInstance()
+
+          val c3versionCookie = Cookie(ClaimHandling.C3VERSION, ClaimHandling.C3VERSION_VALUE, Some(ClaimHandling.C3VERSION_SECSTOLIVE))
+          val gACookie = Cookie(ClaimHandling.GA_COOKIE, claim.gacid, Some(ClaimHandling.GA_COOKIE_SECSTOLIVE))
+          val cookies = newRequest.cookies.toSeq.filterNot(toFilter) :+ c3versionCookie :+ gACookie
+
           Logger.info("ClaimHandling optionalClaim created new claim:" + claim.uuid)
           withHeaders(action(claim, newRequest, bestLang)(f))
-            .withCookies(newRequest.cookies.toSeq.filterNot(toFilter) :+ Cookie(ClaimHandling.C3VERSION, ClaimHandling.C3VERSION_VALUE, Some(ClaimHandling.C3VERSION_SECSTOLIVE)): _*)
+            .withCookies(cookies: _*)
             .withSession(claim.key -> claim.uuid)
             .discardingCookies(DiscardingCookie(ClaimHandling.applicationFinished))
         }
@@ -160,9 +173,9 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
    * if the mandatory fields are missing. We found the mandatory fields missing when the user uses the
    * browser's back and forward buttons instead of the ones provided by the application.
    */
-  def claimingWithCheck(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult],checkCookie:Boolean = false) = claimingWithConditions(f, cookieCheck = checkCookie, isNotValidClaim = claimNotValid)
+  def claimingWithCheck(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult], checkCookie: Boolean = false) = claimingWithConditions(f, cookieCheck = checkCookie, isNotValidClaim = claimNotValid)
 
-  def claiming(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult],checkCookie:Boolean = false): Action[AnyContent] = claimingWithConditions(f, cookieCheck = checkCookie)
+  def claiming(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult], checkCookie: Boolean = false): Action[AnyContent] = claimingWithConditions(f, cookieCheck = checkCookie)
 
   private def claimingWithConditions(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult], cookieCheck: Boolean, isNotValidClaim: Claim => Boolean = noClaimValidation): Action[AnyContent] = Action {
     implicit request =>
@@ -233,12 +246,12 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
           removeFromCache(claim.uuid)
           if (getBooleanProperty("saveForLaterSaveEnabled") || getBooleanProperty("saveForLaterResumeEnabled")) removeSaveForLaterFromCache(claim.uuid)
           originCheck(f(claim)(request)(getLang(claim))).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain),
-            DiscardingCookie(ClaimHandling.C3VERSION),DiscardingCookie("PLAY_LANG")).withNewSession.withCookies(Cookie(ClaimHandling.applicationFinished, "true"))
+            DiscardingCookie(ClaimHandling.C3VERSION), DiscardingCookie("PLAY_LANG")).withNewSession.withCookies(Cookie(ClaimHandling.applicationFinished, "true"))
         case _ =>
           Logger.info(s"ending no claim - ${request.method} url ${request.path}")
           enforceAlreadyFinishedRedirection(request,
             originCheck(f(Claim(cacheKey))(request)(bestLang)).discardingCookies(DiscardingCookie(csrfCookieName, secure = csrfSecure, domain = theDomain),
-              DiscardingCookie(ClaimHandling.C3VERSION),DiscardingCookie("PLAY_LANG")).withNewSession.withCookies(Cookie(ClaimHandling.applicationFinished, "true"))
+              DiscardingCookie(ClaimHandling.C3VERSION), DiscardingCookie("PLAY_LANG")).withNewSession.withCookies(Cookie(ClaimHandling.applicationFinished, "true"))
           )
       }
     }
@@ -277,9 +290,9 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
             saveInCache(c)
             r
           }
-          case "/resume" if( !claim.uuid.equals(c.uuid)) =>{
-              // If we have resumed and the claim has been authenticated and successully switched, we need to set the cookie
-              r.withSession(claim.key -> c.uuid)
+          case "/resume" if (!claim.uuid.equals(c.uuid)) => {
+            // If we have resumed and the claim has been authenticated and successully switched, we need to set the cookie
+            r.withSession(claim.key -> c.uuid)
           }
           case _ => {
             saveInCache(c.update(saveForLaterPageData = Map[String,String]()))
@@ -318,7 +331,7 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
 
     // If the curried function returns true, this action will be redirected to preview if we have been there previously
     // The data feeded to the curried function is the current submitted value of the claim, and the previously saved claim the moment we visited preview page.
-    def withPreviewConditionally[T <: QuestionGroup](t: ((Option[T], T),(Option[Claim],Claim)) => Boolean)(implicit classTag: ClassTag[T]): Action[AnyContent] = Action.async(action.parser) { request =>
+    def withPreviewConditionally[T <: QuestionGroup](t: ((Option[T], T), (Option[Claim], Claim)) => Boolean)(implicit classTag: ClassTag[T]): Action[AnyContent] = Action.async(action.parser) { request =>
 
       def getParams[E <: T](claim: Claim)(implicit classTag: ClassTag[E]): (Option[E], E) = {
         claim.checkYAnswers.previouslySavedClaim.map(_.questionGroup(classTag.runtimeClass).getOrElse(None)).asInstanceOf[Option[E]] -> claim.questionGroup(classTag.runtimeClass).get.asInstanceOf[E]
@@ -326,14 +339,14 @@ trait ClaimHandling extends RequestHandling with EncryptedCacheHandling {
 
       action(request).map { result =>
         result.header.status -> fromCache(request) match {
-          case (play.api.http.Status.SEE_OTHER, Some(claim)) if claim.navigation.beenInPreview && t(getParams(claim),claim.checkYAnswers.previouslySavedClaim->claim) => Redirect(controllers.preview.routes.Preview.present().url + getReturnToSummaryValue(claim))
+          case (play.api.http.Status.SEE_OTHER, Some(claim)) if claim.navigation.beenInPreview && t(getParams(claim), claim.checkYAnswers.previouslySavedClaim -> claim) => Redirect(controllers.preview.routes.Preview.present().url + getReturnToSummaryValue(claim))
           case _ => result
         }
       }
     }
   }
 
-  def getReturnToSummaryValue(claim : Claim) : String = {
+  def getReturnToSummaryValue(claim: Claim): String = {
     claim.checkYAnswers.returnToSummaryAnchor == "" match {
       case true => ""
       case false => "#" + claim.checkYAnswers.returnToSummaryAnchor
