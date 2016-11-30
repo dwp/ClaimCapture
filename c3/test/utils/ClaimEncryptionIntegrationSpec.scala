@@ -69,7 +69,7 @@ class ClaimEncryptionIntegrationSpec extends Specification {
         Section(PayDetails, List(howWePayYou)),
         Section(YourPartner, List(yourPartnerPersonalDetails)),
         Section(CircumstancesReportChanges, List(circumstancesPaymentChange, circumstancesAddressChange))
-      ), System.currentTimeMillis(), Some(Lang("en")), claimKey)
+      ), System.currentTimeMillis(), Some(Lang("en")), "gacid", claimKey)
 
       encryptedCacheHandling.saveInCache(claim)
       val claimFromCache = encryptedCacheHandling.fromCache(request).get // Bypasses decryption
@@ -107,7 +107,7 @@ class ClaimEncryptionIntegrationSpec extends Specification {
         Section(PayDetails, List(howWePayYou)),
         Section(YourPartner, List(yourPartnerPersonalDetails)),
         Section(CircumstancesReportChanges, List(circumstancesPaymentChange, circumstancesAddressChange))
-      ), System.currentTimeMillis(), Some(Lang("en")), claimKey)
+      ), System.currentTimeMillis(), Some(Lang("en")), "gacid", claimKey)
 
       encryptedCacheHandling.saveInCache(claim)
       val claimFromCache = encryptedCacheHandling.fromCache(request).get
