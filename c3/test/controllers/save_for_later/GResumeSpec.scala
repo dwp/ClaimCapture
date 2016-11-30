@@ -22,7 +22,7 @@ class GResumeSpec extends Specification {
   val decodeint = "174650142322392746796619227917559908601"
 
   "Resume controller" should {
-    "block present when switched off" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterResumeEnabled" -> "false"))) with Claiming {
+/*    "block present when switched off" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterResumeEnabled" -> "false"))) with Claiming {
       val request = FakeRequest()
       val result = GResume.present(request)
       val bodyText: String = contentAsString(result)
@@ -53,15 +53,18 @@ class GResumeSpec extends Specification {
       bodyText must contain("This application can't be found")
       status(result) mustEqual BAD_REQUEST
     }
-
+*/
     "return validation error not found when claim not found" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterResumeEnabled" -> "true", "saveForLater.uuid.secret.key" -> encryptkey))) with Claiming {
+    println("CGTEST Doing FakeRequest to get claim:unknownclaimid")
       val request = FakeRequest(GET, "?x=" + "unknownclaimid")
+      println("CGTEST Doing FakeRequest ... calling GResume.present")
       val result = GResume.present(request)
       val bodyText: String = contentAsString(result)
+      println("CGTEST got response:"+bodyText)
       bodyText must contain("This application can't be found")
       status(result) mustEqual BAD_REQUEST
     }
-
+/*
     "return ok resume screen when claim is found in sfl cache" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("saveForLaterResumeEnabled" -> "true", "saveForLater.uuid.secret.key" -> encryptkey))) with Claiming {
       var claim = new Claim(CachedClaim.key, uuid = uuid)
       val details = new YourDetails("Mr", "", None, "green", NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(None, None, None))
@@ -84,6 +87,7 @@ class GResumeSpec extends Specification {
       var claim = new Claim(CachedClaim.key, uuid = uuid)
       val details = new YourDetails("Mr", "John", None, "Green", NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(1, 1, 1970))
       claim = claim + details
+      println("CLAIM:"+claim)
       val encryptedCacheHandling = new EncryptedCacheHandling() {
         val cacheKey = uuid
       }
@@ -98,6 +102,7 @@ class GResumeSpec extends Specification {
       bodyText must contain( "This application has been deleted")
       status(result) mustEqual BAD_REQUEST
     }
+    */
   }
   section("unit", models.domain.YourDetails.id)
 }
