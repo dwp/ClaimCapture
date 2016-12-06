@@ -67,7 +67,7 @@ object ApplicationBuild extends Build {
     resolvers += "Carers repo" at sR1,
     resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
     resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases",
-    resolvers += "Kaliber Repo for Play mailer" at "http://jars.kaliber.io/artifactory/repo/",
+    resolvers += "Kaliber Repo for Play mailer" at "https://jars.kaliber.io/artifactory/libs-release-local",
     resolvers += "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases",
     resolvers += "Local Maven" at "file://"+Path.userHome.absolutePath+"/.m2/repository"
   )
