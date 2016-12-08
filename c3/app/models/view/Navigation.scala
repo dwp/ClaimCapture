@@ -43,7 +43,7 @@ trait Navigable {
   }
 
   def circsPathAfterFunction() = {
-    controllers.circs.your_details.routes.GYourDetails.present()
+    controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present()
   }
 
   def circsPathAfterYourDetails() = {
@@ -51,22 +51,22 @@ trait Navigable {
   }
 }
 
-case class Navigation(routes: List[Route[_]] = List(), beenInPreview: Boolean = false, routesAfterPreview: List[Route[_]] = List.empty[Route[_]], showSaveButton: Boolean = true) {
+case class Navigation(routes: List[Route] = List(), beenInPreview: Boolean = false, routesAfterPreview: List[Route] = List.empty[Route], showSaveButton: Boolean = true) {
 
   def resetPreviewState(): Navigation = copy(beenInPreview = false)
 
   def track[T](t: T, beenInPreviewParam: Boolean = false)(route: String)(implicit classTag: ClassTag[T]): Navigation = {
     val newRoute = route.replace("?changing=true", "").replace("?lang=cy", "")
-    val routeObj = Route[T](newRoute)
+    val routeObj = Route(newRoute, classTag.runtimeClass.getName)
 
     //Tracking after CYA is a special case, and since it's takeWhile(_.uri != route), using the normal tracking will delete any later routes.
     //So we want to use an alternative tracking in case we have been in preview, to still be able to use the back button link
     if (beenInPreviewParam) {
-      copy(routes.takeWhile(_.uri != controllers.preview.routes.Preview.present().url) :+ routeObj, beenInPreviewParam, routesAfterPreview = List.empty[Route[_]], showSaveButton = showSaveButton(newRoute))
+      copy(routes.takeWhile(_.uri != controllers.preview.routes.Preview.present().url) :+ routeObj, beenInPreviewParam, routesAfterPreview = List.empty[Route], showSaveButton = showSaveButton(newRoute))
     } else if (beenInPreview) {
-      copy(routesAfterPreview = routesAfterPreview.takeWhile(_.uri != newRoute) :+ Route[T](newRoute), showSaveButton = showSaveButton(newRoute))
+      copy(routesAfterPreview = routesAfterPreview.takeWhile(_.uri != newRoute) :+ Route(newRoute, classTag.runtimeClass.getName), showSaveButton = showSaveButton(newRoute))
     } else {
-      copy(routes.takeWhile(_.uri != newRoute) :+ Route[T](newRoute), showSaveButton = showSaveButton(newRoute))
+      copy(routes.takeWhile(_.uri != newRoute) :+ Route(newRoute, classTag.runtimeClass.getName), showSaveButton = showSaveButton(newRoute))
     }
   }
 
@@ -87,11 +87,11 @@ case class Navigation(routes: List[Route[_]] = List(), beenInPreview: Boolean = 
     }
   }
 
-  def current: Route[_] = if (routes.isEmpty) Route("") else routes.last
+  def current: Route = if (routes.isEmpty) Route("", "") else routes.last
 
-  def saveForLaterRoute(resumeRoute: String): Route[_] = {
+  def saveForLaterRoute(resumeRoute: String): Route = {
     if (resumeRoute.length() > 0) {
-      Route(resumeRoute)
+      Route(resumeRoute, "")
     }
     else if (routesAfterPreview.isEmpty) {
       current
@@ -100,16 +100,19 @@ case class Navigation(routes: List[Route[_]] = List(), beenInPreview: Boolean = 
     }
   }
 
-  def previous: Route[_] = {
+  def previous: Route = {
     val routesList = if (beenInPreview) routesAfterPreview else routes
     if (routesList.size > 1) routesList.dropRight(1).last
     else if (routesList.size == 1) current
-    else Route("")
+    else Route("", "")
   }
 
-  def apply[T](t: T)(implicit classTag: ClassTag[T]): Option[Route[_]] = routes.find(_.classTag.runtimeClass == t.getClass)
+  def apply[T](t: T)(implicit classTag: ClassTag[T]): Option[Route] = {
+    val found = routes.find(_.className == t.getClass.getName)
+    found
+  }
 }
 
-case class Route[T](uri: String)(implicit val classTag: ClassTag[T]) {
+case class Route(uri: String, className: String) {
   override def toString = uri
 }

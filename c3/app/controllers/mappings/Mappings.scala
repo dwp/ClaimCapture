@@ -11,7 +11,7 @@ import play.api.data.Forms._
 import play.api.data.validation._
 import play.api.data.{Form, FormError, Mapping}
 import play.api.mvc.Request
-import utils.CommonValidation._
+import gov.dwp.carers.xml.validation.CommonValidation._
 import scala.util.{Failure, Success, Try}
 import scala.util.matching.Regex
 
@@ -34,7 +34,8 @@ object Mappings {
   val errorRequiredWithError = "error.required.error"
   val required = "required"
   val errorRestrictedCharacters = "error.restricted.characters"
-  val errorPostCodeAddressCharacters = "error.address.characters"
+  val errorNameRestrictedCharacters = "error.name.restricted.characters"
+  val errorPostCodeAddressCharacters = "error.postcode.characters"
   val invalidNumber = "number.invalid"
   val invalidDecimal = "decimal.invalid"
   val errorInvalid = "error.invalid"
@@ -56,12 +57,16 @@ object Mappings {
     "answer" -> text,
     "text" -> optional(carersText(maxLength = sixty)))(RadioWithText.apply)(RadioWithText.unapply)
 
-  val dayMonthYear: Mapping[DayMonthYear] = mapping(
-    "day" -> optional(text),
-    "month" -> optional(text),
-    "year" -> optional(text),
-    "hour" -> optional(text),
-    "minutes" -> optional(text))(DayMonthYear.convert)(DayMonthYear.extract)
+  val dayMonthYear: Mapping[DayMonthYear] = {
+    mapping(
+      "day" -> {
+        optional(text)
+      },
+      "month" -> optional(text),
+      "year" -> optional(text),
+      "hour" -> optional(text),
+      "minutes" -> optional(text))(DayMonthYear.convert)(DayMonthYear.extract)
+  }
 
   val periodFromTo: Mapping[PeriodFromTo] = mapping(
     "from" -> dayMonthYear.verifying(validDate),
@@ -142,16 +147,20 @@ object Mappings {
     case dmy@DayMonthYear(_, _, _, _, _) => dateValidation(dmy, errorInvalid)
   }
 
-  def dateOfBirthValidation(dmy: DayMonthYear, field: String): ValidationResult = dateValidation(dmy, field) match {
-    case Invalid(e) => Invalid(e)
-    case _ if (dmy.year.getOrElse(0) < 1900) => Invalid(ValidationError(field))
-    case _ if (dmy.isAfter(DateTime.now())) => Invalid(ValidationError(field))
-    case _ => Valid
+  def dateOfBirthValidation(dmy: DayMonthYear, field: String): ValidationResult = {
+    dateValidation(dmy, field) match {
+      case Invalid(e) => Invalid(e)
+      case _ if (dmy.year.getOrElse(0) < 1900) => Invalid(ValidationError(field))
+      case _ if (dmy.isAfter(DateTime.now())) => Invalid(ValidationError(field))
+      case _ => Valid
+    }
   }
 
-  def validDateOfBirth: Constraint[DayMonthYear] = Constraint[DayMonthYear](constraintRequired) {
+  def validDateOfBirth: Constraint[DayMonthYear] = {
+    Constraint[DayMonthYear](constraintRequired) {
       case DayMonthYear(None, None, None, _, _) =>   Invalid(ValidationError(errorRequired))
       case dmy@DayMonthYear(_, _, _, _, _) =>  dateOfBirthValidation(dmy, errorInvalid)
+    }
   }
 
   def validDateOnly: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.validateDate") { dmy =>
@@ -247,17 +256,14 @@ object Mappings {
 
   def validNationality: Constraint[String] = Constraint[String]("constraint.nationality") { nationality =>
     val nationalityPattern = NATIONALITY_REGEX.r
-
     nationalityPattern.pattern.matcher(nationality).matches match {
       case true => Valid
       case false => Invalid(ValidationError("error.nationality"))
     }
   }
 
-
   def restrictedStringText: Constraint[String] = Constraint[String]("constraint.restrictedStringText") { restrictedString =>
     val restrictedStringPattern = RESTRICTED_CHARS.r
-
     restrictedStringPattern.pattern.matcher(restrictedString).matches match {
       case true => Valid
       case false => Invalid(ValidationError(errorRestrictedCharacters))
@@ -266,7 +272,6 @@ object Mappings {
 
   def restrictedPostCodeAddressStringText: Constraint[String] = Constraint[String]("constraint.restrictedPostCodeAddressStringText") { restrictedString =>
     val restrictedStringPattern = RESTRICTED_POSTCODE_REGEX.r
-
     restrictedStringPattern.pattern.matcher(restrictedString).matches match {
       case true => Valid
       case false => Invalid(ValidationError(errorPostCodeAddressCharacters))

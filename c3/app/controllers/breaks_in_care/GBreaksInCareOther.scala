@@ -14,7 +14,7 @@ import play.api.data.validation._
 import play.api.data.{Form, FormError}
 import play.api.i18n.{I18nSupport, MMessages, MessagesApi}
 import play.api.mvc.Controller
-import utils.CommonValidation._
+import gov.dwp.carers.xml.validation.CommonValidation._
 import utils.helpers.CarersForm._
 
 /**

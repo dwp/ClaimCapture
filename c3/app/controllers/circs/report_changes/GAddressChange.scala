@@ -1,5 +1,6 @@
 package controllers.circs.report_changes
 
+import controllers.mappings.AddressMappings
 import play.api.Play._
 
 import language.reflectiveCalls
@@ -15,7 +16,7 @@ import models.yesNo.{YesNoWithAddress, YesNoWithDateAndQs, OptYesNoWithText}
 import controllers.CarersForms._
 import play.api.i18n._
 
-object GAddressChange extends Controller with CachedChangeOfCircs with Navigable with I18nSupport  {
+object GAddressChange extends Controller with CachedChangeOfCircs with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val stillCaringMapping =
     "stillCaring" -> mapping(
@@ -34,15 +35,15 @@ object GAddressChange extends Controller with CachedChangeOfCircs with Navigable
   val sameAddressMapping =
     "sameAddress" -> mapping(
       "answer" -> optional(carersText()),
-      "theirNewAddress" -> optional(address),
+      "theirNewAddress" -> optional(address(AddressMappings.CAREENEW)),
       "theirNewPostcode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode))
     )(YesNoWithAddress.apply)(YesNoWithAddress.unapply)
 
   val form = Form(mapping(
-    "previousAddress" -> address,
+    "previousAddress" -> address(AddressMappings.CARERPREVIOUS),
     "previousPostcode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode)),
     stillCaringMapping,
-    "newAddress" -> address,
+    "newAddress" -> address(AddressMappings.CARERNEW),
     "newPostcode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode)),
     changedAddressMapping,
     sameAddressMapping,
@@ -70,33 +71,33 @@ object GAddressChange extends Controller with CachedChangeOfCircs with Navigable
   private def validateTheirNewAddress(form: CircumstancesAddressChange) = {
     form.stillCaring.answer match {
       case `yes` =>
-        if(form.sameAddress.answer == Some("no")) form.sameAddress.address.isDefined
+        if (form.sameAddress.answer == Some("no")) form.sameAddress.address.isDefined
         else true
       case _ => true
     }
   }
 
-  def present = claiming {implicit circs => implicit request => implicit request2lang =>
+  def present = claiming { implicit circs => implicit request => implicit request2lang =>
     track(CircumstancesAddressChange) {
       implicit circs => Ok(views.html.circs.report_changes.addressChange(form.fill(CircumstancesAddressChange)))
     }
   }
 
-  def submit = claiming {implicit circs => implicit request => implicit request2lang =>
+  def submit = claiming { implicit circs => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors
-          .replaceError("stillCaring","dateRequired", FormError("stillCaring.date", errorRequired))
-          .replaceError("","sameAddress.answer", FormError("sameAddress.answer", errorRequired))
-          .replaceError("","sameAddress.theirNewAddress", FormError("sameAddress.theirNewAddress", "error.address.lines.required"))
-          .replaceError("","caredForChangedAddress.answer", FormError("caredForChangedAddress.answer", errorRequired))
+          .replaceError("stillCaring", "dateRequired", FormError("stillCaring.date", errorRequired))
+          .replaceError("", "sameAddress.answer", FormError("sameAddress.answer", errorRequired))
+          .replaceError("", "sameAddress.theirNewAddress", FormError("sameAddress.theirNewAddress", "error.careenewaddress.lines.required"))
+          .replaceError("", "caredForChangedAddress.answer", FormError("caredForChangedAddress.answer", errorRequired))
         BadRequest(views.html.circs.report_changes.addressChange(updatedFormWithErrors))
       },
-      addressChange => circs.update(formatPostCodes(addressChange)) -> Redirect(controllers.circs.your_details.routes.GYourDetails.present())
+      addressChange => circs.update(formatPostCodes(addressChange)) -> Redirect(controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present())
     )
   }
 
-  private def formatPostCodes(addressChange : CircumstancesAddressChange) : CircumstancesAddressChange = {
+  private def formatPostCodes(addressChange: CircumstancesAddressChange): CircumstancesAddressChange = {
     addressChange.copy(
       previousPostcode = Some(formatPostCode(addressChange.previousPostcode.getOrElse(""))),
       newPostcode = Some(formatPostCode(addressChange.newPostcode.getOrElse(""))),

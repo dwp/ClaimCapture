@@ -42,7 +42,7 @@ class GPensionAndExpensesSpec extends Specification {
     }
 
     "be added to a current job" in new WithApplication {
-      val result1 = GJobDetails.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val result1 = GJobDetails.submit(FakeRequest().withSession("uuid"-> claimKey)
         withFormUrlEncodedBody(
         "iterationID" -> iterationID,
         "employerName" -> "Toys r not us",
@@ -53,7 +53,7 @@ class GPensionAndExpensesSpec extends Specification {
         "jobStartDate.year" -> "2000",
         "finishedThisJob" -> "no"))
 
-      val result = GPensionAndExpenses.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
+      val result = GPensionAndExpenses.submit(FakeRequest().withSession("uuid" -> claimKey)
         withFormUrlEncodedBody(
         "iterationID" -> iterationID,
         "payPensionScheme.answer" -> "no",

@@ -2,9 +2,7 @@ package models.domain
 
 import app.ConfigProperties._
 
-case object CarersAllowance extends Section.Identifier {
-  val id = "s0"
-}
+object CarersAllowance extends Identifier(id = "s0")
 
 case class Benefits(benefitsAnswer: String = "") extends QuestionGroup(Benefits) with BooleanConfirmation
 {
@@ -14,8 +12,7 @@ case class Benefits(benefitsAnswer: String = "") extends QuestionGroup(Benefits)
   }
 }
 
-object Benefits extends QuestionGroup.Identifier {
-  val id = s"${CarersAllowance.id}.g1"
+object Benefits extends QGIdentifier(id = s"${CarersAllowance.id}.g1") {
 
   val pip = "PIP"
   val dla = "DLA"
@@ -38,9 +35,7 @@ case class Eligibility( hours: String = "",
   }
 }
 
-object Eligibility extends QuestionGroup.Identifier {
-  val id = s"${CarersAllowance.id}.g2"
-}
+object Eligibility extends QGIdentifier(id = s"${CarersAllowance.id}.g2")
 
 case class ProceedAnyway(allowedToContinue: Boolean, answerYesNo: Option[String] = None, jsEnabled: Boolean = false) extends QuestionGroup(ProceedAnyway) with BooleanConfirmation {
   val answer: Boolean = allowedToContinue || (answerYesNo match {
@@ -49,6 +44,5 @@ case class ProceedAnyway(allowedToContinue: Boolean, answerYesNo: Option[String]
   })
 }
 
-object ProceedAnyway extends QuestionGroup.Identifier {
-  val id = s"${CarersAllowance.id}.g6"
-}
+object ProceedAnyway extends QGIdentifier(id = s"${CarersAllowance.id}.g6")
+

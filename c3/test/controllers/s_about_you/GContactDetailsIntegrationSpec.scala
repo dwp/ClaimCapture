@@ -18,19 +18,6 @@ class GContactDetailsIntegrationSpec extends Specification {
       page goToThePage()
     }
 
-    "contain error if address not filled in" in new WithJsBrowser with PageObjects {
-      val page = GContactDetailsPage(context)
-      val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
-      claim.AboutYouAddress = ""
-      page goToThePage()
-      page fillPageWith claim
-
-      val errors = page.submitPage().listErrors
-      errors.size mustEqual 1
-      errors(0) must contain("Enter your address. You must complete the first two lines")
-
-    }
-
     "valid submission if 'Contact phone or mobile number' not filled in" in new WithJsBrowser with PageObjects {
       val page = GContactDetailsPage(context)
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
@@ -52,30 +39,6 @@ class GContactDetailsIntegrationSpec extends Specification {
       val nextPage = page submitPage()
 
       nextPage must beAnInstanceOf[GNationalityAndResidencyPage]
-    }
-
-    "contain error if 'Contact number' is filled in with text" in new WithJsBrowser with PageObjects {
-      val page = GContactDetailsPage(context)
-      val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
-      claim.HowWeContactYou = "I do not have contact number"
-      page goToThePage()
-      page fillPageWith claim
-
-      val errors = page.submitPage().listErrors
-      errors.size mustEqual 1
-      errors(0) must contain("Contact number - Invalid value")
-    }
-
-    "contain error if 'Contact number' is field length less than min length" in new WithJsBrowser with PageObjects {
-      val page = GContactDetailsPage(context)
-      val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
-      claim.HowWeContactYou = "012345"
-      page goToThePage()
-      page fillPageWith claim
-
-      val errors = page.submitPage().listErrors
-      errors.size mustEqual 1
-      errors(0) must contain("Contact number - Invalid value")
     }
 
     "navigate to next page on valid submission" in new WithJsBrowser with PageObjects {

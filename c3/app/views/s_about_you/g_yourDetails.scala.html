@@ -8,7 +8,7 @@
 @import views.html.helper.base._
 @import views.html.helper.dates._
 @import views.html.s_about_you.main
-@import utils.CommonValidation
+@import gov.dwp.carers.xml.validation.CommonValidation
 @import models.domain.TheirPersonalDetails
 @import models.domain.YourPartnerPersonalDetails
 
@@ -30,11 +30,11 @@
                 <ul>
                     @carersInputText(yourDetailsForm("title"), 'maxLength->20)
 
-                    @carersInputText(yourDetailsForm("firstName"), 'maxLength -> 17)
+                    @carersInputText(yourDetailsForm("firstName"), 'maxLength -> CommonValidation.FIRSTNAME_MAX_LENGTH)
 
-                    @carersInputText(yourDetailsForm("middleName"), 'maxLength -> 17,'ignoreOptional->true)
+                    @carersInputText(yourDetailsForm("middleName"), 'maxLength -> CommonValidation.MIDDLENAME_MAX_LENGTH,'ignoreOptional->true)
 
-                    @carersInputText(yourDetailsForm("surname"), 'maxLength -> CommonValidation.NAME_MAX_LENGTH)
+                    @carersInputText(yourDetailsForm("surname"), 'maxLength -> CommonValidation.SURNAME_MAX_LENGTH)
 
                     @nationalInsuranceNumber(yourDetailsForm("nationalInsuranceNumber"),
                         'helperAbove -> messages("mandatory.nationalInsuranceNumber.helper"),
@@ -44,7 +44,7 @@
 
                     @dateOfBirth(yourDetailsForm("dateOfBirth"))
 
-                    @Html(s"""<div id="dob-warning" class="prompt breaks-prompt validation-summary"> <p id="dob-warning-message">${messages("dob-warning-message")}</p> </div>""")
+                    @Html(s"""<div id="dob-warning" class="prompt breaks-prompt validation-summary" style="display:none"><p id="dob-warning-message">${messages("dob-warning-message")}</p> </div>""")
                     @Html(s"""<div id="dob-warning-dp-and-you-message" style="display:none">${messages("dob-warning-dp-and-you-message")}</div>""")
                     @Html(s"""<div id="dob-warning-partner-and-you-message" style="display:none">${messages("dob-warning-partner-and-you-message")}</div>""")
                 </ul>

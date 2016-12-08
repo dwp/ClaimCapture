@@ -43,7 +43,8 @@ object LightFakeApplication {
     "play.modules.cache.bindCaches" -> List("play"),
     "memcached.1.host" -> memcachedHost1,
     "memcached.2.host" -> memcachedHost2,
-    "replica.prepopulatedData" -> "false"
+    "replica.prepopulatedData" -> "false",
+    "session.data.to.db" -> "false"
   )
 
   def apply(withGlobal: Some[GlobalSettings], additionalConfiguration: Map[String, _ <: Any] = configurationMap) = FakeApplication(

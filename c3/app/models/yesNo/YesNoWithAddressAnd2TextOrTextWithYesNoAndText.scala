@@ -2,7 +2,7 @@ package models.yesNo
 
 import models.MultiLineAddress
 
-case class YesNoWithAddressAnd2TextOrTextWithYesNoAndText(answer: String = "", employerName:Option[String] = None, address: Option[MultiLineAddress] = None, postCode: Option[String] = None, text1a: Option[String] = None, text1b: Option[String] = None, text2a: Option[String] = None, answer2: Option[String] = None, text2b: Option[String] = None)
+case class YesNoWithAddressAnd2TextOrTextWithYesNoAndText(answer: String = "", employerName:Option[String] = None, address: Option[MultiLineAddress] = None, postCode: Option[String] = None, text1a: Option[String] = None, text2a: Option[String] = None, answer2: Option[String] = None, text2b: Option[String] = None)
 
 object YesNoWithAddressAnd2TextOrTextWithYesNoAndText {
   def validateNameOnSpecifiedAnswer(input: YesNoWithAddressAnd2TextOrTextWithYesNoAndText, requiredAnswer: String): Boolean = input.answer match {

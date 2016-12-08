@@ -17,7 +17,7 @@ object Employment extends Controller with CachedClaim with Navigable with I18nSu
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
 
   implicit def jobFormFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
-    def fillWithJobID(qi: QuestionGroup.Identifier, iterationID: String)(implicit claim: Claim): Form[Q] = {
+    def fillWithJobID(qi: QGIdentifier, iterationID: String)(implicit claim: Claim): Form[Q] = {
       claim.saveForLaterCurrentPageData.isEmpty match {
         case true => {
           claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.iterationID == iterationID).getOrElse(Iteration("", List())).find(_.identifier.id == qi.id) match {
@@ -30,7 +30,7 @@ object Employment extends Controller with CachedClaim with Navigable with I18nSu
     }
   }
 
-  def completedQuestionGroups(questionGroupIdentifier: QuestionGroup.Identifier, iterationID: String)(implicit claim: Claim): List[QuestionGroup] = {
+  def completedQuestionGroups(questionGroupIdentifier: QGIdentifier, iterationID: String)(implicit claim: Claim): List[QuestionGroup] = {
     (for {jobs <- claim.questionGroup[Jobs]
           job <- jobs.find(_.iterationID == iterationID)}
       yield job.questionGroups.filter(_.identifier.index < questionGroupIdentifier.index)).getOrElse(Nil)

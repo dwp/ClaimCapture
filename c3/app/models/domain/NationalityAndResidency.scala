@@ -7,9 +7,8 @@ import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
 import controllers.mappings.Mappings.yes
 import utils.helpers.OriginTagHelper._
 
-object NationalityAndResidencySection extends Section.Identifier {
-  val id = "s22"
-}
+object NationalityAndResidencySection extends Identifier(id = "s22")
+
 case class NationalityAndResidency(nationality: String = "",
                                    actualnationality: Option[String] = None,
                                    alwaysLivedInUK: String = "",
@@ -21,8 +20,7 @@ case class NationalityAndResidency(nationality: String = "",
                                    tripDetails: Option[String] = None
                                     ) extends QuestionGroup(NationalityAndResidency)
 
-object NationalityAndResidency extends QuestionGroup.Identifier {
-  val id = s"${NationalityAndResidencySection.id}.g1"
+object NationalityAndResidency extends QGIdentifier(id = s"${NationalityAndResidencySection.id}.g1") {
 
   val british = "British"
   val britishIrish = "British/Irish"
@@ -72,8 +70,7 @@ object NationalityAndResidency extends QuestionGroup.Identifier {
 
 case class PaymentsFromAbroad(guardQuestion: GQuestion = YesNoWith2MandatoryFieldsOnYes()) extends QuestionGroup(PaymentsFromAbroad)
 
-object PaymentsFromAbroad extends QuestionGroup.Identifier {
-  val id = s"${NationalityAndResidencySection.id}.g2"
+object PaymentsFromAbroad extends QGIdentifier(id = s"${NationalityAndResidencySection.id}.g2") {
 
   type GQuestion = YesNoWith2MandatoryFieldsOnYes[YesNoWith1MandatoryFieldOnYes[String], YesNoWith1MandatoryFieldOnYes[String]]
 

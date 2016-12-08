@@ -1,12 +1,12 @@
 package controllers.s_care_you_provide
 
 import controllers.mappings.AddressMappings._
-import controllers.mappings.Mappings
+import controllers.mappings.{AddressMappings, Mappings}
 import controllers.s_your_partner.GYourPartnerPersonalDetails._
 import models.yesNo.YesNoMandWithAddress
 import play.api.Play._
 import play.api.data.validation.{Valid, ValidationError, Invalid, Constraint}
-import utils.CommonValidation
+import gov.dwp.carers.xml.validation.CommonValidation
 import language.reflectiveCalls
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
@@ -24,15 +24,15 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
   val addressMapping = "theirAddress"->mapping(
     "answer" -> nonEmptyText.verifying(validYesNo),
-    "address" -> optional(address),
+    "address" -> optional(address(AddressMappings.CAREE)),
     "postCode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode))
       )(YesNoMandWithAddress.apply)(YesNoMandWithAddress.unapply)
 
   def form(implicit request: Request[AnyContent]) = Form(mapping(
     "title" -> carersNonEmptyText(maxLength = Mappings.twenty),
-    "firstName" -> carersNonEmptyText(maxLength = 17),
-    "middleName" -> optional(carersText(maxLength = 17)),
-    "surname" -> carersNonEmptyText(maxLength = CommonValidation.NAME_MAX_LENGTH),
+    "firstName" -> nonEmptyText(maxLength = CommonValidation.FIRSTNAME_MAX_LENGTH).verifying(YourDetails.validName),
+    "middleName" -> optional(text(maxLength = CommonValidation.MIDDLENAME_MAX_LENGTH).verifying(YourDetails.validName)),
+    "surname" -> nonEmptyText(maxLength = CommonValidation.SURNAME_MAX_LENGTH).verifying(YourDetails.validName),
     "nationalInsuranceNumber" -> optional(nino.verifying(stopOnFirstFail (validNino, isSameNinoAsDPOrPartner))),
     "dateOfBirth" -> dayMonthYear.verifying(validDateOfBirth),
     "relationship" -> carersNonEmptyText(maxLength = 35),
@@ -77,8 +77,7 @@ object GTheirPersonalDetails extends Controller with CachedClaim with Navigable 
     form.bindEncrypted.fold(
       formWithErrors => {
         val updatedFormWithErrors = formWithErrors
-          .replaceError("","theirAddress.address", FormError("theirAddress.address", "error.address.lines.required"))
-
+          .replaceError("","theirAddress.address", FormError("theirAddress.address", "error.careeaddress.lines.required"))
         BadRequest(views.html.s_care_you_provide.g_theirPersonalDetails(updatedFormWithErrors))
       },
       theirPersonalDetails => {

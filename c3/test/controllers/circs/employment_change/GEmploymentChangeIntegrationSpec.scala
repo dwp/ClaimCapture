@@ -1,12 +1,11 @@
-package controllers.circs.report_changes
+package controllers.circs.employment_change
 
-import org.specs2.mutable._
-import utils.pageobjects.circumstances.origin.GOriginPage
-import utils.{WithBrowser, LightFakeApplication}
-import utils.pageobjects.PageObjects
-import utils.pageobjects.circumstances.start_of_process.{GReportChangesPage, GCircsYourDetailsPage}
-import utils.pageobjects.circumstances.report_changes.GEmploymentChangePage
 import controllers.CircumstancesScenarioFactory
+import org.specs2.mutable._
+import utils.WithBrowser
+import utils.pageobjects.PageObjects
+import utils.pageobjects.circumstances.origin.GOriginPage
+import utils.pageobjects.circumstances.report_changes.GEmploymentChangePage
 
 class GEmploymentChangeIntegrationSpec extends Specification {
   section("integration", models.domain.CircumstancesIdentification.id)

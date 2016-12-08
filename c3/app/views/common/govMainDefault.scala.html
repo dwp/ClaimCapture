@@ -95,7 +95,7 @@
     </head>
 
     <body>
-
+        @views.html.ga.noScriptGATag()
         <script type="text/javascript">
             document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
         </script>
@@ -109,7 +109,7 @@
             </div>
 	    </header>
 
-	    <!--end header-->
+        <!--end header-->
         @if(!isCookiePage) {
             <div id="global-cookie-message">
                 <p>@messages("cookiePolicy") <a rel="external" target="_blank" href="@routes.Cookies.page(lang.language)" @views.html.ga.trackClickEvent(linkName = "Cookies - from banner")>@messages("cookiePolicyAnchor")</a></p>

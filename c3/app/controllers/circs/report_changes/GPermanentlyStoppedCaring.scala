@@ -28,7 +28,7 @@ object GPermanentlyStoppedCaring extends Controller with CachedChangeOfCircs wit
   def submit = claiming {implicit circs => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.circs.report_changes.permanentlyStoppedCaring(formWithErrors)),
-      f => circs.update(f) -> Redirect(controllers.circs.your_details.routes.GYourDetails.present())
+      f => circs.update(f) -> Redirect(controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present())
     )
   }
 }

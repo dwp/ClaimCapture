@@ -29,7 +29,7 @@
               <li>
                 @{/* printing the id needs replacement of spaces for underscores because browsers don't like spaces */}
                 <label class="block-label" for="@CarersCrypto.encryptAES(id+"_"+a.replace(" ","_"))" onmousedown="@gaTrack(id,(a,b))">
-	                <input type="radio" id="@CarersCrypto.encryptAES(id+"_"+a.replace(" ","_"))" name="@CarersCrypto.encryptAES(field.name)" onmousedown="@gaTrack(id,(a,b))"  value="@a" @(if(value == Some(a)) "checked" else "") @toHtmlArgs(htmlArgs)>
+	                <input type="radio" id="@CarersCrypto.encryptAES(id+"_"+a.replace(" ","_"))" name="@CarersCrypto.encryptAES(field.name)" value="@a" @(if(value == Some(a)) "checked" else "") @toHtmlArgs(htmlArgs)>
 	                <span>@b</span>
                 </label>
               </li>

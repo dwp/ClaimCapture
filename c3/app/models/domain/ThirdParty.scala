@@ -2,15 +2,11 @@ package models.domain
 
 import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
 
-object ThirdParty extends Section.Identifier {
-  val id = "s14"
-}
+object ThirdParty extends Identifier(id = "s14")
 
 case class ThirdPartyDetails(thirdParty: String = "", nameAndOrganisation: Option[String] = None) extends QuestionGroup(ThirdPartyDetails)
 
-object ThirdPartyDetails extends QuestionGroup.Identifier {
-  val id = s"${ThirdParty.id}.g1"
-
+object ThirdPartyDetails extends QGIdentifier(id = s"${ThirdParty.id}.g1") {
   val yesCarer = "yesCarer"
   val noCarer = "noCarer"
 

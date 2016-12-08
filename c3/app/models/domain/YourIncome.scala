@@ -4,11 +4,10 @@ import app.{PaymentTypes, StatutoryPaymentFrequency}
 import controllers.mappings.Mappings
 import models.DayMonthYear
 import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
-import utils.CommonValidation
+import gov.dwp.carers.xml.validation.CommonValidation
 import utils.helpers.TextLengthHelper
 
-object YourIncome extends Section.Identifier {
-  val id = "s16"
+object YourIncome extends Identifier(id = "s16") {
 
   val ssp = "sickpay"
   val spmp = "patmatadoppay"
@@ -30,8 +29,7 @@ case class YourIncomes(beenEmployedSince6MonthsBeforeClaim: String = "",
                        yourIncome_none: Option[String] = None
                         ) extends QuestionGroup(YourIncomes)
 
-object YourIncomes extends QuestionGroup.Identifier {
-  val id = s"${YourIncome.id}.g0"
+object YourIncomes extends QGIdentifier(id = s"${YourIncome.id}.g0") {
 
   def receivesStatutorySickPay(claim: Claim) = {
     claim.questionGroup[YourIncomes].getOrElse(YourIncomes()).yourIncome_sickpay.getOrElse("false") == "true"
@@ -42,12 +40,9 @@ object YourIncomes extends QuestionGroup.Identifier {
   }
 }
 
-object YourIncomeStatutorySickPay extends Section.Identifier {
-  val id = "s17"
-}
+object YourIncomeStatutorySickPay extends Identifier(id = "s17")
 
-object StatutorySickPay extends QuestionGroup.Identifier with OtherIncomes {
-  val id = s"${YourIncomeStatutorySickPay.id}.g1"
+object StatutorySickPay extends QGIdentifier(id = s"${YourIncomeStatutorySickPay.id}.g1") with OtherIncomes {
 
   def whoPaidYouMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//SickPay//WhoPaidYouThisPay//Answer")
   def amountPaidMaxLength = CommonValidation.CURRENCY_REGEX_MAX_LENGTH
@@ -63,17 +58,14 @@ case class StatutorySickPay(
                              override val howOftenPaidThisPayOther: Option[String] = None
                              ) extends QuestionGroup(StatutorySickPay) with OtherIncomes
 
-object YourIncomeStatutoryMaternityPaternityAdoptionPay extends Section.Identifier {
-  val id = "s18"
+object YourIncomeStatutoryMaternityPaternityAdoptionPay extends Identifier(id = "s18") {
 
   def whoPaidYouMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//StatutoryMaternityPaternityAdopt//WhoPaidYouThisPay//Answer")
   def amountPaidMaxLength = CommonValidation.CURRENCY_REGEX_MAX_LENGTH
   def howOftenOtherMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//StatutoryMaternityPaternityAdopt//HowOftenPaidThisPayOther//Answer")
 }
 
-object StatutoryMaternityPaternityAdoptionPay extends QuestionGroup.Identifier with OtherIncomes {
-  val id = s"${YourIncomeStatutoryMaternityPaternityAdoptionPay.id}.g1"
-}
+object StatutoryMaternityPaternityAdoptionPay extends QGIdentifier(id = s"${YourIncomeStatutoryMaternityPaternityAdoptionPay.id}.g1") with OtherIncomes
 
 case class StatutoryMaternityPaternityAdoptionPay(
                                                    override val paymentTypesForThisPay: String = "",
@@ -85,8 +77,7 @@ case class StatutoryMaternityPaternityAdoptionPay(
                                                    override val howOftenPaidThisPayOther: Option[String] = None
                                                    ) extends QuestionGroup(StatutoryMaternityPaternityAdoptionPay) with OtherIncomes
 
-object YourIncomeFosteringAllowance extends Section.Identifier {
-  val id = "s19"
+object YourIncomeFosteringAllowance extends Identifier(id = "s19") {
 
   def whoPaidYouOtherMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//FosteringAllowance//PaymentTypesForThisPayOther//Answer")
   def whoPaidYouMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//FosteringAllowance//WhoPaidYouThisPay//Answer")
@@ -94,9 +85,7 @@ object YourIncomeFosteringAllowance extends Section.Identifier {
   def howOftenOtherMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//FosteringAllowance//HowOftenPaidThisPayOther//Answer")
 }
 
-object FosteringAllowance extends QuestionGroup.Identifier with OtherIncomes {
-  val id = s"${YourIncomeFosteringAllowance.id}.g1"
-}
+object FosteringAllowance extends QGIdentifier( id = s"${YourIncomeFosteringAllowance.id}.g1") with OtherIncomes
 
 case class FosteringAllowance(
                                override val paymentTypesForThisPay: String = "",
@@ -109,17 +98,14 @@ case class FosteringAllowance(
                                override val howOftenPaidThisPayOther: Option[String] = None
                                ) extends QuestionGroup(FosteringAllowance) with OtherIncomes
 
-object YourIncomeDirectPayment extends Section.Identifier {
-  val id = "s20"
+object YourIncomeDirectPayment extends Identifier(id = "s20") {
 
   def whoPaidYouMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//DirectPay//WhoPaidYouThisPay//Answer")
   def amountPaidMaxLength = CommonValidation.CURRENCY_REGEX_MAX_LENGTH
   def howOftenOtherMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//DirectPay//HowOftenPaidThisPayOther//Answer")
 }
 
-object DirectPayment extends QuestionGroup.Identifier with OtherIncomes {
-  val id = s"${YourIncomeDirectPayment.id}.g1"
-}
+object DirectPayment extends QGIdentifier(id = s"${YourIncomeDirectPayment.id}.g1") with OtherIncomes
 
 case class DirectPayment(
                           override val stillBeingPaidThisPay: String = "",
@@ -130,29 +116,23 @@ case class DirectPayment(
                           override val howOftenPaidThisPayOther: Option[String] = None
                           ) extends QuestionGroup(DirectPayment) with OtherIncomes
 
-object YourIncomeRentalIncome extends Section.Identifier {
-  val id = "s24"
+object YourIncomeRentalIncome extends Identifier(id = "s24") {
 
   def rentalIncomeMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//RentalIncomeInfo//Answer")
 }
 
-object RentalIncome extends QuestionGroup.Identifier {
-  val id = s"${YourIncomeRentalIncome.id}.g1"
-}
+object RentalIncome extends QGIdentifier(id = s"${YourIncomeRentalIncome.id}.g1")
 
 case class RentalIncome(
                          rentalIncomeInfo: String = ""
                          ) extends QuestionGroup(RentalIncome)
 
 
-object YourIncomeOtherPayments extends Section.Identifier {
-  val id = "s21"
+object YourIncomeOtherPayments extends Identifier(id = "s21") {
   def otherPaymentsMaxLength = TextLengthHelper.textMaxLength("DWPCAClaim//Incomes//OtherPaymentsInfo//Answer")
 }
 
-object OtherPayments extends QuestionGroup.Identifier {
-  val id = s"${YourIncomeOtherPayments.id}.g1"
-}
+object OtherPayments extends QGIdentifier(id = s"${YourIncomeOtherPayments.id}.g1")
 
 case class OtherPayments(
                           otherPaymentsInfo: String = ""

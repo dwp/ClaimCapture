@@ -4,7 +4,7 @@ import controllers.s_about_you.GYourDetails._
 import models.{NationalInsuranceNumber, DayMonthYear}
 import play.api.Play._
 import play.api.data.validation.{Valid, ValidationError, Invalid, Constraint}
-import utils.CommonValidation
+import gov.dwp.carers.xml.validation.CommonValidation
 import language.reflectiveCalls
 import play.api.data.{FormError, Form}
 import play.api.data.Forms.mapping
@@ -28,10 +28,10 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
 
   def form(implicit claim: Claim, request: Request[AnyContent]): Form[YourPartnerPersonalDetails] = Form(mapping(
     "title" -> optional(carersNonEmptyText(maxLength = Mappings.twenty)),
-    "firstName" -> optional(carersNonEmptyText(maxLength = Mappings.seventeen)),
-    "middleName" -> optional(carersText(maxLength = Mappings.seventeen)),
-    "surname" -> optional(carersNonEmptyText(maxLength = CommonValidation.NAME_MAX_LENGTH)),
-    "otherNames" -> optional(carersText(maxLength = CommonValidation.NAME_MAX_LENGTH)),
+    "firstName" -> optional(nonEmptyText(maxLength = CommonValidation.FIRSTNAME_MAX_LENGTH).verifying(YourDetails.validName)),
+    "middleName" -> optional(text(maxLength = CommonValidation.MIDDLENAME_MAX_LENGTH).verifying(YourDetails.validName)),
+    "surname" -> optional(nonEmptyText(maxLength = CommonValidation.SURNAME_MAX_LENGTH).verifying(YourDetails.validName)),
+    "otherNames" -> optional(text(maxLength = CommonValidation.SURNAME_MAX_LENGTH).verifying(YourDetails.validName)),
     "nationalInsuranceNumber" -> optional(nino.verifying(stopOnFirstFail (validNino, isSameNinoAsDPOrPartner))),
     "dateOfBirth" -> optional(dayMonthYear.verifying(validDateOfBirth)),
     "partner.nationality" -> optional(carersNonEmptyText(maxLength = CommonValidation.NATIONALITY_MAX_LENGTH)),

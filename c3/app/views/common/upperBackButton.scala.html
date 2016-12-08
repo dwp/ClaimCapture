@@ -1,4 +1,4 @@
-@( showBack:Boolean = true, changing:Boolean=false, backCall:Option[Call] = None, previous: Option[models.view.Route[_]] = None, forceShow:Boolean =false)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: Messages)
+@( showBack:Boolean = true, changing:Boolean=false, backCall:Option[Call] = None, previous: Option[models.view.Route] = None, forceShow:Boolean =false)(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: Messages)
 
 @if(showBack){
     <nav class="back-nav" role="navigation">

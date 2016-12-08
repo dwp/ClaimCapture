@@ -1,10 +1,12 @@
-package controllers.circs.report_changes
+package controllers.circs.address_change
 
-import utils.WithApplication
+import controllers.circs.report_changes.GAddressChange
 import controllers.mappings.Mappings
-import org.specs2.mutable._
-import scala.Predef._
 import models.MultiLineAddress
+import org.specs2.mutable._
+import utils.WithApplication
+
+import scala.Predef._
 
 /**
  * Created by neddakaltcheva on 2/14/14.
@@ -61,9 +63,9 @@ class GAddressChangeFormSpec extends Specification {
       ).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(3)
-            formWithErrors.errors(0).message must equalTo("error.address.lines.required")
+            formWithErrors.errors(0).message must equalTo("error.carerprevaddress.lines.required")
             formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
-            formWithErrors.errors(2).message must equalTo("error.address.lines.required")
+            formWithErrors.errors(2).message must equalTo("error.carernewaddress.lines.required")
           },
           f => "This mapping should not happen." must equalTo("Valid")
         )
@@ -80,9 +82,9 @@ class GAddressChangeFormSpec extends Specification {
       ).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(3)
-            formWithErrors.errors(0).message must equalTo("error.address.lines.required")
+            formWithErrors.errors(0).message must equalTo("error.carerprevaddress.lines.required")
             formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
-            formWithErrors.errors(2).message must equalTo("error.address.lines.required")
+            formWithErrors.errors(2).message must equalTo("error.carernewaddress.lines.required")
           },
           f => "This mapping should not happen." must equalTo("Valid")
         )
@@ -99,9 +101,9 @@ class GAddressChangeFormSpec extends Specification {
       ).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(3)
-            formWithErrors.errors(0).message must equalTo("error.address.lines.required")
+            formWithErrors.errors(0).message must equalTo("error.carerprevaddress.lines.required")
             formWithErrors.errors(1).message must equalTo(Mappings.errorRequired)
-            formWithErrors.errors(2).message must equalTo("error.address.lines.required")
+            formWithErrors.errors(2).message must equalTo("error.carernewaddress.lines.required")
           },
           f => "This mapping should not happen." must equalTo("Valid")
         )
@@ -185,7 +187,7 @@ class GAddressChangeFormSpec extends Specification {
       ).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(1)
-          formWithErrors.errors(0).message must equalTo("error.address.lines.required")
+          formWithErrors.errors(0).message must equalTo("error.carerprevaddress.lines.required")
         },
         f => "This mapping should not happen." must equalTo("Valid")
       )
@@ -213,7 +215,7 @@ class GAddressChangeFormSpec extends Specification {
       ).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(1)
-          formWithErrors.errors(0).message must equalTo("error.address.lines.required")
+          formWithErrors.errors(0).message must equalTo("error.carernewaddress.lines.required")
         },
         f => "This mapping should not happen." must equalTo("Valid")
       )

@@ -1,7 +1,7 @@
 package controllers.mappings
 
 import play.api.data.validation.{ValidationError, _}
-import utils.CommonValidation._
+import gov.dwp.carers.xml.validation.CommonValidation._
 
 object AccountNumberMappings {
   def accountNumberFilledIn: Constraint[String] = Constraint[String]("constraint.restrictedStringText") { restrictedString =>

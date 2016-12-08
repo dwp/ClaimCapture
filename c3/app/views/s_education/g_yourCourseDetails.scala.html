@@ -8,7 +8,7 @@
 @import views.html.s_education.main
 @import utils.helpers.CarersCrypto
 @import utils.helpers.HtmlLabelHelper.displayPlaybackDatesFormat
-@import utils.CommonValidation
+@import gov.dwp.carers.xml.validation.CommonValidation
 
     @displayDateForLabel = @{
         claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>

@@ -22,7 +22,6 @@ final class GEmploymentChangePage(ctx:PageObjectsContext) extends CircumstancesP
   declareAddress("#typeOfWork_employerNameAndAddress", "CircumstancesEmploymentChangeEmployerNameAndAddress")
   declareInput("#typeOfWork_employerPostcode", "CircumstancesEmploymentChangeEmployerPostcode")
   declareInput("#typeOfWork_employerContactNumber", "CircumstancesEmploymentChangeEmployerContactNumber")
-  declareInput("#typeOfWork_employerPayroll", "CircumstancesEmploymentChangeEmployerPayroll")
 }
 
 /**

@@ -1,8 +1,9 @@
-package controllers.circs.report_changes
+package controllers.circs.employment_change
 
-import utils.WithApplication
-import org.specs2.mutable._
+import controllers.circs.report_changes.GEmploymentChange
 import models.DayMonthYear
+import org.specs2.mutable._
+import utils.WithApplication
 
 class GEmploymentChangeFormSpec extends Specification {
   val yes = "yes"

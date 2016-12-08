@@ -11,6 +11,7 @@ import gov.dwp.carers.security.encryption.EncryptorAES
 import app.ConfigProperties._
 
 class C3EncryptionSpec extends Specification {
+  def saveForLaterKey = getStringProperty("saveForLater.uuid.secret.key")
   object ValuesToBeUsed {
     val string = "Barney"
     val optionalString = Some("Barney")
@@ -242,64 +243,64 @@ class C3EncryptionSpec extends Specification {
 
     "Encrypt uppercase uuid returns empty string" in new WithApplication {
       val uuid = "ABCD1234-0000-0000-0000-ABCD1234CDEF"
-      val encrypted = XorEncryption.encryptUuid(uuid)
+      val encrypted = XorEncryption.encryptUuid(uuid, saveForLaterKey)
       encrypted mustEqual ""
     }
 
     "Encrypt short uuid returns empty string" in new WithApplication {
       val uuid = "ABCD1234-0000-0000-0000-ABCD1234CDE"
-      val encrypted = XorEncryption.encryptUuid(uuid)
+      val encrypted = XorEncryption.encryptUuid(uuid, saveForLaterKey)
       encrypted mustEqual ""
     }
 
     "Encrypt and decrypt a typical lowercase uuid back to original" in new WithApplication {
       val uuid = "abcd1234-0000-0000-0000-abcd1234cdef"
-      val encrypted = XorEncryption.encryptUuid(uuid)
-      val decrypted = XorEncryption.decryptUuid(encrypted)
+      val encrypted = XorEncryption.encryptUuid(uuid, saveForLaterKey)
+      val decrypted = XorEncryption.decryptUuid(encrypted, saveForLaterKey)
       encrypted mustNotEqual uuid
       decrypted mustEqual uuid
     }
 
     "Encrypt and decrypt a typical 0 leading uuid back to original" in new WithApplication {
       val uuid = "0bcd1234-0000-0000-0000-abcd1234cdef"
-      val encrypted = XorEncryption.encryptUuid(uuid)
-      val decrypted = XorEncryption.decryptUuid(encrypted)
+      val encrypted = XorEncryption.encryptUuid(uuid, saveForLaterKey)
+      val decrypted = XorEncryption.decryptUuid(encrypted, saveForLaterKey)
       encrypted mustNotEqual uuid
       decrypted mustEqual uuid
     }
 
     "Encrypt and decrypt a random claim uuid back to original" in new WithApplication {
       val uuid = randomUUID.toString
-      val encrypted = XorEncryption.encryptUuid(uuid)
+      val encrypted = XorEncryption.encryptUuid(uuid, saveForLaterKey)
       println( "encrypted uuid:"+uuid+" to "+encrypted)
-      val decrypted = XorEncryption.decryptUuid(encrypted)
+      val decrypted = XorEncryption.decryptUuid(encrypted, saveForLaterKey)
       encrypted mustNotEqual uuid
       decrypted mustEqual uuid
     }
 
     "Encrypt and decrypt a zero uuid back to original" in new WithApplication {
       val uuid = "00000000-0000-0000-0000-000000000000"
-      val encrypted = XorEncryption.encryptUuid(uuid)
-      val decrypted = XorEncryption.decryptUuid(encrypted)
+      val encrypted = XorEncryption.encryptUuid(uuid, saveForLaterKey)
+      val decrypted = XorEncryption.decryptUuid(encrypted, saveForLaterKey)
       encrypted mustNotEqual uuid
       decrypted mustEqual uuid
     }
 
     "Encrypt when no key in properties should return empty string" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("saveForLater.uuid.secret.key" -> ""))) {
       val uuid = randomUUID.toString
-      val encrypted = XorEncryption.encryptUuid(uuid)
+      val encrypted = XorEncryption.encryptUuid(uuid, saveForLaterKey)
       encrypted mustEqual ""
     }
 
     "Encrypt when uppercase key in properties should return empty string" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("saveForLater.uuid.secret.key" -> "8F7A0412-DF0E-485E-92C6-5B0F17E339C8"))) {
       val uuid = randomUUID.toString
-      val encrypted = XorEncryption.encryptUuid(uuid)
+      val encrypted = XorEncryption.encryptUuid(uuid, saveForLaterKey)
       encrypted mustEqual ""
     }
 
     "Generate a decryption pair-value for use in other tests" in new WithApplication {
       val uuid = "0bcd1234-0000-0000-0000-abcd1234cdef"
-      val encrypted = XorEncryption.encryptUuid(uuid)
+      val encrypted = XorEncryption.encryptUuid(uuid, saveForLaterKey)
       encrypted mustNotEqual uuid
       println("With secretkey of:"+getStringProperty("saveForLater.uuid.secret.key")+" created xor pair of:"+uuid+" and:"+encrypted)
     }

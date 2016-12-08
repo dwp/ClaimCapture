@@ -1,5 +1,7 @@
 package controllers.circs.report_changes
 
+import controllers.mappings.AddressMappings
+import controllers.circs.your_details.GYourDetails._
 import play.api.Play._
 import play.api.mvc.Controller
 import models.view.{Navigable, CachedChangeOfCircs}
@@ -53,10 +55,9 @@ object GEmploymentChange extends Controller with CachedChangeOfCircs with Naviga
     "typeOfWork" -> mapping(
       "answer" -> nonEmptyText.verifying(validTypeOfWork),
       "employerName" -> optional(carersText(minLength = 2, maxLength = 60)),
-      "employerNameAndAddress" -> optional(address),
+      "employerNameAndAddress" -> optional(address(AddressMappings.EMPLOYMENT)),
       "employerPostcode" -> optional(text verifying(restrictedPostCodeAddressStringText, validPostcode)),
       "employerContactNumber" -> optional(carersText(maxLength = 15)),
-      "employerPayroll" -> optional(carersText(maxLength = 15)),
       "selfEmployedTypeOfWork" -> optional(carersText(maxLength = 35)),
       "selfEmployedTotalIncome" -> optional(carersText.verifying(validYesNoDontKnow)),
       "selfEmployedMoreAboutChanges" -> optional(carersText(maxLength = CircumstancesSelfEmployment.textMaxLength))
@@ -105,13 +106,13 @@ object GEmploymentChange extends Controller with CachedChangeOfCircs with Naviga
   }
 
   def submit = claiming { implicit circs => implicit request => implicit request2lang =>
-    def next(employmentChange: CircumstancesEmploymentChange): (QuestionGroup.Identifier, Call) = employmentChange.typeOfWork.answer match {
+    def next(employmentChange: CircumstancesEmploymentChange): (QGIdentifier, Call) = employmentChange.typeOfWork.answer match {
         case `employed` => CircumstancesEmploymentNotStarted -> controllers.circs.report_changes.routes.GEmploymentPay.present()
-        case _ => CircumstancesEmploymentChange -> controllers.circs.your_details.routes.GYourDetails.present()
+        case _ => CircumstancesEmploymentChange -> controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present()
     }
 
     @tailrec
-    def popDeleteQG(circs: Claim, optSections: Stack[QuestionGroup.Identifier]): Claim = {
+    def popDeleteQG(circs: Claim, optSections: Stack[QGIdentifier]): Claim = {
       if (optSections.isEmpty) circs
       else popDeleteQG(circs delete (optSections top), optSections pop)
     }
@@ -125,8 +126,8 @@ object GEmploymentChange extends Controller with CachedChangeOfCircs with Naviga
           .replaceError("hasWorkFinishedYet", "expected.yesValue", FormError("hasWorkFinishedYet.dateWhenFinished", errorRequired))
           .replaceError("hasWorkStartedYet", "expected.noDateValue", FormError("hasWorkStartedYet.dateWhenWillItStart", errorRequired))
           .replaceError("typeOfWork", "expected.employerName", FormError("typeOfWork.employerName", errorRequired))
-          .replaceError("typeOfWork", "expected.employerNameAndAddress1", FormError("typeOfWork.employerNameAndAddress", "error.address.lines.required"))
-          .replaceError("typeOfWork", "expected.employerNameAndAddress2", FormError("typeOfWork.employerNameAndAddress", "error.address.lines.required"))
+          .replaceError("typeOfWork", "expected.employerNameAndAddress1", FormError("typeOfWork.employerNameAndAddress", "error.empaddress.lines.required"))
+          .replaceError("typeOfWork", "expected.employerNameAndAddress2", FormError("typeOfWork.employerNameAndAddress", "error.empaddress.lines.required"))
           .replaceError("typeOfWork", "expected.employerPostCode", FormError("typeOfWork.employerPostcode", errorRequired))
           .replaceError("typeOfWork", "expected.selfEmploymentTypeOfWork", FormError("typeOfWork.selfEmployedTypeOfWork", errorRequired))
           .replaceError("typeOfWork", "expected.selfEmploymentTotalIncome", FormError("typeOfWork.selfEmployedTotalIncome", errorRequired))

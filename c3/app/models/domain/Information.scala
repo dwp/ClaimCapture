@@ -4,14 +4,11 @@ import gov.dwp.carers.xml.schemavalidations.SchemaValidation
 import models.yesNo.YesNoWithText
 import app.ConfigProperties._
 
-object Information extends Section.Identifier {
-  val id = "s11"
-}
+object Information extends Identifier(id = "s11")
 
 case class AdditionalInfo(anythingElse: YesNoWithText = YesNoWithText(answer = "", text = None), welshCommunication: String = "") extends QuestionGroup(AdditionalInfo)
 
-object AdditionalInfo extends QuestionGroup.Identifier {
-  val id = s"${Information.id}.g1"
+object AdditionalInfo extends QGIdentifier(id = s"${Information.id}.g1") {
 
   def textMaxLength:Integer={
     val schemaVersion=getStringProperty("xml.schema.version")

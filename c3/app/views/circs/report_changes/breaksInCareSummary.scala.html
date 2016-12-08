@@ -8,7 +8,7 @@
 @import views.html.circs.report_changes.main
 @import models.domain.CircumstancesBreaksInCareSummary
 
-@main(messages("c2.g8") + " - " + messages("c2.name"), isChanging = true, backCall = Some(backCall)) {
+@main(messages("c2.g8") + " - " + messages("c2.name"), isChanging = false, backCall = Some(backCall)) {
     @errorsSummary(breaksInCareSummaryForm)
 
     @form(action = controllers.circs.report_changes.routes.GBreaksInCareSummary.submit) {
@@ -85,7 +85,7 @@
 
             </fieldset>
 
-            @views.html.common.bottomNavigation(changing = true, backCall = Some(backCall))
+            @views.html.common.bottomNavigation(changing = false, backCall = Some(backCall))
         </div>
         
     }

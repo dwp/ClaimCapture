@@ -2,7 +2,7 @@ package controllers.s_pay_details
 
 import controllers.CarersForms._
 import play.api.Play._
-import utils.CommonValidation._
+import gov.dwp.carers.xml.validation.CommonValidation._
 
 import language.reflectiveCalls
 import play.api.mvc.Controller

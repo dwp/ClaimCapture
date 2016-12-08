@@ -1,14 +1,17 @@
-package controllers.circs.report_changes
+package controllers.circs.employment_change
 
 import app.ConfigProperties._
-import org.specs2.mutable._
-import play.api.test.FakeRequest
+import controllers.circs.report_changes.GEmploymentChange
 import models.domain.MockForm
 import models.view.CachedChangeOfCircs
+import org.specs2.mutable._
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.pageobjects.circumstances.start_of_process.GCircsYourDetailsPage
-import utils.{WithBrowser, WithApplication, LightFakeApplication}
+import utils.pageobjects.circumstances.consent_and_declaration.GCircsDeclarationPage
+import utils.{WithBrowser, WithApplication}
 import utils.pageobjects.circumstances.report_changes.GEmploymentChangePage
+import utils.pageobjects.circumstances.start_of_process.GCircsYourDetailsPage
+import utils.{WithApplication, WithBrowser}
 
 class GEmploymentChangeSpec extends Specification {
   val yes = "yes"
@@ -24,7 +27,7 @@ class GEmploymentChangeSpec extends Specification {
   val employed = "employed"
   val selfEmployedTypeOfWork = "IT Consultant"
   val selfEmploymentChangePath = "DWPCAChangeOfCircumstances//EmploymentChange//SelfEmployment//MoreAboutChanges//Answer"
-  val nextPageUrl = GCircsYourDetailsPage.url
+  val nextPageUrl = GCircsDeclarationPage.url
 
   val validNotCaringSelfEmploymentNotYetStartedFormInput = Seq(
     "stillCaring.answer" -> no,

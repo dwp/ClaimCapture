@@ -26,7 +26,7 @@ class GReportChangesIntegrationSpec extends Specification {
       page fillPageWith claim
 
       val nextPage = page submitPage()
-      nextPage must beAnInstanceOf[GOtherChangeInfoPage]
+      nextPage must beAnInstanceOf[GCircsYourDetailsPage]
     }
 
     "page contains JS enabled check" in new WithBrowser with PageObjects {
@@ -44,13 +44,13 @@ class GReportChangesIntegrationSpec extends Specification {
       newPage fillPageWith claim
 
       val infoPage = newPage submitPage()
-      infoPage must beAnInstanceOf[GOtherChangeInfoPage]
+      infoPage must beAnInstanceOf[GCircsYourDetailsPage]
 
       val firstPageAgain = infoPage.goBack()
       firstPageAgain must beAnInstanceOf[GReportChangesPage]
 
       val infoPageAgain = firstPageAgain.submitPage()
-      infoPageAgain must beAnInstanceOf[GOtherChangeInfoPage]
+      infoPageAgain must beAnInstanceOf[GCircsYourDetailsPage]
     }
 
     "Not save 2 mutually exclusive reasons - see DE944" in new WithBrowser with PageObjects {
@@ -66,9 +66,8 @@ class GReportChangesIntegrationSpec extends Specification {
 
       //submit to the yourDetails page and go back to the selectionPage
       val yourdetailsPage = otherChangeInfoPageFirst.submitPage()
-      val reportChangesSecond = yourdetailsPage.goBack().goBack()
+      val reportChangesSecond = yourdetailsPage.goBack().goBack().goBack()
       reportChangesSecond must beAnInstanceOf[GReportChangesPage]
-
 
       //select a different Ch of circs ... AddressChange
       val justAddress = new TestData
@@ -77,7 +76,7 @@ class GReportChangesIntegrationSpec extends Specification {
       addressPage must beAnInstanceOf[GAddressChangePage]
 
       //select the first Ch of circs again - and verify that it's value was cleared by the previous step
-      val reportChangesThird = addressPage.goBack()
+      val reportChangesThird = addressPage.goBack().goBack()
       reportChangesThird must beAnInstanceOf[GReportChangesPage]
 
       val justOtherInfo = new TestData
@@ -106,7 +105,7 @@ class GReportChangesIntegrationSpec extends Specification {
       //submit to the last page and go back to the selectionPage
       val lastPage = otherChangeInfoPageFirst.submitPage()
       val reportChangesSecond = lastPage.goBack().goBack()
-      reportChangesSecond must beAnInstanceOf[GReportChangesPage]
+      reportChangesSecond must beAnInstanceOf[GCircsYourDetailsPage]
 
       val justOtherInfo = new TestData
       justOtherInfo.CircumstancesReportChanges = AdditionalInfo.name

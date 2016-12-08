@@ -46,7 +46,6 @@ class GYourDetailsIntegrationSpec extends Specification {
       page fillPageWith claim
 
       val g2 = page submitPage()
-      
       g2 must beAnInstanceOf[GMaritalStatusPage]
     }
 
@@ -70,7 +69,6 @@ class GYourDetailsIntegrationSpec extends Specification {
 
       previewPageModified must beAnInstanceOf[PreviewPage]
       answerText(previewPageModified) mustEqual "Mrs Jane Pearson"
-
     }
 
     "Modify date of birth from preview page" in new WithBrowser with PageObjects {
@@ -90,6 +88,25 @@ class GYourDetailsIntegrationSpec extends Specification {
 
       previewPageModified must beAnInstanceOf[PreviewPage]
       answerText(previewPageModified) mustEqual "03 April, 1952"
+    }
+
+    "Strip whitespace from start and end of strings entered" in new WithBrowser with PageObjects{
+      val id = "about_you_full_name"
+      val answerText = PreviewTestUtils.answerText(id, _: Page)
+      val previewPage = goToPreviewPage(context)
+      answerText(previewPage) mustEqual "Mr John Appleseed"
+      val aboutYou = previewPage.clickLinkOrButton(getLinkId(id))
+
+      aboutYou must beAnInstanceOf[GYourDetailsPage]
+      val modifiedData = new TestData
+      modifiedData.AboutYouTitle = "Mrs"
+      modifiedData.AboutYouFirstName = "  Jane   "
+      modifiedData.AboutYouSurname = "\tPearson"
+
+      aboutYou fillPageWith modifiedData
+      val previewPageModified = aboutYou submitPage()
+      previewPageModified must beAnInstanceOf[PreviewPage]
+      answerText(previewPageModified) mustEqual "Mrs Jane Pearson"
     }
   }
   section("integration", models.domain.AboutYou.id)

@@ -3,7 +3,7 @@
         backButtonName: String,
         changing:Boolean,
         backCall:Option[Call] ,
-        previous: Option[models.view.Route[_]] ,
+        previous: Option[models.view.Route] ,
         forceShow:Boolean        
         )(implicit claim: models.domain.Claim, request: Request[AnyContent], lang: Lang, messages: play.api.i18n.Messages)
 

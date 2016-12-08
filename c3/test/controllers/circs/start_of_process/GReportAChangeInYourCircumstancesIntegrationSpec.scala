@@ -1,16 +1,13 @@
 package controllers.circs.start_of_process
 
-import controllers.circs.consent_and_declaration.GCircsDeclaration
 import play.api.Play._
 import play.api.i18n.{MMessages, MessagesApi}
-import utils.WithApplication
 import org.specs2.mutable._
-import utils.pageobjects.circumstances.consent_and_declaration.GCircsDeclarationPage
 import utils.pageobjects.circumstances.origin.GOriginPage
-import utils.{LightFakeApplication, WithBrowser}
+import utils.WithBrowser
 import controllers.CircumstancesScenarioFactory
 import utils.pageobjects.circumstances.start_of_process.{GReportChangesPage, GCircsYourDetailsPage}
-import utils.pageobjects.circumstances.report_changes.{GBreaksInCarePage, GPermanentlyStoppedCaringPage, GOtherChangeInfoPage}
+import utils.pageobjects.circumstances.report_changes.GOtherChangeInfoPage
 import utils.pageobjects.{PageObjects, TestData}
 import app.ConfigProperties._
 
@@ -42,7 +39,7 @@ class GReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
 
       val reportAChange = newPage submitPage()
 
-      reportAChange must beAnInstanceOf[GPermanentlyStoppedCaringPage]
+      reportAChange must beAnInstanceOf[GCircsYourDetailsPage]
       reportAChange.goBack() must beAnInstanceOf[GReportChangesPage]
     }
 
@@ -191,7 +188,7 @@ class GReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
       page fillPageWith claim
 
       val nextPage = page submitPage()
-      nextPage must beAnInstanceOf[GOtherChangeInfoPage]
+      nextPage must beAnInstanceOf[GCircsYourDetailsPage]
     }
 
     "navigate to next page when stopped caring selected" in new WithBrowser with PageObjects {
@@ -201,7 +198,7 @@ class GReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
       page fillPageWith claim
 
       val nextPage = page submitPage()
-      nextPage must beAnInstanceOf[GPermanentlyStoppedCaringPage]
+      nextPage must beAnInstanceOf[GCircsYourDetailsPage]
     }
 
     "navigate to next page when break from caring selected" in new WithBrowser with PageObjects {
@@ -211,7 +208,7 @@ class GReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
       page fillPageWith claim
 
       val nextPage = page submitPage()
-      nextPage must beAnInstanceOf[GBreaksInCarePage]
+      nextPage must beAnInstanceOf[GCircsYourDetailsPage]
     }
 
     "valid submission if 'Contact number' not filled in" in new WithBrowser with PageObjects {
@@ -222,7 +219,7 @@ class GReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
       page fillPageWith claim
 
       val nextPage = page submitPage()
-      nextPage must beAnInstanceOf[GCircsDeclarationPage]
+      nextPage must beAnInstanceOf[GOtherChangeInfoPage]
     }
 
     "valid submission if 'Contact number' is filled in with number" in new WithBrowser with PageObjects {
@@ -232,7 +229,7 @@ class GReportAChangeInYourCircumstancesIntegrationSpec extends Specification {
       page fillPageWith claim
 
       val nextPage = page submitPage()
-      nextPage must beAnInstanceOf[GCircsDeclarationPage]
+      nextPage must beAnInstanceOf[GOtherChangeInfoPage]
     }
 
     "contain error if 'Contact number' is filled in with text" in new WithBrowser with PageObjects {

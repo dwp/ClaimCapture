@@ -13,7 +13,6 @@ import org.joda.time.DateTime
 import play.api.Logger
 import play.api.Play.current
 import play.api.cache.CacheApi
-import play.api.libs.json.JsValue
 import play.api.mvc.{AnyContent, Request}
 import utils.{RenameThread, SaveForLaterEncryption}
 import scala.concurrent.duration._
@@ -21,7 +20,7 @@ import scala.concurrent.duration._
 import scala.concurrent.duration.Duration
 import scala.util.{Success, Try, Failure}
 
-protected trait CacheHandling {
+protected trait CacheHandling extends SessionDataHandling {
   val cache = current.injector.instanceOf[CacheApi]
 
   def cacheKey: String
@@ -54,7 +53,8 @@ protected trait CacheHandling {
 
   /**
    * Tries to get the claim of change of circs from the cache.
-   * @param request the http request that has the session with uuid of claim which is the key used by cache.
+    *
+    * @param request the http request that has the session with uuid of claim which is the key used by cache.
    * @return None if could not find claim/CoCs. Some(claim) is could find it.
    */
   def fromCache(request: Request[AnyContent], required: Boolean = true): Option[Claim] = {
@@ -67,23 +67,32 @@ protected trait CacheHandling {
       None
     } else {
       Logger.info("Retrieving cache entry for request key:" + claimFullKey(key) + " with cookie application version:" + cookieAppVersion(request))
-      cache.get[Claim](claimFullKey(key))
+      fromCache(request, key)
     }
   }
 
   def fromCache(request: Request[AnyContent], key: String): Option[Claim] = {
     Logger.info("Retrieving cache entry for key:" + claimFullKey(key) + " with cookie application version:" + cookieAppVersion(request))
-    cache.get[Claim](claimFullKey(key))
+    getBooleanProperty("session.data.to.db") match {
+      case false => cache.get[Claim](claimFullKey(key))
+      case true => load(key)
+    }
   }
 
   def saveInCache(claim: Claim) = {
     Logger.info("Saving cache entry for key:" + claimFullKey(claim.uuid))
-    cache.set(claimFullKey(claim.uuid), claim, Duration(CacheHandling.expiration, SECONDS))
+    getBooleanProperty("session.data.to.db") match {
+      case false => cache.set(claimFullKey (claim.uuid), claim, Duration(CacheHandling.expiration, SECONDS))
+      case true => save(claim.uuid, claim)
+    }
   }
 
   def removeFromCache(key: String) = {
     Logger.info("Removing cache entry for key:" + claimFullKey(key))
-    cache.remove(claimFullKey(key))
+    getBooleanProperty("session.data.to.db") match {
+      case false => cache.remove(claimFullKey(key))
+      case true => delete(key)
+    }
   }
 
   protected def recordMeasurements() = {

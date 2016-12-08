@@ -1,9 +1,11 @@
 package controllers.circs.consent_and_declaration
 
+import app.ReportChange._
 import utils.WithJsBrowser
 import controllers.CircumstancesScenarioFactory
 import org.specs2.mutable._
 import utils.pageobjects.circumstances.consent_and_declaration.GCircsDeclarationPage
+import utils.pageobjects.circumstances.report_changes.GOtherChangeInfoPage
 import utils.pageobjects.circumstances.start_of_process.GCircsYourDetailsPage
 import utils.pageobjects.{PageObjects, TestData}
 
@@ -23,9 +25,10 @@ class GCircsDeclarationIntegrationSpec extends Specification {
       val page=GCircsYourDetailsPage(context)
       page goToThePage()
       val claim = CircumstancesScenarioFactory.aboutDetails
-      val declarePage=page runClaimWith(claim,GCircsDeclarationPage.url)
-      declarePage must beAnInstanceOf[GCircsDeclarationPage]
-      val prevPage=declarePage.goBack()
+      claim.CircumstancesReportChanges = AdditionalInfo.name
+      val otherChangePage = page runClaimWith(claim, GOtherChangeInfoPage.url)
+      otherChangePage must beAnInstanceOf[GOtherChangeInfoPage]
+      val prevPage = otherChangePage.goBack()
       prevPage must beAnInstanceOf[GCircsYourDetailsPage]
     }
 

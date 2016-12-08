@@ -25,7 +25,7 @@ object GGoToCircsFunction extends Controller with CachedChangeOfCircs with Navig
     val optSections = Stack(CircumstancesSelfEmployment,CircumstancesOtherInfo,CircumstancesStoppedCaring,
       CircumstancesPaymentChange, CircumstancesAddressChange, CircumstancesBreaksInCare, CircumstancesEmploymentChange)
 
-    val selectedQG:(QuestionGroup.Identifier,Call) = {
+    val selectedQG:(QGIdentifier,Call) = {
       reportChanges match {
         case r.EmploymentChange.name => CircumstancesEmploymentChange -> controllers.circs.report_changes.routes.GEmploymentChange.present()
         case r.AddressChange.name => CircumstancesAddressChange  -> controllers.circs.report_changes.routes.GAddressChange.present()
@@ -42,7 +42,7 @@ object GGoToCircsFunction extends Controller with CachedChangeOfCircs with Navig
   }
 
   @tailrec
-  private def popDeleteQG(circs:Claim,optSections:Stack[QuestionGroup.Identifier]):Claim = {
+  private def popDeleteQG(circs:Claim,optSections:Stack[QGIdentifier]):Claim = {
     if (optSections.isEmpty) circs
     else popDeleteQG(circs delete(optSections top),optSections pop)
   }

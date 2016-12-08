@@ -1,14 +1,16 @@
 package controllers.circs.your_details
 
 import app.ReportChange
+import controllers.circs.report_changes.GOtherChangeInfo
 import controllers.mappings.Mappings
 import models.domain._
 import models.view.CachedChangeOfCircs
 import org.specs2.mutable._
 import play.api.test.Helpers._
 import play.api.test.FakeRequest
-import utils.WithApplication
-import utils.pageobjects.circumstances.consent_and_declaration.GCircsDeclarationPage
+import utils.{LightFakeApplication, WithApplication}
+import utils.pageobjects.circumstances.report_changes.GOtherChangeInfoPage
+import utils.pageobjects.circumstances.start_of_process.GCircsYourDetailsPage
 
 class GYourDetailsFormSpec extends Specification {
   val firstName = "John"
@@ -23,7 +25,7 @@ class GYourDetailsFormSpec extends Specification {
 
   val byTelephone = "01254897675"
   val wantsEmailContactCircs = "no"
-  val nextPageUrl = GCircsDeclarationPage.url
+  val nextPageUrl = GOtherChangeInfoPage.url
 
   section("unit", models.domain.CircumstancesReportChanges.id)
   "Change of circumstances - About You Form" should {
@@ -170,7 +172,7 @@ class GYourDetailsFormSpec extends Specification {
         f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject special characters in text fields" in new WithApplication {
+    "reject special characters in text fields pre drs schema" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("surname-drs-regex" -> "false"))) {
       GYourDetails.form.bind(
         Map(
           "firstName" -> "John >",
@@ -192,6 +194,37 @@ class GYourDetailsFormSpec extends Specification {
           formWithErrors.errors(1).message must equalTo(Mappings.errorRestrictedCharacters)
           formWithErrors.errors(2).message must equalTo(Mappings.errorRestrictedCharacters)
           formWithErrors.errors(3).message must equalTo(Mappings.errorRestrictedCharacters)
+          formWithErrors.errors(4).message must equalTo(Mappings.errorRestrictedCharacters)
+        },
+        f => "This mapping should not happen." must equalTo("Valid"))
+    }
+
+    "reject special characters in text fields" in new WithApplication(app = LightFakeApplication(additionalConfiguration = Map("surname-drs-regex" -> "true"))) {
+      GYourDetails.form.bind(
+        Map(
+          "firstName" -> "John >",
+          "surname" -> "Smith $",
+          "nationalInsuranceNumber.nino" -> nino,
+          "dateOfBirth.day" -> dateOfBirthDay.toString,
+          "dateOfBirth.month" -> dateOfBirthMonth.toString,
+          "dateOfBirth.year" -> dateOfBirthYear.toString,
+          "theirFirstName" -> "Jane >",
+          "theirSurname" -> "Evans $",
+          "theirRelationshipToYou" -> "Wife >",
+          "furtherInfoContact" -> byTelephone,
+          "wantsEmailContactCircs" -> wantsEmailContactCircs
+        )).fold(
+        formWithErrors => {
+          formWithErrors.errors.length must equalTo(5)
+          // firstName
+          formWithErrors.errors(0).message must equalTo(Mappings.errorNameRestrictedCharacters)
+          // surname
+          formWithErrors.errors(1).message must equalTo(Mappings.errorNameRestrictedCharacters)
+          // theirFirstname
+          formWithErrors.errors(2).message must equalTo(Mappings.errorNameRestrictedCharacters)
+          // theirSurname
+          formWithErrors.errors(3).message must equalTo(Mappings.errorNameRestrictedCharacters)
+          // Relationship
           formWithErrors.errors(4).message must equalTo(Mappings.errorRestrictedCharacters)
         },
         f => "This mapping should not happen." must equalTo("Valid"))

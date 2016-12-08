@@ -16,14 +16,6 @@ class GTheirPersonalDetailsIntegrationSpec extends Specification {
       page goToThePage()
     }
 
-    "contain errors on invalid submission" in new WithJsBrowser with PageObjects {
-      val theirDetailsPage = GTheirPersonalDetailsPage(context)
-      theirDetailsPage goToThePage()
-      val submittedPage = theirDetailsPage submitPage()
-      submittedPage must beAnInstanceOf[GTheirPersonalDetailsPage]
-      submittedPage.listErrors.size mustEqual 6
-    }
-
     "navigate to next page on valid submission" in new WithJsBrowser with PageObjects {
       val theirPersonalDetailsPage = GTheirPersonalDetailsPage(context)
       val claim = ClaimScenarioFactory.s4CareYouProvide(hours35 = false)

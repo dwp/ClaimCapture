@@ -4,20 +4,16 @@ import app.XMLValues._
 import models.{DayMonthYear, NationalInsuranceNumber}
 
 
-case object CircumstancesIdentification extends Section.Identifier {
-  val id = "c1"
-}
+object CircumstancesIdentification extends Identifier(id = "c1")
 
 case class ReportChangeOrigin(origin: String = NotAsked) extends QuestionGroup(ReportChangeOrigin)
-object ReportChangeOrigin extends QuestionGroup.Identifier {
-  val id = s"${CircumstancesIdentification.id}.g1"
-}
+object ReportChangeOrigin extends QGIdentifier(id = s"${CircumstancesIdentification.id}.g1")
+
 
 case class ReportChangeReason(jsEnabled: Boolean = false, reportChanges: String = NotAsked) extends QuestionGroup(ReportChangeReason)
 
-object ReportChangeReason extends QuestionGroup.Identifier {
-  val id = s"${CircumstancesIdentification.id}.g1"
-}
+object ReportChangeReason extends QGIdentifier(id = s"${CircumstancesIdentification.id}.g1")
+
 case class CircumstancesYourDetails( firstName: String = "",
                                      surname: String = "",
                                      nationalInsuranceNumber: NationalInsuranceNumber = NationalInsuranceNumber(Some("")),
@@ -32,8 +28,7 @@ case class CircumstancesYourDetails( firstName: String = "",
                                       ) extends QuestionGroup(CircumstancesYourDetails) with EMail{
 }
 
-object CircumstancesYourDetails extends QuestionGroup.Identifier {
-  val id = s"${CircumstancesIdentification.id}.g2"
-}
+object CircumstancesYourDetails extends QGIdentifier(id = s"${CircumstancesIdentification.id}.g2")
+
 
 

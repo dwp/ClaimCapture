@@ -11,7 +11,7 @@ import com.typesafe.sbt.packager.SettingsHelper._
 
 object ApplicationBuild extends Build {
   val appName = "c3"
-  val appVersion = "3.23-SNAPSHOT"
+  val appVersion = "3.24-SNAPSHOT"
 
   processConfFiles(Seq("conf/application-info.conf"), Seq("application.version" -> appVersion, "application.name" -> appName))
 
@@ -29,10 +29,15 @@ object ApplicationBuild extends Build {
     "com.typesafe.akka" %% "akka-testkit" % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-agent" % "2.3.9" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-remote" % "2.3.9" % "test" withSources() withJavadoc(),
-    "gov.dwp.carers" % "xmlcommons" % "8.24-SNAPSHOT",
-    "gov.dwp.carers" % "carerscommon" % "8.06-SNAPSHOT",
+    "org.json4s" %% "json4s-native" % "3.5.0",
+    "org.json4s" %% "json4s-jackson" % "3.5.0",
+    "com.thoughtworks.xstream" % "xstream" % "1.4.9",
+    "org.codehaus.jettison" % "jettison" % "1.3.8",
+    "gov.dwp.carers" % "xmlcommons" % "8.28-SNAPSHOT",
+    "gov.dwp.carers" % "carerscommon" % "8.08-SNAPSHOT",
     "org.postgresql" % "postgresql" % "9.3-1103-jdbc41",
-    "com.h2database" % "h2" % "1.4.186" % "test",    "me.moocar" % "logback-gelf" % "0.12",
+    "com.h2database" % "h2" % "1.4.186" % "test",
+    "me.moocar" % "logback-gelf" % "0.12",
     "com.github.rjeschke" % "txtmark" % "0.11",
     "org.jacoco" % "org.jacoco.core" % "0.7.4.201502262128" % "test",
     "org.jacoco" % "org.jacoco.report" % "0.7.4.201502262128" % "test",

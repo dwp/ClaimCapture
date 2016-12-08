@@ -1,0 +1,32 @@
+@import utils.helpers.OriginTagHelper
+@()(implicit lang: Lang, request:play.api.mvc.Request[AnyContent])
+@googleurl=@{
+    "https://www.google-analytics.com/collect"
+}
+@fixedParams=@{
+    "?v=1&_v=j47&a=648942468&_s=1&ul=en-us&de=UTF-8&jid="
+}
+@dl=@{
+    "&dl=https://"+request.host+request.uri
+}
+@t=@{
+    "&t=pageview"
+}
+@tid=@{
+    "&tid="+OriginTagHelper.analyticsTag()
+}
+@dt=@{
+    "&dt=NoJavascript"
+}
+@z=@{
+    "&z="+System.currentTimeMillis
+}
+@gaUrl = @{
+    googleurl+fixedParams+dl+t+tid+dt+z
+}
+<noscript>
+    <img alt="ga-no-javascript" style="display:none" height="0" width="0" src="@gaUrl">
+</noscript>
+
+
+

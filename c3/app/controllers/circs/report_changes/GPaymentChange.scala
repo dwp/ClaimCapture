@@ -1,8 +1,10 @@
 package controllers.circs.report_changes
 
 import controllers.CarersForms._
+import controllers.circs.your_details.GYourDetails._
 import controllers.mappings.AccountNumberMappings._
 import controllers.mappings.Mappings._
+import gov.dwp.carers.xml.validation.CommonValidation
 import models.domain.CircumstancesPaymentChange
 import models.view.{CachedChangeOfCircs, Navigable}
 import models.yesNo.YesNoWith2Text
@@ -11,7 +13,6 @@ import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
 import play.api.mvc.Controller
-import utils.CommonValidation
 import utils.helpers.CarersForm._
 import play.api.i18n._
 
@@ -64,7 +65,7 @@ object GPaymentChange extends Controller with CachedChangeOfCircs with Navigable
           .replaceError("", "currentlyPaidIntoBankText2.required", FormError("currentlyPaidIntoBankText2", errorRequired))
         BadRequest(views.html.circs.report_changes.paymentChange(updatedErrors))
       },
-      f => circs.update(f) -> Redirect(controllers.circs.your_details.routes.GYourDetails.present())
+      f => circs.update(f) -> Redirect(controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present())
     )
   }
 }

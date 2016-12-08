@@ -9,7 +9,7 @@ import mappings.Mappings._
 import play.api.Logger
 import play.api.data.format.Formats._
 import play.api.mvc.{AnyContent, Request}
-import utils.CommonValidation._
+import gov.dwp.carers.xml.validation.CommonValidation._
 import utils.helpers.CarersCrypto
 
 import scala.util.{Failure, Try, Success}

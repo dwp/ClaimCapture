@@ -5,8 +5,7 @@ import play.api.data.Forms._
 import play.api.data.validation._
 import models.NationalInsuranceNumber
 import play.api.data.validation.ValidationError
-import utils.CommonValidation._
-
+import gov.dwp.carers.xml.validation.CommonValidation._
 
 object NINOMappings {
 

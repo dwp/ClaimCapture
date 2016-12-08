@@ -4,9 +4,7 @@ import models.DayMonthYear
 import controllers.mappings.Mappings._
 import models.NationalInsuranceNumber
 
-object YourPartner extends Section.Identifier {
-  val id = "s4"
-}
+object YourPartner extends Identifier(id = "s4")
 
 case class YourPartnerPersonalDetails(title: Option[String] = None,
                                       firstName: Option[String] = None,
@@ -20,9 +18,7 @@ case class YourPartnerPersonalDetails(title: Option[String] = None,
                                       isPartnerPersonYouCareFor:Option[String] = None,
                                       hadPartnerSinceClaimDate: String = "") extends QuestionGroup(YourPartnerPersonalDetails)
 
-object YourPartnerPersonalDetails extends QuestionGroup.Identifier  {
-  val id = s"${YourPartner.id}.g1"
-
+object YourPartnerPersonalDetails extends QGIdentifier(id = s"${YourPartner.id}.g1") {
   def validateTitle(input: YourPartnerPersonalDetails): Boolean = input.hadPartnerSinceClaimDate match {
     case `yes` => input.title.isDefined
     case `no` => true

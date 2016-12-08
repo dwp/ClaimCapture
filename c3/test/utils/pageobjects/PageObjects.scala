@@ -2,7 +2,8 @@ package utils.pageobjects
 
 import org.specs2.specification.Scope
 import utils.WithBrowsers
-import utils.pageobjects.circumstances.start_of_process.{GReportChangesPage, GGoToCircsPage, GCircsYourDetailsPage}
+import utils.pageobjects.circumstances.consent_and_declaration.GCircsDeclarationPage
+import utils.pageobjects.circumstances.start_of_process.{GCircsYourDetailsPage, GGoToCircsPage}
 
 trait PageObjects extends Scope {
   this: WithBrowsers[_] =>
@@ -10,6 +11,6 @@ trait PageObjects extends Scope {
   val context = PageObjectsContext(browser)
 
   val pageAfterReasonSelectionUrl=GGoToCircsPage.url
-  val pageBeforeFunctionsUrl=GReportChangesPage.url
-  val pageAfterFunctionsUrl=GCircsYourDetailsPage.url
+  val pageBeforeFunctionsUrl=GCircsYourDetailsPage.url
+  val pageAfterFunctionsUrl=GCircsDeclarationPage.url
 }
