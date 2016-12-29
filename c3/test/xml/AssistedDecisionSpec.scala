@@ -186,7 +186,7 @@ class AssistedDecisionSpec extends Specification {
       val yourCourseDetails = YourCourseDetails(beenInEducationSinceClaimDate = Mappings.no)
       val claim = AssistedDecision.createAssistedDecisionDetails(Claim(CachedClaim.key).update(moreAboutTheCare).update(nationality).update(breaksInCare).update(employment).update(paymentsFromAbroad).update(howWePayYou).update(benefits).update(additionalInfo).update(yourCourseDetails))
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "Reason").text mustEqual("Assign to Exportability in CAMLite workflow.")
+      (xml \\ "Reason").text mustEqual("Assign to Exportability in CAMLite workflow (Consider refugee status).")
       (xml \\ "RecommendedDecision").text mustEqual("None,show table")
     }
 
