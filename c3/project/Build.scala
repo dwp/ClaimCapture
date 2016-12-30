@@ -60,7 +60,7 @@ object ApplicationBuild extends Build {
   var sV: Seq[Def.Setting[_]] = Seq(scalaVersion := "2.10.5")
 
   var sR1 = if (System.getProperty("artifactory_url") == null) {
-    "http://build.3cbeta.co.uk:8080/artifactory/repo/"
+    "https://artifactory.3cbeta.co.uk/repo/"
   } else s"${System.getProperty("artifactory_url")}/repo"
 
   var sR: Seq[Def.Setting[_]] = Seq(
@@ -101,7 +101,7 @@ object ApplicationBuild extends Build {
   var sOrg: Seq[Def.Setting[_]] = Seq(organization := "gov.dwp.carers")
 
   var sR2 = if (System.getProperty("artifactory_url") == null) {
-    "http://build.3cbeta.co.uk:8080/artifactory"
+    "https://artifactory.3cbeta.co.uk/"
   } else s"${System.getProperty("artifactory_url")}"
 
   val isSnapshotBuild = appVersion.endsWith("-SNAPSHOT")
