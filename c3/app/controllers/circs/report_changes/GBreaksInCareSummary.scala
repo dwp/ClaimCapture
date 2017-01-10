@@ -16,7 +16,7 @@ import play.api.i18n._
 object GBreaksInCareSummary extends Controller with CachedChangeOfCircs with Navigable with I18nSupport {
   override val messagesApi: MessagesApi = current.injector.instanceOf[MMessages]
 
-  val backCall = controllers.circs.start_of_process.routes.GReportChangeReason.present()
+  val backCall = controllers.circs.your_details.routes.GYourDetails.present()
 
   val additionalBreaksMapping =
     "additionalBreaks" -> mapping(

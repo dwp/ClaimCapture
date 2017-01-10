@@ -14,7 +14,7 @@ class LanguageSpec extends Specification {
     "change of claim present - change language to English" in new WithApplication with MockForm {
       val cacheHandler = new CacheHandlingWithClaim()
       val request = FakeRequest().withSession(cacheHandler.cacheKey -> claimKey)
-      cacheHandler.saveInCache(Claim(cacheHandler.cacheKey, List.empty, System.currentTimeMillis(), None, claimKey))
+      cacheHandler.saveInCache(Claim(cacheHandler.cacheKey, List.empty, System.currentTimeMillis(), None, "gacid", claimKey))
 
       val expectedLangAsString = "en"
       val expectedLang = Lang(expectedLangAsString)
@@ -28,7 +28,7 @@ class LanguageSpec extends Specification {
     "change of circs present - change language to English" in new WithApplication with MockForm {
       val cacheHandler = new CacheHandlingWithCircs()
       val request = FakeRequest().withSession(cacheHandler.cacheKey -> claimKey).withHeaders(REFERER -> "http://localhost:9000/circumstances/identification/about-you")
-      cacheHandler.saveInCache(Claim(cacheHandler.cacheKey, List.empty, System.currentTimeMillis(), None, claimKey))
+      cacheHandler.saveInCache(Claim(cacheHandler.cacheKey, List.empty, System.currentTimeMillis(), None, "gacid", claimKey))
 
       val expectedLangAsString = "en"
       val expectedLang = Lang(expectedLangAsString)
@@ -42,7 +42,7 @@ class LanguageSpec extends Specification {
     "change of claim present - change language to Welsh" in new WithApplication with MockForm {
       val cacheHandler = new CacheHandlingWithClaim()
       val request = FakeRequest().withSession(cacheHandler.cacheKey -> claimKey)
-      cacheHandler.saveInCache(Claim(cacheHandler.cacheKey, List.empty, System.currentTimeMillis(), None, claimKey))
+      cacheHandler.saveInCache(Claim(cacheHandler.cacheKey, List.empty, System.currentTimeMillis(), None, "gacid", claimKey))
 
       val expectedLangAsString = "cy"
       val expectedLang = Lang(expectedLangAsString)
@@ -56,7 +56,7 @@ class LanguageSpec extends Specification {
     "change of circs present - change language to Welsh" in new WithApplication with MockForm {
       val cacheHandler = new CacheHandlingWithCircs()
       val request = FakeRequest().withSession(cacheHandler.cacheKey -> claimKey).withHeaders(REFERER -> "http://localhost:9000/circumstances/identification/about-you")
-      cacheHandler.saveInCache(Claim(cacheHandler.cacheKey, List.empty, System.currentTimeMillis(), None, claimKey))
+      cacheHandler.saveInCache(Claim(cacheHandler.cacheKey, List.empty, System.currentTimeMillis(), None, "gacid", claimKey))
 
       val expectedLangAsString = "cy"
       val expectedLang = Lang(expectedLangAsString)

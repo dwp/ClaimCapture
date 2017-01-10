@@ -18,13 +18,13 @@ case class CircumstancesYourDetails( firstName: String = "",
                                      surname: String = "",
                                      nationalInsuranceNumber: NationalInsuranceNumber = NationalInsuranceNumber(Some("")),
                                      dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
+                                     override val wantsContactEmail:String = "",
+                                     override val email:Option[String] = None,
+                                     override val emailConfirmation:Option[String] = None,
                                      theirFirstName: String = "",
                                      theirSurname: String = "",
                                      theirRelationshipToYou: String = "",
-                                     furtherInfoContact: Option[String] = None,
-                                     override val wantsContactEmail:String = "",
-                                     override val email:Option[String] = None,
-                                     override val emailConfirmation:Option[String] = None
+                                     furtherInfoContact: Option[String] = None
                                       ) extends QuestionGroup(CircumstancesYourDetails) with EMail{
 }
 

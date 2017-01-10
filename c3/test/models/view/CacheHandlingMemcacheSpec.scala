@@ -18,7 +18,7 @@ class CacheHandlingMemcacheSpec extends Specification {
 
       val cacheHandler = new CacheHandlingWithClaim()
       val request = FakeRequest().withSession(cacheHandler.cacheKey -> claimKey)
-      val claim=Claim(cacheHandler.cacheKey, List.empty, System.currentTimeMillis(), None, claimKey)
+      val claim=Claim(cacheHandler.cacheKey, List.empty, System.currentTimeMillis(), None, "gacid", claimKey)
       cacheHandler.saveInCache(claim)
 
       val retrievedClaim = cacheHandler.fromCache(request).get

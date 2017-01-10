@@ -14,7 +14,7 @@
 
 @backCall = @{
     claim.questionGroup[CircumstancesBreaksInCare].getOrElse(new CircumstancesBreaksInCare()).medicalCareDuringBreak.isEmpty match {
-        case true => controllers.circs.start_of_process.routes.GReportChangeReason.present()
+        case true => controllers.circs.your_details.routes.GYourDetails.present()
         case false => controllers.circs.report_changes.routes.GBreaksInCareSummary.present()
     }
 }

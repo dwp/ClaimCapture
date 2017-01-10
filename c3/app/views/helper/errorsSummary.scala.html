@@ -7,6 +7,9 @@
 @import models.domain.YourDetails
 @import models.domain.YourPartnerPersonalDetails
 
+@* Need to put GATag somewhere globally available with access to the claim to get clientid *@
+@views.html.ga.noScriptGATag()
+
 @gaTrack(errorLabel: String, errorMessage: String)  = @{
     if (getBooleanProperty("analytics.enabled")) {
         val cleaned=removeHtml(replaceDate(errorLabel))

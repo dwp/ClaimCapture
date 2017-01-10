@@ -1,5 +1,6 @@
 package controllers.s_employment
 
+import controllers.mappings.Mappings
 import models.yesNo.DeleteId
 import play.api.Play._
 import play.api.data.Forms._
@@ -53,9 +54,15 @@ object Employment extends Controller with CachedClaim with Navigable with I18nSu
     "deleteId" -> nonEmptyText
   )(DeleteId.apply)(DeleteId.unapply))
 
-  def deleteRedirect(updatedJobs: Jobs) = {
 
-
+  private def clearAdditionalInfo(claim: Claim) = {
+    val yourIncomes = claim.questionGroup[YourIncomes].getOrElse(YourIncomes())
+    if (yourIncomes.beenEmployedSince6MonthsBeforeClaim == Mappings.no && yourIncomes.beenSelfEmployedSince1WeekBeforeClaim == Mappings.no) {
+      claim.delete(EmploymentAdditionalInfo)
+    }
+    else {
+      claim
+    }
   }
 
   def delete = claimingWithCheck { implicit claim => implicit request => implicit request2lang =>
@@ -68,9 +75,10 @@ object Employment extends Controller with CachedClaim with Navigable with I18nSu
           val updatedClaim = claim.update(updatedJobs)
           (updatedJobs.jobs.size, claim.navigation.beenInPreview) match {
             case (0, true) => {
-              // Reset the hasEmployment flag if we delete the last employment and going back to preview
+              // Reset the hasEmployment flag if we delete the last employment and going back to preview.
               val claimNoEmp=updatedClaim.update(updatedClaim.questionGroup[YourIncomes].get.copy(beenEmployedSince6MonthsBeforeClaim = "no"))
-              claimNoEmp->Redirect(controllers.preview.routes.Preview.present().url + "#" + "employment_been_employed_since")
+              val claimNoAddinfo=clearAdditionalInfo(claimNoEmp)
+              claimNoAddinfo->Redirect(controllers.preview.routes.Preview.present().url + "#" + "employment_been_employed_since")
             }
             case (0, false) => updatedClaim -> Redirect(controllers.your_income.routes.GYourIncomes.present())
             case (_, _) => updatedClaim -> Redirect(controllers.s_employment.routes.GBeenEmployed.present())

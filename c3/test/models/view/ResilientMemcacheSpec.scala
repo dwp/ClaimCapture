@@ -16,7 +16,7 @@ class ResilientMemcacheSpec extends Specification {
   "Memcache" should {
     "write initial data alan to both memcache" in new WithMemcacheApplication(LightFakeApplicationWithMemcache.fa1only) with Claiming{
       cache.isInstanceOf[MemcachedCacheApi] mustEqual true
-      var claim = new Claim(CachedClaim.key, List(), System.currentTimeMillis(), Some(Lang("en")),  "0bcd1234-0000-0000-0000-abcd1234cdef")
+      var claim = new Claim(CachedClaim.key, List(), System.currentTimeMillis(), Some(Lang("en")),  "gacid", "0bcd1234-0000-0000-0000-abcd1234cdef")
       val details = new YourDetails("Mr","alan", None, "green", NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(10, 12, 2000))
       val contactDetails = new ContactDetails(new MultiLineAddress(), None, None, None, "yes", Some("bt@bt.com"), Some("bt@bt.com"))
       claim = claim + details
@@ -32,7 +32,7 @@ class ResilientMemcacheSpec extends Specification {
 
     "write update bob to memcache 1 only" in new WithMemcacheApplication(LightFakeApplicationWithMemcache.fa1only) with Claiming{
       cache.isInstanceOf[MemcachedCacheApi] mustEqual true
-      var claim = new Claim(CachedClaim.key, List(), System.currentTimeMillis(), Some(Lang("en")),  "0bcd1234-0000-0000-0000-abcd1234cdef")
+      var claim = new Claim(CachedClaim.key, List(), System.currentTimeMillis(), Some(Lang("en")),  "gacid", "0bcd1234-0000-0000-0000-abcd1234cdef")
       val details = new YourDetails("Mr","bob", None, "green", NationalInsuranceNumber(Some("AB123456D")), DayMonthYear(10, 12, 2000))
       val contactDetails = new ContactDetails(new MultiLineAddress(), None, None, None, "yes", Some("bt@bt.com"), Some("bt@bt.com"))
       claim = claim + details

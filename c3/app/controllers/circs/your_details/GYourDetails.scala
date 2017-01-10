@@ -26,13 +26,13 @@ object GYourDetails extends Controller with CachedChangeOfCircs with Navigable w
     "surname" -> nonEmptyText(maxLength = CommonValidation.SURNAME_MAX_LENGTH).verifying(YourDetails.validName),
     "nationalInsuranceNumber" -> nino.verifying(stopOnFirstFail(filledInNino, validNino)),
     "dateOfBirth" -> dayMonthYear.verifying(validDateOfBirth),
+    "wantsEmailContactCircs" -> carersNonEmptyText.verifying(validYesNo),
+    "mail" -> optional(carersEmailValidation.verifying(Constraints.maxLength(254))),
+    "mailConfirmation" -> optional(text(maxLength = 254)),
     "theirFirstName" -> nonEmptyText(maxLength = CommonValidation.FIRSTNAME_MAX_LENGTH).verifying(YourDetails.validName),
     "theirSurname" -> nonEmptyText(maxLength = CommonValidation.SURNAME_MAX_LENGTH).verifying(YourDetails.validName),
     "theirRelationshipToYou" -> carersNonEmptyText(maxLength = 35),
-    "furtherInfoContact" -> optional(carersNonEmptyText.verifying(validPhoneNumberRequired)),
-    "wantsEmailContactCircs" -> carersNonEmptyText.verifying(validYesNo),
-    "mail" -> optional(carersEmailValidation.verifying(Constraints.maxLength(254))),
-    "mailConfirmation" -> optional(text(maxLength = 254))
+    "furtherInfoContact" -> optional(carersNonEmptyText.verifying(validPhoneNumberRequired))
   )(CircumstancesYourDetails.apply)(CircumstancesYourDetails.unapply)
     .verifying("error.email.match", emailConfirmation _)
     .verifying("error.email.required", emailRequired _)

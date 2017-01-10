@@ -52,7 +52,7 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito {
     val claimDate = new ClaimDate(DayMonthYear(Some(1), Some(1), Some(2014)))
 
     claim + det + claimDate match {
-      case c:Claim => new Claim(c.key, c.sections, c.created, c.lang, c.uuid, c.transactionId)(c.navigation)
+      case c:Claim => new Claim(c.key, c.sections, c.created, c.lang, c.gacid, c.uuid, c.transactionId)(c.navigation)
     }
 
   }
@@ -61,14 +61,14 @@ class AsyncClaimSubmissionServiceSpec extends Specification with Mockito {
     val claim = new Claim(CachedChangeOfCircs.key,transactionId = Some(transactionId), uuid=randomUUID.toString)
 
     // need to set the qs groups used to create the fingerprint of the claim, otherwise a dup cache error will be thrown
-    val det = new CircumstancesYourDetails(firstName, surname, NationalInsuranceNumber(Some(ni)), DayMonthYear(Some(1), Some(1), Some(1967)), "", "")
+    val det = new CircumstancesYourDetails(firstName, surname, NationalInsuranceNumber(Some(ni)), DayMonthYear(Some(1), Some(1), Some(1967)), "", None, None, "", "")
 
     val claimDate = new ClaimDate(DayMonthYear(Some(1), Some(1), Some(2014)))
 
     claim + det + claimDate match {
       case c:Claim =>
         Logger.info(s"getCofc ${c.key}")
-        new Claim(c.key, c.sections, c.created, c.lang, c.uuid, c.transactionId)(c.navigation)
+        new Claim(c.key, c.sections, c.created, c.lang, c.gacid, c.uuid, c.transactionId)(c.navigation)
     }
   }
 

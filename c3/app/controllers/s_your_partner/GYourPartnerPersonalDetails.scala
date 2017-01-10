@@ -148,7 +148,7 @@ object GYourPartnerPersonalDetails extends Controller with CachedClaim with Navi
   }
 
   private def isSameNinoAsDPOrPartner(implicit request: Request[AnyContent]): Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.nino") {
-    case nino@NationalInsuranceNumber(Some(_)) => checkSameValues(nino.nino.get.toUpperCase, request)
+    case nino@NationalInsuranceNumber(Some(_)) => checkSameValues(nino.nino.get.toUpperCase.replace(" ", ""), request)
     case _ => Invalid(ValidationError("error.nationalInsuranceNumber"))
   }
 

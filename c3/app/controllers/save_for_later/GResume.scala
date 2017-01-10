@@ -33,7 +33,7 @@ object GResume extends Controller with CachedClaim with Navigable with I18nSuppo
     if (!getBooleanProperty("saveForLaterResumeEnabled")) {
       BadRequest(views.html.common.switchedOff("sfl-resume", request2lang))
     }
-    else if (encuuid.equals("")) {
+    else if (encuuid.equals("") || uuid.equals("")) {
       BadRequest(views.html.save_for_later.resumeNotExist(request2lang))
     }
     else {

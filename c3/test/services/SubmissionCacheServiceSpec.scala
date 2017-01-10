@@ -42,7 +42,7 @@ class SubmissionCacheServiceSpec extends Specification {
     claim = claim + contact
     claim = claim + claimDate
 
-    claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.uuid,claim.transactionId)(claim.navigation)
+    claim = new Claim(claim.key, claim.sections, claim.created, claim.lang, claim.gacid, claim.uuid,claim.transactionId)(claim.navigation)
     claim
   }
 }

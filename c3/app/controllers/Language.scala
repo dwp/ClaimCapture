@@ -22,7 +22,7 @@ object Language extends Controller with I18nSupport {
       }
       cacheHandler.fromCache(request) match {
         case Some(claim) =>
-          cacheHandler.saveInCache(Claim(cacheHandler.cacheKey, claim.sections, claim.created, Some(Lang(chosenLanguage)), claim.uuid))
+          cacheHandler.saveInCache(Claim(cacheHandler.cacheKey, claim.sections, claim.created, Some(Lang(chosenLanguage)), claim.gacid, claim.uuid))
           redirectUrl(request) match {
             case Left(urlPath) => messagesApi.setLang(Redirect(urlPath), Lang(chosenLanguage))
             case Right(url) => messagesApi.setLang(Redirect(url._1, url._2), Lang(chosenLanguage))
