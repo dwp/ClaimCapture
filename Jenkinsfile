@@ -26,7 +26,7 @@ node ('master') {
     }
     stage ('Deploy to lab') {
         sshagent(['8b4a081b-f1d6-424d-959f-ae9279d08b3b']) {
-            sh 'scp c3/target/universal/*.zip' c3lab@37.26.89.68:c3-latest-SNAPSHOT.zip'
+            sh 'scp c3/target/universal/*.zip c3lab@37.26.89.68:c3-latest-SNAPSHOT.zip'
             sh 'ssh c3lab@37.26.89.68 "rm -rf ~/c3-latest/* && unzip -q -d c3-latest c3-latest-SNAPSHOT.zip"'
             sh 'ssh c3lab@37.26.89.68 "./deploy.sh restart > output.log 2>&1 &"'
         }
