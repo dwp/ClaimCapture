@@ -24,10 +24,11 @@ node ('master') {
         sh 'fuser -k 11211/tcp'
         sh 'fuser -k 11212/tcp'
     }
-    stage ('Deploy') {
+    stage ('Deploy to lab') {
         sshagent(['8b4a081b-f1d6-424d-959f-ae9279d08b3b']) {
-            sh 'ssh -o StrictHostKeyChecking=no ubuntu@37.26.89.68 \'sudo salt "*5*" cmd.run "service carers c3lab deploy"\''
-            sh 'ssh ubuntu@37.26.89.68 \'sudo salt "*5*" cmd.run "service carers c3lab start"\''
+            sh 'scp c3/target/universal/*.zip' c3lab@37.26.89.68:c3-latest-SNAPSHOT.zip'
+            sh 'ssh c3lab@37.26.89.68 "rm -rf ~/c3-latest/* && unzip -q -d c3-latest c3-latest-SNAPSHOT.zip"'
+            sh 'ssh c3lab@37.26.89.68 "./deploy.sh restart > output.log 2>&1 &"'
         }
 
     }
