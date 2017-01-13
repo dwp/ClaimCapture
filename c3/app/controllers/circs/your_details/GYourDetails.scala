@@ -75,8 +75,6 @@ object GYourDetails extends Controller with CachedChangeOfCircs with Navigable w
         case r.PaymentChange.name => CircumstancesPaymentChange -> controllers.circs.report_changes.routes.GPaymentChange.present()
         case r.BreakFromCaring.name if (breakInCare.medicalCareDuringBreak != "") => CircumstancesBreaksInCare -> controllers.circs.report_changes.routes.GBreaksInCareSummary.present()
         case r.BreakFromCaring.name => CircumstancesBreaksInCare -> controllers.circs.report_changes.routes.GBreaksInCare.present()
-        case r.BreakFromCaringYou.name if (breakInCare.medicalCareDuringBreak != "") => CircumstancesBreaksInCare -> controllers.circs.report_changes.routes.GBreaksInCareSummary.present()
-        case r.BreakFromCaringYou.name => CircumstancesBreaksInCare -> controllers.circs.report_changes.routes.GBreaksInCare.present()
         case _ => CircumstancesOtherInfo -> controllers.circs.report_changes.routes.GOtherChangeInfo.present()
       }
     }

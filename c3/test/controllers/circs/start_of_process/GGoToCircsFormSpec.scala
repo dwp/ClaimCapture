@@ -50,13 +50,6 @@ class GGoToCircsFormSpec extends Specification {
       val result = GGoToCircsFunction.present(g2FakeRequest(claimKey))
       redirectLocation(result) must beSome("/circumstances/report-changes/breaks-in-care")
     }
-
-    "redirect to the next page after a valid break from caring submission because of you" in new WithApplication with MockForm {
-      val claim = Claim(claimKey)
-      cache.set("default" + claimKey, claim.update(ReportChangeReason(false, ReportChange.BreakFromCaringYou.name)))
-      val result = GGoToCircsFunction.present(g2FakeRequest(claimKey))
-      redirectLocation(result) must beSome("/circumstances/report-changes/breaks-in-care")
-    }
   }
   section("unit", models.domain.CircumstancesReportChanges.id)
 }
