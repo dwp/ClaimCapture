@@ -1,7 +1,6 @@
 package controllers.breaks_in_care
 
 import app.BreaksInCareGatherOptions
-import controllers.mappings.Mappings
 import controllers.mappings.Mappings._
 import models.DayMonthYear
 import models.domain._
@@ -9,44 +8,42 @@ import models.view.CachedClaim
 import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.pageobjects.breaks_in_care.{GBreaksInCareSummaryPage, GBreaksInCareTypePage}
+import utils.pageobjects.breaks_in_care.{GBreaksInCareSummaryPage}
 import utils.pageobjects.{PageObjects, TestData}
 import utils.{WithApplication, WithJsBrowser}
 
 class GBreaksInCareRespiteSpec extends Specification {
   section("unit", models.domain.Breaks.id)
-  "Break" should {
+  "Claim Break" should {
     val breakId1 = "1"
-    /*
-        "present" in new WithApplication with Claiming {
-          val request = FakeRequest()
+    "present" in new WithApplication with Claiming {
+      val request = FakeRequest()
 
-          val result = GBreaksInCareRespite.present("")(request)
-          status(result) mustEqual OK
-        }
+      val result = GBreaksInCareRespite.present("")(request)
+      status(result) mustEqual OK
+    }
 
-        "Break in care yourStayEnded date by default should not be displayed" in new WithJsBrowser with PageObjects {
-          val breaksInCare = GBreaksInCareSummaryPage(context) goToThePage(throwException = false)
-          val data = new TestData
-          data.BreaktypeCarehomeCheckbox = someTrue.get
-          data.BreaktypeOtherYesNo = "no"
+    "Break in care yourStayEnded date by default should not be displayed" in new WithJsBrowser with PageObjects {
+      val breaksInCare = GBreaksInCareSummaryPage(context) goToThePage (throwException = false)
+      val data = new TestData
+      data.BreaktypeCareHomeCheckbox = someTrue.get
+      data.BreaktypeOtherYesNo = "no"
 
-          val next = breaksInCare fillPageWith data submitPage()
-          next.ctx.browser.click("#whoWasInRespite_You")
-          next.ctx.browser.findFirst("#yourRespiteStayEnded_date_day").isDisplayed should beFalse
-        }
+      val next = breaksInCare fillPageWith data submitPage()
+      next.ctx.browser.click("#whoWasInRespite_You")
+      next.ctx.browser.findFirst("#yourRespiteStayEnded_date_day").isDisplayed should beFalse
+    }
 
-        "Break in care discharged date by default should not be displayed" in new WithJsBrowser with PageObjects {
-          val breaksInCare = GBreaksInCareSummaryPage(context) goToThePage()
-          val data = new TestData
-          data.BreaktypeCarehomeCheckbox = someTrue.get
-          data.BreaktypeOtherYesNo = "no"
-          val next = breaksInCare fillPageWith data submitPage()
-          next.ctx.browser.findFirst("#whenWereYouAdmitted_day").isDisplayed should beFalse
-          next.ctx.browser.findFirst("#whenWereYouAdmitted_month").isDisplayed should beFalse
-          next.ctx.browser.findFirst("#whenWereYouAdmitted_year").isDisplayed should beFalse
-        }
-    */
+    "Break in care discharged date by default should not be displayed" in new WithJsBrowser with PageObjects {
+      val breaksInCare = GBreaksInCareSummaryPage(context) goToThePage()
+      val data = new TestData
+      data.BreaktypeCareHomeCheckbox = someTrue.get
+      data.BreaktypeOtherYesNo = "no"
+      val next = breaksInCare fillPageWith data submitPage()
+      next.ctx.browser.findFirst("#whenWereYouAdmitted_day").isDisplayed should beFalse
+      next.ctx.browser.findFirst("#whenWereYouAdmitted_month").isDisplayed should beFalse
+      next.ctx.browser.findFirst("#whenWereYouAdmitted_year").isDisplayed should beFalse
+    }
 
     "Break in care fill data" in new WithJsBrowser with PageObjects {
       val summaryPage = GBreaksInCareSummaryPage(context) goToThePage()
