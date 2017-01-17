@@ -1,7 +1,8 @@
 package utils.pageobjects.circumstances.start_of_process
 
+import controllers.CircumstancesScenarioFactory
 import utils.WithBrowser
-import utils.pageobjects.{PageObjectsContext, CircumstancesPage, PageContext}
+import utils.pageobjects.{TestData, PageObjectsContext, CircumstancesPage, PageContext}
 
 final class GCircsYourDetailsPage(ctx:PageObjectsContext) extends CircumstancesPage(ctx, GCircsYourDetailsPage.url) {
   declareInput("#firstName","CircumstancesAboutYouFirstName")
@@ -25,6 +26,13 @@ object GCircsYourDetailsPage {
   val url  = "/circumstances/identification/about-you"
 
   def apply(ctx:PageObjectsContext) = new GCircsYourDetailsPage(ctx)
+
+  def fillYourDetails(context: PageObjectsContext, f: => TestData => Unit) = {
+    val page = GCircsYourDetailsPage(context)
+    page goToThePage()
+    page fillPageWith CircumstancesScenarioFactory.aboutDetails
+    page submitPage()
+  }
 }
 
 /** The context for Specs tests */
