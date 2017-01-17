@@ -36,7 +36,6 @@ object GCircsBreaksInCareRespitePage {
     val page = new GCircsBreaksInCareRespitePage(context, 1) goToThePage()
     page.fillPageWith(claimData)
     page.submitPage()
-    println("Respite page:"+page.source)
   }
 
   def fillDetails2(context: PageObjectsContext, f: => TestData => Unit) = {
@@ -45,7 +44,6 @@ object GCircsBreaksInCareRespitePage {
     val page = new GCircsBreaksInCareRespitePage(context, 2) goToThePage()
     page.fillPageWith(claimData)
     page.submitPage()
-    println("Respite page:"+page.source)
   }
 
   def fillDetails3(context: PageObjectsContext, f: => TestData => Unit) = {
@@ -54,7 +52,6 @@ object GCircsBreaksInCareRespitePage {
     val page = new GCircsBreaksInCareRespitePage(context, 3) goToThePage()
     page.fillPageWith(claimData)
     page.submitPage()
-    println("Respite page:"+page.source)
   }
 
   private def defaultRespiteDetails1() = {
