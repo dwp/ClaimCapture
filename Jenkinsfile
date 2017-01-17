@@ -26,8 +26,8 @@ node ('master') {
         sh 'fuser -k 11212/tcp'
     }
     stage ('Build RPM') {
-            def app_name = sh 'ls c3/target/universal/*.zip | awk -F \\- "{print $1}"'
-            def app_ver = sh 'ls c3/target/universal/*.zip | awk -F \\- "{print $2}"'
+            def app_name = sh returnStdout: true 'ls c3/target/universal/*.zip | awk -F \\- "{print $1}"'
+            def app_ver = sh returnStdout: true 'ls c3/target/universal/*.zip | awk -F \\- "{print $2}"'
             sh "fpm -s zip -t rpm --name ${app_name}-${app_ver} -v ${env.BUILD_NUMBER} --prefix /data/carers/${app_name}/${app_name}-${app_ver} c3/target/universal/*.zip"
     }
     if (env.BRANCH_NAME == 'integration') {
