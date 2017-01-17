@@ -30,7 +30,7 @@ node ('master') {
             def app_ver = sh 'ls c3/target/universal/*.zip | awk -F \\- "{print $2}"'
             sh "fpm -s zip -t rpm --name ${app_name}-${app_ver} -v ${env.BUILD_NUMBER} --prefix /data/carers/${app_name}/${app_name}-${app_ver} c3/target/universal/*.zip"
     }
-    if (env.BRANCH_NAME = 'integration') {
+    if (env.BRANCH_NAME == 'integration') {
         stage ('Deploy to lab') {
             sshagent(['8b4a081b-f1d6-424d-959f-ae9279d08b3b']) {
                 sh 'scp c3/target/universal/*.zip c3lab@37.26.89.94:c3-latest-SNAPSHOT.zip'
@@ -43,7 +43,7 @@ node ('master') {
             build job: 'Update repository metadata', parameters: [string(name: 'REPO_NAME', value: 'lab')], wait: false
         }
     }
-    if (env.BRANCH_NAME = 'int-release') {
+    if (env.BRANCH_NAME == 'int-release') {
         stage ('Add RPM to Preview repo') {
             sh 'cp *.rpm /opt/repo/cads/preview/'
             build job: 'Update repository metadata', parameters: [string(name: 'REPO_NAME', value: 'preview')], wait: false
