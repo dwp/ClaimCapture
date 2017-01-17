@@ -1,11 +1,10 @@
 package controllers.circs.breaks_in_care
 
-import controllers.WithBrowserHelper
+import controllers.{WithBrowserHelper}
 import org.specs2.mutable._
 import utils.pageobjects._
 import utils.pageobjects.circumstances.breaks_in_care.{GCircsBreaksInCareHospitalPage, GCircsBreaksInCareSummaryPage, GCircsBreaksInCareOtherPage, GCircsBreaksInCareRespitePage}
-import utils.pageobjects.s_care_you_provide.GTheirPersonalDetailsPage
-import utils.pageobjects.s_claim_date.GClaimDatePage
+import utils.pageobjects.circumstances.start_of_process.GCircsYourDetailsPage
 import utils.{WithBrowser, WithJsBrowser}
 
 class GBreaksInCareSummaryContentIntegrationSpec extends Specification {
@@ -24,14 +23,11 @@ class GBreaksInCareSummaryContentIntegrationSpec extends Specification {
     }
 
     "be presented with correct dynamic type-checkbox and other-yesno question labels" in new WithBrowser with PageObjects with WithBrowserHelper {
-      GClaimDatePage.fillClaimDate(context, testData => {
-        testData.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "01/10/2016"
-      })
-      GTheirPersonalDetailsPage.fillDpDetails(context, testData => {})
+      GCircsYourDetailsPage.fillYourDetails(context, testData => {})
       val page = GCircsBreaksInCareSummaryPage(context)
       page goToThePage()
-      $("#breaktype_questionLabel").getText() mustEqual ("Since 1 October 2016 have there been any times you or Albert Johnson have been in hospital, respite or care home for at least a week?")
-      $("#breaktype_other_questionLabel").getText() mustEqual ("Have there been any other times you've not provided care for Albert Johnson for 35 hours a week?")
+      $("#breaktype_questionLabel").getText() mustEqual ("Have there been any times you or Mrs Jane Johnson have been in hospital, respite or care home?")
+      $("#breaktype_other_questionLabel").getText() mustEqual ("Have there been any other times you've not provided care for Mrs Jane Johnson for 35 hours a week?")
     }
 
     "be presented with correct checkbox options" in new WithBrowser with PageObjects with WithBrowserHelper {
@@ -43,52 +39,59 @@ class GBreaksInCareSummaryContentIntegrationSpec extends Specification {
       $("[for=breaktype_none]").find("span").getText() shouldEqual "None"
     }
 
-    "present 2 errors with correct dynamic wording if no fields are populated and no existing breaks" in new WithJsBrowser with PageObjects {
-      GClaimDatePage.fillClaimDate(context, testData => {
-        testData.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "01/10/2016"
-      })
-      GTheirPersonalDetailsPage.fillDpDetails(context, testData => {})
-
+    "present correct question labels when no existing breaks" in new WithJsBrowser with PageObjects {
+      GCircsYourDetailsPage.fillYourDetails(context, testData => {})
       val page = GCircsBreaksInCareSummaryPage(context)
       page goToThePage()
-      val errors = page.submitPage().listErrors
+      page.source must contain("Have there been any times you or Mrs Jane Johnson have been in hospital, respite or care home?")
+      page.source must contain("Have there been any other times you've not provided care for Mrs Jane Johnson for 35 hours a week?")
+    }
 
+    "present correct question labels when got existing break" in new WithJsBrowser with PageObjects {
+      GCircsYourDetailsPage.fillYourDetails(context, testData => {})
+      GCircsBreaksInCareHospitalPage.fillDetails(context, testData => {})
+      val page = GCircsBreaksInCareSummaryPage(context)
+      page goToThePage()
+      page.source must contain("Have there been any other times you or Mrs Jane Johnson have been in hospital, respite or care home?")
+      page.source must contain("Have there been any other times you've not provided care for Mrs Jane Johnson for 35 hours a week?")
+    }
+
+    "present 2 errors with correct dynamic wording if no fields are populated and no existing break" in new WithJsBrowser with PageObjects {
+      GCircsYourDetailsPage.fillYourDetails(context, testData => {})
+      val page = GCircsBreaksInCareSummaryPage(context)
+      page goToThePage()
+
+      val errors = page.submitPage().listErrors
       // We get the errors on multiple lines because we have a bullet list to explain the complex rules
       val errorWithBulletPoints = 6
       errors.size mustEqual errorWithBulletPoints
-      errors(0) must contain("Since 1 October 2016 have there been any times you or Albert Johnson have been in hospital, respite or care home for at least a week? - You must select:")
+      errors(0) must contain("Have there been any times you or Mrs Jane Johnson have been in hospital, respite or care home? - You must select:")
       errors(1) mustEqual ("Hospital")
       errors(2) mustEqual ("Respite or care home")
       errors(3) mustEqual ("Both 'Hospital' and 'Respite or care home'")
       errors(4) mustEqual ("None")
-      errors(5) mustEqual ("Have there been any other times you've not provided care for Albert Johnson for 35 hours a week? - You must complete this section")
+      errors(5) mustEqual ("Have there been any other times you've not provided care for Mrs Jane Johnson for 35 hours a week? - You must complete this section")
     }
 
-    "present 2 errors with correct dynamic wording if no fields are populated and got existing breaks" in new WithJsBrowser with PageObjects {
-      GClaimDatePage.fillClaimDate(context, testData => {
-        testData.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "01/10/2016"
-      })
-      GTheirPersonalDetailsPage.fillDpDetails(context, testData => {})
+    "present 2 errors with correct dynamic wording if no fields are populated and got existing break" in new WithJsBrowser with PageObjects {
+      GCircsYourDetailsPage.fillYourDetails(context, testData => {})
       GCircsBreaksInCareHospitalPage.fillDetails(context, testData => {})
-
       val page = GCircsBreaksInCareSummaryPage(context)
       page goToThePage()
+
       val errors = page.submitPage().listErrors
       val errorWithBulletPoints = 6
       errors.size mustEqual errorWithBulletPoints
-      errors(0) must contain("Since 1 October 2016 have there been any other times you or Albert Johnson have been in hospital, respite or care home for at least a week? - You must select:")
+      errors(0) must contain("Have there been any other times you or Mrs Jane Johnson have been in hospital, respite or care home? - You must select:")
       errors(1) mustEqual ("Hospital")
       errors(2) mustEqual ("Respite or care home")
       errors(3) mustEqual ("Both 'Hospital' and 'Respite or care home'")
       errors(4) mustEqual ("None")
-      errors(5) mustEqual ("Have there been any other times you've not provided care for Albert Johnson for 35 hours a week? - You must complete this section")
+      errors(5) mustEqual ("Have there been any other times you've not provided care for Mrs Jane Johnson for 35 hours a week? - You must complete this section")
     }
 
     "present YesNo-Other error with correct wording when submit after select Hospital checkbox but not selected YesNo-got-other-times option" in new WithJsBrowser with PageObjects {
-      GClaimDatePage.fillClaimDate(context, testData => {
-        testData.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "01/10/2016"
-      })
-      GTheirPersonalDetailsPage.fillDpDetails(context, testData => {})
+      GCircsYourDetailsPage.fillYourDetails(context, testData => {})
       GCircsBreaksInCareHospitalPage.fillDetails(context, testData => {})
 
       val page = GCircsBreaksInCareSummaryPage(context)
@@ -96,14 +99,11 @@ class GBreaksInCareSummaryContentIntegrationSpec extends Specification {
       browser.click("#breaktype_hospital")
       val errors = page.submitPage().listErrors
       errors.size mustEqual 1
-      errors(0) mustEqual ("Have there been any other times you've not provided care for Albert Johnson for 35 hours a week? - You must complete this section")
+      errors(0) mustEqual ("Have there been any other times you've not provided care for Mrs Jane Johnson for 35 hours a week? - You must complete this section")
     }
 
     "present YesNo-Other error with correct wording when submit after select Care Home checkbox but not selected YesNo-got-other-times option" in new WithJsBrowser with PageObjects {
-      GClaimDatePage.fillClaimDate(context, testData => {
-        testData.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "01/10/2016"
-      })
-      GTheirPersonalDetailsPage.fillDpDetails(context, testData => {})
+      GCircsYourDetailsPage.fillYourDetails(context, testData => {})
       GCircsBreaksInCareHospitalPage.fillDetails(context, testData => {})
 
       val page = GCircsBreaksInCareSummaryPage(context)
@@ -111,14 +111,11 @@ class GBreaksInCareSummaryContentIntegrationSpec extends Specification {
       browser.click("#breaktype_carehome")
       val errors = page.submitPage().listErrors
       errors.size mustEqual 1
-      errors(0) mustEqual ("Have there been any other times you've not provided care for Albert Johnson for 35 hours a week? - You must complete this section")
+      errors(0) mustEqual ("Have there been any other times you've not provided care for Mrs Jane Johnson for 35 hours a week? - You must complete this section")
     }
 
     "present YesNo-Other error with correct wording when submit after select None checkbox but not selected YesNo-got-other-times option" in new WithJsBrowser with PageObjects {
-      GClaimDatePage.fillClaimDate(context, testData => {
-        testData.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "01/10/2016"
-      })
-      GTheirPersonalDetailsPage.fillDpDetails(context, testData => {})
+      GCircsYourDetailsPage.fillYourDetails(context, testData => {})
       GCircsBreaksInCareHospitalPage.fillDetails(context, testData => {})
 
       val page = GCircsBreaksInCareSummaryPage(context)
@@ -126,14 +123,11 @@ class GBreaksInCareSummaryContentIntegrationSpec extends Specification {
       browser.click("#breaktype_none")
       val errors = page.submitPage().listErrors
       errors.size mustEqual 1
-      errors(0) mustEqual ("Have there been any other times you've not provided care for Albert Johnson for 35 hours a week? - You must complete this section")
+      errors(0) mustEqual ("Have there been any other times you've not provided care for Mrs Jane Johnson for 35 hours a week? - You must complete this section")
     }
 
     "present Too-Many-Options error with correct wording when submit after select Hospital and None" in new WithJsBrowser with PageObjects {
-      GClaimDatePage.fillClaimDate(context, testData => {
-        testData.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "01/10/2016"
-      })
-      GTheirPersonalDetailsPage.fillDpDetails(context, testData => {})
+      GCircsYourDetailsPage.fillYourDetails(context, testData => {})
 
       val page = GCircsBreaksInCareSummaryPage(context)
       page goToThePage()
@@ -144,14 +138,11 @@ class GBreaksInCareSummaryContentIntegrationSpec extends Specification {
       // We get the errors on multiple lines because we have a bullet list to explain the complex rules
       val errorWithBulletPoints = 1
       errors.size mustEqual errorWithBulletPoints
-      errors(0) mustEqual ("Since 1 October 2016 have there been any times you or Albert Johnson have been in hospital, respite or care home for at least a week? - You must select 'None' if only 'None' applies.")
+      errors(0) mustEqual ("Have there been any times you or Mrs Jane Johnson have been in hospital, respite or care home? - You must select 'None' if only 'None' applies.")
     }
 
     "present Too-Many-Options error with correct wording when submit after select Respite and None" in new WithJsBrowser with PageObjects {
-      GClaimDatePage.fillClaimDate(context, testData => {
-        testData.ClaimDateWhenDoYouWantYourCarersAllowanceClaimtoStart = "01/10/2016"
-      })
-      GTheirPersonalDetailsPage.fillDpDetails(context, testData => {})
+      GCircsYourDetailsPage.fillYourDetails(context, testData => {})
 
       val page = GCircsBreaksInCareSummaryPage(context)
       page goToThePage()
@@ -162,14 +153,13 @@ class GBreaksInCareSummaryContentIntegrationSpec extends Specification {
       // We get the errors on multiple lines because we have a bullet list to explain the complex rules
       val errorWithBulletPoints = 1
       errors.size mustEqual errorWithBulletPoints
-      errors(0) mustEqual ("Since 1 October 2016 have there been any times you or Albert Johnson have been in hospital, respite or care home for at least a week? - You must select 'None' if only 'None' applies.")
+      errors(0) mustEqual ("Have there been any times you or Mrs Jane Johnson have been in hospital, respite or care home? - You must select 'None' if only 'None' applies.")
     }
 
     "display summary table with just hospital break added" in new WithJsBrowser with PageObjects {
       GCircsBreaksInCareHospitalPage.fillDetails(context, testData => {
         testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_1 = "01/01/2010"
       })
-
       val page = GCircsBreaksInCareSummaryPage(context)
       page goToThePage()
 
@@ -186,7 +176,6 @@ class GBreaksInCareSummaryContentIntegrationSpec extends Specification {
     }
 
     "display summary table with just respite break added" in new WithJsBrowser with PageObjects {
-      GTheirPersonalDetailsPage.fillDpDetails(context, testData => {})
       GCircsBreaksInCareRespitePage.fillDetails(context, testData => {})
       val page = GCircsBreaksInCareSummaryPage(context)
       page goToThePage()
@@ -204,7 +193,6 @@ class GBreaksInCareSummaryContentIntegrationSpec extends Specification {
     }
 
     "display summary table with just other-care break added" in new WithJsBrowser with PageObjects {
-      GTheirPersonalDetailsPage.fillDpDetails(context, testData => {})
       GCircsBreaksInCareOtherPage.fillDetails(context, testData => {})
       val page = GCircsBreaksInCareSummaryPage(context)
       page goToThePage()
