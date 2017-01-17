@@ -3,7 +3,6 @@ package utils.pageobjects.circumstances.breaks_in_care
 import app.BreaksInCareGatherOptions
 import controllers.mappings.Mappings
 import utils.WithBrowser
-import utils.pageobjects.IterationManager._
 import utils.pageobjects._
 
 class GCircsBreaksInCareRespitePage(ctx:PageObjectsContext, iteration: Int) extends ClaimPage(ctx, GCircsBreaksInCareRespitePage.url+"/"+iteration, iteration) {
@@ -22,7 +21,7 @@ class GCircsBreaksInCareRespitePage(ctx:PageObjectsContext, iteration: Int) exte
 
   protected override def getNewIterationNumber = {
     import IterationManager._
-    ctx.iterationManager.increment(Breaks)
+    ctx.iterationManager.increment(CircsBreaks)
   }
 }
 

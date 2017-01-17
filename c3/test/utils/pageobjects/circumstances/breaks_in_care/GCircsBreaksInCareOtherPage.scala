@@ -19,7 +19,7 @@ class GCircsBreaksInCareOtherPage(ctx:PageObjectsContext, iteration: Int) extend
 
   protected override def getNewIterationNumber = {
     import IterationManager._
-    ctx.iterationManager.increment(Breaks)
+    ctx.iterationManager.increment(CircsBreaks)
   }
 }
 
