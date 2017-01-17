@@ -25,6 +25,11 @@ node ('master') {
         sh 'fuser -k 11211/tcp'
         sh 'fuser -k 11212/tcp'
     }
+    stage ('Build RPM') {
+            def app_name = sh 'ls c3/target/universal/*.zip | awk -F \- "{print $1}"'
+            def app_ver = sh 'ls c3/target/universal/*.zip | awk -F \- "{print $2}"'
+            sh "fpm -s zip -t rpm --name ${app_name}-${app_ver} -v ${env.BUILD_NUMBER} --prefix /data/carers/${app_name}/${app_name}-${app_ver} c3/target/universal/*.zip"
+    }
     if (env.BRANCH_NAME = 'integration') {
         stage ('Deploy to lab') {
             sshagent(['8b4a081b-f1d6-424d-959f-ae9279d08b3b']) {
@@ -33,12 +38,13 @@ node ('master') {
                 sh 'ssh c3lab@37.26.89.94 "./deploy.sh restart > output.log 2>&1 &"'
             }
         }
+        stage ('Add RPM to Lab repo') {
+            sh 'cp *.rpm /opt/repo/cads/lab/'
+            build job: 'Update repository metadata', parameters: [string(name: 'REPO_NAME', value: 'lab')], wait: false
+        }
     }
     if (env.BRANCH_NAME = 'int-release') {
-        stage ('Build RPM') {
-            def app_name = sh 'ls c3/target/universal/*.zip | awk -F \- "{print $1}"'
-            def app_ver = sh 'ls c3/target/universal/*.zip | awk -F \- "{print $2}"'
-            sh "fpm -s zip -t rpm --name ${app_name} -v ${app_ver} --prefix /data/carers/${app_name} c3/target/universal/*.zip"
+        stage ('Add RPM to Preview repo') {
             sh 'cp *.rpm /opt/repo/cads/preview/'
             build job: 'Update repository metadata', parameters: [string(name: 'REPO_NAME', value: 'preview')], wait: false
         }
