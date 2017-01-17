@@ -1,6 +1,8 @@
 package utils.pageobjects
 
 import utils.pageobjects.breaks_in_care._
+import utils.pageobjects.circumstances.breaks_in_care._
+import utils.pageobjects.circumstances.consent_and_declaration.GCircsDeclarationPage
 import utils.pageobjects.save_for_later.{GSaveForLaterResumePage, GSaveForLaterSavePage}
 import utils.pageobjects.third_party.GThirdPartyPage
 import utils.pageobjects.your_income._
@@ -24,8 +26,8 @@ import utils.pageobjects.common._
 /**
  * Factory used by Page to create from an html page the right page object.
  * If there is no Page Object mapping to the title then it creates an instance of UnknownPage.
-  *
-  * @author Jorge Migueis
+ *
+ * @author Jorge Migueis
  *         Date: 10/07/2013
  */
 object ClaimPageFactory extends PageFactory {
@@ -70,6 +72,13 @@ object ClaimPageFactory extends PageFactory {
         case GBreaksInCareOtherPage.url => GBreaksInCareOtherPage(ctx, iteration)
       })
     }.orElse[String, Page] {
+      IterableNode(CircsBreaks, ctx)(iteration => {
+        case GCircsBreaksInCareSummaryPage.url => GCircsBreaksInCareSummaryPage(ctx)
+        case GCircsBreaksInCareHospitalPage.url => GCircsBreaksInCareHospitalPage(ctx, iteration)
+        case GCircsBreaksInCareRespitePage.url => GCircsBreaksInCareRespitePage(ctx, iteration)
+        case GCircsBreaksInCareOtherPage.url => GCircsBreaksInCareOtherPage(ctx, iteration)
+      })
+   }.orElse[String, Page] {
       //S6
       case GYourCourseDetailsPage.url => GYourCourseDetailsPage(ctx)
       // S7 - guard question(s)
@@ -105,6 +114,7 @@ object ClaimPageFactory extends PageFactory {
         if (ctx.browser.pageSource() contains "DWPBody") XmlPage(ctx)
         else GDeclarationPage(ctx)
       case ClaimHelpPage.url => ClaimHelpPage(ctx)
+      case GCircsDeclarationPage.url => GCircsDeclarationPage(ctx)
       // Catch pages not covered by framework
       case _ =>
         if (previousUrl.isEmpty) buildPageFromUrImpl(url.replaceFirst("/[^/]*$", ""), ctx, url)
