@@ -1,7 +1,7 @@
 // Comment to get more information during initialization
 logLevel := Level.Warn
 
-resolvers += "Carers repo2" at s"${System.getProperty("artifactory_url")!=null match { case true => s"${System.getProperty("artifactory_url")}/repo"; case false => "http://build.3cbeta.co.uk:8080/artifactory/repo/";}}"
+resolvers += "Carers repo2" at s"${System.getProperty("artifactory_url")!=null match { case true => s"${System.getProperty("artifactory_url")}/repo"; case false => "https://artifactory.3cbeta.co.uk/repo/";}}"
 
 // Adding new path for sbt-sass plugin
 resolvers += Resolver.url("GitHub sbt-sass repository", url("http://shaggyyeti.github.io/releases"))(Resolver.ivyStylePatterns)
