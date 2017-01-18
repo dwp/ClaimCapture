@@ -8,7 +8,7 @@ import utils.WithApplication
 
 class BreaksSpec extends Specification {
   section("unit")
-  "Circs Breaks" should {
+  "Claim Breaks" should {
     "generate empty Breaks xml with data and dp even when no breaks" in new WithApplication {
       val claimDate=ClaimDate(DayMonthYear(10,3,2016))
       // dont really need these details as we dont see the dp name in xml anyway we see it as placeholder @dpname!
