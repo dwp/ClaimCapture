@@ -6,6 +6,8 @@ node ('master') {
         checkout scm
     }
     stage ('Start memcached') {
+        sh 'fuser -k 11211/tcp'
+        sh 'fuser -k 11212/tcp'
         sh '/opt/memcached-1.4.33/bin/memcached -u jenkins -p 11211 &'
         sh '/opt/memcached-1.4.33/bin/memcached -u jenkins -p 11212 &'
     }
