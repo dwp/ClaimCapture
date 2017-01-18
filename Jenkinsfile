@@ -25,10 +25,13 @@ node ('master') {
         sh 'fuser -k 11211/tcp'
         sh 'fuser -k 11212/tcp'
     }
-    stage ('Build RPM') {
-            def app_name = sh returnStdout: true, script: 'ls c3/target/universal/*.zip | awk -F \\- \\"{print $$1}\\"'
-            def app_ver = sh returnStdout: true, script: 'ls c3/target/universal/*.zip | awk -F \\- \\"{print $$2}\\"'
-            sh "fpm -s zip -t rpm --name ${app_name}-${app_ver} -v ${env.BUILD_NUMBER} --prefix /data/carers/${app_name}/${app_name}-${app_ver} c3/target/universal/*.zip"
+    stage ('Build service RedHat package') {
+            def app_name = 'c3'
+            def app_ver = sh (
+                script: 'ls c3/target/universal/*.zip | awk -F \\- "{print \\$2}"',
+                returnStdout: true
+            ).trim()
+            sh "fpm -s zip -t rpm --name ${app_name}-${app_ver}-SNAPSHOT -v ${env.BUILD_NUMBER} --prefix /data/carers/${app_name}/${app_name}-${app_ver}-SNAPSHOT c3/target/universal/*.zip"
     }
     if (env.BRANCH_NAME == 'integration') {
         stage ('Deploy to lab') {
