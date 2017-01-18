@@ -17,7 +17,6 @@ class BreaksSpec extends Specification {
     val hospitalQuestion = "Since 11 April 2016 have there been any times you or @dpname have been in hospital, respite or care home for at least a week?"
     val hospitalOtherQuestion = "Since 11 April 2016 have there been any other times you or @dpname have been in hospital, respite or care home for at least a week?"
     val otherQuestion = "Have there been any other times you've not provided care for @dpname for 35 hours a week?"
-    lazy val yourDetails = CircumstancesYourDetails(theirFirstName = "Phil", theirSurname = "Smith", theirRelationshipToYou = "Husband")
 
     "generate empty Breaks xml with data and dp even when no breaks" in new WithApplication {
       val claim = Claim(CachedClaim.key).update(claimDate)
@@ -33,17 +32,17 @@ class BreaksSpec extends Specification {
       val break = Break(iterationID = "1", typeOfCare = Breaks.hospital, whoWasAway = BreaksInCareGatherOptions.You, whenWereYouAdmitted = Some(DayMonthYear(1, 2, 2003)),
         yourStayEnded = Some(YesNoWithDate(Mappings.no, None)))
       val breaksInCare = BreaksInCare().update(break)
-      val claim = Claim(CachedClaim.key).update(claimDate).update(yourDetails).update(breaksInCare)
+      val claim = Claim(CachedClaim.key).update(claimDate).update(breaksInCare)
 
       (Caree.xml(claim) \\ "Caree" \\ "CareBreak").size shouldEqual(3)
-      val firstBreakType = (Caree.xml(claim) \\ "Caree" \\ "CareBreak")(0)
+      val breakTypes = (Caree.xml(claim) \\ "Caree" \\ "CareBreak")(0)
       val firstBreak = (Caree.xml(claim) \\ "Caree" \\ "CareBreak")(1)
       val trailer = (Caree.xml(claim) \\ "Caree" \\ "CareBreak")(2)
 
-      (firstBreakType \\ "BreaksSinceClaim" \\ "QuestionLabel").text shouldEqual hospitalQuestion
-      (firstBreakType \\ "BreaksSinceClaim" \\ "Answer").text shouldEqual "Hospital"
-      (firstBreakType \\ "BreaksOtherSinceClaim" \\ "QuestionLabel").text shouldEqual otherQuestion
-      (firstBreakType \\ "BreaksOtherSinceClaim" \\ "Answer").text shouldEqual "No"
+      (breakTypes \\ "BreaksSinceClaim" \\ "QuestionLabel").text shouldEqual hospitalQuestion
+      (breakTypes \\ "BreaksSinceClaim" \\ "Answer").text shouldEqual "Hospital"
+      (breakTypes \\ "BreaksOtherSinceClaim" \\ "QuestionLabel").text shouldEqual otherQuestion
+      (breakTypes \\ "BreaksOtherSinceClaim" \\ "Answer").text shouldEqual "No"
 
       (firstBreak \\ "BreaksType" \\ "QuestionLabel").text shouldEqual "Type of Break"
       (firstBreak \\ "BreaksType" \\ "Answer").text shouldEqual "YouHospital"
@@ -61,19 +60,19 @@ class BreaksSpec extends Specification {
       val break2 = Break(iterationID = "2", typeOfCare = Breaks.carehome, whoWasAway = BreaksInCareGatherOptions.You, whenWereYouAdmitted = Some(DayMonthYear(2, 3, 2004)),
         yourStayEnded = Some(YesNoWithDate(Mappings.no, None)), yourMedicalProfessional = Some(Mappings.no))
       val breaksInCare = BreaksInCare().update(break1).update(break2)
-      val claim = Claim(CachedClaim.key).update(claimDate).update(yourDetails).update(breaksInCare)
+      val claim = Claim(CachedClaim.key).update(claimDate).update(breaksInCare)
       val xml = Caree.xml(claim)
 
       (Caree.xml(claim) \\ "Caree" \\ "CareBreak").size shouldEqual(4)
-      val breakType = (Caree.xml(claim) \\ "Caree" \\ "CareBreak")(0)
+      val breakTypes = (Caree.xml(claim) \\ "Caree" \\ "CareBreak")(0)
       val hospBreak = (Caree.xml(claim) \\ "Caree" \\ "CareBreak")(1)
       val respiteBreak = (Caree.xml(claim) \\ "Caree" \\ "CareBreak")(2)
       val trailer = (Caree.xml(claim) \\ "Caree" \\ "CareBreak")(3)
 
-      (breakType \\ "BreaksSinceClaim" \\ "QuestionLabel").text shouldEqual hospitalQuestion
-      (breakType \\ "BreaksSinceClaim" \\ "Answer").text shouldEqual "Hospital, Respite or care home"
-      (breakType \\ "BreaksOtherSinceClaim" \\ "QuestionLabel").text shouldEqual otherQuestion
-      (breakType \\ "BreaksOtherSinceClaim" \\ "Answer").text shouldEqual "No"
+      (breakTypes \\ "BreaksSinceClaim" \\ "QuestionLabel").text shouldEqual hospitalQuestion
+      (breakTypes \\ "BreaksSinceClaim" \\ "Answer").text shouldEqual "Hospital, Respite or care home"
+      (breakTypes \\ "BreaksOtherSinceClaim" \\ "QuestionLabel").text shouldEqual otherQuestion
+      (breakTypes \\ "BreaksOtherSinceClaim" \\ "Answer").text shouldEqual "No"
 
       (hospBreak \\ "BreaksType" \\ "QuestionLabel").text shouldEqual "Type of Break"
       (hospBreak \\ "BreaksType" \\ "Answer").text shouldEqual "YouHospital"

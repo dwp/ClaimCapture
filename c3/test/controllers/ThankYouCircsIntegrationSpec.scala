@@ -15,7 +15,8 @@ class   ThankYouCircsIntegrationSpec extends Specification {
 
     "display breaks in care message" in new WithBrowser with PageObjects {
       val page =  GBreaksInCarePage(context)
-      val claim = CircumstancesScenarioFactory.reportBreakFromCaringBreaksInCareEndedNo
+      // Will break till fixed not good new breaks data
+      val claim = CircumstancesScenarioFactory.aboutDetails
       page goToThePage()
       page fillPageWith claim
       page submitPage()
@@ -26,7 +27,8 @@ class   ThankYouCircsIntegrationSpec extends Specification {
 
     "should not display breaks in care message when breaks in care has ended" in new WithBrowser with PageObjects {
       val page =  GBreaksInCarePage(context)
-      val claim = CircumstancesScenarioFactory.reportBreakFromCaringBreaksInCareEndedNoAndExpectToStartCaringNo
+      // Will break till fixed not good new breaks data
+      val claim = CircumstancesScenarioFactory.aboutDetails
       page goToThePage()
       page fillPageWith claim
       page submitPage()

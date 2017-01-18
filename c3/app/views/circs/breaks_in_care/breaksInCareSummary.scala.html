@@ -86,10 +86,10 @@
                 <h2 class="heading-medium" id="summary-heading">@messages("circs.breaksummary_title")</h2>
                 <table id="summary-table">
                     <tr>
-                        <th>@messages("circs.breaksummary.who")</th>
-                        <th>@messages("circs.breaksummary.where")</th>
-                        <th>@messages("circs.breaksummary.from")</th>
-                        <th>@messages("circs.breaksummary.to")</th>
+                        <th>@messages("breaksummary.who")</th>
+                        <th>@messages("breaksummary.where")</th>
+                        <th>@messages("breaksummary.from")</th>
+                        <th>@messages("breaksummary.to")</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -124,7 +124,7 @@
                 @standaloneListCheckboxGroup(currentForm("breaktype"),
                     currentForm.asInstanceOf[Form[AnyContent]],
                     'items -> optionsList,
-                    'helperAbove -> "circs.breaks.breaktype.checkBoxHelp1",
+                    'helperAbove -> "breaks.breaktype.checkBoxHelp1",
                     'track -> true,
                     'ignoreOptional -> true,
                     '_showId -> true,
@@ -132,7 +132,7 @@
 
                 @yesNoRadioGroup(currentForm("breaktype_other"),
                     '_label -> messages(otherbreakLabel, dpname),
-                    'helperAbove->messages("circs.breaks.breaktype.other.helper"), 'ignoreOptional->true,
+                    'helperAbove->messages("breaks.breaktype.other.helper"), 'ignoreOptional->true,
                     'values -> Seq("yes" -> messages("label.yes4"), "no" -> messages("label.no")))
             </ul>
         </fieldset>
