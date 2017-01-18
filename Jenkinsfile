@@ -33,7 +33,7 @@ node ('master') {
                 script: 'ls c3/target/universal/*.zip | awk -F \\- "{print \\$2}"',
                 returnStdout: true
             ).trim()
-            sh "fpm -s zip -t rpm --name ${app_name}-${app_ver}-SNAPSHOT -v ${env.BUILD_NUMBER} --prefix /data/carers/${app_name}/${app_name}-${app_ver}-SNAPSHOT c3/target/universal/*.zip"
+            sh "fpm -s zip -t rpm --name ${app_name}-${app_ver}-SNAPSHOT -v ${env.BUILD_NUMBER} --prefix /data/carers/${app_name} c3/target/universal/*.zip"
     }
     if (env.BRANCH_NAME == 'integration') {
         stage ('Deploy to lab') {
