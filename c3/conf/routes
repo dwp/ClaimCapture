@@ -255,12 +255,6 @@ POST        /circumstances/report-changes/payment-change               controlle
 GET         /circumstances/report-changes/other-change                 controllers.circs.report_changes.GOtherChangeInfo.present
 POST        /circumstances/report-changes/other-change                 controllers.circs.report_changes.GOtherChangeInfo.submit
 
-GET         /circumstances/report-changes/old-breaks-in-care-summary               controllers.circs.report_changes.GOldBreaksInCareSummary.present
-POST        /circumstances/report-changes/old-breaks-in-care-summary               controllers.circs.report_changes.GOldBreaksInCareSummary.submit
-
-GET         /circumstances/report-changes/old-breaks-in-care       controllers.circs.report_changes.GOldBreaksInCare.present
-POST        /circumstances/report-changes/old-breaks-in-care       controllers.circs.report_changes.GOldBreaksInCare.submit
-
 GET         /circumstances/breaks/breaks-in-care                    controllers.circs.breaks_in_care.GBreaksInCareSummary.present
 POST        /circumstances/breaks/breaks-in-care                    controllers.circs.breaks_in_care.GBreaksInCareSummary.submit
 POST        /circumstances/breaks/breaks-in-care-delete             controllers.circs.breaks_in_care.GBreaksInCareSummary.delete
