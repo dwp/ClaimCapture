@@ -5,7 +5,7 @@ import controllers.IterationID
 import controllers.mappings.Mappings
 import controllers.mappings.Mappings._
 import models.domain._
-import models.view.{CachedChangeOfCircs, CachedClaim}
+import models.view.CachedChangeOfCircs
 import play.api.Play._
 import play.api.data.Forms._
 import play.api.data.{Form, FormError}
@@ -60,7 +60,7 @@ object GBreaksInCareRespite extends Controller with CachedChangeOfCircs with I18
   def submit = claimingWithCheck { implicit circs => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        val dp = dpDetails(circs);
+        val dp = circsDpName(circs);
         val formWithErrorsUpdate = formWithErrors
           .replaceError("", "whenWereYouAdmitted", FormError("whenWereYouAdmitted", errorRequired))
           .replaceError("", "whenWereYouAdmitted.invalid", FormError("whenWereYouAdmitted", errorInvalid))
