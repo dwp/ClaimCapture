@@ -9,7 +9,6 @@ object DWPCoCircs {
   def xml(circs: Claim): Elem = {
     Logger.info(s"Build XML for: ${circs.key} ${circs.uuid}.")
 
-    val x=
     <DWPCAChangeOfCircumstances>
       {Claimant.xml(circs)}
       {Caree.xml(circs)}
@@ -24,8 +23,6 @@ object DWPCoCircs {
       {EvidenceList.buildXml(circs)}
       {Consents.xml(circs)}
     </DWPCAChangeOfCircumstances>
-    println("CIRCS XML:"+x)
-    x
   }
 
 }
