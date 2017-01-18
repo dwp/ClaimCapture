@@ -118,7 +118,7 @@ trait BreaksGatherChecks {
   }
 
   def circsDpName(claim: Claim) = {
-    val yourDetails=claim.questionGroup[CircumstancesYourDetails].getOrElse(CircumstancesYourDetails).asInstanceOf[CircumstancesYourDetails]
+    val yourDetails=claim.questionGroup[CircumstancesYourDetails].getOrElse(CircumstancesYourDetails()).asInstanceOf[CircumstancesYourDetails]
     yourDetails.theirFirstName + " " + yourDetails.theirSurname
   }
 }

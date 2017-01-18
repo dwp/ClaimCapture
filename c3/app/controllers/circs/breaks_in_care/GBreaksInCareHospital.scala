@@ -61,7 +61,7 @@ object GBreaksInCareHospital extends Controller with CachedChangeOfCircs with I1
   def submit = claimingWithCheck { implicit circs => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        val dp = dpDetails(circs);
+        val dp = circsDpName(circs)
         val formWithErrorsUpdate = formWithErrors
           .replaceError("", "whenWereYouAdmitted", FormError("whenWereYouAdmitted", errorRequired))
           .replaceError("", "whenWereYouAdmitted.invalid", FormError("whenWereYouAdmitted", errorInvalid))

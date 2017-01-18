@@ -6,7 +6,7 @@ import controllers.mappings.Mappings
 import controllers.mappings.Mappings._
 import gov.dwp.carers.xml.validation.CommonValidation._
 import models.domain._
-import models.view.{CachedChangeOfCircs, CachedClaim}
+import models.view.{CachedChangeOfCircs}
 import models.yesNo.{RadioWithText, YesNoWithDate}
 import play.api.Play._
 import play.api.data.Forms._
@@ -63,7 +63,7 @@ object GBreaksInCareOther extends Controller with CachedChangeOfCircs with I18nS
   def submit = claimingWithCheck { implicit circs => implicit request => implicit request2lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        val dp = dpDetails(circs);
+        val dp = circsDpName(circs);
         val formWithErrorsUpdate = formWithErrors
           .replaceError("", "caringEnded", FormError("caringEnded.date", errorRequiredWithError, Seq(dp)))
           .replaceError("", "caringEnded.invalid", FormError("caringEnded.date", errorInvalidWithError, Seq(dp)))
