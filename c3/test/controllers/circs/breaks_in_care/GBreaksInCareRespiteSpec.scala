@@ -1,20 +1,20 @@
-package controllers.breaks_in_care
+package controllers.circs.breaks_in_care
 
-import app.BreaksInCareGatherOptions
 import controllers.mappings.Mappings._
+import app.BreaksInCareGatherOptions
 import models.DayMonthYear
 import models.domain._
-import models.view.CachedClaim
+import models.view.{CachedChangeOfCircs, CachedClaim}
 import org.specs2.mutable._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.pageobjects.breaks_in_care.{GBreaksInCareSummaryPage}
+import utils.pageobjects.circumstances.breaks_in_care.GCircsBreaksInCareSummaryPage
 import utils.pageobjects.{PageObjects, TestData}
 import utils.{WithApplication, WithJsBrowser}
 
 class GBreaksInCareRespiteSpec extends Specification {
-  section("unit", models.domain.Breaks.id)
-  "Claim Respite Break" should {
+  section("unit", models.domain.CircsBreaks.id)
+  "Circs Respite Break" should {
     val breakId1 = "1"
     "present" in new WithApplication with Claiming {
       val request = FakeRequest()
@@ -24,7 +24,7 @@ class GBreaksInCareRespiteSpec extends Specification {
     }
 
     "Break in care yourStayEnded date by default should not be displayed" in new WithJsBrowser with PageObjects {
-      val breaksInCare = GBreaksInCareSummaryPage(context) goToThePage (throwException = false)
+      val breaksInCare = GCircsBreaksInCareSummaryPage(context) goToThePage (throwException = false)
       val data = new TestData
       data.BreaktypeCareHomeCheckbox = someTrue.get
       data.BreaktypeOtherYesNo = "no"
@@ -35,7 +35,7 @@ class GBreaksInCareRespiteSpec extends Specification {
     }
 
     "Break in care discharged date by default should not be displayed" in new WithJsBrowser with PageObjects {
-      val breaksInCare = GBreaksInCareSummaryPage(context) goToThePage()
+      val breaksInCare = GCircsBreaksInCareSummaryPage(context) goToThePage()
       val data = new TestData
       data.BreaktypeCareHomeCheckbox = someTrue.get
       data.BreaktypeOtherYesNo = "no"
@@ -46,7 +46,7 @@ class GBreaksInCareRespiteSpec extends Specification {
     }
 
     "Break in care fill data" in new WithJsBrowser with PageObjects {
-      val summaryPage = GBreaksInCareSummaryPage(context) goToThePage()
+      val summaryPage = GCircsBreaksInCareSummaryPage(context) goToThePage()
       val data = new TestData
       data.BreaktypeCareHomeCheckbox = "true"
       data.BreaktypeOtherYesNo = "no"
@@ -172,7 +172,7 @@ class GBreaksInCareRespiteSpec extends Specification {
 
       val result = GBreaksInCareRespite.submit(request1)
 
-      val request2 = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result))
+      val request2 = FakeRequest().withSession(CachedChangeOfCircs.key -> extractCacheKey(result, CachedChangeOfCircs.key))
         .withFormUrlEncodedBody(
           "iterationID" -> "2",
           "whoWasInRespite" -> BreaksInCareGatherOptions.DP,
@@ -189,9 +189,9 @@ class GBreaksInCareRespiteSpec extends Specification {
 
       GBreaksInCareRespite.submit(request2)
 
-      val claim = getClaimFromCache(result)
+      val claim = getClaimFromCache(result, CachedChangeOfCircs.key)
 
-      claim.questionGroup(BreaksInCare) must beLike { case Some(b: BreaksInCare) => b.breaks.size mustEqual 2 }
+      claim.questionGroup(CircsBreaksInCare) must beLike { case Some(b: CircsBreaksInCare) => b.breaks.size mustEqual 2 }
     }
 
     "update existing break" in new WithApplication with Claiming {
@@ -214,7 +214,7 @@ class GBreaksInCareRespiteSpec extends Specification {
 
       val yearUpdate = 2005
 
-      val requestUpdate = FakeRequest().withSession(CachedClaim.key -> extractCacheKey(result))
+      val requestUpdate = FakeRequest().withSession(CachedChangeOfCircs.key -> extractCacheKey(result, CachedChangeOfCircs.key))
         .withFormUrlEncodedBody(
           "iterationID" -> breakId1,
           "whoWasInRespite" -> BreaksInCareGatherOptions.DP,
@@ -231,8 +231,8 @@ class GBreaksInCareRespiteSpec extends Specification {
 
       GBreaksInCareRespite.submit(requestUpdate)
 
-      getClaimFromCache(result).questionGroup(BreaksInCare) must beLike {
-        case Some(b: BreaksInCare) => b.breaks.head.dpStayEnded.get.date.get.year.get shouldEqual yearUpdate
+      getClaimFromCache(result, CachedChangeOfCircs.key).questionGroup(CircsBreaksInCare) must beLike {
+        case Some(b: CircsBreaksInCare) => b.breaks.head.dpStayEnded.get.date.get.year.get shouldEqual yearUpdate
       }
     }
   }

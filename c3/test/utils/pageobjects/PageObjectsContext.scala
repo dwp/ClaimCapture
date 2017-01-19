@@ -45,5 +45,6 @@ object IterationManager {
   val Abroad = "Abroad"
   val Breaks = "Breaks"
   val Employment = "Employment"
+  val CircsBreaks="CircsBreaks"
   def apply() = new IterationManager().init()
 }

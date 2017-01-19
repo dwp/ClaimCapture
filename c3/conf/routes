@@ -255,11 +255,18 @@ POST        /circumstances/report-changes/payment-change               controlle
 GET         /circumstances/report-changes/other-change                 controllers.circs.report_changes.GOtherChangeInfo.present
 POST        /circumstances/report-changes/other-change                 controllers.circs.report_changes.GOtherChangeInfo.submit
 
-GET         /circumstances/report-changes/breaks-in-care               controllers.circs.report_changes.GBreaksInCare.present
-POST        /circumstances/report-changes/breaks-in-care               controllers.circs.report_changes.GBreaksInCare.submit
+GET         /circumstances/breaks/breaks-in-care                    controllers.circs.breaks_in_care.GBreaksInCareSummary.present
+POST        /circumstances/breaks/breaks-in-care                    controllers.circs.breaks_in_care.GBreaksInCareSummary.submit
+POST        /circumstances/breaks/breaks-in-care-delete             controllers.circs.breaks_in_care.GBreaksInCareSummary.delete
 
-GET         /circumstances/report-changes/breaks-in-care-summary       controllers.circs.report_changes.GBreaksInCareSummary.present
-POST        /circumstances/report-changes/breaks-in-care-summary       controllers.circs.report_changes.GBreaksInCareSummary.submit
+GET         /circumstances/breaks/hospital/:id                      controllers.circs.breaks_in_care.GBreaksInCareHospital.present(id: String)
+POST        /circumstances/breaks/hospital                          controllers.circs.breaks_in_care.GBreaksInCareHospital.submit
+
+GET         /circumstances/breaks/respite-care-home/:id             controllers.circs.breaks_in_care.GBreaksInCareRespite.present(id: String)
+POST        /circumstances/breaks/respite-care-home                 controllers.circs.breaks_in_care.GBreaksInCareRespite.submit
+
+GET         /circumstances/breaks/other-breaks/:id                  controllers.circs.breaks_in_care.GBreaksInCareOther.present(id: String)
+POST        /circumstances/breaks/other-breaks                      controllers.circs.breaks_in_care.GBreaksInCareOther.submit
 
 GET         /circumstances/report-changes/employment-change            controllers.circs.report_changes.GEmploymentChange.present
 POST        /circumstances/report-changes/employment-change            controllers.circs.report_changes.GEmploymentChange.submit

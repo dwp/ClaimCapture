@@ -88,7 +88,6 @@ object ClaimSubmissionService {
       PaymentChange.name -> Some(3),
       AdditionalInfo.name -> Some(4),
       BreakFromCaring.name -> Some(5),
-      BreakFromCaringYou.name -> Some(7),
       EmploymentChange.name -> Some(6),
       NotAsked -> None
     )

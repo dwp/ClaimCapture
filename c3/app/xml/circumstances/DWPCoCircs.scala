@@ -12,7 +12,7 @@ object DWPCoCircs {
     <DWPCAChangeOfCircumstances>
       {Claimant.xml(circs)}
       {Caree.xml(circs)}
-      {CircsBreaksInCare.xml(circs)}
+      {BreaksInCare.xml(circs)}
       {StoppedCaring.xml(circs)}
       {AddressChange.xml(circs)}
       {SelfEmployment.xml(circs)}
