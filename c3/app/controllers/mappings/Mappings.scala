@@ -3,7 +3,7 @@ package controllers.mappings
 import app.{BreaksInCareGatherOptions, PaymentTypes, StatutoryPaymentFrequency}
 import controllers.CarersForms._
 import models._
-import models.yesNo.{RadioWithText, YesNoWithDate}
+import models.yesNo.{YesNoDontKnowWithDates, RadioWithText, YesNoWithDate}
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.Logger
@@ -52,6 +52,12 @@ object Mappings {
   def yesNoWithDate: Mapping[YesNoWithDate] = mapping(
     "answer" -> text,
     "date" -> optional(dayMonthYear))(YesNoWithDate.apply)(YesNoWithDate.unapply)
+
+  def yesNoDontKnowWithDates: Mapping[YesNoDontKnowWithDates] = mapping(
+    "answer" -> optional(text),
+    "yesdate" -> optional(dayMonthYear),
+    "nodate" -> optional(dayMonthYear)
+  )(YesNoDontKnowWithDates.apply)(YesNoDontKnowWithDates.unapply)
 
   def radioWithText: Mapping[RadioWithText] = mapping(
     "answer" -> text,

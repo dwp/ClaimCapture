@@ -34,6 +34,7 @@ object GBreaksInCareHospital extends Controller with CachedChangeOfCircs with I1
     "dpMedicalProfessional" -> default(optional(nonEmptyText), None),
     "caringEnded" -> default(optional(dayMonthYear), None),
     "caringStarted" -> default(optional(yesNoWithDate), None),
+    "expectCareAgain" -> default(optional(yesNoDontKnowWithDates), None),
     "whereWasDp" -> default(optional(radioWithText), None),
     "whereWereYou" -> default(optional(radioWithText), None),
     "whenWereYouAdmitted.time" -> default(optional(carersNonEmptyText), None),

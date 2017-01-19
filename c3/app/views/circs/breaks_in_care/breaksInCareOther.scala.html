@@ -83,6 +83,33 @@
                     'id -> "caringStartedWrap"
                 )
 
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        yesNoRadioGroup(currentForm("expectCareAgain.answer"),
+                            'values -> Seq("yes" -> messages("label.yes"), "no" -> messages("label.no"), "dontknow" -> messages("label.dontknow")),
+                            'ignoreOptional -> true
+                        ),
+                        otherDetailPlaceHolder(
+                            inputDef = Seq(
+                                dateTimePickerWithDynamicLabel(currentForm("expectCareAgain.yesdate"), 'dynamicDateDays-> -7)
+                            ),
+                            'id -> "yesdateWrap"
+                        ),
+                        otherDetailPlaceHolder(
+                            inputDef = Seq(
+                                dateTimePickerWithDynamicLabel(currentForm("expectCareAgain.nodate"), 'ignoreOptional -> true, 'dynamicDateDays-> 27)
+                            ),
+                            'id -> "nodateWrap"
+                        ),
+                        otherDetailPlaceHolder(
+                                inputDef = Seq(
+                                    carersLabel(currentForm("expectCareAgain.dontknow"), 'ignoreOptional -> true)
+                                ),
+                                'id -> "dontknowWrap"
+                        )
+                    ),
+                    'id -> "caringNotStartedWrap"
+                )
             </ul>
 
         </fieldset>
@@ -93,7 +120,7 @@
 
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/listWithOther.js")></script>
-    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/breaks_in_care/breaksInCareOtherGather.js")></script>
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/circs/breaks_in_care/breaksInCareOtherGather.js")></script>
 
     <script type="text/javascript">
         $(function(){
@@ -104,12 +131,19 @@
                     "@CarersCrypto.encryptAES("caringStarted_answer_yes")",
                     "@CarersCrypto.encryptAES("caringStarted_answer_no")",
                     "caringStartedWrap",
+                    "caringNotStartedWrap",
                     "@CarersCrypto.encryptAES("caringStarted_date")",
                     "@CarersCrypto.encryptAES("caringEnded_date")",
                     "@CarersCrypto.encryptAES("caringStarted_time")",
                     "@CarersCrypto.encryptAES("caringEnded_time")",
                     "wherePersonBreaksInCareWrap",
-                    "whereYouBreaksInCareWrap"
+                    "whereYouBreaksInCareWrap",
+                    "@CarersCrypto.encryptAES("expectCareAgain_answer_yes")",
+                    "@CarersCrypto.encryptAES("expectCareAgain_answer_no")",
+                    "@CarersCrypto.encryptAES("expectCareAgain_answer_dontknow")",
+                    "yesdateWrap",
+                    "nodateWrap",
+                    "dontknowWrap"
             );
         });
     </script>

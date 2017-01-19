@@ -13,7 +13,7 @@
 var breaksIncare = circs.questionGroup[CircumstancesBreaksInCare].getOrElse(CircumstancesBreaksInCare())
 breaksIncare.expectStartCaring.answer match {
 case Some(n) => n match {
-case mappings.Mappings.yes => if(!breaksIncare.expectStartCaring.expectStartCaringDate.isDefined) true else false
+case mappings.Mappings.yes => if(!breaksIncare.expectStartCaring.yesdate.isDefined) true else false
 case mappings.Mappings.dontknow => true
 case _ => false
 }

@@ -2,7 +2,7 @@ package models.domain
 
 import app.ConfigProperties._
 import models.DayMonthYear
-import models.yesNo.{RadioWithText, YesNoWithDate}
+import models.yesNo.{YesNoDontKnowWithDates, RadioWithText, YesNoWithDate}
 
 object CircsBreaks extends Identifier(id = "c2") {
   val hospital = "hospital"
@@ -55,6 +55,7 @@ case class CircsBreak(iterationID: String = "",
                  dpMedicalProfessional: Option[String] = None,
                  caringEnded: Option[DayMonthYear] = None,
                  caringStarted: Option[YesNoWithDate] = None,
+                 expectCareAgain: Option[YesNoDontKnowWithDates]=None,
                  whereWasDp: Option[RadioWithText] = None,
                  whereWereYou: Option[RadioWithText] = None,
                  caringEndedTime: Option[String] = None,

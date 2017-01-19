@@ -7,7 +7,7 @@ import controllers.mappings.Mappings._
 import gov.dwp.carers.xml.validation.CommonValidation._
 import models.domain._
 import models.view.{CachedChangeOfCircs}
-import models.yesNo.{RadioWithText, YesNoWithDate}
+import models.yesNo.{YesNoDontKnowWithDates, RadioWithText, YesNoWithDate}
 import play.api.Play._
 import play.api.data.Forms._
 import play.api.data.validation._
@@ -25,6 +25,8 @@ object GBreaksInCareOther extends Controller with CachedChangeOfCircs with I18nS
 
   val caringStartedMapping = "caringStarted" -> optional(yesNoWithDate)
 
+  val expectCareAgainMapping = "expectCareAgain" -> optional(yesNoDontKnowWithDates)
+
   val form = Form(mapping(
     "iterationID" -> carersNonEmptyText,
     "typeOfCare" -> default(carersNonEmptyText, Breaks.another),
@@ -38,6 +40,7 @@ object GBreaksInCareOther extends Controller with CachedChangeOfCircs with I18nS
     "dpMedicalProfessional" -> default(optional(nonEmptyText), None),
     "caringEnded.date" -> optional(dayMonthYear),
     caringStartedMapping,
+    expectCareAgainMapping,
     whereWasDpMapping,
     whereWereYouMapping,
     "caringEnded.time" -> optional(text),
@@ -51,6 +54,7 @@ object GBreaksInCareOther extends Controller with CachedChangeOfCircs with I18nS
     .verifying(validateOptionalCarersNonEmptyTextStarted)
     .verifying(requiredWhereWasDpRadioWithText)
     .verifying(requiredwhereWereYouRadioWithText)
+    .verifying(validateExpectCareAgain)
   )
 
   val backCall = routes.GBreaksInCareSummary.present()
@@ -79,6 +83,11 @@ object GBreaksInCareOther extends Controller with CachedChangeOfCircs with I18nS
           .replaceError("", "whereWereYou", FormError("whereWereYou", errorRequired))
           .replaceError("", "whereWereYou.text", FormError("whereWereYou.text", errorRequired))
           .replaceError("", "whereWereYou.text.restricted", FormError("whereWereYou.text", errorRestrictedCharacters))
+          .replaceError("", "expectCareAgain", FormError("expectCareAgain.answer", errorRequired))
+          .replaceError("", "expectCareAgain.yesdate", FormError("expectCareAgain.yesdate", errorRequired))
+          .replaceError("", "expectCareAgain.yesdate.invalid", FormError("expectCareAgain.yesdate", errorInvalid))
+          .replaceError("", "expectCareAgain.nodate", FormError("expectCareAgain.nodate", errorRequired))
+          .replaceError("", "expectCareAgain.nodate.invalid", FormError("expectCareAgain.nodate", errorInvalid))
         BadRequest(views.html.circs.breaks_in_care.breaksInCareOther(formWithErrorsUpdate, backCall))
       },
       break => {
@@ -135,6 +144,38 @@ object GBreaksInCareOther extends Controller with CachedChangeOfCircs with I18nS
       case true if !YesNoWithDate.validate(break.caringStarted.get) => Invalid(ValidationError("caringStarted.date"))
       case true if (break.caringStarted.get.answer == Mappings.yes) => validateDate(break.caringStarted.get.date.get, "caringStarted.date.invalid")
       case _ => Valid
+    }
+  }
+
+  private def validateExpectCareAgain: Constraint[CircsBreak] = Constraint[CircsBreak]("constraint.breakCaringStartedDate") { break =>
+    if(break.caringStarted.isDefined && break.caringStarted.get.answer.equals(Mappings.no) && !break.expectCareAgain.isDefined){
+            Invalid(ValidationError("expectCareAgain"))
+    }
+    else if(break.expectCareAgain.isDefined){
+      break.expectCareAgain.get.answer.get match{
+        case Mappings.yes =>{
+          if(!YesNoDontKnowWithDates.validateOnYes(break.expectCareAgain.get)) {
+            Invalid(ValidationError("expectCareAgain.yesdate"))
+          }
+          else {
+            validateDate(break.expectCareAgain.get.yesdate.get, "expectCareAgain.yesdate.invalid")
+          }
+        }
+        case Mappings.no => {
+          if(!YesNoDontKnowWithDates.validateOnNo(break.expectCareAgain.get)) {
+            Invalid(ValidationError("expectCareAgain.nodate"))
+          }
+          else {
+            validateDate(break.expectCareAgain.get.nodate.get, "expectCareAgain.nodate.invalid")
+          }
+        }
+        case Mappings.dontknow =>{
+          Valid
+        }
+      }
+    }
+    else{
+      Valid
     }
   }
 

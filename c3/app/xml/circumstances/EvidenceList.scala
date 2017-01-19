@@ -74,7 +74,7 @@ object EvidenceList {
     val breaksIncare = circs.questionGroup[CircumstancesBreaksInCare].getOrElse(CircumstancesBreaksInCare())
     val outputRequired = breaksIncare.expectStartCaring.answer match {
       case Some(n) => n match {
-        case Mappings.yes => if (!breaksIncare.expectStartCaring.expectStartCaringDate.isDefined) true else false
+        case Mappings.yes => if (!breaksIncare.expectStartCaring.yesdate.isDefined) true else false
         case Mappings.dontknow => true
         case _ => false
       }
