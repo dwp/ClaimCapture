@@ -74,7 +74,7 @@ object GCircsBreaksInCareOtherPage {
   }
 }
 
-trait GBreaksInCareOtherPageContext extends PageContext {
+trait GCircsBreaksInCareOtherPageContext extends PageContext {
   this: WithBrowser[_] =>
 
   val page = GCircsBreaksInCareOtherPage (PageObjectsContext(browser), iteration = 1)
