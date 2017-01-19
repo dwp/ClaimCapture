@@ -15,9 +15,9 @@
 @import utils.helpers.CarersCrypto
 
 @optionsList(implicit lang:Lang) = @{
-    Seq(CircsBreaks.hospital -> messages("circs.breaks.hospital"),
-        CircsBreaks.carehome -> messages("circs.breaks.carehome"),
-        CircsBreaks.none -> messages("circs.breaks.none")
+    Seq(CircsBreaks.hospital -> messages("breaks.hospital"),
+        CircsBreaks.carehome -> messages("breaks.carehome"),
+        CircsBreaks.none -> messages("breaks.none")
     )
 }
 @dateWeRequireBreakInCareInformationFrom() = @{
@@ -30,9 +30,9 @@
 }
 @anyothertimes=@{
     (breaks.hasBreaksForType(CircsBreaks.hospital), breaks.hasBreaksForType(CircsBreaks.carehome)) match {
-        case(true, _) => messages("circs.breaktype.anyothertimes")
-        case(_,true) => messages("circs.breaktype.anyothertimes")
-        case _ => messages("circs.breaktype.anytimes")
+        case(true, _) => messages("breaktype.anyothertimes")
+        case(_,true) => messages("breaktype.anyothertimes")
+        case _ => messages("breaktype.anytimes")
     }
 }
 @otherbreakLabel=@{
@@ -40,17 +40,17 @@
 }
 @whoWasAway(break: CircsBreak)=@{
     break.whoWasAway match {
-        case You => messages("circs.breaksummary.you")
+        case You => messages("breaksummary.you")
         case DP => dpname
-        case _ if (break.typeOfCare == CircsBreaks.another) => messages("circs.breaksummary.you")
+        case _ if (break.typeOfCare == CircsBreaks.another) => messages("breaksummary.you")
         case _ => "ERROR in whoAway"
     }
 }
 @careTypeLabel(break: CircsBreak)=@{
     break.typeOfCare match {
-        case CircsBreaks.hospital => messages("circs.breaks.hospital")
-        case CircsBreaks.carehome => messages("circs.breaks.carehome")
-        case CircsBreaks.another => messages("circs.breaks.other")
+        case CircsBreaks.hospital => messages("breaks.hospital")
+        case CircsBreaks.carehome => messages("breaks.carehome")
+        case CircsBreaks.another => messages("breaks.other")
         case _ => "ERROR In caretypeLabel"
     }
 }
@@ -67,7 +67,7 @@
         case (CircsBreaks.another, _, _, _, Some(cs)) if (cs.answer == "yes") => break.caringStarted.get.date.get.`dd month yyyy`
         case (_, You, Some(you), _, _) if (you.answer == "yes") => break.yourStayEnded.get.date.get.`dd month yyyy`
         case (_, DP, _, Some(dp), _) if (dp.answer == "yes") => break.dpStayEnded.get.date.get.`dd month yyyy`
-        case _ => messages("circs.breaksummary.notended")
+        case _ => messages("breaksummary.notended")
     }
 }
 @changeHref(break: CircsBreak) = @{
@@ -83,7 +83,7 @@
         <input type="hidden" id="js" name="jsEnabled" value="false">
         <fieldset class="form-elements">
             @if(breaks.hasBreaks){
-                <h2 class="heading-medium" id="summary-heading">@messages("circs.breaksummary_title")</h2>
+                <h2 class="heading-medium" id="summary-heading">@messages("breaksummary_title")</h2>
                 <table id="summary-table">
                     <tr>
                         <th>@messages("breaksummary.who")</th>
@@ -109,7 +109,7 @@
                         <tr iterationid="@break.iterationID" colspan="6" class="delete-confirm" id="delete-confirm@breakNum">
                             <td colspan="6">
                                 <div class="prompt breaks-prompt validation-summary">
-                                    <p>@Html(messages("circs.areYouSureYouWantToDeleteThisBreak"))</p>
+                                    <p>@Html(messages("areYouSureYouWantToDeleteThisBreak"))</p>
                                     <input class="noDelete button secondary" type="button" name="no" class="button secondary" value="@Html(messages("no.delete"))" aria-label="@Html(messages("no.delete.label"))">
                                     <input class="yesDelete button warning" type="button" name="yes" class="button warning" value="@Html(messages("yes.delete"))" aria-label="@Html(messages("yes.delete.label"))" @views.html.ga.trackClickEvent(linkName = "BIC - Delete")>
                                 </div>

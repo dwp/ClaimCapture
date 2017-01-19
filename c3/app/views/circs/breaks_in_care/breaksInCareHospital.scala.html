@@ -24,7 +24,7 @@
     )
 }
 
-    @main(messages("breaksInCareHospitalTitle"), messages("breaksInCareHospitalSectionHeading"), Some(currentForm), Some(backCall), true) {
+    @main(messages("circs.breaksInCareHospitalTitle"), messages("circs.breaksInCareHospitalSectionHeading"), Some(currentForm), Some(backCall), true) {
 
         @form(action = controllers.circs.breaks_in_care.routes.GBreaksInCareHospital.submit, 'role -> "form") {
             <input type="hidden" name="iterationID" value="@IterationID(currentForm)">
