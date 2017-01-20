@@ -71,20 +71,9 @@ object EvidenceList {
   }
 
   def showBreaksInCaremessages(circs: Claim) = {
-    val breaksIncare = circs.questionGroup[CircsBreaksInCare].getOrElse(CircsBreaksInCare())
-    /* COLING to fixup
-    val outputRequired = breaksIncare.expectStartCaring.answer match {
-      case Some(n) => n match {
-        case Mappings.yes => if (!breaksIncare.expectStartCaring.yesdate.isDefined) true else false
-        case Mappings.dontknow => true
-        case _ => false
-      }
-      case _ => false
-    }
-
-    outputRequired
-    */
-    false
+    val breaks = circs.questionGroup[CircsBreaksInCare].getOrElse(CircsBreaksInCare()).breaks
+    val breaksOngoing=breaks.filter(b => b.typeOfCare.equals(Breaks.another) && b.expectToCareAgain.isDefined && ( b.expectToCareAgain.get.answer.equals(Some(Mappings.no)) || b.expectToCareAgain.get.answer.equals(Some(Mappings.dontknow))))
+    breaksOngoing.size >0
   }
 
   def showEmploymentPensionMessage(circs: Claim, message: String) = {
