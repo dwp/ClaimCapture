@@ -1,32 +1,28 @@
 @import models.domain.CircumstancesYourDetails
 @import models.domain.CircumstancesEmploymentPensionExpenses
-@(lang: Lang)(implicit circs: models.domain.Claim, request: Request[AnyContent],flash:Flash, messages: Messages)
+@import models.domain.CircsBreaksInCare
+@(lang: Lang)(implicit circs: models.domain.Claim, request: Request[AnyContent], flash: Flash, messages: Messages)
 
-@import controllers.mappings.Mappings
 @import app.ConfigProperties._
-@import models.domain.{CircumstancesBreaksInCare, CircumstancesEmploymentNotStarted, CircumstancesStartedAndFinishedEmployment, CircumstancesStartedEmploymentAndOngoing}
+@import models.domain.{CircumstancesStartedAndFinishedEmployment, CircumstancesStartedEmploymentAndOngoing}
 @import play.api.Play
 @import play.api.Play.current
 @import utils.helpers.OriginTagHelper._
+@import models.domain.Breaks
+@import controllers.mappings.Mappings
 
 @showBreaksInCareMessages = @{
-var breaksIncare = circs.questionGroup[CircumstancesBreaksInCare].getOrElse(CircumstancesBreaksInCare())
-breaksIncare.expectStartCaring.answer match {
-case Some(n) => n match {
-case mappings.Mappings.yes => if(!breaksIncare.expectStartCaring.yesdate.isDefined) true else false
-case mappings.Mappings.dontknow => true
-case _ => false
-}
-case _ => false
-}
+    val breaks = circs.questionGroup[CircsBreaksInCare].getOrElse(CircsBreaksInCare()).breaks
+    val breaksOngoing=breaks.filter(b => b.typeOfCare.equals(Breaks.another) && b.expectToCareAgain.isDefined && ( b.expectToCareAgain.get.answer.equals(Some(Mappings.no)) || b.expectToCareAgain.get.answer.equals(Some(Mappings.dontknow))))
+    breaksOngoing.size >0
 }
 
 @showEmployment1Messages = @{
-circs.questionGroup[CircumstancesStartedEmploymentAndOngoing].isDefined
+    circs.questionGroup[CircumstancesStartedEmploymentAndOngoing].isDefined
 }
 
 @showEmployment2Messages = @{
-circs.questionGroup[CircumstancesStartedAndFinishedEmployment].isDefined
+    circs.questionGroup[CircumstancesStartedAndFinishedEmployment].isDefined
 }
 
 @showEmploymentPensionMessage = @{
@@ -38,103 +34,106 @@ circs.questionGroup[CircumstancesStartedAndFinishedEmployment].isDefined
 }
 
 @isEmail = @{
-getBooleanProperty("email.frontend") && circs.questionGroup[CircumstancesYourDetails].getOrElse(CircumstancesYourDetails()).wantsContactEmail == Mappings.yes
+    getBooleanProperty("email.frontend") && circs.questionGroup[CircumstancesYourDetails].getOrElse(CircumstancesYourDetails()).wantsContactEmail == Mappings.yes
 }
 
 @common.govMain(messages("circs.thankyou")) {
 
-<div class="carers-allowance clearfix" data-journey="carers-allowance:report-change:thank-you">
+    <div class="carers-allowance clearfix" data-journey="carers-allowance:report-change:thank-you">
 
-    @common.protoType()
+        @common.protoType()
 
-    <div class="grid-row main-grid">
+        <div class="grid-row main-grid">
 
-        <article class="column-three-quarters main-content finish-statement">
+            <article class="column-three-quarters main-content finish-statement">
 
-            <section class="app-complete">
-                <h1 class="form-title heading-large">@Html(messages("circs.thankyou"))</h1>
-            </section>
+                <section class="app-complete">
+                    <h1 class="form-title heading-large">@Html(messages("circs.thankyou"))</h1>
+                </section>
 
-            <p class="hide-desktops">@Html(messages("circs.feedback.link"))</p>
+                <p class="hide-desktops">@Html(messages("circs.feedback.link"))</p>
 
-            <div class="finish-info">
+                <div class="finish-info">
 
-                <h2 class="heading-medium">@Html(messages("next"))</h2>
+                    <h2 class="heading-medium">@Html(messages("next"))</h2>
 
-                @if(isEmail){
-                    <p>@Html(messages("email.circs.thankYou"))</p>
-                }
-                @if(showBreaksInCareMessages) {
-                    <p id="breaksInCareMessageTitle">@Html(messages("circs.thankyou.breakmessage.content"))</p>
-                }
-                @if(showEmployment1Messages || showEmployment2Messages){
-                    <p>@Html(messages("circs.next.1"))</p>
-                } else {
-                    <p>@Html(messages("circs.next.nodocuments.1"))</p>
-                    <p>@Html(messages("circs.next.nodocuments.2")) <a href="@Html(messages("thankyou.report.change.url"))" rel="external" target="blank">@Html(messages("thankyou.report.another.change.short"))</a>.</p>
-                }
+                    @if(isEmail) {
+                        <p>@Html(messages("email.circs.thankYou"))</p>
+                    }
+                    @if(showBreaksInCareMessages) {
+                        <p id="breaksInCareMessageTitle">@Html(messages("circs.thankyou.breakmessage.content"))</p>
+                    }
+                    @if(showEmployment1Messages || showEmployment2Messages) {
+                        <p>@Html(messages("circs.next.1"))</p>
+                    } else {
+                        <p>@Html(messages("circs.next.nodocuments.1"))</p>
+                        <p>@Html(messages("circs.next.nodocuments.2")) <a href="@Html(messages("thankyou.report.change.url"))" rel="external" target="blank">@Html(messages("thankyou.report.another.change.short"))</a>
+                            .</p>
+                    }
 
-                @if(showEmployment1Messages || showEmployment2Messages) {
+                    @if(showEmployment1Messages || showEmployment2Messages) {
 
-                    <div class="send-info">
+                        <div class="send-info">
 
-                        <h2 class="heading-medium">@Html(messages("evidence.required"))</h2>
+                            <h2 class="heading-medium">@Html(messages("evidence.required"))</h2>
 
-                        <p>@Html(messages("thankyou.send"))</p>
+                            <p>@Html(messages("thankyou.send"))</p>
 
-                        <ul class="list-bullet">
-                            @if(showEmployment1Messages) {
-                                <li id="employment1MessageTitle">@Html(messages("circs.thankyou.employment1message2.content"))</li>
-                                @if(showEmploymentPensionMessage) {
-                                    <li>@Html(messages("circs.thankyou.employment1message3.content"))</li>
+                            <ul class="list-bullet">
+                                @if(showEmployment1Messages) {
+                                    <li id="employment1MessageTitle">@Html(messages("circs.thankyou.employment1message2.content"))</li>
+                                    @if(showEmploymentPensionMessage) {
+                                        <li>@Html(messages("circs.thankyou.employment1message3.content"))</li>
+                                    }
                                 }
-                            }
-                            @if(showEmployment2Messages) {
-                                <li id="employment2MessageTitle">@Html(messages("circs.thankyou.employment2message2.content"))</li>
-                                <li>@Html(messages("circs.thankyou.employment2message3.content"))</li>
-                                @if(showEmploymentPensionMessage) {
-                                    <li>@Html(messages("circs.thankyou.employment2message4.content"))</li>
+                                @if(showEmployment2Messages) {
+                                    <li id="employment2MessageTitle">@Html(messages("circs.thankyou.employment2message2.content"))</li>
+                                    <li>@Html(messages("circs.thankyou.employment2message3.content"))</li>
+                                    @if(showEmploymentPensionMessage) {
+                                        <li>@Html(messages("circs.thankyou.employment2message4.content"))</li>
+                                    }
                                 }
-                            }
-                        </ul>
+                            </ul>
 
-                        <p>@Html(messages("evidence.include.documents"))</p>
+                            <p>@Html(messages("evidence.include.documents"))</p>
 
-                        <p id="employment1MessageAddressTitle">@Html(messages("address.send"))</p>
+                            <p id="employment1MessageAddressTitle">@Html(messages("address.send"))</p>
 
-                        <p>
-                            <span><b>@Html(messages("s11.g5.help11"))</b></span><br />
-                            <span>@Html(messages("s11.g5.help12"))</span><br />
-                            <span>@Html(messages("s11.g5.help13"))</span><br />
-                            <span>@Html(messages("s11.g5.help14"))</span><br />
-                            @if(!isOriginGB) {
-                                <span>@Html(messages("s11.g5.help14.pc"))</span>
-                            }
-                        </p>
+                            <p>
+                                <span><b>@Html(messages("s11.g5.help11"))</b></span><br />
+                                <span>@Html(messages("s11.g5.help12"))</span><br />
+                                <span>@Html(messages("s11.g5.help13"))</span><br />
+                                <span>@Html(messages("s11.g5.help14"))</span><br />
+                                @if(!isOriginGB) {
+                                    <span>@Html(messages("s11.g5.help14.pc"))</span>
+                                }
+                            </p>
 
-                        <p>@Html(messages("address.details"))</p>
+                            <p>@Html(messages("address.details"))</p>
 
-                    </div>
+                        </div>
 
-                }
+                    }
 
-            </div>
+                </div>
 
-            <br />
+                <br />
 
-            <div class="finish-button">
-                @common.feedbackLink(isFooterItem = false, isThankYou = true) @messages("feedback.takes30secs")
-            </div>
+                <div class="finish-button">
+                    @common.feedbackLink(isFooterItem = false, isThankYou = true) @messages("feedback.takes30secs")
+                </div>
 
-        </article>
+            </article>
 
-        @if(getBooleanProperty("display.transid")) {
-            <input type="hidden" name="transId" id="transId" value="@{ circs.transactionId.getOrElse("NO_TRANS_ID") }"/>
-        }
+            @if(getBooleanProperty("display.transid")) {
+                <input type="hidden" name="transId" id="transId" value="@{
+                    circs.transactionId.getOrElse("NO_TRANS_ID")
+                }"/>
+            }
+
+        </div>
 
     </div>
-
-</div>
 
 }
 
