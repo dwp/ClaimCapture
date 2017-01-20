@@ -5,7 +5,7 @@ import controllers.mappings.Mappings
 import models.DayMonthYear
 import models.domain._
 import models.view.{CachedChangeOfCircs}
-import models.yesNo.YesNoWithDate
+import models.yesNo.{YesNoDontKnowWithDates, YesNoWithDate}
 import org.specs2.mutable._
 import utils.WithApplication
 
@@ -21,7 +21,7 @@ class BreaksSpec extends Specification {
     "generate empty Breaks xml with data and dp even when no breaks" in new WithApplication {
       val claim = Claim(CachedChangeOfCircs.key).update(yourDetails)
       val xml = DWPCoCircs.xml(claim)
-      (xml \\ "CareBreak").size shouldEqual(1)
+      (xml \\ "CareBreak").size shouldEqual (1)
       (xml \\ "CareBreak" \\ "BreaksSinceClaim" \\ "QuestionLabel").text shouldEqual hospitalQuestion
       (xml \\ "CareBreak" \\ "BreaksSinceClaim" \\ "Answer").text shouldEqual "None"
       (xml \\ "CareBreak" \\ "BreaksOtherSinceClaim" \\ "QuestionLabel").text shouldEqual otherQuestion
@@ -88,6 +88,62 @@ class BreaksSpec extends Specification {
       (respiteBreak \\ "StartDate" \\ "Answer").text shouldEqual "02-03-2004"
 
       trailer.toString().split('\n').map(_.trim.filter(_ >= ' ')).mkString shouldEqual breakTrailerXml
+    }
+
+    "generate xml for Other page when Not restarted caring and Yes - Caring Will Restart" in new WithApplication {
+      val break1 = CircsBreak(iterationID = "1", typeOfCare = Breaks.another,
+        caringEnded = Some(DayMonthYear(1, 2, 2003)), caringStarted = Some(YesNoWithDate(Mappings.no, None)),
+        expectToCareAgain = Some(YesNoDontKnowWithDates(Some(Mappings.yes), Some(DayMonthYear(2, 3, 2004)), None)))
+      val breaksInCare = CircsBreaksInCare().update(break1)
+      val claim = Claim(CachedChangeOfCircs.key).update(yourDetails).update(breaksInCare)
+      val circsXml = DWPCoCircs.xml(claim)
+      (circsXml \\ "CareBreak").size shouldEqual (3)
+      val otherBreak = (circsXml \\ "CareBreak")(1)
+
+      (otherBreak \\ "BreakStarted" \\ "QuestionLabel").text shouldEqual ("Have you started providing care again?")
+      (otherBreak \\ "BreakStarted" \\ "Answer").text shouldEqual ("No")
+      (otherBreak \\ "ExpectToCareAgain" \\ "QuestionLabel").text shouldEqual ("Do you expect to start providing care again?")
+      (otherBreak \\ "ExpectToCareAgain" \\ "Answer").text shouldEqual ("Yes")
+      (otherBreak \\ "ExpectToCareAgainDate" \\ "QuestionLabel").text shouldEqual ("What date do you expect to start providing care again?")
+      (otherBreak \\ "ExpectToCareAgainDate" \\ "Answer").text shouldEqual ("02-03-2004")
+      (otherBreak \\ "StopCaringDecisionDate").size shouldEqual (0)
+    }
+
+    "generate xml for Other page when Not restarted caring and No - So Caring Ended" in new WithApplication {
+      val break1 = CircsBreak(iterationID = "1", typeOfCare = Breaks.another,
+        caringEnded = Some(DayMonthYear(1, 2, 2003)), caringStarted = Some(YesNoWithDate(Mappings.no, None)),
+        expectToCareAgain = Some(YesNoDontKnowWithDates(Some(Mappings.no), None, Some(DayMonthYear(3, 3, 2004)))))
+      val breaksInCare = CircsBreaksInCare().update(break1)
+      val claim = Claim(CachedChangeOfCircs.key).update(yourDetails).update(breaksInCare)
+      val circsXml = DWPCoCircs.xml(claim)
+      (circsXml \\ "CareBreak").size shouldEqual (3)
+      val otherBreak = (circsXml \\ "CareBreak")(1)
+
+      (otherBreak \\ "BreakStarted" \\ "QuestionLabel").text shouldEqual ("Have you started providing care again?")
+      (otherBreak \\ "BreakStarted" \\ "Answer").text shouldEqual ("No")
+      (otherBreak \\ "ExpectToCareAgain" \\ "QuestionLabel").text shouldEqual ("Do you expect to start providing care again?")
+      (otherBreak \\ "ExpectToCareAgain" \\ "Answer").text shouldEqual ("No")
+      (otherBreak \\ "StopCaringDecisionDate" \\ "QuestionLabel").text shouldEqual ("What date did you decide that you permanently stopped providing care?")
+      (otherBreak \\ "StopCaringDecisionDate" \\ "Answer").text shouldEqual ("03-03-2004")
+      (otherBreak \\ "ExpectToCareAgainDate").size shouldEqual (0)
+    }
+
+    "generate xml for Other page when Not restarted caring and Dont Know If Will" in new WithApplication {
+      val break1 = CircsBreak(iterationID = "1", typeOfCare = Breaks.another,
+        caringEnded = Some(DayMonthYear(1, 2, 2003)), caringStarted = Some(YesNoWithDate(Mappings.no, None)),
+        expectToCareAgain = Some(YesNoDontKnowWithDates(Some(Mappings.dontknow), None, None)))
+      val breaksInCare = CircsBreaksInCare().update(break1)
+      val claim = Claim(CachedChangeOfCircs.key).update(yourDetails).update(breaksInCare)
+      val circsXml = DWPCoCircs.xml(claim)
+      (circsXml \\ "CareBreak").size shouldEqual (3)
+      val otherBreak = (circsXml \\ "CareBreak")(1)
+
+      (otherBreak \\ "BreakStarted" \\ "QuestionLabel").text shouldEqual ("Have you started providing care again?")
+      (otherBreak \\ "BreakStarted" \\ "Answer").text shouldEqual ("No")
+      (otherBreak \\ "ExpectToCareAgain" \\ "QuestionLabel").text shouldEqual ("Do you expect to start providing care again?")
+      (otherBreak \\ "ExpectToCareAgain" \\ "Answer").text shouldEqual ("Don't know")
+      (otherBreak \\ "ExpectToCareAgainDate").size shouldEqual (0)
+      (otherBreak \\ "StopCaringDecisionDate").size shouldEqual (0)
     }
   }
   section("unit")

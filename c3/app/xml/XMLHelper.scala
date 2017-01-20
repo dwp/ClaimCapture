@@ -189,6 +189,7 @@ object XMLHelper {
        case "other" => Other
        case "true" => Yes
        case "false" => No
+       case "dontknow" => dontknow
        case _ => value
   }
 

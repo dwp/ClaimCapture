@@ -136,24 +136,40 @@ object BreaksInCare {
 
   def createOtherBreak(break: CircsBreak, dp: String) = {
     <CareBreak>
-      {question(<BreaksType/>, "Type of Break", "Other")}{break.caringStarted.get.answer match {
-      case "yes" => {
-        break.caringStartedTime match {
-          case Some(e) => {
-            question(<BreakStarted/>, "caringStarted.answer", break.caringStarted.get.answer, dp) ++
-              question(<StartDate/>, "caringStarted.date", break.caringStarted.get.date.get.`dd-MM-yyyy`, dp) ++
-              question(<StartTime/>, "caringStarted.time", e, dp)
-          }
-          case _ => {
-            question(<BreakStarted/>, "caringStarted.answer", break.caringStarted.get.answer, dp) ++
-              question(<StartDate/>, "caringStarted.date", break.caringStarted.get.date.get.`dd-MM-yyyy`, dp)
+      {question(<BreaksType/>, "Type of Break", "Other")}
+      {break.caringStarted.get.answer match {
+        case "yes" => {
+          break.caringStartedTime match {
+            case Some(e) => {
+              question(<BreakStarted/>, "caringStarted.answer", break.caringStarted.get.answer, dp) ++
+                question(<StartDate/>, "caringStarted.date", break.caringStarted.get.date.get.`dd-MM-yyyy`, dp) ++
+                question(<StartTime/>, "caringStarted.time", e, dp)
+            }
+            case _ => {
+              question(<BreakStarted/>, "caringStarted.answer", break.caringStarted.get.answer, dp) ++
+                question(<StartDate/>, "caringStarted.date", break.caringStarted.get.date.get.`dd-MM-yyyy`, dp)
+            }
           }
         }
-      }
-      case "no" => {
-        question(<BreakStarted/>, "caringStarted.answer", break.caringStarted.get.answer, dp)
-      }
-      case _ => NodeSeq.Empty
+        case "no" => {
+              break.expectToCareAgain.get.answer match{
+                case Some("yes") => {
+                  question(<BreakStarted/>, "caringStarted.answer", break.caringStarted.get.answer, dp) ++
+                  question(<ExpectToCareAgain/>, "expectToCareAgain.answer", break.expectToCareAgain.get.answer.getOrElse("Error")) ++
+                  question(<ExpectToCareAgainDate/>, "expectToCareAgain.yesdate", break.expectToCareAgain.get.yesdate.get)
+                }
+                case Some("no") => {
+                  question(<BreakStarted/>, "caringStarted.answer", break.caringStarted.get.answer, dp) ++
+                  question(<ExpectToCareAgain/>, "expectToCareAgain.answer", break.expectToCareAgain.get.answer.getOrElse("Error")) ++
+                  question(<StopCaringDecisionDate/>, "expectToCareAgain.nodate", break.expectToCareAgain.get.nodate.get)
+                }
+                case _ => {
+                  question(<BreakStarted/>, "caringStarted.answer", break.caringStarted.get.answer, dp) ++
+                  question(<ExpectToCareAgain/>, "expectToCareAgain.answer", break.expectToCareAgain.get.answer.getOrElse("Error"))
+                }
+              }
+            }
+        case _ => NodeSeq.Empty
     }}{break.caringEndedTime match {
       case Some(e) => {
         question(<EndDate/>, "caringEnded.date", break.caringEnded.get.`dd-MM-yyyy`, dp) ++

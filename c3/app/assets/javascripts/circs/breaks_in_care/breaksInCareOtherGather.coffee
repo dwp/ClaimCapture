@@ -4,7 +4,7 @@ S = (selector) -> $("##{selector}")
 
 window.initEvents = (otherStarted_yes, otherStarted_no, otherStartedWrap, otherNotStartedWrap, otherStartDate,
   otherEndedDate, otherStartTime, otherEndedTime, someWhereElseDpWrap, someWhereElseYouWrap,
-                     expectCareAgain_yes, expectCareAgain_no, expectCareAgain_dontknow, expectStartCaringDateWrap, permanentBreakDateWrap, dontknowWrap) ->
+                     expectToCareAgain_yes, expectToCareAgain_no, expectToCareAgain_dontknow, expectYesWrap, expectNoWrap, dontknowWrap) ->
 
   if not isChecked(otherStarted_yes)
     hideWrapper(someWhereElseYouWrap)
@@ -14,13 +14,13 @@ window.initEvents = (otherStarted_yes, otherStarted_no, otherStartedWrap, otherN
   if not isChecked(otherStarted_no)
     hideWrapper(otherNotStartedWrap)
 
-  if not isChecked(expectCareAgain_yes)
-    hideWrapper(expectStartCaringDateWrap)
+  if not isChecked(expectToCareAgain_yes)
+    hideWrapper(expectYesWrap)
 
-  if not isChecked(expectCareAgain_no)
-    hideWrapper(permanentBreakDateWrap)
+  if not isChecked(expectToCareAgain_no)
+    hideWrapper(expectNoWrap)
 
-  if not isChecked(expectCareAgain_dontknow)
+  if not isChecked(expectToCareAgain_dontknow)
     hideWrapper(dontknowWrap)
 
   S(otherStarted_yes).on "click", ->
@@ -33,19 +33,19 @@ window.initEvents = (otherStarted_yes, otherStarted_no, otherStartedWrap, otherN
     hideWrapper(otherStartedWrap)
     showWrapper(otherNotStartedWrap)
 
-  S(expectCareAgain_yes).on "click", ->
-    hideWrapper(permanentBreakDateWrap)
+  S(expectToCareAgain_yes).on "click", ->
+    hideWrapper(expectNoWrap)
     hideWrapper(dontknowWrap)
-    showWrapper(expectStartCaringDateWrap)
+    showWrapper(expectYesWrap)
 
-  S(expectCareAgain_no).on "click", ->
-    hideWrapper(expectStartCaringDateWrap)
+  S(expectToCareAgain_no).on "click", ->
+    hideWrapper(expectYesWrap)
     hideWrapper(dontknowWrap)
-    showWrapper(permanentBreakDateWrap)
+    showWrapper(expectNoWrap)
 
-  S(expectCareAgain_dontknow).on "click", ->
-    hideWrapper(expectStartCaringDateWrap)
-    hideWrapper(permanentBreakDateWrap)
+  S(expectToCareAgain_dontknow).on "click", ->
+    hideWrapper(expectYesWrap)
+    hideWrapper(expectNoWrap)
     showWrapper(dontknowWrap)
 
   if isNotMondayOrFriday(otherStartDate)

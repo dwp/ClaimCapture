@@ -27,7 +27,7 @@ class GBreaksInCareOtherContentIntegrationSpec extends Specification {
       page goToThePage()
       page.clickLinkOrButton("#caringStarted_answer_no")
       page visible ("#yesdateWrap") must beFalse
-      page.clickLinkOrButton("#expectCareAgain_answer_yes")
+      page.clickLinkOrButton("#expectToCareAgain_answer_yes")
       page visible ("#yesdateWrap") must beTrue
     }
 
@@ -37,7 +37,7 @@ class GBreaksInCareOtherContentIntegrationSpec extends Specification {
       page goToThePage()
       page.clickLinkOrButton("#caringStarted_answer_no")
       page visible ("#nodateWrap") must beFalse
-      page.clickLinkOrButton("#expectCareAgain_answer_no")
+      page.clickLinkOrButton("#expectToCareAgain_answer_no")
       page visible ("#nodateWrap") must beTrue
     }
 
@@ -47,7 +47,7 @@ class GBreaksInCareOtherContentIntegrationSpec extends Specification {
       page goToThePage()
       page.clickLinkOrButton("#caringStarted_answer_no")
       page visible ("#dontknowWrap") must beFalse
-      page.clickLinkOrButton("#expectCareAgain_answer_dontknow")
+      page.clickLinkOrButton("#expectToCareAgain_answer_dontknow")
       page visible ("#dontknowWrap") must beTrue
     }
   }

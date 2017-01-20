@@ -132,6 +132,7 @@ package object app {
     val NotKnown = "Not known"
     val Yes = "Yes"
     val No = "No"
+    val dontknow = "Don't know"
     val yes = "yes"
     val no = "no"
     val GBP = "GBP"
