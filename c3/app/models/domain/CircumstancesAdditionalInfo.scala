@@ -69,20 +69,6 @@ object CircumstancesAddressChange extends QGIdentifier(id = s"${CircumstancesRep
   def textMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//AddressChange//OtherChanges//Answer")
 }
 
-case class CircumstancesBreaksInCare(breaksInCareStartDate: DayMonthYear = DayMonthYear(None, None, None),
-                                     breaksInCareStartTime: Option[String] = None,
-                                     wherePersonBreaksInCare: RadioWithText = RadioWithText("", None),
-                                     whereYouBreaksInCare: RadioWithText = RadioWithText("", None),
-                                     breakEnded: YesNoWithDateTimeAndText = YesNoWithDateTimeAndText("", None, None),
-                                     expectStartCaring: YesNoDontKnowWithDates = YesNoDontKnowWithDates(None, None, None),
-                                     medicalCareDuringBreak: String = "",
-                                     moreAboutChanges: Option[String] = None) extends QuestionGroup(CircumstancesBreaksInCare)
-
-object CircumstancesBreaksInCare extends QGIdentifier(id = s"${CircumstancesReportChanges.id}.g7") {
-
-  def textMaxLength = TextLengthHelper.textMaxLength("DWPCAChangeOfCircumstances//BreakFromCaring//MoreChanges//Answer")
-}
-
 case class CircumstancesBreaksInCareSummary(additionalBreaks: YesNoWithText = YesNoWithText("", None)) extends QuestionGroup(CircumstancesBreaksInCareSummary)
 
 object CircumstancesBreaksInCareSummary extends QGIdentifier(id = s"${CircumstancesReportChanges.id}.g8") {
