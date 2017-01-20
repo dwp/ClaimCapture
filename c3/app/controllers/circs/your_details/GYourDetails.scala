@@ -2,6 +2,7 @@ package controllers.circs.your_details
 
 import app.{ReportChange => r}
 import controllers.CarersForms._
+import controllers.circs.your_details.GYourDetailsPOPULATED._
 import controllers.mappings.Mappings._
 import controllers.mappings.NINOMappings._
 import models.domain.EMail._
@@ -65,7 +66,6 @@ object GYourDetails extends Controller with CachedChangeOfCircs with Navigable w
 
   private def getReportChangesRedirect(circs: Claim) = {
     val reportChanges = circs.questionGroup[ReportChangeReason].getOrElse(ReportChangeReason()).reportChanges
-    val breakInCare = circs.questionGroup[CircumstancesBreaksInCare].getOrElse(CircumstancesBreaksInCare())
 
     val selectedQG: (QGIdentifier, Call) = {
       reportChanges match {
@@ -73,7 +73,7 @@ object GYourDetails extends Controller with CachedChangeOfCircs with Navigable w
         case r.AddressChange.name => CircumstancesAddressChange -> controllers.circs.report_changes.routes.GAddressChange.present()
         case r.StoppedCaring.name => CircumstancesStoppedCaring -> controllers.circs.report_changes.routes.GPermanentlyStoppedCaring.present()
         case r.PaymentChange.name => CircumstancesPaymentChange -> controllers.circs.report_changes.routes.GPaymentChange.present()
-        case r.BreakFromCaring.name => CircumstancesBreaksInCare -> controllers.circs.breaks_in_care.routes.GBreaksInCareSummary.present()
+        case r.BreakFromCaring.name => CircsBreaksInCare -> controllers.circs.breaks_in_care.routes.GBreaksInCareSummary.present()
         case _ => CircumstancesOtherInfo -> controllers.circs.report_changes.routes.GOtherChangeInfo.present()
       }
     }
