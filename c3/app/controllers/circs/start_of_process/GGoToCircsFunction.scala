@@ -22,8 +22,7 @@ object GGoToCircsFunction extends Controller with CachedChangeOfCircs with Navig
     val reportChanges = circs.questionGroup[ReportChangeReason].getOrElse(ReportChangeReason()).reportChanges
 
     // for qs groups under this section, if it is not reportedChange - delete
-    val optSections = Stack(CircumstancesSelfEmployment,CircumstancesOtherInfo,CircumstancesStoppedCaring,
-      CircumstancesPaymentChange, CircumstancesAddressChange, CircumstancesBreaksInCare, CircumstancesEmploymentChange)
+    val optSections = Stack(CircumstancesSelfEmployment,CircumstancesOtherInfo,CircumstancesStoppedCaring)
 
     val selectedQG:(QGIdentifier,Call) = {
       reportChanges match {
@@ -31,7 +30,7 @@ object GGoToCircsFunction extends Controller with CachedChangeOfCircs with Navig
         case r.AddressChange.name => CircumstancesAddressChange  -> controllers.circs.report_changes.routes.GAddressChange.present()
         case r.StoppedCaring.name =>  CircumstancesStoppedCaring  -> controllers.circs.report_changes.routes.GPermanentlyStoppedCaring.present()
         case r.PaymentChange.name => CircumstancesPaymentChange  -> controllers.circs.report_changes.routes.GPaymentChange.present()
-        case r.BreakFromCaring.name => CircumstancesBreaksInCare  -> controllers.circs.breaks_in_care.routes.GBreaksInCareSummary.present()
+        case r.BreakFromCaring.name => CircsBreaksInCare  -> controllers.circs.breaks_in_care.routes.GBreaksInCareSummary.present()
         case _ => CircumstancesOtherInfo -> controllers.circs.report_changes.routes.GOtherChangeInfo.present()
       }
     }

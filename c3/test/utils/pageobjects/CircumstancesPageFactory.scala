@@ -16,8 +16,6 @@ object CircumstancesPageFactory extends PageFactory {
       case GOtherChangeInfoPage.url => GOtherChangeInfoPage (ctx)
       case GPaymentChangePage.url => GPaymentChangePage (ctx)
       case GAddressChangePage.url => GAddressChangePage (ctx)
-      case GBreaksInCarePage.url => GBreaksInCarePage (ctx)
-      case GBreaksInCareSummaryPage.url => GBreaksInCareSummaryPage (ctx)
       case GEmploymentChangePage.url => GEmploymentChangePage (ctx)
       case GEmploymentPayPage.url => GEmploymentPayPage (ctx)
       case GEmploymentPensionExpensesPage.url => GEmploymentPensionExpensesPage (ctx)
