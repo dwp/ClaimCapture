@@ -17,6 +17,8 @@ class GCircsBreaksInCareOtherPage(ctx:PageObjectsContext, iteration: Int) extend
   declareRadioList("#whereWereYou_answer","AboutTheCareYouProvideBreakWhereWereYou_"+iteration)
   declareInput("#whereWereYou_text", "AboutTheCareYouProvideBreakWhereWereYouText_" + iteration)
 
+  declareRadioList("#expectToCareAgain_answer","AboutTheCareYouProvideBreakExpectToCareAgain_"+iteration)
+
   protected override def getNewIterationNumber = {
     import IterationManager._
     ctx.iterationManager.increment(CircsBreaks)
@@ -56,6 +58,7 @@ object GCircsBreaksInCareOtherPage {
     val claim = new TestData
     claim.AboutTheCareYouProvideBreakEndDate_1 = "01/10/2015"
     claim.AboutTheCareYouProvideBreakStartAnswer_1 = Mappings.no
+    claim.AboutTheCareYouProvideBreakExpectToCareAgain_1 = Mappings.dontknow
     claim
   }
 
@@ -63,6 +66,7 @@ object GCircsBreaksInCareOtherPage {
     val claim = new TestData
     claim.AboutTheCareYouProvideBreakEndDate_2 = "01/10/2015"
     claim.AboutTheCareYouProvideBreakStartAnswer_2 = Mappings.no
+    claim.AboutTheCareYouProvideBreakExpectToCareAgain_2 = Mappings.dontknow
     claim
   }
 
@@ -70,6 +74,7 @@ object GCircsBreaksInCareOtherPage {
     val claim = new TestData
     claim.AboutTheCareYouProvideBreakEndDate_3 = "01/10/2015"
     claim.AboutTheCareYouProvideBreakStartAnswer_3 = Mappings.no
+    claim.AboutTheCareYouProvideBreakExpectToCareAgain_3 = Mappings.dontknow
     claim
   }
 }
