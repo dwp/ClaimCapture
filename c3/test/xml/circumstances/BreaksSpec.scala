@@ -244,11 +244,16 @@ class BreaksSpec extends Specification {
     }
 
     "generate Breaks xml including summary page MoreAbout" in new WithApplication {
-      val breakType=CircsBreaksInCareType(breaksmoreabout = "Some text in moreinfo")
-      val claim = Claim(CachedChangeOfCircs.key).update(yourDetails).update(breakType)
+      val hospitalbreak = CircsBreak(iterationID = "1", typeOfCare = CircsBreaks.hospital, whoWasAway = BreaksInCareGatherOptions.You, whenWereYouAdmitted = Some(DayMonthYear(1, 2, 2003)),
+        yourStayEnded = Some(YesNoWithDate(Mappings.no, None)))
+      val breaksInCare = CircsBreaksInCare().update(hospitalbreak)
+      val breakType = CircsBreaksInCareType(breaksmoreabout = "Some text in moreinfo")
+      val claim = Claim(CachedChangeOfCircs.key).update(breaksInCare).update(yourDetails).update(breakType)
       val circsXml = DWPCoCircs.xml(claim)
-      (circsXml \\ "BreaksMoreAbout" \\ "QuestionLabel" ).text shouldEqual "Tell us more about your changes"
-      (circsXml \\ "BreaksMoreAbout" \\ "Answer" ).text shouldEqual "Some text in moreinfo"
+      (circsXml \\ "CareBreak").size shouldEqual (3)
+      val trailer = (circsXml \\ "CareBreak")(2)
+      (trailer \\ "BreaksMoreAbout" \\ "QuestionLabel").text shouldEqual "Tell us more about your changes"
+      (trailer \\ "BreaksMoreAbout" \\ "Answer").text shouldEqual "Some text in moreinfo"
     }
   }
   section("unit")

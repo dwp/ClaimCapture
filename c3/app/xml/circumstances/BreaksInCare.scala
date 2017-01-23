@@ -50,11 +50,6 @@ object BreaksInCare {
       question(<BreaksSinceClaim/>, label, answer, dp)
     }
 
-    val breaksInCareType = circs.questionGroup[CircsBreaksInCareType].getOrElse(CircsBreaksInCareType())
-    val xmlMoreAbout = {
-      {question(<BreaksMoreAbout/>,"breaksmoreabout", breaksInCareType.breaksmoreabout)}
-    }
-
     val your = "@yourname"
     val xmlFirstBreak = {
       <CareBreak>
@@ -62,17 +57,20 @@ object BreaksInCare {
       </CareBreak>
     }
 
+    val breaksInCareType = circs.questionGroup[CircsBreaksInCareType].getOrElse(CircsBreaksInCareType())
     val xmlLastBreak = {
       if (breaksInCare.breaks.size > 0) {
         <CareBreak>
-          {breaksInCareLabel("circs.breaktype_another", "None", dp)}{question(<BreaksOtherSinceClaim/>, "circs.breaktype_other_another", "no", dp)}
+          {breaksInCareLabel("circs.breaktype_another", "None", dp)}
+          {question(<BreaksOtherSinceClaim/>, "circs.breaktype_other_another", "no", dp)}
+          {question(<BreaksMoreAbout/>,"breaksmoreabout", breaksInCareType.breaksmoreabout)}
         </CareBreak>
       } else {
         NodeSeq.Empty
       }
     }
 
-    xmlMoreAbout ++ xmlFirstBreak ++ {
+    xmlFirstBreak ++ {
       for ((break, index) <- breaksInCare.breaks.zipWithIndex) yield {
         {
           {
