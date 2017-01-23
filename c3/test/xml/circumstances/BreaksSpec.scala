@@ -17,7 +17,6 @@ class BreaksSpec extends Specification {
     val hospitalOtherQuestion = "Have there been any other times you or @dpname have been in hospital, respite or care home?"
     val otherQuestion = "Have there been any other times you've not provided care for @dpname for 35 hours a week?"
     lazy val yourDetails = CircumstancesYourDetails(theirFirstName = "Phil", theirSurname = "Smith", theirRelationshipToYou = "Husband")
-
     "generate empty Breaks xml with data and dp even when no breaks" in new WithApplication {
       val claim = Claim(CachedChangeOfCircs.key).update(yourDetails)
       val xml = DWPCoCircs.xml(claim)
@@ -144,6 +143,104 @@ class BreaksSpec extends Specification {
       (otherBreak \\ "ExpectToCareAgain" \\ "Answer").text shouldEqual ("Don't know")
       (otherBreak \\ "ExpectToCareAgainDate").size shouldEqual (0)
       (otherBreak \\ "StopCaringDecisionDate").size shouldEqual (0)
+    }
+
+    "generate xml for Hospital page when You Hospital Not restarted caring and Yes - Caring Will Restart" in new WithApplication {
+      val break1 = CircsBreak(iterationID = "1", typeOfCare = Breaks.hospital, whoWasAway = BreaksInCareGatherOptions.You,
+        whenWereYouAdmitted = Some((DayMonthYear(1, 1, 2003))), yourStayEnded = Some(YesNoWithDate(Mappings.no, None)),
+        expectToCareAgain = Some(YesNoDontKnowWithDates(Some(Mappings.yes), Some(DayMonthYear(2, 3, 2004)), None)))
+      val breaksInCare = CircsBreaksInCare().update(break1)
+      val claim = Claim(CachedChangeOfCircs.key).update(yourDetails).update(breaksInCare)
+      val circsXml = DWPCoCircs.xml(claim)
+      (circsXml \\ "CareBreak").size shouldEqual (3)
+      val hospitalBreak = (circsXml \\ "CareBreak")(1)
+      (hospitalBreak \\ "BreaksType" \\ "QuestionLabel").text shouldEqual ("Type of Break")
+      (hospitalBreak \\ "BreaksType" \\ "Answer").text shouldEqual ("YouHospital")
+      (hospitalBreak \\ "WhoWasAway" \\ "QuestionLabel").text shouldEqual ("Who was in hospital?")
+      (hospitalBreak \\ "WhoWasAway" \\ "Answer").text shouldEqual ("@yourname")
+      (hospitalBreak \\ "StartDate" \\ "QuestionLabel").text shouldEqual ("When were you admitted?")
+      (hospitalBreak \\ "StartDate" \\ "Answer").text shouldEqual ("01-01-2003")
+      (hospitalBreak \\ "BreakEnded" \\ "QuestionLabel").text shouldEqual ("Has the hospital stay ended?")
+      (hospitalBreak \\ "BreakEnded" \\ "Answer").text shouldEqual ("No")
+      (hospitalBreak \\ "ExpectToCareAgain" \\ "QuestionLabel").text shouldEqual ("Do you expect to start providing care again?")
+      (hospitalBreak \\ "ExpectToCareAgain" \\ "Answer").text shouldEqual ("Yes")
+      (hospitalBreak \\ "ExpectToCareAgainDate" \\ "QuestionLabel").text shouldEqual ("What date do you expect to start providing care again?")
+      (hospitalBreak \\ "ExpectToCareAgainDate" \\ "Answer").text shouldEqual ("02-03-2004")
+    }
+
+    "generate xml for Hospital page when Dp Hospital Not restarted caring and No - Caring Will Not Restart" in new WithApplication {
+      val break1 = CircsBreak(iterationID = "1", typeOfCare = Breaks.hospital, whoWasAway = BreaksInCareGatherOptions.DP,
+        whenWasDpAdmitted = Some((DayMonthYear(1, 1, 2003))), dpStayEnded = Some(YesNoWithDate(Mappings.no, None)), breaksInCareStillCaring = Some(Mappings.no),
+        expectToCareAgain = Some(YesNoDontKnowWithDates(Some(Mappings.no), None, Some(DayMonthYear(2, 3, 2004)))))
+      val breaksInCare = CircsBreaksInCare().update(break1)
+      val claim = Claim(CachedChangeOfCircs.key).update(yourDetails).update(breaksInCare)
+      val circsXml = DWPCoCircs.xml(claim)
+      (circsXml \\ "CareBreak").size shouldEqual (3)
+      val hospitalBreak = (circsXml \\ "CareBreak")(1)
+      (hospitalBreak \\ "BreaksType" \\ "QuestionLabel").text shouldEqual ("Type of Break")
+      (hospitalBreak \\ "BreaksType" \\ "Answer").text shouldEqual ("DPHospital")
+      (hospitalBreak \\ "WhoWasAway" \\ "QuestionLabel").text shouldEqual ("Who was in hospital?")
+      (hospitalBreak \\ "WhoWasAway" \\ "Answer").text shouldEqual ("@dpname")
+      (hospitalBreak \\ "StartDate" \\ "QuestionLabel").text shouldEqual ("When was @dpname admitted?")
+      (hospitalBreak \\ "StartDate" \\ "Answer").text shouldEqual ("01-01-2003")
+      (hospitalBreak \\ "BreakEnded" \\ "QuestionLabel").text shouldEqual ("Has the hospital stay ended?")
+      (hospitalBreak \\ "BreakEnded" \\ "Answer").text shouldEqual ("No")
+      (hospitalBreak \\ "BreaksInCareRespiteStillCaring" \\ "QuestionLabel").text shouldEqual ("During this time in hospital, were you still providing care for @dpname for 35 hours a week?")
+      (hospitalBreak \\ "BreaksInCareRespiteStillCaring" \\ "Answer").text shouldEqual ("No")
+      (hospitalBreak \\ "ExpectToCareAgain" \\ "QuestionLabel").text shouldEqual ("Do you expect to start providing care again?")
+      (hospitalBreak \\ "ExpectToCareAgain" \\ "Answer").text shouldEqual ("No")
+      (hospitalBreak \\ "StopCaringDecisionDate" \\ "QuestionLabel").text shouldEqual ("What date did you decide that you permanently stopped providing care?")
+      (hospitalBreak \\ "StopCaringDecisionDate" \\ "Answer").text shouldEqual ("02-03-2004")
+    }
+
+    "generate xml for Respite page when You in Respite Not restarted caring and Yes - Caring Will Restart" in new WithApplication {
+      val break1 = CircsBreak(iterationID = "1", typeOfCare = Breaks.carehome, whoWasAway = BreaksInCareGatherOptions.You,
+        whenWereYouAdmitted = Some((DayMonthYear(1, 1, 2003))), yourStayEnded = Some(YesNoWithDate(Mappings.no, None)),
+        expectToCareAgain = Some(YesNoDontKnowWithDates(Some(Mappings.yes), Some(DayMonthYear(2, 3, 2004)), None)),
+        yourMedicalProfessional = Some(Mappings.yes))
+      val breaksInCare = CircsBreaksInCare().update(break1)
+      val claim = Claim(CachedChangeOfCircs.key).update(yourDetails).update(breaksInCare)
+      val circsXml = DWPCoCircs.xml(claim)
+      (circsXml \\ "CareBreak").size shouldEqual (3)
+      val hospitalBreak = (circsXml \\ "CareBreak")(1)
+      (hospitalBreak \\ "BreaksType" \\ "QuestionLabel").text shouldEqual ("Type of Break")
+      (hospitalBreak \\ "BreaksType" \\ "Answer").text shouldEqual ("YouRespite")
+      (hospitalBreak \\ "WhoWasAway" \\ "QuestionLabel").text shouldEqual ("Who was in respite or a care home?")
+      (hospitalBreak \\ "WhoWasAway" \\ "Answer").text shouldEqual ("@yourname")
+      (hospitalBreak \\ "StartDate" \\ "QuestionLabel").text shouldEqual ("When were you admitted?")
+      (hospitalBreak \\ "StartDate" \\ "Answer").text shouldEqual ("01-01-2003")
+      (hospitalBreak \\ "BreakEnded" \\ "QuestionLabel").text shouldEqual ("Has the respite or care home stay ended?")
+      (hospitalBreak \\ "BreakEnded" \\ "Answer").text shouldEqual ("No")
+      (hospitalBreak \\ "ExpectToCareAgain" \\ "QuestionLabel").text shouldEqual ("Do you expect to start providing care again?")
+      (hospitalBreak \\ "ExpectToCareAgain" \\ "Answer").text shouldEqual ("Yes")
+      (hospitalBreak \\ "ExpectToCareAgainDate" \\ "QuestionLabel").text shouldEqual ("What date do you expect to start providing care again?")
+      (hospitalBreak \\ "ExpectToCareAgainDate" \\ "Answer").text shouldEqual ("02-03-2004")
+    }
+
+    "generate xml for Respite page when Dp in Respite Not restarted caring and No - Caring Will Not Restart" in new WithApplication {
+      val break1 = CircsBreak(iterationID = "1", typeOfCare = Breaks.carehome, whoWasAway = BreaksInCareGatherOptions.DP,
+        whenWasDpAdmitted = Some((DayMonthYear(1, 1, 2003))), dpStayEnded = Some(YesNoWithDate(Mappings.no, None)), breaksInCareStillCaring = Some(Mappings.no),
+        expectToCareAgain = Some(YesNoDontKnowWithDates(Some(Mappings.no), None, Some(DayMonthYear(2, 3, 2004)))),
+        dpMedicalProfessional = Some(Mappings.yes))
+      val breaksInCare = CircsBreaksInCare().update(break1)
+      val claim = Claim(CachedChangeOfCircs.key).update(yourDetails).update(breaksInCare)
+      val circsXml = DWPCoCircs.xml(claim)
+      (circsXml \\ "CareBreak").size shouldEqual (3)
+      val hospitalBreak = (circsXml \\ "CareBreak")(1)
+      (hospitalBreak \\ "BreaksType" \\ "QuestionLabel").text shouldEqual ("Type of Break")
+      (hospitalBreak \\ "BreaksType" \\ "Answer").text shouldEqual ("DPRespite")
+      (hospitalBreak \\ "WhoWasAway" \\ "QuestionLabel").text shouldEqual ("Who was in respite or a care home?")
+      (hospitalBreak \\ "WhoWasAway" \\ "Answer").text shouldEqual ("@dpname")
+      (hospitalBreak \\ "StartDate" \\ "QuestionLabel").text shouldEqual ("When was @dpname admitted?")
+      (hospitalBreak \\ "StartDate" \\ "Answer").text shouldEqual ("01-01-2003")
+      (hospitalBreak \\ "BreakEnded" \\ "QuestionLabel").text shouldEqual ("Has the respite or care home stay ended?")
+      (hospitalBreak \\ "BreakEnded" \\ "Answer").text shouldEqual ("No")
+      (hospitalBreak \\ "BreaksInCareRespiteStillCaring" \\ "QuestionLabel").text shouldEqual ("During this time in hospital, were you still providing care for @dpname for 35 hours a week?")
+      (hospitalBreak \\ "BreaksInCareRespiteStillCaring" \\ "Answer").text shouldEqual ("No")
+      (hospitalBreak \\ "ExpectToCareAgain" \\ "QuestionLabel").text shouldEqual ("Do you expect to start providing care again?")
+      (hospitalBreak \\ "ExpectToCareAgain" \\ "Answer").text shouldEqual ("No")
+      (hospitalBreak \\ "StopCaringDecisionDate" \\ "QuestionLabel").text shouldEqual ("What date did you decide that you permanently stopped providing care?")
+      (hospitalBreak \\ "StopCaringDecisionDate" \\ "Answer").text shouldEqual ("02-03-2004")
     }
   }
   section("unit")
