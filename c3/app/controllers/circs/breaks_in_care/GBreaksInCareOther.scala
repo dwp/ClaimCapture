@@ -41,6 +41,7 @@ object GBreaksInCareOther extends Controller with CachedChangeOfCircs with I18nS
     "caringEnded.date" -> optional(dayMonthYear),
     caringStartedMapping,
     expectToCareAgainMapping,
+    "expectToCareAgain2" -> default(optional(yesNoDontKnowWithDates), None),
     whereWasDpMapping,
     whereWereYouMapping,
     "caringEnded.time" -> optional(text),

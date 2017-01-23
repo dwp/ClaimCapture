@@ -3,7 +3,10 @@ val = (selector, text) -> if text? then $("##{selector}").val(text) else $("##{s
 S = (selector) -> $("##{selector}")
 
 window.initEvents = (you, dp, youEnded_yes, youEnded_no, dpEnded_yes, dpEnded_no,
-  youEndedWrap, youAdmittedWrap, dpEndedWrap, dpAdmittedWrap, medicalProfession, present, past) ->
+  youEndedWrapYes, youEndedWrapNo, youAdmittedWrap, dpEndedWrapYes, dpEndedWrapNo, dpAdmittedWrap, medicalProfession, present, past,
+                     expectToCareAgain_yes, expectToCareAgain_no, expectToCareAgain_dontknow, expectYesWrap, expectNoWrap, dontknowWrap,
+                     expectToCareAgain2_yes, expectToCareAgain2_no, expectToCareAgain2_dontknow, expectYesWrap2, expectNoWrap2, dontknowWrap2
+  ) ->
   if not isChecked(you)
     hideWrapper(youAdmittedWrap)
 
@@ -11,22 +14,34 @@ window.initEvents = (you, dp, youEnded_yes, youEnded_no, dpEnded_yes, dpEnded_no
     hideWrapper(dpAdmittedWrap)
 
   if not isChecked(youEnded_yes)
-    hideWrapper(youEndedWrap)
+    hideWrapper(youEndedWrapYes)
+
+  if not isChecked(youEnded_no)
+    hideWrapper(youEndedWrapNo)
 
   if not isChecked(dpEnded_yes)
-    hideWrapper(dpEndedWrap)
+    hideWrapper(dpEndedWrapYes)
 
-  if isChecked(you)
-    showWrapper(youAdmittedWrap)
+  if not isChecked(dpEnded_no)
+    hideWrapper(dpEndedWrapNo)
 
-  if isChecked(dp)
-    showWrapper(dpAdmittedWrap)
+  if not isChecked(expectToCareAgain_yes)
+    hideWrapper(expectYesWrap)
 
-  if isChecked(youEnded_yes)
-    showWrapper(youEndedWrap)
+  if not isChecked(expectToCareAgain_no)
+    hideWrapper(expectNoWrap)
 
-  if isChecked(dpEnded_yes)
-    showWrapper(dpEndedWrap)
+  if not isChecked(expectToCareAgain_dontknow)
+    hideWrapper(dontknowWrap)
+
+  if not isChecked(expectToCareAgain2_yes)
+    hideWrapper(expectYesWrap2)
+
+  if not isChecked(expectToCareAgain2_no)
+    hideWrapper(expectNoWrap2)
+
+  if not isChecked(expectToCareAgain2_dontknow)
+    hideWrapper(dontknowWrap2)
 
   S(you).on "click", ->
     hideWrapper(dpAdmittedWrap)
@@ -38,17 +53,51 @@ window.initEvents = (you, dp, youEnded_yes, youEnded_no, dpEnded_yes, dpEnded_no
 
   S(youEnded_yes).on "click", ->
     updateYourProfessionLabel(youEnded_yes, youEnded_no, medicalProfession, present, past)
-    showWrapper(youEndedWrap)
+    showWrapper(youEndedWrapYes)
+    hideWrapper(youEndedWrapNo)
 
   S(dpEnded_yes).on "click", ->
-    showWrapper(dpEndedWrap)
+    showWrapper(dpEndedWrapYes)
+    hideWrapper(dpEndedWrapNo)
+
+  S(dpEnded_no).on "click", ->
+    showWrapper(dpEndedWrapNo)
+    hideWrapper(dpEndedWrapYes)
 
   S(youEnded_no).on "click", ->
     updateYourProfessionLabel(youEnded_yes, youEnded_no, medicalProfession, present, past)
-    hideWrapper(youEndedWrap)
+    hideWrapper(youEndedWrapYes)
+    showWrapper(youEndedWrapNo)
 
-  S(dpEnded_no).on "click", ->
-    hideWrapper(dpEndedWrap)
+  S(expectToCareAgain_yes).on "click", ->
+    hideWrapper(expectNoWrap)
+    hideWrapper(dontknowWrap)
+    showWrapper(expectYesWrap)
+
+  S(expectToCareAgain_no).on "click", ->
+    hideWrapper(expectYesWrap)
+    hideWrapper(dontknowWrap)
+    showWrapper(expectNoWrap)
+
+  S(expectToCareAgain_dontknow).on "click", ->
+    hideWrapper(expectYesWrap)
+    hideWrapper(expectNoWrap)
+    showWrapper(dontknowWrap)
+
+  S(expectToCareAgain2_yes).on "click", ->
+    hideWrapper(expectNoWrap2)
+    hideWrapper(dontknowWrap2)
+    showWrapper(expectYesWrap2)
+
+  S(expectToCareAgain2_no).on "click", ->
+    hideWrapper(expectYesWrap2)
+    hideWrapper(dontknowWrap2)
+    showWrapper(expectNoWrap2)
+
+  S(expectToCareAgain2_dontknow).on "click", ->
+    hideWrapper(expectYesWrap2)
+    hideWrapper(expectNoWrap2)
+    showWrapper(dontknowWrap2)
 
 showWrapper = (wrapper) ->
   $("#" + wrapper).slideDown(0).attr 'aria-hidden', 'false'
