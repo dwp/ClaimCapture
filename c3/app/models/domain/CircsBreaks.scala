@@ -60,14 +60,14 @@ case class CircsBreak(iterationID: String = "",
                  whereWasDp: Option[RadioWithText] = None,
                  whereWereYou: Option[RadioWithText] = None,
                  caringEndedTime: Option[String] = None,
-                 caringStartedTime: Option[String] = None
-                  )
+                 caringStartedTime: Option[String] = None)
 
 case class CircsBreaksInCareType(hospital: Option[String] = None,
                             carehome: Option[String] = None,
                             none: Option[String] = None,
-                            other: Option[String] = None
-                             ) extends QuestionGroup(CircsBreaksInCareType)
+                            other: Option[String] = None,
+                                 breaksmoreabout: String = ""
+                                  ) extends QuestionGroup(CircsBreaksInCareType)
 
 object CircsBreaksInCareType extends QGIdentifier(id = s"${CircsBreaks.id}.g15")
 

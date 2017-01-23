@@ -134,6 +134,10 @@
                     '_label -> messages(otherbreakLabel, dpname),
                     'helperAbove->messages("breaks.breaktype.other.helper"), 'ignoreOptional->true,
                     'values -> Seq("yes" -> messages("label.yes4"), "no" -> messages("label.no")))
+
+                @carersInputTextArea(currentForm("breaksmoreabout"),
+                    'helperAbove-> Html(messages("moreAboutChanges.helper")),
+                    'textAreaHelper -> Html(messages("300charsLeft")), 'maxLength -> 300)
             </ul>
         </fieldset>
         @views.html.common.bottomNavigation(trackSubmit = true)
@@ -145,8 +149,12 @@
             @carersInputHidden(GBreaksInCareSummary.deleteForm("deleteId"))
         }
     }
-    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/breaks_in_care/breaksInCareSummary.js")></script>
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/circs/breaks_in_care/breaksInCareSummary.js")></script>
     <script type="text/javascript">
+           $(function(){
+            window.areaCounter({selector:"@CarersCrypto.encryptAES("breaksmoreabout")",maxChars:300});
+        });
         $(function(){
             window.initSummaryEvents({
                 previewEnabled: "@claim.navigation.beenInPreview",
@@ -156,7 +164,8 @@
                 breakCareHome: "@CarersCrypto.encryptAES("breaktype_carehome")",
                 breakOtherYes: "@CarersCrypto.encryptAES("breaktype_other_yes")",
                 breakOtherNo: "@CarersCrypto.encryptAES("breaktype_other_no")",
-                deleteId: "@CarersCrypto.encryptAES("deleteId")"
+                deleteId: "@CarersCrypto.encryptAES("deleteId")",
+                breaksMoreAbout: "@CarersCrypto.encryptAES("breaksmoreabout")"
             });
         });
     </script>

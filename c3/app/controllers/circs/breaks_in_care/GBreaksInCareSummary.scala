@@ -1,5 +1,6 @@
 package controllers.circs.breaks_in_care
 
+import controllers.CarersForms._
 import controllers.IterationID
 import controllers.circs.breaks_in_care.GBreaksInCareOther._
 import controllers.mappings.Mappings
@@ -26,7 +27,8 @@ object GBreaksInCareSummary extends Controller with CachedChangeOfCircs with Nav
     "breaktype_hospital" -> optional(nonEmptyText),
     "breaktype_carehome" -> optional(nonEmptyText),
     "breaktype_none" -> optional(nonEmptyText),
-    "breaktype_other" -> optional(text.verifying(validYesNo))
+    "breaktype_other" -> optional(text.verifying(validYesNo)),
+    "breaksmoreabout" -> carersNonEmptyText(maxLength = CircumstancesOtherInfo.textMaxLength)
   )(CircsBreaksInCareType.apply)(CircsBreaksInCareType.unapply)
     .verifying("selectother", validateOther _)
     .verifying("deselectnone", validateAnySelected _)
@@ -81,7 +83,7 @@ object GBreaksInCareSummary extends Controller with CachedChangeOfCircs with Nav
   }
 
   private def validateAnySelected(breaksInCareType: CircsBreaksInCareType) = breaksInCareType match {
-    case CircsBreaksInCareType(None, None, None, _) => false
+    case CircsBreaksInCareType(None, None, None, _, _) => false
     case _ => true
   }
 
