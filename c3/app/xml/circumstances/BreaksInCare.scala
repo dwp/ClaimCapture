@@ -49,6 +49,12 @@ object BreaksInCare {
       val defaultLangForPdf = Lang("en")
       question(<BreaksSinceClaim/>, label, answer, dp)
     }
+
+    val breaksInCareType = circs.questionGroup[CircsBreaksInCareType].getOrElse(CircsBreaksInCareType())
+    val xmlMoreAbout = {
+      {question(<BreaksMoreAbout/>,"breaksmoreabout", breaksInCareType.breaksmoreabout)}
+    }
+
     val your = "@yourname"
     val xmlFirstBreak = {
       <CareBreak>
@@ -66,7 +72,7 @@ object BreaksInCare {
       }
     }
 
-    xmlFirstBreak ++ {
+    xmlMoreAbout ++ xmlFirstBreak ++ {
       for ((break, index) <- breaksInCare.breaks.zipWithIndex) yield {
         {
           {

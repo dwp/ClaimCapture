@@ -242,6 +242,14 @@ class BreaksSpec extends Specification {
       (hospitalBreak \\ "StopCaringDecisionDate" \\ "QuestionLabel").text shouldEqual ("What date did you decide that you permanently stopped providing care?")
       (hospitalBreak \\ "StopCaringDecisionDate" \\ "Answer").text shouldEqual ("02-03-2004")
     }
+
+    "generate Breaks xml including summary page MoreAbout" in new WithApplication {
+      val breakType=CircsBreaksInCareType(breaksmoreabout = "Some text in moreinfo")
+      val claim = Claim(CachedChangeOfCircs.key).update(yourDetails).update(breakType)
+      val circsXml = DWPCoCircs.xml(claim)
+      (circsXml \\ "BreaksMoreAbout" \\ "QuestionLabel" ).text shouldEqual "Tell us more about your changes"
+      (circsXml \\ "BreaksMoreAbout" \\ "Answer" ).text shouldEqual "Some text in moreinfo"
+    }
   }
   section("unit")
 }
