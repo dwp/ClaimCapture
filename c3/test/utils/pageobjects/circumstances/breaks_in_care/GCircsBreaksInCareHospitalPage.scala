@@ -18,6 +18,9 @@ class GCircsBreaksInCareHospitalPage(ctx:PageObjectsContext, iteration: Int) ext
 
   declareYesNo("#breaksInCareStillCaring", "AboutTheCareYouProvideBreaksInCareStillCaring_" + iteration)
 
+  declareRadioList("#expectToCareAgain_answer","AboutTheCareYouProvideBreakExpectToCareAgain_"+iteration)
+  declareRadioList("#expectToCareAgain_answer2","AboutTheCareYouProvideBreakExpectToCareAgain2_"+iteration)
+
   protected override def getNewIterationNumber = {
     import IterationManager._
     ctx.iterationManager.increment(CircsBreaks)
@@ -58,6 +61,7 @@ object GCircsBreaksInCareHospitalPage {
     claim.AboutTheCareYouProvideBreakWhoWasInHospital_1 = BreaksInCareGatherOptions.You
     claim.AboutTheCareYouProvideBreakWhenWereYouAdmitted_1 = "01/01/2016"
     claim.AboutTheCareYouProvideYourStayEnded_1 = Mappings.no
+    claim.AboutTheCareYouProvideBreakExpectToCareAgain_1 = Mappings.dontknow
     claim
   }
 
@@ -66,6 +70,7 @@ object GCircsBreaksInCareHospitalPage {
     claim.AboutTheCareYouProvideBreakWhoWasInHospital_2 = BreaksInCareGatherOptions.You
     claim.AboutTheCareYouProvideBreakWhenWereYouAdmitted_2 = "01/01/2016"
     claim.AboutTheCareYouProvideYourStayEnded_2 = Mappings.no
+    claim.AboutTheCareYouProvideBreakExpectToCareAgain_2 = Mappings.dontknow
     claim
   }
 
@@ -74,6 +79,8 @@ object GCircsBreaksInCareHospitalPage {
     claim.AboutTheCareYouProvideBreakWhoWasInHospital_3 = BreaksInCareGatherOptions.You
     claim.AboutTheCareYouProvideBreakWhenWereYouAdmitted_3 = "01/01/2016"
     claim.AboutTheCareYouProvideYourStayEnded_3 = Mappings.no
+    claim.AboutTheCareYouProvideBreakExpectToCareAgain_3 = Mappings.dontknow
+
     claim
   }
 }

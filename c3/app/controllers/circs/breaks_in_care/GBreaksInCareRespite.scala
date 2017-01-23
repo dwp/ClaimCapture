@@ -6,8 +6,10 @@ import controllers.mappings.Mappings
 import controllers.mappings.Mappings._
 import models.domain._
 import models.view.CachedChangeOfCircs
+import models.yesNo.YesNoDontKnowWithDates
 import play.api.Play._
 import play.api.data.Forms._
+import play.api.data.validation.{Valid, ValidationError, Invalid, Constraint}
 import play.api.data.{Form, FormError}
 import play.api.i18n.{I18nSupport, MMessages, MessagesApi}
 import play.api.mvc.{Controller, Request}
@@ -19,6 +21,9 @@ object GBreaksInCareRespite extends Controller with CachedChangeOfCircs with I18
   val yourStayEndedMapping = "yourRespiteStayEnded" -> optional(yesNoWithDate)
 
   val dpStayEndedMapping = "dpRespiteStayEnded" -> optional(yesNoWithDate)
+
+  val expectToCareAgainMapping = "expectToCareAgain" -> optional(yesNoDontKnowWithDates)
+  val expectToCareAgainMapping2 = "expectToCareAgain2" -> optional(yesNoDontKnowWithDates)
 
   val form = Form(mapping(
     "iterationID" -> carersNonEmptyText,
@@ -33,8 +38,8 @@ object GBreaksInCareRespite extends Controller with CachedChangeOfCircs with I18
     "dpMedicalProfessional" -> optional(nonEmptyText),
     "caringEnded" -> default(optional(dayMonthYear), None),
     "caringStarted" -> default(optional(yesNoWithDate), None),
-    "expectToCareAgain" -> default(optional(yesNoDontKnowWithDates), None),
-    "expectToCareAgain2" -> default(optional(yesNoDontKnowWithDates), None),
+    expectToCareAgainMapping,
+    expectToCareAgainMapping2,
     "whereWasDp" -> default(optional(radioWithText), None),
     "whereWereYou" -> default(optional(radioWithText), None),
     "caringEnded.time" -> default(optional(carersNonEmptyText), None),
@@ -49,6 +54,8 @@ object GBreaksInCareRespite extends Controller with CachedChangeOfCircs with I18
     .verifying(requiredBreaksInCareStillCaring)
     .verifying(requiredStartDateNotAfterEndDate)
     .verifying(requiredMedicalProfessional)
+    .verifying(validateExpectToCareAgain)
+    .verifying(validateExpectToCareAgain2)
   )
 
   //need to go back to summary if any breaks exist
@@ -82,6 +89,16 @@ object GBreaksInCareRespite extends Controller with CachedChangeOfCircs with I18
           .replaceError("", "dpMedicalProfessional.invalidYesNo", FormError("dpMedicalProfessional", invalidYesNo, Seq(dp)))
           .replaceError("", "breaksInCareStillCaring", FormError("breaksInCareRespiteStillCaring", errorRequired, Seq(dp)))
           .replaceError("", "breaksInCareStillCaring.invalidYesNo", FormError("breaksInCareRespiteStillCaring", invalidYesNo, Seq(dp)))
+          .replaceError("", "expectToCareAgain", FormError("expectToCareAgain.answer", errorRequired))
+          .replaceError("", "expectToCareAgain.yesdate", FormError("expectToCareAgain.yesdate", errorRequired))
+          .replaceError("", "expectToCareAgain.yesdate.invalid", FormError("expectToCareAgain.yesdate", errorInvalid))
+          .replaceError("", "expectToCareAgain.nodate", FormError("expectToCareAgain.nodate", errorRequired))
+          .replaceError("", "expectToCareAgain.nodate.invalid", FormError("expectToCareAgain.nodate", errorInvalid))
+          .replaceError("", "expectToCareAgain2", FormError("expectToCareAgain2.answer", errorRequired))
+          .replaceError("", "expectToCareAgain2.yesdate", FormError("expectToCareAgain2.yesdate", errorRequired))
+          .replaceError("", "expectToCareAgain2.yesdate.invalid", FormError("expectToCareAgain2.yesdate", errorInvalid))
+          .replaceError("", "expectToCareAgain2.nodate", FormError("expectToCareAgain2.nodate", errorRequired))
+          .replaceError("", "expectToCareAgain2.nodate.invalid", FormError("expectToCareAgain2.nodate", errorInvalid))
         BadRequest(views.html.circs.breaks_in_care.breaksInCareRespite(formWithErrorsUpdate, backCall))
       },
       break => {
@@ -118,6 +135,70 @@ object GBreaksInCareRespite extends Controller with CachedChangeOfCircs with I18
     breaksInCareType.other.isDefined match {
       case true if (breaksInCareType.other.get == Mappings.yes) => routes.GBreaksInCareOther.present(IterationID(form))
       case _ => routes.GBreaksInCareSummary.present()
+    }
+  }
+
+  private def validateExpectToCareAgain: Constraint[CircsBreak] = Constraint[CircsBreak]("constraint.breakCaringStartedDate") { break =>
+    if(break.yourStayEnded.isDefined && break.yourStayEnded.get.answer.equals(Mappings.no) && !break.expectToCareAgain.isDefined){
+            Invalid(ValidationError("expectToCareAgain"))
+    }
+    else if(break.expectToCareAgain.isDefined){
+      break.expectToCareAgain.get.answer.get match{
+        case Mappings.yes =>{
+          if(!YesNoDontKnowWithDates.validateOnYes(break.expectToCareAgain.get)) {
+            Invalid(ValidationError("expectToCareAgain.yesdate"))
+          }
+          else {
+            validateDate(break.expectToCareAgain.get.yesdate.get, "expectToCareAgain.yesdate.invalid")
+          }
+        }
+        case Mappings.no => {
+          if(!YesNoDontKnowWithDates.validateOnNo(break.expectToCareAgain.get)) {
+            Invalid(ValidationError("expectToCareAgain.nodate"))
+          }
+          else {
+            validateDate(break.expectToCareAgain.get.nodate.get, "expectToCareAgain.nodate.invalid")
+          }
+        }
+        case Mappings.dontknow =>{
+          Valid
+        }
+      }
+    }
+    else{
+      Valid
+    }
+  }
+
+  private def validateExpectToCareAgain2: Constraint[CircsBreak] = Constraint[CircsBreak]("constraint.breakCaringStartedDate") { break =>
+    if(break.dpStayEnded.isDefined && break.dpStayEnded.get.answer.equals(Mappings.no) && !break.expectToCareAgain2.isDefined){
+            Invalid(ValidationError("expectToCareAgain2"))
+    }
+    else if(break.expectToCareAgain2.isDefined){
+      break.expectToCareAgain2.get.answer.get match{
+        case Mappings.yes =>{
+          if(!YesNoDontKnowWithDates.validateOnYes(break.expectToCareAgain2.get)) {
+            Invalid(ValidationError("expectToCareAgain2.yesdate"))
+          }
+          else {
+            validateDate(break.expectToCareAgain2.get.yesdate.get, "expectToCareAgain2.yesdate.invalid")
+          }
+        }
+        case Mappings.no => {
+          if(!YesNoDontKnowWithDates.validateOnNo(break.expectToCareAgain2.get)) {
+            Invalid(ValidationError("expectToCareAgain2.nodate"))
+          }
+          else {
+            validateDate(break.expectToCareAgain2.get.nodate.get, "expectToCareAgain2.nodate.invalid")
+          }
+        }
+        case Mappings.dontknow =>{
+          Valid
+        }
+      }
+    }
+    else{
+      Valid
     }
   }
 

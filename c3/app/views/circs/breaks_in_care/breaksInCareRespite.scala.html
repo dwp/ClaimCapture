@@ -5,6 +5,7 @@
 @import utils.helpers.CarersCrypto
 @import utils.csrf.DwpCSRFFormHelper
 @import views.html.helper._
+@import views.html.helper.base._
 @import views.html.helper.dates._
 @import scala.language.postfixOps
 @import controllers.IterationID
@@ -54,7 +55,34 @@
                                 dateTimePickerWithDynamicLabel(currentForm("yourRespiteStayEnded.date"),
                                     'dynamicDateDays -> 34, 'ignoreOptional -> true, 'track -> true)
                             ),
-                            'id -> "yourRespiteStayEndedWrap"
+                            'id -> "yourStayEndedWrapYes"
+                        ),
+                        otherDetailPlaceHolder(
+                            inputDef = Seq(
+                                yesNoRadioGroup(currentForm("expectToCareAgain.answer"),
+                                    'values -> Seq("yes" -> messages("label.yes"), "no" -> messages("label.no"), "dontknow" -> messages("label.dontknow")),
+                                    'ignoreOptional -> true
+                                ),
+                                otherDetailPlaceHolder(
+                                    inputDef = Seq(
+                                        dateTimePickerWithDynamicLabel(currentForm("expectToCareAgain.yesdate"), 'dynamicDateDays-> -7)
+                                    ),
+                                    'id -> "yesdateWrap"
+                                ),
+                                otherDetailPlaceHolder(
+                                    inputDef = Seq(
+                                        dateTimePickerWithDynamicLabel(currentForm("expectToCareAgain.nodate"), 'ignoreOptional -> true, 'dynamicDateDays-> 27)
+                                    ),
+                                    'id -> "nodateWrap"
+                                ),
+                                otherDetailPlaceHolder(
+                                    inputDef = Seq(
+                                        carersLabel(currentForm("expectToCareAgain.dontknow"), 'ignoreOptional -> true)
+                                    ),
+                                    'id -> "dontknowWrap"
+                                )
+                            ),
+                            'id -> "yourStayEndedWrapNo"
                         ),
                         yesNoRadioGroup(currentForm("yourMedicalProfessional"),
                             'values -> Seq("yes" -> messages("label.yes1"), "no" -> messages("label.no")),
@@ -80,7 +108,34 @@
                                     'dynamicDateDays -> 34, 'ignoreOptional -> true, 'track -> true,
                                     '_label -> messages("dpStayEnded.date", dpDetails))
                             ),
-                            'id -> "dpRespiteStayEndedWrap"
+                            'id -> "dpStayEndedWrapYes"
+                        ),
+                        otherDetailPlaceHolder(
+                            inputDef = Seq(
+                                yesNoRadioGroup(currentForm("expectToCareAgain2.answer"),
+                                    'values -> Seq("yes" -> messages("label.yes"), "no" -> messages("label.no"), "dontknow" -> messages("label.dontknow")),
+                                    'ignoreOptional -> true
+                                ),
+                                otherDetailPlaceHolder(
+                                    inputDef = Seq(
+                                        dateTimePickerWithDynamicLabel(currentForm("expectToCareAgain2.yesdate"), 'dynamicDateDays-> -7)
+                                    ),
+                                    'id -> "yesdateWrap2"
+                                ),
+                                otherDetailPlaceHolder(
+                                    inputDef = Seq(
+                                        dateTimePickerWithDynamicLabel(currentForm("expectToCareAgain2.nodate"), 'ignoreOptional -> true, 'dynamicDateDays-> 27)
+                                    ),
+                                    'id -> "nodateWrap2"
+                                ),
+                                otherDetailPlaceHolder(
+                                    inputDef = Seq(
+                                        carersLabel(currentForm("expectToCareAgain2.dontknow"), 'ignoreOptional -> true)
+                                    ),
+                                    'id -> "dontknowWrap2"
+                                )
+                            ),
+                            'id -> "dpStayEndedWrapNo"
                         ),
                         yesNoRadioGroup(currentForm("dpMedicalProfessional"),
                             'values -> Seq("yes" -> messages("label.yes3"), "no" -> messages("label.no")),
@@ -103,7 +158,7 @@
 
     }
 
-    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/breaks_in_care/breaksInCareHospitalRespiteGather.js")></script>
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/circs/breaks_in_care/breaksInCareHospitalRespiteGather.js")></script>
 
     <script type="text/javascript">
         $(function(){
@@ -114,16 +169,52 @@
                         "@CarersCrypto.encryptAES("yourRespiteStayEnded_answer_no")",
                         "@CarersCrypto.encryptAES("dpRespiteStayEnded_answer_yes")",
                         "@CarersCrypto.encryptAES("dpRespiteStayEnded_answer_no")",
-                        "yourRespiteStayEndedWrap",
+                        "yourStayEndedWrapYes",
+                        "yourStayEndedWrapNo",
                         "whenWereYouAdmittedWrap",
-                        "dpRespiteStayEndedWrap",
+                        "dpStayEndedWrapYes",
+                        "dpStayEndedWrapNo",
                         "whenWasDpAdmittedWrap",
                         "@CarersCrypto.encryptAES("yourMedicalProfessional")",
                         "@Html(messages("yourMedicalProfessional"))",
-                        "@Html(messages("yourMedicalProfessional.past"))"
+                        "@Html(messages("yourMedicalProfessional.past"))",
+                        "@CarersCrypto.encryptAES("expectToCareAgain_answer_yes")",
+                        "@CarersCrypto.encryptAES("expectToCareAgain_answer_no")",
+                        "@CarersCrypto.encryptAES("expectToCareAgain_answer_dontknow")",
+                        "yesdateWrap",
+                        "nodateWrap",
+                        "dontknowWrap",
+                        "@CarersCrypto.encryptAES("expectToCareAgain2_answer_yes")",
+                        "@CarersCrypto.encryptAES("expectToCareAgain2_answer_no")",
+                        "@CarersCrypto.encryptAES("expectToCareAgain2_answer_dontknow")",
+                        "yesdateWrap2",
+                        "nodateWrap2",
+                        "dontknowWrap2"
                         );
             });
         </script>
-
 }
 
+@*
+"yourStayEndedWrapYes",
+"yourStayEndedWrapNo",
+"whenWereYouAdmittedWrap",
+"dpStayEndedWrapYes",
+"dpStayEndedWrapNo",
+"whenWasDpAdmittedWrap",
+"",
+"",
+"",
+"@CarersCrypto.encryptAES("expectToCareAgain_answer_yes")",
+"@CarersCrypto.encryptAES("expectToCareAgain_answer_no")",
+"@CarersCrypto.encryptAES("expectToCareAgain_answer_dontknow")",
+"yesdateWrap",
+"nodateWrap",
+"dontknowWrap",
+"@CarersCrypto.encryptAES("expectToCareAgain2_answer_yes")",
+"@CarersCrypto.encryptAES("expectToCareAgain2_answer_no")",
+"@CarersCrypto.encryptAES("expectToCareAgain2_answer_dontknow")",
+"yesdateWrap2",
+"nodateWrap2",
+"dontknowWrap2");
+    *@
