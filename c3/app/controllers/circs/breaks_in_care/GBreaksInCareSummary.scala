@@ -28,7 +28,7 @@ object GBreaksInCareSummary extends Controller with CachedChangeOfCircs with Nav
     "breaktype_carehome" -> optional(nonEmptyText),
     "breaktype_none" -> optional(nonEmptyText),
     "breaktype_other" -> optional(text.verifying(validYesNo)),
-    "breaksmoreabout" -> carersNonEmptyText(maxLength = CircumstancesOtherInfo.textMaxLength)
+    "breaksmoreabout" -> carersNonEmptyText(maxLength = 3000)
   )(CircsBreaksInCareType.apply)(CircsBreaksInCareType.unapply)
     .verifying("selectother", validateOther _)
     .verifying("deselectnone", validateAnySelected _)

@@ -137,7 +137,7 @@
 
                 @carersInputTextArea(currentForm("breaksmoreabout"),
                     'helperAbove-> Html(messages("moreAboutChanges.helper")),
-                    'textAreaHelper -> Html(messages("300charsLeft")), 'maxLength -> 300)
+                    'textAreaHelper -> Html(messages("3000charsLeft")), 'maxLength -> 3000)
             </ul>
         </fieldset>
         @views.html.common.bottomNavigation(trackSubmit = true)
@@ -153,7 +153,7 @@
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/circs/breaks_in_care/breaksInCareSummary.js")></script>
     <script type="text/javascript">
            $(function(){
-            window.areaCounter({selector:"@CarersCrypto.encryptAES("breaksmoreabout")",maxChars:300});
+            window.areaCounter({selector:"@CarersCrypto.encryptAES("breaksmoreabout")",maxChars:3000});
         });
         $(function(){
             window.initSummaryEvents({
