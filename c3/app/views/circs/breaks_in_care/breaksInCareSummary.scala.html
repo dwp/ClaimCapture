@@ -1,5 +1,5 @@
 @import models.domain.CircumstancesYourDetails
-@(currentForm: Form[models.domain.CircsBreaksInCareType], breaks: models.domain.CircsBreaksInCare)(implicit claim: models.domain.Claim, lang: Lang, request: play.api.mvc.Request[AnyContent],flash:Flash, messages: play.api.i18n.Messages)
+@(currentForm: Form[models.domain.CircsBreaksInCareType], breaks: models.domain.CircsBreaksInCare)(implicit claim: models.domain.Claim, lang: Lang, request: play.api.mvc.Request[AnyContent], flash: Flash, messages: play.api.i18n.Messages)
 
 @import views.html.helper._
 @import utils.csrf.DwpCSRFFormHelper
@@ -14,7 +14,7 @@
 @import controllers.breaks_in_care.GBreaksInCareSummary
 @import utils.helpers.CarersCrypto
 
-@optionsList(implicit lang:Lang) = @{
+@optionsList(implicit lang: Lang) = @{
     Seq(CircsBreaks.hospital -> messages("breaks.hospital"),
         CircsBreaks.carehome -> messages("breaks.carehome"),
         CircsBreaks.none -> messages("breaks.none")
@@ -24,21 +24,23 @@
     val claimDateQG = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
     claimDateQG.dateWeRequireBreakInCareInformationFrom(lang)
 }
-@yourDetails = @{claim.questionGroup[CircumstancesYourDetails].getOrElse(CircumstancesYourDetails())}
-@dpname=@{
-    yourDetails.theirFirstName+" "+yourDetails.theirSurname
+@yourDetails = @{
+    claim.questionGroup[CircumstancesYourDetails].getOrElse(CircumstancesYourDetails())
 }
-@anyothertimes=@{
+@dpname = @{
+    yourDetails.theirFirstName + " " + yourDetails.theirSurname
+}
+@anyothertimes = @{
     (breaks.hasCircsBreaksForType(CircsBreaks.hospital), breaks.hasCircsBreaksForType(CircsBreaks.carehome)) match {
-        case(true, _) => messages("breaktype.anyothertimes")
-        case(_,true) => messages("breaktype.anyothertimes")
+        case (true, _) => messages("breaktype.anyothertimes")
+        case (_, true) => messages("breaktype.anyothertimes")
         case _ => messages("breaktype.anytimes")
     }
 }
-@otherbreakLabel=@{
+@otherbreakLabel = @{
     "circs.breaktype_other_another"
 }
-@whoWasAway(break: CircsBreak)=@{
+@whoWasAway(break: CircsBreak) = @{
     break.whoWasAway match {
         case You => messages("breaksummary.you")
         case DP => dpname
@@ -46,7 +48,7 @@
         case _ => "ERROR in whoAway"
     }
 }
-@careTypeLabel(break: CircsBreak)=@{
+@careTypeLabel(break: CircsBreak) = @{
     break.typeOfCare match {
         case CircsBreaks.hospital => messages("breaks.hospital")
         case CircsBreaks.carehome => messages("breaks.carehome")
@@ -55,11 +57,26 @@
     }
 }
 @careTypeFrom(break: CircsBreak) = @{
-    (break.typeOfCare, break.whoWasAway, break.caringEnded ) match {
+    (break.typeOfCare, break.whoWasAway, break.caringEnded) match {
         case (CircsBreaks.another, _, Some(ce)) => ce.`dd month yyyy`
-        case (_, You, _ ) => break.whenWereYouAdmitted.get.`dd month yyyy`
-        case (_, DP, _ ) => break.whenWasDpAdmitted.get.`dd month yyyy`
+        case (_, You, _) => break.whenWereYouAdmitted.get.`dd month yyyy`
+        case (_, DP, _) => break.whenWasDpAdmitted.get.`dd month yyyy`
         case _ => "ERROR In caretypeFrom"
+    }
+}
+@expectToStartAgainDate(break: CircsBreak) = @{
+    (break.expectToCareAgain, break.expectToCareAgain2) match {
+        case (Some(e1), _) => (e1.yesdate, e1.nodate) match {
+            case (Some(d), _) => d.`dd month yyyy`
+            case (_, Some(d)) => d.`dd month yyyy`
+            case _ => messages("breaksummary.notended")
+        }
+        case (_, Some(e2)) => (e2.yesdate, e2.nodate) match {
+            case (Some(d), _) => d.`dd month yyyy`
+            case (_, Some(d)) => d.`dd month yyyy`
+            case _ => messages("breaksummary.notended")
+        }
+        case _ => messages("breaksummary.notended")
     }
 }
 @careTypeTo(break: CircsBreak) = @{
@@ -67,14 +84,14 @@
         case (CircsBreaks.another, _, _, _, Some(cs)) if (cs.answer == "yes") => break.caringStarted.get.date.get.`dd month yyyy`
         case (_, You, Some(you), _, _) if (you.answer == "yes") => break.yourStayEnded.get.date.get.`dd month yyyy`
         case (_, DP, _, Some(dp), _) if (dp.answer == "yes") => break.dpStayEnded.get.date.get.`dd month yyyy`
-        case _ => messages("breaksummary.notended")
+        case _ => expectToStartAgainDate(break)
     }
 }
 @changeHref(break: CircsBreak) = @{
     break.typeOfCare match {
-        case CircsBreaks.hospital => "/circumstances/breaks/hospital/"+break.iterationID
-        case CircsBreaks.carehome => "/circumstances/breaks/respite-care-home/"+break.iterationID
-        case CircsBreaks.another => "/circumstances/breaks/other-breaks/"+break.iterationID
+        case CircsBreaks.hospital => "/circumstances/breaks/hospital/" + break.iterationID
+        case CircsBreaks.carehome => "/circumstances/breaks/respite-care-home/" + break.iterationID
+        case CircsBreaks.another => "/circumstances/breaks/other-breaks/" + break.iterationID
     }
 }
 @main(messages("circs.breaks.title"), Some(currentForm)) {
@@ -82,7 +99,7 @@
         @DwpCSRFFormHelper.formField
         <input type="hidden" id="js" name="jsEnabled" value="false">
         <fieldset class="form-elements">
-            @if(breaks.hasCircsBreaks){
+            @if(breaks.hasCircsBreaks) {
                 <h2 class="heading-medium" id="summary-heading">@messages("breaksummary_title")</h2>
                 <table id="summary-table">
                     <tr>
@@ -93,7 +110,7 @@
                         <th></th>
                         <th></th>
                     </tr>
-                    @for((break, breakNum) <- breaks.breaks.zipWithIndex){
+                    @for((break, breakNum) <- breaks.breaks.zipWithIndex) {
                         <tr iterationid="@break.iterationID" class="data-table">
                             <td id="who@breakNum">@whoWasAway(break)</td>
                             <td id="where@breakNum">@careTypeLabel(break)</td>
@@ -132,25 +149,25 @@
 
                 @yesNoRadioGroup(currentForm("circs_breaktype_other"),
                     '_label -> messages(otherbreakLabel, dpname),
-                    'helperAbove->messages("breaks.breaktype.other.helper"), 'ignoreOptional->true,
+                    'helperAbove -> messages("breaks.breaktype.other.helper"), 'ignoreOptional -> true,
                     'values -> Seq("yes" -> messages("label.yes4"), "no" -> messages("label.no")))
 
                 @carersInputTextArea(currentForm("breaksmoreabout"),
-                    'helperAbove-> Html(messages("moreAboutChanges.helper")),
+                    'helperAbove -> Html(messages("moreAboutChanges.helper")),
                     'textAreaHelper -> Html(messages("3000charsLeft")), 'maxLength -> 3000)
             </ul>
         </fieldset>
         @views.html.common.bottomNavigation(trackSubmit = true)
     }
-    @if(breaks.hasCircsBreaks){
+    @if(breaks.hasCircsBreaks) {
         @form(action = controllers.circs.breaks_in_care.routes.GBreaksInCareSummary.delete,
-            'role -> "form", 'id -> "delete-break-form"){
+            'role -> "form", 'id -> "delete-break-form") {
             @DwpCSRFFormHelper.formField
             @carersInputHidden(GBreaksInCareSummary.deleteForm("deleteId"))
         }
     }
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/textAreaCounter.js")></script>
-    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/circs/breaks_in_care/breaksInCareSummary.js")></script>
+    <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/circs/breaks_in_care/breaksInCareSummary.js") ></script>
     <script type="text/javascript">
            $(function(){
             window.areaCounter({selector:"@CarersCrypto.encryptAES("breaksmoreabout")",maxChars:3000});
