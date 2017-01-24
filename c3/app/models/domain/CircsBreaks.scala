@@ -21,9 +21,9 @@ case class CircsBreaksInCare(breaks: List[CircsBreak] = Nil) extends QuestionGro
 
   def delete(iterationID: String) = CircsBreaksInCare(breaks.filterNot(_.iterationID == iterationID))
 
-  def hasBreaks = breaks.nonEmpty
+  def hasCircsBreaks = breaks.nonEmpty
 
-  def hasBreaksForType(breakTypeOfCare: String) = {
+  def hasCircsBreaksForType(breakTypeOfCare: String) = {
     var found = false
     for ((break) <- breaks if !found) {
       if (break.typeOfCare == breakTypeOfCare) {
@@ -33,7 +33,7 @@ case class CircsBreaksInCare(breaks: List[CircsBreak] = Nil) extends QuestionGro
     found
   }
 
-  def maximumReached = {
+  def circsMaximumReached = {
     if (breaks.size >= CircsBreaks.maximumBreaks)
       true
     else

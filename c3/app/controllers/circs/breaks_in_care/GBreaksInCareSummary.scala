@@ -24,13 +24,14 @@ object GBreaksInCareSummary extends Controller with CachedChangeOfCircs with Nav
   val backCall = controllers.circs.your_details.routes.GYourDetails.present()
 
   def form(implicit circs: Claim) = Form(mapping(
-    "breaktype_hospital" -> optional(nonEmptyText),
-    "breaktype_carehome" -> optional(nonEmptyText),
-    "breaktype_none" -> optional(nonEmptyText),
-    "breaktype_other" -> optional(text.verifying(validYesNo)),
+    "circs_breaktype_hospital" -> optional(nonEmptyText),
+    "circs_breaktype_carehome" -> optional(nonEmptyText),
+    "circs_breaktype_none" -> optional(nonEmptyText),
+    "circs_breaktype_other" -> optional(text.verifying(validYesNo)),
     "breaksmoreabout" -> carersNonEmptyText(maxLength = 3000)
   )(CircsBreaksInCareType.apply)(CircsBreaksInCareType.unapply)
     .verifying("selectother", validateOther _)
+    .verifying("musthavebreak", validateMustHaveBreak(circs, _))
     .verifying("deselectnone", validateAnySelected _)
     .verifying("selectone", validateNoneNotallowed _)
     .verifying("toomanybreaks", validateMaxReached(circs, _))
@@ -48,7 +49,8 @@ object GBreaksInCareSummary extends Controller with CachedChangeOfCircs with Nav
     form.bindEncrypted.fold(
       formWithErrors => {
         val errors = formWithErrors
-          .replaceError("", "toomanybreaks", FormError("breaks.toomanybreaks", "circs.breaks.toomanybreaks", Seq(Breaks.maximumBreaks)))
+          .replaceError("", "toomanybreaks", FormError("circs.breaktype", "circs.breaks.toomanybreaks", Seq(Breaks.maximumBreaks)))
+          .replaceError("", "musthavebreak", FormError("circs.breaktype", "circs.breaks.musthavebreak", Seq(anyothertimes, circsDpName(circs))))
           .replaceError("", "deselectnone", FormError("circs.breaktype", "circs.breaks.breaktype.deselectnone", Seq(anyothertimes, circsDpName(circs))))
           .replaceError("", "selectone", FormError("circs.breaktype", "circs.breaks.breaktype.selectone", Seq(anyothertimes, circsDpName(circs))))
           .replaceError("", "selectother", FormError("circs.breaktype_other", errorRequired, Seq(circsDpName(circs))))
@@ -59,7 +61,7 @@ object GBreaksInCareSummary extends Controller with CachedChangeOfCircs with Nav
       })
   }
 
-  private def otherbreakLabel(implicit claim: Claim) = breaks.hasBreaks match {
+  private def otherbreakLabel(implicit claim: Claim) = breaks.hasCircsBreaks match {
     case false => "breaktype_other_first"
     case true => "breaktype_other_another"
   }
@@ -71,7 +73,7 @@ object GBreaksInCareSummary extends Controller with CachedChangeOfCircs with Nav
     else controllers.circs.consent_and_declaration.routes.GCircsDeclaration.present.url
   }
 
-  private def anyothertimes()(implicit claim: Claim) = (breaks.hasBreaksForType(Breaks.hospital), breaks.hasBreaksForType(Breaks.carehome)) match {
+  private def anyothertimes()(implicit claim: Claim) = (breaks.hasCircsBreaksForType(Breaks.hospital), breaks.hasCircsBreaksForType(Breaks.carehome)) match {
     case (true, _) => Messages("breaktype.anyothertimes")
     case (_, true) => Messages("breaktype.anyothertimes")
     case _ => Messages("breaktype.anytimes")
@@ -92,6 +94,13 @@ object GBreaksInCareSummary extends Controller with CachedChangeOfCircs with Nav
     case _ => true
   }
 
+  private def validateMustHaveBreak(implicit claim: Claim, breaksInCareType: CircsBreaksInCareType) = {
+    (breaksInCare.hasCircsBreaks, breaksInCareType.hospital, breaksInCareType.carehome, breaksInCareType.other) match {
+      case (false, None, None, Some(Mappings.no)) => false
+      case _ => true
+    }
+  }
+
   private def validateOther(breaksInCareType: CircsBreaksInCareType) = breaksInCareType.other match {
     case Some(Mappings.yes) => true
     case Some(Mappings.no) => true
@@ -100,7 +109,7 @@ object GBreaksInCareSummary extends Controller with CachedChangeOfCircs with Nav
 
   private def validateMaxReached(implicit claim: Claim, breaksInCareType: CircsBreaksInCareType) = {
     Logger.info("Validating breaksInCare Maximum with " + breaksInCare.breaks.size + " against maximum of " + Breaks.maximumBreaks)
-    (breaksInCare.maximumReached, breaksInCareType.none, breaksInCareType.other) match {
+    (breaksInCare.circsMaximumReached, breaksInCareType.none, breaksInCareType.other) match {
       case (false, _, _) => true
       case (true, Mappings.someTrue, Some(Mappings.no)) => true
       case _ => false
@@ -124,5 +133,5 @@ object GBreaksInCareSummary extends Controller with CachedChangeOfCircs with Nav
 
   }
 
-  def breaksInCare(implicit claim: Claim) = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
+  def breaksInCare(implicit claim: Claim) = claim.questionGroup[CircsBreaksInCare].getOrElse(CircsBreaksInCare())
 }

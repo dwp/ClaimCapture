@@ -29,7 +29,7 @@
     yourDetails.theirFirstName+" "+yourDetails.theirSurname
 }
 @anyothertimes=@{
-    (breaks.hasBreaksForType(CircsBreaks.hospital), breaks.hasBreaksForType(CircsBreaks.carehome)) match {
+    (breaks.hasCircsBreaksForType(CircsBreaks.hospital), breaks.hasCircsBreaksForType(CircsBreaks.carehome)) match {
         case(true, _) => messages("breaktype.anyothertimes")
         case(_,true) => messages("breaktype.anyothertimes")
         case _ => messages("breaktype.anytimes")
@@ -82,7 +82,7 @@
         @DwpCSRFFormHelper.formField
         <input type="hidden" id="js" name="jsEnabled" value="false">
         <fieldset class="form-elements">
-            @if(breaks.hasBreaks){
+            @if(breaks.hasCircsBreaks){
                 <h2 class="heading-medium" id="summary-heading">@messages("breaksummary_title")</h2>
                 <table id="summary-table">
                     <tr>
@@ -121,7 +121,7 @@
                 <br>
             }
             <ul>
-                @standaloneListCheckboxGroup(currentForm("breaktype"),
+                @standaloneListCheckboxGroup(currentForm("circs_breaktype"),
                     currentForm.asInstanceOf[Form[AnyContent]],
                     'items -> optionsList,
                     'helperAbove -> "breaks.breaktype.checkBoxHelp1",
@@ -130,7 +130,7 @@
                     '_showId -> true,
                     '_label -> messages("circs.breaktype", anyothertimes, dpname))
 
-                @yesNoRadioGroup(currentForm("breaktype_other"),
+                @yesNoRadioGroup(currentForm("circs_breaktype_other"),
                     '_label -> messages(otherbreakLabel, dpname),
                     'helperAbove->messages("breaks.breaktype.other.helper"), 'ignoreOptional->true,
                     'values -> Seq("yes" -> messages("label.yes4"), "no" -> messages("label.no")))
@@ -142,7 +142,7 @@
         </fieldset>
         @views.html.common.bottomNavigation(trackSubmit = true)
     }
-    @if(breaks.hasBreaks){
+    @if(breaks.hasCircsBreaks){
         @form(action = controllers.circs.breaks_in_care.routes.GBreaksInCareSummary.delete,
             'role -> "form", 'id -> "delete-break-form"){
             @DwpCSRFFormHelper.formField
