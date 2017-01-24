@@ -48,23 +48,22 @@ window.initEvents = (otherStarted_yes, otherStarted_no, otherStartedWrap, otherN
     hideWrapper(expectNoWrap)
     showWrapper(dontknowWrap)
 
-  if isNotMondayOrFriday(otherStartDate)
-    hideTime(otherStartTime)
-
-  if isNotMondayOrFriday(otherEndedDate)
+  if isNotMonday(otherEndedDate)
     hideTime(otherEndedTime)
 
-  dateOnChange(otherStartDate,(id)->
-    isIt = isNotMondayOrFriday(id)
-    hideTime(otherStartTime) if isIt
-    showTime(otherStartTime) if not isIt
-  )
+  if isNotFriday(otherStartDate)
+    hideTime(otherStartTime)
 
   dateOnChange(otherEndedDate,(id)->
-    isIt = isNotMondayOrFriday(id)
-    hideTime(otherEndedTime) if isIt
-    showTime(otherEndedTime) if not isIt
+    hideTime(otherEndedTime) if isNotMonday(id)
+    showTime(otherEndedTime) if not isNotMonday(id)
   )
+
+  dateOnChange(otherStartDate,(id)->
+    hideTime(otherStartTime) if isNotFriday(id)
+    showTime(otherStartTime) if not isNotFriday(id)
+  )
+
 
 showWrapper = (wrapper) ->
   $("#" + wrapper).slideDown(0).attr 'aria-hidden', 'false'
@@ -87,9 +86,13 @@ clearInput = ->
   else
     $(this).val("")
 
-isNotMondayOrFriday = (id) ->
+isNotMonday = (id) ->
   date = getDate(id)
-  not (date != undefined and (date.getDay() == 1 or date.getDay() == 5))
+  not (date != undefined and date.getDay() == 1)
+
+isNotFriday = (id) ->
+  date = getDate(id)
+  not (date != undefined and date.getDay() == 5)
 
 getDate = (id) ->
   values = $("#"+id+" li input").map( ->
