@@ -5,7 +5,7 @@
 @import utils.csrf.DwpCSRFFormHelper
 @import language.postfixOps
 @import scala.language.postfixOps
-@import views.html.breaks_in_care.main
+@import views.html.circs.report_changes.main
 @import models.domain.CircsBreaks
 @import models.domain.CircsBreak
 @import models.domain.ClaimDate
@@ -77,7 +77,7 @@
         case CircsBreaks.another => "/circumstances/breaks/other-breaks/"+break.iterationID
     }
 }
-@main(messages("circs.breaks.title"), messages("circs.breaks.title"), Some(currentForm)) {
+@main(messages("circs.breaks.title"), Some(currentForm)) {
     @form(action = controllers.circs.breaks_in_care.routes.GBreaksInCareSummary.submit, 'role -> "form") {
         @DwpCSRFFormHelper.formField
         <input type="hidden" id="js" name="jsEnabled" value="false">

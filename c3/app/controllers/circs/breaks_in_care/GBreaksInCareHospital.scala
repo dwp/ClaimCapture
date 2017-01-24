@@ -61,9 +61,7 @@ object GBreaksInCareHospital extends Controller with CachedChangeOfCircs with I1
   val backCall = routes.GBreaksInCareSummary.present()
 
   def present(iterationID: String) = claimingWithCheck { implicit circs => implicit request => implicit request2lang =>
-    println("Doing HOSPITAL present...")
     val break = circs.questionGroup[CircsBreaksInCare].getOrElse(CircsBreaksInCare(List())).breaks.find(_.iterationID == iterationID).getOrElse(CircsBreak())
-    println("Got break:" + break)
     Ok(views.html.circs.breaks_in_care.breaksInCareHospital(form.fill(break), backCall))
   }
 

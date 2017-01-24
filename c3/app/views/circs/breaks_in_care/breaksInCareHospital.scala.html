@@ -8,7 +8,7 @@
 @import views.html.helper.dates._
 @import scala.language.postfixOps
 @import controllers.IterationID
-@import views.html.breaks_in_care.main
+@import views.html.circs.report_changes.main
 @import models.domain.CircumstancesYourDetails
 @import app.BreaksInCareGatherOptions._
 
@@ -25,7 +25,7 @@
     )
 }
 
-    @main(messages("circs.breaksInCareHospitalTitle"), messages("circs.breaksInCareHospitalSectionHeading"), Some(currentForm), Some(backCall), true) {
+    @main(messages("circs.breaksInCareHospitalTitle"), Some(currentForm)) {
 
         @form(action = controllers.circs.breaks_in_care.routes.GBreaksInCareHospital.submit, 'role -> "form") {
             <input type="hidden" name="iterationID" value="@IterationID(currentForm)">

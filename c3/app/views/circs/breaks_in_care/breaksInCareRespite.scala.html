@@ -11,7 +11,7 @@
 @import controllers.IterationID
 @import models.domain.CircumstancesYourDetails
 @import app.BreaksInCareGatherOptions._
-@import views.html.breaks_in_care.main
+@import views.html.circs.report_changes.main
 
 @yourDetails = @{
     claim.questionGroup[CircumstancesYourDetails].getOrElse(CircumstancesYourDetails())
@@ -27,7 +27,7 @@
     )
 }
 
-@main(messages("circs.breaksInCareRespiteTitle"), messages("circs.breaksInCareRespiteSectionHeading"), Some(currentForm), Some(backCall), true) {
+@main(messages("circs.breaksInCareRespiteTitle"), Some(currentForm)) {
 
     @form(action = controllers.circs.breaks_in_care.routes.GBreaksInCareRespite.submit, 'role -> "form") {
         <input type="hidden" name="iterationID" value="@IterationID(currentForm)">
