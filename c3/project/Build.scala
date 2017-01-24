@@ -33,7 +33,7 @@ object ApplicationBuild extends Build {
     "org.json4s" %% "json4s-jackson" % "3.5.0",
     "com.thoughtworks.xstream" % "xstream" % "1.4.9",
     "org.codehaus.jettison" % "jettison" % "1.3.8",
-    "gov.dwp.carers" % "xmlcommons" % "8.32-SNAPSHOT",
+    "gov.dwp.carers" % "xmlcommons" % "8.33-SNAPSHOT",
     "gov.dwp.carers" % "carerscommon" % "8.08-SNAPSHOT",
     "org.postgresql" % "postgresql" % "9.3-1103-jdbc41",
     "com.h2database" % "h2" % "1.4.186" % "test",
