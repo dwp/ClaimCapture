@@ -152,9 +152,11 @@
                     'helperAbove -> messages("breaks.breaktype.other.helper"), 'ignoreOptional -> true,
                     'values -> Seq("yes" -> messages("label.yes4"), "no" -> messages("label.no")))
 
-                @carersInputTextArea(currentForm("breaksmoreabout"),
+                @if(breaks.hasCircsBreaks) {
+                    @carersInputTextArea(currentForm("breaksmoreabout"),
                     'helperAbove -> Html(messages("moreAboutChanges.helper")),
                     'textAreaHelper -> Html(messages("3000charsLeft")), 'maxLength -> 3000)
+                }
             </ul>
         </fieldset>
         @views.html.common.bottomNavigation(trackSubmit = true)
