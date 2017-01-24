@@ -17,14 +17,11 @@ class BreaksSpec extends Specification {
     val hospitalOtherQuestion = "Have there been any other times you or @dpname have been in hospital, respite or care home?"
     val otherQuestion = "Have there been any other times you've not provided care for @dpname for 35 hours a week?"
     lazy val yourDetails = CircumstancesYourDetails(theirFirstName = "Phil", theirSurname = "Smith", theirRelationshipToYou = "Husband")
-    "generate empty Breaks xml with data and dp even when no breaks" in new WithApplication {
+
+    "not generate any Breaks xml when no breaks" in new WithApplication {
       val claim = Claim(CachedChangeOfCircs.key).update(yourDetails)
       val xml = DWPCoCircs.xml(claim)
-      (xml \\ "CareBreak").size shouldEqual (1)
-      (xml \\ "CareBreak" \\ "BreaksSinceClaim" \\ "QuestionLabel").text shouldEqual hospitalQuestion
-      (xml \\ "CareBreak" \\ "BreaksSinceClaim" \\ "Answer").text shouldEqual "None"
-      (xml \\ "CareBreak" \\ "BreaksOtherSinceClaim" \\ "QuestionLabel").text shouldEqual otherQuestion
-      (xml \\ "CareBreak" \\ "BreaksOtherSinceClaim" \\ "Answer").text shouldEqual "No"
+      (xml \\ "CareBreak").size shouldEqual (0)
     }
 
     "generate Breaks xml for single hospital break" in new WithApplication {

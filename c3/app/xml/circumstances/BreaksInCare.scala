@@ -18,9 +18,11 @@ object BreaksInCare {
     val theirPersonalDetails = circs.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())
     val moreAboutTheCare = circs.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
     val dpName = "@dpname"
-    careBreak(circs, dpName)
+    circs.questionGroup[CircsBreaksInCare] match{
+      case Some(s) => careBreak(circs, dpName)
+      case _ => NodeSeq.Empty
+    }
   }
-
 
   def findSelectedMapping(breaks: List[CircsBreak]) = {
     val hospital = breaks.filter(b => b.typeOfCare == CircsBreaks.hospital).size
