@@ -1,27 +1,20 @@
 package controllers
 
 import app.ReportChange
-import controllers.circs.breaks_in_care.GBreaksInCareSummary
-import controllers.circs.start_of_process.GGoToCircsFunction
 import controllers.mappings.Mappings
-import controllers.save_for_later.GResume
-import models.{NationalInsuranceNumber, DayMonthYear}
+import models.DayMonthYear
 import models.domain._
-import models.view.{CachedClaim, CachedChangeOfCircs}
+import models.view.CachedChangeOfCircs
 import models.yesNo.{YesNoDontKnowWithDates, YesNoWithDate}
-import play.api.test.FakeRequest
-import utils.{WithApplication, LightFakeApplication, WithBrowser}
-import utils.pageobjects.PageObjects
-import utils.pageobjects.circumstances.breaks_in_care.{GCircsBreaksInCareSummaryPage, GCircsBreaksInCareHospitalPage}
+import utils.{WithApplication, WithBrowser}
 import org.specs2.mutable._
-import utils.pageobjects.circumstances.start_of_process.GCircsYourDetailsPage
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 
 class ThankYouCircsIntegrationSpec extends Specification {
   section("integration")
   "Change Thank You" should {
-    val thankyouPageBreakText = "You must tell us as soon as your break from caring has ended, or if a decision is made that the break is now permanent as your entitlement may be affected."
+    val thankyouPageBreakText = "You must tell us as soon as you start providing care again, or if a decision is made that you have permanently stopped providing care, as your entitlement may be affected."
     def g2FakeRequest(claimKey: String) = {
       FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey).withFormUrlEncodedBody()
     }
