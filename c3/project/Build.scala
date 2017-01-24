@@ -11,7 +11,7 @@ import com.typesafe.sbt.packager.SettingsHelper._
 
 object ApplicationBuild extends Build {
   val appName = "c3"
-  val appVersion = "3.25-SNAPSHOT"
+  val appVersion = "3.26-SNAPSHOT"
 
   processConfFiles(Seq("conf/application-info.conf"), Seq("application.version" -> appVersion, "application.name" -> appName))
 
@@ -60,14 +60,14 @@ object ApplicationBuild extends Build {
   var sV: Seq[Def.Setting[_]] = Seq(scalaVersion := "2.10.5")
 
   var sR1 = if (System.getProperty("artifactory_url") == null) {
-    "http://build.3cbeta.co.uk:8080/artifactory/repo/"
+    "https://artifactory.3cbeta.co.uk/repo/"
   } else s"${System.getProperty("artifactory_url")}/repo"
 
   var sR: Seq[Def.Setting[_]] = Seq(
     resolvers += "Carers repo" at sR1,
     resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
     resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases",
-    resolvers += "Kaliber Repo for Play mailer" at "http://jars.kaliber.io/artifactory/repo/",
+    resolvers += "Kaliber Repo for Play mailer" at "https://jars.kaliber.io/artifactory/libs-release-local",
     resolvers += "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases",
     resolvers += "Local Maven" at "file://"+Path.userHome.absolutePath+"/.m2/repository"
   )
@@ -101,7 +101,7 @@ object ApplicationBuild extends Build {
   var sOrg: Seq[Def.Setting[_]] = Seq(organization := "gov.dwp.carers")
 
   var sR2 = if (System.getProperty("artifactory_url") == null) {
-    "http://build.3cbeta.co.uk:8080/artifactory"
+    "https://artifactory.3cbeta.co.uk/"
   } else s"${System.getProperty("artifactory_url")}"
 
   val isSnapshotBuild = appVersion.endsWith("-SNAPSHOT")
