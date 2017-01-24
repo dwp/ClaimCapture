@@ -36,7 +36,7 @@ class GBreaksInCareSummarySpec extends Specification {
     }
 
     "allow submit for hospital checked and other breaks question answered no" in new WithApplication with Claiming {
-      val input = Seq("breaktype_hospital" -> "true", "breaktype_other" -> Mappings.no)
+      val input = Seq("circs_breaktype_hospital" -> "true", "circs_breaktype_other" -> Mappings.no)
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(input: _*)
 
       val result = GBreaksInCareSummary.submit(request)
@@ -44,7 +44,7 @@ class GBreaksInCareSummarySpec extends Specification {
     }
 
     "allow submit for hospital checked and other breaks question answered yes" in new WithApplication with Claiming {
-      val input = Seq("breaktype_hospital" -> "true", "breaktype_other" -> Mappings.yes)
+      val input = Seq("circs_breaktype_hospital" -> "true", "circs_breaktype_other" -> Mappings.yes)
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(input: _*)
 
       val result = GBreaksInCareSummary.submit(request)
@@ -52,7 +52,7 @@ class GBreaksInCareSummarySpec extends Specification {
     }
 
     "allow submit for carehome checked and other breaks question answered yes" in new WithApplication with Claiming {
-      val input = Seq("breaktype_carehome" -> "true", "breaktype_other" -> Mappings.yes)
+      val input = Seq("circs_breaktype_carehome" -> "true", "circs_breaktype_other" -> Mappings.yes)
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(input: _*)
 
       val result = GBreaksInCareSummary.submit(request)
@@ -60,7 +60,7 @@ class GBreaksInCareSummarySpec extends Specification {
     }
 
     """allow submit for "none" checked and other breaks question answered yes""" in new WithApplication with Claiming {
-      val input = Seq("breaktype_none" -> "true", "breaktype_other" -> Mappings.yes)
+      val input = Seq("circs_breaktype_none" -> "true", "circs_breaktype_other" -> Mappings.yes)
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody(input: _*)
 
       val result = GBreaksInCareSummary.submit(request)
@@ -68,7 +68,7 @@ class GBreaksInCareSummarySpec extends Specification {
     }
 
     "add submitted data to the cached claim as Break Type Data for Hospital" in new WithApplication with Claiming {
-      val input = Seq("breaktype_hospital" -> "true", "breaktype_other" -> Mappings.no)
+      val input = Seq("circs_breaktype_hospital" -> "true", "circs_breaktype_other" -> Mappings.no)
       val request = FakeRequest().withFormUrlEncodedBody(input: _*)
       val result = GBreaksInCareSummary.submit(request)
       val claim = getClaimFromCache(result, CachedChangeOfCircs.key)
@@ -83,7 +83,7 @@ class GBreaksInCareSummarySpec extends Specification {
     }
 
     "add submitted data to the cached claim as Break Type Data for Care Home" in new WithApplication with Claiming {
-      val input = Seq("breaktype_carehome" -> "true", "breaktype_other" -> Mappings.no)
+      val input = Seq("circs_breaktype_carehome" -> "true", "circs_breaktype_other" -> Mappings.no)
       val request = FakeRequest().withFormUrlEncodedBody(input: _*)
       val result = GBreaksInCareSummary.submit(request)
       val claim = getClaimFromCache(result, CachedChangeOfCircs.key)
@@ -97,26 +97,20 @@ class GBreaksInCareSummarySpec extends Specification {
       }
     }
 
-    "add submitted data to the cached circs claim as Break Type Data for None" in new WithApplication with Claiming {
-      val input = Seq("breaktype_none" -> "true", "breaktype_other" -> Mappings.no)
+    "throw error when try to progress through summary screen with no breaks" in new WithApplication with Claiming {
+      val input = Seq("circs_breaktype_none" -> "true", "circs_breaktype_other" -> Mappings.no)
       val request = FakeRequest().withFormUrlEncodedBody(input: _*)
       val result = GBreaksInCareSummary.submit(request)
-      val claim = getClaimFromCache(result, CachedChangeOfCircs.key)
-      claim.questionGroup(CircsBreaksInCareType) must beLike {
-        case Some(f: CircsBreaksInCareType) => {
-          f.hospital shouldEqual None
-          f.carehome shouldEqual None
-          f.none shouldEqual Mappings.someTrue
-          f.other shouldEqual Some(Mappings.no)
-        }
-      }
+      contentAsString(result) must contain("You told us that there has been a time you or the person you provide care for has been away.")
     }
 
     "add submitted data to the cached claim as Break Type Data for Other" in new WithApplication with Claiming {
-      val input = Seq("breaktype_none" -> "true", "breaktype_other" -> Mappings.yes)
+      val input = Seq("circs_breaktype_none" -> "true", "circs_breaktype_other" -> Mappings.yes)
       val request = FakeRequest().withFormUrlEncodedBody(input: _*)
       val result = GBreaksInCareSummary.submit(request)
       val claim = getClaimFromCache(result, CachedChangeOfCircs.key)
+      println("Claim is:" + claim)
+      println("Claim QG is:" + claim.questionGroup(CircsBreaksInCareType))
       claim.questionGroup(CircsBreaksInCareType) must beLike {
         case Some(f: CircsBreaksInCareType) => {
           f.hospital shouldEqual None

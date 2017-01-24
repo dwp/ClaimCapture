@@ -4,10 +4,10 @@ import utils.WithBrowser
 import utils.pageobjects.{PageContext, ClaimPage, PageObjectsContext}
 
 class GCircsBreaksInCareSummaryPage(ctx:PageObjectsContext) extends ClaimPage(ctx, GCircsBreaksInCareSummaryPage.url) {
-  declareCheck("#breaktype_hospital", "BreaktypeHospitalCheckbox")
-  declareCheck("#breaktype_carehome", "BreaktypeCareHomeCheckbox")
-  declareCheck("#breaktype_none", "BreaktypeNoneCheckbox")
-  declareYesNo("#breaktype_other", "BreaktypeOtherYesNo")
+  declareCheck("#circs_breaktype_hospital", "BreaktypeHospitalCheckbox")
+  declareCheck("#circs_breaktype_carehome", "BreaktypeCareHomeCheckbox")
+  declareCheck("#circs_breaktype_none", "BreaktypeNoneCheckbox")
+  declareYesNo("#circs_breaktype_other", "BreaktypeOtherYesNo")
 }
 
 object GCircsBreaksInCareSummaryPage {
