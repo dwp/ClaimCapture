@@ -61,6 +61,9 @@ class GBreaksInCareSummaryNavigationIntegrationSpec extends Specification {
     }
 
     "navigate to consent page on valid submission - no further breaks to add" in new WithJsBrowser with PageObjects {
+      GCircsBreaksInCareHospitalPage.fillDetails(context, testData => {
+        testData.AboutTheCareYouProvideBreakWhenWereYouAdmitted_1 = "01/01/2009"
+      })
       val page = GCircsBreaksInCareSummaryPage(context)
       page goToThePage()
 

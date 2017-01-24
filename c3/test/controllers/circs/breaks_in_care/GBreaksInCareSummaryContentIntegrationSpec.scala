@@ -26,17 +26,17 @@ class GBreaksInCareSummaryContentIntegrationSpec extends Specification {
       GCircsYourDetailsPage.fillYourDetails(context, testData => {})
       val page = GCircsBreaksInCareSummaryPage(context)
       page goToThePage()
-      $("#breaktype_questionLabel").getText() mustEqual ("Have there been any times you or Mrs Jane Johnson have been in hospital, respite or care home?")
-      $("#breaktype_other_questionLabel").getText() mustEqual ("Have there been any other times you've not provided care for Mrs Jane Johnson for 35 hours a week?")
+      $("#circs_breaktype_questionLabel").getText() mustEqual ("Have there been any times you or Mrs Jane Johnson have been in hospital, respite or care home?")
+      $("#circs_breaktype_other_questionLabel").getText() mustEqual ("Have there been any other times you've not provided care for Mrs Jane Johnson for 35 hours a week?")
     }
 
     "be presented with correct checkbox options" in new WithBrowser with PageObjects with WithBrowserHelper {
       val page = GCircsBreaksInCareSummaryPage(context)
       page goToThePage()
 
-      $("[for=breaktype_hospital]").find("span").getText() shouldEqual "Hospital"
-      $("[for=breaktype_carehome]").find("span").getText() shouldEqual "Respite or care home"
-      $("[for=breaktype_none]").find("span").getText() shouldEqual "None"
+      $("[for=circs_breaktype_hospital]").find("span").getText() shouldEqual "Hospital"
+      $("[for=circs_breaktype_carehome]").find("span").getText() shouldEqual "Respite or care home"
+      $("[for=circs_breaktype_none]").find("span").getText() shouldEqual "None"
     }
 
     "present correct question labels when no existing breaks" in new WithJsBrowser with PageObjects {
@@ -96,7 +96,7 @@ class GBreaksInCareSummaryContentIntegrationSpec extends Specification {
 
       val page = GCircsBreaksInCareSummaryPage(context)
       page goToThePage()
-      browser.click("#breaktype_hospital")
+      browser.click("#circs_breaktype_hospital")
       val errors = page.submitPage().listErrors
       errors.size mustEqual 1
       errors(0) mustEqual ("Have there been any other times you've not provided care for Mrs Jane Johnson for 35 hours a week? - You must complete this section")
@@ -108,7 +108,7 @@ class GBreaksInCareSummaryContentIntegrationSpec extends Specification {
 
       val page = GCircsBreaksInCareSummaryPage(context)
       page goToThePage()
-      browser.click("#breaktype_carehome")
+      browser.click("#circs_breaktype_carehome")
       val errors = page.submitPage().listErrors
       errors.size mustEqual 1
       errors(0) mustEqual ("Have there been any other times you've not provided care for Mrs Jane Johnson for 35 hours a week? - You must complete this section")
@@ -120,7 +120,7 @@ class GBreaksInCareSummaryContentIntegrationSpec extends Specification {
 
       val page = GCircsBreaksInCareSummaryPage(context)
       page goToThePage()
-      browser.click("#breaktype_none")
+      browser.click("#circs_breaktype_none")
       val errors = page.submitPage().listErrors
       errors.size mustEqual 1
       errors(0) mustEqual ("Have there been any other times you've not provided care for Mrs Jane Johnson for 35 hours a week? - You must complete this section")
@@ -131,9 +131,9 @@ class GBreaksInCareSummaryContentIntegrationSpec extends Specification {
 
       val page = GCircsBreaksInCareSummaryPage(context)
       page goToThePage()
-      browser.click("#breaktype_hospital")
-      browser.click("#breaktype_none")
-      browser.click("#breaktype_other_no")
+      browser.click("#circs_breaktype_hospital")
+      browser.click("#circs_breaktype_none")
+      browser.click("#circs_breaktype_other_no")
       val errors = page.submitPage().listErrors
       // We get the errors on multiple lines because we have a bullet list to explain the complex rules
       val errorWithBulletPoints = 1
@@ -146,9 +146,9 @@ class GBreaksInCareSummaryContentIntegrationSpec extends Specification {
 
       val page = GCircsBreaksInCareSummaryPage(context)
       page goToThePage()
-      browser.click("#breaktype_carehome")
-      browser.click("#breaktype_none")
-      browser.click("#breaktype_other_no")
+      browser.click("#circs_breaktype_carehome")
+      browser.click("#circs_breaktype_none")
+      browser.click("#circs_breaktype_other_no")
       val errors = page.submitPage().listErrors
       // We get the errors on multiple lines because we have a bullet list to explain the complex rules
       val errorWithBulletPoints = 1
