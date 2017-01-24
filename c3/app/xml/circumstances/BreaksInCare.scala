@@ -116,8 +116,11 @@ object BreaksInCare {
         case "no" => {
           question(<ExpectToCareAgain/>, "expectToCareAgain.answer", expected.get.answer.getOrElse("Error")) ++ question(<StopCaringDecisionDate/>, "expectToCareAgain.nodate", break.expectToCareAgain.get.nodate.get)
         }
-        case _ => {
+        case "dontknow" => {
           question(<ExpectToCareAgain/>, "expectToCareAgain.answer", expected.get.answer.getOrElse("Error"))
+        }
+        case _ => {
+          NodeSeq.Empty
         }
       }}
       {question(<StartDate/>, startDetails._2, startDetails._1.`dd-MM-yyyy`, dp)}{breakEndedDetails._1.answer match {
@@ -155,8 +158,11 @@ object BreaksInCare {
         case "no" => {
           question(<ExpectToCareAgain/>, "expectToCareAgain.answer", expected.get.answer.getOrElse("Error")) ++ question(<StopCaringDecisionDate/>, "expectToCareAgain.nodate", break.expectToCareAgain.get.nodate.get)
         }
-        case _ => {
+        case "dontknow" => {
           question(<ExpectToCareAgain/>, "expectToCareAgain.answer", expected.get.answer.getOrElse("Error"))
+        }
+        case _ => {
+          NodeSeq.Empty
         }
       }}
       {question(<StartDate/>, startDetails._2, startDetails._1.`dd-MM-yyyy`, dp)}

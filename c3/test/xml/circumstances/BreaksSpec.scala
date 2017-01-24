@@ -255,6 +255,30 @@ class BreaksSpec extends Specification {
       (trailer \\ "BreaksMoreAbout" \\ "QuestionLabel").text shouldEqual "Tell us more about your changes"
       (trailer \\ "BreaksMoreAbout" \\ "Answer").text shouldEqual "Some text in moreinfo"
     }
+
+    "generate Breaks xml for You break with no ExpectToCareAgain block if restarted Yes" in new WithApplication {
+      val hospitalbreak = CircsBreak(iterationID = "1", typeOfCare = CircsBreaks.hospital, whoWasAway = BreaksInCareGatherOptions.You, whenWereYouAdmitted = Some(DayMonthYear(1, 2, 2003)),
+        yourStayEnded = Some(YesNoWithDate(Mappings.yes, Some(DayMonthYear(1, 2, 2003)))))
+      val breaksInCare = CircsBreaksInCare().update(hospitalbreak)
+      val claim = Claim(CachedChangeOfCircs.key).update(breaksInCare).update(yourDetails)
+      val circsXml = DWPCoCircs.xml(claim)
+      (circsXml \\ "CareBreak").size shouldEqual (3)
+      val hospitalXml = (circsXml \\ "CareBreak")(1)
+      (hospitalXml \\ "BreakEnded" \\ "Answer").text shouldEqual "Yes"
+      (hospitalXml \\ "ExpectToCareAgain").size shouldEqual 0
+    }
+
+    "generate Breaks xml for Dp break with no ExpectToCareAgain block if restarted Yes" in new WithApplication {
+      val hospitalbreak = CircsBreak(iterationID = "1", typeOfCare = Breaks.hospital, whoWasAway = BreaksInCareGatherOptions.DP,
+        whenWasDpAdmitted = Some((DayMonthYear(1, 1, 2003))), dpStayEnded = Some(YesNoWithDate(Mappings.yes, Some(DayMonthYear(1, 2, 2003)))), breaksInCareStillCaring = Some(Mappings.no))
+      val breaksInCare = CircsBreaksInCare().update(hospitalbreak)
+      val claim = Claim(CachedChangeOfCircs.key).update(breaksInCare).update(yourDetails)
+      val circsXml = DWPCoCircs.xml(claim)
+      (circsXml \\ "CareBreak").size shouldEqual (3)
+      val hospitalXml = (circsXml \\ "CareBreak")(1)
+      (hospitalXml \\ "BreakEnded" \\ "Answer").text shouldEqual "Yes"
+      (hospitalXml \\ "ExpectToCareAgain").size shouldEqual 0
+    }
   }
   section("unit")
 }
