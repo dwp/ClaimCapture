@@ -119,14 +119,8 @@ object GBreaksInCareRespite extends Controller with CachedChangeOfCircs with I18
 
   private def updatedBreakTypesObject(implicit circs: Claim) = {
     // Delete the carehome answer from claim. Otherwise, it will prepopulate the answer when return to Summary page
-    // But if we are the last break type being collected, clear all answers so that summary page needs to be re-selected.
     def breaksTypes(implicit claim: Claim) = claim.questionGroup[CircsBreaksInCareType].getOrElse(CircsBreaksInCareType())
-    if (breaksTypes.hospital.isDefined || breaksTypes.other.equals(Some(Mappings.yes))) {
       breaksTypes.copy(carehome = None)
-    }
-    else {
-      new BreaksInCareType()
-    }
   }
 
   //either other or if come from summary back to there

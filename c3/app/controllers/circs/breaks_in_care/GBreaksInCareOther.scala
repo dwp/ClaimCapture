@@ -109,14 +109,8 @@ object GBreaksInCareOther extends Controller with CachedChangeOfCircs with I18nS
 
   private def updatedBreakTypesObject(implicit circs: Claim) = {
     // Delete the other answer from claim. Otherwise, it will prepopulate the answer when return to Summary page
-    // But if we are the last break type being collected, clear all answers so that summary page needs to be re-selected.
     def breaksTypes(implicit claim: Claim) = claim.questionGroup[CircsBreaksInCareType].getOrElse(CircsBreaksInCareType())
-    if (breaksTypes.hospital.isDefined || breaksTypes.carehome.isDefined) {
-      breaksTypes.copy(other = None)
-    }
-    else {
-      new CircsBreaksInCareType()
-    }
+    breaksTypes.copy(other = None)
   }
 
   private def requiredOtherCaringEnded: Constraint[CircsBreak] = Constraint[CircsBreak]("constraint.breakCaringEnded") { break =>
@@ -221,5 +215,6 @@ object GBreaksInCareOther extends Controller with CachedChangeOfCircs with I18nS
   }
 
   def breaksInCare(implicit circs: Claim) = circs.questionGroup[CircsBreaksInCare].getOrElse(CircsBreaksInCare())
+
   def breaksTypes(implicit circs: Claim) = circs.questionGroup[CircsBreaksInCareType].getOrElse(CircsBreaksInCareType())
 }
