@@ -144,29 +144,15 @@ object GBreaksInCareOther extends Controller with CachedChangeOfCircs with I18nS
 
   private def validateExpectToCareAgain: Constraint[CircsBreak] = Constraint[CircsBreak]("constraint.breakCaringStartedDate") { break =>
     if(break.caringStarted.isDefined && break.caringStarted.get.answer.equals(Mappings.no) && !break.expectToCareAgain.isDefined){
-            Invalid(ValidationError("expectToCareAgain"))
+      Invalid(ValidationError("expectToCareAgain"))
     }
     else if(break.expectToCareAgain.isDefined){
-      break.expectToCareAgain.get.answer.get match{
-        case Mappings.yes =>{
-          if(!YesNoDontKnowWithDates.validateOnYes(break.expectToCareAgain.get)) {
-            Invalid(ValidationError("expectToCareAgain.yesdate"))
-          }
-          else {
-            validateDate(break.expectToCareAgain.get.yesdate.get, "expectToCareAgain.yesdate.invalid")
-          }
-        }
-        case Mappings.no => {
-          if(!YesNoDontKnowWithDates.validateOnNo(break.expectToCareAgain.get)) {
-            Invalid(ValidationError("expectToCareAgain.nodate"))
-          }
-          else {
-            validateDate(break.expectToCareAgain.get.nodate.get, "expectToCareAgain.nodate.invalid")
-          }
-        }
-        case Mappings.dontknow =>{
-          Valid
-        }
+      break.expectToCareAgain.get match{
+        case YesNoDontKnowWithDates(Some(Mappings.yes),None,_)=> Valid
+        case YesNoDontKnowWithDates(Some(Mappings.yes),Some(dmy),_)=> validateDate(break.expectToCareAgain.get.yesdate.get, "expectToCareAgain.yesdate.invalid")
+        case YesNoDontKnowWithDates(Some(Mappings.no),_,None)=> Invalid(ValidationError("expectToCareAgain.nodate"))
+        case YesNoDontKnowWithDates(Some(Mappings.no),_,Some(dmy))=> validateDate(break.expectToCareAgain.get.nodate.get, "expectToCareAgain.nodate.invalid")
+        case _ => Valid
       }
     }
     else{

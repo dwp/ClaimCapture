@@ -133,30 +133,14 @@ object GBreaksInCareRespite extends Controller with CachedChangeOfCircs with I18
   }
 
   private def validateExpectToCareAgain: Constraint[CircsBreak] = Constraint[CircsBreak]("constraint.breakCaringStartedDate") { break =>
-    if(break.yourStayEnded.isDefined && break.yourStayEnded.get.answer.equals(Mappings.no) && !break.expectToCareAgain.isDefined){
-            Invalid(ValidationError("expectToCareAgain"))
-    }
-    else if(break.expectToCareAgain.isDefined){
-      break.expectToCareAgain.get.answer.get match{
-        case Mappings.yes =>{
-          if(!YesNoDontKnowWithDates.validateOnYes(break.expectToCareAgain.get)) {
-            Invalid(ValidationError("expectToCareAgain.yesdate"))
-          }
-          else {
-            validateDate(break.expectToCareAgain.get.yesdate.get, "expectToCareAgain.yesdate.invalid")
-          }
-        }
-        case Mappings.no => {
-          if(!YesNoDontKnowWithDates.validateOnNo(break.expectToCareAgain.get)) {
-            Invalid(ValidationError("expectToCareAgain.nodate"))
-          }
-          else {
-            validateDate(break.expectToCareAgain.get.nodate.get, "expectToCareAgain.nodate.invalid")
-          }
-        }
-        case Mappings.dontknow =>{
-          Valid
-        }
+    if(break.yourStayEnded.isDefined && break.yourStayEnded.get.answer.equals(Mappings.no)){
+      break.expectToCareAgain match{
+        case None=> Invalid(ValidationError("expectToCareAgain"))
+        case Some(YesNoDontKnowWithDates(Some(Mappings.yes),None,_))=> Valid
+        case Some(YesNoDontKnowWithDates(Some(Mappings.yes),Some(dmy),_))=> validateDate(break.expectToCareAgain.get.yesdate.get, "expectToCareAgain.yesdate.invalid")
+        case Some(YesNoDontKnowWithDates(Some(Mappings.no),_,None))=> Invalid(ValidationError("expectToCareAgain.nodate"))
+        case Some(YesNoDontKnowWithDates(Some(Mappings.no),_,Some(dmy)))=> validateDate(break.expectToCareAgain.get.nodate.get, "expectToCareAgain.nodate.invalid")
+        case _ => Valid
       }
     }
     else{
@@ -165,30 +149,14 @@ object GBreaksInCareRespite extends Controller with CachedChangeOfCircs with I18
   }
 
   private def validateExpectToCareAgain2: Constraint[CircsBreak] = Constraint[CircsBreak]("constraint.breakCaringStartedDate") { break =>
-    if(break.dpStayEnded.isDefined && break.dpStayEnded.get.answer.equals(Mappings.no) && !break.expectToCareAgain2.isDefined){
-            Invalid(ValidationError("expectToCareAgain2"))
-    }
-    else if(break.expectToCareAgain2.isDefined){
-      break.expectToCareAgain2.get.answer.get match{
-        case Mappings.yes =>{
-          if(!YesNoDontKnowWithDates.validateOnYes(break.expectToCareAgain2.get)) {
-            Invalid(ValidationError("expectToCareAgain2.yesdate"))
-          }
-          else {
-            validateDate(break.expectToCareAgain2.get.yesdate.get, "expectToCareAgain2.yesdate.invalid")
-          }
-        }
-        case Mappings.no => {
-          if(!YesNoDontKnowWithDates.validateOnNo(break.expectToCareAgain2.get)) {
-            Invalid(ValidationError("expectToCareAgain2.nodate"))
-          }
-          else {
-            validateDate(break.expectToCareAgain2.get.nodate.get, "expectToCareAgain2.nodate.invalid")
-          }
-        }
-        case Mappings.dontknow =>{
-          Valid
-        }
+    if(break.dpStayEnded.isDefined && break.dpStayEnded.get.answer.equals(Mappings.no)){
+      break.expectToCareAgain2 match{
+        case None=> Invalid(ValidationError("expectToCareAgain2"))
+        case Some(YesNoDontKnowWithDates(Some(Mappings.yes),None,_))=> Valid
+        case Some(YesNoDontKnowWithDates(Some(Mappings.yes),Some(dmy),_))=> validateDate(break.expectToCareAgain2.get.yesdate.get, "expectToCareAgain2.yesdate.invalid")
+        case Some(YesNoDontKnowWithDates(Some(Mappings.no),_,None))=> Invalid(ValidationError("expectToCareAgain2.nodate"))
+        case Some(YesNoDontKnowWithDates(Some(Mappings.no),_,Some(dmy)))=> validateDate(break.expectToCareAgain2.get.nodate.get, "expectToCareAgain2.nodate.invalid")
+        case _ => Valid
       }
     }
     else{
