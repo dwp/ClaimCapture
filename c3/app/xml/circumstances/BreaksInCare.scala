@@ -63,7 +63,7 @@ object BreaksInCare {
         <CareBreak>
           {breaksInCareLabel("circs.breaktype_another", "None", dp)}
           {question(<BreaksOtherSinceClaim/>, "circs.breaktype_other_another", "no", dp)}
-          {question(<BreaksMoreAbout/>,"breaksmoreabout", breaksInCareType.breaksmoreabout)}
+          {question(<BreaksMoreAbout/>,"breaksmoreabout", breaksInCareType.breaksmoreabout.getOrElse(""))}
         </CareBreak>
       } else {
         NodeSeq.Empty

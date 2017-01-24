@@ -66,7 +66,7 @@ case class CircsBreaksInCareType(hospital: Option[String] = None,
                             carehome: Option[String] = None,
                             none: Option[String] = None,
                             other: Option[String] = None,
-                                 breaksmoreabout: String = ""
+                                 breaksmoreabout: Option[String] = None
                                   ) extends QuestionGroup(CircsBreaksInCareType)
 
 object CircsBreaksInCareType extends QGIdentifier(id = s"${CircsBreaks.id}.g15")
