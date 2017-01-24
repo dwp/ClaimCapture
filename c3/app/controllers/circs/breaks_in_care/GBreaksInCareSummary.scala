@@ -28,7 +28,7 @@ object GBreaksInCareSummary extends Controller with CachedChangeOfCircs with Nav
     "circs_breaktype_carehome" -> optional(nonEmptyText),
     "circs_breaktype_none" -> optional(nonEmptyText),
     "circs_breaktype_other" -> optional(text.verifying(validYesNo)),
-    "breaksmoreabout" -> optional(carersNonEmptyText(maxLength = 3000))
+    "circs_breaksmoreabout" -> optional(carersNonEmptyText(maxLength = 3000))
   )(CircsBreaksInCareType.apply)(CircsBreaksInCareType.unapply)
     .verifying("selectother", validateOther _)
     .verifying("musthavebreak", validateMustHaveBreak(circs, _))
@@ -49,11 +49,11 @@ object GBreaksInCareSummary extends Controller with CachedChangeOfCircs with Nav
     form.bindEncrypted.fold(
       formWithErrors => {
         val errors = formWithErrors
-          .replaceError("", "toomanybreaks", FormError("circs.breaktype", "circs.breaks.toomanybreaks", Seq(Breaks.maximumBreaks)))
-          .replaceError("", "musthavebreak", FormError("circs.breaktype", "circs.breaks.musthavebreak", Seq(anyothertimes, circsDpName(circs))))
-          .replaceError("", "deselectnone", FormError("circs.breaktype", "circs.breaks.breaktype.deselectnone", Seq(anyothertimes, circsDpName(circs))))
-          .replaceError("", "selectone", FormError("circs.breaktype", "circs.breaks.breaktype.selectone", Seq(anyothertimes, circsDpName(circs))))
-          .replaceError("", "selectother", FormError("circs.breaktype_other", errorRequired, Seq(circsDpName(circs))))
+          .replaceError("", "toomanybreaks", FormError("circs_breaktype", "circs_breaks.toomanybreaks", Seq(Breaks.maximumBreaks)))
+          .replaceError("", "musthavebreak", FormError("circs_breaktype", "circs_breaks.musthavebreak", Seq(anyothertimes, circsDpName(circs))))
+          .replaceError("", "deselectnone", FormError("circs_breaktype", "circs_breaks.breaktype.deselectnone", Seq(anyothertimes, circsDpName(circs))))
+          .replaceError("", "selectone", FormError("circs_breaktype", "circs_breaks.breaktype.selectone", Seq(anyothertimes, circsDpName(circs))))
+          .replaceError("", "selectother", FormError("circs_breaktype_other", errorRequired, Seq(circsDpName(circs))))
         BadRequest(views.html.circs.breaks_in_care.breaksInCareSummary(errors, breaks))
       },
       breaksInCareSummary => {
@@ -95,8 +95,9 @@ object GBreaksInCareSummary extends Controller with CachedChangeOfCircs with Nav
   }
 
   private def validateMustHaveBreak(implicit claim: Claim, breaksInCareType: CircsBreaksInCareType) = {
-    (breaksInCare.hasCircsBreaks, breaksInCareType.hospital, breaksInCareType.carehome, breaksInCareType.other) match {
-      case (false, None, None, Some(Mappings.no)) => false
+    (breaksInCare.hasCircsBreaks, breaksInCareType) match {
+      case (false, CircsBreaksInCareType(None, None, None, _, _)) => true
+      case (false, CircsBreaksInCareType(None, None, someTrue, Some(Mappings.no), _)) => false
       case _ => true
     }
   }

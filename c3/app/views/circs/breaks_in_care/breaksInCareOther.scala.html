@@ -28,7 +28,7 @@
     )
 }
 
-@main(messages("circs.breaksInCareOtherTitle"), Some(currentForm)) {
+@main(messages("circs_breaksInCareOtherTitle"), Some(currentForm)) {
 
     @form(action = controllers.circs.breaks_in_care.routes.GBreaksInCareOther.submit, 'role -> "form") {
         <input type="hidden" name="iterationID" value="@IterationID(currentForm)">

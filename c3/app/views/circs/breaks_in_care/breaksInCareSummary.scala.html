@@ -38,7 +38,7 @@
     }
 }
 @otherbreakLabel = @{
-    "circs.breaktype_other_another"
+    "circs_breaktype_other_another"
 }
 @whoWasAway(break: CircsBreak) = @{
     break.whoWasAway match {
@@ -94,7 +94,7 @@
         case CircsBreaks.another => "/circumstances/breaks/other-breaks/" + break.iterationID
     }
 }
-@main(messages("circs.breaks.title"), Some(currentForm)) {
+@main(messages("circs_breaks.title"), Some(currentForm)) {
     @form(action = controllers.circs.breaks_in_care.routes.GBreaksInCareSummary.submit, 'role -> "form") {
         @DwpCSRFFormHelper.formField
         <input type="hidden" id="js" name="jsEnabled" value="false">
@@ -145,7 +145,7 @@
                     'track -> true,
                     'ignoreOptional -> true,
                     '_showId -> true,
-                    '_label -> messages("circs.breaktype", anyothertimes, dpname))
+                    '_label -> messages("circs_breaktype", anyothertimes, dpname))
 
                 @yesNoRadioGroup(currentForm("circs_breaktype_other"),
                     '_label -> messages(otherbreakLabel, dpname),
