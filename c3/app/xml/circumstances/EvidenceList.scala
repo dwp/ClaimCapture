@@ -41,7 +41,7 @@ object EvidenceList {
     if (isEmail) nodes ++= evidenceTitle("email.circs.thankYou")
 
     if (isBreaksInCare) {
-      nodes ++= evidenceTitle("circs.thankyou.breakmessage.content.nohtml")
+      nodes ++= evidenceTitle("circs.thankyou.breakmessage.content")
     }
 
     if (isEmployment1 || isEmployment2) {

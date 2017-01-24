@@ -8,13 +8,23 @@
 @import play.api.Play
 @import play.api.Play.current
 @import utils.helpers.OriginTagHelper._
-@import models.domain.Breaks
+@import models.domain.CircsBreak
+@import models.domain.CircsBreaks
 @import controllers.mappings.Mappings
+@import models.yesNo.YesNoDontKnowWithDates
+
+@expected(break: CircsBreak)=@{
+    (break.expectToCareAgain, break.expectToCareAgain2) match {
+        case (Some(_), _) => break.expectToCareAgain
+        case (_, Some(_)) => break.expectToCareAgain2
+        case _ => Option(YesNoDontKnowWithDates(Some("None")))
+    }
+}
 
 @showBreaksInCareMessages = @{
     val breaks = circs.questionGroup[CircsBreaksInCare].getOrElse(CircsBreaksInCare()).breaks
-    val breaksOngoing=breaks.filter(b => b.typeOfCare.equals(Breaks.another) && b.expectToCareAgain.isDefined && ( b.expectToCareAgain.get.answer.equals(Some(Mappings.no)) || b.expectToCareAgain.get.answer.equals(Some(Mappings.dontknow))))
-    breaksOngoing.size >0
+    val breaksDontKnow=breaks.filter(b => b.typeOfCare.equals(CircsBreaks.another) && expected(b).get.answer.equals(Some(Mappings.dontknow)))
+    breaksDontKnow.size >0
 }
 
 @showEmployment1Messages = @{
