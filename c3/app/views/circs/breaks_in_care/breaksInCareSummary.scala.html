@@ -174,7 +174,7 @@
     <script type="text/javascript" @views.html.common.nonCachingSrc("javascripts/circs/breaks_in_care/breaksInCareSummary.js") ></script>
     <script type="text/javascript">
            $(function(){
-            window.areaCounter({selector:"@CarersCrypto.encryptAES("breaksmoreabout")",maxChars:3000});
+            window.areaCounter({selector:"@CarersCrypto.encryptAES("moreAboutChanges")",maxChars:3000});
         });
         $(function(){
             window.initSummaryEvents({
@@ -186,7 +186,7 @@
                 breakOtherYes: "@CarersCrypto.encryptAES("breaktype_other_yes")",
                 breakOtherNo: "@CarersCrypto.encryptAES("breaktype_other_no")",
                 deleteId: "@CarersCrypto.encryptAES("deleteId")",
-                breaksMoreAbout: "@CarersCrypto.encryptAES("breaksmoreabout")"
+                breaksMoreAbout: "@CarersCrypto.encryptAES("moreAboutChanges")"
             });
         });
     </script>
