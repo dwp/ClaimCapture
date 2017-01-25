@@ -1,6 +1,8 @@
 @import models.domain.CircumstancesYourDetails
 @(currentForm: Form[models.domain.CircsBreaksInCareType], breaks: models.domain.CircsBreaksInCare)(implicit claim: models.domain.Claim, lang: Lang, request: play.api.mvc.Request[AnyContent], flash: Flash, messages: play.api.i18n.Messages)
 
+@implicitField = @{ utils.helpers.CarersTemplate.apply(lang).fieldConstructor }
+
 @import views.html.helper._
 @import utils.csrf.DwpCSRFFormHelper
 @import language.postfixOps
@@ -153,7 +155,7 @@
                     'values -> Seq("yes" -> messages("label.yes4"), "no" -> messages("label.no")))
 
                 @if(breaks.hasCircsBreaks) {
-                    @carersInputTextArea(currentForm("breaksmoreabout"),
+                    @carersInputTextArea(currentForm("moreAboutChanges"),
                     'helperAbove -> Html(messages("moreAboutChanges.helper")),
                     'textAreaHelper -> Html(messages("3000charsLeft")), 'maxLength -> 3000)
                 }
