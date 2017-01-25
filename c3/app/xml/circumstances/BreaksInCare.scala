@@ -111,19 +111,13 @@ object BreaksInCare {
 
     <CareBreak>
       {question(<BreaksType/>, "Type of Break", s"${break.whoWasAway}Hospital")}{question(<WhoWasAway/>, "whoWasInHospital", startDetails._3)}
-      {expected.get.answer.getOrElse("none") match {
-        case "yes" => {
-          question(<ExpectToCareAgain/>, "expectToCareAgain.answer", expected.get.answer.getOrElse("Error")) ++ question(<ExpectToCareAgainDate/>, "expectToCareAgain.yesdate", break.expectToCareAgain.get.yesdate.get)
-        }
-        case "no" => {
-          question(<ExpectToCareAgain/>, "expectToCareAgain.answer", expected.get.answer.getOrElse("Error")) ++ question(<StopCaringDecisionDate/>, "expectToCareAgain.nodate", break.expectToCareAgain.get.nodate.get)
-        }
-        case "dontknow" => {
-          question(<ExpectToCareAgain/>, "expectToCareAgain.answer", expected.get.answer.getOrElse("Error"))
-        }
-        case _ => {
-          NodeSeq.Empty
-        }
+      {expected match {
+        case (Some(YesNoDontKnowWithDates(Some("yes"),None,None))) => question(<ExpectToCareAgain/>, "expectToCareAgain.answer", expected.get.answer.getOrElse("Error"))
+        case (Some(YesNoDontKnowWithDates(Some("yes"),Some(dmy),_))) => question(<ExpectToCareAgain/>, "expectToCareAgain.answer", expected.get.answer.getOrElse("Error")) ++ question(<ExpectToCareAgainDate/>, "expectToCareAgain.yesdate", dmy)
+        case (Some(YesNoDontKnowWithDates(Some("no"),None,None))) => question(<ExpectToCareAgain/>, "expectToCareAgain.answer", expected.get.answer.getOrElse("Error"))
+        case (Some(YesNoDontKnowWithDates(Some("no"),_,Some(dmy)))) => question(<ExpectToCareAgain/>, "expectToCareAgain.answer", expected.get.answer.getOrElse("Error")) ++ question(<StopCaringDecisionDate/>, "expectToCareAgain.nodate", dmy)
+        case (Some(YesNoDontKnowWithDates(Some("dontknow"),_,_))) => question(<ExpectToCareAgain/>, "expectToCareAgain.answer", expected.get.answer.getOrElse("Error"))
+        case _ => NodeSeq.Empty
       }}
       {question(<StartDate/>, startDetails._2, startDetails._1.`dd-MM-yyyy`, dp)}{breakEndedDetails._1.answer match {
       case "yes" => {
@@ -153,20 +147,14 @@ object BreaksInCare {
     }
     <CareBreak>
       {question(<BreaksType/>, "Type of Break", s"${break.whoWasAway}Respite")}{question(<WhoWasAway/>, "whoWasInRespite", startDetails._3)}
-        {expected.get.answer.getOrElse("none") match {
-        case "yes" => {
-          question(<ExpectToCareAgain/>, "expectToCareAgain.answer", expected.get.answer.getOrElse("Error")) ++ question(<ExpectToCareAgainDate/>, "expectToCareAgain.yesdate", break.expectToCareAgain.get.yesdate.get)
-        }
-        case "no" => {
-          question(<ExpectToCareAgain/>, "expectToCareAgain.answer", expected.get.answer.getOrElse("Error")) ++ question(<StopCaringDecisionDate/>, "expectToCareAgain.nodate", break.expectToCareAgain.get.nodate.get)
-        }
-        case "dontknow" => {
-          question(<ExpectToCareAgain/>, "expectToCareAgain.answer", expected.get.answer.getOrElse("Error"))
-        }
-        case _ => {
-          NodeSeq.Empty
-        }
-      }}
+      {expected match {
+        case (Some(YesNoDontKnowWithDates(Some("yes"),None,None))) => question(<ExpectToCareAgain/>, "expectToCareAgain.answer", expected.get.answer.getOrElse("Error"))
+        case (Some(YesNoDontKnowWithDates(Some("yes"),Some(dmy),_))) => question(<ExpectToCareAgain/>, "expectToCareAgain.answer", expected.get.answer.getOrElse("Error")) ++ question(<ExpectToCareAgainDate/>, "expectToCareAgain.yesdate", dmy)
+        case (Some(YesNoDontKnowWithDates(Some("no"),None,None))) => question(<ExpectToCareAgain/>, "expectToCareAgain.answer", expected.get.answer.getOrElse("Error"))
+        case (Some(YesNoDontKnowWithDates(Some("no"),_,Some(dmy)))) => question(<ExpectToCareAgain/>, "expectToCareAgain.answer", expected.get.answer.getOrElse("Error")) ++ question(<StopCaringDecisionDate/>, "expectToCareAgain.nodate", dmy)
+        case (Some(YesNoDontKnowWithDates(Some("dontknow"),_,_))) => question(<ExpectToCareAgain/>, "expectToCareAgain.answer", expected.get.answer.getOrElse("Error"))
+        case _ => NodeSeq.Empty
+    }}
       {question(<StartDate/>, startDetails._2, startDetails._1.`dd-MM-yyyy`, dp)}
       {breakEndedDetails._1.answer match {
       case "yes" => {
@@ -200,20 +188,31 @@ object BreaksInCare {
         }
       }
       case "no" => {
-        break.expectToCareAgain.get.answer match {
-          case Some("yes") => {
-            question(<BreakStarted/>, "caringStarted.answer", break.caringStarted.get.answer, dp) ++
-              question(<ExpectToCareAgain/>, "expectToCareAgain.answer", break.expectToCareAgain.get.answer.getOrElse("Error")) ++
-              question(<ExpectToCareAgainDate/>, "expectToCareAgain.yesdate", break.expectToCareAgain.get.yesdate.get)
-          }
-          case Some("no") => {
-            question(<BreakStarted/>, "caringStarted.answer", break.caringStarted.get.answer, dp) ++
-              question(<ExpectToCareAgain/>, "expectToCareAgain.answer", break.expectToCareAgain.get.answer.getOrElse("Error")) ++
-              question(<StopCaringDecisionDate/>, "expectToCareAgain.nodate", break.expectToCareAgain.get.nodate.get)
-          }
-          case _ => {
+        break.expectToCareAgain match {
+          case (Some(YesNoDontKnowWithDates(Some("yes"),None,None))) => {
             question(<BreakStarted/>, "caringStarted.answer", break.caringStarted.get.answer, dp) ++
               question(<ExpectToCareAgain/>, "expectToCareAgain.answer", break.expectToCareAgain.get.answer.getOrElse("Error"))
+          }
+          case (Some(YesNoDontKnowWithDates(Some("yes"),Some(dmy),_))) => {
+            question(<BreakStarted/>, "caringStarted.answer", break.caringStarted.get.answer, dp) ++
+              question(<ExpectToCareAgain/>, "expectToCareAgain.answer", break.expectToCareAgain.get.answer.getOrElse("Error")) ++
+              question(<ExpectToCareAgainDate/>, "expectToCareAgain.yesdate", dmy)
+          }
+          case (Some(YesNoDontKnowWithDates(Some("no"),None,None))) => {
+            question(<BreakStarted/>, "caringStarted.answer", break.caringStarted.get.answer, dp) ++
+              question(<ExpectToCareAgain/>, "expectToCareAgain.answer", break.expectToCareAgain.get.answer.getOrElse("Error"))
+          }
+          case (Some(YesNoDontKnowWithDates(Some("no"),_,Some(dmy)))) => {
+            question(<BreakStarted/>, "caringStarted.answer", break.caringStarted.get.answer, dp) ++
+              question(<ExpectToCareAgain/>, "expectToCareAgain.answer", break.expectToCareAgain.get.answer.getOrElse("Error")) ++
+              question(<StopCaringDecisionDate/>, "expectToCareAgain.nodate", dmy)
+          }
+          case (Some(YesNoDontKnowWithDates(Some("dontknow"),_,_))) => {
+            question(<BreakStarted/>, "caringStarted.answer", break.caringStarted.get.answer, dp) ++
+              question(<ExpectToCareAgain/>, "expectToCareAgain.answer", break.expectToCareAgain.get.answer.getOrElse("Error"))
+          }
+          case _ =>{
+            NodeSeq.Empty
           }
         }
       }
