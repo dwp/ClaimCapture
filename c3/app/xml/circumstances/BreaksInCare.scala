@@ -55,7 +55,7 @@ object BreaksInCare {
     val your = "@yourname"
     val xmlFirstBreak = {
       <CareBreak>
-        {breaksInCareLabel("circs.breaktype_first", findSelectedMapping(breaksInCare.breaks), dp)}{question(<BreaksOtherSinceClaim/>, "circs.breaktype_other_first", findOtherSelected(breaksInCare.breaks), dp)}
+        {breaksInCareLabel("circs_breaktype_first", findSelectedMapping(breaksInCare.breaks), dp)}{question(<BreaksOtherSinceClaim/>, "circs_breaktype_other_first", findOtherSelected(breaksInCare.breaks), dp)}
       </CareBreak>
     }
 
@@ -63,8 +63,8 @@ object BreaksInCare {
     val xmlLastBreak = {
       if (breaksInCare.breaks.size > 0) {
         <CareBreak>
-          {breaksInCareLabel("circs.breaktype_another", "None", dp)}
-          {question(<BreaksOtherSinceClaim/>, "circs.breaktype_other_another", "no", dp)}
+          {breaksInCareLabel("circs_breaktype_another", "None", dp)}
+          {question(<BreaksOtherSinceClaim/>, "circs_breaktype_other_another", "no", dp)}
           {question(<BreaksMoreAbout/>,"breaksmoreabout", breaksInCareType.breaksmoreabout.getOrElse(""))}
         </CareBreak>
       } else {
