@@ -11,7 +11,7 @@ import utils.{WithBrowser, WithBrowsers, WithJsBrowser}
 class GBreaksInCareOtherIntegrationSpec extends Specification {
   section("integration", models.domain.Breaks.id)
   "Break" should {
-    "be presented" in new WithJsBrowser with BreakFillerOther with WithBrowserHelper with BrowserMatchers {
+   "be presented" in new WithJsBrowser with BreakFillerOther with WithBrowserHelper with BrowserMatchers {
       goTo(GCircsBreaksInCareOtherPage.url )
       urlMustEqual(GCircsBreaksInCareOtherPage.url)
     }
@@ -110,7 +110,6 @@ trait BreakFillerOther {
     browser.fill("#caringStarted_date_day") `with` start.day.get.toString
     browser.fill("#caringStarted_date_month") `with` start.month.get.toString
     browser.fill("#caringStarted_date_year") `with` start.year.get.toString
-    browser.fill("#caringStarted_time") `with` "12"
     browser.click("#whereWasDp_answer_On_holiday")
     browser.click("#whereWereYou_answer_Somewhere_else")
     browser.fill("#whereWereYou_text") `with` "test"
