@@ -64,7 +64,10 @@
     else key
 }
 @getErrorMessage(error:FormError) = @{
-    if(messages(error.key + ".error") != error.key + ".error" && !error.message.endsWith(".error")) {
+    if(error.message.endsWith(".erroronly")){
+        messages(getMessageKey(error.message), error.args: _*)
+    }
+    else if(messages(error.key + ".error") != error.key + ".error" && !error.message.endsWith(".error")) {
         messages(getMessageKey(error.message), error.args: _*)
     } else {
         messages(error.key, error.args: _*)+" - "+messages(getMessageKey(error.message), error.args: _*)

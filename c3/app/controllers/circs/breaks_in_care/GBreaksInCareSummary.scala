@@ -51,8 +51,8 @@ object GBreaksInCareSummary extends Controller with CachedChangeOfCircs with Nav
       formWithErrors => {
         val errors = formWithErrors
           .replaceError("", "toomanybreaks", FormError("circs_breaktype", "circs_breaks.toomanybreaks", Seq(Breaks.maximumBreaks)))
-          .replaceError("", "musthavebreak1", FormError("circs_breaktype", "circs_breaks.musthavebreak", Seq(anyothertimes, circsDpName(circs))))
-          .replaceError("", "musthavebreak2", FormError("circs_breaktype_other", "circs_breaks.musthavebreak", Seq(anyothertimes, circsDpName(circs))))
+          .replaceError("", "musthavebreak1", FormError("circs_breaktype", "circs_breaks.musthavebreak.erroronly", Seq(anyothertimes, circsDpName(circs))))
+          .replaceError("", "musthavebreak2", FormError("circs_breaktype_other", "circs_breaks.musthavebreak.erroronly", Seq(anyothertimes, circsDpName(circs))))
           .replaceError("", "deselectnone", FormError("circs_breaktype", "circs_breaks.breaktype.deselectnone", Seq(anyothertimes, circsDpName(circs))))
           .replaceError("", "selectone", FormError("circs_breaktype", "circs_breaks.breaktype.selectone", Seq(anyothertimes, circsDpName(circs))))
           .replaceError("", "selectother", FormError("circs_breaktype_other", errorRequired, Seq(circsDpName(circs))))
