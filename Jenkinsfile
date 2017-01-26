@@ -37,10 +37,10 @@ node ('master') {
     }
     stage ('Build database RedHat package') {
         def app_ver = sh (
-            script: 'ls c3/target/universal/*SNAPSHOT-database.zip | awk -F \\- "{print \\$2}"',
+            script: 'ls c3/target/universal/*SNAPSHOT.zip | awk -F \\- "{print \\$2}"',
             returnStdout: true
         ).trim()
-        sh "fpm -s zip -t rpm --name ${app_name}-${app_ver}-SNAPSHOT-database -v ${env.BUILD_NUMBER} --prefix /data/liquibase/${app_name} c3/target/universal/${app_name}-${app_ver}-SNAPSHOT-database.zip"
+        sh "fpm -s dir -t rpm --name ${app_name}-${app_ver}-SNAPSHOT-database -v ${env.BUILD_NUMBER} --prefix /data/liquibase/${app_name} database"
     }
     if (env.BRANCH_NAME == 'integration') {
         stage ('Deploy to lab') {
