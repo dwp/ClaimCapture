@@ -3,6 +3,7 @@ node ('master') {
     properties([disableConcurrentBuilds()])
  
     def sbttool = tool name: 'sbt137', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'
+    def app_name = 'c3'
  
     stage ('Checkout') {
         checkout scm
@@ -28,12 +29,18 @@ node ('master') {
         sh 'fuser -k 11212/tcp'
     }
     stage ('Build service RedHat package') {
-            def app_name = 'c3'
-            def app_ver = sh (
-                script: 'ls c3/target/universal/*.zip | awk -F \\- "{print \\$2}"',
-                returnStdout: true
-            ).trim()
-            sh "fpm -s zip -t rpm --name ${app_name}-${app_ver}-SNAPSHOT -v ${env.BUILD_NUMBER} --prefix /data/carers/${app_name} c3/target/universal/*.zip"
+        def app_ver = sh (
+            script: 'ls c3/target/universal/*SNAPSHOT.zip | awk -F \\- "{print \\$2}"',
+            returnStdout: true
+        ).trim()
+        sh "fpm -s zip -t rpm --name ${app_name}-${app_ver}-SNAPSHOT -v ${env.BUILD_NUMBER} --prefix /data/carers/${app_name} c3/target/universal/${app_name}-${app_ver}-SNAPSHOT.zip"
+    }
+    stage ('Build database RedHat package') {
+        def app_ver = sh (
+            script: 'ls c3/target/universal/*SNAPSHOT.zip | awk -F \\- "{print \\$2}"',
+            returnStdout: true
+        ).trim()
+        sh "fpm -s dir -t rpm --name ${app_name}-${app_ver}-SNAPSHOT-database -v ${env.BUILD_NUMBER} --prefix /data/liquibase/${app_name} database"
     }
     if (env.BRANCH_NAME == 'integration') {
         stage ('Deploy to lab') {
