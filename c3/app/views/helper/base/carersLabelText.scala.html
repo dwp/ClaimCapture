@@ -6,10 +6,16 @@
 @labelOrId(field.name,args: _*)
 
 @displayOptional = @{
-    (!args.find(t => t._1 == 'ignoreOptional).getOrElse('ignoreOptional->false).asInstanceOf[(Symbol,Boolean)]._2 &&
-    !field.constraints.find(_._1 == "constraint.required"))
+    val ignoreOptionalArg = args.find(t => t._1 == 'ignoreOptional)
+    (ignoreOptionalArg) match {
+        case (Some(s)) => {
+            !s.asInstanceOf[(Symbol, Boolean)]._2
+        }
+        case _ => {
+            !field.constraints.find(_._1 == "constraint.required")
+        }
+    }
 }
-
 @if(displayOptional){
     <em>(@Html(messages("optional")))</em>
 }

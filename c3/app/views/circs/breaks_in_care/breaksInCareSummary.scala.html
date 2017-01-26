@@ -156,7 +156,7 @@
 
                 @if(breaks.hasCircsBreaks) {
                     @carersInputTextArea(currentForm("moreAboutChanges"),
-                    'helperAbove -> Html(messages("moreAboutChanges.helper")),
+                    'helperAbove -> Html(messages("moreAboutChanges.helper")), 'ignoreOptional -> false,
                     'textAreaHelper -> Html(messages("3000charsLeft")), 'maxLength -> 3000)
                 }
             </ul>
