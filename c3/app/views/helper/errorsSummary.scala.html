@@ -63,26 +63,35 @@
     if (key.endsWith(".error")) key.dropRight(6)
     else key
 }
-
+@getErrorMessage(error:FormError) = @{
+    if(messages(error.key + ".error") != error.key + ".error" && !error.message.endsWith(".error")) {
+        messages(getMessageKey(error.message), error.args: _*)
+    } else {
+        messages(error.key, error.args: _*)+" - "+messages(getMessageKey(error.message), error.args: _*)
+    }
+}
+@getDedupErrorMessages(errors:Seq[FormError])=@{
+    var keyset = scala.collection.mutable.Set[String]()
+    var dedupErrors=errors.filter(error=> {
+        var errorMessage=getErrorMessage(error)
+        var x=keyset.contains(errorMessage)
+        keyset+=errorMessage
+        !x
+    })
+    dedupErrors
+}
 @if(form.hasErrors) {
     <div class="validation-summary">
         <h2 class="heading-small">@Html(messages("error.title"))</h2>
         <p>@Html(messages("error.label"))</p>
         <ol class="list-bullet">
-        @for(error <- form.errors) {
-            <li>
-                <a href="#@CarersCrypto.encryptAES(form(error.key).id)">
-                    @if(messages(error.key + ".error") != error.key + ".error" && !error.message.endsWith(".error")) {
-                        @Html(messages(getMessageKey(error.message), error.args: _*))
-                    } else {
-                        @Html(messages(error.key, error.args: _*)) - @Html(messages(getMessageKey(error.message), error.args: _*))
-                    }
-                </a>
-            </li>
-        }
+            @for(error <- getDedupErrorMessages(form.errors)){
+                <li>
+                    <a href="#@CarersCrypto.encryptAES(form(error.key).id)">@Html(getErrorMessage(error))</a>
+                </li>
+            }
         </ol>
     </div>
-
     <script type="text/javascript">
         $(function() {
             @for(error <- form.errors) {
