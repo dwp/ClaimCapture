@@ -72,7 +72,7 @@ object EvidenceList {
 
   def showBreaksInCaremessages(circs: Claim) = {
     val breaks = circs.questionGroup[CircsBreaksInCare].getOrElse(CircsBreaksInCare()).breaks
-    val breaksOngoing=breaks.filter(b => b.typeOfCare.equals(Breaks.another) && b.expectToCareAgain.isDefined && ( b.expectToCareAgain.get.answer.equals(Some(Mappings.no)) || b.expectToCareAgain.get.answer.equals(Some(Mappings.dontknow))))
+    val breaksOngoing=breaks.filter(b => b.expectToCareAgain.isDefined && b.expectToCareAgain.get.answer.equals(Some(Mappings.dontknow)))
     breaksOngoing.size >0
   }
 

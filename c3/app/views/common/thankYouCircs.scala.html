@@ -23,7 +23,7 @@
 
 @showBreaksInCareMessages = @{
     val breaks = circs.questionGroup[CircsBreaksInCare].getOrElse(CircsBreaksInCare()).breaks
-    val breaksDontKnow=breaks.filter(b => b.typeOfCare.equals(CircsBreaks.another) && expected(b).get.answer.equals(Some(Mappings.dontknow)))
+    val breaksDontKnow=breaks.filter(b => b.expectToCareAgain.isDefined && expected(b).get.answer.equals(Some(Mappings.dontknow)))
     breaksDontKnow.size >0
 }
 
