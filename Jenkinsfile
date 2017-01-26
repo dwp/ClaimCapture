@@ -1,8 +1,10 @@
 node ('master') {
  
-   def sbttool = tool name: 'sbt137', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'
-
-   stage ('Checkout') {
+    properties([disableConcurrentBuilds()])
+ 
+    def sbttool = tool name: 'sbt137', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'
+ 
+    stage ('Checkout') {
         checkout scm
     }
     stage ('Start memcached') {
