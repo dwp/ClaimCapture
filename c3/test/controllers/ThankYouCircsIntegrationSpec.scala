@@ -62,9 +62,33 @@ class ThankYouCircsIntegrationSpec extends Specification {
       bodyText must not contain(thankyouPageBreakText)
     }
 
+    "should display breaks in care message when Hospital break Not Restarted Caring and Dont Know if will" in new WithApplication with MockForm {
+      val dontknowBreak = CircsBreak(iterationID = "1", typeOfCare = Breaks.hospital,
+        caringEnded = Some(DayMonthYear(1, 2, 2003)), caringStarted = Some(YesNoWithDate(Mappings.no, None)),
+        expectToCareAgain = Some(YesNoDontKnowWithDates(Some(Mappings.dontknow), None, None)))
+      val breaksInCare = CircsBreaksInCare().update(dontknowBreak)
+      val claim = Claim(CachedChangeOfCircs.key).update(breaksInCare)
+      cache.set("default" + CachedChangeOfCircs.key, claim.update(ReportChangeReason(false, ReportChange.BreakFromCaring.name)))
+
+      val result = CircsEnding.thankyou(g2FakeRequest(CachedChangeOfCircs.key))
+      val bodyText: String = contentAsString(result)
+      bodyText must contain(thankyouPageBreakText)
+    }
+
+    "should display breaks in care message when Respite break Not Restarted Caring and Dont Know if will" in new WithApplication with MockForm {
+      val dontknowBreak = CircsBreak(iterationID = "1", typeOfCare = Breaks.carehome,
+        expectToCareAgain = Some(YesNoDontKnowWithDates(Some(Mappings.dontknow), None, None)))
+      val breaksInCare = CircsBreaksInCare().update(dontknowBreak)
+      val claim = Claim(CachedChangeOfCircs.key).update(breaksInCare)
+      cache.set("default" + CachedChangeOfCircs.key, claim.update(ReportChangeReason(false, ReportChange.BreakFromCaring.name)))
+
+      val result = CircsEnding.thankyou(g2FakeRequest(CachedChangeOfCircs.key))
+      val bodyText: String = contentAsString(result)
+      bodyText must contain(thankyouPageBreakText)
+    }
+
     "should display breaks in care message when Other break Not Restarted Caring and Dont Know if will" in new WithApplication with MockForm {
       val dontknowBreak = CircsBreak(iterationID = "1", typeOfCare = Breaks.another,
-        caringEnded = Some(DayMonthYear(1, 2, 2003)), caringStarted = Some(YesNoWithDate(Mappings.no, None)),
         expectToCareAgain = Some(YesNoDontKnowWithDates(Some(Mappings.dontknow), None, None)))
       val breaksInCare = CircsBreaksInCare().update(dontknowBreak)
       val claim = Claim(CachedChangeOfCircs.key).update(breaksInCare)

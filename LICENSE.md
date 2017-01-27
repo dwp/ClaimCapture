@@ -1,4 +1,4 @@
-Copyright (c) 2014 HM Government (Department for Work and Pensions)
+Copyright (c) 2017 HM Government (Department for Work and Pensions)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
