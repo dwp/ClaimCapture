@@ -130,7 +130,7 @@ object Caree extends XMLComponent {
         case BreaksInCareGatherOptions.You => question(<MedicalCare/>, "yourMedicalProfessional", break.yourMedicalProfessional.get, dp)
         case BreaksInCareGatherOptions.DP =>
           question(<DpMedicalCare/>, "dpMedicalProfessional", break.dpMedicalProfessional.get, dp) ++
-          question(<BreaksInCareRespiteStillCaring/>, "breaksInCareStillCaring", break.breaksInCareStillCaring.get, dp)
+          question(<BreaksInCareRespiteStillCaring/>, "breaksInCareRespiteStillCaring", break.breaksInCareStillCaring.get, dp)
       }}
       </CareBreak>
   }
