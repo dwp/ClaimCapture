@@ -211,7 +211,7 @@ class BreaksSpec extends Specification {
       (hospitalBreak \\ "ExpectToCareAgainDate" \\ "QuestionLabel").text shouldEqual ("What date do you expect to start providing care again?")
       (hospitalBreak \\ "ExpectToCareAgainDate" \\ "Answer").text shouldEqual ("02-03-2004")
     }
-    */
+
     "generate xml for Respite page when Dp in Respite Not restarted caring and No - Caring Will Not Restart" in new WithApplication {
       val break1 = CircsBreak(iterationID = "1", typeOfCare = Breaks.carehome, whoWasAway = BreaksInCareGatherOptions.DP,
         whenWasDpAdmitted = Some((DayMonthYear(1, 1, 2003))), dpStayEnded = Some(YesNoWithDate(Mappings.no, None)), breaksInCareStillCaring = Some(Mappings.no),
