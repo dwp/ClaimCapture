@@ -7,12 +7,18 @@
 @import app.ConfigProperties._
 @import play.api.i18n.Messages
 @import models.domain.TheirPersonalDetails
+@import models.domain.CircumstancesYourDetails
 
     @theirPersonalDetails = @{claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())}
     @dpname=@{theirPersonalDetails.firstName+" "+theirPersonalDetails.surname}
+    @circsYourDetails = @{claim.questionGroup[CircumstancesYourDetails].getOrElse(CircumstancesYourDetails())}
+    @circsdpname = @{circsYourDetails.theirFirstName + " " + circsYourDetails.theirSurname}
+
     @stripDpname(key: String) = @{
         if(dpname.length >3 )
             key.replace(dpname, "@dpname")
+        else if(circsdpname.length >3)
+            key.replace(circsdpname, "@dpname")
         else
             key
     }

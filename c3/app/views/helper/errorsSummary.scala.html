@@ -6,6 +6,7 @@
 @import models.domain.TheirPersonalDetails
 @import models.domain.YourDetails
 @import models.domain.YourPartnerPersonalDetails
+@import models.domain.CircumstancesYourDetails
 
 @* Need to put GATag somewhere globally available with access to the claim to get clientid *@
 @views.html.ga.noScriptGATag()
@@ -31,12 +32,17 @@
 @yourDetails = @{claim.questionGroup[YourDetails].getOrElse(YourDetails())}
 @partnerDetails = @{claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())}
 @dpname=@{theirPersonalDetails.firstName + " " + theirPersonalDetails.surname}
+
+@circsYourDetails = @{claim.questionGroup[CircumstancesYourDetails].getOrElse(CircumstancesYourDetails())}
+@circsdpname = @{circsYourDetails.theirFirstName + " " + circsYourDetails.theirSurname}
 @yourName=@{yourDetails.firstName + " " + yourDetails.surname}
 @partnerName=@{partnerDetails.firstName.getOrElse("") + " " + partnerDetails.surname.getOrElse("")}
 
 @stripDpname(key: String) = @{
     if(dpname.length >3 )
         key.replace(dpname, "@dpname")
+    else if(circsdpname.length >3)
+        key.replace(circsdpname, "@dpname")
     else
         key
 }
