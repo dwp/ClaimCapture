@@ -4,6 +4,7 @@ import controllers.mappings.Mappings
 import models.domain._
 import app.XMLValues._
 import models.domain.Claim
+import models.yesNo.YesNoDontKnowWithDates
 import scala.xml.NodeSeq
 import play.api.i18n.{MMessages, MessagesApi}
 import play.api.Play.current
@@ -70,10 +71,18 @@ object EvidenceList {
     <Content>{messagesApi(text)}</Content>
   }
 
+  def expected(break: CircsBreak)={
+    (break.expectToCareAgain, break.expectToCareAgain2) match {
+      case (Some(_), _) => break.expectToCareAgain
+      case (_, Some(_)) => break.expectToCareAgain2
+      case _ => Option(YesNoDontKnowWithDates(Some("None")))
+    }
+  }
+
   def showBreaksInCaremessages(circs: Claim) = {
     val breaks = circs.questionGroup[CircsBreaksInCare].getOrElse(CircsBreaksInCare()).breaks
-    val breaksOngoing=breaks.filter(b => b.expectToCareAgain.isDefined && b.expectToCareAgain.get.answer.equals(Some(Mappings.dontknow)))
-    breaksOngoing.size >0
+    val breaksDontKnow=breaks.filter(b => expected(b).isDefined && expected(b).get.answer.equals(Some(Mappings.dontknow)))
+    breaksDontKnow.size >0
   }
 
   def showEmploymentPensionMessage(circs: Claim, message: String) = {
