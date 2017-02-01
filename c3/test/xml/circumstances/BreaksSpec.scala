@@ -17,7 +17,6 @@ class BreaksSpec extends Specification {
     val hospitalOtherQuestion = "Have there been any other times you or @dpname have been in hospital, respite or care home?"
     val otherQuestion = "Have there been any other times you've not provided care for @dpname for 35 hours a week?"
     lazy val yourDetails = CircumstancesYourDetails(theirFirstName = "Phil", theirSurname = "Smith", theirRelationshipToYou = "Husband")
-
     "not generate any Breaks xml when no breaks" in new WithApplication {
       val claim = Claim(CachedChangeOfCircs.key).update(yourDetails)
       val xml = DWPCoCircs.xml(claim)
@@ -231,7 +230,7 @@ class BreaksSpec extends Specification {
       (hospitalBreak \\ "StartDate" \\ "Answer").text shouldEqual ("01-01-2003")
       (hospitalBreak \\ "BreakEnded" \\ "QuestionLabel").text shouldEqual ("Has the respite or care home stay ended?")
       (hospitalBreak \\ "BreakEnded" \\ "Answer").text shouldEqual ("No")
-      (hospitalBreak \\ "BreaksInCareRespiteStillCaring" \\ "QuestionLabel").text shouldEqual ("During this time in hospital, were you still providing care for @dpname for 35 hours a week?")
+      (hospitalBreak \\ "BreaksInCareRespiteStillCaring" \\ "QuestionLabel").text shouldEqual ("During this time in respite or care home, were you still providing care for @dpname for 35 hours a week?")
       (hospitalBreak \\ "BreaksInCareRespiteStillCaring" \\ "Answer").text shouldEqual ("No")
       (hospitalBreak \\ "ExpectToCareAgain" \\ "QuestionLabel").text shouldEqual ("Do you expect to start providing care again?")
       (hospitalBreak \\ "ExpectToCareAgain" \\ "Answer").text shouldEqual ("No")
